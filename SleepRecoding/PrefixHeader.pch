@@ -1,0 +1,29 @@
+//
+//  PrefixHeader.pch
+//  SleepRecoding
+//
+//  Created by Havi_li on 15/2/26.
+//  Copyright (c) 2015年 Havi. All rights reserved.
+//
+
+#ifndef SleepRecoding_PrefixHeader_pch
+#define SleepRecoding_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+//define this constant if you want to use Masonry without the 'mas_' prefix
+#define MAS_SHORTHAND
+
+//define this constant if you want to enable auto-boxing for default syntax
+#define MAS_SHORTHAND_GLOBALS
+#import "Masonry.h"
+#import "XHDrawerController.h"
+#import "KVNProgress.h"
+#import "Definetions.h"
+#import "ShowAlertView.h"
+#import "Toast+UIView.h"
+#import "Gloable.h"
+#import "WTRequestCenter.h"
+#import "QHConfiguredObj.h"
+
+#endif

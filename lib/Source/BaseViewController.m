@@ -1,0 +1,778 @@
+//
+//  BaseViewController.m
+//  SleepRecoding
+//
+//  Created by Havi_li on 15/2/26.
+//  Copyright (c) 2015年 Havi. All rights reserved.
+//
+
+#import "BaseViewController.h"
+#import "QHConfiguredObj.h"
+#import "YTKNetworkPrivate.h"
+
+@interface BaseViewController ()
+{
+    BOOL mIsShowKeyboard;
+    CGRect mRectkeybordview;
+    float _nSpaceNavY;
+}
+
+@end
+
+@implementation BaseViewController
+
+- (void)loadView {
+    [super loadView];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+}
+
+#pragma mark cell背景 
+
+//- (UIImageView*)cellImage1
+//{
+//    if (!_cellImage1) {
+//        _cellImage1 = [[UIImageView alloc]init];
+//        
+//    }
+////    _cellImage1.image = [UIImage imageNamed:[NSString stringWithFormat:@"]]
+//}
+
+#pragma mark 心率呼吸
+- (ToggleView *)timeSwitchButton
+{
+    if (!_timeSwitchButton) {
+        _timeSwitchButton = [[ToggleView alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 130, 15, 120, 25) toggleViewType:ToggleViewTypeNoLabel toggleBaseType:ToggleBaseTypeDefault toggleButtonType:ToggleButtonTypeChangeImage];
+        if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
+            [self.timeSwitchButton changeLeftImageWithTime:0.5];;
+        }else{
+            [self.timeSwitchButton changeRightImageWithTime:0.5];
+        }
+        
+    }
+    return _timeSwitchButton;
+}
+
+- (UIImageView *)gifImageUp
+{
+    if (!_gifImageUp) {
+        _gifImageUp = [[UIImageView alloc]init];
+        _gifImageUp.frame = CGRectMake((self.view.frame.size.width-30)/2, 5, 25, 9);
+        NSArray *gifArray = [NSArray arrayWithObjects:
+                             [UIImage imageNamed:@"btn_up_one"],
+                             [UIImage imageNamed:@"btn_up_two"],
+                             [UIImage imageNamed:@"btn_up_three"],nil];
+        _gifImageUp.animationImages = gifArray; //动画图片数组
+        _gifImageUp.animationDuration = 1; //执行一次完整动画所需的时长
+        _gifImageUp.animationRepeatCount = 0;  //动画重复次数
+    }
+    [_gifImageUp startAnimating];
+    return _gifImageUp;
+}
+
+- (UIImageView *)gifImageDown
+{
+    if (!_gifImageDown) {
+        _gifImageDown = [[UIImageView alloc]init];
+        _gifImageDown.frame = CGRectMake((self.view.frame.size.width-30)/2, 5, 25, 9);
+        NSArray *gifArray = [NSArray arrayWithObjects:
+                             [UIImage imageNamed:@"btn_down_one"],
+                             [UIImage imageNamed:@"btn_down_two"],
+                             [UIImage imageNamed:@"btn_down_three"],
+                             nil];
+        _gifImageDown.animationImages = gifArray; //动画图片数组
+        _gifImageDown.animationDuration = 1; //执行一次完整动画所需的时长
+        _gifImageDown.animationRepeatCount = 0;  //动画重复次数
+    }
+    [_gifImageDown startAnimating];
+    return _gifImageDown;
+}
+
+- (UIImageView *)diagnoseImage
+{
+    if (!_diagnoseImage) {
+        _diagnoseImage = [[UIImageView alloc]init];
+        _diagnoseImage.frame = CGRectMake(13, 23, 15, 15);
+        _diagnoseImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_diagnostic_message_%d",selectedThemeIndex]];
+    }
+    return _diagnoseImage;
+}
+
+- (LabelLine *)diagonseTitle
+{
+    if (!_diagonseTitle) {
+        _diagonseTitle = [[LabelLine alloc]init];
+        _diagonseTitle.frame = CGRectMake(35, 10, 100, 40);
+        _diagonseTitle.text = @"诊断报告";
+        _diagonseTitle.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];;
+        _diagonseTitle.font = [UIFont systemFontOfSize:17];
+        
+    }
+    return _diagonseTitle;
+}
+
+- (LabelLine *)diagnoseChoice
+{
+    if (!_diagnoseChoice) {
+        _diagnoseChoice = [[LabelLine alloc]init];
+        _diagnoseChoice.frame = CGRectMake(10, 0, 100, 40);
+        _diagnoseChoice.text = @"建议";
+        _diagnoseChoice.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];;
+        _diagnoseChoice.font = [UIFont systemFontOfSize:17];
+        
+    }
+    return _diagnoseChoice;
+}
+
+- (LabelLine *)diagnoseResult
+{
+    if (!_diagnoseResult) {
+        _diagnoseResult = [[LabelLine alloc]init];
+        _diagnoseResult.frame = CGRectMake(10, 0, 100, 40);
+        _diagnoseResult.text = @"诊断";
+        _diagnoseResult.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];;
+        _diagnoseResult.font = [UIFont systemFontOfSize:17];
+        
+    }
+    return _diagnoseResult;
+}
+
+- (LabelLine *)diagnoseExplain
+{
+    if (!_diagnoseExplain) {
+        _diagnoseExplain = [[LabelLine alloc]init];
+        _diagnoseExplain.frame = CGRectMake(10, 0, 100, 40);
+        _diagnoseExplain.text = @"解释";
+        _diagnoseExplain.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        _diagnoseExplain.font = [UIFont systemFontOfSize:17];
+        
+    }
+    return _diagnoseExplain;
+}
+
+- (UILabel *)diagnoseShow
+{
+    if (!_diagnoseShow) {
+        _diagnoseShow = [[UILabel alloc]init];
+        _diagnoseShow.frame = CGRectMake(35, 50, self.view.frame.size.width-20, 40);
+        _diagnoseShow.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];;
+        _diagnoseShow.font = [UIFont systemFontOfSize:15];
+        _diagnoseShow.text = @"还没有数据,赶快躺下来试试吧";
+        _diagnoseShow.numberOfLines = 0;
+    }
+    return _diagnoseShow;
+}
+
+#pragma mark 时间处理格式
+
+- (NSDateFormatter *)dateFormmatterBase
+{
+    if (!_dateFormmatterBase) {
+        _dateFormmatterBase = [[NSDateFormatter alloc]init];
+        [_dateFormmatterBase setDateFormat:@"yyyyMMdd"];
+        _dateFormmatterBase.timeZone = self.tmZoneBase;
+    }
+    return _dateFormmatterBase;
+}
+
+- (NSDateComponents*)dateComponentsBase
+{
+    if (!_dateComponentsBase) {
+        _dateComponentsBase = [[NSDateComponents alloc] init];
+        _dateComponentsBase.timeZone = self.tmZoneBase;
+    }
+    return _dateComponentsBase;
+}
+
+- (NSTimeZone *)tmZoneBase
+{
+    if (!_tmZoneBase) {
+        _tmZoneBase = [NSTimeZone timeZoneWithName:@"GMT"];
+        [NSTimeZone setDefaultTimeZone:_tmZoneBase];
+    }
+    return _tmZoneBase;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.bgImageView = [[UIImageView alloc]initWithFrame:self.view.frame];
+    int picIndex = [QHConfiguredObj defaultConfigure].nThemeIndex;
+    NSString *imageName = [NSString stringWithFormat:@"pic_bg_%d",picIndex];
+    self.bgImageView.image = [UIImage imageNamed:imageName];
+    [self.view addSubview:self.bgImageView];
+    // Do any additional setup after loading the view
+    self.view.backgroundColor = RGBA(236.f, 236.f, 236.f, 1);
+    [self setStatusBarDefine];
+    [self addObserver];
+}
+
+/**
+ *  分享
+ *
+ *  @return
+ */
+- (CHTumblrMenuView *)shareMenuView
+{
+    if (!_shareMenuView) {
+        _shareMenuView = [[CHTumblrMenuView alloc] init];
+        [_shareMenuView addMenuItemWithTitle:@"朋友圈" andIcon:[UIImage imageNamed:@"icon_wechat"] andSelectedBlock:^{
+            HaviLog(@"Text selected");
+        }];
+        [_shareMenuView addMenuItemWithTitle:@"新浪微博" andIcon:[UIImage imageNamed:@"icon_sina"] andSelectedBlock:^{
+            HaviLog(@"Photo selected");
+        }];
+        [_shareMenuView addMenuItemWithTitle:@"微信好友" andIcon:[UIImage imageNamed:@"icon_friend"] andSelectedBlock:^{
+            HaviLog(@"Quote selected");
+            
+        }];
+    }
+    return _shareMenuView;
+}
+/**
+ *  自定义状态栏
+ */
+- (void)setStatusBarDefine
+{
+    _statusBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320, 0.f)];
+    _nSpaceNavY = 20;
+    _statusBarView.frame = CGRectMake(_statusBarView.frame.origin.x, _statusBarView.frame.origin.y, _statusBarView.frame.size.width, 20.f);
+    _statusBarView.backgroundColor = [UIColor clearColor];
+    ((UIImageView *)_statusBarView).backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_statusBarView];
+    _nSpaceNavY = 0;
+}
+/**
+ *  自定义导航栏有背景图片
+ *
+ *  @param szTitle  导航栏标题
+ *  @param menuItem 导航栏的左右两侧的button
+ */
+- (void)createNavWithTitle:(NSString *)szTitle createMenuItem:(UIView *(^)(int nIndex))menuItem
+{
+    UIImageView *navIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, _nSpaceNavY, self.view.frame.size.width, 64-_nSpaceNavY)];
+    navIV.tag = 3000;
+    int picIndex = [QHConfiguredObj defaultConfigure].nThemeIndex;
+    NSString *imageName = [NSString stringWithFormat:@"navigation_bar_bg_%d",picIndex];
+    [navIV setImage:[UIImage imageNamed:imageName]];
+    [self.view addSubview:navIV];
+//    [self reloadImage];
+    
+    /* { 导航条 } */
+    _navView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, StatusbarSize, self.view.frame.size.width, 44.f)];
+    ((UIImageView *)_navView).backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_navView];
+    _navView.userInteractionEnabled = YES;
+    
+    if (szTitle != nil)
+    {
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_navView.frame.size.width - 200)/2, (_navView.frame.size.height - 40)/2, 200, 40)];
+        [titleLabel setText:szTitle];
+        titleLabel.tag = 3001;
+        [titleLabel setTextAlignment:NSTextAlignmentCenter];
+        [titleLabel setTextColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor]];
+        [titleLabel setFont:DefaultWordFont];
+        [titleLabel setBackgroundColor:[UIColor clearColor]];
+        [_navView addSubview:titleLabel];
+    }
+    
+    UIView *item1 = menuItem(0);
+    if (item1 != nil)
+    {
+        [_navView addSubview:item1];
+    }
+    UIView *item2 = menuItem(1);
+    if (item2 != nil)
+    {
+        _rightV = item2;
+        [_navView addSubview:item2];
+    }
+}
+/**
+ *  创建透明的导航栏
+ *
+ *  @param szTitle  标题
+ *  @param menuItem 左右放回键
+ */
+- (void)createClearBgNavWithTitle:(NSString *)szTitle createMenuItem:(UIView *(^)(int nIndex))menuItem
+{
+    UIImageView *navIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, _nSpaceNavY, self.view.frame.size.width, 64-_nSpaceNavY)];
+    navIV.tag = 2000;
+    [self.view addSubview:navIV];
+    
+    /* { 导航条 } */
+    _clearNavView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, StatusbarSize, self.view.frame.size.width, 44.f)];
+    ((UIImageView *)_navView).backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_clearNavView];
+    _clearNavView.userInteractionEnabled = YES;
+    
+    if (szTitle != nil)
+    {
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_clearNavView.frame.size.width - 200)/2, (_navView.frame.size.height - 40)/2, 200, 40)];
+        [titleLabel setText:szTitle];
+        titleLabel.tag = 2001;
+        [titleLabel setTextAlignment:NSTextAlignmentCenter];
+        [titleLabel setTextColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor]];
+        [titleLabel setFont:DefaultWordFont];
+        [titleLabel setBackgroundColor:[UIColor clearColor]];
+        [_clearNavView addSubview:titleLabel];
+    }
+    
+    UIView *item1 = menuItem(0);
+    if (item1 != nil)
+    {
+        [_clearNavView addSubview:item1];
+    }
+    UIView *item2 = menuItem(1);
+    if (item2 != nil)
+    {
+        _clearRightV = item2;
+        [_clearNavView addSubview:item2];
+    }
+}
+
+- (void)addObserver
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadImage) name:RELOADIMAGE object:nil];
+}
+/**
+ *  子类重写此方法，进行切换主题
+ */
+- (void)reloadImage
+{
+    UIImageView *navIV = (UIImageView *)[self.view viewWithTag:3000];
+    int picIndex = [QHConfiguredObj defaultConfigure].nThemeIndex;
+    selectedThemeIndex = picIndex;
+    NSString *imageName = [NSString stringWithFormat:@"navigation_bar_bg_%d",picIndex];
+    [navIV setImage:[UIImage imageNamed:imageName]];
+    HaviLog(@"导航栏reloadd");
+    UILabel *label1 = (UILabel *)[self.view viewWithTag:3001];
+    label1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    UILabel *label2 = (UILabel *)[self.view viewWithTag:2001];
+    label2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [self.leftButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [self.gifbreath startAnimating];
+    [self.gifLeave startAnimating];
+    [self.gifHeart startAnimating];
+    [self.gifTurn startAnimating];
+
+//    [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+     self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_%d",picIndex]];
+}
+
+/**
+ *  将nsdata数据转换位字典
+ *
+ *  @param data data数据
+ *
+ *  @return 返回字典
+ */
+- (NSDictionary *)dataToDictionary:(NSData *)data
+{
+    NSError *error;
+    if (data) {
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+        if (error) {
+            HaviLog(@"转换错误%@",error)
+        };
+        return dic;
+    }
+    return nil;
+}
+/**
+ *
+ *  @return
+ */
+- (UIButton *)leftButton
+{
+    if (!_leftButton) {
+        _leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftButton.frame = CGRectMake(0, 0, 44, 44);
+        [_leftButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    }
+    return _leftButton;
+}
+
+- (UIButton *)rightButton
+{
+    if (!_rightButton) {
+        _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    }
+    return _rightButton;
+}
+
+- (UIColor*) colorWithHex:(NSInteger)hexValue alpha:(CGFloat)alphaValue
+{
+    return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0
+                           green:((float)((hexValue & 0xFF00) >> 8))/255.0
+                            blue:((float)(hexValue & 0xFF))/255.0 alpha:alphaValue];
+}
+
+- (UIImageView *)gifHeart
+{
+    if (!_gifHeart) {
+        _gifHeart = [[UIImageView alloc]init];
+        _gifHeart.frame = CGRectMake(0, 0, 40, 40);
+    }
+    NSArray *gifArray = [NSArray arrayWithObjects:
+                         [UIImage imageNamed:[NSString stringWithFormat:@"heart_1_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"heart_2_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"heart_3_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"heart_4_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"heart_5_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"heart_6_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"heart_7_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"heart_8_%d",selectedThemeIndex]],nil];
+    _gifHeart.animationImages = gifArray; //动画图片数组
+    _gifHeart.animationDuration = 5; //执行一次完整动画所需的时长
+    _gifHeart.animationRepeatCount = 0;  //动画重复次数
+    [_gifHeart startAnimating];
+    return _gifHeart;
+}
+
+- (UIImageView *)gifbreath
+{
+    if (!_gifbreath) {
+        _gifbreath = [[UIImageView alloc]init];
+        _gifbreath.frame = CGRectMake(0, 0, 40, 40);
+    }
+    NSArray *gifArray = [NSArray arrayWithObjects:
+                         [UIImage imageNamed:[NSString stringWithFormat:@"breathe1_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"breathe2_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"breathe3_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"breathe4_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"breathe5_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"breathe6_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"breathe7_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"breathe8_%d",selectedThemeIndex]],nil];
+    _gifbreath.animationImages = gifArray; //动画图片数组
+    _gifbreath.animationDuration = 5; //执行一次完整动画所需的时长
+    _gifbreath.animationRepeatCount = 0;  //动画重复次数
+    [_gifbreath startAnimating];
+    return _gifbreath;
+
+}
+
+- (UIImageView *)gifLeave
+{
+    if (!_gifLeave) {
+        _gifLeave = [[UIImageView alloc]init];
+        _gifLeave.frame = CGRectMake(0, 0, 40, 40);
+    }
+    NSArray *gifArray = [NSArray arrayWithObjects:
+                         [UIImage imageNamed:[NSString stringWithFormat:@"get_up1_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"get_up2_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"get_up3_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"get_up4_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"get_up5_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"get_up6_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"get_up7_%d",selectedThemeIndex]],nil];
+    _gifLeave.animationImages = gifArray; //动画图片数组
+    _gifLeave.animationDuration = 5; //执行一次完整动画所需的时长
+    _gifLeave.animationRepeatCount = 0;  //动画重复次数
+    [_gifLeave startAnimating];
+    return _gifLeave;
+    
+}
+
+- (UIImageView *)gifTurn
+{
+    if (!_gifTurn) {
+        _gifTurn = [[UIImageView alloc]init];
+        _gifTurn.frame = CGRectMake(0, 0, 40, 40);
+    }
+    NSArray *gifArray = [NSArray arrayWithObjects:
+                         [UIImage imageNamed:[NSString stringWithFormat:@"leave1_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"leave2_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"leave3_%d",selectedThemeIndex]],
+                         [UIImage imageNamed:[NSString stringWithFormat:@"leave4_%d",selectedThemeIndex]],nil];
+    _gifTurn.animationImages = gifArray; //动画图片数组
+    _gifTurn.animationDuration = 5; //执行一次完整动画所需的时长
+    _gifTurn.animationRepeatCount = 0;  //动画重复次数
+    [_gifTurn startAnimating];
+    return _gifTurn;
+    
+}
+
+
+//- (UUChart *)chartTable
+//{
+//    if (!_chartTable) {
+//        
+//        _chartTable = [[UUChart alloc]initwithUUChartDataFrame:CGRectMake(10, 10, [UIScreen mainScreen].bounds.size.width-20, 170)
+//                                                  withSource:nil
+//                                                   withStyle:UUChartBarStyle];
+//    }
+//    return _chartTable;
+//}
+
+- (DatePickerView *)datePicker
+{
+    if (!_datePicker) {
+        int datePickerHeight = self.view.frame.size.height*0.202623;
+        _datePicker = [[DatePickerView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - datePickerHeight, self.view.frame.size.width,datePickerHeight)];
+    }
+    return _datePicker;
+}
+
+
+- (OTCover *)userInfoTableView
+{
+    if (!_userInfoTableView) {
+        _userInfoTableView = [[OTCover alloc] initWithTableViewWithHeaderImage:[UIImage imageNamed:@"pic_heder_portrait"] withOTCoverHeight:150];
+    }
+    return _userInfoTableView;
+}
+
+- (UITableView *)sideTableView {
+    if (!_sideTableView) {
+        _sideTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _sideTableView.backgroundColor = [UIColor clearColor];
+        _sideTableView.delegate = self;
+        _sideTableView.dataSource = self;
+    }
+    return _sideTableView;
+}
+
+
+- (void)left {
+    [self.drawerController toggleDrawerSide:XHDrawerSideLeft animated:YES completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)right {
+    [self.drawerController toggleDrawerSide:XHDrawerSideRight animated:YES completion:^(BOOL finished) {
+        
+    }];
+}
+
+#pragma tableView
+
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    return 1;
+//}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.sideArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *stringIndentifier = @"sideIndentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:stringIndentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:stringIndentifier];
+    
+    }
+    return cell;
+}
+
+#pragma center
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark 处理键盘事件
+- (void)viewWillAppear:(BOOL)animated{
+    [self setKeyNotification];
+    [[self navigationController] setNavigationBarHidden:YES];
+    [super viewWillAppear:animated];
+}
+
+- (void)setKeyNotification
+{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+/**
+ *  移除通知
+ *
+ *  @param animated <#animated description#>
+ */
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [super viewWillDisappear:animated];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    
+    /*
+     Reduce the size of the text view so that it's not obscured by the keyboard.
+     Animate the resize so that it's in sync with the appearance of the keyboard.
+     */
+    
+    NSDictionary *userInfo = [notification userInfo];
+    [self adjustTextViewByKeyboardState:YES keyboardInfo:userInfo];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    
+    /*
+     Restore the size of the text view (fill self's view).
+     Animate the resize so that it's in sync with the disappearance of the keyboard.
+     */
+    if(!_keybordView){
+        return;
+    }
+    //一个bool值判断这个
+    mIsShowKeyboard = NO;
+    [UIView beginAnimations:nil context:nil];
+    //设定动画持续时间
+    [UIView setAnimationDuration:0.3];
+    _keybordView.frame = mRectkeybordview;
+    //参数设置完成之后，才开始进行动画效果，
+    [UIView commitAnimations];
+    
+}
+
+#pragma mark - Responding to keyboard events
+
+- (void)adjustTextViewByKeyboardState:(BOOL)showKeyboard keyboardInfo:(NSDictionary *)info {
+    
+    /*
+     Reduce the size of the text view so that it's not obscured by the keyboard.
+     Animate the resize so that it's in sync with the appearance of the keyboard.
+     */
+    
+    // transform the UIViewAnimationCurve to a UIViewAnimationOptions mask
+    if(!_keybordView){
+        return;
+    }
+    if(!mIsShowKeyboard){
+        mRectkeybordview = _keybordView.frame;
+    }
+    mIsShowKeyboard = YES;
+    [UIView beginAnimations:nil context:nil];
+    //设定动画持续时间
+    [UIView setAnimationDuration:0.3];
+    //动画的内容
+    
+    //动画结束
+    
+    CGRect rect;
+    //此处的keybordView是你当前显示
+    [[info objectForKey:UIKeyboardBoundsUserInfoKey] getValue:&rect];
+    _keybordView.frame = CGRectMake(mRectkeybordview.origin.x,
+                                    mRectkeybordview.origin.y - (self.keybordheight != 0? rect.size.height-(_keybordView.frame.size.height - self.keybordheight): rect.size.height),
+                                    mRectkeybordview.size.width,
+                                    mRectkeybordview.size.height);
+    //    此处的那个view起点就是-70
+    [UIView commitAnimations];
+    
+}
+
+//这个是自己写setter方法
+- (void)setKeybordView:(UIView* )view
+{
+    _keybordView = view;
+    mRectkeybordview = _keybordView.frame;
+}
+
+#pragma mark 进行时间缓存
+- (void)checkDirectory:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir;
+    if (![fileManager fileExistsAtPath:path isDirectory:&isDir]) {
+        [self createBaseDirectoryAtPath:path];
+    } else {
+        if (!isDir) {
+            NSError *error = nil;
+            [fileManager removeItemAtPath:path error:&error];
+            [self createBaseDirectoryAtPath:path];
+        }
+    }
+}
+
+- (void)createBaseDirectoryAtPath:(NSString *)path {
+    __autoreleasing NSError *error = nil;
+    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES
+                                               attributes:nil error:&error];
+    if (error) {
+        HaviLog(@"create cache directory failed, error = %@", error);
+    } else {
+        [YTKNetworkPrivate addDoNotBackupAttribute:path];
+    }
+}
+
+- (NSString *)cacheBasePath {
+    NSString *pathOfLibrary = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *path = [pathOfLibrary stringByAppendingPathComponent:@"HaviRequestCache"];
+    
+//    // filter cache base path
+//    NSArray *filters = [[YTKNetworkConfig sharedInstance] cacheDirPathFilters];
+//    if (filters.count > 0) {
+//        for (id<YTKCacheDirPathFilterProtocol> f in filters) {
+//            path = [f filterCacheDirPath:path withRequest:self];
+//        }
+//    }
+//    
+    [self checkDirectory:path];
+    return path;
+}
+
+- (NSString *)cacheFileNameWithType:(NSString *)type {
+//    NSString *requestUrl = [self requestUrl];
+//    NSString *baseUrl = [YTKNetworkConfig sharedInstance].baseUrl;
+//    id argument = [self cacheFileNameFilterForRequestArgument:[self requestArgument]];
+    NSString *requestInfo = [NSString stringWithFormat:@"%@",@"timeCache"];
+    NSString *cacheFileName = [YTKNetworkPrivate md5StringFromString:requestInfo];
+    return cacheFileName;
+}
+
+- (NSString *)cacheFilePathWithName:(NSString *)nameType {
+    NSString *cacheFileName = [self cacheFileNameWithType:nameType];
+    NSString *path = [self cacheBasePath];
+    path = [path stringByAppendingPathComponent:cacheFileName];
+    return path;
+}
+
+//- (NSString *)cacheVersionFilePath {
+//    NSString *cacheVersionFileName = [NSString stringWithFormat:@"%@.version", [self cacheFileName]];
+//    NSString *path = [self cacheBasePath];
+//    path = [path stringByAppendingPathComponent:cacheVersionFileName];
+//    return path;
+//}
+
+//- (long long)cacheVersionFileContent {
+//    NSString *path = [self cacheVersionFilePath];
+//    NSFileManager * fileManager = [NSFileManager defaultManager];
+//    if ([fileManager fileExistsAtPath:path isDirectory:nil]) {
+//        NSNumber *version = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+//        return [version longLongValue];
+//    } else {
+//        return 0;
+//    }
+//}
+
+- (int)cacheFileDuration:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    // get file attribute
+    NSError *attributesRetrievalError = nil;
+    NSDictionary *attributes = [fileManager attributesOfItemAtPath:path
+                                                             error:&attributesRetrievalError];
+    if (!attributes) {
+        YTKLog(@"Error get attributes for file at %@: %@", path, attributesRetrievalError);
+        return -1;
+    }
+    int seconds = -[[attributes fileModificationDate] timeIntervalSinceNow];
+    return seconds;
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

@@ -1,0 +1,43 @@
+PODS:
+  - AFDownloadRequestOperation (2.0.1):
+    - AFNetworking (~> 2.0)
+  - AFNetworking (2.5.1):
+    - AFNetworking/NSURLConnection (= 2.5.1)
+    - AFNetworking/NSURLSession (= 2.5.1)
+    - AFNetworking/Reachability (= 2.5.1)
+    - AFNetworking/Security (= 2.5.1)
+    - AFNetworking/Serialization (= 2.5.1)
+    - AFNetworking/UIKit (= 2.5.1)
+  - AFNetworking/NSURLConnection (2.5.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.1)
+  - AFNetworking/Security (2.5.1)
+  - AFNetworking/Serialization (2.5.1)
+  - AFNetworking/UIKit (2.5.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - KVNProgress (2.1.9)
+  - Masonry (0.6.1)
+  - YTKNetwork (0.2.0):
+    - AFDownloadRequestOperation (~> 2.0)
+    - AFNetworking (~> 2.0)
+
+DEPENDENCIES:
+  - KVNProgress (~> 2.1.9)
+  - Masonry (~> 0.6.1)
+  - YTKNetwork (~> 0.2.0)
+
+SPEC CHECKSUMS:
+  AFDownloadRequestOperation: e223a65bc56fb8e6ae5d289b649c7bcc6b307f0d
+  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
+  KVNProgress: 9c9a3686a3eac347dc88753eed44bae5ebee1b83
+  Masonry: 2cb49fd14d203d2db5ca6bb017135b235dde9980
+  YTKNetwork: a01d2ac5bc03171917adf2856ec0fca2b0d00f8b
+
+COCOAPODS: 0.35.0
