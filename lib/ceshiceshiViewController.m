@@ -16,7 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //做到的发放口袋里沙发客拉家带口发觉；都市狂龙放假爱快点发；放假打瞌睡；发生
+    //做到的发放口袋里沙发客拉家带口发觉；都市狂龙放假
+    //djklfa;lkjdsfkalj;dskflja;sdkfaj;lkdsfkl爱快点发；放假打瞌睡；发生
     // Do any additional setup after loading the view.
 }
 
