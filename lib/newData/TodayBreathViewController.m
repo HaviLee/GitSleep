@@ -656,7 +656,7 @@
         self.breathDic = [self changeSeverDataToDefaultChartData:[dic objectForKey:@"Data"]];
         
     }
-    if (arr) {
+    if (!arr) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.breathView) {
                 [self.breathView removeFromSuperview];
@@ -711,6 +711,17 @@
         }
         [arr replaceObjectAtIndex:indexIn withObject:[NSNumber numberWithFloat:[[dic objectForKey:@"Value"] floatValue]]];
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.breathView) {
+            [self.breathView removeFromSuperview];
+            self.breathView = nil;
+        }
+        self.breathDic = arr;
+        if (self.upTableView.frame.size.height>0) {
+            [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        }
+        
+    });
     return arr;
 }
 

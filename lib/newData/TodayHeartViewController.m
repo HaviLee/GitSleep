@@ -696,6 +696,14 @@
         }
         [arr replaceObjectAtIndex:indexIn withObject:[NSNumber numberWithFloat:[[dic objectForKey:@"Value"] floatValue]]];
     }
+    self.heartDic = arr;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.heartChartView) {
+            [self.heartChartView removeFromSuperview];
+            self.heartChartView = nil;
+        }
+        [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    });
     return arr;
 }
 

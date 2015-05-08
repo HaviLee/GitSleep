@@ -35,9 +35,9 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:0.949f green:0.941f blue:0.945f alpha:1.00f];
     self.navigationController.navigationBarHidden = YES;
-    self.titleArr = @[@[@"姓名:",@"生日:",@"性别:",@"手机:",@"电话:",@"紧急联系人:",@"紧急联系人电话:"],@[@"身高:",@"体重:",@"家庭住址:"]];
-    self.iconArr = @[@[@"name",@"birthday",@"gender",@"icon_phone_1",@"tel_1",@"emergency_Contact",@"icon_phone1"],@[@"height",@"weight",@"home"]];
-    self.keyDic = @[@[@"UserName",@"Birthday",@"Gender",@"CellPhone",@"Telephone",@"EmergencyContact",@"Telephone"],@[@"Height",@"Weight",@"Address"]];
+    self.titleArr = @[@[@"姓名:",@"生日:",@"性别:",@"手机:",@"紧急联系人:",@"紧急联系人电话:"],@[@"身高:",@"体重:",@"家庭住址:"]];
+    self.iconArr = @[@[@"name",@"birthday",@"gender",@"icon_phone_1",@"emergency_Contact",@"icon_phone1"],@[@"height",@"weight",@"home"]];
+    self.keyDic = @[@[@"UserName",@"Birthday",@"Gender",@"CellPhone",@"EmergencyContact",@"Telephone"],@[@"Height",@"Weight",@"Address"]];
 
 //
     [self.view addSubview:self.userInfoTableView];
@@ -212,7 +212,15 @@
     cell.userCellTitle = [[self.titleArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
     //    [cell layoutSubviews];
     cell.iconTitle = [[self.iconArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    cell.cellDataString = [NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            cell.cellDataString = [NSString stringWithFormat:@"%@CM",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+        }else if (indexPath.row == 1){
+            cell.cellDataString = [NSString stringWithFormat:@"%@KG",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+        }
+    }else{
+        cell.cellDataString = [NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+    }
     cell.backgroundColor = [UIColor whiteColor];
     if ((indexPath.section == 0&& indexPath.row == 0)||(indexPath.section == 1&& indexPath.row == 0)) {
         UIImageView *imageLine = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"line_abnormal_0"]];
