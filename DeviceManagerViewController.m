@@ -61,7 +61,7 @@
     [self.sideTableView makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(0);
         make.top.equalTo(self.view).offset(64);
-        make.bottom.equalTo(self.view.bottom).offset(-200);
+        make.bottom.equalTo(self.view.bottom).offset(0);
         make.right.equalTo(self.view.right).offset(0);
     }];
     self.sideTableView.backgroundColor = [UIColor clearColor];
