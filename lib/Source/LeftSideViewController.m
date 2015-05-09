@@ -334,8 +334,10 @@
     NSMutableString *userId = [[NSMutableString alloc]initWithString:GloableUserId];
     if (userId.length == 0) {
         _userName.text = @"匿名用户";
-    }else{
+    }else if ([userId intValue]){
         [userId replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+        _userName.text = userId;
+    }else{
         _userName.text = userId;
     }
     //
