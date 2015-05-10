@@ -26,14 +26,14 @@
     [self.view addSubview:self.calendarMenuView];
     //
     UIButton *buttonLeft = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonLeft setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [buttonLeft setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_0"]] forState:UIControlStateNormal];
     buttonLeft.frame = CGRectMake(20, 59, 60, 69);
     [buttonLeft setTitleColor:[UIColor colorWithRed:0.024f green:0.133f blue:0.271f alpha:1.00f] forState:UIControlStateNormal];
     [buttonLeft addTarget:self action:@selector(showLastMonth:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonLeft];
     //
     UIButton *buttonRight = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonRight setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_right1_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [buttonRight setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_right_0"]] forState:UIControlStateNormal];
     buttonRight.frame = CGRectMake(self.view.frame.size.width-20-60, 69, 60, 49);
     [buttonRight setTitleColor:[UIColor colorWithRed:0.024f green:0.133f blue:0.271f alpha:1.00f] forState:UIControlStateNormal];
     [buttonRight addTarget:self action:@selector(showNextMonth:) forControlEvents:UIControlEventTouchUpInside];
