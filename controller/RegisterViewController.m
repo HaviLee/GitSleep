@@ -209,7 +209,7 @@
         [KVNProgress dismissWithCompletion:^{
             NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
             if ([[responseDic objectForKey:@"ReturnCode"]intValue]==10005) {
-                [self.view makeToast:@"改手机号已注册" duration:2 position:@"center"];
+                [self.view makeToast:@"该手机号已注册" duration:2 position:@"center"];
                 return;
             }
            [KVNProgress showSuccessWithStatus:@"注册成功" completion:^{
