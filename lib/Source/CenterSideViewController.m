@@ -333,7 +333,7 @@
     //fromdate 是当天的日期
     if (!fromDate) {
         
-        [ShowAlertView showAlert:@"CenterSideViewController:214,line开始时间为空"];
+//        [ShowAlertView showAlert:@"CenterSideViewController:214,line开始时间为空"];
         return;
     }
     [KVNProgress showWithStatus:@"请求中..."];

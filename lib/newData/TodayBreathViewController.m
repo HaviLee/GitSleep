@@ -578,6 +578,9 @@
                                  @"AccessToken":@"123456789"
                                  };
         GetUserDefaultDataAPI *client = [GetUserDefaultDataAPI shareInstance];
+        if ([client isExecuting]) {
+            [client stop];
+        }
         [client getUserDefaultData:header withDetailUrl:urlString];
         
         if ([client getCacheJsonWithDate:fromDate]) {
@@ -628,6 +631,9 @@
                                  @"AccessToken":@"123456789"
                                  };
         GetDefatultSleepAPI *client = [GetDefatultSleepAPI shareInstance];
+        if ([client isExecuting]) {
+            [client stop];
+        }
         [client queryDefaultSleep:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
@@ -748,6 +754,9 @@
                                  @"AccessToken":@"123456789"
                                  };
         GetBreathDataAPI *client = [GetBreathDataAPI shareInstance];
+        if ([client isExecuting]) {
+            [client stop];
+        }
         [client getBreathData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
@@ -785,6 +794,9 @@
                                  @"AccessToken":@"123456789"
                                  };
         GetBreathSleepDataAPI *client = [GetBreathSleepDataAPI shareInstance];
+        if ([client isExecuting]) {
+            [client stop];
+        }
         [client getBreathSleepData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
