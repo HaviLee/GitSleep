@@ -106,13 +106,15 @@
             [_btn setFrame:CGRectMake(5, 0, 44, 44)];
             [_btn addTarget:self action:@selector(left) forControlEvents:UIControlEventTouchUpInside];
             return _btn;
-        }else if (nIndex == 0){
+        }
+        /*
+        else if (nIndex == 0){
             self.rightButton.frame = CGRectMake(self.view.frame.size.width-46, 0, 44, 44);
             [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
             [self.rightButton addTarget:self action:@selector(shareApp:) forControlEvents:UIControlEventTouchUpInside];
             return self.rightButton;
         }
-        
+        */
         return nil;
     }];
     //检测设置APP密码

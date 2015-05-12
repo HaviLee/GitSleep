@@ -42,13 +42,15 @@
         {
             [self.leftButton addTarget:self action:@selector(backToHomeView:) forControlEvents:UIControlEventTouchUpInside];
             return self.leftButton;
-        }else if (nIndex == 0){
+        }
+        /*
+        else if (nIndex == 0){
             self.rightButton.frame = CGRectMake(self.view.frame.size.width-40, 0, 30, 44);
             [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
             [self.rightButton addTarget:self action:@selector(shareApp:) forControlEvents:UIControlEventTouchUpInside];
             return self.rightButton;
         }
-        
+        */
         return nil;
     }];
 }
