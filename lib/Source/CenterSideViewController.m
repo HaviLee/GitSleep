@@ -180,7 +180,7 @@
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             alert.tag = 900;
             [alert show];
-            [self reloadStatusImage:NO];
+            [self reloadStatusImage:YES];
         }else{
             HardWareUUID = NOUSEUUID;
             for (NSDictionary *dic in arr) {
@@ -194,8 +194,17 @@
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                 alert.tag = 901;
                 [alert show];
-                [self reloadStatusImage:NO];
+                [self reloadStatusImage:YES];
             }else{
+                [self reloadStatusImage:YES];
+                //获取数据
+                NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
+                NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
+                [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
+                
+                DeviceStatus = YES;
+
+                /*
                 NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",HardWareUUID];
                 NSDictionary *header = @{
                                          @"AccessToken":@"123456789"
@@ -203,6 +212,7 @@
                 CheckDeviceStatusAPI *client1 = [CheckDeviceStatusAPI shareInstance];
                 [client1 checkStatus:header withDetailUrl:urlString];
                 [chainRequest addRequest:client1 callback:nil];
+                 */
             }
         }
     }];
@@ -212,6 +222,8 @@
 
 - (void)chainRequestFinished:(YTKChainRequest *)chainRequest
 {
+    //暂时不做处理
+    /*
     if (chainRequest.requestArray.count>1) {
         CheckDeviceStatusAPI *API = (CheckDeviceStatusAPI *)[chainRequest.requestArray objectAtIndex:1];
         NSDictionary *resposeDic = (NSDictionary *)API.responseJSONObject;
@@ -233,6 +245,7 @@
             [alert show];
         }
     }
+     */
 }
 
 - (void)chainRequestFailed:(YTKChainRequest *)chainRequest failedBaseRequest:(YTKBaseRequest *)request
