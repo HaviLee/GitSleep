@@ -49,7 +49,7 @@
     self.nameText = [[UITextField alloc]init];
     [self.view addSubview:self.nameText];
     self.nameText.delegate = self;
-    [self.nameText setTextColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor]];
+    [self.nameText setTextColor:selectedThemeIndex==0?DefaultColor:[UIColor lightGrayColor]];
     self.nameText.borderStyle = UITextBorderStyleNone;
     self.nameText.font = DefaultWordFont;
     self.nameText.placeholder = @"请输入密码";
@@ -62,7 +62,7 @@
     [self.view addSubview:self.passWordText];
     self.passWordText.delegate = self;
     [self.passWordText setReturnKeyType:UIReturnKeyDone];
-    self.passWordText.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.passWordText.textColor = selectedThemeIndex==0?DefaultColor:[UIColor lightGrayColor];
     self.passWordText.borderStyle = UITextBorderStyleNone;
     self.passWordText.font = DefaultWordFont;
     self.passWordText.placeholder = @"请确认密码";
