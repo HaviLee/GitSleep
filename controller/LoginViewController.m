@@ -241,13 +241,16 @@
                 }];
             }
             
-        }
-        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10012) {
+        }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10012) {
             
             //
             [KVNProgress dismissWithCompletion:^{
                 [self.view makeToast:@"密码错误，请确认密码" duration:2 position:@"center"];
                 self.passWordText.text = @"";
+            }];
+        }else{
+            [KVNProgress dismissWithCompletion:^{
+                [self.view makeToast:@"请求失败,稍后重试" duration:2 position:@"center"];
             }];
         }
         HaviLog(@"完成%@",request.responseJSONObject);

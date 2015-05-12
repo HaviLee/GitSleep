@@ -363,6 +363,12 @@
                              @"AccessToken":@"123456789"
                              };
     GetDefatultSleepAPI *client = [GetDefatultSleepAPI shareInstance];
+    /*
+     增加了一个判断当前的是不是在进行，进行的话终止
+     */
+    if ([client isExecuting]) {
+        [client stop];
+    }
     [client queryDefaultSleep:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
