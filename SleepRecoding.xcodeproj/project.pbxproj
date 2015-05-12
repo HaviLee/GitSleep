@@ -2407,7 +2407,7 @@
 				TargetAttributes = {
 					2C4FCB091A8F56E800DCEEF3 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = CF99UB3L46;
+						DevelopmentTeam = A4R9NHT83H;
 					};
 					2C4FCB221A8F56E800DCEEF3 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -3066,7 +3066,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2151e554-77a1-476e-aadd-643e0cff236e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3089,7 +3089,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Meddo Medical Technology Co., Ltd. (A4R9NHT83H)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3102,7 +3102,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2151e554-77a1-476e-aadd-643e0cff236e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -3126,7 +3126,7 @@
 					"$(PROJECT_DIR)/lib/thirdlib/libSmartLinkStaticLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2151e554-77a1-476e-aadd-643e0cff236e";
 			};
 			name = Debug;
 		};
@@ -3137,7 +3137,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Meddo Medical Technology Co., Ltd. (A4R9NHT83H)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SleepRecoding/PrefixHeader.pch";
 				INFOPLIST_FILE = SleepRecoding/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -3147,7 +3147,7 @@
 					"$(PROJECT_DIR)/lib/thirdlib/libSmartLinkStaticLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2151e554-77a1-476e-aadd-643e0cff236e";
 			};
 			name = Release;
 		};
