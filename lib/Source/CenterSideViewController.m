@@ -170,6 +170,9 @@
                              @"AccessToken":@"123456789"
                              };
     GetDeviceStatusAPI *client = [GetDeviceStatusAPI shareInstance];
+    if ([client isExecuting]) {
+        [client stop];
+    }
     [client getActiveDeviceUUID:header withDetailUrl:urlString];
     YTKChainRequest *chainRequest = [[YTKChainRequest alloc]init];
     [chainRequest addRequest:client callback:^(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest) {
@@ -485,6 +488,9 @@
                              @"AccessToken":@"123456789"
                              };
     GetDeviceStatusAPI *client = [GetDeviceStatusAPI shareInstance];
+    if ([client isExecuting]) {
+        [client stop];
+    }
     [client getActiveDeviceUUID:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
@@ -519,6 +525,9 @@
                              @"AccessToken":@"123456789"
                              };
     CheckDeviceStatusAPI *client = [CheckDeviceStatusAPI shareInstance];
+    if ([client isExecuting]) {
+        [client stop];
+    }
     [client checkStatus:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;

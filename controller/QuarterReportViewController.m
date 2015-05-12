@@ -90,13 +90,18 @@
 }
 - (void)getTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
 {
-    
+    if (!fromDate) {
+        return;
+    }
     NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",HardWareUUID,fromDate,endTime];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
     [KVNProgress showWithStatus:@"加载中..."];
     HaviGetNewClient *client = [HaviGetNewClient shareInstance];
+    if ([client isExecuting]) {
+        [client stop];
+    }
     [client querySensorDataOld:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;

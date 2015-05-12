@@ -140,6 +140,9 @@
 - (void)queryUserInfo
 {
     SHGetClient *client = [SHGetClient shareInstance];
+    if ([client isExecuting]) {
+        [client stop];
+    }
     NSDictionary *dic = @{
                           @"UserId": GloableUserId, //手机号码
                           };
