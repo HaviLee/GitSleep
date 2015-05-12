@@ -548,97 +548,102 @@
 #pragma mark 获取自定义数据
 - (void)getUserDefaultDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
-    NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
-    NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
-    int startInt = [[startTime substringToIndex:2]intValue];
-    int endInt = [[endTime substringToIndex:2]intValue];
-    
-    NSString *urlString = @"";
-    if (startInt<endInt) {
-        urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
-    }else if (startInt>endInt || startInt==endInt){
-        NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
-        self.dateComponentsBase.day = +1;
-        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
-        urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
+    if (fromDate) {
         
-    }
-    
-    [KVNProgress showWithStatus:@"请求中..."];
-    NSDictionary *header = @{
-                             @"AccessToken":@"123456789"
-                             };
-    GetUserDefaultDataAPI *client = [GetUserDefaultDataAPI shareInstance];
-    [client getUserDefaultData:header withDetailUrl:urlString];
-    if ([client getCacheJsonWithDate:fromDate]) {
-        NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-        [KVNProgress dismiss];
-        HaviLog(@"缓存的心率默认数据是%@",resposeDic);
-        [self reloadUserViewWithDefaultData:resposeDic];
-        [self getUserDefatultSleepReportData:fromDate toDate:toDate];
-    }else{
-        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+        NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+        int startInt = [[startTime substringToIndex:2]intValue];
+        int endInt = [[endTime substringToIndex:2]intValue];
+        
+        NSString *urlString = @"";
+        if (startInt<endInt) {
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
+        }else if (startInt>endInt || startInt==endInt){
+            NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+            self.dateComponentsBase.day = +1;
+            NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+            NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+            //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
+            
+        }
+        
+        [KVNProgress showWithStatus:@"请求中..."];
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        GetUserDefaultDataAPI *client = [GetUserDefaultDataAPI shareInstance];
+        [client getUserDefaultData:header withDetailUrl:urlString];
+        if ([client getCacheJsonWithDate:fromDate]) {
+            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             [KVNProgress dismiss];
-            HaviLog(@"请求的默认心率数据是%@",resposeDic);
+            HaviLog(@"缓存的心率默认数据是%@",resposeDic);
             [self reloadUserViewWithDefaultData:resposeDic];
             [self getUserDefatultSleepReportData:fromDate toDate:toDate];
-        } failure:^(YTKBaseRequest *request) {
-            [KVNProgress dismissWithCompletion:^{
-                [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+        }else{
+            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                [KVNProgress dismiss];
+                HaviLog(@"请求的默认心率数据是%@",resposeDic);
+                [self reloadUserViewWithDefaultData:resposeDic];
+                [self getUserDefatultSleepReportData:fromDate toDate:toDate];
+            } failure:^(YTKBaseRequest *request) {
+                [KVNProgress dismissWithCompletion:^{
+                    [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+                }];
             }];
-        }];
+        }
     }
 }
 
 - (void)getUserDefatultSleepReportData:(NSString *)fromDate toDate:(NSString *)toDate
 {
-    NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
-    NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
-    int startInt = [[startTime substringToIndex:2]intValue];
-    int endInt = [[endTime substringToIndex:2]intValue];
-    
-    NSString *urlString = @"";
-    if (startInt<endInt) {
-        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
-    }else if (startInt>endInt || startInt==endInt){
-        NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
-        self.dateComponentsBase.day = +1;
-        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
-        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
+    if (fromDate) {
+        NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+        NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+        int startInt = [[startTime substringToIndex:2]intValue];
+        int endInt = [[endTime substringToIndex:2]intValue];
         
-    }
-    NSDictionary *header = @{
-                             @"AccessToken":@"123456789"
-                             };
-    GetDefatultSleepAPI *client = [GetDefatultSleepAPI shareInstance];
-    [client queryDefaultSleep:header withDetailUrl:urlString];
-    if ([client getCacheJsonWithDate:fromDate]) {
-        NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-        HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
-        //为了异常报告
-        self.currentSleepQulitity = nil;
-        self.currentSleepQulitity = resposeDic;
-        [self reloadSleepView:resposeDic];
-    }else{
-        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        NSString *urlString = @"";
+        if (startInt<endInt) {
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
+        }else if (startInt>endInt || startInt==endInt){
+            NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+            self.dateComponentsBase.day = +1;
+            NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+            NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+            //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
+            
+        }
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        GetDefatultSleepAPI *client = [GetDefatultSleepAPI shareInstance];
+        [client queryDefaultSleep:header withDetailUrl:urlString];
+        if ([client getCacheJsonWithDate:fromDate]) {
+            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
             //为了异常报告
             self.currentSleepQulitity = nil;
             self.currentSleepQulitity = resposeDic;
             [self reloadSleepView:resposeDic];
-        } failure:^(YTKBaseRequest *request) {
-            [KVNProgress dismissWithCompletion:^{
-                [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+        }else{
+            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
+                //为了异常报告
+                self.currentSleepQulitity = nil;
+                self.currentSleepQulitity = resposeDic;
+                [self reloadSleepView:resposeDic];
+            } failure:^(YTKBaseRequest *request) {
+                [KVNProgress dismissWithCompletion:^{
+                    [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+                }];
             }];
-        }];
+        }
     }
 }
 
@@ -713,69 +718,75 @@
 - (void)getUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
     [KVNProgress showWithStatus:@"请求中..."];
-    NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
-    self.dateComponentsBase.day = -1;
-    NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-    NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-    NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-    NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
-    NSDictionary *header = @{
-                             @"AccessToken":@"123456789"
-                             };
-    GetHeartDataAPI *client = [GetHeartDataAPI shareInstance];
-    [client getHeartData:header withDetailUrl:urlString];
-    if ([client getCacheJsonWithDate:fromDate]) {
-        NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-        [KVNProgress dismiss];
-        HaviLog(@"请求的心率数据%@",resposeDic);
-        [self reloadUserViewWithData:resposeDic];
-        [self getUserSleepReportData:fromDate toDate:toDate];
-    }else{
-        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+    if (fromDate) {
+        
+        NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+        self.dateComponentsBase.day = -1;
+        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+        NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        GetHeartDataAPI *client = [GetHeartDataAPI shareInstance];
+        [client getHeartData:header withDetailUrl:urlString];
+        if ([client getCacheJsonWithDate:fromDate]) {
+            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             [KVNProgress dismiss];
             HaviLog(@"请求的心率数据%@",resposeDic);
             [self reloadUserViewWithData:resposeDic];
             [self getUserSleepReportData:fromDate toDate:toDate];
-        } failure:^(YTKBaseRequest *request) {
-            [KVNProgress dismissWithCompletion:^{
-                [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+        }else{
+            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                [KVNProgress dismiss];
+                HaviLog(@"请求的心率数据%@",resposeDic);
+                [self reloadUserViewWithData:resposeDic];
+                [self getUserSleepReportData:fromDate toDate:toDate];
+            } failure:^(YTKBaseRequest *request) {
+                [KVNProgress dismissWithCompletion:^{
+                    [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+                }];
             }];
-        }];
+        }
     }
 }
 
 - (void)getUserSleepReportData:(NSString *)fromDate toDate:(NSString *)toDate
 {
-    NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
-    self.dateComponentsBase.day = -1;
-    NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-    NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-    NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
-    NSDictionary *header = @{
-                             @"AccessToken":@"123456789"
-                             };
-    GetHeartSleepDataAPI *client = [GetHeartSleepDataAPI shareInstance];
-    [client getHeartSleepData:header withDetailUrl:urlString];
-    if ([client getCacheJsonWithDate:fromDate]) {
-        NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-        HaviLog(@"心率是%@",resposeDic);
-        //为了异常报告,和更新
-        self.currentSleepQulitity = resposeDic;
-        [self reloadSleepView:resposeDic];
-    }else{
-        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+    if (fromDate) {
+        
+        NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+        self.dateComponentsBase.day = -1;
+        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+        NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        GetHeartSleepDataAPI *client = [GetHeartSleepDataAPI shareInstance];
+        [client getHeartSleepData:header withDetailUrl:urlString];
+        if ([client getCacheJsonWithDate:fromDate]) {
+            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             HaviLog(@"心率是%@",resposeDic);
             //为了异常报告,和更新
             self.currentSleepQulitity = resposeDic;
             [self reloadSleepView:resposeDic];
-        } failure:^(YTKBaseRequest *request) {
-            [KVNProgress dismissWithCompletion:^{
-                [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+        }else{
+            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                HaviLog(@"心率是%@",resposeDic);
+                //为了异常报告,和更新
+                self.currentSleepQulitity = resposeDic;
+                [self reloadSleepView:resposeDic];
+            } failure:^(YTKBaseRequest *request) {
+                [KVNProgress dismissWithCompletion:^{
+                    [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+                }];
             }];
-        }];
+        }
     }
 }
 
