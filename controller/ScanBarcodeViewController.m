@@ -295,6 +295,10 @@
 #pragma mark user action
 - (void)addProduct:(UIButton *)sender
 {
+//    UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
+//    udp.productName = self.deviceName;
+//    udp.productUUID = self.barTextfield.text;
+//    [self.navigationController pushViewController:udp animated:YES];
     if (self.barTextfield.text.length == 0) {
         [ShowAlertView showAlert:@"请输入或者扫描设备二维码"];
         return;

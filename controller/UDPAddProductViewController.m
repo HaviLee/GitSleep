@@ -22,6 +22,8 @@
 @property (nonatomic,strong) UITextField *textFiledName;
 @property (nonatomic,strong) UITextField *textFiledPassWord;
 @property (nonatomic, assign) BOOL noReceiveData;
+@property (nonatomic,assign) CGFloat keyBoardHeight;
+
 
 @end
 
@@ -124,7 +126,7 @@
 //
     UIButton *lookButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:lookButton];
-    [lookButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"textbox_solid_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [lookButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"textbox_save_settings_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     lookButton.layer.cornerRadius = 0;
     lookButton.layer.masksToBounds = YES;
     [lookButton setTitle:@"激活设备" forState:UIControlStateNormal];
@@ -160,24 +162,24 @@
 }
 #pragma mark text delegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-    if ([textField isEqual:self.textFiledName]) {
-        int height = self.view.bounds.size.height/2 + 200;
-        self.keybordheight = height;
-        [textField setReturnKeyType:UIReturnKeyNext];
-    }else{
-        int height = self.view.bounds.size.height/2 + 264;
-        self.keybordheight = height;
-        [textField setReturnKeyType:UIReturnKeyDone];
-    }
+//    if ([textField isEqual:self.textFiledName]) {
+//        int height = self.view.bounds.size.height/2;
+//        self.keybordheight = height;
+//        [textField setReturnKeyType:UIReturnKeyNext];
+//    }else{
+//        int height = self.view.bounds.size.height/2 + 264;
+//        self.keybordheight = height;
+//        [textField setReturnKeyType:UIReturnKeyDone];
+//    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if ([textField isEqual:self.textFiledName]) {
-        [self.textFiledPassWord becomeFirstResponder];
-    }else{
-        [textField resignFirstResponder];
-    }
+//    if ([textField isEqual:self.textFiledName]) {
+//        [self.textFiledPassWord becomeFirstResponder];
+//    }else{
+//    }
+    [textField resignFirstResponder];
     return YES;
 }
 //获取ssid
@@ -283,6 +285,29 @@
             break;
         }
     }
+}
+
+#pragma mark 键盘事件
+- (void)keyboardWillShow:(NSNotification *)aNotification
+{
+    //获取键盘的高度
+    NSDictionary *userInfo = [aNotification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    self.keyBoardHeight = height;
+    CGFloat  bottomLine = self.textFiledPassWord.frame.origin.y + self.textFiledPassWord.frame.size.height;
+    CGRect rect = self.view.frame;
+    rect.origin.y = -self.keyBoardHeight + (rect.size.height - bottomLine);
+    if (rect.origin.y<0) {
+        self.view.frame = rect;
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    CGRect rect = self.view.frame;
+    rect.origin.y = 0;
+    self.view.frame = rect;
 }
 
 - (void)didReceiveMemoryWarning {
