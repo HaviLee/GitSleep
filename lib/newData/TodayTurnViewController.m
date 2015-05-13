@@ -94,7 +94,7 @@
             NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
             int startInt = [[startTime substringToIndex:2]intValue];
             int endInt = [[endTime substringToIndex:2]intValue];
-            if ((startInt<endInt)&&(endInt-startInt>1)&&(endInt - startInt)<12) {
+            if ((startInt<endInt)&&(endInt-startInt>1)&&((endInt - startInt)<12||(endInt - startInt)==12)) {
                 NSMutableArray *arr = [[NSMutableArray alloc]init];
                 for (int i = startInt; i<endInt +1; i++) {
                     [arr addObject:[NSString stringWithFormat:@"%d",i]];
