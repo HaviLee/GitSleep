@@ -24,7 +24,8 @@
 #define StatusbarSize 20
 
 //设置统一字号
-#define DefaultWordFont               [UIFont fontWithName:@"Helvetica Bold" size:20]
+#define DefaultWordFont      [UIFont systemFontOfSize:17]         
+//[UIFont fontWithName:@"Helvetica Bold" size:20]
 //app进入后台运行的最长时间
 #define RUNTIME                  60*60
 #define KDismissKexMenu                     @"dismissKxMenu"

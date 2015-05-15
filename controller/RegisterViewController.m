@@ -52,7 +52,9 @@
     [self.nameText setTextColor:selectedThemeIndex==0?DefaultColor:[UIColor lightGrayColor]];
     self.nameText.borderStyle = UITextBorderStyleNone;
     self.nameText.font = DefaultWordFont;
-    self.nameText.placeholder = @"请输入密码";
+    NSDictionary *boldFont = @{NSForegroundColorAttributeName:selectedThemeIndex==0?DefaultColor:[UIColor grayColor],NSFontAttributeName:DefaultWordFont};
+    NSAttributedString *attrValue = [[NSAttributedString alloc] initWithString:@"请输入密码" attributes:boldFont];
+    self.nameText.attributedPlaceholder = attrValue;
     self.nameText.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.nameText.keyboardType = UIKeyboardTypeAlphabet;
     [self.nameText setReturnKeyType:UIReturnKeyDone];
@@ -65,7 +67,8 @@
     self.passWordText.textColor = selectedThemeIndex==0?DefaultColor:[UIColor lightGrayColor];
     self.passWordText.borderStyle = UITextBorderStyleNone;
     self.passWordText.font = DefaultWordFont;
-    self.passWordText.placeholder = @"请确认密码";
+    NSAttributedString *attrValue1 = [[NSAttributedString alloc] initWithString:@"请确认密码" attributes:boldFont];
+    self.passWordText.attributedPlaceholder = attrValue1;
     self.passWordText.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passWordText.keyboardType = UIKeyboardTypeAlphabet;
     //
@@ -104,13 +107,13 @@
     }];
     //    添加小图标
      UIImageView *phoneImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_password_%d",selectedThemeIndex]]];
-     phoneImage.frame = CGRectMake(0, 0,40, 30);
+     phoneImage.frame = CGRectMake(0, 0,30, 20);
      phoneImage.contentMode = UIViewContentModeScaleAspectFit;
      self.nameText.leftViewMode = UITextFieldViewModeAlways;
      self.nameText.leftView = phoneImage;
      //
     UIImageView *passImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_password_%d",selectedThemeIndex]]];
-    passImage.frame = CGRectMake(0, 0,40, 30);
+    passImage.frame = CGRectMake(0, 0,30, 20);
     passImage.contentMode = UIViewContentModeScaleAspectFit;
     self.passWordText.leftViewMode = UITextFieldViewModeAlways;
     self.passWordText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;

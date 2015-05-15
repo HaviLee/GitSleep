@@ -58,8 +58,12 @@
     self.passWordText.borderStyle = UITextBorderStyleNone;
     self.nameText.font = DefaultWordFont;
     self.passWordText.font = DefaultWordFont;
-    self.nameText.placeholder = @"电话号码";
-    self.passWordText.placeholder = @"密码";
+    
+    NSDictionary *boldFont = @{NSForegroundColorAttributeName:selectedThemeIndex==0?DefaultColor:[UIColor grayColor],NSFontAttributeName:DefaultWordFont};
+    NSAttributedString *attrValue = [[NSAttributedString alloc] initWithString:@"电话号码" attributes:boldFont];
+    NSAttributedString *attrValue1 = [[NSAttributedString alloc] initWithString:@"密码" attributes:boldFont];
+    self.nameText.attributedPlaceholder = attrValue;
+    self.passWordText.attributedPlaceholder = attrValue1;
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
         self.nameText.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"userName"];
     }
@@ -105,13 +109,13 @@
 //
 //    添加小图标
     UIImageView *phoneImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"phone_%d",selectedThemeIndex]]];
-    phoneImage.frame = CGRectMake(0, 0,40, 30);
+    phoneImage.frame = CGRectMake(0, 0,30, 20);
     phoneImage.contentMode = UIViewContentModeScaleAspectFit;
     self.nameText.leftViewMode = UITextFieldViewModeAlways;
     self.nameText.leftView = phoneImage;
 //
     UIImageView *passImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_password_%d",selectedThemeIndex]]];
-    passImage.frame = CGRectMake(0, 0,40, 30);
+    passImage.frame = CGRectMake(0, 0,30, 20);
     passImage.contentMode = UIViewContentModeScaleAspectFit;
     self.passWordText.leftViewMode = UITextFieldViewModeAlways;
     self.passWordText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -161,7 +165,7 @@
     forgetButton.userInteractionEnabled = YES;
     [forgetButton addGestureRecognizer:tap];
     forgetButton.backgroundColor = [UIColor clearColor];
-    forgetButton.font = [UIFont fontWithName:@"Helvetica Bold" size:17];
+    forgetButton.font = DefaultWordFont;
     forgetButton.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self.view addSubview:forgetButton];
     [forgetButton makeConstraints:^(MASConstraintMaker *make) {
@@ -369,7 +373,7 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [KVNProgress showSuccessWithStatus:@"修改成功" completion:^{
+            [KVNProgress showSuccessWithStatus:@"我们已经为您重置密码,请查收。" completion:^{
                 self.passWordText.text = @"";
             }];
         }

@@ -51,7 +51,9 @@
     self.phoneText.borderStyle = UITextBorderStyleNone;
     self.phoneText.font = DefaultWordFont;
     self.phoneText.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.phoneText.placeholder = @"手机号";
+    NSDictionary *boldFont = @{NSForegroundColorAttributeName:selectedThemeIndex==0?DefaultColor:[UIColor grayColor],NSFontAttributeName:DefaultWordFont};
+    NSAttributedString *attrValue = [[NSAttributedString alloc] initWithString:@"手机号" attributes:boldFont];
+    self.phoneText.attributedPlaceholder = attrValue;
     self.phoneText.keyboardType = UIKeyboardTypePhonePad;
     //
     self.codeText = [[UITextField alloc]init];
@@ -60,7 +62,8 @@
     self.codeText.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
     self.codeText.borderStyle = UITextBorderStyleNone;
     self.codeText.font = DefaultWordFont;
-    self.codeText.placeholder = @"验证码";
+    NSAttributedString *attrValue1 = [[NSAttributedString alloc] initWithString:@"验证码" attributes:boldFont];
+    self.codeText.attributedPlaceholder = attrValue1;
     self.codeText.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.codeText.keyboardType = UIKeyboardTypePhonePad;
     //
@@ -76,7 +79,7 @@
     self.codeText.background = [UIImage imageNamed:[NSString stringWithFormat:@"textbox_password_%d",selectedThemeIndex]];
     
     UIImageView *nameImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"phone_%d",selectedThemeIndex]]];
-    nameImage.frame = CGRectMake(0, 0,40, 30);
+    nameImage.frame = CGRectMake(0, 0,30, 20);
     nameImage.contentMode = UIViewContentModeScaleAspectFit;
     self.phoneText.leftViewMode = UITextFieldViewModeAlways;
     self.phoneText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -89,7 +92,7 @@
         
     }];
     UIImageView *codeImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_password_%d",selectedThemeIndex]]];
-    codeImage.frame = CGRectMake(0, 0,40, 30);
+    codeImage.frame = CGRectMake(0, 0,30, 20);
     codeImage.contentMode = UIViewContentModeScaleAspectFit;
     self.codeText.leftViewMode = UITextFieldViewModeAlways;
     self.codeText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
