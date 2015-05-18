@@ -442,11 +442,6 @@
     moveLabel.text = [NSString stringWithFormat:@"%d次/天",bodyMovementTimes];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
 - (void)showDifferentAlertWithDeviceStatus
 {
     if ([HardWareUUID isEqualToString:NOBINDUUID]) {
