@@ -156,6 +156,15 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    //检测用户下的设备列表在进入app首先获取id；
+    [KVNProgress showWithStatus:@"获取设备信息中..."];
+    //获取用户相关联的设备uuid
+    [self getDeviceStatusWithUserNewAPI:GloableUserId];
+}
+
 #pragma mark 测试新的api
 
 - (void)getDeviceStatusWithUserNewAPI:(NSString *)userID
@@ -436,11 +445,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [KVNProgress showWithStatus:@"获取设备信息中..."];
-    //获取用户相关联的设备uuid
-    //新的api测试
-    
-    [self getDeviceStatusWithUserNewAPI:GloableUserId];    
 }
 
 - (void)showDifferentAlertWithDeviceStatus
