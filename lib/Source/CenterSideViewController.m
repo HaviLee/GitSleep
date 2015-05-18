@@ -135,12 +135,7 @@
     //创建子视图
     [self creatSubView];
     //检测用户下的设备列表在进入app首先获取id；
-    [KVNProgress showWithStatus:@"获取设备信息中..."];
-    //获取用户相关联的设备uuid
-//    [self getDeviceStatusWithUserId:GloableUserId];
-    //新的api测试
     
-    [self getDeviceStatusWithUserNewAPI:GloableUserId];
     //
     /*
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -441,10 +436,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    if (HardWareUUID.length>0) {
-//        [self showDifferentAlertWithDeviceStatus];
-//    }
+    [KVNProgress showWithStatus:@"获取设备信息中..."];
+    //获取用户相关联的设备uuid
+    //新的api测试
     
+    [self getDeviceStatusWithUserNewAPI:GloableUserId];    
 }
 
 - (void)showDifferentAlertWithDeviceStatus
