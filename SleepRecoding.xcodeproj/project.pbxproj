@@ -2413,7 +2413,7 @@
 				TargetAttributes = {
 					2C4FCB091A8F56E800DCEEF3 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = A4R9NHT83H;
+						DevelopmentTeam = CF99UB3L46;
 					};
 					2C4FCB221A8F56E800DCEEF3 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -3134,7 +3134,7 @@
 					"$(PROJECT_DIR)/lib/thirdlib/libSmartLinkStaticLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2151e554-77a1-476e-aadd-643e0cff236e";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3155,7 +3155,7 @@
 					"$(PROJECT_DIR)/lib/thirdlib/libSmartLinkStaticLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2151e554-77a1-476e-aadd-643e0cff236e";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

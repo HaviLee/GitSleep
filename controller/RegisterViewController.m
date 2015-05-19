@@ -58,7 +58,7 @@
     self.nameText.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.nameText.keyboardType = UIKeyboardTypeAlphabet;
     [self.nameText setReturnKeyType:UIReturnKeyDone];
-    
+    self.nameText.secureTextEntry = YES;
     
     self.passWordText = [[UITextField alloc]init];
     [self.view addSubview:self.passWordText];
@@ -71,6 +71,7 @@
     self.passWordText.attributedPlaceholder = attrValue1;
     self.passWordText.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passWordText.keyboardType = UIKeyboardTypeAlphabet;
+    self.passWordText.secureTextEntry = YES;
     //
     self.nameText.background = [UIImage imageNamed:[NSString stringWithFormat:@"textbox_password_%d",selectedThemeIndex]];
     self.passWordText.background = [UIImage imageNamed:[NSString stringWithFormat:@"textbox_password_%d",selectedThemeIndex]];

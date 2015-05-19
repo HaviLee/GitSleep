@@ -73,6 +73,7 @@
     self.textFiledName.background = [UIImage imageNamed:[NSString stringWithFormat:@"textbox_hollow_%d",selectedThemeIndex]];
     self.textFiledPassWord.background = [UIImage imageNamed:[NSString stringWithFormat:@"textbox_hollow_%d",selectedThemeIndex]];
 //
+    self.textFiledPassWord.secureTextEntry = YES;
     self.textFiledPassWord.placeholder = @"请输入密码";
     self.textFiledPassWord.textColor = [UIColor whiteColor];
     [self.textFiledPassWord makeConstraints:^(MASConstraintMaker *make) {
@@ -220,7 +221,7 @@
     [self stopSniffer];
     self.noReceiveData = NO;
     [KVNProgress dismissWithCompletion:^{
-        [ShowAlertView showAlert:@"关联设备失败，请重试！"];
+        [ShowAlertView showAlert:@"激活设备失败，请重试！"];
     }];
 }
 //停止配置设备
