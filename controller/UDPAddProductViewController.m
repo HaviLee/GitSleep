@@ -192,7 +192,7 @@
         HaviLog(@"%@ => %@", ifnam, info);
         if (info && [info count]) { break; }
     }
-    NSString *wifiName = [[info objectForKey:@"SSID"] lowercaseString];;
+    NSString *wifiName = [info objectForKey:@"SSID"];
     self.textFiledName.text = wifiName;
     return wifiName;
 }
