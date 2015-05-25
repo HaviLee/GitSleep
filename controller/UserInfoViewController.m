@@ -151,6 +151,10 @@
                              };
     
     [client queryUserInfoWithHeader:header andWithPara:dic];
+    if ([client cacheJson]) {
+        self.userInfoDic = (NSDictionary*)[client cacheJson];
+        [self.userInfoTableView.tableView reloadData];
+    }
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         [MMProgressHUD dismissAfterDelay:0.3];
         [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{

@@ -202,6 +202,7 @@
         self.addressTextField.text = @"";
     }
 }
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if ([textField isEqual:self.nameTextField]) {
@@ -225,9 +226,8 @@
 #pragma mark 更新信息
 - (void)saveUserInfo:(UIButton *)sender
 {
-    HaviLog(@"保存");
     if ([self.nameTextField.text isEqualToString:@"***"]) {
-        [ShowAlertView showAlert:@"请输入姓名"];
+        [self.view makeToast:@"请输入姓名" duration:2 position:@"center"];
         return;
     }
     if ([self.birthteTextField.text isEqualToString:@"***"]) {
