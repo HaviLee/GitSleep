@@ -162,7 +162,7 @@
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"发送中..."];
     self.randomCode = [self getRandomNumber:1000 to:10000];
-    NSString *codeMessage = [NSString stringWithFormat:@"您的验证码是%d",self.randomCode];
+    NSString *codeMessage = [NSString stringWithFormat:@"【智照护】您的验证码是%d",self.randomCode];
     NSDictionary *dicPara = @{
                               @"cell" : self.phoneText.text,
                               @"codeMessage" : codeMessage,

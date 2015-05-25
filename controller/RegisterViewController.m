@@ -88,10 +88,6 @@
     [self.view addSubview:self.iconButton];
     self.iconButton.userInteractionEnabled = YES;
     //
-    
-    //
-    
-    //
      [self.nameText makeConstraints:^(MASConstraintMaker *make) {
      make.centerX.equalTo(self.view.centerX);
      make.width.equalTo(ButtonViewWidth);
@@ -119,11 +115,8 @@
     self.passWordText.leftViewMode = UITextFieldViewModeAlways;
     self.passWordText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.passWordText.leftView = passImage;
-    //
-    //
     //    添加button
     UIButton *registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [registerButton setBackgroundColor:[UIColor colorWithRed:0.447f green:0.765f blue:0.910f alpha:1.00f]];
     [registerButton setTitle:@"完成注册" forState:UIControlStateNormal];
     [registerButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_caeate_account_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     [registerButton setTitleColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -198,7 +191,7 @@
         [self.view makeToast:@"请输入密码" duration:2 position:@"center"];
         return;
     }
-    [MMProgressHUD setDisplayStyle:MMProgressHUDDisplayStyleBordered];
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"注册中..."];
     SHPostClient *client = [SHPostClient shareInstance];
     NSDictionary *dic = @{
@@ -214,15 +207,16 @@
         [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
             NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
             if ([[responseDic objectForKey:@"ReturnCode"]intValue]==10005) {
-                [self.view makeToast:@"该手机号已注册" duration:2 position:@"center"];
-                return;
+                [MMProgressHUD dismissWithError:@"该手机号已注册" afterDelay:2];
             }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
-               [self dismissViewControllerAnimated:YES completion:nil];
+               [MMProgressHUD dismissWithSuccess:@"注册成功" title:nil afterDelay:2];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             }
             
         }];
     } failure:^(YTKBaseRequest *request) {
-        
+        NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",responseDic] afterDelay:2];
     }];
 }
 
