@@ -90,6 +90,7 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"加载中..."];
     HaviGetNewClient *client = [HaviGetNewClient shareInstance];
     if ([client isExecuting]) {
@@ -98,12 +99,13 @@
     [client querySensorDataOld:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissAfterDelay:0.3];
         [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            
             [self reloadUserUI:(NSDictionary *)resposeDic];
         }];
     } failure:^(YTKBaseRequest *request) {
-        
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
     }];
 }
 

@@ -28,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //对界面进行处理
-//    self.view.backgroundColor = [UIColor clearColor];
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOffset = CGSizeMake(0.0, 8.0);
     self.view.layer.shadowOpacity = 0.3;
@@ -36,13 +35,6 @@
     self.view.layer.cornerRadius = 4.0;
     self.view.layer.masksToBounds = YES;
     // Do any additional setup after loading the view.
-//    self.dataArr = @[
-//                     @{@"PropertyCode" : @"3",
-//                         @"Data":@[
-//                                 @{@"At":@"2015-04-01 10:00:00",@"Value":@"100"},
-//                                 @{@"At":@"2015-04-01 10:20:00",@"Value":@"120"}
-//                                 ]},
-//                     ];
     [self setSubView];
 }
 
