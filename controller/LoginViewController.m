@@ -212,6 +212,7 @@
         return;
     }
     //获取设备状态
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"登录中..."];
     SHGetClient *client = [SHGetClient shareInstance];
     NSDictionary *dic = @{
@@ -235,35 +236,29 @@
             [[NSUserDefaults standardUserDefaults]synchronize];
             //
             if (!isLogout) {
-                [self loginView];
-                [MMProgressHUD dismiss];
+                [MMProgressHUD dismissAfterDelay:0.3];
+                [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
+                    [self loginView];
+                }];
             }else{
-                [self dismissViewControllerAnimated:YES completion:^{
-//                    isLogout = NO;换到更新完日历之后
-                    [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEUSERID object:nil];
-                    [MMProgressHUD dismiss];
+                [MMProgressHUD dismissAfterDelay:0.3];
+                [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
+                    [self dismissViewControllerAnimated:YES completion:^{
+                        [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEUSERID object:nil];
+                    }];
                 }];
             }
             
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10012) {
             
-            //
-            [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
-                [self.view makeToast:@"密码错误，请确认密码" duration:2 position:@"center"];
-                self.passWordText.text = @"";
-            }];
+            [MMProgressHUD dismissWithError:@"密码或者帐号错误,请重试。" afterDelay:2];
         }else{
-            [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
-                [self.view makeToast:@"请求失败,稍后重试" duration:2 position:@"center"];
-            }];
+            [MMProgressHUD dismissWithError:@"登录失败,请稍后重试。" afterDelay:2];
         }
-        HaviLog(@"完成%@",request.responseJSONObject);
        
     } failure:^(YTKBaseRequest *request) {
-        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
-            [self.view makeToast:@"请求失败,稍后重试" duration:2 position:@"center"];
-        }];
-        HaviLog(@"失败%@",request.responseJSONObject);
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:3];
     }];
     
 }

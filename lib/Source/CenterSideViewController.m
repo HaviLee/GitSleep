@@ -330,7 +330,7 @@
 //        [ShowAlertView showAlert:@"CenterSideViewController:214,line开始时间为空"];
         return;
     }
-    [MMProgressHUD showWithStatus:@"请求中..."];
+//    [MMProgressHUD showWithStatus:@"请求中..."];
     NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
     NSString *urlString = @"";
     if (isUserDefaultTime) {

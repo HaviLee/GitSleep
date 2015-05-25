@@ -199,7 +199,7 @@
         return;
     }
     [MMProgressHUD setDisplayStyle:MMProgressHUDDisplayStyleBordered];
-    [MMProgressHUD showWithStatus:@"登录中..."];
+    [MMProgressHUD showWithStatus:@"注册中..."];
     SHPostClient *client = [SHPostClient shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": self.cellPhoneNum, //手机号码
