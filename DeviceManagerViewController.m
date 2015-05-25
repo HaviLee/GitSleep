@@ -111,13 +111,14 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    [KVNProgress showWithStatus:@"请求中..."];
+    [MMProgressHUD showWithStatus:@"请求中..."];
     GetDeviceListAPI *client = [GetDeviceListAPI shareInstance];
     [client getDeviceList:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"请求的设备列表是%@",resposeDic);
-        [KVNProgress dismissWithCompletion:^{
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+            
             self.deviceArr = [resposeDic objectForKey:@"DeviceList"];
             if (self.deviceArr.count == 0) {
                 [self.view makeToast:@"您还没有绑定硬件设备" duration:2 position:@"center"];
@@ -253,15 +254,12 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [KVNProgress showSuccessWithStatus:@"切换设备成功" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [self getUserDeviceList];
-                
-                //更新主界面设备状态
-                //使用logout接口，主要是更新设备
-//
             }];
         }else{
-            [KVNProgress showSuccessWithStatus:@"切换设备失败,稍后重试" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                
             }];
         }
     } failure:^(YTKBaseRequest *request) {
@@ -298,7 +296,8 @@
         id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         HaviLog(@"数据是%@",obj);
         if ([[obj objectForKey:@"ReturnCode"]intValue]==200) {
-            [KVNProgress showSuccessWithStatus:@"删除设备成功" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                
                 if ([isDefault isEqualToString:@"False"]) {
                     [self getUserDeviceList];
                 }else{
@@ -311,7 +310,8 @@
             //更新主界面设备状态
             //使用logout接口
         }else{
-            [KVNProgress showSuccessWithStatus:@"删除设备失败,稍后重试" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                
             }];
         }
     } failed:^(NSURLResponse *response, NSError *error) {

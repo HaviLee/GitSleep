@@ -573,7 +573,7 @@
             urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
             
         }
-        [KVNProgress showWithStatus:@"请求中..."];
+        [MMProgressHUD showWithStatus:@"请求中..."];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
@@ -585,20 +585,20 @@
         
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            [KVNProgress dismiss];
+            [MMProgressHUD dismiss];
             HaviLog(@"缓存的呼吸默认数据是%@",resposeDic);
             [self reloadUserViewWithDefaultData:resposeDic];
             [self getUserDefatultSleepReportData:fromDate toDate:toDate];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [KVNProgress dismiss];
+                [MMProgressHUD dismiss];
                 HaviLog(@"请求的默认呼吸数据是%@",resposeDic);
                 [self reloadUserViewWithDefaultData:resposeDic];
                 [self getUserDefatultSleepReportData:fromDate toDate:toDate];
             } failure:^(YTKBaseRequest *request) {
-                [KVNProgress dismissWithCompletion:^{
-                    [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    
                 }];
             }];
         }
@@ -651,8 +651,8 @@
             self.currentSleepQulitity = resposeDic;
             [self reloadSleepView:resposeDic];
         } failure:^(YTKBaseRequest *request) {
-            [KVNProgress dismissWithCompletion:^{
-                [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                
             }];
         }];
     }
@@ -741,7 +741,7 @@
 
 - (void)getUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
-    [KVNProgress showWithStatus:@"请求中..."];
+    [MMProgressHUD showWithStatus:@"请求中..."];
     if (fromDate) {
         
         NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
@@ -760,20 +760,20 @@
         [client getBreathData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            [KVNProgress dismiss];
+            [MMProgressHUD dismiss];
             HaviLog(@"缓存的心率数据%@",resposeDic);
             [self reloadUserViewWithData:resposeDic];
             [self getUserSleepReportData:fromDate toDate:toDate];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [KVNProgress dismiss];
+                [MMProgressHUD dismiss];
                 HaviLog(@"请求的心率数据%@",resposeDic);
                 [self reloadUserViewWithData:resposeDic];
                 [self getUserSleepReportData:fromDate toDate:toDate];
             } failure:^(YTKBaseRequest *request) {
-                [KVNProgress dismissWithCompletion:^{
-                    [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    
                 }];
             }];
         }
@@ -814,8 +814,8 @@
                 self.currentSleepQulitity = resposeDic;
                 [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
-                [KVNProgress dismissWithCompletion:^{
-                    [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    
                 }];
             }];
         }
@@ -960,11 +960,11 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    [KVNProgress showWithStatus:@"异常数据请求中..."];
+    [MMProgressHUD showWithStatus:@"异常数据请求中..."];
     GetExceptionAPI *client = [GetExceptionAPI shareInstance];
     [client getException:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        [KVNProgress dismiss];
+        [MMProgressHUD dismiss];
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         [self showExceptionView:resposeDic withTitle:@"呼吸"];
         HaviLog(@"获取异常数据%@",resposeDic);

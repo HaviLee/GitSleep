@@ -1,6 +1,5 @@
 // AFURLRequestSerialization.m
-//
-// Copyright (c) 2013-2015 AFNetworking (http://afnetworking.com)
+// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -256,6 +255,47 @@ static void *AFHTTPRequestSerializerObserverContext = &AFHTTPRequestSerializerOb
 
 #pragma mark -
 
+// Workarounds for crashing behavior using Key-Value Observing with XCTest
+// See https://github.com/AFNetworking/AFNetworking/issues/2523
+
+- (void)setAllowsCellularAccess:(BOOL)allowsCellularAccess {
+    [self willChangeValueForKey:NSStringFromSelector(@selector(allowsCellularAccess))];
+    _allowsCellularAccess = allowsCellularAccess;
+    [self didChangeValueForKey:NSStringFromSelector(@selector(allowsCellularAccess))];
+}
+
+- (void)setCachePolicy:(NSURLRequestCachePolicy)cachePolicy {
+    [self willChangeValueForKey:NSStringFromSelector(@selector(cachePolicy))];
+    _cachePolicy = cachePolicy;
+    [self didChangeValueForKey:NSStringFromSelector(@selector(cachePolicy))];
+}
+
+- (void)setHTTPShouldHandleCookies:(BOOL)HTTPShouldHandleCookies {
+    [self willChangeValueForKey:NSStringFromSelector(@selector(HTTPShouldHandleCookies))];
+    _HTTPShouldHandleCookies = HTTPShouldHandleCookies;
+    [self didChangeValueForKey:NSStringFromSelector(@selector(HTTPShouldHandleCookies))];
+}
+
+- (void)setHTTPShouldUsePipelining:(BOOL)HTTPShouldUsePipelining {
+    [self willChangeValueForKey:NSStringFromSelector(@selector(HTTPShouldUsePipelining))];
+    _HTTPShouldUsePipelining = HTTPShouldUsePipelining;
+    [self didChangeValueForKey:NSStringFromSelector(@selector(HTTPShouldUsePipelining))];
+}
+
+- (void)setNetworkServiceType:(NSURLRequestNetworkServiceType)networkServiceType {
+    [self willChangeValueForKey:NSStringFromSelector(@selector(networkServiceType))];
+    _networkServiceType = networkServiceType;
+    [self didChangeValueForKey:NSStringFromSelector(@selector(networkServiceType))];
+}
+
+- (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval {
+    [self willChangeValueForKey:NSStringFromSelector(@selector(timeoutInterval))];
+    _timeoutInterval = timeoutInterval;
+    [self didChangeValueForKey:NSStringFromSelector(@selector(timeoutInterval))];
+}
+
+#pragma mark -
+
 - (NSDictionary *)HTTPRequestHeaders {
     return [NSDictionary dictionaryWithDictionary:self.mutableHTTPRequestHeaders];
 }
@@ -327,6 +367,7 @@ forHTTPHeaderField:(NSString *)field
     }
 
     mutableRequest = [[self requestBySerializingRequest:mutableRequest withParameters:parameters error:error] mutableCopy];
+
 	return mutableRequest;
 }
 
@@ -445,18 +486,6 @@ forHTTPHeaderField:(NSString *)field
         }
     }];
 
-//    if (parameters) {
-//        NSError *error1;
-//        NSData *data1 = [NSJSONSerialization dataWithJSONObject:parameters options:NSUTF8StringEncoding error:&error1];
-//        if (error) {
-//            NSLog(@"%@",error1);
-//        }
-//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data1 options:NSUTF8StringEncoding error:nil];
-//        NSLog(@"the dic is %@",dic);
-//        [mutableRequest setHTTPBody:data1];
-//        
-//    }
-
     if (parameters) {
         NSString *query = nil;
         if (self.queryStringSerialization) {
@@ -487,6 +516,7 @@ forHTTPHeaderField:(NSString *)field
             [mutableRequest setHTTPBody:[query dataUsingEncoding:self.stringEncoding]];
         }
     }
+
     return mutableRequest;
 }
 
@@ -1236,7 +1266,6 @@ typedef enum {
         }
 
         [mutableRequest setHTTPBody:[NSJSONSerialization dataWithJSONObject:parameters options:self.writingOptions error:error]];
-        NSLog(@"json格式:%@",[NSJSONSerialization dataWithJSONObject:parameters options:self.writingOptions error:error]);
     }
 
     return mutableRequest;

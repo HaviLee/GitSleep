@@ -206,7 +206,7 @@
         return;
     }
     self.noReceiveData = YES;
-    [KVNProgress showWithStatus:@"正在激活设备,请稍候..."];
+    [MMProgressHUD showWithStatus:@"正在激活设备,请稍候..."];
     //
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(40 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self.noReceiveData) {
@@ -220,7 +220,7 @@
 {
     [self stopSniffer];
     self.noReceiveData = NO;
-    [KVNProgress dismissWithCompletion:^{
+    [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
         [ShowAlertView showAlert:@"激活设备失败，请重试！"];
     }];
 }
@@ -260,16 +260,14 @@
 -(void)udpReceiveDataString:(NSString *)string{
     //接收到udp包后，将标识位改为no
     self.noReceiveData = NO;
-    [KVNProgress dismissWithCompletion:^{
-        [KVNProgress showSuccessWithStatus:@"设备激活成功" completion:^{
-            for (UIViewController *controller in self.navigationController.viewControllers) {
-                if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
-                    
-                    [self.navigationController popToViewController:controller animated:YES];
-                    break;
-                }
+    [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+        for (UIViewController *controller in self.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
+                
+                [self.navigationController popToViewController:controller animated:YES];
+                break;
             }
-        }];
+        }
     }];
 }
 

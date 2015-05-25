@@ -212,7 +212,7 @@
         return;
     }
     //获取设备状态
-    [KVNProgress showWithStatus:@"登录中..."];
+    [MMProgressHUD showWithStatus:@"登录中..."];
     SHGetClient *client = [SHGetClient shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": self.nameText.text, //手机号码
@@ -236,32 +236,32 @@
             //
             if (!isLogout) {
                 [self loginView];
-                [KVNProgress dismiss];
+                [MMProgressHUD dismiss];
             }else{
                 [self dismissViewControllerAnimated:YES completion:^{
 //                    isLogout = NO;换到更新完日历之后
                     [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEUSERID object:nil];
-                    [KVNProgress dismiss];
+                    [MMProgressHUD dismiss];
                 }];
             }
             
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10012) {
             
             //
-            [KVNProgress dismissWithCompletion:^{
+            [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
                 [self.view makeToast:@"密码错误，请确认密码" duration:2 position:@"center"];
                 self.passWordText.text = @"";
             }];
         }else{
-            [KVNProgress dismissWithCompletion:^{
+            [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
                 [self.view makeToast:@"请求失败,稍后重试" duration:2 position:@"center"];
             }];
         }
         HaviLog(@"完成%@",request.responseJSONObject);
        
     } failure:^(YTKBaseRequest *request) {
-        [KVNProgress dismissWithCompletion:^{
-            [self.view makeToast:@"登录失败,稍后重试" duration:2 position:@"center"];
+        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
+            [self.view makeToast:@"请求失败,稍后重试" duration:2 position:@"center"];
         }];
         HaviLog(@"失败%@",request.responseJSONObject);
     }];
@@ -351,7 +351,7 @@
         [self.view makeToast:@"请输入正确的手机号" duration:2 position:@"center"];
         return;
     }
-    [KVNProgress showWithStatus:@"发送中..."];
+    [MMProgressHUD showWithStatus:@"发送中..."];
     self.forgetPassWord = [self getRandomNumber:100000 to:1000000];
     NSString *codeMessage = [NSString stringWithFormat:@"【智照护】您的密码已经重置，新密码是%d,请及时修改您的密码。",self.forgetPassWord];
     NSDictionary *dicPara = @{
@@ -361,10 +361,8 @@
     GetInavlideCodeApi *client = [GetInavlideCodeApi shareInstance];
     [client getInvalideCode:dicPara witchBlock:^(NSData *receiveData) {
         HaviLog(@"data是%@",receiveData);
-        [KVNProgress dismissWithCompletion:^{
+        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
             [self modifyPassWord];
-//            [KVNProgress showSuccessWithStatus:@"发送成功" completion:^{
-//            }];
         }];
         NSString *string = [[NSString alloc]initWithData:receiveData encoding:NSUTF8StringEncoding];
         HaviLog(@"结果是%@",string);
@@ -391,13 +389,13 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [KVNProgress showSuccessWithStatus:@"我们已经为您重置密码,请查收。" completion:^{
+            [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
                 self.passWordText.text = @"";
             }];
         }
-    } failure:^(YTKBaseRequest *request) {
-        [KVNProgress showErrorWithStatus:@"修改失败,请稍候重试" completion:^{
-            
+    }failure:^(YTKBaseRequest *request) {
+        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
+            self.passWordText.text = @"";
         }];
     }];
 }

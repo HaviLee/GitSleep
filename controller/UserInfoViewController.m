@@ -118,13 +118,11 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSData *dic = (NSData *)request.responseJSONObject;
         self.iconImageView1.image = [UIImage imageWithData:dic];
-        [KVNProgress dismissWithCompletion:^{
-            
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
         }];
         HaviLog(@"%@",self.userInfoDic);
     } failure:^(YTKBaseRequest *request) {
-        [KVNProgress dismissWithCompletion:^{
-            [KVNProgress showErrorWithStatus:@"刷新失败,稍后重试"];
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
         }];
     }];
 
@@ -153,18 +151,18 @@
         [self.userInfoTableView.tableView reloadData];
         // show cached data
     }
-    [KVNProgress showWithStatus:@"加载中"];
+    [MMProgressHUD showWithStatus:@"加载中"];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *dic = (NSDictionary *)request.responseJSONObject;
         self.userInfoDic = dic;
         [self.userInfoTableView.tableView reloadData];
-        [KVNProgress dismissWithCompletion:^{
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
             
         }];
         HaviLog(@"用户信息%@",self.userInfoDic);
     } failure:^(YTKBaseRequest *request) {
-        [KVNProgress dismissWithCompletion:^{
-            [KVNProgress showErrorWithStatus:@"刷新失败,稍后重试"];
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+            
         }];
     }];
 

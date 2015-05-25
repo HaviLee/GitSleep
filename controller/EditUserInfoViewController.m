@@ -287,13 +287,13 @@
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"保存%@",resposeDic);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [KVNProgress showSuccessWithStatus:@"修改成功" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadUserInfo" object:nil];
                 [self backToHome:nil];
             }];
         }
     } failure:^(YTKBaseRequest *request) {
-        [KVNProgress showErrorWithStatus:@"修改失败,请稍候重试" completion:^{
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
             
         }];
     }];

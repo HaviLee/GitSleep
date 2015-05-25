@@ -160,7 +160,7 @@
         [self.view makeToast:@"请输入正确的手机号" duration:2 position:@"center"];
         return;
     }
-    [KVNProgress showWithStatus:@"发送中..."];
+    [MMProgressHUD showWithStatus:@"发送中..."];
     self.randomCode = [self getRandomNumber:1000 to:10000];
     NSString *codeMessage = [NSString stringWithFormat:@"【智照护】您的验证码是%d",self.randomCode];
     NSDictionary *dicPara = @{
@@ -170,13 +170,9 @@
     GetInavlideCodeApi *client = [GetInavlideCodeApi shareInstance];
     [client getInvalideCode:dicPara witchBlock:^(NSData *receiveData) {
         HaviLog(@"data是%@",receiveData);
-        [KVNProgress dismissWithCompletion:^{
-            [KVNProgress showSuccessWithStatus:@"发送成功" completion:^{
-                
-            }];
-            timeToShow = 60;
-            [self showTime];
-        }];
+        [MMProgressHUD dismissWithSuccess:@"发送成功"];
+        timeToShow = 60;
+        [self showTime];
         NSString *string = [[NSString alloc]initWithData:receiveData encoding:NSUTF8StringEncoding];
         HaviLog(@"结果是%@",string);
     }];

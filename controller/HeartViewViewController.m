@@ -131,7 +131,7 @@
         
     }
     
-    [KVNProgress showWithStatus:@"请求中..."];
+    [MMProgressHUD showWithStatus:@"请求中..."];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -139,13 +139,13 @@
     [client getUserDefaultData:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [KVNProgress dismiss];
+        [MMProgressHUD dismiss];
         HaviLog(@"请求的心率，呼吸，离床，体动数据是%@",resposeDic);
         [self reloadUserViewWithDefaultData:resposeDic];
         [self getUserDefatultSleepReportData:fromDate toDate:toDate];
     } failure:^(YTKBaseRequest *request) {
-        [KVNProgress dismissWithCompletion:^{
-            [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+            
         }];
     }];
 }
@@ -182,8 +182,8 @@
         //为了异常报告
         self.currentSleepQulitity = resposeDic;
     } failure:^(YTKBaseRequest *request) {
-        [KVNProgress dismissWithCompletion:^{
-            [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+            
         }];
     }];
 }
@@ -242,7 +242,7 @@
 
 - (void)getUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
-    [KVNProgress showWithStatus:@"请求中..."];
+    [MMProgressHUD showWithStatus:@"请求中..."];
     NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
     self.dateComponentsBase.day = -1;
     NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
@@ -256,13 +256,13 @@
     [client getHeartData:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [KVNProgress dismiss];
+        [MMProgressHUD dismiss];
         HaviLog(@"请求的心率数据%@",resposeDic);
         [self reloadUserViewWithData:resposeDic];
         [self getUserSleepReportData:fromDate toDate:toDate];
     } failure:^(YTKBaseRequest *request) {
-        [KVNProgress dismissWithCompletion:^{
-            [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+            
         }];
     }];
 }
@@ -287,8 +287,8 @@
         //为了异常报告
         self.currentSleepQulitity = resposeDic;
     } failure:^(YTKBaseRequest *request) {
-        [KVNProgress dismissWithCompletion:^{
-            [KVNProgress showErrorWithStatus:@"请求失败,稍后重试"];
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+            
         }];
     }];
 }
@@ -430,11 +430,11 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    [KVNProgress showWithStatus:@"异常数据请求中..."];
+    [MMProgressHUD showWithStatus:@"异常数据请求中..."];
     GetExceptionAPI *client = [GetExceptionAPI shareInstance];
     [client getException:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        [KVNProgress dismiss];
+        [MMProgressHUD dismiss];
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         [self showExceptionView:resposeDic withTitle:@"心率"];
         HaviLog(@"获取异常数据%@",resposeDic);

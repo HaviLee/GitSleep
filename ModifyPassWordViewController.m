@@ -140,14 +140,15 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [KVNProgress showSuccessWithStatus:@"修改成功" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [self.navigationController popViewControllerAnimated:YES];
+                
             }];
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10019){
             [self.view makeToast:@"旧密码错误" duration:2 position:@"center"];
         }
     } failure:^(YTKBaseRequest *request) {
-        [KVNProgress showErrorWithStatus:@"修改失败,请稍候重试" completion:^{
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
             
         }];
     }];

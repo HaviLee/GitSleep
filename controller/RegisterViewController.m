@@ -198,7 +198,8 @@
         [self.view makeToast:@"请输入密码" duration:2 position:@"center"];
         return;
     }
-    [KVNProgress showWithStatus:@"注册中..."];
+    [MMProgressHUD setDisplayStyle:MMProgressHUDDisplayStyleBordered];
+    [MMProgressHUD showWithStatus:@"登录中..."];
     SHPostClient *client = [SHPostClient shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": self.cellPhoneNum, //手机号码
@@ -210,15 +211,15 @@
                              };
     [client addNewUserWithHeader:header andWithPara:dic];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        [KVNProgress dismissWithCompletion:^{
+        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
             NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
             if ([[responseDic objectForKey:@"ReturnCode"]intValue]==10005) {
                 [self.view makeToast:@"该手机号已注册" duration:2 position:@"center"];
                 return;
-            }
-           [KVNProgress showSuccessWithStatus:@"注册成功" completion:^{
+            }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
                [self dismissViewControllerAnimated:YES completion:nil];
-           }];
+            }
+            
         }];
     } failure:^(YTKBaseRequest *request) {
         

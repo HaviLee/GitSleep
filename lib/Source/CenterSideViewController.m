@@ -147,7 +147,7 @@
 {
     [super viewDidAppear:animated];
     //检测用户下的设备列表在进入app首先获取id；
-//    [KVNProgress showWithStatus:@"获取设备信息中..."];
+//    [MMProgressHUD showWithStatus:@"获取设备信息中..."];
     //获取用户相关联的设备uuid
     [self getDeviceStatusWithUserNewAPI:GloableUserId];
 }
@@ -169,7 +169,7 @@
     [chainRequest addRequest:client callback:^(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest) {
         NSDictionary *resposeDic = (NSDictionary *)baseRequest.responseJSONObject;
         HaviLog(@"获取硬件信息是%@",resposeDic);
-//        [KVNProgress dismiss];
+//        [MMProgressHUD dismiss];
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
         if (arr.count == 0) {
             HardWareUUID = NOBINDUUID;
@@ -330,7 +330,7 @@
 //        [ShowAlertView showAlert:@"CenterSideViewController:214,line开始时间为空"];
         return;
     }
-    [KVNProgress showWithStatus:@"请求中..."];
+    [MMProgressHUD showWithStatus:@"请求中..."];
     NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
     NSString *urlString = @"";
     if (isUserDefaultTime) {
@@ -368,7 +368,7 @@
     [client queryDefaultSleep:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [KVNProgress dismiss];
+        [MMProgressHUD dismiss];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [self reloadUserUI:(NSDictionary *)resposeDic];
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
@@ -477,7 +477,7 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"获取硬件信息是%@",resposeDic);
-        [KVNProgress dismiss];
+        [MMProgressHUD dismiss];
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
         if (arr.count == 0) {
             HardWareUUID = NOBINDUUID;

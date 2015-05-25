@@ -319,7 +319,7 @@
                            @"UUID": self.barTextfield.text,
                            @"Description":self.deviceName,
                            };
-    [KVNProgress showWithStatus:@"关联设备中..."];
+    [MMProgressHUD showWithStatus:@"关联设备中..."];
     BindingDeviceUUIDAPI *client = [BindingDeviceUUIDAPI shareInstance];
     [client bindingDeviceUUID:header andWithPara:para];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
@@ -328,10 +328,12 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [self activeUUID:self.barTextfield.text];
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
-            [KVNProgress showErrorWithStatus:@"设备号不存在" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                
             }];
         }else{
-            [KVNProgress showErrorWithStatus:@"关联设备失败,稍后重试" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                
             }];
         }
     } failure:^(YTKBaseRequest *request) {
@@ -353,14 +355,16 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [KVNProgress showSuccessWithStatus:@"关联设备成功" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                
                 HardWareUUID = UUID;
                 UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已成功关联您的设备,是否需要现在激活设备？" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"激活", nil];
                 [alertView show];
             }];
         }else{
             
-            [KVNProgress showSuccessWithStatus:@"关联设备失败,稍后重试" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                
             }];
         }
     } failure:^(YTKBaseRequest *request) {

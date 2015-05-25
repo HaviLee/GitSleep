@@ -97,7 +97,7 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    [KVNProgress showWithStatus:@"加载中..."];
+    [MMProgressHUD showWithStatus:@"加载中..."];
     HaviGetNewClient *client = [HaviGetNewClient shareInstance];
     if ([client isExecuting]) {
         [client stop];
@@ -105,7 +105,7 @@
     [client querySensorDataOld:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [KVNProgress dismissWithCompletion:^{
+        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
             [self reloadUserUI:(NSDictionary *)resposeDic];
         }];
     } failure:^(YTKBaseRequest *request) {

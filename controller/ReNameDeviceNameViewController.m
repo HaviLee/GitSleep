@@ -141,18 +141,20 @@
                            @"UUID": [NSString stringWithFormat:@"%@",[self.deviceInfo  objectForKey:@"UUID"]],
                            @"Description":self.nameTextField.text,
                            };
-    [KVNProgress showWithStatus:@"修改设备名称中..."];
+    [MMProgressHUD showWithStatus:@"修改设备名称中..."];
     BindingDeviceUUIDAPI *client = [BindingDeviceUUIDAPI shareInstance];
     [client bindingDeviceUUID:header andWithPara:para];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"绑定设备结果是%@",resposeDic);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [KVNProgress showSuccessWithStatus:@"修改成功" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                
                 [self backToHomeView:nil];
             }];
         }else{
-            [KVNProgress showErrorWithStatus:@"修改名称失败,稍后重试" completion:^{
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                
             }];
         }
     } failure:^(YTKBaseRequest *request) {
