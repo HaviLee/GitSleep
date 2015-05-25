@@ -38,6 +38,7 @@
 @property (nonatomic ,strong) DatePickerView *datePicker;
 @property (nonatomic,strong) UIButton *leftButton;
 @property (nonatomic,strong) UIButton *rightButton;
+@property (nonatomic,strong) UIButton *menuButton;
 @property (nonatomic,strong) NSArray *sideArray;
 
 //

@@ -41,8 +41,7 @@
      {
          if (nIndex == 1)
          {
-             [self.leftButton addTarget:self action:@selector(backToHomeView:) forControlEvents:UIControlEventTouchUpInside];
-             return self.leftButton;
+             return self.menuButton;
          }else if (nIndex == 0){
              self.rightButton.frame = CGRectMake(self.view.frame.size.width-35, 8, 25, 25);
              [self.rightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_add_%d",selectedThemeIndex]] forState:UIControlStateNormal];

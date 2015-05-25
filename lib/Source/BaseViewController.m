@@ -378,10 +378,24 @@
     }
     return nil;
 }
+
 /**
  *
  *  @return
  */
+
+- (UIButton *)menuButton
+{
+    if (!_menuButton) {
+        _menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
+        [_menuButton setImage:i forState:UIControlStateNormal];
+        [_menuButton setFrame:CGRectMake(5, 0, 44, 44)];
+        [_menuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _menuButton;
+}
+
 - (UIButton *)leftButton
 {
     if (!_leftButton) {

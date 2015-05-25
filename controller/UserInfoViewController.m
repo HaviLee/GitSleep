@@ -51,12 +51,7 @@
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
-            _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            _backButton.frame = CGRectMake(0, 0, 44, 44);
-            _backButton.contentMode = UIViewContentModeScaleAspectFill;
-            [_backButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-            [_backButton addTarget:self action:@selector(backToHome:) forControlEvents:UIControlEventTouchUpInside];
-            return _backButton;
+            return self.menuButton;
         }else if (nIndex == 0){
             _editButton = [UIButton buttonWithType:UIButtonTypeCustom];
             _editButton.frame = CGRectMake(self.view.frame.size.width-44, 2, 40, 44);

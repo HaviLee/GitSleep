@@ -33,17 +33,8 @@
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
-            [self.leftButton addTarget:self action:@selector(backToHomeView:) forControlEvents:UIControlEventTouchUpInside];
-            return self.leftButton;
+            return self.menuButton;
         }
-        /*
-        else if (nIndex == 0){
-            self.rightButton.frame = CGRectMake(self.view.frame.size.width-40, 0, 30, 44);
-            [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-            [self.rightButton addTarget:self action:@selector(shareApp:) forControlEvents:UIControlEventTouchUpInside];
-            return self.rightButton;
-        }
-        */
         return nil;
     }];
     HaviButton *buttonTitle = [[HaviButton alloc]init];

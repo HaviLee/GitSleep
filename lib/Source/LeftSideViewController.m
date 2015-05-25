@@ -16,6 +16,7 @@
 #import "SleepSettingViewController.h"
 #import "APPSettingViewController.h"
 #import "DataStaticViewController.h"
+#import "CenterSideViewController.h"
 
 @interface LeftSideViewController ()
 @property (nonatomic,strong) UIView *tableHeaderView;
@@ -232,6 +233,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:{
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]] animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             break;
         }
@@ -289,11 +291,9 @@
 
 - (void)showUserInfo
 {
-    UserInfoViewController *userInfo = [[UserInfoViewController alloc]init];
-    UINavigationController *navi = (UINavigationController*)self.drawerController.centerViewController;
-    [navi pushViewController:userInfo animated:NO];
-    [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
-    }];
+    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[UserInfoViewController alloc] init]]
+                                                 animated:YES];
+    [self.sideMenuViewController hideMenuViewController];
 }
 
 - (void)buttonTaped:(UIButton*)sender

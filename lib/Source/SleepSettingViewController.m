@@ -59,8 +59,7 @@
      {
          if (nIndex == 1)
          {
-             [self.leftButton addTarget:self action:@selector(backToHomeView:) forControlEvents:UIControlEventTouchUpInside];
-             return self.leftButton;
+             return self.menuButton;
          }
          return nil;
      }];

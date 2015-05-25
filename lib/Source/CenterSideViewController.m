@@ -100,21 +100,8 @@
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
-            _btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
-            [_btn setImage:i forState:UIControlStateNormal];
-            [_btn setFrame:CGRectMake(5, 0, 44, 44)];
-            [_btn addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
-            return _btn;
+            return self.menuButton;
         }
-        /*
-        else if (nIndex == 0){
-            self.rightButton.frame = CGRectMake(self.view.frame.size.width-46, 0, 44, 44);
-            [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-            [self.rightButton addTarget:self action:@selector(shareApp:) forControlEvents:UIControlEventTouchUpInside];
-            return self.rightButton;
-        }
-        */
         return nil;
     }];
     //检测设置APP密码
@@ -160,7 +147,7 @@
 {
     [super viewDidAppear:animated];
     //检测用户下的设备列表在进入app首先获取id；
-    [KVNProgress showWithStatus:@"获取设备信息中..."];
+//    [KVNProgress showWithStatus:@"获取设备信息中..."];
     //获取用户相关联的设备uuid
     [self getDeviceStatusWithUserNewAPI:GloableUserId];
 }
@@ -182,7 +169,7 @@
     [chainRequest addRequest:client callback:^(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest) {
         NSDictionary *resposeDic = (NSDictionary *)baseRequest.responseJSONObject;
         HaviLog(@"获取硬件信息是%@",resposeDic);
-        [KVNProgress dismiss];
+//        [KVNProgress dismiss];
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
         if (arr.count == 0) {
             HardWareUUID = NOBINDUUID;
