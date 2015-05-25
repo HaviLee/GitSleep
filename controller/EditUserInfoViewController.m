@@ -231,21 +231,23 @@
         return;
     }
     if ([self.birthteTextField.text isEqualToString:@"***"]) {
-        [ShowAlertView showAlert:@"请输入生日"];
+        [self.view makeToast:@"请输入生日" duration:2 position:@"center"];
         return;
     }
     if ([self.sexTextField.text isEqualToString:@"***"]) {
-        [ShowAlertView showAlert:@"请输入性别"];
+        [self.view makeToast:@"请输入性别" duration:2 position:@"center"];
         return;
     }
     if ([self.contactTextField.text isEqualToString:@"***"]) {
-        [ShowAlertView showAlert:@"请输入紧急联系人"];
+        [self.view makeToast:@"请输入紧急联系人" duration:2 position:@"center"];
         return;
     }
     if ([self.contactPhoneTextField.text isEqualToString:@"***"]) {
-        [ShowAlertView showAlert:@"请输入紧急联系人电话"];
+        [self.view makeToast:@"请输入紧急联系人电话" duration:2 position:@"center"];
         return;
     }
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+    [MMProgressHUD showWithStatus:@"提交中..."];
     NSString *height;
     if ([self.heightTextField.text isEqualToString:@"***"]) {
         height = @"";
@@ -287,10 +289,13 @@
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"保存%@",resposeDic);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [MMProgressHUD dismissWithSuccess:@"提交成功" title:nil afterDelay:2];
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadUserInfo" object:nil];
                 [self backToHome:nil];
             }];
+        }else{
+            [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
         }
     } failure:^(YTKBaseRequest *request) {
         [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
@@ -336,21 +341,6 @@
                                     _selectString1 = selectedString;
                                 }
                             }];
-    /*
-    if (_pickerSelectionVC) {
-        _pickerSelectionVC = nil;
-    }
-    if (!_pickerSelectionVC) {
-        self.pickerSelectionVC = [RMDateSelectionViewController dateSelectionControllerWith:PickerViewListType];
-        _pickerSelectionVC.delegate = self;
-        _pickerSelectionVC.titleLabel.hidden = YES;
-        _pickerSelectionVC.hideNowButton = YES;
-    }
-    _pickerSelectionVC.pickerDataArray = @[@"男",@"女"];
-    _pickerSelectionVC.title = @"gender";
-    [_pickerSelectionVC show];
-     */
-
 }
 
 - (void)tapedHeight:(UITapGestureRecognizer *)gesture
@@ -381,21 +371,6 @@
                                     _selectString2 = selectedString;
                                 }
                             }];
-    /*
-    if (_pickerSelectionVC) {
-        _pickerSelectionVC = nil;
-    }
-    if (!_pickerSelectionVC) {
-        self.pickerSelectionVC = [RMDateSelectionViewController dateSelectionControllerWith:PickerViewListType];
-        _pickerSelectionVC.delegate = self;
-        _pickerSelectionVC.titleLabel.hidden = YES;
-        _pickerSelectionVC.hideNowButton = YES;
-    }
-    
-    _pickerSelectionVC.pickerDataArray = self.heightArr;
-    _pickerSelectionVC.title = @"height";
-    [_pickerSelectionVC show];
-     */
 }
 
 - (void)tapedWeight:(UITapGestureRecognizer *)gesture
@@ -426,20 +401,6 @@
                                     _selectString3 = selectedString;
                                 }
                             }];
-    /*
-    if (_pickerSelectionVC) {
-        _pickerSelectionVC = nil;
-    }
-    if (!_pickerSelectionVC) {
-        self.pickerSelectionVC = [RMDateSelectionViewController dateSelectionControllerWith:PickerViewListType];
-        _pickerSelectionVC.delegate = self;
-        _pickerSelectionVC.titleLabel.hidden = YES;
-        _pickerSelectionVC.hideNowButton = YES;
-    }
-    _pickerSelectionVC.pickerDataArray = self.weightArr;
-    _pickerSelectionVC.title = @"weight";
-    [_pickerSelectionVC show];
-     */
 }
 #pragma mark datepicker delegate
 #pragma mark - RMDAteSelectionViewController Delegates
