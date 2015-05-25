@@ -105,7 +105,6 @@
     self.getCodeButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.getCodeButton addTarget:self action:@selector(tapedGetCode:) forControlEvents:UIControlEventTouchUpInside];
     [self.getCodeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_gain_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-//    self.getCodeButton.backgroundColor = [UIColor colorWithRed:0.447f green:0.765f blue:0.910f alpha:1.00f];
     self.getCodeButton.layer.cornerRadius = 0;
     self.getCodeButton.layer.masksToBounds = YES;
     //
@@ -160,21 +159,25 @@
         [self.view makeToast:@"请输入正确的手机号" duration:2 position:@"center"];
         return;
     }
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"发送中..."];
     self.randomCode = [self getRandomNumber:1000 to:10000];
-    NSString *codeMessage = [NSString stringWithFormat:@"【智照护】您的验证码是%d",self.randomCode];
+    NSString *codeMessage = [NSString stringWithFormat:@"您的验证码是%d",self.randomCode];
     NSDictionary *dicPara = @{
                               @"cell" : self.phoneText.text,
                               @"codeMessage" : codeMessage,
                               };
     GetInavlideCodeApi *client = [GetInavlideCodeApi shareInstance];
     [client getInvalideCode:dicPara witchBlock:^(NSData *receiveData) {
-        HaviLog(@"data是%@",receiveData);
-        [MMProgressHUD dismissWithSuccess:@"发送成功"];
-        timeToShow = 60;
-        [self showTime];
         NSString *string = [[NSString alloc]initWithData:receiveData encoding:NSUTF8StringEncoding];
-        HaviLog(@"结果是%@",string);
+        NSRange range = [string rangeOfString:@"<error>"];
+        if ([[string substringFromIndex:range.location +range.length]intValue]==0) {
+            [MMProgressHUD dismissWithSuccess:@"发送成功" title:nil afterDelay:2];
+            timeToShow = 60;
+            [self showTime];
+        }else{
+            [MMProgressHUD dismissWithError:string afterDelay:2];
+        }
     }];
 }
 

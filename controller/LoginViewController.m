@@ -346,21 +346,23 @@
         [self.view makeToast:@"请输入正确的手机号" duration:2 position:@"center"];
         return;
     }
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"发送中..."];
     self.forgetPassWord = [self getRandomNumber:100000 to:1000000];
-    NSString *codeMessage = [NSString stringWithFormat:@"【智照护】您的密码已经重置，新密码是%d,请及时修改您的密码。",self.forgetPassWord];
+    NSString *codeMessage = [NSString stringWithFormat:@"您的密码已经重置，新密码是%d,请及时修改您的密码。",self.forgetPassWord];
     NSDictionary *dicPara = @{
                               @"cell" : cellPhone,
                               @"codeMessage" : codeMessage,
                               };
     GetInavlideCodeApi *client = [GetInavlideCodeApi shareInstance];
     [client getInvalideCode:dicPara witchBlock:^(NSData *receiveData) {
-        HaviLog(@"data是%@",receiveData);
-        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
-            [self modifyPassWord];
-        }];
         NSString *string = [[NSString alloc]initWithData:receiveData encoding:NSUTF8StringEncoding];
-        HaviLog(@"结果是%@",string);
+        NSRange range = [string rangeOfString:@"<error>"];
+        if ([[string substringFromIndex:range.location +range.length]intValue]==0) {
+            [self modifyPassWord];
+        }else{
+            [MMProgressHUD dismissWithError:string afterDelay:2];
+        }
     }];
 
 }
@@ -384,14 +386,17 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [MMProgressHUD dismissWithSuccess:@"新的密码已发送到您手机,请查收" title:@"注意" afterDelay:3];
             [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
                 self.passWordText.text = @"";
             }];
+        }else{
+            [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:3];
+            self.passWordText.text = @"";
         }
     }failure:^(YTKBaseRequest *request) {
-        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
-            self.passWordText.text = @"";
-        }];
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:3];
     }];
 }
 
