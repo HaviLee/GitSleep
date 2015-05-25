@@ -51,7 +51,12 @@
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
-            return self.menuButton;
+            _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
+            [_backButton setImage:i forState:UIControlStateNormal];
+            [_backButton setFrame:CGRectMake(5, 0, 44, 44)];
+            [_backButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
+            return _backButton;
         }else if (nIndex == 0){
             _editButton = [UIButton buttonWithType:UIButtonTypeCustom];
             _editButton.frame = CGRectMake(self.view.frame.size.width-44, 2, 40, 44);
@@ -132,6 +137,8 @@
 //获取用户基本信息
 - (void)queryUserInfo
 {
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+    [MMProgressHUD showWithStatus:@"加载中..."];
     SHGetClient *client = [SHGetClient shareInstance];
     if ([client isExecuting]) {
         [client stop];
@@ -144,26 +151,16 @@
                              };
     
     [client queryUserInfoWithHeader:header andWithPara:dic];
-    if ([client cacheJson]) {
-        NSDictionary *json = [client cacheJson];
-        HaviLog(@"json = %@", json);
-        self.userInfoDic = json;
-        [self.userInfoTableView.tableView reloadData];
-        // show cached data
-    }
-    [MMProgressHUD showWithStatus:@"加载中"];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *dic = (NSDictionary *)request.responseJSONObject;
-        self.userInfoDic = dic;
-        [self.userInfoTableView.tableView reloadData];
-        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            
+        [MMProgressHUD dismissAfterDelay:0.3];
+        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
+            NSDictionary *dic = (NSDictionary *)request.responseJSONObject;
+            self.userInfoDic = dic;
+            [self.userInfoTableView.tableView reloadData];
         }];
-        HaviLog(@"用户信息%@",self.userInfoDic);
     } failure:^(YTKBaseRequest *request) {
-        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            
-        }];
+        NSDictionary *dic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",dic] afterDelay:2];
     }];
 
 }
@@ -250,62 +247,6 @@
         }
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    /*
-    static NSString *phoneIdentifier = @"phoneCell";
-    static NSString *contactIdentifier = @"contactCell";
-    switch (indexPath.section) {
-        case 0:{
-            UserInfoNameTableViewCell *nameCell = [tableView dequeueReusableCellWithIdentifier:nameIdentifier];
-            if (!nameCell) {
-                nameCell = [[UserInfoNameTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nameIdentifier];
-            }
-            nameCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            nameCell.backgroundColor = [UIColor colorWithRed:0.949f green:0.941f blue:0.945f alpha:1.00f];
-//
-            nameCell.userSex = [[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:@"Gender"];
-            nameCell.userBrithday = [[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:@"Birthday"];
-            nameCell.userHeight = [[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:@"Height"];
-            nameCell.userWeight = [[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:@"Weight"];
-            [nameCell layoutIfNeeded];
-            return nameCell;
-            break;
-        }
-        case 1:{
-            UserInfoPhoneTableViewCell *phoneCell = [tableView dequeueReusableCellWithIdentifier:nameIdentifier];
-            if (!phoneCell) {
-                phoneCell = [[UserInfoPhoneTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:phoneIdentifier];
-            }
-            phoneCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            phoneCell.backgroundColor = [UIColor colorWithRed:0.949f green:0.941f blue:0.945f alpha:1.00f];
-//
-            phoneCell.userPhone = [[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:@"UserID"];
-            phoneCell.userCall = [[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:@"Telephone"];
-            phoneCell.userAddress = [[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:@"Address"];
-            [phoneCell layoutIfNeeded];
-            return phoneCell;
-            break;
-        }
-        case 2:{
-            UserContactTableViewCell *contactCell = [tableView dequeueReusableCellWithIdentifier:nameIdentifier];
-            if (!contactCell) {
-                contactCell = [[UserContactTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:contactIdentifier];
-            }
-            contactCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            contactCell.backgroundColor = [UIColor colorWithRed:0.949f green:0.941f blue:0.945f alpha:1.00f];
-//
-            contactCell.userContactName = [[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:@"EmergencyContact"];
-            contactCell.userContactPhone = [[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:@"CellPhone"];
-            return contactCell;
-            break;
-        }
-            
-        default:
-            return nil;
-            break;
-    }
-    
-    return nil;
-     */
     return cell;
 }
 
