@@ -55,30 +55,7 @@
      */
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"background1.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
-    /*
-    XHDrawerController *drawerController = [[XHDrawerController alloc] init];
-    drawerController.springAnimationOn = YES;
-    
-    LeftSideViewController *leftSideController = [[LeftSideViewController alloc]init];
-    RightSideViewController *rightSideController = [[RightSideViewController alloc]init];
-    CenterSideViewController *centerSideController = [[CenterSideViewController alloc]init];
-    
-    drawerController.leftViewController = leftSideController;
-    drawerController.rightViewController = rightSideController;
-    drawerController.centerViewController = [[UINavigationController alloc] initWithRootViewController:centerSideController];
-    
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MenuBackground"]];
-    [backgroundImageView setContentMode:UIViewContentModeCenter];
-    drawerController.backgroundView = backgroundImageView;
-    self.window.rootViewController = drawerController;
-    //using it for size debug设置placeHolder
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        LoginViewController *login = [[LoginViewController alloc]init];
-        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
-        navi.navigationBarHidden = YES;
-        [drawerController presentViewController:navi animated:YES completion:nil];
-    });
-     */
+    //
     LoginViewController *login = [[LoginViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
     navi.navigationBarHidden = YES;
@@ -96,7 +73,6 @@
 
     sleep(1);
 //    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
-//
     [self.window makeKeyAndVisible];
 
     return YES;
