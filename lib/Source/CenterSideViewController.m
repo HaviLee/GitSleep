@@ -104,7 +104,7 @@
             UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
             [_btn setImage:i forState:UIControlStateNormal];
             [_btn setFrame:CGRectMake(5, 0, 44, 44)];
-            [_btn addTarget:self action:@selector(left) forControlEvents:UIControlEventTouchUpInside];
+            [_btn addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
             return _btn;
         }
         /*

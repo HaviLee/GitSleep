@@ -272,6 +272,23 @@
 
 - (void)loginView
 {
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]];
+    LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
+    
+    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController
+                                                                    leftMenuViewController:leftMenuViewController
+                                                                   rightMenuViewController:nil];
+    sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_night"];
+    sideMenuViewController.menuPreferredStatusBarStyle = 0; // UIStatusBarStyleLightContent
+//    sideMenuViewController.delegate = self;
+    sideMenuViewController.contentViewShadowColor = [UIColor blackColor];
+    sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0);
+    sideMenuViewController.contentViewShadowOpacity = 0.6;
+    sideMenuViewController.contentViewShadowRadius = 12;
+    sideMenuViewController.contentViewShadowEnabled = YES;
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    window.rootViewController = sideMenuViewController;
+    /*
     XHDrawerController *drawerController = [[XHDrawerController alloc] init];
     drawerController.springAnimationOn = YES;
     
@@ -288,6 +305,7 @@
     drawerController.backgroundView = backgroundImageView;
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     window.rootViewController = drawerController;
+     */
 }
 
 - (void)registerButton:(UIButton *)sender

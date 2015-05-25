@@ -89,7 +89,8 @@
         make.left.equalTo(self.view).offset(0);
         make.top.equalTo(iconBackView.bottom).offset(0);
         make.bottom.equalTo(self.view.bottom).offset(-70);
-        int widthCenter = (self.view.frame.size.width - 220)*0.70710676908493042;
+//        int widthCenter = (self.view.frame.size.width - 220)*0.70710676908493042;
+        int widthCenter = (self.view.frame.size.width)*0.3;
         make.right.equalTo(self.view.right).offset(-widthCenter);
     }];
     self.sideArray = @[@[@"今日数据",@"数据分析",@"设备管理",@"睡眠设置",@"设       定"],@[@"退出登录"]];
@@ -231,32 +232,46 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:{
-            [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
-            }];
+            [self.sideMenuViewController hideMenuViewController];
             break;
         }
         case 2:{
+            /*
             DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
             UINavigationController *navi = (UINavigationController*)self.drawerController.centerViewController;
             [navi pushViewController:user animated:NO];
             [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
             }];
+            */
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[DeviceManagerViewController alloc] init]]
+                                                         animated:YES];
+            [self.sideMenuViewController hideMenuViewController];
             break;
         }
         case 3:{
+            /*
             SleepSettingViewController *user = [[SleepSettingViewController alloc]init];
             UINavigationController *navi = (UINavigationController*)self.drawerController.centerViewController;
             [navi pushViewController:user animated:NO];
             [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
             }];
+             */
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[SleepSettingViewController alloc] init]]
+                                                         animated:YES];
+            [self.sideMenuViewController hideMenuViewController];
             break;
         }
         case 4:{
+            /*
             APPSettingViewController *user = [[APPSettingViewController alloc]init];
             UINavigationController *navi = (UINavigationController*)self.drawerController.centerViewController;
             [navi pushViewController:user animated:NO];
             [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
             }];
+             */
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[APPSettingViewController alloc] init]]
+                                                         animated:YES];
+            [self.sideMenuViewController hideMenuViewController];
             break;
         }
             
@@ -294,10 +309,14 @@
         user = [[DataStaticViewController alloc]init];
         user.title = @"季报";
     }
+    /*
     UINavigationController *navi = (UINavigationController*)self.drawerController.centerViewController;
     [navi pushViewController:user animated:NO];
     [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
     }];
+     */
+    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
+    [self.sideMenuViewController hideMenuViewController];
 
 }
 

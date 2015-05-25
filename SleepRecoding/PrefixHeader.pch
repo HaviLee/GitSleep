@@ -25,5 +25,6 @@
 #import "Gloable.h"
 #import "WTRequestCenter.h"
 #import "QHConfiguredObj.h"
+#import "RESideMenu.h"
 
 #endif

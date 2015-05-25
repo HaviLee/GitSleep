@@ -203,6 +203,10 @@
 		2C4FCB1E1A8F56E800DCEEF3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C4FCB1C1A8F56E800DCEEF3 /* LaunchScreen.xib */; };
 		2C4FCB2A1A8F56E800DCEEF3 /* SleepRecodingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4FCB291A8F56E800DCEEF3 /* SleepRecodingTests.m */; };
 		2C5202181AC438FB00BA1D5D /* ZWIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5202171AC438FB00BA1D5D /* ZWIntroductionViewController.m */; };
+		2C5E5C221B12B3F200123CC4 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E5C1D1B12B3F200123CC4 /* RECommonFunctions.m */; };
+		2C5E5C231B12B3F200123CC4 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E5C1F1B12B3F200123CC4 /* RESideMenu.m */; };
+		2C5E5C241B12B3F200123CC4 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E5C211B12B3F200123CC4 /* UIViewController+RESideMenu.m */; };
+		2C5E5C261B12C26D00123CC4 /* Stars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C5E5C251B12C26D00123CC4 /* Stars@2x.png */; };
 		2C6117021ABD6F6C00261A1E /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6117011ABD6F6C00261A1E /* RMDateSelectionViewController.m */; };
 		2C6117101ABEACF400261A1E /* EditUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C61170F1ABEACF400261A1E /* EditUserInfoViewController.m */; };
 		2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */; };
@@ -773,6 +777,13 @@
 		2C4FCB291A8F56E800DCEEF3 /* SleepRecodingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SleepRecodingTests.m; sourceTree = "<group>"; };
 		2C5202161AC438FB00BA1D5D /* ZWIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWIntroductionViewController.h; sourceTree = "<group>"; };
 		2C5202171AC438FB00BA1D5D /* ZWIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWIntroductionViewController.m; sourceTree = "<group>"; };
+		2C5E5C1C1B12B3F200123CC4 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RECommonFunctions.h; path = lib/RESideMenu/RECommonFunctions.h; sourceTree = "<group>"; };
+		2C5E5C1D1B12B3F200123CC4 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RECommonFunctions.m; path = lib/RESideMenu/RECommonFunctions.m; sourceTree = "<group>"; };
+		2C5E5C1E1B12B3F200123CC4 /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RESideMenu.h; path = lib/RESideMenu/RESideMenu.h; sourceTree = "<group>"; };
+		2C5E5C1F1B12B3F200123CC4 /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RESideMenu.m; path = lib/RESideMenu/RESideMenu.m; sourceTree = "<group>"; };
+		2C5E5C201B12B3F200123CC4 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+RESideMenu.h"; path = "lib/RESideMenu/UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
+		2C5E5C211B12B3F200123CC4 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+RESideMenu.m"; path = "lib/RESideMenu/UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
+		2C5E5C251B12C26D00123CC4 /* Stars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Stars@2x.png"; path = "common/Stars@2x.png"; sourceTree = "<group>"; };
 		2C6117001ABD6F6C00261A1E /* RMDateSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDateSelectionViewController.h; sourceTree = "<group>"; };
 		2C6117011ABD6F6C00261A1E /* RMDateSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDateSelectionViewController.m; sourceTree = "<group>"; };
 		2C61170E1ABEACF400261A1E /* EditUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditUserInfoViewController.h; path = controller/EditUserInfoViewController.h; sourceTree = "<group>"; };
@@ -1265,6 +1276,7 @@
 		2C0125351A8F5E5500382A9D /* MainController */ = {
 			isa = PBXGroup;
 			children = (
+				2C5E5C1B1B12B3DE00123CC4 /* ResideMenu */,
 				5764CB111AB6B2A0002A0B85 /* Login */,
 				579AC7D51AA019370045E9A2 /* CenterViewController */,
 				2C3AF2AE1AF45ACC00B66E32 /* DataShow */,
@@ -1493,6 +1505,7 @@
 			isa = PBXGroup;
 			children = (
 				2C7D21ED1AF1C3C30011A45C /* pic_bg_day@2x.png */,
+				2C5E5C251B12C26D00123CC4 /* Stars@2x.png */,
 				2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */,
 				2C6D2F431AF62267008C285B /* tel_1@2x.png */,
 				2C15E7911AF2180500142F36 /* pic_bad_1@2x.png */,
@@ -1631,6 +1644,19 @@
 			);
 			name = introuceView;
 			path = lib/thirdlib/introuceView;
+			sourceTree = "<group>";
+		};
+		2C5E5C1B1B12B3DE00123CC4 /* ResideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				2C5E5C1C1B12B3F200123CC4 /* RECommonFunctions.h */,
+				2C5E5C1D1B12B3F200123CC4 /* RECommonFunctions.m */,
+				2C5E5C1E1B12B3F200123CC4 /* RESideMenu.h */,
+				2C5E5C1F1B12B3F200123CC4 /* RESideMenu.m */,
+				2C5E5C201B12B3F200123CC4 /* UIViewController+RESideMenu.h */,
+				2C5E5C211B12B3F200123CC4 /* UIViewController+RESideMenu.m */,
+			);
+			name = ResideMenu;
 			sourceTree = "<group>";
 		};
 		2C6116FF1ABD6F6C00261A1E /* RMDateSelectionViewController */ = {
@@ -2616,6 +2642,7 @@
 				2C7D221A1AF1C9F70011A45C /* btn_add_0@2x.png in Resources */,
 				2C7D22F01AF1CA050011A45C /* txtbox_quit_0@2x.png in Resources */,
 				2C15E78C1AF2152100142F36 /* heart_6_1.png in Resources */,
+				2C5E5C261B12C26D00123CC4 /* Stars@2x.png in Resources */,
 				2C15E7271AF214E800142F36 /* line_diagnostic_message_1@2x.png in Resources */,
 				2C7D22071AF1C6550011A45C /* name@2x.png in Resources */,
 				2C7D22EF1AF1CA050011A45C /* txtbox_no_number_add_0@2x.png in Resources */,
@@ -2844,6 +2871,7 @@
 				577120061AD5022800508C5C /* HaviButton.m in Sources */,
 				2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */,
 				2C77D53B1AEF4E5D004123D2 /* TurnRoundViewController.m in Sources */,
+				2C5E5C241B12B3F200123CC4 /* UIViewController+RESideMenu.m in Sources */,
 				576B02461A9EB22C004DB418 /* BaseViewController.m in Sources */,
 				577086101ABBDF80004A2C07 /* GBPathImageView.m in Sources */,
 				2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */,
@@ -2873,6 +2901,7 @@
 				5781D00E1AE8DE1C0092E8CD /* ActiveDeviceAPI.m in Sources */,
 				578681541ADCEE1200E881A2 /* WTURLSessionManager.m in Sources */,
 				572AA9851AC29A5700DED1D9 /* THPinInputCircleView.m in Sources */,
+				2C5E5C231B12B3F200123CC4 /* RESideMenu.m in Sources */,
 				2C1F1FC41AD8B7E700393E04 /* QuaterCalenderView.m in Sources */,
 				2C1F1FEA1ADBF38F00393E04 /* WQCalendarLogic.m in Sources */,
 				2C1AD7191AAAE74A00655A5B /* ScaleAnimation.m in Sources */,
@@ -2942,6 +2971,7 @@
 				2C77D5291AEE7095004123D2 /* MMPickerView.m in Sources */,
 				2C1F1FD01ADA57AB00393E04 /* WeekCalenderView.m in Sources */,
 				2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */,
+				2C5E5C221B12B3F200123CC4 /* RECommonFunctions.m in Sources */,
 				57711FF61AD4D1DC00508C5C /* MontheReportViewController.m in Sources */,
 				5793D1C11AA9A1BA00BC24CA /* XLScrollViewer.m in Sources */,
 				2C77D50B1AEB3702004123D2 /* ReNameDeviceNameViewController.m in Sources */,
