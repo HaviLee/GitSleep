@@ -13,11 +13,19 @@
 #import "UDPController.h"
 #import "AppDelegate.h"
 #import "DeviceManagerViewController.h"
+#import <ifaddrs.h>
+#import <arpa/inet.h>
+#include <netdb.h>
+
+#include <net/if.h>
+#import <dlfcn.h>
 
 @interface UDPAddProductViewController ()<UITextFieldDelegate,UIAlertViewDelegate,EventListener,UDPControllerDelegate>
 {
     Sniffer *sniffer;
     UDPController *udpController;
+    dispatch_queue_t   queue;
+    NSInteger   times;
 }
 @property (nonatomic,strong) UITextField *textFiledName;
 @property (nonatomic,strong) UITextField *textFiledPassWord;
@@ -53,7 +61,7 @@
     }];
     titleLabel.text = @"激活设备";
     titleLabel.textColor = [UIColor whiteColor];
-//
+    //
     self.textFiledName = [[UITextField alloc]init];
     self.textFiledName.borderStyle = UITextBorderStyleNone;
     [self.view addSubview:self.textFiledName];
@@ -72,8 +80,7 @@
     self.textFiledPassWord.keyboardType = UIKeyboardTypeAlphabet;
     self.textFiledName.background = [UIImage imageNamed:[NSString stringWithFormat:@"textbox_hollow_%d",selectedThemeIndex]];
     self.textFiledPassWord.background = [UIImage imageNamed:[NSString stringWithFormat:@"textbox_hollow_%d",selectedThemeIndex]];
-//
-    self.textFiledPassWord.secureTextEntry = YES;
+    //
     self.textFiledPassWord.placeholder = @"请输入密码";
     self.textFiledPassWord.textColor = [UIColor whiteColor];
     [self.textFiledPassWord makeConstraints:^(MASConstraintMaker *make) {
@@ -82,7 +89,8 @@
         make.height.equalTo(44);
         make.centerY.equalTo(self.view.centerY).offset(-30);
     }];
-//
+    self.textFiledPassWord.secureTextEntry = YES;
+    //
     UILabel *passWordLabel = [[UILabel alloc]init];
     [self.view addSubview:passWordLabel];
     passWordLabel.textColor = [UIColor whiteColor];
@@ -93,7 +101,8 @@
         make.height.equalTo(44);
         make.bottom.equalTo(self.textFiledPassWord.top).offset(0);
     }];
-//
+    
+    //
     
     self.textFiledName.text = @"by001";
     [self.textFiledName makeConstraints:^(MASConstraintMaker *make) {
@@ -102,7 +111,7 @@
         make.height.equalTo(44);
         make.centerY.equalTo(passWordLabel.centerY).offset(-64);
     }];
-//
+    //
     UILabel *nameLabel = [[UILabel alloc]init];
     [self.view addSubview:nameLabel];
     nameLabel.textColor = [UIColor whiteColor];
@@ -113,7 +122,8 @@
         make.height.equalTo(44);
         make.bottom.equalTo(self.textFiledName.top).offset(5);
     }];
-//
+    
+    //
     UILabel *showLabel = [[UILabel alloc]init];
     [self.view addSubview:showLabel];
     showLabel.textColor = [UIColor whiteColor];
@@ -124,7 +134,7 @@
         make.right.equalTo(self.view.right).offset(-20);
         make.centerY.equalTo(self.view.centerY).offset(40);
     }];
-//
+    //
     UIButton *lookButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:lookButton];
     [lookButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"textbox_save_settings_%d",selectedThemeIndex]] forState:UIControlStateNormal];
@@ -140,7 +150,7 @@
         make.height.equalTo(44);
         make.centerY.equalTo(showLabel.centerY).offset(84);
     }];
-//
+    //
     UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:cancelButton];
     [cancelButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"textbox_hollow_%d",selectedThemeIndex]] forState:UIControlStateNormal];
@@ -163,23 +173,10 @@
 }
 #pragma mark text delegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-//    if ([textField isEqual:self.textFiledName]) {
-//        int height = self.view.bounds.size.height/2;
-//        self.keybordheight = height;
-//        [textField setReturnKeyType:UIReturnKeyNext];
-//    }else{
-//        int height = self.view.bounds.size.height/2 + 264;
-//        self.keybordheight = height;
-//        [textField setReturnKeyType:UIReturnKeyDone];
-//    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-//    if ([textField isEqual:self.textFiledName]) {
-//        [self.textFiledPassWord becomeFirstResponder];
-//    }else{
-//    }
     [textField resignFirstResponder];
     return YES;
 }
@@ -195,6 +192,7 @@
     }
     NSString *wifiName = [info objectForKey:@"SSID"];
     self.textFiledName.text = wifiName;
+    HaviLog(@"wifi是%@",wifiName);
     return wifiName;
 }
 //搜索硬件UDP
@@ -206,23 +204,135 @@
         return;
     }
     self.noReceiveData = YES;
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"正在激活设备,请稍候..."];
-    //
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(40 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(120 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self.noReceiveData) {
             [self stopUDPAndAgain];
         }
     });
-    [sniffer startSniffer:[self fetchSSIDInfo] password:self.textFiledPassWord.text];
+    
+    NSError *error =[sniffer startSniffer:[self fetchSSIDInfo] password:self.textFiledPassWord.text];
+    if (error) {
+        [MMProgressHUD dismiss];
+        [ShowAlertView showAlert:[NSString stringWithFormat:@"硬件报错%@",error.localizedDescription]];
+    }
 }
-//告诉用户停止，重新发送
+//激活设备超时提示
 - (void)stopUDPAndAgain
 {
     [self stopSniffer];
     self.noReceiveData = NO;
-    [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-        [ShowAlertView showAlert:@"激活设备失败，请重试！"];
-    }];
+    [MMProgressHUD dismissWithError:@"激活超时,请重试" afterDelay:2];
+}
+//江波龙硬件配置
+- (void)getInfo:(NSString*)ip
+{
+    BOOL isOK = NO;
+    
+    int  sock = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sock != -1)
+    {
+        int bOptVal= 1;
+        if (setsockopt(sock, SOL_SOCKET, SO_BROADCAST, (const char*)&bOptVal, sizeof(int)))
+        {
+            NSLog(@"socket option  SO_BROADCAST not support\n");
+            
+            close(sock);
+            return;
+        }
+        
+        struct timeval tv;
+        tv.tv_sec = 2;
+        tv.tv_usec = 0;
+        if(setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv))<0){
+            NSLog(@"socket option  SO_RCVTIMEO not support\n");
+            close(sock);
+            return;
+        }
+        
+        char *findString = "Content-Length:52;{\"cmd\":\"DeviceFind\",\"at\":\"2015-05-18T01:15:43+0800\"}";
+        
+        char buffer[256] = {0};
+        long ret = -1;
+        struct sockaddr_in addr;
+        unsigned int addr_len =sizeof(struct sockaddr_in);
+        /*填写sockaddr_in 结构*/
+        bzero ( &addr, sizeof(addr) );
+        addr.sin_family=AF_INET;
+        addr.sin_port = htons(8000);
+        addr.sin_addr.s_addr=inet_addr((char*)[ip UTF8String]) ;
+        
+        times ++;
+        
+        ret = sendto(sock, findString, strlen(findString), 0, (struct sockaddr *)&addr, addr_len);
+        
+        if (ret == -1)
+        {
+            NSLog(@"errno=%i", errno);
+            NSString *recString = [NSString stringWithFormat:@"sendto %ld error: %s", times,  strerror(errno)];
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                HaviLog(@"发送错误%@",recString);
+            });
+            
+            //错误处理 是否再次发送find
+        }
+        else
+        {
+            ret = recvfrom(sock, buffer, sizeof(buffer), 0, (struct sockaddr *)&addr, &addr_len);
+            if (ret != -1)
+            {
+                NSString *recString = [NSString stringWithFormat:@"receive %ld:%s",times, buffer];
+                NSLog(@"设备激活成功%@", recString);
+                
+                dispatch_async(dispatch_get_main_queue(), ^(){
+                    [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                        
+                        for (UIViewController *controller in self.navigationController.viewControllers) {
+                            if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
+                                
+                                [self.navigationController popToViewController:controller animated:YES];
+                                break;
+                            }
+                        }
+                    }];
+                    [MMProgressHUD dismissWithSuccess:@"设备激活成功" title:nil afterDelay:2];
+                });
+                //havi
+                self.noReceiveData = NO;
+                //成功 不再发送find
+                isOK = YES;
+            }
+            else
+            {
+                NSString *recString = [NSString stringWithFormat:@"recvfrom (%ld) error: %s", (long)times, strerror(errno)];
+                dispatch_async(dispatch_get_main_queue(), ^(){
+                    HaviLog(@"接收错误%@",recString);
+                });
+                
+                //错误处理 是否再次发送find
+            }
+        }
+        
+        
+        close(sock);
+        
+        // 30次之内
+        if ((!isOK) && (times < 30))
+        {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), queue, ^{
+                [self getInfo:ip];
+            });
+        }
+        if (times>30||times==30) {
+            [self stopSniffer];
+            [MMProgressHUD dismissWithError:@"激活失败,请重试" title:nil afterDelay:2];
+            
+        }
+        HaviLog(@"次数%ld",(long)times);
+    }
+    
+    
 }
 //停止配置设备
 -(void)stopSniffer{
@@ -236,12 +346,12 @@
     [self stopSniffer];
     sniffer = nil;
     HardWareIP = ip;
-    //self.noReceiveData控制循环Yes
-    [self findWukoon];
-//    while (self.noReceiveData) {
-//        sleep(30);
-//        HaviLog(@"测试点到点");
-//    }
+    //江波龙
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), queue, ^{
+        [self getInfo:ip];
+    });
+    //old
+    //    [self findWukoon];
 }
 
 #pragma mark controller
@@ -261,6 +371,7 @@
     //接收到udp包后，将标识位改为no
     self.noReceiveData = NO;
     [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+        
         for (UIViewController *controller in self.navigationController.viewControllers) {
             if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
                 
@@ -269,6 +380,7 @@
             }
         }
     }];
+    [MMProgressHUD dismissWithSuccess:@"设备激活成功" title:nil afterDelay:2];
 }
 
 -(void)findWukoonWithIp:(NSString *)ip{
@@ -276,7 +388,7 @@
 }
 - (void)cancelButtonDone:(UIButton *)button
 {
-//    self.navigationController.navigationBarHidden = NO;
+    //    self.navigationController.navigationBarHidden = NO;
     for (UIViewController *controller in self.navigationController.viewControllers) {
         if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
             
@@ -315,13 +427,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
