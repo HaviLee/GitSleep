@@ -505,7 +505,6 @@
 		579AC7DB1AA01DE40045E9A2 /* DataShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 579AC7DA1AA01DE40045E9A2 /* DataShowTableViewCell.m */; };
 		579AC7E21AA033F70045E9A2 /* GifView.m in Sources */ = {isa = PBXBuildFile; fileRef = 579AC7E11AA033F70045E9A2 /* GifView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		579AC7E91AA03F720045E9A2 /* DefaultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 579AC7E81AA03F720045E9A2 /* DefaultTableViewCell.m */; };
-		57B246701AFB03BD00F7F98C /* ceshiceshiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B2466F1AFB03BD00F7F98C /* ceshiceshiViewController.m */; };
 		57C723E51AF71049006BE7D0 /* skinpeeler_tint_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 57C723E41AF71049006BE7D0 /* skinpeeler_tint_bg.png */; };
 		57C723E71AF7104F006BE7D0 /* skinpeeler_dark_color_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 57C723E61AF7104F006BE7D0 /* skinpeeler_dark_color_bg.png */; };
 		57C723ED1AF7140F006BE7D0 /* line_640_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57C723EC1AF7140F006BE7D0 /* line_640_1@2x.png */; };
@@ -1222,8 +1221,6 @@
 		579AC7E11AA033F70045E9A2 /* GifView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GifView.m; path = lib/thirdlib/GifView.m; sourceTree = "<group>"; };
 		579AC7E71AA03F720045E9A2 /* DefaultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTableViewCell.h; sourceTree = "<group>"; };
 		579AC7E81AA03F720045E9A2 /* DefaultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTableViewCell.m; sourceTree = "<group>"; };
-		57B2466E1AFB03BD00F7F98C /* ceshiceshiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ceshiceshiViewController.h; path = lib/ceshiceshiViewController.h; sourceTree = SOURCE_ROOT; };
-		57B2466F1AFB03BD00F7F98C /* ceshiceshiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ceshiceshiViewController.m; path = lib/ceshiceshiViewController.m; sourceTree = SOURCE_ROOT; };
 		57C723E41AF71049006BE7D0 /* skinpeeler_tint_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skinpeeler_tint_bg.png; sourceTree = "<group>"; };
 		57C723E61AF7104F006BE7D0 /* skinpeeler_dark_color_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skinpeeler_dark_color_bg.png; sourceTree = "<group>"; };
 		57C723EC1AF7140F006BE7D0 /* line_640_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line_640_1@2x.png"; sourceTree = "<group>"; };
@@ -2012,8 +2009,6 @@
 				576B024B1A9EB25F004DB418 /* RightSideViewController.m */,
 				576B024D1A9EB269004DB418 /* CenterSideViewController.h */,
 				576B024E1A9EB269004DB418 /* CenterSideViewController.m */,
-				57B2466E1AFB03BD00F7F98C /* ceshiceshiViewController.h */,
-				57B2466F1AFB03BD00F7F98C /* ceshiceshiViewController.m */,
 			);
 			name = BaseView;
 			path = lib/Source;
@@ -2979,7 +2974,6 @@
 				57802E2B1AE7398200823E39 /* SHPutClient.m in Sources */,
 				57711FF31AD4CFF400508C5C /* WeekReportViewController.m in Sources */,
 				2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */,
-				57B246701AFB03BD00F7F98C /* ceshiceshiViewController.m in Sources */,
 				57802E251AE7398200823E39 /* GetSleepReport.m in Sources */,
 				2C435E591AD0CA05003B1604 /* ToggleButton.m in Sources */,
 				5770861B1ABC019C004A2C07 /* UserContactTableViewCell.m in Sources */,

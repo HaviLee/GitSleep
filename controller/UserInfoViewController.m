@@ -51,11 +51,21 @@
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
-            _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
-            [_backButton setImage:i forState:UIControlStateNormal];
-            [_backButton setFrame:CGRectMake(5, 0, 44, 44)];
-            [_backButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
+            NSArray *arr = self.navigationController.viewControllers;
+            if ([self isEqual:[arr objectAtIndex:0]]) {
+                
+                _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
+                [_backButton setImage:i forState:UIControlStateNormal];
+                [_backButton setFrame:CGRectMake(5, 0, 44, 44)];
+                [_backButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
+            }else{
+                _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]];
+                [_backButton setImage:i forState:UIControlStateNormal];
+                [_backButton setFrame:CGRectMake(5, 0, 44, 44)];
+                [_backButton addTarget:self action:@selector(backToHome:) forControlEvents:UIControlEventTouchUpInside];
+            }
             return _backButton;
         }else if (nIndex == 0){
             _editButton = [UIButton buttonWithType:UIButtonTypeCustom];

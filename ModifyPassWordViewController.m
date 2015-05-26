@@ -127,6 +127,8 @@
 
 - (void)saveDone
 {
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+    [MMProgressHUD showWithStatus:@"提交中..."];
     SHPutClient *client = [SHPutClient shareInstance];
     NSDictionary *dic = @{
                           @"UserID": GloableUserId, //关键字，必须传递
@@ -144,13 +146,15 @@
                 [self.navigationController popViewControllerAnimated:YES];
                 
             }];
+            [MMProgressHUD dismiss];
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10019){
-            [self.view makeToast:@"旧密码错误" duration:2 position:@"center"];
+            [MMProgressHUD dismissWithError:@"旧密码错误" afterDelay:2];
+        }else{
+            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
         }
     } failure:^(YTKBaseRequest *request) {
-        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            
-        }];
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
     }];
 }
 
