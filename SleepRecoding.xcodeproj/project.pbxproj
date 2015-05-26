@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C01253C1A8F618900382A9D /* XHDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0125381A8F618900382A9D /* XHDrawerController.m */; };
-		2C01253D1A8F618900382A9D /* XHZoomDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C01253B1A8F618900382A9D /* XHZoomDrawerView.m */; };
 		2C0EBE321AF0C13000F2D2F7 /* user3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C0EBE311AF0C13000F2D2F7 /* user3.wav */; };
 		2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E6751AF1FF3F00142F36 /* GetHeartSleepDataAPI.m */; };
 		2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E6781AF1FF5600142F36 /* GetBreathSleepDataAPI.m */; };
@@ -536,11 +534,6 @@
 /* Begin PBXFileReference section */
 		0F9FF27F68F04C4F2A6106C9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9FC4F9CFB9F87E74D5F2EB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		2C0125371A8F618900382A9D /* XHDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHDrawerController.h; sourceTree = "<group>"; };
-		2C0125381A8F618900382A9D /* XHDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHDrawerController.m; sourceTree = "<group>"; };
-		2C0125391A8F618900382A9D /* XHDrawerControllerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHDrawerControllerHeader.h; sourceTree = "<group>"; };
-		2C01253A1A8F618900382A9D /* XHZoomDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHZoomDrawerView.h; sourceTree = "<group>"; };
-		2C01253B1A8F618900382A9D /* XHZoomDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHZoomDrawerView.m; sourceTree = "<group>"; };
 		2C0EBE311AF0C13000F2D2F7 /* user3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = user3.wav; sourceTree = "<group>"; };
 		2C15E6741AF1FF3F00142F36 /* GetHeartSleepDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetHeartSleepDataAPI.h; path = API/GetHeartSleepDataAPI.h; sourceTree = "<group>"; };
 		2C15E6751AF1FF3F00142F36 /* GetHeartSleepDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetHeartSleepDataAPI.m; path = API/GetHeartSleepDataAPI.m; sourceTree = "<group>"; };
@@ -1279,22 +1272,8 @@
 				2C3AF2AE1AF45ACC00B66E32 /* DataShow */,
 				579AC7D41AA019260045E9A2 /* LeftViewController */,
 				576B02431A9EB210004DB418 /* BaseView */,
-				2C0125361A8F618900382A9D /* Source */,
 			);
 			name = MainController;
-			sourceTree = "<group>";
-		};
-		2C0125361A8F618900382A9D /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				2C0125371A8F618900382A9D /* XHDrawerController.h */,
-				2C0125381A8F618900382A9D /* XHDrawerController.m */,
-				2C0125391A8F618900382A9D /* XHDrawerControllerHeader.h */,
-				2C01253A1A8F618900382A9D /* XHZoomDrawerView.h */,
-				2C01253B1A8F618900382A9D /* XHZoomDrawerView.m */,
-			);
-			name = Source;
-			path = lib/Source;
 			sourceTree = "<group>";
 		};
 		2C15E68C1AF214CF00142F36 /* color1 */ = {
@@ -2857,7 +2836,6 @@
 				2C1AD7171AAAE74A00655A5B /* BaseAnimation.m in Sources */,
 				57802E241AE7398200823E39 /* GetImageApi.m in Sources */,
 				57F1D1461AB822C900B5B0D1 /* RegisterViewController.m in Sources */,
-				2C01253C1A8F618900382A9D /* XHDrawerController.m in Sources */,
 				2C3AF2B71AF4620200B66E32 /* TodayHeartViewController.m in Sources */,
 				2C77D52E1AEE7EB4004123D2 /* MMTwoListPickerView.m in Sources */,
 				2C1F1FCD1AD989DB00393E04 /* QuaterReportView.m in Sources */,
@@ -2920,7 +2898,6 @@
 				2C77D5351AEF4E36004123D2 /* BreathViewController.m in Sources */,
 				572AA9881AC29A5700DED1D9 /* THPinView.m in Sources */,
 				578681511ADCEE1200E881A2 /* WTRequestCenter.m in Sources */,
-				2C01253D1A8F618900382A9D /* XHZoomDrawerView.m in Sources */,
 				2C1F1FEC1ADBF38F00393E04 /* WQCalendarView.m in Sources */,
 				2C3AF2BD1AF4622A00B66E32 /* TodayLeaveViewController.m in Sources */,
 				2C1AD71A1AAAE74A00655A5B /* ShuffleAnimation.m in Sources */,

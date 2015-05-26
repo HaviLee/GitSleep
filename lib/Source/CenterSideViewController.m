@@ -407,15 +407,8 @@
 {
     
     [self.shareMenuView show];
-//    CeshiViewController *jiekouceshi = [[CeshiViewController alloc]init];
-//    [self.navigationController pushViewController:jiekouceshi animated:YES];
 }
 
-- (void)left {
-    [self.drawerController toggleDrawerSide:XHDrawerSideLeft animated:YES completion:^(BOOL finished) {
-        
-    }];
-}
 #pragma mark 获取设备列表
 - (void)getDeviceStatusWithUserId:(NSString *)userId
 {
