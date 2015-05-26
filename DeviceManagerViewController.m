@@ -28,12 +28,6 @@
 
 @implementation DeviceManagerViewController
 
-- (void)loadView
-{
-    [super loadView];
-//    [self animationDelete];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.oldUUID = HardWareUUID;
@@ -111,6 +105,7 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"请求中..."];
     GetDeviceListAPI *client = [GetDeviceListAPI shareInstance];
     [client getDeviceList:header withDetailUrl:urlString];
@@ -121,7 +116,6 @@
             
             self.deviceArr = [resposeDic objectForKey:@"DeviceList"];
             if (self.deviceArr.count == 0) {
-                [self.view makeToast:@"您还没有绑定硬件设备" duration:2 position:@"center"];
             }
             if (self.deviceArr.count>0) {
                 BOOL noActive = YES;
@@ -136,6 +130,7 @@
             }
             [self.sideTableView reloadData];
         }];
+        [MMProgressHUD dismiss];
     } failure:^(YTKBaseRequest *request) {
         
     }];
