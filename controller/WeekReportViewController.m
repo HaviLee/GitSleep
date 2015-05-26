@@ -99,10 +99,14 @@
     [client querySensorDataOld:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [MMProgressHUD dismissAfterDelay:0.3];
-        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            [self reloadUserUI:(NSDictionary *)resposeDic];
-        }];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                [self reloadUserUI:(NSDictionary *)resposeDic];
+            }];
+            [MMProgressHUD dismissAfterDelay:0.3];
+        }else{
+            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
+        }
     } failure:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
@@ -289,10 +293,6 @@
     //设置坐标轴
     self.weekReport.xValues = @[@"0",@"一",@"二",@"三",@"四",@"五",@"六",@"七"];
     self.weekReport.yValues = @[@"20", @"40", @"60", @"80", @"100",];
-//    NSArray *arr = @[
-//                     @"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",
-//                     ];
-//    self.weekReport.dataValues = arr;
 
     self.weekReport.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self.view addSubview:self.weekReport];

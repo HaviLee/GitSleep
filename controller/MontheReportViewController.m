@@ -96,11 +96,12 @@
     if (!fromDate) {
         return;
     }
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+    [MMProgressHUD showWithStatus:@"加载中..."];
     NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",HardWareUUID,fromDate,endTime];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    [MMProgressHUD showWithStatus:@"加载中..."];
     HaviGetNewClient *client = [HaviGetNewClient shareInstance];
     if ([client isExecuting]) {
         [client stop];
@@ -108,12 +109,17 @@
     [client querySensorDataOld:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            
-            [self reloadUserUI:(NSDictionary *)resposeDic];
-        }];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                [self reloadUserUI:(NSDictionary *)resposeDic];
+            }];
+            [MMProgressHUD dismissAfterDelay:0.3];
+        }else{
+            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
+        }
     } failure:^(YTKBaseRequest *request) {
-        
+        NSDictionary *dic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",dic] afterDelay:2];
     }];
 }
 

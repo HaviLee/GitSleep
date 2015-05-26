@@ -105,11 +105,17 @@
     [client querySensorDataOld:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            [self reloadUserUI:(NSDictionary *)resposeDic];
-        }];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                [self reloadUserUI:(NSDictionary *)resposeDic];
+            }];
+            [MMProgressHUD dismissAfterDelay:0.3];
+        }else{
+            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
+        }
     } failure:^(YTKBaseRequest *request) {
-        
+        NSDictionary *dic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",dic] afterDelay:2];
     }];
 }
 
