@@ -355,7 +355,7 @@
 - (JT3DScrollView *)jScrollView
 {
     if (!_jScrollView) {
-        CGRect frame =CGRectMake(0, self.view.frame.size.height -244-64, self.view.frame.size.width, 195);
+        CGRect frame =CGRectMake(0, self.view.frame.size.height -224-64, self.view.frame.size.width, 150);
         _jScrollView = [[JT3DScrollView alloc]initWithFrame:frame];
         self.jScrollView.effect = JT3DScrollViewEffectNone;
         self.jScrollView.backgroundColor = [UIColor clearColor];
@@ -383,7 +383,7 @@
 - (UITableView *)tableView1
 {
     if (!_tableView1) {
-        _tableView1 = [[UITableView alloc]initWithFrame:CGRectMake(20, 0, self.view.frame.size.width-40, 200) style:UITableViewStylePlain];
+        _tableView1 = [[UITableView alloc]initWithFrame:CGRectMake(20, 0, self.view.frame.size.width-40, 160) style:UITableViewStylePlain];
         _tableView1.backgroundColor = [UIColor clearColor];
         _tableView1.delegate = self;
         _tableView1.dataSource = self;
@@ -398,7 +398,7 @@
 - (UITableView *)tableView2
 {
     if (!_tableView2) {
-        _tableView2 = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200) style:UITableViewStylePlain];
+        _tableView2 = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 160) style:UITableViewStylePlain];
         _tableView2.backgroundColor = [UIColor clearColor];
         _tableView2.delegate = self;
         _tableView2.dataSource = self;
@@ -675,7 +675,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([tableView isEqual:self.tableView1]) {
-        return 40;
+        return self.tableView1.frame.size.height/5;
     }else{
         return self.jScrollView.frame.size.height;
     }

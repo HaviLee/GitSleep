@@ -334,8 +334,7 @@
     
     isLogout = YES;
     [[NSNotificationCenter defaultCenter]postNotificationName:POSTLOGOUTNOTI object:nil];
-    [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
-    }];
+    [self.sideMenuViewController hideMenuViewController];
 }
 
 - (void)viewDidAppear:(BOOL)animated

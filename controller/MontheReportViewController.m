@@ -359,7 +359,7 @@
 - (JT3DScrollView *)jScrollView
 {
     if (!_jScrollView) {
-        CGRect frame =CGRectMake(0, self.view.frame.size.height -244-64, self.view.frame.size.width, 195);
+        CGRect frame =CGRectMake(0, self.view.frame.size.height -224-64, self.view.frame.size.width, 150);
         _jScrollView = [[JT3DScrollView alloc]initWithFrame:frame];
         self.jScrollView.effect = JT3DScrollViewEffectNone;
         self.jScrollView.backgroundColor = [UIColor clearColor];
@@ -623,7 +623,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([tableView isEqual:self.tableView1]) {
-        return 40;
+        return self.tableView1.frame.size.height/5;
     }else{
         return self.jScrollView.frame.size.height;
     }

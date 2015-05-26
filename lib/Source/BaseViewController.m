@@ -9,14 +9,18 @@
 #import "BaseViewController.h"
 #import "QHConfiguredObj.h"
 #import "YTKNetworkPrivate.h"
+#import "THPinViewController.h"
+#import "LoginViewController.h"
 
-@interface BaseViewController ()
+@interface BaseViewController ()<THPinViewControllerDelegate>
 {
     BOOL mIsShowKeyboard;
     CGRect mRectkeybordview;
     float _nSpaceNavY;
 }
-
+@property (nonatomic, copy) NSString *correctPin;//验证密码
+@property (nonatomic,strong) UIButton *btn;
+@property (nonatomic, assign) int remainingPinEntries;//验证次数
 @end
 
 @implementation BaseViewController
@@ -25,17 +29,6 @@
     [super loadView];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 }
-
-#pragma mark cell背景 
-
-//- (UIImageView*)cellImage1
-//{
-//    if (!_cellImage1) {
-//        _cellImage1 = [[UIImageView alloc]init];
-//        
-//    }
-////    _cellImage1.image = [UIImage imageNamed:[NSString stringWithFormat:@"]]
-//}
 
 #pragma mark 心率呼吸
 - (ToggleView *)timeSwitchButton
@@ -203,6 +196,8 @@
     self.view.backgroundColor = RGBA(236.f, 236.f, 236.f, 1);
     [self setStatusBarDefine];
     [self addObserver];
+    //进行检测是不是有app 密码
+    [self isShowAppSettingPassWord];
 }
 
 /**
@@ -332,6 +327,104 @@
 - (void)addObserver
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadImage) name:RELOADIMAGE object:nil];
+    //检测设置APP密码
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(isShowAppSettingPassWord) name:AppPassWorkSetOkNoti object:nil];
+    //移除检测
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(removeAppSettingPassWord) name:AppPassWordCancelNoti object:nil];
+}
+#pragma mark 设备锁
+- (void)removeAppSettingPassWord
+{
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:AppPassWordKey] isEqualToString:@"NO"]) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification
+                                                      object:nil];
+    }
+}
+
+- (void)isShowAppSettingPassWord
+{
+    if (![[[NSUserDefaults standardUserDefaults]objectForKey:AppPassWordKey] isEqualToString:@"NO"]) {
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)
+                                                     name:UIApplicationDidEnterBackgroundNotification object:nil];
+    }
+}
+
+#pragma mark 设备锁
+- (void)showPinViewAnimated:(BOOL)animated
+{
+    THPinViewController *pinViewController = [[THPinViewController alloc] initWithDelegate:self];
+    self.correctPin = [[NSUserDefaults standardUserDefaults]objectForKey:AppPassWordKey];
+    pinViewController.promptTitle = @"密码验证";
+    pinViewController.promptColor = [UIColor whiteColor];
+    pinViewController.view.tintColor = [UIColor whiteColor];
+    
+    // for a solid background color, use this:
+    pinViewController.backgroundColor = [UIColor colorWithRed:0.141f green:0.165f blue:0.208f alpha:1.00f];
+    
+    // for a translucent background, use this:
+    self.view.tag = THPinViewControllerContentViewTag;
+    self.modalPresentationStyle = UIModalPresentationCurrentContext;
+    pinViewController.translucentBackground = NO;
+    UINavigationController *nav = (UINavigationController *)self.sideMenuViewController.contentViewController;
+    NSArray *arr = nav.viewControllers;
+    UIViewController *controller = [arr lastObject];
+    [controller presentViewController:pinViewController animated:animated completion:nil];
+}
+
+- (void)applicationDidEnterBackground:(NSNotification *)notification
+{
+    [self showPinViewAnimated:NO];
+}
+
+#pragma mark - THPinViewControllerDelegate
+
+- (NSUInteger)pinLengthForPinViewController:(THPinViewController *)pinViewController
+{
+    return 4;
+}
+
+- (BOOL)pinViewController:(THPinViewController *)pinViewController isPinValid:(NSString *)pin
+{
+    if ([pin isEqualToString:self.correctPin]) {
+        return YES;
+    } else {
+        self.remainingPinEntries--;
+        HaviLog(@"还能输入%d次",self.remainingPinEntries);
+        return NO;
+    }
+}
+
+- (BOOL)userCanRetryInPinViewController:(THPinViewController *)pinViewController
+{
+    //f返回yes可以无限次的验证
+    return YES;
+}
+
+- (void)incorrectPinEnteredInPinViewController:(THPinViewController *)pinViewController
+{
+    if (self.remainingPinEntries > 6 / 2) {
+        return;
+    }
+    
+}
+
+- (void)pinViewControllerWillDismissAfterPinEntryWasCancelled:(THPinViewController *)pinViewController
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //默认值改变
+        [[NSUserDefaults standardUserDefaults]setObject:@"NO" forKey:AppPassWordKey];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        //移除后台检测
+        if ([[[NSUserDefaults standardUserDefaults]objectForKey:AppPassWordKey] isEqualToString:@"NO"]) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification
+                                                          object:nil];
+        }
+        LoginViewController *login = [[LoginViewController alloc]init];
+        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
+        navi.navigationBarHidden = YES;
+        [self presentViewController:navi animated:YES completion:nil];
+    });
 }
 /**
  *  子类重写此方法，进行切换主题
@@ -545,19 +638,6 @@
         _sideTableView.dataSource = self;
     }
     return _sideTableView;
-}
-
-
-- (void)left {
-    [self.drawerController toggleDrawerSide:XHDrawerSideLeft animated:YES completion:^(BOOL finished) {
-        
-    }];
-}
-
-- (void)right {
-    [self.drawerController toggleDrawerSide:XHDrawerSideRight animated:YES completion:^(BOOL finished) {
-        
-    }];
 }
 
 #pragma tableView
