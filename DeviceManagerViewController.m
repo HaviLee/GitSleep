@@ -14,6 +14,7 @@
 #import "ChangeUUIDAPI.h"
 #import "CenterSideViewController.h"
 #import "ReNameDeviceNameViewController.h"
+#import "UDPAddProductViewController.h"
 //
 #import "MGSwipeTableCell.h"
 #import "MGSwipeButton.h"
@@ -27,6 +28,12 @@
 @end
 
 @implementation DeviceManagerViewController
+
+- (void)loadView
+{
+    [super loadView];
+    //    [self animationDelete];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,7 +54,7 @@
          return nil;
      }];
     // Do any additional setup after loading the view.
-//
+    //
     self.bgImageView.image = nil;
     self.sideTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.view addSubview:self.sideTableView];
@@ -61,15 +68,15 @@
     self.sideTableView.delegate = self;
     self.sideTableView.dataSource = self;
     
-//    self.deviceArr = [[NSMutableArray alloc]initWithArray:@[@"我的设备",@"梅西的设备",@"哈维的设备",]];
+    //    self.deviceArr = [[NSMutableArray alloc]initWithArray:@[@"我的设备",@"梅西的设备",@"哈维的设备",]];
 }
 
 #pragma mark 为了左滑动和有滑动的
 -(NSArray *) createLeftButtons: (int) number
 {
     NSMutableArray * result = [NSMutableArray array];
-    NSString* titles[1] = {@"重命名"};
-    UIColor * colors[1] = {[UIColor blueColor]};
+    NSString* titles[2] = {@"重命名",@"重激活"};
+    UIColor * colors[2] = {[UIColor colorWithRed:0.165f green:0.239f blue:0.588f alpha:1.00f],[UIColor colorWithRed:0.525f green:0.808f blue:0.922f alpha:1.00f]};
     for (int i = 0; i < number; ++i)
     {
         MGSwipeButton * button = [MGSwipeButton buttonWithTitle:titles[i] backgroundColor:colors[i] callback:^BOOL(MGSwipeTableCell * sender){
@@ -112,27 +119,27 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"请求的设备列表是%@",resposeDic);
-        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            
-            self.deviceArr = [resposeDic objectForKey:@"DeviceList"];
-            if (self.deviceArr.count == 0) {
-            }
-            if (self.deviceArr.count>0) {
-                BOOL noActive = YES;
-                for (NSDictionary *dic in self.deviceArr) {
-                    if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
-                        noActive = NO;
-                    }
-                }
-                if (noActive) {
-                    [ShowAlertView showAlert:@"点击您想要绑定的默认设备名称进行绑定"];
+        self.deviceArr = [resposeDic objectForKey:@"DeviceList"];
+        if (self.deviceArr.count == 0) {
+            [MMProgressHUD dismissWithSuccess:@"您还没有绑定硬件设备" title:nil afterDelay:2];
+        }
+        if (self.deviceArr.count>0) {
+            BOOL noActive = YES;
+            for (NSDictionary *dic in self.deviceArr) {
+                if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+                    noActive = NO;
                 }
             }
-            [self.sideTableView reloadData];
-        }];
-        [MMProgressHUD dismiss];
+            if (noActive) {
+                [MMProgressHUD dismissWithSuccess:@"点击您需要绑定的设备进行绑定" title:nil afterDelay:2];
+            }else{
+                [MMProgressHUD dismiss];
+            }
+        }
+        [self.sideTableView reloadData];
     } failure:^(YTKBaseRequest *request) {
-        
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
     }];
     
 }
@@ -161,22 +168,14 @@
     if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
-    return cell;
-    /*
-    static NSString *defaultCellIndentifier = @"cellIndentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:defaultCellIndentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:defaultCellIndentifier];
+    if (self.selectedPath) {
+        if (indexPath == self.selectedPath) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }else{
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
     }
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"Description"]];
-    cell.backgroundColor = [UIColor whiteColor];
     return cell;
-     */
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -209,7 +208,7 @@
     
     if (direction == MGSwipeDirectionLeftToRight) {
         expansionSettings.fillOnTrigger = NO;
-        return [self createLeftButtons:1];
+        return [self createLeftButtons:2];
     }
     else {
         expansionSettings.fillOnTrigger = YES;
@@ -220,14 +219,29 @@
 -(BOOL) swipeTableCell:(MGSwipeTableCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
 {
     HaviLog(@"Delegate: button tapped, %@ position, index %d, from Expansion: %@",
-          direction == MGSwipeDirectionLeftToRight ? @"left" : @"right", (int)index, fromExpansion ? @"YES" : @"NO");
+            direction == MGSwipeDirectionLeftToRight ? @"left" : @"right", (int)index, fromExpansion ? @"YES" : @"NO");
     
     NSIndexPath * indexPath = [self.sideTableView indexPathForCell:cell];
     if (direction == MGSwipeDirectionRightToLeft && index == 0) {
         //delete button
-        [self deleteDeviceWithUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"] with:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]];
+        NSDictionary *dic = [self.deviceArr objectAtIndex:indexPath.row];
+        if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"您是否要删除默认关联设备？" message:@"如果确定删除默认关联设备,请先切换其他设备为默认设备。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }else{
+            [self deleteDeviceWithUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]];
+        }
+        //        [self deleteDeviceWithUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"] with:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]];
     }else if (direction == MGSwipeDirectionLeftToRight && index == 0){
         [self showRenameViewWithDic:[self.deviceArr objectAtIndex:indexPath.row]];
+    }else if(direction == MGSwipeDirectionLeftToRight && index == 1){
+        UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
+        NSString *deviceName = [[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"Description"];
+        NSString *deviceUUID = [[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"];
+        udp.productName = deviceName;
+        udp.productUUID = deviceUUID;
+        [self.navigationController pushViewController:udp animated:YES];
+        
     }
     
     return YES;
@@ -236,7 +250,8 @@
 #pragma mark 切换uuid
 - (void)changeUUID:(NSString *)UUID
 {
-    
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+    [MMProgressHUD showWithStatus:@"切换设备中..."];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -252,13 +267,13 @@
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [self getUserDeviceList];
             }];
+            [MMProgressHUD dismissWithSuccess:@"设备切换成功" title:nil afterDelay:2];
         }else{
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                
-            }];
+            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
         }
     } failure:^(YTKBaseRequest *request) {
-        
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
     }];
     
     
@@ -268,16 +283,50 @@
     return YES;
 }
 /*
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source.
-        [self deleteDeviceWithUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"] with:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]];
-    }
-}
-*/
-#pragma 删除设备
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ 
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source.
+ [self deleteDeviceWithUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"] with:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]];
+ }
+ }
+ */
+
 - (void)deleteDeviceWithUUID:(NSString *)UUID with:(NSString *)isDefault
+{
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+    [MMProgressHUD showWithStatus:@"删除设备中..."];
+    NSString *urlString = [NSString stringWithFormat:@"http://webservice.meddo99.com:9000/v1/user/DeleteUserDevice"];
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    NSDictionary *para = @{
+                           @"UserID":GloableUserId,
+                           @"UUID": UUID,
+                           };
+    [WTRequestCenter putWithURL:urlString header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"数据是%@",obj);
+        if ([[obj objectForKey:@"ReturnCode"]intValue]==200) {
+            [MMProgressHUD dismissWithSuccess:@"删除成功" title:nil afterDelay:2];
+            if ([isDefault isEqualToString:@"False"]) {
+                [self getUserDeviceList];
+            }else{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                HardWareUUID = @"";
+                [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICEUUID object:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEUSERID object:nil];
+            }
+        }else{
+            [MMProgressHUD dismissWithError:[obj objectForKey:@"ErrorMessage"] afterDelay:2];
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",error] afterDelay:2];
+    }];
+    
+}
+#pragma 删除设备
+- (void)deleteDeviceWithUUID:(NSString *)UUID
 {
     NSString *urlString = [NSString stringWithFormat:@"http://webservice.meddo99.com:9000/v1/user/DeleteUserDevice"];
     NSDictionary *header = @{
@@ -291,26 +340,15 @@
         id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         HaviLog(@"数据是%@",obj);
         if ([[obj objectForKey:@"ReturnCode"]intValue]==200) {
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                
-                if ([isDefault isEqualToString:@"False"]) {
-                    [self getUserDeviceList];
-                }else{
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                    HardWareUUID = @"";
-                    [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICEUUID object:nil];
-                    [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEUSERID object:nil];
-                }
-            }];
-            //更新主界面设备状态
+            
+            [MMProgressHUD dismissWithSuccess:@"删除成功" title:nil afterDelay:2];
+            [self getUserDeviceList];
             //使用logout接口
         }else{
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                
-            }];
+            [MMProgressHUD dismissWithError:[obj objectForKey:@"ErrorMessage"] afterDelay:2];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",error] afterDelay:2];
     }];
     
 }
@@ -327,8 +365,8 @@
     HaviLog(@"扫描进行添加");
     AddProductNameViewController *productName = [[AddProductNameViewController alloc]init];
     [self.navigationController pushViewController:productName animated:YES];
-
-//
+    
+    //
 }
 //在界面出现的时候进行刷新数据
 - (void)viewWillAppear:(BOOL)animated
@@ -360,13 +398,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
+
