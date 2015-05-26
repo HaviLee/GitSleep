@@ -689,19 +689,7 @@
     TodayDataViewController *today = [[TodayDataViewController alloc]init];
     today.selectedIndex = seledtedIndexNum;
     [self.navigationController pushViewController:today animated:YES];
-    
-//    TodayDataContainerViewController *todayContainer = [[TodayDataContainerViewController alloc]init];
-//    todayContainer.title = selectedIndex;
-//    [self.navigationController pushViewController:todayContainer animated:YES];
-    /*
-    DataShowViewController *dataShow = [[DataShowViewController alloc]init];
-    dataShow.selectedIndex = selectedIndex;
-    [self.navigationController pushViewController:dataShow animated:YES];
-    //为了解决右滑失效
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
-     */
+
 }
 #pragma mark 更换皮肤
 - (void)reloadImage
@@ -771,23 +759,6 @@
     //为了下页的使用
     dayTimeToUse = date;
 }
-
-//弹出式日历
-//- (void)selectedDate:(NSDate *)selectedDate
-//{
-//    NSString *date = [NSString stringWithFormat:@"%@",selectedDate];
-//    HaviLog(@"选中的日期是%@",date);
-////    NSString *subString = [NSString stringWithFormat:@"%@%@%@",[date substringWithRange:NSMakeRange(0, 4)],[date substringWithRange:NSMakeRange(5, 2)],[date substringWithRange:NSMakeRange(8, 2)]];
-//    [self.datePicker caculateCurrentYearDate:selectedDate];
-//    [self.calenderNewView removeFromSuperview];
-//    //更新日历
-//    [self.datePicker updateSelectedDate:date ];
-//    //为了下页的使用
-//    dayTimeToUse = date;
-//    self.calenderNewView = nil;
-//}
-
-
 
 #pragma mark alertview 代理
 

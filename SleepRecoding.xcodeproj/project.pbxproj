@@ -407,6 +407,12 @@
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
 		2CCDE2C31AF8A7FC00CAE9CB /* QueryDataCacheAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */; };
 		2CCF41D51AF867E0008BEFD3 /* libSniffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCF41D41AF867E0008BEFD3 /* libSniffer.a */; };
+		2CD404181B1460F60020B89E /* DataShowChartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD404171B1460F60020B89E /* DataShowChartTableViewCell.m */; };
+		2CD404261B1461260020B89E /* BasePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD4041B1B1461260020B89E /* BasePicView.m */; };
+		2CD404271B1461260020B89E /* BreatheView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD4041D1B1461260020B89E /* BreatheView.m */; };
+		2CD404281B1461260020B89E /* HeartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD4041F1B1461260020B89E /* HeartView.m */; };
+		2CD404291B1461260020B89E /* LeaveBedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD404211B1461260020B89E /* LeaveBedView.m */; };
+		2CD4042B1B1461260020B89E /* TurnroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD404251B1461260020B89E /* TurnroundView.m */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
 		57063D2C1ABFDE7B00A61267 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 57063D2B1ABFDE7B00A61267 /* ImageUtil.m */; };
@@ -460,7 +466,6 @@
 		57711FFF1AD4DB5800508C5C /* papasscode_background2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57711FFE1AD4DB5800508C5C /* papasscode_background2@2x.png */; };
 		577120061AD5022800508C5C /* HaviButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 577120051AD5022800508C5C /* HaviButton.m */; };
 		577120091AD5088700508C5C /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 577120081AD5088700508C5C /* KxMenu.m */; };
-		577251061AC91E31003C2B46 /* DataShowChartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 577251051AC91E31003C2B46 /* DataShowChartTableViewCell.m */; };
 		577251161AC942D1003C2B46 /* JT3DScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 577251151AC942D1003C2B46 /* JT3DScrollView.m */; };
 		5772BE441AAFFF1B00E108BB /* HaviSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5772BE431AAFFF1B00E108BB /* HaviSwitch.m */; };
 		5772BE481AB0326900E108BB /* CHTumblrMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5772BE471AB0326900E108BB /* CHTumblrMenuView.m */; };
@@ -494,11 +499,6 @@
 		578F57E71AB7D3D20090A167 /* CKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 578F57E61AB7D3D20090A167 /* CKTextField.m */; };
 		5793D1B91AA9823C00BC24CA /* DataShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5793D1B81AA9823C00BC24CA /* DataShowViewController.m */; };
 		5793D1C11AA9A1BA00BC24CA /* XLScrollViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5793D1C01AA9A1BA00BC24CA /* XLScrollViewer.m */; };
-		5793D1C81AA9A25D00BC24CA /* BasePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5793D1C71AA9A25D00BC24CA /* BasePicView.m */; };
-		5793D1CB1AA9A27D00BC24CA /* HeartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5793D1CA1AA9A27D00BC24CA /* HeartView.m */; };
-		5793D1CE1AA9A2A000BC24CA /* BreatheView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5793D1CD1AA9A2A000BC24CA /* BreatheView.m */; };
-		5793D1D11AA9A2D800BC24CA /* LeaveBedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5793D1D01AA9A2D800BC24CA /* LeaveBedView.m */; };
-		5793D1D41AA9A30500BC24CA /* TurnroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5793D1D31AA9A30500BC24CA /* TurnroundView.m */; };
 		579AC7D81AA01D9A0045E9A2 /* IconTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 579AC7D71AA01D9A0045E9A2 /* IconTableViewCell.m */; };
 		579AC7DB1AA01DE40045E9A2 /* DataShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 579AC7DA1AA01DE40045E9A2 /* DataShowTableViewCell.m */; };
 		579AC7E21AA033F70045E9A2 /* GifView.m in Sources */ = {isa = PBXBuildFile; fileRef = 579AC7E11AA033F70045E9A2 /* GifView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1020,6 +1020,18 @@
 		2CCDE2C11AF8A7FC00CAE9CB /* QueryDataCacheAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryDataCacheAPI.h; path = API/QueryDataCacheAPI.h; sourceTree = "<group>"; };
 		2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryDataCacheAPI.m; path = API/QueryDataCacheAPI.m; sourceTree = "<group>"; };
 		2CCF41D41AF867E0008BEFD3 /* libSniffer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSniffer.a; sourceTree = "<group>"; };
+		2CD404161B1460F60020B89E /* DataShowChartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataShowChartTableViewCell.h; path = controller/DataShowChartTableViewCell.h; sourceTree = "<group>"; };
+		2CD404171B1460F60020B89E /* DataShowChartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataShowChartTableViewCell.m; path = controller/DataShowChartTableViewCell.m; sourceTree = "<group>"; };
+		2CD4041A1B1461260020B89E /* BasePicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasePicView.h; path = lib/Source/Views/BasePicView.h; sourceTree = "<group>"; };
+		2CD4041B1B1461260020B89E /* BasePicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasePicView.m; path = lib/Source/Views/BasePicView.m; sourceTree = "<group>"; };
+		2CD4041C1B1461260020B89E /* BreatheView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BreatheView.h; path = lib/Source/Views/BreatheView.h; sourceTree = "<group>"; };
+		2CD4041D1B1461260020B89E /* BreatheView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BreatheView.m; path = lib/Source/Views/BreatheView.m; sourceTree = "<group>"; };
+		2CD4041E1B1461260020B89E /* HeartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeartView.h; path = lib/Source/Views/HeartView.h; sourceTree = "<group>"; };
+		2CD4041F1B1461260020B89E /* HeartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeartView.m; path = lib/Source/Views/HeartView.m; sourceTree = "<group>"; };
+		2CD404201B1461260020B89E /* LeaveBedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaveBedView.h; path = lib/Source/Views/LeaveBedView.h; sourceTree = "<group>"; };
+		2CD404211B1461260020B89E /* LeaveBedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaveBedView.m; path = lib/Source/Views/LeaveBedView.m; sourceTree = "<group>"; };
+		2CD404241B1461260020B89E /* TurnroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TurnroundView.h; path = lib/Source/Views/TurnroundView.h; sourceTree = "<group>"; };
+		2CD404251B1461260020B89E /* TurnroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TurnroundView.m; path = lib/Source/Views/TurnroundView.m; sourceTree = "<group>"; };
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
 		2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1127,8 +1139,6 @@
 		577120051AD5022800508C5C /* HaviButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HaviButton.m; path = lib/thirdlib/ScrollView/HaviButton.m; sourceTree = "<group>"; };
 		577120071AD5088700508C5C /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KxMenu.h; path = lib/thirdlib/KxMenu.h; sourceTree = "<group>"; };
 		577120081AD5088700508C5C /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KxMenu.m; path = lib/thirdlib/KxMenu.m; sourceTree = "<group>"; };
-		577251041AC91E31003C2B46 /* DataShowChartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataShowChartTableViewCell.h; path = controller/DataShowChartTableViewCell.h; sourceTree = "<group>"; };
-		577251051AC91E31003C2B46 /* DataShowChartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataShowChartTableViewCell.m; path = controller/DataShowChartTableViewCell.m; sourceTree = "<group>"; };
 		577251141AC942D1003C2B46 /* JT3DScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JT3DScrollView.h; sourceTree = "<group>"; };
 		577251151AC942D1003C2B46 /* JT3DScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JT3DScrollView.m; sourceTree = "<group>"; };
 		5772BE421AAFFF1B00E108BB /* HaviSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HaviSwitch.h; path = lib/Source/HaviSwitch.h; sourceTree = "<group>"; };
@@ -1196,16 +1206,6 @@
 		5793D1B81AA9823C00BC24CA /* DataShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataShowViewController.m; sourceTree = "<group>"; };
 		5793D1BF1AA9A1BA00BC24CA /* XLScrollViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLScrollViewer.h; sourceTree = "<group>"; };
 		5793D1C01AA9A1BA00BC24CA /* XLScrollViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLScrollViewer.m; sourceTree = "<group>"; };
-		5793D1C61AA9A25D00BC24CA /* BasePicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasePicView.h; path = lib/Source/Views/BasePicView.h; sourceTree = "<group>"; };
-		5793D1C71AA9A25D00BC24CA /* BasePicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasePicView.m; path = lib/Source/Views/BasePicView.m; sourceTree = "<group>"; };
-		5793D1C91AA9A27D00BC24CA /* HeartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeartView.h; path = lib/Source/Views/HeartView.h; sourceTree = "<group>"; };
-		5793D1CA1AA9A27D00BC24CA /* HeartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeartView.m; path = lib/Source/Views/HeartView.m; sourceTree = "<group>"; };
-		5793D1CC1AA9A2A000BC24CA /* BreatheView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BreatheView.h; path = lib/Source/Views/BreatheView.h; sourceTree = "<group>"; };
-		5793D1CD1AA9A2A000BC24CA /* BreatheView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BreatheView.m; path = lib/Source/Views/BreatheView.m; sourceTree = "<group>"; };
-		5793D1CF1AA9A2D800BC24CA /* LeaveBedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaveBedView.h; path = lib/Source/Views/LeaveBedView.h; sourceTree = "<group>"; };
-		5793D1D01AA9A2D800BC24CA /* LeaveBedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaveBedView.m; path = lib/Source/Views/LeaveBedView.m; sourceTree = "<group>"; };
-		5793D1D21AA9A30500BC24CA /* TurnroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TurnroundView.h; path = lib/Source/Views/TurnroundView.h; sourceTree = "<group>"; };
-		5793D1D31AA9A30500BC24CA /* TurnroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TurnroundView.m; path = lib/Source/Views/TurnroundView.m; sourceTree = "<group>"; };
 		579AC7D61AA01D9A0045E9A2 /* IconTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconTableViewCell.h; sourceTree = "<group>"; };
 		579AC7D71AA01D9A0045E9A2 /* IconTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconTableViewCell.m; sourceTree = "<group>"; };
 		579AC7D91AA01DE40045E9A2 /* DataShowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataShowTableViewCell.h; sourceTree = "<group>"; };
@@ -1473,6 +1473,9 @@
 				2C3AF2BC1AF4622A00B66E32 /* TodayLeaveViewController.m */,
 				2C3AF2BE1AF4623A00B66E32 /* TodayTurnViewController.h */,
 				2C3AF2BF1AF4623A00B66E32 /* TodayTurnViewController.m */,
+				2CD404161B1460F60020B89E /* DataShowChartTableViewCell.h */,
+				2CD404171B1460F60020B89E /* DataShowChartTableViewCell.m */,
+				2CD404191B1461090020B89E /* view */,
 			);
 			name = DataShow;
 			sourceTree = "<group>";
@@ -1893,6 +1896,23 @@
 			name = JTCalender;
 			sourceTree = "<group>";
 		};
+		2CD404191B1461090020B89E /* view */ = {
+			isa = PBXGroup;
+			children = (
+				2CD4041A1B1461260020B89E /* BasePicView.h */,
+				2CD4041B1B1461260020B89E /* BasePicView.m */,
+				2CD4041C1B1461260020B89E /* BreatheView.h */,
+				2CD4041D1B1461260020B89E /* BreatheView.m */,
+				2CD4041E1B1461260020B89E /* HeartView.h */,
+				2CD4041F1B1461260020B89E /* HeartView.m */,
+				2CD404201B1461260020B89E /* LeaveBedView.h */,
+				2CD404211B1461260020B89E /* LeaveBedView.m */,
+				2CD404241B1461260020B89E /* TurnroundView.h */,
+				2CD404251B1461260020B89E /* TurnroundView.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		572AA9731AC29A5700DED1D9 /* THPinViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2169,25 +2189,6 @@
 			path = lib/thirdlib/ScrollView;
 			sourceTree = "<group>";
 		};
-		5793D1C21AA9A21D00BC24CA /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				5793D1C61AA9A25D00BC24CA /* BasePicView.h */,
-				5793D1C71AA9A25D00BC24CA /* BasePicView.m */,
-				577251041AC91E31003C2B46 /* DataShowChartTableViewCell.h */,
-				577251051AC91E31003C2B46 /* DataShowChartTableViewCell.m */,
-				5793D1C91AA9A27D00BC24CA /* HeartView.h */,
-				5793D1CA1AA9A27D00BC24CA /* HeartView.m */,
-				5793D1CC1AA9A2A000BC24CA /* BreatheView.h */,
-				5793D1CD1AA9A2A000BC24CA /* BreatheView.m */,
-				5793D1CF1AA9A2D800BC24CA /* LeaveBedView.h */,
-				5793D1D01AA9A2D800BC24CA /* LeaveBedView.m */,
-				5793D1D21AA9A30500BC24CA /* TurnroundView.h */,
-				5793D1D31AA9A30500BC24CA /* TurnroundView.m */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
 		579AC7D41AA019260045E9A2 /* LeftViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2274,7 +2275,6 @@
 				57711FF81AD4D20300508C5C /* QuarterReportViewController.m */,
 				2C8F7BC01AF374A500E56513 /* CalenderCantainerViewController.h */,
 				2C8F7BC11AF374A500E56513 /* CalenderCantainerViewController.m */,
-				5793D1C21AA9A21D00BC24CA /* Views */,
 			);
 			name = CenterViewController;
 			sourceTree = "<group>";
@@ -2832,7 +2832,6 @@
 				5772BE441AAFFF1B00E108BB /* HaviSwitch.m in Sources */,
 				57747DD51AA57FAD002B5A49 /* DatePickerView.m in Sources */,
 				2C8F7BB91AF3747700E56513 /* JTCalendarDayView.m in Sources */,
-				577251061AC91E31003C2B46 /* DataShowChartTableViewCell.m in Sources */,
 				2C1AD7171AAAE74A00655A5B /* BaseAnimation.m in Sources */,
 				57802E241AE7398200823E39 /* GetImageApi.m in Sources */,
 				57F1D1461AB822C900B5B0D1 /* RegisterViewController.m in Sources */,
@@ -2845,6 +2844,7 @@
 				2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */,
 				2C77D53B1AEF4E5D004123D2 /* TurnRoundViewController.m in Sources */,
 				2C5E5C241B12B3F200123CC4 /* UIViewController+RESideMenu.m in Sources */,
+				2CD404271B1461260020B89E /* BreatheView.m in Sources */,
 				576B02461A9EB22C004DB418 /* BaseViewController.m in Sources */,
 				577086101ABBDF80004A2C07 /* GBPathImageView.m in Sources */,
 				2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */,
@@ -2868,7 +2868,6 @@
 				5764CB141AB6B2C2002A0B85 /* LoginViewController.m in Sources */,
 				5772BE5E1AB0432400E108BB /* AMBlurView.m in Sources */,
 				2C1F1FE91ADBF38F00393E04 /* WQCalendarGridView.m in Sources */,
-				5793D1D41AA9A30500BC24CA /* TurnroundView.m in Sources */,
 				2CCDE2C31AF8A7FC00CAE9CB /* QueryDataCacheAPI.m in Sources */,
 				5793D1B91AA9823C00BC24CA /* DataShowViewController.m in Sources */,
 				5781D00E1AE8DE1C0092E8CD /* ActiveDeviceAPI.m in Sources */,
@@ -2879,7 +2878,6 @@
 				2C1F1FEA1ADBF38F00393E04 /* WQCalendarLogic.m in Sources */,
 				2C1AD7191AAAE74A00655A5B /* ScaleAnimation.m in Sources */,
 				5763BAB91AA1665A00EFECD7 /* UserInfoViewController.m in Sources */,
-				5793D1C81AA9A25D00BC24CA /* BasePicView.m in Sources */,
 				2C8F7BB61AF3747700E56513 /* JTCalendar.m in Sources */,
 				576451891AC68865008E3526 /* AddProductNameViewController.m in Sources */,
 				2C1AD71B1AAAE74A00655A5B /* SlideAnimation.m in Sources */,
@@ -2890,8 +2888,8 @@
 				5781D0111AE8EA230092E8CD /* ChangeUUIDAPI.m in Sources */,
 				2C8F7BB81AF3747700E56513 /* JTCalendarContentView.m in Sources */,
 				2C3AF2C01AF4623A00B66E32 /* TodayTurnViewController.m in Sources */,
+				2CD404291B1461260020B89E /* LeaveBedView.m in Sources */,
 				577086211ABC0BB1004A2C07 /* LRGlowingButton.m in Sources */,
-				5793D1D11AA9A2D800BC24CA /* LeaveBedView.m in Sources */,
 				2C8F7BB71AF3747700E56513 /* JTCalendarAppearance.m in Sources */,
 				577062DD1AC285F100790F79 /* STAlertView.m in Sources */,
 				2C6D2F411AF620A2008C285B /* UserInfoTableViewCell.m in Sources */,
@@ -2930,6 +2928,7 @@
 				5770860B1ABBB239004A2C07 /* HaviAnimationView.m in Sources */,
 				57802E261AE7398200823E39 /* GetSuggestionList.m in Sources */,
 				57802E291AE7398200823E39 /* SHGetClient.m in Sources */,
+				2CD404261B1461260020B89E /* BasePicView.m in Sources */,
 				576451781AC63C24008E3526 /* SelectThemeViewController.m in Sources */,
 				57802E271AE7398200823E39 /* HaviGetNewClient.m in Sources */,
 				57D4C0071ABAC5520026A559 /* OTCover.m in Sources */,
@@ -2951,6 +2950,7 @@
 				57802E2B1AE7398200823E39 /* SHPutClient.m in Sources */,
 				57711FF31AD4CFF400508C5C /* WeekReportViewController.m in Sources */,
 				2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */,
+				2CD404181B1460F60020B89E /* DataShowChartTableViewCell.m in Sources */,
 				57802E251AE7398200823E39 /* GetSleepReport.m in Sources */,
 				2C435E591AD0CA05003B1604 /* ToggleButton.m in Sources */,
 				5770861B1ABC019C004A2C07 /* UserContactTableViewCell.m in Sources */,
@@ -2966,10 +2966,10 @@
 				2C1F1FCA1AD96A5800393E04 /* MonthReportView.m in Sources */,
 				2C1F1FD31ADA653E00393E04 /* NSDate+NSDateLogic.m in Sources */,
 				578065C11ADBA45F00769A1D /* PNBar.m in Sources */,
-				5793D1CE1AA9A2A000BC24CA /* BreatheView.m in Sources */,
 				2C77D5471AEFB68F004123D2 /* GetBreathDataAPI.m in Sources */,
 				578065BE1ADB93D400769A1D /* WeekReportView.m in Sources */,
 				2C77D5411AEF8AB3004123D2 /* GetHeartDataAPI.m in Sources */,
+				2CD4042B1B1461260020B89E /* TurnroundView.m in Sources */,
 				2C5202181AC438FB00BA1D5D /* ZWIntroductionViewController.m in Sources */,
 				2C8F7BBC1AF3747700E56513 /* JTCalendarMonthView.m in Sources */,
 				579AC7E91AA03F720045E9A2 /* DefaultTableViewCell.m in Sources */,
@@ -2996,7 +2996,6 @@
 				2C1F1FE71ADBF38F00393E04 /* NSDate+WQCalendarLogic.m in Sources */,
 				57802E2A1AE7398200823E39 /* SHPostClient.m in Sources */,
 				2C3AF2B11AF4611E00B66E32 /* NKJPagerViewController.m in Sources */,
-				5793D1CB1AA9A27D00BC24CA /* HeartView.m in Sources */,
 				2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */,
 				2C77D53E1AEF4EA1004123D2 /* TodayDataContainerViewController.m in Sources */,
 				2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */,
@@ -3004,6 +3003,7 @@
 				572AA98B1AC29A5700DED1D9 /* UIImage+ImageEffects.m in Sources */,
 				2C77D54A1AEFC127004123D2 /* GetLeaveDataAPI.m in Sources */,
 				2C8C627F1AB590CC00CF4C19 /* APPSettingViewController.m in Sources */,
+				2CD404281B1461260020B89E /* HeartView.m in Sources */,
 				57802E2F1AE7A51A00823E39 /* GetDeviceListAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
