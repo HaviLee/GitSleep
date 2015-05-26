@@ -273,7 +273,13 @@
     RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController
                                                                     leftMenuViewController:leftMenuViewController
                                                                    rightMenuViewController:nil];
-    sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_night"];
+    NSString *nowDateString = [NSString stringWithFormat:@"%@",[self getNowDateFromatAnDate:[NSDate date]]];
+    NSString *sub = [nowDateString substringWithRange:NSMakeRange(11, 2)];
+    if ([sub intValue]>7 && [sub intValue]<18) {
+        sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_day"];
+    }else{
+        sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_night"];
+    }
     sideMenuViewController.menuPreferredStatusBarStyle = 0; // UIStatusBarStyleLightContent
 //    sideMenuViewController.delegate = self;
     sideMenuViewController.contentViewShadowColor = [UIColor blackColor];

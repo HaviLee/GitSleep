@@ -31,24 +31,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSString *nowDateString = [self dateToString:[NSDate date]];
-    NSString *sub = [nowDateString substringWithRange:NSMakeRange(10, 2)];
+    NSDate *nowDate = [self getNowDateFromatAnDate:[NSDate date]];
+    NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+    NSString *sub = [nowDateString substringWithRange:NSMakeRange(11, 2)];
     if ([sub intValue]>7 && [sub intValue]<18) {
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_day"];
     }else {
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_night"];
     }
     [self creatSubView];
-}
-
-- (NSString *)dateToString:(NSDate *)date {
-    
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *dateString = [dateFormatter stringFromDate:date];
-    return dateString;
-    
 }
 
 - (void)creatSubView
@@ -90,10 +81,11 @@
         make.left.equalTo(self.view).offset(0);
         make.top.equalTo(iconBackView.bottom).offset(0);
         make.bottom.equalTo(self.view.bottom).offset(-70);
-//        int widthCenter = (self.view.frame.size.width - 220)*0.70710676908493042;
         int widthCenter = (self.view.frame.size.width)*0.3;
         make.right.equalTo(self.view.right).offset(-widthCenter);
     }];
+    self.sideTableView.showsVerticalScrollIndicator = NO;
+    //
     self.sideArray = @[@[@"今日数据",@"数据分析",@"设备管理",@"睡眠设置",@"设       定"],@[@"退出登录"]];
 
     self.imageArr = @[@[[NSString stringWithFormat:@"icon_todays_data_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_data_analysis_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_equipment_management_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_alarm_clock_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_setting_%d",selectedThemeIndex]],@[@"icon_setting"]];
@@ -328,8 +320,8 @@
     [self.sideTableView reloadData];
     _userName.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     self.bgImageView.image= nil;
-    NSString *nowDateString = [self dateToString:[NSDate date]];
-    NSString *sub = [nowDateString substringWithRange:NSMakeRange(10, 2)];
+    NSString *nowDateString = [NSString stringWithFormat:@"%@",[self getNowDateFromatAnDate:[NSDate date]]];
+    NSString *sub = [nowDateString substringWithRange:NSMakeRange(11, 2)];
     if ([sub intValue]>7 && [sub intValue]<18) {
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_day"];
     }else {
