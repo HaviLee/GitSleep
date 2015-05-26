@@ -310,7 +310,8 @@
 
 - (void)bindingDeviceWithUUID:(NSString *)UUID
 {
-    
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+    [MMProgressHUD showWithStatus:@"关联设备中..."];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -319,30 +320,28 @@
                            @"UUID": self.barTextfield.text,
                            @"Description":self.deviceName,
                            };
-    [MMProgressHUD showWithStatus:@"关联设备中..."];
     BindingDeviceUUIDAPI *client = [BindingDeviceUUIDAPI shareInstance];
     [client bindingDeviceUUID:header andWithPara:para];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"绑定设备结果是%@",resposeDic);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [MMProgressHUD dismiss];
             [self activeUUID:self.barTextfield.text];
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                
-            }];
+            [MMProgressHUD dismissWithSuccess:[resposeDic objectForKey:@"ErrorMessage"] title:nil afterDelay:2];
         }else{
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                
-            }];
+            [MMProgressHUD dismissWithSuccess:[resposeDic objectForKey:@"ErrorMessage"] title:nil afterDelay:2];
         }
     } failure:^(YTKBaseRequest *request) {
-        
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithSuccess:[NSString stringWithFormat:@"%@",resposeDic] title:nil afterDelay:2];
     }];
 }
 //激活
 - (void)activeUUID:(NSString *)UUID
 {
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -355,20 +354,15 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                
-                HardWareUUID = UUID;
-                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已成功关联您的设备,是否需要现在激活设备？" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"激活", nil];
-                [alertView show];
-            }];
+            HardWareUUID = UUID;
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已成功关联您的设备,是否需要现在激活设备？" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"激活", nil];
+            [alertView show];
         }else{
-            
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                
-            }];
+            [ShowAlertView showAlert:@"无法设置该设备为您的默认设备"];
         }
     } failure:^(YTKBaseRequest *request) {
-        
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [self.view makeToast:[NSString stringWithFormat:@"%@",resposeDic] duration:2 position:@"center"];
     }];
 }
 
