@@ -204,6 +204,8 @@
 - (void)reloadImage
 {
     [super reloadImage];
+    UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
+    [self.menuButton setImage:i forState:UIControlStateNormal];
     self.bgImageView.image = nil;
 }
 

@@ -24,6 +24,7 @@
 //
 @property (nonatomic,strong) BTRippleButtton *iconImageButton;
 @property (nonatomic,strong) UILabel *userName;
+@property (nonatomic,strong) NSString *changeNowDate;
 @end
 
 @implementation LeftSideViewController
@@ -34,6 +35,7 @@
     NSDate *nowDate = [self getNowDateFromatAnDate:[NSDate date]];
     NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
     NSString *sub = [nowDateString substringWithRange:NSMakeRange(11, 2)];
+    self.changeNowDate = sub;
     if ([sub intValue]>7 && [sub intValue]<18) {
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_day"];
     }else {
@@ -320,9 +322,7 @@
     [self.sideTableView reloadData];
     _userName.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     self.bgImageView.image= nil;
-    NSString *nowDateString = [NSString stringWithFormat:@"%@",[self getNowDateFromatAnDate:[NSDate date]]];
-    NSString *sub = [nowDateString substringWithRange:NSMakeRange(11, 2)];
-    if ([sub intValue]>7 && [sub intValue]<18) {
+    if ([self.changeNowDate intValue]>7 && [self.changeNowDate intValue]<18) {
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_day"];
     }else {
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_night"];
