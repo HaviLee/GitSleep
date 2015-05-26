@@ -149,6 +149,7 @@
     //检测用户下的设备列表在进入app首先获取id；
 //    [MMProgressHUD showWithStatus:@"获取设备信息中..."];
     //获取用户相关联的设备uuid
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self getDeviceStatusWithUserNewAPI:GloableUserId];
 }
 
@@ -368,7 +369,7 @@
     [client queryDefaultSleep:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [MMProgressHUD dismiss];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [self reloadUserUI:(NSDictionary *)resposeDic];
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
@@ -383,29 +384,6 @@
     } failure:^(YTKBaseRequest *request) {
         
     }];
-    /*
-    NSString *urlString = [NSString stringWithFormat:@"http://webservice.meddo99.com:9000/v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@",HardWareUUID,fromDate,endTime];
-    NSDictionary *header = @{
-                             @"AccessToken":@"123456789"
-                             };
-    if ([compDate timeIntervalSinceDate:[NSDate date]]<0) {
-        [WTRequestCenter getWithURL:urlString headers:header parameters:nil option:WTRequestCenterCachePolicyCacheElseWeb finished:^(NSURLResponse *response, NSData *data) {
-            id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            [self reloadUserUI:(NSDictionary *)obj];
-            HaviLog(@"数据是%@",obj);
-        } failed:^(NSURLResponse *response, NSError *error) {
-            
-        }];
-    }else{
-        [WTRequestCenter getWithURL:urlString headers:header parameters:nil option:WTRequestCenterCachePolicyCacheAndRefresh finished:^(NSURLResponse *response, NSData *data) {
-            id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            [self reloadUserUI:(NSDictionary *)obj];
-            HaviLog(@"数据是%@",obj);
-        } failed:^(NSURLResponse *response, NSError *error) {
-            
-        }];
-    }
-     */
 }
 
 - (void)deviceUUIDChangeed:(NSNotification *)noti
@@ -579,6 +557,10 @@
 - (void)getScrollSelectedDate:(NSDate *)date
 {
     if (date) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        });
         selectedDateToUse = date;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
