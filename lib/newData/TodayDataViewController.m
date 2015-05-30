@@ -12,12 +12,16 @@
 #import "TodayBreathViewController.h"
 #import "TodayLeaveViewController.h"
 #import "TodayTurnViewController.h"
-//
+//旧的模式
 #import "HeartViewViewController.h"
 #import "BreathViewController.h"
 #import "LeaveBedViewController.h"
 #import "TurnRoundViewController.h"
-
+//实时数据模式
+#import "LiveHeartDataViewController.h"
+#import "LiveBreathDataViewController.h"
+#import "LiveLeaveDataViewController.h"
+#import "LiveTurnDataViewController.h"
 
 @interface TodayDataViewController ()<NKJPagerViewDataSource, NKJPagerViewDelegate>
 @property (nonatomic,strong) NSArray *controllerArr;
@@ -26,10 +30,17 @@
 @implementation TodayDataViewController
 
 - (void)viewDidLoad {
-    TodayHeartViewController *heart = [[TodayHeartViewController alloc]init];
-    TodayBreathViewController *breath = [[TodayBreathViewController alloc]init];
-    TodayLeaveViewController *leave = [[TodayLeaveViewController alloc]init];
-    TodayTurnViewController *turn = [[TodayTurnViewController alloc]init];
+    /*
+     TodayHeartViewController *heart = [[TodayHeartViewController alloc]init];
+     TodayBreathViewController *breath = [[TodayBreathViewController alloc]init];
+     TodayLeaveViewController *leave = [[TodayLeaveViewController alloc]init];
+     TodayTurnViewController *turn = [[TodayTurnViewController alloc]init];
+     self.controllerArr = @[heart,breath,leave,turn];
+     */
+    LiveHeartDataViewController *heart = [[LiveHeartDataViewController alloc]init];
+    LiveBreathDataViewController *breath = [[LiveBreathDataViewController alloc]init];
+    LiveLeaveDataViewController *leave = [[LiveLeaveDataViewController alloc]init];
+    LiveTurnDataViewController *turn = [[LiveTurnDataViewController alloc]init];
     self.controllerArr = @[heart,breath,leave,turn];
     self.dataSource = self;
     self.delegate = self;
@@ -44,13 +55,13 @@
             return self.leftButton;
         }
         /*
-        else if (nIndex == 0){
-            self.rightButton.frame = CGRectMake(self.view.frame.size.width-40, 0, 30, 44);
-            [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-            [self.rightButton addTarget:self action:@selector(shareApp:) forControlEvents:UIControlEventTouchUpInside];
-            return self.rightButton;
-        }
-        */
+         else if (nIndex == 0){
+         self.rightButton.frame = CGRectMake(self.view.frame.size.width-40, 0, 30, 44);
+         [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+         [self.rightButton addTarget:self action:@selector(shareApp:) forControlEvents:UIControlEventTouchUpInside];
+         return self.rightButton;
+         }
+         */
         return nil;
     }];
 }
@@ -80,42 +91,42 @@
 
 - (UIViewController *)viewPager:(NKJPagerViewController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index
 {
-
+    
     return [self.controllerArr objectAtIndex:index];
     /*
-    switch (index) {
-        case 0:
-        {
-            TodayHeartViewController *heart = [[TodayHeartViewController alloc]init];
-//            HeartViewViewController *heart = [[HeartViewViewController alloc]init];
-            return heart;
-            break;
-        }
-        case 1:{
-            TodayBreathViewController *breath = [[TodayBreathViewController alloc]init];
-//            BreathViewController *breath = [[BreathViewController alloc]init];
-            
-            return breath;
-            break;
-        }
-        case 2:{
-            TodayLeaveViewController *leave = [[TodayLeaveViewController alloc]init];
-//            LeaveBedViewController *leave = [[LeaveBedViewController alloc]init];
-            return leave;
-            break;
-        }
-        case 3:{
-            TodayTurnViewController *turn = [[TodayTurnViewController alloc]init];
-//            TurnRoundViewController *turn = [[TurnRoundViewController alloc]init];
-            return turn;
-            break;
-        }
-            
-        default:
-            [ShowAlertView showAlert:@"没有界面了"];
-            return nil;
-            break;
-    }
+     switch (index) {
+     case 0:
+     {
+     TodayHeartViewController *heart = [[TodayHeartViewController alloc]init];
+     //            HeartViewViewController *heart = [[HeartViewViewController alloc]init];
+     return heart;
+     break;
+     }
+     case 1:{
+     TodayBreathViewController *breath = [[TodayBreathViewController alloc]init];
+     //            BreathViewController *breath = [[BreathViewController alloc]init];
+     
+     return breath;
+     break;
+     }
+     case 2:{
+     TodayLeaveViewController *leave = [[TodayLeaveViewController alloc]init];
+     //            LeaveBedViewController *leave = [[LeaveBedViewController alloc]init];
+     return leave;
+     break;
+     }
+     case 3:{
+     TodayTurnViewController *turn = [[TodayTurnViewController alloc]init];
+     //            TurnRoundViewController *turn = [[TurnRoundViewController alloc]init];
+     return turn;
+     break;
+     }
+     
+     default:
+     [ShowAlertView showAlert:@"没有界面了"];
+     return nil;
+     break;
+     }
      */
 }
 
@@ -154,13 +165,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
