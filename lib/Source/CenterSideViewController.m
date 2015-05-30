@@ -69,12 +69,7 @@
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
-            _btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
-            [_btn setImage:i forState:UIControlStateNormal];
-            [_btn setFrame:CGRectMake(5, 0, 44, 44)];
-            [_btn addTarget:self action:@selector(left) forControlEvents:UIControlEventTouchUpInside];
-            return _btn;
+            return self.menuButton;
         }
         /*
          else if (nIndex == 0){
@@ -614,36 +609,6 @@
         deviceStatus = NO;
     }
 }
-#pragma mark 设备锁
-- (void)showPinViewAnimated:(BOOL)animated
-{
-    THPinViewController *pinViewController = [[THPinViewController alloc] initWithDelegate:self];
-    self.correctPin = [[NSUserDefaults standardUserDefaults]objectForKey:AppPassWordKey];
-    pinViewController.promptTitle = @"密码验证";
-    pinViewController.promptColor = [UIColor whiteColor];
-    pinViewController.view.tintColor = [UIColor whiteColor];
-    
-    // for a solid background color, use this:
-    pinViewController.backgroundColor = [UIColor colorWithRed:0.141f green:0.165f blue:0.208f alpha:1.00f];
-    
-    // for a translucent background, use this:
-    self.view.tag = THPinViewControllerContentViewTag;
-    self.modalPresentationStyle = UIModalPresentationCurrentContext;
-    pinViewController.translucentBackground = NO;
-    
-    [self presentViewController:pinViewController animated:animated completion:nil];
-}
-
-- (void)applicationDidEnterBackground:(NSNotification *)notification
-{
-    [self showPinViewAnimated:NO];
-}
-
-- (void)dealloc
-{
-    [self removeAppSettingPassWord];
-}
-
 #pragma 自定义delegate
 - (void)getScrollSelectedDate:(NSDate *)date
 {
@@ -918,70 +883,7 @@
     HaviLog(@"shuaxin");
 }
 
-//弹出式日历
-//- (void)selectedDate:(NSDate *)selectedDate
-//{
-//    NSString *date = [NSString stringWithFormat:@"%@",selectedDate];
-//    HaviLog(@"选中的日期是%@",date);
-////    NSString *subString = [NSString stringWithFormat:@"%@%@%@",[date substringWithRange:NSMakeRange(0, 4)],[date substringWithRange:NSMakeRange(5, 2)],[date substringWithRange:NSMakeRange(8, 2)]];
-//    [self.datePicker caculateCurrentYearDate:selectedDate];
-//    [self.calenderNewView removeFromSuperview];
-//    //更新日历
-//    [self.datePicker updateSelectedDate:date ];
-//    //为了下页的使用
-//    dayTimeToUse = date;
-//    self.calenderNewView = nil;
-//}
 
-#pragma mark - THPinViewControllerDelegate
-
-- (NSUInteger)pinLengthForPinViewController:(THPinViewController *)pinViewController
-{
-    return 4;
-}
-
-- (BOOL)pinViewController:(THPinViewController *)pinViewController isPinValid:(NSString *)pin
-{
-    if ([pin isEqualToString:self.correctPin]) {
-        return YES;
-    } else {
-        self.remainingPinEntries--;
-        HaviLog(@"还能输入%d次",self.remainingPinEntries);
-        return NO;
-    }
-}
-
-- (BOOL)userCanRetryInPinViewController:(THPinViewController *)pinViewController
-{
-    //f返回yes可以无限次的验证
-    return YES;
-}
-
-- (void)incorrectPinEnteredInPinViewController:(THPinViewController *)pinViewController
-{
-    if (self.remainingPinEntries > 6 / 2) {
-        return;
-    }
-    
-}
-
-- (void)pinViewControllerWillDismissAfterPinEntryWasCancelled:(THPinViewController *)pinViewController
-{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //默认值改变
-        [[NSUserDefaults standardUserDefaults]setObject:@"NO" forKey:AppPassWordKey];
-        [[NSUserDefaults standardUserDefaults]synchronize];
-        //移除后台检测
-        if ([[[NSUserDefaults standardUserDefaults]objectForKey:AppPassWordKey] isEqualToString:@"NO"]) {
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification
-                                                          object:nil];
-        }
-        LoginViewController *login = [[LoginViewController alloc]init];
-        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
-        navi.navigationBarHidden = YES;
-        [self presentViewController:navi animated:YES completion:nil];
-    });
-}
 
 #pragma mark alertview 代理
 
