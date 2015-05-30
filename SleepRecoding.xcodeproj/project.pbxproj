@@ -382,6 +382,21 @@
 		2C7D23291AF1CA5C0011A45C /* leave3_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D23241AF1CA5C0011A45C /* leave3_0.png */; };
 		2C7D232A1AF1CA5C0011A45C /* leave4_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D23251AF1CA5C0011A45C /* leave4_0.png */; };
 		2C7D232B1AF1CA5C0011A45C /* leave5_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D23261AF1CA5C0011A45C /* leave5_0.png */; };
+		2C8977C01B194DF30032D258 /* BreathLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977A31B194DF30032D258 /* BreathLive.m */; };
+		2C8977C11B194DF30032D258 /* data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C8977A41B194DF30032D258 /* data.txt */; };
+		2C8977C21B194DF30032D258 /* GetBreathLiveDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977A61B194DF30032D258 /* GetBreathLiveDataAPI.m */; };
+		2C8977C31B194DF30032D258 /* GetHeartLiveDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977A81B194DF30032D258 /* GetHeartLiveDataAPI.m */; };
+		2C8977C41B194DF30032D258 /* GetLeaveLiveDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977AA1B194DF30032D258 /* GetLeaveLiveDataAPI.m */; };
+		2C8977C51B194DF30032D258 /* GetTurnLiveDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977AC1B194DF30032D258 /* GetTurnLiveDataAPI.m */; };
+		2C8977C61B194DF30032D258 /* HeartLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977AE1B194DF30032D258 /* HeartLive.m */; };
+		2C8977C71B194DF30032D258 /* LeaveLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977B01B194DF30032D258 /* LeaveLive.m */; };
+		2C8977C81B194DF30032D258 /* LiveBreathDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977B21B194DF30032D258 /* LiveBreathDataViewController.m */; };
+		2C8977C91B194DF30032D258 /* LiveHeartDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977B41B194DF30032D258 /* LiveHeartDataViewController.m */; };
+		2C8977CA1B194DF30032D258 /* LiveLeaveDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977B61B194DF30032D258 /* LiveLeaveDataViewController.m */; };
+		2C8977CB1B194DF30032D258 /* LiveTurnDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977B81B194DF30032D258 /* LiveTurnDataViewController.m */; };
+		2C8977CC1B194DF30032D258 /* TurnLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977BB1B194DF30032D258 /* TurnLive.m */; };
+		2C8977CD1B194DF30032D258 /* XCoordinatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977BD1B194DF30032D258 /* XCoordinatorView.m */; };
+		2C8977CE1B194DF30032D258 /* YCoordinatrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977BF1B194DF30032D258 /* YCoordinatrorView.m */; };
 		2C8C627F1AB590CC00CF4C19 /* APPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C627E1AB590CC00CF4C19 /* APPSettingViewController.m */; };
 		2C8C62821AB5B0D100CF4C19 /* ModifyPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C62811AB5B0D100CF4C19 /* ModifyPassWordViewController.m */; };
 		2C8C628F1AB5B8A200CF4C19 /* digitCell.psd in Resources */ = {isa = PBXBuildFile; fileRef = 2C8C62851AB5B8A200CF4C19 /* digitCell.psd */; };
@@ -976,6 +991,36 @@
 		2C7D23241AF1CA5C0011A45C /* leave3_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leave3_0.png; path = "color0/gif/体动/leave3_0.png"; sourceTree = "<group>"; };
 		2C7D23251AF1CA5C0011A45C /* leave4_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leave4_0.png; path = "color0/gif/体动/leave4_0.png"; sourceTree = "<group>"; };
 		2C7D23261AF1CA5C0011A45C /* leave5_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leave5_0.png; path = "color0/gif/体动/leave5_0.png"; sourceTree = "<group>"; };
+		2C8977A21B194DF30032D258 /* BreathLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BreathLive.h; path = lib/liveData/BreathLive.h; sourceTree = "<group>"; };
+		2C8977A31B194DF30032D258 /* BreathLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BreathLive.m; path = lib/liveData/BreathLive.m; sourceTree = "<group>"; };
+		2C8977A41B194DF30032D258 /* data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = data.txt; path = lib/liveData/data.txt; sourceTree = "<group>"; };
+		2C8977A51B194DF30032D258 /* GetBreathLiveDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetBreathLiveDataAPI.h; path = lib/liveData/GetBreathLiveDataAPI.h; sourceTree = "<group>"; };
+		2C8977A61B194DF30032D258 /* GetBreathLiveDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetBreathLiveDataAPI.m; path = lib/liveData/GetBreathLiveDataAPI.m; sourceTree = "<group>"; };
+		2C8977A71B194DF30032D258 /* GetHeartLiveDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetHeartLiveDataAPI.h; path = lib/liveData/GetHeartLiveDataAPI.h; sourceTree = "<group>"; };
+		2C8977A81B194DF30032D258 /* GetHeartLiveDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetHeartLiveDataAPI.m; path = lib/liveData/GetHeartLiveDataAPI.m; sourceTree = "<group>"; };
+		2C8977A91B194DF30032D258 /* GetLeaveLiveDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetLeaveLiveDataAPI.h; path = lib/liveData/GetLeaveLiveDataAPI.h; sourceTree = "<group>"; };
+		2C8977AA1B194DF30032D258 /* GetLeaveLiveDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetLeaveLiveDataAPI.m; path = lib/liveData/GetLeaveLiveDataAPI.m; sourceTree = "<group>"; };
+		2C8977AB1B194DF30032D258 /* GetTurnLiveDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetTurnLiveDataAPI.h; path = lib/liveData/GetTurnLiveDataAPI.h; sourceTree = "<group>"; };
+		2C8977AC1B194DF30032D258 /* GetTurnLiveDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetTurnLiveDataAPI.m; path = lib/liveData/GetTurnLiveDataAPI.m; sourceTree = "<group>"; };
+		2C8977AD1B194DF30032D258 /* HeartLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeartLive.h; path = lib/liveData/HeartLive.h; sourceTree = "<group>"; };
+		2C8977AE1B194DF30032D258 /* HeartLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeartLive.m; path = lib/liveData/HeartLive.m; sourceTree = "<group>"; };
+		2C8977AF1B194DF30032D258 /* LeaveLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaveLive.h; path = lib/liveData/LeaveLive.h; sourceTree = "<group>"; };
+		2C8977B01B194DF30032D258 /* LeaveLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaveLive.m; path = lib/liveData/LeaveLive.m; sourceTree = "<group>"; };
+		2C8977B11B194DF30032D258 /* LiveBreathDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiveBreathDataViewController.h; path = lib/liveData/LiveBreathDataViewController.h; sourceTree = "<group>"; };
+		2C8977B21B194DF30032D258 /* LiveBreathDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LiveBreathDataViewController.m; path = lib/liveData/LiveBreathDataViewController.m; sourceTree = "<group>"; };
+		2C8977B31B194DF30032D258 /* LiveHeartDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiveHeartDataViewController.h; path = lib/liveData/LiveHeartDataViewController.h; sourceTree = "<group>"; };
+		2C8977B41B194DF30032D258 /* LiveHeartDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LiveHeartDataViewController.m; path = lib/liveData/LiveHeartDataViewController.m; sourceTree = "<group>"; };
+		2C8977B51B194DF30032D258 /* LiveLeaveDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiveLeaveDataViewController.h; path = lib/liveData/LiveLeaveDataViewController.h; sourceTree = "<group>"; };
+		2C8977B61B194DF30032D258 /* LiveLeaveDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LiveLeaveDataViewController.m; path = lib/liveData/LiveLeaveDataViewController.m; sourceTree = "<group>"; };
+		2C8977B71B194DF30032D258 /* LiveTurnDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiveTurnDataViewController.h; path = lib/liveData/LiveTurnDataViewController.h; sourceTree = "<group>"; };
+		2C8977B81B194DF30032D258 /* LiveTurnDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LiveTurnDataViewController.m; path = lib/liveData/LiveTurnDataViewController.m; sourceTree = "<group>"; };
+		2C8977B91B194DF30032D258 /* PaddingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaddingHeader.h; path = lib/liveData/PaddingHeader.h; sourceTree = "<group>"; };
+		2C8977BA1B194DF30032D258 /* TurnLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TurnLive.h; path = lib/liveData/TurnLive.h; sourceTree = "<group>"; };
+		2C8977BB1B194DF30032D258 /* TurnLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TurnLive.m; path = lib/liveData/TurnLive.m; sourceTree = "<group>"; };
+		2C8977BC1B194DF30032D258 /* XCoordinatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCoordinatorView.h; path = lib/liveData/XCoordinatorView.h; sourceTree = "<group>"; };
+		2C8977BD1B194DF30032D258 /* XCoordinatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCoordinatorView.m; path = lib/liveData/XCoordinatorView.m; sourceTree = "<group>"; };
+		2C8977BE1B194DF30032D258 /* YCoordinatrorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YCoordinatrorView.h; path = lib/liveData/YCoordinatrorView.h; sourceTree = "<group>"; };
+		2C8977BF1B194DF30032D258 /* YCoordinatrorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YCoordinatrorView.m; path = lib/liveData/YCoordinatrorView.m; sourceTree = "<group>"; };
 		2C8C627D1AB590CC00CF4C19 /* APPSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APPSettingViewController.h; path = controller/APPSettingViewController.h; sourceTree = "<group>"; };
 		2C8C627E1AB590CC00CF4C19 /* APPSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APPSettingViewController.m; path = controller/APPSettingViewController.m; sourceTree = "<group>"; };
 		2C8C62801AB5B0D100CF4C19 /* ModifyPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPassWordViewController.h; sourceTree = "<group>"; };
@@ -1266,6 +1311,7 @@
 		2C0125351A8F5E5500382A9D /* MainController */ = {
 			isa = PBXGroup;
 			children = (
+				2C8977A11B194DDB0032D258 /* liveData */,
 				2C5E5C1B1B12B3DE00123CC4 /* ResideMenu */,
 				5764CB111AB6B2A0002A0B85 /* Login */,
 				579AC7D51AA019370045E9A2 /* CenterViewController */,
@@ -1831,6 +1877,43 @@
 				2C7D23261AF1CA5C0011A45C /* leave5_0.png */,
 			);
 			name = color0;
+			sourceTree = "<group>";
+		};
+		2C8977A11B194DDB0032D258 /* liveData */ = {
+			isa = PBXGroup;
+			children = (
+				2C8977A21B194DF30032D258 /* BreathLive.h */,
+				2C8977A31B194DF30032D258 /* BreathLive.m */,
+				2C8977A41B194DF30032D258 /* data.txt */,
+				2C8977A51B194DF30032D258 /* GetBreathLiveDataAPI.h */,
+				2C8977A61B194DF30032D258 /* GetBreathLiveDataAPI.m */,
+				2C8977A71B194DF30032D258 /* GetHeartLiveDataAPI.h */,
+				2C8977A81B194DF30032D258 /* GetHeartLiveDataAPI.m */,
+				2C8977A91B194DF30032D258 /* GetLeaveLiveDataAPI.h */,
+				2C8977AA1B194DF30032D258 /* GetLeaveLiveDataAPI.m */,
+				2C8977AB1B194DF30032D258 /* GetTurnLiveDataAPI.h */,
+				2C8977AC1B194DF30032D258 /* GetTurnLiveDataAPI.m */,
+				2C8977AD1B194DF30032D258 /* HeartLive.h */,
+				2C8977AE1B194DF30032D258 /* HeartLive.m */,
+				2C8977AF1B194DF30032D258 /* LeaveLive.h */,
+				2C8977B01B194DF30032D258 /* LeaveLive.m */,
+				2C8977B11B194DF30032D258 /* LiveBreathDataViewController.h */,
+				2C8977B21B194DF30032D258 /* LiveBreathDataViewController.m */,
+				2C8977B31B194DF30032D258 /* LiveHeartDataViewController.h */,
+				2C8977B41B194DF30032D258 /* LiveHeartDataViewController.m */,
+				2C8977B51B194DF30032D258 /* LiveLeaveDataViewController.h */,
+				2C8977B61B194DF30032D258 /* LiveLeaveDataViewController.m */,
+				2C8977B71B194DF30032D258 /* LiveTurnDataViewController.h */,
+				2C8977B81B194DF30032D258 /* LiveTurnDataViewController.m */,
+				2C8977B91B194DF30032D258 /* PaddingHeader.h */,
+				2C8977BA1B194DF30032D258 /* TurnLive.h */,
+				2C8977BB1B194DF30032D258 /* TurnLive.m */,
+				2C8977BC1B194DF30032D258 /* XCoordinatorView.h */,
+				2C8977BD1B194DF30032D258 /* XCoordinatorView.m */,
+				2C8977BE1B194DF30032D258 /* YCoordinatrorView.h */,
+				2C8977BF1B194DF30032D258 /* YCoordinatrorView.m */,
+			);
+			name = liveData;
 			sourceTree = "<group>";
 		};
 		2C8C621A1AB09B0E00CF4C19 /* Images */ = {
@@ -2644,6 +2727,7 @@
 				2C7D22B71AF1CA050011A45C /* icon_heart_rate1_0@2x.png in Resources */,
 				2C15E7341AF214E800142F36 /* pic_bg_1@2x.png in Resources */,
 				2C7D221F1AF1C9F70011A45C /* icon_heart_rate_0@2x.png in Resources */,
+				2C8977C11B194DF30032D258 /* data.txt in Resources */,
 				2C15E7781AF2151500142F36 /* get_up3_1@2x.png in Resources */,
 				2C7D22D81AF1CA050011A45C /* pic_head_portrait_0@2x.png in Resources */,
 				2C15E7891AF2152100142F36 /* heart_3_1.png in Resources */,
@@ -2831,6 +2915,7 @@
 				572AA98A1AC29A5700DED1D9 /* THPinViewController.m in Sources */,
 				5772BE441AAFFF1B00E108BB /* HaviSwitch.m in Sources */,
 				57747DD51AA57FAD002B5A49 /* DatePickerView.m in Sources */,
+				2C8977C71B194DF30032D258 /* LeaveLive.m in Sources */,
 				2C8F7BB91AF3747700E56513 /* JTCalendarDayView.m in Sources */,
 				2C1AD7171AAAE74A00655A5B /* BaseAnimation.m in Sources */,
 				57802E241AE7398200823E39 /* GetImageApi.m in Sources */,
@@ -2854,6 +2939,7 @@
 				57747DD71AA57FAD002B5A49 /* DIDatepickerDateView.m in Sources */,
 				576B024F1A9EB269004DB418 /* CenterSideViewController.m in Sources */,
 				57802E2C1AE7398200823E39 /* UploadImageApi.m in Sources */,
+				2C8977C91B194DF30032D258 /* LiveHeartDataViewController.m in Sources */,
 				577251161AC942D1003C2B46 /* JT3DScrollView.m in Sources */,
 				2C1F1FED1ADBF38F00393E04 /* WQDraggableCalendarView.m in Sources */,
 				576F09C91AC3A4D90083395C /* UDPController.m in Sources */,
@@ -2890,6 +2976,7 @@
 				2C3AF2C01AF4623A00B66E32 /* TodayTurnViewController.m in Sources */,
 				2CD404291B1461260020B89E /* LeaveBedView.m in Sources */,
 				577086211ABC0BB1004A2C07 /* LRGlowingButton.m in Sources */,
+				2C8977CA1B194DF30032D258 /* LiveLeaveDataViewController.m in Sources */,
 				2C8F7BB71AF3747700E56513 /* JTCalendarAppearance.m in Sources */,
 				577062DD1AC285F100790F79 /* STAlertView.m in Sources */,
 				2C6D2F411AF620A2008C285B /* UserInfoTableViewCell.m in Sources */,
@@ -2918,13 +3005,16 @@
 				575F5A9D1AAE87670061AA11 /* DeviceManagerViewController.m in Sources */,
 				2C1AD7181AAAE74A00655A5B /* ModalAnimation.m in Sources */,
 				577062E01AC2919900790F79 /* Gloable.m in Sources */,
+				2C8977CB1B194DF30032D258 /* LiveTurnDataViewController.m in Sources */,
 				576F09CF1AC3CDC50083395C /* PassCodeSettingViewController.m in Sources */,
 				57D566801AD255DF00FE7439 /* DiagnoseReportTableViewCell.m in Sources */,
+				2C8977C31B194DF30032D258 /* GetHeartLiveDataAPI.m in Sources */,
 				57F1D14C1AB8329500B5B0D1 /* UDPAddProductViewController.m in Sources */,
 				577086181ABBFCE3004A2C07 /* UserInfoPhoneTableViewCell.m in Sources */,
 				57802E281AE7398200823E39 /* QHConfiguredObj.m in Sources */,
 				57D7A1961AB980FD00797059 /* LabelLine.m in Sources */,
 				575F5ACB1AAEEE0D0061AA11 /* ZHPickView.m in Sources */,
+				2C8977C01B194DF30032D258 /* BreathLive.m in Sources */,
 				5770860B1ABBB239004A2C07 /* HaviAnimationView.m in Sources */,
 				57802E261AE7398200823E39 /* GetSuggestionList.m in Sources */,
 				57802E291AE7398200823E39 /* SHGetClient.m in Sources */,
@@ -2933,6 +3023,7 @@
 				57802E271AE7398200823E39 /* HaviGetNewClient.m in Sources */,
 				57D4C0071ABAC5520026A559 /* OTCover.m in Sources */,
 				2C8C62971AB5B8A200CF4C19 /* PAPasscodeViewController.m in Sources */,
+				2C8977C41B194DF30032D258 /* GetLeaveLiveDataAPI.m in Sources */,
 				2C77D5261AED198B004123D2 /* GetDefatultSleepAPI.m in Sources */,
 				2C8F7BBA1AF3747700E56513 /* JTCalendarMenuMonthView.m in Sources */,
 				2C15E67F1AF1FF8900142F36 /* GetTurnSleepDataAPI.m in Sources */,
@@ -2944,6 +3035,7 @@
 				2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */,
 				2C5E5C221B12B3F200123CC4 /* RECommonFunctions.m in Sources */,
 				57711FF61AD4D1DC00508C5C /* MontheReportViewController.m in Sources */,
+				2C8977CE1B194DF30032D258 /* YCoordinatrorView.m in Sources */,
 				5793D1C11AA9A1BA00BC24CA /* XLScrollViewer.m in Sources */,
 				2C77D50B1AEB3702004123D2 /* ReNameDeviceNameViewController.m in Sources */,
 				2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */,
@@ -2957,6 +3049,7 @@
 				577B85231AE9EE2900D876E8 /* HeartChartView.m in Sources */,
 				572AA9871AC29A5700DED1D9 /* THPinNumPadView.m in Sources */,
 				2C1F1FC71AD95CA600393E04 /* MonthReportTableViewCell.m in Sources */,
+				2C8977CC1B194DF30032D258 /* TurnLive.m in Sources */,
 				2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */,
 				572AA9861AC29A5700DED1D9 /* THPinNumButton.m in Sources */,
 				576A76751AC1337600BE8206 /* ShowAlertView.m in Sources */,
@@ -2965,11 +3058,14 @@
 				5744AB8F1ACD2AED00AAA869 /* HaviBarView.m in Sources */,
 				2C1F1FCA1AD96A5800393E04 /* MonthReportView.m in Sources */,
 				2C1F1FD31ADA653E00393E04 /* NSDate+NSDateLogic.m in Sources */,
+				2C8977C21B194DF30032D258 /* GetBreathLiveDataAPI.m in Sources */,
 				578065C11ADBA45F00769A1D /* PNBar.m in Sources */,
 				2C77D5471AEFB68F004123D2 /* GetBreathDataAPI.m in Sources */,
 				578065BE1ADB93D400769A1D /* WeekReportView.m in Sources */,
+				2C8977C51B194DF30032D258 /* GetTurnLiveDataAPI.m in Sources */,
 				2C77D5411AEF8AB3004123D2 /* GetHeartDataAPI.m in Sources */,
 				2CD4042B1B1461260020B89E /* TurnroundView.m in Sources */,
+				2C8977C81B194DF30032D258 /* LiveBreathDataViewController.m in Sources */,
 				2C5202181AC438FB00BA1D5D /* ZWIntroductionViewController.m in Sources */,
 				2C8F7BBC1AF3747700E56513 /* JTCalendarMonthView.m in Sources */,
 				579AC7E91AA03F720045E9A2 /* DefaultTableViewCell.m in Sources */,
@@ -3000,10 +3096,12 @@
 				2C77D53E1AEF4EA1004123D2 /* TodayDataContainerViewController.m in Sources */,
 				2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */,
 				577120091AD5088700508C5C /* KxMenu.m in Sources */,
+				2C8977C61B194DF30032D258 /* HeartLive.m in Sources */,
 				572AA98B1AC29A5700DED1D9 /* UIImage+ImageEffects.m in Sources */,
 				2C77D54A1AEFC127004123D2 /* GetLeaveDataAPI.m in Sources */,
 				2C8C627F1AB590CC00CF4C19 /* APPSettingViewController.m in Sources */,
 				2CD404281B1461260020B89E /* HeartView.m in Sources */,
+				2C8977CD1B194DF30032D258 /* XCoordinatorView.m in Sources */,
 				57802E2F1AE7A51A00823E39 /* GetDeviceListAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
