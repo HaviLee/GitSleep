@@ -9,6 +9,7 @@
 #import "CenterSideViewController.h"
 #import "GifView.h"
 #import "DataShowViewController.h"
+#import "THPinViewController.h"
 #import "LoginViewController.h"
 #import "AMBlurView.h"
 #import "DeviceManagerViewController.h"
@@ -22,6 +23,7 @@
 //
 #import "TodayDataViewController.h"
 #import "YTKChainRequest.h"
+//实时数据
 
 #define SleepWidthAndHeightScale    1.47884187  //old 1.47884187/1.3848
 #define DatePickerHeight            self.view.frame.size.height*0.252623
@@ -33,7 +35,7 @@
 #define PeopleToLeftPadding1        (SleepCircleHeight/2-PeopleCenterToLeftPadding)
 #define PeoplePadding               (SleepCircleWidth/2 - PeopleToLeftPadding1)
 
-@interface CenterSideViewController ()<SetScrollDateDelegate,SelectCalenderDate,UIAlertViewDelegate,YTKChainRequestDelegate>
+@interface CenterSideViewController ()<SetScrollDateDelegate,THPinViewControllerDelegate,SelectCalenderDate,UIAlertViewDelegate,YTKChainRequestDelegate>
 {
     UIImageView *sleepCircle;
     BOOL deviceStatus;
@@ -41,48 +43,15 @@
 @property (nonatomic, copy) NSString *correctPin;//验证密码
 @property (nonatomic,strong) UIButton *btn;
 @property (nonatomic, assign) int remainingPinEntries;//验证次数
-
+@property (nonatomic,strong) NSTimer *getDataTimer;
 //@property (nonatomic,strong) NSDateComponents *dateComponents;
-//@property (nonatomic,strong) NSDateFormatter *dateFormmatter;
+@property (nonatomic,strong) NSDateFormatter *dateFormmatterss;
 //@property (nonatomic,strong) NSTimeZone *tmZone;
 
 
 @end
 
 @implementation CenterSideViewController
-
-- (void)loadView
-{
-    [super loadView];
-}
-
-//- (NSDateFormatter *)dateFormmatter
-//{
-//    if (!_dateFormmatter) {
-//        _dateFormmatter = [[NSDateFormatter alloc]init];
-//        [_dateFormmatter setDateFormat:@"yyyyMMdd"];
-//        _dateFormmatter.timeZone = self.tmZone;
-//    }
-//    return _dateFormmatter;
-//}
-//
-//- (NSDateComponents*)dateComponents
-//{
-//    if (!_dateComponents) {
-//        _dateComponents = [[NSDateComponents alloc] init];
-//        _dateComponents.timeZone = self.tmZone;
-//    }
-//    return _dateComponents;
-//}
-//
-//- (NSTimeZone *)tmZone
-//{
-//    if (!_tmZone) {
-//        _tmZone = [NSTimeZone timeZoneWithName:@"GMT"];
-//        [NSTimeZone setDefaultTimeZone:_tmZone];
-//    }
-//    return _tmZone;
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -95,14 +64,32 @@
     [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
     self.datePicker.dateDelegate = self;
     self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.datePicker.userInteractionEnabled = NO;
     //自定义导航栏
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
-            return self.menuButton;
+            _btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
+            [_btn setImage:i forState:UIControlStateNormal];
+            [_btn setFrame:CGRectMake(5, 0, 44, 44)];
+            [_btn addTarget:self action:@selector(left) forControlEvents:UIControlEventTouchUpInside];
+            return _btn;
         }
+        /*
+         else if (nIndex == 0){
+         self.rightButton.frame = CGRectMake(self.view.frame.size.width-46, 0, 44, 44);
+         [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+         [self.rightButton addTarget:self action:@selector(shareApp:) forControlEvents:UIControlEventTouchUpInside];
+         return self.rightButton;
+         }
+         */
         return nil;
     }];
+    //检测设置APP密码
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(isShowAppSettingPassWord) name:AppPassWorkSetOkNoti object:nil];
+    //移除检测
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(removeAppSettingPassWord) name:AppPassWordCancelNoti object:nil];
     //UUid更新时候检测
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeDeviceUUID:) name:POSTDEVICEUUIDCHANGENOTI object:nil];
     //登出
@@ -111,18 +98,11 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getDeviceStatusWithUserId:) name:CHANGEUSERID object:nil];
     //更改默认uuid之后
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deviceUUIDChangeed:) name:CHANGEDEVICEUUID object:nil];
+    //进行检测是不是有app 密码
+    [self isShowAppSettingPassWord];
     //观察这个值是否发生变化。
     //创建子视图
     [self creatSubView];
-    //检测用户下的设备列表在进入app首先获取id；
-    
-    //
-    /*
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
-    NSString *dateString = [formatter stringFromDate:[NSDate date]];
-    dayTimeToUse = dateString;
-     */
     //获取时间
     selectedDateToUse = [NSDate date];
     //
@@ -136,14 +116,81 @@
     }
 }
 
+- (NSDateFormatter *)dateFormmatterss
+{
+    if (!_dateFormmatterss) {
+        _dateFormmatterss = [[NSDateFormatter alloc] init];
+        [_dateFormmatterss setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+        NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"CMT"];
+        [_dateFormmatterss setTimeZone:timeZone];
+    }
+    return _dateFormmatterss;
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     //检测用户下的设备列表在进入app首先获取id；
-//    [MMProgressHUD showWithStatus:@"获取设备信息中..."];
-    //获取用户相关联的设备uuid
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [self getDeviceStatusWithUserNewAPI:GloableUserId];
+    //    [KVNProgress showWithStatus:@"获取设备信息中..."];
+    //    //获取用户相关联的设备uuid
+    //    [self getDeviceStatusWithUserNewAPI:GloableUserId];
+    [self getDeviceList];
+}
+//新的
+- (void)getDeviceList
+{
+    NSString *urlString = [NSString stringWithFormat:@"http://webservice.meddo99.com:9000/v1/user/UserDeviceList?UserID=%@",GloableUserId];
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [WTRequestCenter getWithURL:urlString headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        HaviLog(@"正式的是%@and%@",response,data)
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:nil error:nil];
+        HaviLog(@"获取硬件信息是%@",dic);
+        NSArray *arr = [dic objectForKey:@"DeviceList"];
+        if (arr.count == 0) {
+            HardWareUUID = NOBINDUUID;
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alert.tag = 900;
+            [alert show];
+            [self reloadStatusImage:YES];
+        }else{
+            HardWareUUID = NOUSEUUID;
+            for (NSDictionary *dic in arr) {
+                if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+                    HardWareUUID = [dic objectForKey:@"UUID"];
+                    HaviLog(@"关联默认的uuid是%@",HardWareUUID);
+                    break;
+                }
+            }
+            if ([HardWareUUID isEqualToString:NOUSEUUID]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                alert.tag = 901;
+                [alert show];
+                [self reloadStatusImage:YES];
+            }else{
+                [self reloadStatusImage:YES];
+                //获取数据
+                NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
+                NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
+                [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
+                
+                DeviceStatus = YES;
+                
+                /*
+                 NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",HardWareUUID];
+                 NSDictionary *header = @{
+                 @"AccessToken":@"123456789"
+                 };
+                 CheckDeviceStatusAPI *client1 = [CheckDeviceStatusAPI shareInstance];
+                 [client1 checkStatus:header withDetailUrl:urlString];
+                 [chainRequest addRequest:client1 callback:nil];
+                 */
+            }
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
 }
 
 #pragma mark 测试新的api
@@ -163,7 +210,6 @@
     [chainRequest addRequest:client callback:^(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest) {
         NSDictionary *resposeDic = (NSDictionary *)baseRequest.responseJSONObject;
         HaviLog(@"获取硬件信息是%@",resposeDic);
-//        [MMProgressHUD dismiss];
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
         if (arr.count == 0) {
             HardWareUUID = NOBINDUUID;
@@ -193,15 +239,15 @@
                 [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
                 
                 DeviceStatus = YES;
-
+                
                 /*
-                NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",HardWareUUID];
-                NSDictionary *header = @{
-                                         @"AccessToken":@"123456789"
-                                         };
-                CheckDeviceStatusAPI *client1 = [CheckDeviceStatusAPI shareInstance];
-                [client1 checkStatus:header withDetailUrl:urlString];
-                [chainRequest addRequest:client1 callback:nil];
+                 NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",HardWareUUID];
+                 NSDictionary *header = @{
+                 @"AccessToken":@"123456789"
+                 };
+                 CheckDeviceStatusAPI *client1 = [CheckDeviceStatusAPI shareInstance];
+                 [client1 checkStatus:header withDetailUrl:urlString];
+                 [chainRequest addRequest:client1 callback:nil];
                  */
             }
         }
@@ -214,27 +260,27 @@
 {
     //暂时不做处理
     /*
-    if (chainRequest.requestArray.count>1) {
-        CheckDeviceStatusAPI *API = (CheckDeviceStatusAPI *)[chainRequest.requestArray objectAtIndex:1];
-        NSDictionary *resposeDic = (NSDictionary *)API.responseJSONObject;
-        //    NSDictionary *resposeDic = (NSDictionary *)chainRequest.responseJSONObject;
-        HaviLog(@"设备状态是%@",resposeDic);
-        NSDictionary *dic = [resposeDic objectForKey:@"SensorInfo"];
-        if ([[dic objectForKey:@"ActivationStatus"]isEqualToString:@"激活"]) {
-            [self reloadStatusImage:YES];
-            //获取数据
-            NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
-            NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
-            [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
-            
-            DeviceStatus = YES;
-        }else{
-            [self reloadStatusImage:NO];
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您的设备未处于工作状态,是否启动设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            alert.tag = 902;
-            [alert show];
-        }
-    }
+     if (chainRequest.requestArray.count>1) {
+     CheckDeviceStatusAPI *API = (CheckDeviceStatusAPI *)[chainRequest.requestArray objectAtIndex:1];
+     NSDictionary *resposeDic = (NSDictionary *)API.responseJSONObject;
+     //    NSDictionary *resposeDic = (NSDictionary *)chainRequest.responseJSONObject;
+     HaviLog(@"设备状态是%@",resposeDic);
+     NSDictionary *dic = [resposeDic objectForKey:@"SensorInfo"];
+     if ([[dic objectForKey:@"ActivationStatus"]isEqualToString:@"激活"]) {
+     [self reloadStatusImage:YES];
+     //获取数据
+     NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
+     NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
+     [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
+     
+     DeviceStatus = YES;
+     }else{
+     [self reloadStatusImage:NO];
+     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您的设备未处于工作状态,是否启动设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+     alert.tag = 902;
+     [alert show];
+     }
+     }
      */
 }
 
@@ -278,7 +324,23 @@
 {
     [self checkDeviceStatus];
 }
+- (void)removeAppSettingPassWord
+{
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:AppPassWordKey] isEqualToString:@"NO"]) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification
+                                                      object:nil];
+    }
+}
 
+- (void)isShowAppSettingPassWord
+{
+    if (![[[NSUserDefaults standardUserDefaults]objectForKey:AppPassWordKey] isEqualToString:@"NO"]) {
+        self.remainingPinEntries = 6;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)
+                                                     name:UIApplicationDidEnterBackgroundNotification object:nil];
+    }
+}
 //登出时进行此操作
 - (void)showLoginView:(NSNotification *)noti
 {
@@ -286,7 +348,7 @@
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
     navi.navigationBarHidden = YES;
     [self presentViewController:navi animated:YES completion:^{
-//        [self tapImage:nil];
+        //        [self tapImage:nil];
         [self.datePicker removeFromSuperview];
         self.datePicker = nil;
         [self.view addSubview:self.datePicker];
@@ -294,9 +356,9 @@
         [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
         self.datePicker.dateDelegate = self;
         self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-//        self.view = nil;
+        //        self.view = nil;
     }];
-
+    
 }
 #pragma mark 获取用户数据
 
@@ -305,34 +367,51 @@
     //fromdate 是当天的日期
     if (!fromDate) {
         
-//        [ShowAlertView showAlert:@"CenterSideViewController:214,line开始时间为空"];
+        //        [ShowAlertView showAlert:@"CenterSideViewController:214,line开始时间为空"];
         return;
     }
-//    [MMProgressHUD showWithStatus:@"请求中..."];
-    NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+    isUserDefaultTime = NO;
+    //    [KVNProgress showWithStatus:@"请求中..."];
     NSString *urlString = @"";
-    if (isUserDefaultTime) {
-        NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
-        NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
-        int startInt = [[startTime substringToIndex:2]intValue];
-        int endInt = [[endTime substringToIndex:2]intValue];
-        if (startInt<endInt) {
-            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,endDate,startTime,endTime];
-        }else if (startInt>endInt || startInt==endInt){
-            self.dateComponentsBase.day = 1;
-            NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-            NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-            NSString *newStringToend = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newStringToend,startTime,endTime];
-            
-        }
-    }else{
-        self.dateComponentsBase.day = -1;
-        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,endDate];
-    }
+    /*
+     if (isUserDefaultTime) {
+     NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+     NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+     int startInt = [[startTime substringToIndex:2]intValue];
+     int endInt = [[endTime substringToIndex:2]intValue];
+     if (startInt<endInt) {
+     urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,endDate,startTime,endTime];
+     }else if (startInt>endInt || startInt==endInt){
+     self.dateComponentsBase.day = 1;
+     NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+     NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+     NSString *newStringToend = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+     urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newStringToend,startTime,endTime];
+     
+     }
+     }else{
+     self.dateComponentsBase.day = -1;
+     NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+     NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+     NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+     urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,endDate];
+     }
+     */
+    //    NSDate *date = [NSDate date];
+    //    NSMutableDictionary *abbs = [[NSMutableDictionary alloc] init];
+    //    [abbs setValuesForKeysWithDictionary:[NSTimeZone abbreviationDictionary]];
+    //    [abbs setValue:@"Asia/Shanghai" forKey:@"CCD"];
+    //    [NSTimeZone setAbbreviationDictionary:abbs];
+    
+    
+    NSDate *newDate = [[NSDate date]dateByAddingTimeInterval:8*60*60];
+    NSString *nowDate = [NSString stringWithFormat:@"%@",newDate];
+    //    NSDate* date = [self.dateFormmatterss dateFromString:nowDate];
+    //    NSString *newDateString = [NSString stringWithFormat:@"%@",date];
+    
+    NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
+    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",HardWareUUID,subString,subString];
+    
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -346,21 +425,44 @@
     [client queryDefaultSleep:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        //        [KVNProgress dismiss];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [self reloadUserUI:(NSDictionary *)resposeDic];
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            alert.tag = 900;
-            [alert show];
-            [self reloadStatusImage:NO];
+            //            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            //            alert.tag = 900;
+            //            [alert show];
+            //            [self reloadStatusImage:NO];
         }else{
             
         }
-        HaviLog(@"获取当日睡眠质量:%@",resposeDic);
+        HaviLog(@"center获取当日睡眠质量:%@",resposeDic);
     } failure:^(YTKBaseRequest *request) {
         
     }];
+    /*
+     NSString *urlString = [NSString stringWithFormat:@"http://webservice.meddo99.com:9000/v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@",HardWareUUID,fromDate,endTime];
+     NSDictionary *header = @{
+     @"AccessToken":@"123456789"
+     };
+     if ([compDate timeIntervalSinceDate:[NSDate date]]<0) {
+     [WTRequestCenter getWithURL:urlString headers:header parameters:nil option:WTRequestCenterCachePolicyCacheElseWeb finished:^(NSURLResponse *response, NSData *data) {
+     id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+     [self reloadUserUI:(NSDictionary *)obj];
+     HaviLog(@"数据是%@",obj);
+     } failed:^(NSURLResponse *response, NSError *error) {
+     
+     }];
+     }else{
+     [WTRequestCenter getWithURL:urlString headers:header parameters:nil option:WTRequestCenterCachePolicyCacheAndRefresh finished:^(NSURLResponse *response, NSData *data) {
+     id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+     [self reloadUserUI:(NSDictionary *)obj];
+     HaviLog(@"数据是%@",obj);
+     } failed:^(NSURLResponse *response, NSError *error) {
+     
+     }];
+     }
+     */
 }
 
 - (void)deviceUUIDChangeed:(NSNotification *)noti
@@ -384,6 +486,24 @@
     moveLabel.text = [NSString stringWithFormat:@"%d次/天",bodyMovementTimes];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //    if (HardWareUUID.length>0) {
+    //        [self showDifferentAlertWithDeviceStatus];
+    //    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.getDataTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(tapImage:) userInfo:nil repeats:YES];
+        
+    });
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.getDataTimer invalidate];
+    [super viewWillDisappear:animated];
+}
+
 - (void)showDifferentAlertWithDeviceStatus
 {
     if ([HardWareUUID isEqualToString:NOBINDUUID]) {
@@ -400,13 +520,15 @@
         [self checkDeviceStatus];
         
     }
-
+    
 }
 
 - (void)shareApp:(UIButton *)sender
 {
     
     [self.shareMenuView show];
+    //    CeshiViewController *jiekouceshi = [[CeshiViewController alloc]init];
+    //    [self.navigationController pushViewController:jiekouceshi animated:YES];
 }
 
 #pragma mark 获取设备列表
@@ -425,7 +547,6 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"获取硬件信息是%@",resposeDic);
-        [MMProgressHUD dismiss];
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
         if (arr.count == 0) {
             HardWareUUID = NOBINDUUID;
@@ -469,7 +590,7 @@
             NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
             NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
             [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
-
+            
             DeviceStatus = YES;
         }else{
             [self reloadStatusImage:NO];
@@ -493,22 +614,46 @@
         deviceStatus = NO;
     }
 }
+#pragma mark 设备锁
+- (void)showPinViewAnimated:(BOOL)animated
+{
+    THPinViewController *pinViewController = [[THPinViewController alloc] initWithDelegate:self];
+    self.correctPin = [[NSUserDefaults standardUserDefaults]objectForKey:AppPassWordKey];
+    pinViewController.promptTitle = @"密码验证";
+    pinViewController.promptColor = [UIColor whiteColor];
+    pinViewController.view.tintColor = [UIColor whiteColor];
+    
+    // for a solid background color, use this:
+    pinViewController.backgroundColor = [UIColor colorWithRed:0.141f green:0.165f blue:0.208f alpha:1.00f];
+    
+    // for a translucent background, use this:
+    self.view.tag = THPinViewControllerContentViewTag;
+    self.modalPresentationStyle = UIModalPresentationCurrentContext;
+    pinViewController.translucentBackground = NO;
+    
+    [self presentViewController:pinViewController animated:animated completion:nil];
+}
 
+- (void)applicationDidEnterBackground:(NSNotification *)notification
+{
+    [self showPinViewAnimated:NO];
+}
+
+- (void)dealloc
+{
+    [self removeAppSettingPassWord];
+}
 
 #pragma 自定义delegate
 - (void)getScrollSelectedDate:(NSDate *)date
 {
     if (date) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        });
         selectedDateToUse = date;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
         NSString *dateString = [formatter stringFromDate:date];
         HaviLog(@"当前选中的日期是%@",dateString);
-//        dayTimeToUse = dateString;
+        //        dayTimeToUse = dateString;
         NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
         [self getTodayUserData:subString endDate:subString withCompareDate:date];
     }
@@ -527,7 +672,7 @@
         make.bottom.equalTo(self.view.bottom).offset(-DatePickerHeight-DatePickerWithSleepCirclePadding);
         make.height.equalTo(sleepCircle.width).multipliedBy(SleepWidthAndHeightScale);
     }];
-//    心率
+    //    心率
     UITapGestureRecognizer *tapCircle = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImage:)];
     [sleepCircle addGestureRecognizer:tapCircle];
     
@@ -536,14 +681,14 @@
     UITapGestureRecognizer *tapHeartImage = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapHeartImage:)];
     [self.gifHeart addGestureRecognizer:tapHeartImage];
     [self.gifHeart makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(sleepCircle.centerX).multipliedBy(1.0);
-//        make.centerY.equalTo(sleepCircle.centerY).offset(-SleepCircleHeight/2);
+        //        make.centerX.equalTo(sleepCircle.centerX).multipliedBy(1.0);
+        //        make.centerY.equalTo(sleepCircle.centerY).offset(-SleepCircleHeight/2);
         make.centerX.equalTo(sleepCircle.centerX).offset(SleepCircleHeight/2*sin(M_PI/18)- PeoplePadding);
         make.centerY.equalTo(sleepCircle.centerY).offset(-SleepCircleHeight/2*cos(M_PI/18));
         
         make.height.width.equalTo(CircleWidth);
     }];
-//label
+    //label
     UILabel *heartLabel = [[UILabel alloc]init];
     [self.view addSubview:heartLabel];
     [heartLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -565,11 +710,11 @@
     heartLabelShow.tag = 1001;
     heartLabelShow.text = @"0次/分钟";
     heartLabelShow.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-//    呼吸
+    //    呼吸
     [self.view addSubview:self.gifbreath];
     [self.gifbreath makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(sleepCircle.centerX).multipliedBy(1.95).offset(0);
-//        make.centerY.equalTo(sleepCircle.centerY).multipliedBy(0.75).offset(0);
+        //        make.centerX.equalTo(sleepCircle.centerX).multipliedBy(1.95).offset(0);
+        //        make.centerY.equalTo(sleepCircle.centerY).multipliedBy(0.75).offset(0);
         make.centerX.equalTo(sleepCircle.centerX).offset(SleepCircleHeight/2*sin(M_PI*63.3333/180)- PeoplePadding+1);
         make.centerY.equalTo(sleepCircle.centerY).offset(-SleepCircleHeight/2*cos(M_PI*63.3333/180));
         make.height.width.equalTo(CircleWidth);
@@ -577,7 +722,7 @@
     self.gifbreath.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapBreatheImage = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapHeartImage:)];
     [self.gifbreath addGestureRecognizer:tapBreatheImage];
-//    label
+    //    label
     UILabel *breatheLabel = [[UILabel alloc]init];
     [self.view addSubview:breatheLabel];
     [breatheLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -600,7 +745,7 @@
     breatheLabelShow.tag = 1002;
     breatheLabelShow.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     
-//    离床
+    //    离床
     [self.view addSubview:self.gifLeave];
     [self.gifLeave makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(sleepCircle.centerX).offset(SleepCircleHeight/2*sin(M_PI*63.3333/180)- PeoplePadding+1);
@@ -632,7 +777,7 @@
     leveaBedLabelShow.text = @"0次/天";
     leveaBedLabelShow.tag = 1003;
     leveaBedLabelShow.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-//    体动
+    //    体动
     [self.view addSubview:self.gifTurn];
     [self.gifTurn makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(sleepCircle.centerX).offset(SleepCircleHeight/2*sin(M_PI/18)- PeoplePadding);
@@ -689,7 +834,19 @@
     TodayDataViewController *today = [[TodayDataViewController alloc]init];
     today.selectedIndex = seledtedIndexNum;
     [self.navigationController pushViewController:today animated:YES];
-
+    
+    //    TodayDataContainerViewController *todayContainer = [[TodayDataContainerViewController alloc]init];
+    //    todayContainer.title = selectedIndex;
+    //    [self.navigationController pushViewController:todayContainer animated:YES];
+    /*
+     DataShowViewController *dataShow = [[DataShowViewController alloc]init];
+     dataShow.selectedIndex = selectedIndex;
+     [self.navigationController pushViewController:dataShow animated:YES];
+     //为了解决右滑失效
+     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+     self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+     }
+     */
 }
 #pragma mark 更换皮肤
 - (void)reloadImage
@@ -719,21 +876,21 @@
         sleepCircle.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_on_line_%d",selectedThemeIndex]];
     }else{
         sleepCircle.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_off_line_%d",selectedThemeIndex]];
-
+        
     }
     
-//    self.view = nil;
-//    self.gifbreath = nil;
-//    self.gifHeart = nil;
-//    self.gifLeave = nil;
-//    self.gifTurn = nil;
-//    [self.gifTurn removeFromSuperview];
-//    [self.gifLeave removeFromSuperview];
-//    [self.gifHeart removeFromSuperview];
-//    [self.gifbreath removeFromSuperview];
-//    [sleepCircle removeFromSuperview];
-//    sleepCircle = nil;
-//    [self creatSubView];
+    //    self.view = nil;
+    //    self.gifbreath = nil;
+    //    self.gifHeart = nil;
+    //    self.gifLeave = nil;
+    //    self.gifTurn = nil;
+    //    [self.gifTurn removeFromSuperview];
+    //    [self.gifLeave removeFromSuperview];
+    //    [self.gifHeart removeFromSuperview];
+    //    [self.gifbreath removeFromSuperview];
+    //    [sleepCircle removeFromSuperview];
+    //    sleepCircle = nil;
+    //    [self creatSubView];
 }
 
 - (void)showCalender:(UIButton *)sender
@@ -752,12 +909,78 @@
 #pragma mark 点击小人进行刷新
 - (void)tapImage:(UITapGestureRecognizer *)gesture
 {
-    NSDate *nowdate = [NSDate date];
+    NSDate *newDate = [[NSDate date]dateByAddingTimeInterval:8*60*60];
     //更新日历
-    NSString *date = [NSString stringWithFormat:@"%@",nowdate];
+    NSString *date = [NSString stringWithFormat:@"%@",newDate];
     [self.datePicker updateSelectedDate:date];
     //为了下页的使用
     dayTimeToUse = date;
+    HaviLog(@"shuaxin");
+}
+
+//弹出式日历
+//- (void)selectedDate:(NSDate *)selectedDate
+//{
+//    NSString *date = [NSString stringWithFormat:@"%@",selectedDate];
+//    HaviLog(@"选中的日期是%@",date);
+////    NSString *subString = [NSString stringWithFormat:@"%@%@%@",[date substringWithRange:NSMakeRange(0, 4)],[date substringWithRange:NSMakeRange(5, 2)],[date substringWithRange:NSMakeRange(8, 2)]];
+//    [self.datePicker caculateCurrentYearDate:selectedDate];
+//    [self.calenderNewView removeFromSuperview];
+//    //更新日历
+//    [self.datePicker updateSelectedDate:date ];
+//    //为了下页的使用
+//    dayTimeToUse = date;
+//    self.calenderNewView = nil;
+//}
+
+#pragma mark - THPinViewControllerDelegate
+
+- (NSUInteger)pinLengthForPinViewController:(THPinViewController *)pinViewController
+{
+    return 4;
+}
+
+- (BOOL)pinViewController:(THPinViewController *)pinViewController isPinValid:(NSString *)pin
+{
+    if ([pin isEqualToString:self.correctPin]) {
+        return YES;
+    } else {
+        self.remainingPinEntries--;
+        HaviLog(@"还能输入%d次",self.remainingPinEntries);
+        return NO;
+    }
+}
+
+- (BOOL)userCanRetryInPinViewController:(THPinViewController *)pinViewController
+{
+    //f返回yes可以无限次的验证
+    return YES;
+}
+
+- (void)incorrectPinEnteredInPinViewController:(THPinViewController *)pinViewController
+{
+    if (self.remainingPinEntries > 6 / 2) {
+        return;
+    }
+    
+}
+
+- (void)pinViewControllerWillDismissAfterPinEntryWasCancelled:(THPinViewController *)pinViewController
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //默认值改变
+        [[NSUserDefaults standardUserDefaults]setObject:@"NO" forKey:AppPassWordKey];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        //移除后台检测
+        if ([[[NSUserDefaults standardUserDefaults]objectForKey:AppPassWordKey] isEqualToString:@"NO"]) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification
+                                                          object:nil];
+        }
+        LoginViewController *login = [[LoginViewController alloc]init];
+        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
+        navi.navigationBarHidden = YES;
+        [self presentViewController:navi animated:YES completion:nil];
+    });
 }
 
 #pragma mark alertview 代理
@@ -783,7 +1006,7 @@
             [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
         }
     }
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -792,13 +1015,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
