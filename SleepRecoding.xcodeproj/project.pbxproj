@@ -224,7 +224,6 @@
 		2C77D5351AEF4E36004123D2 /* BreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5341AEF4E36004123D2 /* BreathViewController.m */; };
 		2C77D5381AEF4E49004123D2 /* LeaveBedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5371AEF4E49004123D2 /* LeaveBedViewController.m */; };
 		2C77D53B1AEF4E5D004123D2 /* TurnRoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D53A1AEF4E5D004123D2 /* TurnRoundViewController.m */; };
-		2C77D53E1AEF4EA1004123D2 /* TodayDataContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D53D1AEF4EA1004123D2 /* TodayDataContainerViewController.m */; };
 		2C77D5411AEF8AB3004123D2 /* GetHeartDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5401AEF8AB3004123D2 /* GetHeartDataAPI.m */; };
 		2C77D5471AEFB68F004123D2 /* GetBreathDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5461AEFB68F004123D2 /* GetBreathDataAPI.m */; };
 		2C77D54A1AEFC127004123D2 /* GetLeaveDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5491AEFC127004123D2 /* GetLeaveDataAPI.m */; };
@@ -828,8 +827,6 @@
 		2C77D5371AEF4E49004123D2 /* LeaveBedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaveBedViewController.m; path = controller/LeaveBedViewController.m; sourceTree = "<group>"; };
 		2C77D5391AEF4E5D004123D2 /* TurnRoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TurnRoundViewController.h; path = controller/TurnRoundViewController.h; sourceTree = "<group>"; };
 		2C77D53A1AEF4E5D004123D2 /* TurnRoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TurnRoundViewController.m; path = controller/TurnRoundViewController.m; sourceTree = "<group>"; };
-		2C77D53C1AEF4EA1004123D2 /* TodayDataContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodayDataContainerViewController.h; path = controller/TodayDataContainerViewController.h; sourceTree = "<group>"; };
-		2C77D53D1AEF4EA1004123D2 /* TodayDataContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodayDataContainerViewController.m; path = controller/TodayDataContainerViewController.m; sourceTree = "<group>"; };
 		2C77D53F1AEF8AB3004123D2 /* GetHeartDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetHeartDataAPI.h; path = API/GetHeartDataAPI.h; sourceTree = "<group>"; };
 		2C77D5401AEF8AB3004123D2 /* GetHeartDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetHeartDataAPI.m; path = API/GetHeartDataAPI.m; sourceTree = "<group>"; };
 		2C77D5451AEFB68F004123D2 /* GetBreathDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetBreathDataAPI.h; path = API/GetBreathDataAPI.h; sourceTree = "<group>"; };
@@ -2332,8 +2329,6 @@
 				2C61170F1ABEACF400261A1E /* EditUserInfoViewController.m */,
 				2C6117111ABEBE8A00261A1E /* EditUserDefalutTableViewCell.h */,
 				2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */,
-				2C77D53C1AEF4EA1004123D2 /* TodayDataContainerViewController.h */,
-				2C77D53D1AEF4EA1004123D2 /* TodayDataContainerViewController.m */,
 				5793D1B71AA9823C00BC24CA /* DataShowViewController.h */,
 				5793D1B81AA9823C00BC24CA /* DataShowViewController.m */,
 				2C77D5301AEF4E23004123D2 /* HeartViewViewController.h */,
@@ -3093,7 +3088,6 @@
 				57802E2A1AE7398200823E39 /* SHPostClient.m in Sources */,
 				2C3AF2B11AF4611E00B66E32 /* NKJPagerViewController.m in Sources */,
 				2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */,
-				2C77D53E1AEF4EA1004123D2 /* TodayDataContainerViewController.m in Sources */,
 				2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */,
 				577120091AD5088700508C5C /* KxMenu.m in Sources */,
 				2C8977C61B194DF30032D258 /* HeartLive.m in Sources */,
