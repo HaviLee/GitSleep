@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "UDPController.h"
+#import "RESideMenu.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic)  UDPController* udpController;
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) RESideMenu *sideMenuController;
 
 @end
 

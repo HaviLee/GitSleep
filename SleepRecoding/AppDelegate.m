@@ -69,12 +69,55 @@
     }else{
         isUserDefaultTime = YES;
     }
-
-    sleep(1);
-//    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]];
+    LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
+    
+    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController
+                                                                    leftMenuViewController:leftMenuViewController
+                                                                   rightMenuViewController:nil];
+    NSString *nowDateString = [NSString stringWithFormat:@"%@",[self getNowDateFromatAnDate:[NSDate date]]];
+    NSString *sub = [nowDateString substringWithRange:NSMakeRange(11, 2)];
+    if ([sub intValue]>7 && [sub intValue]<18) {
+        sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_day"];
+    }else{
+        sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_night"];
+    }
+    sideMenuViewController.menuPreferredStatusBarStyle = 0; // UIStatusBarStyleLightContent
+    //    sideMenuViewController.delegate = self;
+    sideMenuViewController.contentViewShadowColor = [UIColor blackColor];
+    sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0);
+    sideMenuViewController.contentViewShadowOpacity = 0.6;
+    sideMenuViewController.contentViewShadowRadius = 12;
+    sideMenuViewController.contentViewShadowEnabled = YES;
+    self.sideMenuController = sideMenuViewController;
     [self.window makeKeyAndVisible];
 
     return YES;
+}
+
+- (NSDate *)getNowDateFromatAnDate:(NSDate *)anyDate
+{
+    //设置源日期时区
+    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
+    //设置转换后的目标日期时区
+    NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
+    //得到源日期与世界标准时间的偏移量
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:anyDate];
+    //目标日期与本地时区的偏移量
+    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:anyDate];
+    //得到时间偏移量的差值
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+    //转为现在时间
+    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:anyDate];
+    
+    if (sourceTimeZone) {
+        sourceTimeZone = nil;
+    }
+    if (destinationTimeZone) {
+        destinationTimeZone = nil;
+    }
+    return destinationDateNow;
 }
 //获取专家建议表
 - (void)getSuggestionList

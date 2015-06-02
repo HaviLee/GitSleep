@@ -267,6 +267,7 @@
 
 - (void)loginView
 {
+    /*
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]];
     LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
     
@@ -287,26 +288,11 @@
     sideMenuViewController.contentViewShadowOpacity = 0.6;
     sideMenuViewController.contentViewShadowRadius = 12;
     sideMenuViewController.contentViewShadowEnabled = YES;
+    */
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    window.rootViewController = sideMenuViewController;
-    /*
-    XHDrawerController *drawerController = [[XHDrawerController alloc] init];
-    drawerController.springAnimationOn = YES;
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    window.rootViewController = app.sideMenuController;
     
-    LeftSideViewController *leftSideController = [[LeftSideViewController alloc]init];
-    RightSideViewController *rightSideController = [[RightSideViewController alloc]init];
-    CenterSideViewController *centerSideController = [[CenterSideViewController alloc]init];
-    
-    drawerController.leftViewController = leftSideController;
-    drawerController.rightViewController = rightSideController;
-    drawerController.centerViewController = [[UINavigationController alloc] initWithRootViewController:centerSideController];
-    
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MenuBackground"]];
-    [backgroundImageView setContentMode:UIViewContentModeCenter];
-    drawerController.backgroundView = backgroundImageView;
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    window.rootViewController = drawerController;
-     */
 }
 
 - (void)registerButton:(UIButton *)sender
