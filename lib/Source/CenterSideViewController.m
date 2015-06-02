@@ -139,10 +139,11 @@
 {
     [super viewDidAppear:animated];
     //检测用户下的设备列表在进入app首先获取id；
-//    [MMProgressHUD showWithStatus:@"获取设备信息中..."];
     //获取用户相关联的设备uuid
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [self getDeviceStatusWithUserNewAPI:GloableUserId];
+    if ([HardWareUUID isEqualToString:@""]) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        [self getDeviceStatusWithUserNewAPI:GloableUserId];
+    }
 }
 
 #pragma mark 测试新的api
@@ -187,7 +188,8 @@
             }else{
                 [self reloadStatusImage:YES];
                 //获取数据
-                NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
+                NSDate *newDate = [self getNowDateFromatAnDate:[NSDate date]];
+                NSString *nowDate = [NSString stringWithFormat:@"%@",newDate];
                 NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
                 [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
                 
@@ -751,9 +753,9 @@
 #pragma mark 点击小人进行刷新
 - (void)tapImage:(UITapGestureRecognizer *)gesture
 {
-    NSDate *nowdate = [NSDate date];
+    NSDate *nowDate = [self getNowDateFromatAnDate:[NSDate date]];
     //更新日历
-    NSString *date = [NSString stringWithFormat:@"%@",nowdate];
+    NSString *date = [NSString stringWithFormat:@"%@",nowDate];
     [self.datePicker updateSelectedDate:date];
     //为了下页的使用
     dayTimeToUse = date;
