@@ -3129,7 +3129,7 @@
 					"$(PROJECT_DIR)/lib/thirdlib/libSmartLinkStaticLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3140,7 +3140,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Meddo Medical Technology Co., Ltd. (A4R9NHT83H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SleepRecoding/PrefixHeader.pch";
 				INFOPLIST_FILE = SleepRecoding/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -3150,7 +3150,7 @@
 					"$(PROJECT_DIR)/lib/thirdlib/libSmartLinkStaticLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
