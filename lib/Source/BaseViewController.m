@@ -686,7 +686,7 @@
 /**
  *  移除通知
  *
- *  @param animated <#animated description#>
+ *  @param animated 
  */
 - (void)viewWillDisappear:(BOOL)animated
 {
