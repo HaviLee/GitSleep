@@ -264,7 +264,7 @@
             //
             
         }
-        CGContextClosePath(context);
+//        CGContextClosePath(context);
         
         [UIView animateWithDuration:0.5 animations:^{
             CGContextStrokePath(context);
