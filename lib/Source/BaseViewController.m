@@ -420,6 +420,9 @@
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification
                                                           object:nil];
         }
+        isLogout = YES;
+//        [self.navigationController popToRootViewControllerAnimated:NO];
+//        [self.sideMenuViewController hideMenuViewController];
         LoginViewController *login = [[LoginViewController alloc]init];
         UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
         navi.navigationBarHidden = YES;
