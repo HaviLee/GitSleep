@@ -444,6 +444,7 @@
                 self.titleLabel.alpha = 0;
             }];
         }];
+        [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         [self.gifImageDown removeFromSuperview];
         self.gifImageDown = nil;
         [self.indicatorView addSubview:self.gifImageUp];
@@ -471,6 +472,7 @@
                     self.titleLabel.alpha = 0;
                 }];
             }];
+            [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             [self.gifImageDown removeFromSuperview];
             self.gifImageDown = nil;
             [self.indicatorView addSubview:self.gifImageUp];
