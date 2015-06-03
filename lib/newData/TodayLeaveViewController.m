@@ -508,7 +508,7 @@
 {
     [super viewDidAppear:animated];
     //保持统一的切换日期
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         if (isUserDefaultTime) {
             [self.timeSwitchButton changeRightImageWithTime:0];
@@ -567,9 +567,9 @@
 
 - (void)getUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
-    [MMProgressHUD showWithStatus:@"请求中..."];
+//    [MMProgressHUD showWithStatus:@"请求中..."];
     if (fromDate) {
-        
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
         NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
         self.dateComponentsBase.day = -1;
         NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
@@ -586,21 +586,26 @@
         [client getLeaveData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            [MMProgressHUD dismiss];
+//            [MMProgressHUD dismiss];
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
             HaviLog(@"缓存的离床数据%@",resposeDic);
             [self reloadUserViewWithData:resposeDic];
             [self getUserSleepReportData:fromDate toDate:toDate];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [MMProgressHUD dismiss];
+//                [MMProgressHUD dismiss];
+                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 HaviLog(@"请求的心率数据%@",resposeDic);
                 [self reloadUserViewWithData:resposeDic];
                 [self getUserSleepReportData:fromDate toDate:toDate];
             } failure:^(YTKBaseRequest *request) {
-                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                    
-                }];
+                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+//                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+//                    
+//                }];
             }];
         }
     }
@@ -640,9 +645,11 @@
                 self.currentSleepQulitity = resposeDic;
                 [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
-                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                    
-                }];
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+//                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+//                    
+//                }];
             }];
         }
     }
@@ -700,7 +707,8 @@
         }
         
         
-        [MMProgressHUD showWithStatus:@"请求中..."];
+//        [MMProgressHUD showWithStatus:@"请求中..."];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
@@ -711,21 +719,25 @@
         [client getUserDefaultData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            [MMProgressHUD dismiss];
+//            [MMProgressHUD dismiss];
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
             HaviLog(@"缓存的离床默认数据是%@",resposeDic);
             [self reloadUserViewWithDefaultData:resposeDic];
             [self getUserDefatultSleepReportData:fromDate toDate:toDate];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [MMProgressHUD dismiss];
+//                [MMProgressHUD dismiss];
+                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 HaviLog(@"请求的默认离床数据是%@",resposeDic);
                 [self reloadUserViewWithDefaultData:resposeDic];
                 [self getUserDefatultSleepReportData:fromDate toDate:toDate];
             } failure:^(YTKBaseRequest *request) {
-                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                    
-                }];
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+//                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+//                    
+//                }];
             }];
         }
     }
@@ -777,9 +789,11 @@
                 self.currentSleepQulitity = resposeDic;
                 [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
-                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                    
-                }];
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+//                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+//                    
+//                }];
             }];
         }
     }
