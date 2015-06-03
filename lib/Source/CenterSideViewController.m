@@ -104,8 +104,7 @@
     }];
     //UUid更新时候检测
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeDeviceUUID:) name:POSTDEVICEUUIDCHANGENOTI object:nil];
-    //登出
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginView:) name:POSTLOGOUTNOTI object:nil];
+//    //登出
     //重新登录时，切换新的设备id
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getDeviceStatusWithUserId:) name:CHANGEUSERID object:nil];
     //更改默认uuid之后
@@ -280,25 +279,25 @@
     [self checkDeviceStatus];
 }
 
-//登出时进行此操作
-- (void)showLoginView:(NSNotification *)noti
-{
-    LoginViewController *login = [[LoginViewController alloc]init];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
-    navi.navigationBarHidden = YES;
-    [self presentViewController:navi animated:YES completion:^{
-//        [self tapImage:nil];
-        [self.datePicker removeFromSuperview];
-        self.datePicker = nil;
-        [self.view addSubview:self.datePicker];
-        [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-        [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
-        self.datePicker.dateDelegate = self;
-        self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-//        self.view = nil;
-    }];
-
-}
+////登出时进行此操作
+//- (void)showLoginView:(NSNotification *)noti
+//{
+//    LoginViewController *login = [[LoginViewController alloc]init];
+//    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
+//    navi.navigationBarHidden = YES;
+//    [self presentViewController:navi animated:YES completion:^{
+////        [self tapImage:nil];
+//        [self.datePicker removeFromSuperview];
+//        self.datePicker = nil;
+//        [self.view addSubview:self.datePicker];
+//        [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+//        [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
+//        self.datePicker.dateDelegate = self;
+//        self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+////        self.view = nil;
+//    }];
+//
+//}
 #pragma mark 获取用户数据
 
 - (void)getTodayUserData:(NSString *)fromDate endDate:(NSString *)endDate withCompareDate:(NSDate *)compDate
