@@ -85,7 +85,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSUserDefaults standardUserDefaults]registerDefaults:@{AppPassWordKey:@"NO"}];
+    
     // Do any additional setup after loading the view.
     deviceStatus = YES;
     //添加日历

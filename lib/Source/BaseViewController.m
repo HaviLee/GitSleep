@@ -197,6 +197,7 @@
     [self setStatusBarDefine];
     [self addObserver];
     //进行检测是不是有app 密码
+    [[NSUserDefaults standardUserDefaults]registerDefaults:@{AppPassWordKey:@"NO"}];
     [self isShowAppSettingPassWord];
 }
 
