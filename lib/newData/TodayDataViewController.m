@@ -129,6 +129,28 @@
 - (void)viewPager:(NKJPagerViewController *)viewPager didSwitchAtIndex:(NSInteger)index withTabs:(NSArray *)tabs
 {
     HaviLog(@"现在在第%ld个view",(long)index)
+    switch (index) {
+        case 0:{
+            [[NSNotificationCenter defaultCenter]postNotificationName:HeartViewNoti object:nil];
+            break;
+        }
+        case 1:{
+            [[NSNotificationCenter defaultCenter]postNotificationName:BreathViewNoti object:nil];
+            break;
+        }
+        case 2:{
+            [[NSNotificationCenter defaultCenter]postNotificationName:LeaveBedViewNoti object:nil];
+            break;
+        }
+        case 3:{
+            [[NSNotificationCenter defaultCenter]postNotificationName:TurnRoundViewNoti object:nil];
+            break;
+        }
+            
+            
+        default:
+            break;
+    }
 }
 
 - (void)backToHomeView:(UIButton *)sender

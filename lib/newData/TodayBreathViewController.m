@@ -77,6 +77,52 @@
     [self.indicatorView addGestureRecognizer:tapBack];
     [self.indicatorView addSubview:self.gifImageUp];
     [self.view addSubview:self.indicatorView];
+    //
+    if (isUserDefaultTime) {
+        [self.timeSwitchButton changeRightImageWithTime:0];
+    }else{
+        [self.timeSwitchButton changeLeftImageWithTime:0];
+    }
+    if (selectedDateToUse) {
+        [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
+        NSString *selectDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+        NSString *useDate = [NSString stringWithFormat:@"%@%@%@",[selectDateString substringToIndex:4],[selectDateString substringWithRange:NSMakeRange(5, 2)],[selectDateString substringWithRange:NSMakeRange(8, 2)]];
+        self.currentDate = useDate;
+        //因为这个地方会调用到日历中的请求数据
+    }
+    //
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshView:) name:BreathViewNoti object:nil];
+}
+
+- (void)refreshView:(NSNotification *)noti
+{
+    //保持统一的切换日期
+    if (isUserDefaultTime) {
+        [self.timeSwitchButton changeRightImageWithTime:0];
+    }else{
+        [self.timeSwitchButton changeLeftImageWithTime:0];
+    }
+    //和首页保持一致
+    if (selectedDateToUse) {
+        [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
+        NSString *selectDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+        NSString *useDate = [NSString stringWithFormat:@"%@%@%@",[selectDateString substringToIndex:4],[selectDateString substringWithRange:NSMakeRange(5, 2)],[selectDateString substringWithRange:NSMakeRange(8, 2)]];
+        self.currentDate = useDate;
+        //因为这个地方会调用到日历中的请求数据
+    }else{
+        //进行请求数据
+        NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
+        NSString *query = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
+        //为了请求异常数据时间
+        if (isUserDefaultTime) {
+            self.currentDate = query;
+            [self getUserDefaultDaySensorData:query toDate:query];
+        }else{
+            self.currentDate = query;//20150425
+            [self getUserAllDaySensorData:query toDate:query];
+        }
+    }
+    
 }
 
 - (void)createSubView
@@ -517,10 +563,19 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+}
+
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showBreatheEmercenyView:) name:PostBreatheEmergencyNoti object:nil];
+    
+    /*
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         //保持统一的切换日期
@@ -550,6 +605,7 @@
             }
         }
     });
+     */
 }
 
 #pragma mark 获取自定义数据
@@ -575,7 +631,7 @@
             urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
             
         }
-        [MMProgressHUD showWithStatus:@"请求中..."];
+//        [MMProgressHUD showWithStatus:@"请求中..."];
         [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
@@ -588,7 +644,7 @@
         
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            [MMProgressHUD dismiss];
+//            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
             HaviLog(@"缓存的呼吸默认数据是%@",resposeDic);
             [self reloadUserViewWithDefaultData:resposeDic];
@@ -596,7 +652,7 @@
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [MMProgressHUD dismiss];
+//                [MMProgressHUD dismiss];
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 HaviLog(@"请求的默认呼吸数据是%@",resposeDic);
                 [self reloadUserViewWithDefaultData:resposeDic];
@@ -605,7 +661,7 @@
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                [MMProgressHUD dismiss];
+//                [MMProgressHUD dismiss];
             }];
         }
     }
@@ -749,7 +805,7 @@
 
 - (void)getUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
-    [MMProgressHUD showWithStatus:@"请求中..."];
+//    [MMProgressHUD showWithStatus:@"请求中..."];
     [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
     if (fromDate) {
         
@@ -769,7 +825,7 @@
         [client getBreathData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            [MMProgressHUD dismiss];
+//            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
             HaviLog(@"缓存的心率数据%@",resposeDic);
             [self reloadUserViewWithData:resposeDic];
@@ -777,7 +833,7 @@
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [MMProgressHUD dismiss];
+//                [MMProgressHUD dismiss];
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 HaviLog(@"请求的心率数据%@",resposeDic);
                 [self reloadUserViewWithData:resposeDic];
@@ -786,7 +842,7 @@
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                [MMProgressHUD dismiss];
+//                [MMProgressHUD dismiss];
 //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
 //                    
 //                }];
