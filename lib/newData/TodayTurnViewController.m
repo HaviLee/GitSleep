@@ -569,7 +569,7 @@
 {
     if (fromDate) {
         
-//        [MMProgressHUD showWithStatus:@"请求中..."];
+        [MMProgressHUD showWithStatus:@"请求中..."];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
         self.dateComponentsBase.day = -1;
@@ -587,7 +587,7 @@
         [client getTurnData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-//            [MMProgressHUD dismiss];
+            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
             HaviLog(@"缓存的体动数据%@",resposeDic);
             [self reloadUserViewWithData:resposeDic];
@@ -595,7 +595,7 @@
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-//                [MMProgressHUD dismiss];
+                [MMProgressHUD dismiss];
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 HaviLog(@"请求的体动数据%@",resposeDic);
                 [self reloadUserViewWithData:resposeDic];
@@ -604,8 +604,7 @@
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-//                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-//                }];
+                [MMProgressHUD dismiss];
             }];
         }
     }
@@ -690,7 +689,7 @@
         }
         
         
-//        [MMProgressHUD showWithStatus:@"请求中..."];
+        [MMProgressHUD showWithStatus:@"请求中..."];
         [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
@@ -702,7 +701,7 @@
         [client getUserDefaultData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-//            [MMProgressHUD dismiss];
+            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
             HaviLog(@"缓存的体动默认数据是%@",resposeDic);
             [self reloadUserViewWithDefaultData:resposeDic];
@@ -710,7 +709,7 @@
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-//                [MMProgressHUD dismiss];
+                [MMProgressHUD dismiss];
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 HaviLog(@"请求的默认体动数据是%@",resposeDic);
                 [self reloadUserViewWithDefaultData:resposeDic];
@@ -719,6 +718,7 @@
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+                [MMProgressHUD dismiss];
 //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
 //                    
 //                }];

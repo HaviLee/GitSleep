@@ -66,6 +66,11 @@
 #define UserDefaultStartTime   @"defaultStartTime"
 #define UserDefaultEndTime   @"defaultEndTime"
 
+//四个界面noti
+#define HeartViewNoti   @"HeartViewNoti"
+#define BreathViewNoti  @"BreathViewNoti"
+#define LeaveBedViewNoti @"LeaveBedViewNoti"
+#define TurnRoundViewNoti @"TurnRoundViewNoti"
 
 #define NOBINDUUID @"NOBINDUUID"
 #define NOUSEUUID  @"NOUSEUUID"
