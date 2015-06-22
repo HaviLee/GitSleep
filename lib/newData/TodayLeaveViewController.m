@@ -299,7 +299,7 @@
 - (void)selectedCalenderDate:(NSDate *)date
 {
     HaviLog(@"弹出日历是%@",date);
-//    [self.datePicker updateCalenderSelectedDate:date];
+    [self.datePicker updateCalenderSelectedDate:date];
     if (selectedDateToUse) {
         selectedDateToUse = nil;
     }

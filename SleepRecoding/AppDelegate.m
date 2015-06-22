@@ -101,6 +101,7 @@
     //设置源日期时区
     NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
     //设置转换后的目标日期时区
+    [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT+0800"]];
     NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
     //得到源日期与世界标准时间的偏移量
     NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:anyDate];

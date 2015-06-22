@@ -474,7 +474,6 @@
         [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
         NSString *dateString = [formatter stringFromDate:date];
         HaviLog(@"当前选中的日期是%@",dateString);
-//        dayTimeToUse = dateString;
         NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
         [self getTodayUserData:subString endDate:subString withCompareDate:date];
     }
