@@ -55,34 +55,6 @@
     [super loadView];
 }
 
-//- (NSDateFormatter *)dateFormmatter
-//{
-//    if (!_dateFormmatter) {
-//        _dateFormmatter = [[NSDateFormatter alloc]init];
-//        [_dateFormmatter setDateFormat:@"yyyyMMdd"];
-//        _dateFormmatter.timeZone = self.tmZone;
-//    }
-//    return _dateFormmatter;
-//}
-//
-//- (NSDateComponents*)dateComponents
-//{
-//    if (!_dateComponents) {
-//        _dateComponents = [[NSDateComponents alloc] init];
-//        _dateComponents.timeZone = self.tmZone;
-//    }
-//    return _dateComponents;
-//}
-//
-//- (NSTimeZone *)tmZone
-//{
-//    if (!_tmZone) {
-//        _tmZone = [NSTimeZone timeZoneWithName:@"GMT"];
-//        [NSTimeZone setDefaultTimeZone:_tmZone];
-//    }
-//    return _tmZone;
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -115,14 +87,10 @@
     //检测用户下的设备列表在进入app首先获取id；
     
     //
-    /*
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
-    NSString *dateString = [formatter stringFromDate:[NSDate date]];
-    dayTimeToUse = dateString;
-     */
     //获取时间
-    selectedDateToUse = [NSDate date];
+    if (!selectedDateToUse) {
+        selectedDateToUse = [NSDate date];
+    }
     //
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{@"yindao":@"YES"}];
     [[NSUserDefaults standardUserDefaults]synchronize];
@@ -162,7 +130,6 @@
     [chainRequest addRequest:client callback:^(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest) {
         NSDictionary *resposeDic = (NSDictionary *)baseRequest.responseJSONObject;
         HaviLog(@"获取硬件信息是%@",resposeDic);
-//        [MMProgressHUD dismiss];
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
         if (arr.count == 0) {
             HardWareUUID = NOBINDUUID;
@@ -186,6 +153,7 @@
                 [self reloadStatusImage:YES];
             }else{
                 [self reloadStatusImage:YES];
+                /*
                 //获取数据
                 NSDate *newDate = [self getNowDateFromatAnDate:[NSDate date]];
                 NSString *nowDate = [NSString stringWithFormat:@"%@",newDate];
@@ -193,8 +161,8 @@
                 [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
                 
                 DeviceStatus = YES;
+                 */
 
-                /*
                 NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",HardWareUUID];
                 NSDictionary *header = @{
                                          @"AccessToken":@"123456789"
@@ -202,7 +170,6 @@
                 CheckDeviceStatusAPI *client1 = [CheckDeviceStatusAPI shareInstance];
                 [client1 checkStatus:header withDetailUrl:urlString];
                 [chainRequest addRequest:client1 callback:nil];
-                 */
             }
         }
     }];
@@ -213,7 +180,6 @@
 - (void)chainRequestFinished:(YTKChainRequest *)chainRequest
 {
     //暂时不做处理
-    /*
     if (chainRequest.requestArray.count>1) {
         CheckDeviceStatusAPI *API = (CheckDeviceStatusAPI *)[chainRequest.requestArray objectAtIndex:1];
         NSDictionary *resposeDic = (NSDictionary *)API.responseJSONObject;
@@ -223,7 +189,8 @@
         if ([[dic objectForKey:@"ActivationStatus"]isEqualToString:@"激活"]) {
             [self reloadStatusImage:YES];
             //获取数据
-            NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
+            NSDate *newDate = [self getNowDateFromatAnDate:[NSDate date]];
+            NSString *nowDate = [NSString stringWithFormat:@"%@",newDate];
             NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
             [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
             
@@ -235,7 +202,6 @@
             [alert show];
         }
     }
-     */
 }
 
 - (void)chainRequestFailed:(YTKChainRequest *)chainRequest failedBaseRequest:(YTKBaseRequest *)request

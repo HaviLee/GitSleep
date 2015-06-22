@@ -377,12 +377,12 @@
 }
 
 //返回
-- (void)backToHomeView:(UIButton *)sender
+- (void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:animated];
     if (![self.oldUUID isEqualToString:HardWareUUID]) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEUSERID object:nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:POSTDEVICEUUIDCHANGENOTI object:nil];
     }
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)reloadImage
