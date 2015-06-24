@@ -169,7 +169,7 @@ const CGFloat kDIDatepickerSpaceBetweenItems = 10.;
     NSDateComponents *todayComponents = [calendar components:NSCalendarUnitYear fromDate:currentDate];
 
     NSMutableArray *dates = [[NSMutableArray alloc] init];
-    NSTimeZone *time = [NSTimeZone timeZoneWithName:@"GMT"];
+    NSTimeZone *time = [NSTimeZone timeZoneWithName:@"GMT+0800"];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     dateFormatter.timeZone = time;
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];

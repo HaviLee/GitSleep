@@ -100,7 +100,7 @@
         NSMutableString *dateString = [NSMutableString stringWithFormat:@"%@",[NSDate date]];
         NSString *anew = [dateString substringToIndex:10];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-        NSTimeZone *time = [NSTimeZone timeZoneWithName:@"GMT"];
+        NSTimeZone *time = [NSTimeZone timeZoneWithName:@"GMT+0800"];
         dateFormatter.timeZone = time;
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         NSDate *d = [dateFormatter dateFromString:anew];
@@ -148,7 +148,8 @@
 {
     NSString *anew = [selectedDate substringToIndex:8];
     self.monthLabel.text = anew;
-    NSTimeZone *time = [NSTimeZone timeZoneWithName:@"GMT"];
+    //[NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT+0800"]];
+    NSTimeZone *time = [NSTimeZone timeZoneWithName:@"GMT+0800"];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     dateFormatter.timeZone = time;
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];

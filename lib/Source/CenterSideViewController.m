@@ -12,6 +12,7 @@
 #import "LoginViewController.h"
 #import "AMBlurView.h"
 #import "DeviceManagerViewController.h"
+#import "UDPAddProductViewController.h"
 //
 #import "CalenderCantainerViewController.h"
 //api
@@ -180,13 +181,14 @@
 - (void)chainRequestFinished:(YTKChainRequest *)chainRequest
 {
     //暂时不做处理
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     if (chainRequest.requestArray.count>1) {
         CheckDeviceStatusAPI *API = (CheckDeviceStatusAPI *)[chainRequest.requestArray objectAtIndex:1];
         NSDictionary *resposeDic = (NSDictionary *)API.responseJSONObject;
         //    NSDictionary *resposeDic = (NSDictionary *)chainRequest.responseJSONObject;
         HaviLog(@"设备状态是%@",resposeDic);
         NSDictionary *dic = [resposeDic objectForKey:@"SensorInfo"];
-        if ([[dic objectForKey:@"ActivationStatus"]isEqualToString:@"激活"]) {
+        if ([[dic objectForKey:@"ActivationStatusCode"]intValue]==1) {
             [self reloadStatusImage:YES];
             //获取数据
             NSDate *newDate = [self getNowDateFromatAnDate:[NSDate date]];
@@ -429,7 +431,7 @@
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"设备状态是%@",resposeDic);
         NSDictionary *dic = [resposeDic objectForKey:@"SensorInfo"];
-        if ([[dic objectForKey:@"ActivationStatus"]isEqualToString:@"激活"]) {
+        if ([[dic objectForKey:@"ActivationStatusCode"] intValue]==1) {
             [self reloadStatusImage:YES];
             //获取数据
             NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
@@ -744,8 +746,8 @@
         }
     }else if (alertView.tag == 902){
         if (buttonIndex == 1) {
-            DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
-            [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+            UDPAddProductViewController *user = [[UDPAddProductViewController alloc]init];
+            [self.navigationController pushViewController:user animated:YES];
         }
     }
 

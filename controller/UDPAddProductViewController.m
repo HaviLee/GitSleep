@@ -389,6 +389,8 @@
 - (void)cancelButtonDone:(UIButton *)button
 {
     //    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    /*
     for (UIViewController *controller in self.navigationController.viewControllers) {
         if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
             
@@ -396,6 +398,7 @@
             break;
         }
     }
+     */
 }
 
 #pragma mark 键盘事件
