@@ -83,6 +83,13 @@
     //
     self.textFiledPassWord.placeholder = @"请输入密码";
     self.textFiledPassWord.textColor = [UIColor whiteColor];
+    //增加左侧的空格
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 44)];
+    UIView *leftView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 44)];
+    self.textFiledName.leftViewMode = UITextFieldViewModeAlways;
+    self.textFiledName.leftView = leftView1;
+    self.textFiledPassWord.leftView = leftView;
+    self.textFiledPassWord.leftViewMode = UITextFieldViewModeAlways;
     [self.textFiledPassWord makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.left).offset(20);
         make.right.equalTo(self.view.right).offset(-20);
@@ -287,14 +294,14 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^(){
                     [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                        
-                        for (UIViewController *controller in self.navigationController.viewControllers) {
-                            if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
-                                
-                                [self.navigationController popToViewController:controller animated:YES];
-                                break;
-                            }
-                        }
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+//                        for (UIViewController *controller in self.navigationController.viewControllers) {
+//                            if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
+//                                
+//                                [self.navigationController popToViewController:controller animated:YES];
+//                                break;
+//                            }
+//                        }
                     }];
                     [MMProgressHUD dismissWithSuccess:@"设备激活成功" title:nil afterDelay:2];
                 });
