@@ -78,6 +78,12 @@
     self.textFiledPassWord.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.textFiledName.keyboardType = UIKeyboardTypeAlphabet;
     self.textFiledPassWord.keyboardType = UIKeyboardTypeAlphabet;
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 44)];
+    UIView *leftView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 44)];
+    self.textFiledName.leftView = leftView;
+    self.textFiledPassWord.leftView = leftView1;
+    self.textFiledName.leftViewMode = UITextFieldViewModeAlways;
+    self.textFiledPassWord.leftViewMode = UITextFieldViewModeAlways;
     self.textFiledName.background = [UIImage imageNamed:[NSString stringWithFormat:@"textbox_hollow_%d",selectedThemeIndex]];
     self.textFiledPassWord.background = [UIImage imageNamed:[NSString stringWithFormat:@"textbox_hollow_%d",selectedThemeIndex]];
     //

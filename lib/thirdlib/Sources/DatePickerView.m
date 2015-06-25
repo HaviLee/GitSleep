@@ -93,11 +93,21 @@
 - (DIDatepicker *)datePicker
 {
     if (!_datePicker) {
+        
+        NSDate *date = [NSDate date];
+        //系统时区
+        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+        //和格林尼治时间差
+        NSInteger timeOff = [zone secondsFromGMT];
+        //视察转化
+        NSDate *timeOffDate = [date dateByAddingTimeInterval:timeOff];
+        
+        
         _datePicker = [[DIDatepicker alloc]initWithFrame:CGRectMake(0, (self.frame.size.height - 20)*0.35/2, self.frame.size.width, (self.frame.size.height - 20)*0.65)];
-//        _datePicker.backgroundColor = [UIColor redColor];
-        [_datePicker fillCurrentYear:[NSDate date]];
+        //        _datePicker.backgroundColor = [UIColor redColor];
+        [_datePicker fillCurrentYear:timeOffDate];
         [_datePicker addTarget:self action:@selector(updateDate) forControlEvents:UIControlEventValueChanged];
-        NSMutableString *dateString = [NSMutableString stringWithFormat:@"%@",[NSDate date]];
+        NSMutableString *dateString = [NSMutableString stringWithFormat:@"%@",timeOffDate];
         NSString *anew = [dateString substringToIndex:10];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
         NSTimeZone *time = [NSTimeZone timeZoneWithName:@"GMT"];

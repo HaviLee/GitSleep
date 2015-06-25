@@ -14,6 +14,9 @@ NSString *GloableUserId = @"";
 NSString *HardWareIP = @"";
 //硬件UUID
 NSString *HardWareUUID = @"";
+NSString *GloableIP = @"";
+
+NSString *GloablePort = @"";
 //为了使得在进入当日心率时时间一致。
 NSString *dayTimeToUse = @"";
 NSDate *selectedDateToUse = nil;

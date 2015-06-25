@@ -47,7 +47,6 @@
     //网络配置
     YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
     config.baseUrl = @"http://webservice.meddo99.com:9000/";
-//    config.baseUrl = @"http://sdk4report.eucp.b2m.cn:8080/";
     /*
      设置状态栏的字体颜色
      同时设置状态栏的字体的颜色要在info.plist文件中设置一个key: UIViewControllerBasedStatusBarAppearance 为NO

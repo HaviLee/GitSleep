@@ -15,6 +15,9 @@ extern  NSString *GloableUserId;
 extern  NSString *HardWareIP;
 //硬件UUID
 extern NSString *HardWareUUID;
+//ip
+extern NSString *GloableIP;
+extern NSString *GloablePort;
 
 extern BOOL DeviceStatus;
 //是否为登出
