@@ -459,12 +459,14 @@
         self.keybordheight = height;
         [textField setReturnKeyType:UIReturnKeyNext];
         return YES;
-    }else{
-        int height = self.view.bounds.size.height/2 + 108;
-        self.keybordheight = height;
-        [textField setReturnKeyType:UIReturnKeyDone];
-        return YES;
     }
+    return YES;
+//    else{
+//        int height = self.view.bounds.size.height/2 + 108;
+//        self.keybordheight = height;
+//        [textField setReturnKeyType:UIReturnKeyDone];
+//        return YES;
+//    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -491,6 +493,18 @@
 {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
+
+- (void)keyboardWillShow:(NSNotification *)aNotification
+{
+    //获取键盘的高度
+
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
