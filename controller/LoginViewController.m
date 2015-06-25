@@ -17,7 +17,9 @@
 #import "RightSideViewController.h"
 #import "CenterSideViewController.h"
 #import "AppDelegate.h"
+#import "YTKNetworkConfig.h"
 //api
+#import "SCLAlertView.h"
 #import "SHGetClient.h"
 #import "GetInavlideCodeApi.h"
 #import "SHPutClient.h"
@@ -128,7 +130,7 @@
     [loginButton setTitle:@"登 录" forState:UIControlStateNormal];
     [loginButton setTitleColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] forState:UIControlStateNormal];
     loginButton.titleLabel.font = DefaultWordFont;
-    [loginButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
+    [loginButton addTarget:self action:@selector(showValidation:) forControlEvents:UIControlEventTouchUpInside];
     loginButton.layer.cornerRadius = 0;
     loginButton.layer.masksToBounds = YES;
     [self.view addSubview:loginButton];
@@ -201,8 +203,66 @@
     };
 }
 
+- (void)showValidation:(id)sender
+{
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    alert.iconTintColor = [UIColor whiteColor];
+    alert.customViewColor = selectedThemeIndex==0?[UIColor colorWithRed:0.035f green:0.361f blue:0.576f alpha:1.00f]:DefaultColor;
+    UITextField *evenField = [alert addTextField:@"请输入IP地址"];
+    evenField.keyboardType = UIKeyboardTypeNumberPad;
+    
+    UITextField *oddField = [alert addTextField:@"请输入端口号"];
+    oddField.keyboardType = UIKeyboardTypeNumberPad;
+    
+    [alert addButton:@"登录" validationBlock:^BOOL{
+        if (evenField.text.length == 0)
+        {
+            [[[UIAlertView alloc] initWithTitle:@"提示" message:@"IP为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+            [evenField becomeFirstResponder];
+            return NO;
+        }
+        
+        if (oddField.text.length == 0)
+        {
+            [[[UIAlertView alloc] initWithTitle:@"提示" message:@"端口号为空" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [oddField becomeFirstResponder];
+            return NO;
+        }
+//        GloableIP = evenField.text;
+//        GloablePort = oddField.text;
+//        YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
+//        config.baseUrl = [NSString stringWithFormat:@"%@:%@/",GloableIP,GloablePort];
+        //@"http://webservice.meddo99.com:9000/";
+//        NSInteger evenFieldEntry = [evenField.text integerValue];
+//        BOOL evenFieldPassedValidation = evenFieldEntry % 2 == 0;
+//        
+//        if (!evenFieldPassedValidation)
+//        {
+//            [[[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"That is not an even number." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+//            [evenField becomeFirstResponder];
+//            return NO;
+//        }
+//        
+//        NSInteger oddFieldEntry = [oddField.text integerValue];
+//        BOOL oddFieldPassedValidation = oddFieldEntry % 2 == 1;
+//        
+//        if (!oddFieldPassedValidation)
+//        {
+//            [[[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"That is not an odd number." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+//            [oddField becomeFirstResponder];
+//            return NO;
+//        }
+        return YES;
+    } actionBlock:^{
+        [self login:nil];
+    }];
+    
+    [alert showEdit:self title:@"提示" subTitle:@"请输入IP地址和端口号" closeButtonTitle:@"取消" duration:0];
+}
+
 - (void)login:(UIButton *)sender
 {
+    
     if ([self.nameText.text isEqualToString:@""]) {
         [self.view makeToast:@"请输入电话号码" duration:1.5 position:@"center"];
         return;

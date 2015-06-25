@@ -381,6 +381,11 @@
 		2C7D23291AF1CA5C0011A45C /* leave3_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D23241AF1CA5C0011A45C /* leave3_0.png */; };
 		2C7D232A1AF1CA5C0011A45C /* leave4_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D23251AF1CA5C0011A45C /* leave4_0.png */; };
 		2C7D232B1AF1CA5C0011A45C /* leave5_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D23261AF1CA5C0011A45C /* leave5_0.png */; };
+		2C875ACF1B3BA1720076C489 /* SCLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C875AC51B3BA1720076C489 /* SCLAlertView.m */; };
+		2C875AD01B3BA1720076C489 /* SCLAlertViewResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C875AC71B3BA1720076C489 /* SCLAlertViewResponder.m */; };
+		2C875AD11B3BA1720076C489 /* SCLAlertViewStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C875AC91B3BA1720076C489 /* SCLAlertViewStyleKit.m */; };
+		2C875AD21B3BA1720076C489 /* SCLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C875ACB1B3BA1720076C489 /* SCLButton.m */; };
+		2C875AD31B3BA1720076C489 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C875ACE1B3BA1720076C489 /* UIImage+ImageEffects.m */; };
 		2C8977C01B194DF30032D258 /* BreathLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977A31B194DF30032D258 /* BreathLive.m */; };
 		2C8977C11B194DF30032D258 /* data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C8977A41B194DF30032D258 /* data.txt */; };
 		2C8977C21B194DF30032D258 /* GetBreathLiveDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8977A61B194DF30032D258 /* GetBreathLiveDataAPI.m */; };
@@ -988,6 +993,17 @@
 		2C7D23241AF1CA5C0011A45C /* leave3_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leave3_0.png; path = "color0/gif/体动/leave3_0.png"; sourceTree = "<group>"; };
 		2C7D23251AF1CA5C0011A45C /* leave4_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leave4_0.png; path = "color0/gif/体动/leave4_0.png"; sourceTree = "<group>"; };
 		2C7D23261AF1CA5C0011A45C /* leave5_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leave5_0.png; path = "color0/gif/体动/leave5_0.png"; sourceTree = "<group>"; };
+		2C875AC41B3BA1720076C489 /* SCLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLAlertView.h; sourceTree = "<group>"; };
+		2C875AC51B3BA1720076C489 /* SCLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLAlertView.m; sourceTree = "<group>"; };
+		2C875AC61B3BA1720076C489 /* SCLAlertViewResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLAlertViewResponder.h; sourceTree = "<group>"; };
+		2C875AC71B3BA1720076C489 /* SCLAlertViewResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLAlertViewResponder.m; sourceTree = "<group>"; };
+		2C875AC81B3BA1720076C489 /* SCLAlertViewStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLAlertViewStyleKit.h; sourceTree = "<group>"; };
+		2C875AC91B3BA1720076C489 /* SCLAlertViewStyleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLAlertViewStyleKit.m; sourceTree = "<group>"; };
+		2C875ACA1B3BA1720076C489 /* SCLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLButton.h; sourceTree = "<group>"; };
+		2C875ACB1B3BA1720076C489 /* SCLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLButton.m; sourceTree = "<group>"; };
+		2C875ACC1B3BA1720076C489 /* SCLMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLMacros.h; sourceTree = "<group>"; };
+		2C875ACD1B3BA1720076C489 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		2C875ACE1B3BA1720076C489 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		2C8977A21B194DF30032D258 /* BreathLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BreathLive.h; path = lib/liveData/BreathLive.h; sourceTree = "<group>"; };
 		2C8977A31B194DF30032D258 /* BreathLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BreathLive.m; path = lib/liveData/BreathLive.m; sourceTree = "<group>"; };
 		2C8977A41B194DF30032D258 /* data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = data.txt; path = lib/liveData/data.txt; sourceTree = "<group>"; };
@@ -1876,6 +1892,25 @@
 			name = color0;
 			sourceTree = "<group>";
 		};
+		2C875AC31B3BA1720076C489 /* SCLAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				2C875AC41B3BA1720076C489 /* SCLAlertView.h */,
+				2C875AC51B3BA1720076C489 /* SCLAlertView.m */,
+				2C875AC61B3BA1720076C489 /* SCLAlertViewResponder.h */,
+				2C875AC71B3BA1720076C489 /* SCLAlertViewResponder.m */,
+				2C875AC81B3BA1720076C489 /* SCLAlertViewStyleKit.h */,
+				2C875AC91B3BA1720076C489 /* SCLAlertViewStyleKit.m */,
+				2C875ACA1B3BA1720076C489 /* SCLButton.h */,
+				2C875ACB1B3BA1720076C489 /* SCLButton.m */,
+				2C875ACC1B3BA1720076C489 /* SCLMacros.h */,
+				2C875ACD1B3BA1720076C489 /* UIImage+ImageEffects.h */,
+				2C875ACE1B3BA1720076C489 /* UIImage+ImageEffects.m */,
+			);
+			name = SCLAlertView;
+			path = lib/thirdlib/SCLAlertView;
+			sourceTree = "<group>";
+		};
 		2C8977A11B194DDB0032D258 /* liveData */ = {
 			isa = PBXGroup;
 			children = (
@@ -2360,6 +2395,7 @@
 		579AC7DF1AA033BC0045E9A2 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				2C875AC31B3BA1720076C489 /* SCLAlertView */,
 				2C77D5021AEB31CC004123D2 /* MGSwipeTableCell */,
 				2C435E511AD0CA05003B1604 /* toglleview */,
 				57490FC11ACAA1A10057DC05 /* CBChart */,
@@ -2911,6 +2947,7 @@
 				5772BE441AAFFF1B00E108BB /* HaviSwitch.m in Sources */,
 				57747DD51AA57FAD002B5A49 /* DatePickerView.m in Sources */,
 				2C8977C71B194DF30032D258 /* LeaveLive.m in Sources */,
+				2C875AD11B3BA1720076C489 /* SCLAlertViewStyleKit.m in Sources */,
 				2C8F7BB91AF3747700E56513 /* JTCalendarDayView.m in Sources */,
 				2C1AD7171AAAE74A00655A5B /* BaseAnimation.m in Sources */,
 				57802E241AE7398200823E39 /* GetImageApi.m in Sources */,
@@ -2958,7 +2995,9 @@
 				2C1F1FC41AD8B7E700393E04 /* QuaterCalenderView.m in Sources */,
 				2C1F1FEA1ADBF38F00393E04 /* WQCalendarLogic.m in Sources */,
 				2C1AD7191AAAE74A00655A5B /* ScaleAnimation.m in Sources */,
+				2C875AD21B3BA1720076C489 /* SCLButton.m in Sources */,
 				5763BAB91AA1665A00EFECD7 /* UserInfoViewController.m in Sources */,
+				2C875ACF1B3BA1720076C489 /* SCLAlertView.m in Sources */,
 				2C8F7BB61AF3747700E56513 /* JTCalendar.m in Sources */,
 				576451891AC68865008E3526 /* AddProductNameViewController.m in Sources */,
 				2C1AD71B1AAAE74A00655A5B /* SlideAnimation.m in Sources */,
@@ -2995,6 +3034,7 @@
 				578681521ADCEE1200E881A2 /* WTURLRequestOperation.m in Sources */,
 				2C1F1FF51ADBF42700393E04 /* CalenderView.m in Sources */,
 				2C77D54D1AEFC8CF004123D2 /* GetTurnDataAPI.m in Sources */,
+				2C875AD01B3BA1720076C489 /* SCLAlertViewResponder.m in Sources */,
 				2C1F1FE81ADBF38F00393E04 /* WQCalendarDay.m in Sources */,
 				576A767B1AC1513400BE8206 /* GetInavlideCodeApi.m in Sources */,
 				575F5A9D1AAE87670061AA11 /* DeviceManagerViewController.m in Sources */,
@@ -3034,6 +3074,7 @@
 				5793D1C11AA9A1BA00BC24CA /* XLScrollViewer.m in Sources */,
 				2C77D50B1AEB3702004123D2 /* ReNameDeviceNameViewController.m in Sources */,
 				2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */,
+				2C875AD31B3BA1720076C489 /* UIImage+ImageEffects.m in Sources */,
 				57802E2B1AE7398200823E39 /* SHPutClient.m in Sources */,
 				57711FF31AD4CFF400508C5C /* WeekReportViewController.m in Sources */,
 				2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */,
