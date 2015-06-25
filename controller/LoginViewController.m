@@ -187,6 +187,7 @@
 
 - (void)setIntroduceView
 {
+    
     NSArray *coverImageNames = @[@"", @"", @""];
     NSArray *backgroundImageNames = @[@"pic_breathe_0", @"icon_heart_rate1_0", @"pic_sleep_0"];
     self.introductionView = [[ZWIntroductionViewController alloc] initWithCoverImageNames:coverImageNames backgroundImageNames:backgroundImageNames];
@@ -205,14 +206,25 @@
 
 - (void)showValidation:(id)sender
 {
+    [[NSUserDefaults standardUserDefaults]registerDefaults:@{@"gloableIP":@""}];
+    [[NSUserDefaults standardUserDefaults]registerDefaults:@{@"gloablePort":@""}];
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     alert.iconTintColor = [UIColor whiteColor];
     alert.customViewColor = selectedThemeIndex==0?[UIColor colorWithRed:0.035f green:0.361f blue:0.576f alpha:1.00f]:DefaultColor;
     UITextField *evenField = [alert addTextField:@"请输入IP地址"];
-    evenField.keyboardType = UIKeyboardTypeNumberPad;
+    evenField.keyboardType = UIKeyboardTypeDefault;
     
     UITextField *oddField = [alert addTextField:@"请输入端口号"];
     oddField.keyboardType = UIKeyboardTypeNumberPad;
+    
+    NSString *ip = [[NSUserDefaults standardUserDefaults]objectForKey:@"gloableIP"];
+    NSString *port = [[NSUserDefaults standardUserDefaults]objectForKey:@"gloablePort"];
+    if (ip.length>0) {
+        evenField.text = ip;
+    }
+    if (port.length>0) {
+        oddField.text = port;
+    }
     
     [alert addButton:@"登录" validationBlock:^BOOL{
         if (evenField.text.length == 0)
@@ -228,10 +240,12 @@
             [oddField becomeFirstResponder];
             return NO;
         }
-//        GloableIP = evenField.text;
-//        GloablePort = oddField.text;
-//        YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
-//        config.baseUrl = [NSString stringWithFormat:@"%@:%@/",GloableIP,GloablePort];
+        GloableIP = evenField.text;
+        GloablePort = oddField.text;
+        YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
+        config.baseUrl = [NSString stringWithFormat:@"%@:%@/",GloableIP,GloablePort];
+        [[NSUserDefaults standardUserDefaults]setObject:GloableIP forKey:@"gloableIP"];
+        [[NSUserDefaults standardUserDefaults]setObject:GloablePort forKey:@"gloablePort"];
         //@"http://webservice.meddo99.com:9000/";
 //        NSInteger evenFieldEntry = [evenField.text integerValue];
 //        BOOL evenFieldPassedValidation = evenFieldEntry % 2 == 0;
