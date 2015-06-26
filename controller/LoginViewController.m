@@ -243,7 +243,7 @@
         GloableIP = evenField.text;
         GloablePort = oddField.text;
         YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
-        config.baseUrl = [NSString stringWithFormat:@"%@:%@/",GloableIP,GloablePort];
+        config.baseUrl = [NSString stringWithFormat:@"http://%@:%@/",GloableIP,GloablePort];
         [[NSUserDefaults standardUserDefaults]setObject:GloableIP forKey:@"gloableIP"];
         [[NSUserDefaults standardUserDefaults]setObject:GloablePort forKey:@"gloablePort"];
         //@"http://webservice.meddo99.com:9000/";
