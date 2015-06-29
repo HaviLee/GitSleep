@@ -296,7 +296,7 @@
 {
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"删除设备中..."];
-    NSString *urlString = [NSString stringWithFormat:@"http://webservice.meddo99.com:9000/v1/user/DeleteUserDevice"];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%@/v1/user/DeleteUserDevice",GloableIP,GloablePort];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -328,7 +328,7 @@
 #pragma 删除设备
 - (void)deleteDeviceWithUUID:(NSString *)UUID
 {
-    NSString *urlString = [NSString stringWithFormat:@"http://webservice.meddo99.com:9000/v1/user/DeleteUserDevice"];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%@/v1/user/DeleteUserDevice",GloableIP,GloablePort];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };

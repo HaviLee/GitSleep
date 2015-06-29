@@ -133,7 +133,7 @@
 //新的
 - (void)getDeviceList
 {
-    NSString *urlString = [NSString stringWithFormat:@"http://webservice.meddo99.com:9000/v1/user/UserDeviceList?UserID=%@",GloableUserId];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%@/v1/user/UserDeviceList?UserID=%@",GloableIP,GloablePort,GloableUserId];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
