@@ -264,7 +264,18 @@
 
 - (void)getData
 {
-    NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataRealtime?UUID=%@&DataProperty=3&FromDate=&FromTime=",HardWareUUID];
+    NSDate *date = [NSDate date];
+    //系统时区
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    //和格林尼治时间差
+    NSInteger timeOff = [zone secondsFromGMT]-60;
+    //视察转化
+    NSDate *timeOffDate = [date dateByAddingTimeInterval:timeOff];
+    NSString *timeString = [NSString stringWithFormat:@"%@",timeOffDate];
+    NSString *yearMonth = [NSString stringWithFormat:@"%@%@%@",[timeString substringWithRange:NSMakeRange(0, 4)],[timeString substringWithRange:NSMakeRange(5, 2)],[timeString substringWithRange:NSMakeRange(8, 2)]];
+    NSString *secondAndHour = [timeString substringWithRange:NSMakeRange(11, 8)];
+    NSLog(@"现在的时间是%@ he %@",yearMonth,secondAndHour);
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataRealtime?UUID=%@&DataProperty=3&FromDate%@=&FromTime=%@",HardWareUUID,yearMonth,secondAndHour];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
