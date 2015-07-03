@@ -80,14 +80,9 @@
          */
         return nil;
     }];
-    //检测设置APP密码
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(isShowAppSettingPassWord) name:AppPassWorkSetOkNoti object:nil];
-    //移除检测
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(removeAppSettingPassWord) name:AppPassWordCancelNoti object:nil];
     //UUid更新时候检测
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeDeviceUUID:) name:POSTDEVICEUUIDCHANGENOTI object:nil];
-    //登出
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginView:) name:POSTLOGOUTNOTI object:nil];
+    //    //登出
     //重新登录时，切换新的设备id
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getDeviceStatusWithUserId:) name:CHANGEUSERID object:nil];
     //更改默认uuid之后
