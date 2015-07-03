@@ -280,6 +280,9 @@
                              @"AccessToken":@"123456789"
                              };
     GetHeartLiveDataAPI *client = [GetHeartLiveDataAPI shareInstance];
+    if ([client isExecuting]) {
+        [client stop];
+    }
     [client getHeartLiveData:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;

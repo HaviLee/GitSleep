@@ -218,6 +218,9 @@
                              @"AccessToken":@"123456789"
                              };
     GetBreathLiveDataAPI *client = [GetBreathLiveDataAPI shareInstance];
+    if ([client isExecuting]) {
+        [client stop];
+    }
     [client getBreathLiveData:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
