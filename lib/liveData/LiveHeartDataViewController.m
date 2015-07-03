@@ -43,7 +43,7 @@
     // Do any additional setup after loading the view.
     //
     self.ceshiArr = [[NSMutableArray alloc]init];
-    for ( int i= 0; i<230; i++) {
+    for ( int i= 0; i<50; i++) {
         int num = [self getRandomNumber:39 to:39];
         [self.ceshiArr addObject:[NSNumber numberWithInt:num]];
     }
@@ -292,46 +292,49 @@
                     
                 }];
                 HaviLog(@"测试心率数组%@和时间%@",arr,self.queryEndDateString);
-//                NSString *dateString = [[arr lastObject]objectForKey:@"At"];
-//                NSDate *date = [self.dateFormmatterHeart dateFromString:dateString];
-//                NSDate *newDate = [[NSDate date]dateByAddingTimeInterval:8*60*60];
-//                if ([newDate timeIntervalSinceDate:date]>30) {
-//                    for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-//                        self.ceshiArr[i] = self.ceshiArr[i-1];
-//                    }
-//                    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
-//                }else{
-//                }
-//                
-                for (int i=0; i<arr.count; i++) {
-                    if (self.queryEndDateString) {
-                        for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-                            self.ceshiArr[i] = self.ceshiArr[i-1];
-                        }
-                        [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"] intValue]]];
-                        
-                        /*
-                         NSString *dateString = [[arr objectAtIndex:i]objectForKey:@"At"];
-                         NSDate *date = [self.dateFormmatterHeart dateFromString:dateString];
-                         if ([date timeIntervalSinceDate:self.queryEndDateString]>0) {
-                         for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-                         self.ceshiArr[i] = self.ceshiArr[i-1];
-                         }
-                         [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"] intValue]]];
-                         }else{
-                         
-                         }
-                         */
-                    }else {
-                        //第一次请求
-                        if (i<230) {
-                            [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"]intValue]]];
+                NSString *dateString = [[arr lastObject]objectForKey:@"At"];
+                NSDate *date = [self.dateFormmatterHeart dateFromString:dateString];
+                NSDate *newDate = [[NSDate date]dateByAddingTimeInterval:8*60*60];
+                if ([newDate timeIntervalSinceDate:date]<30) {
+                    
+                    for (int i=0; i<arr.count; i++) {
+                        if (self.queryEndDateString) {
+                            for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+                                self.ceshiArr[i] = self.ceshiArr[i-1];
+                            }
+                            [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"] intValue]]];
+                            
+                            /*
+                             NSString *dateString = [[arr objectAtIndex:i]objectForKey:@"At"];
+                             NSDate *date = [self.dateFormmatterHeart dateFromString:dateString];
+                             if ([date timeIntervalSinceDate:self.queryEndDateString]>0) {
+                             for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+                             self.ceshiArr[i] = self.ceshiArr[i-1];
+                             }
+                             [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"] intValue]]];
+                             }else{
+                             
+                             }
+                             */
+                        }else {
+                            //第一次请求
+                            if (i<50) {
+                                [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"]intValue]]];
+                            }
                         }
                     }
+                    
+                    NSString *s = [[arr lastObject] objectForKey:@"At"];
+                    self.queryEndDateString = [self.dateFormmatterHeart dateFromString:s];
+                }else{
+                    
+                    for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+                        self.ceshiArr[i] = self.ceshiArr[i-1];
+                    }
+                    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
+                    
                 }
-                
-                NSString *s = [[arr lastObject] objectForKey:@"At"];
-                self.queryEndDateString = [self.dateFormmatterHeart dateFromString:s];
+//
             }else{
                 //是200但是没有数据
                 for (int i =(int)self.ceshiArr.count-1; i>0; i--) {

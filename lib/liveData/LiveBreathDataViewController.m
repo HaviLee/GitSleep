@@ -41,7 +41,7 @@
     // Do any additional setup after loading the view.
     self.ceshiArr = [[NSMutableArray alloc]init];
     //添加日历
-    for ( int i= 0; i<230; i++) {
+    for ( int i= 0; i<50; i++) {
         int num = [self getRandomNumber:4 to:4];
         [self.ceshiArr addObject:[NSNumber numberWithInt:num]];
     }
@@ -202,7 +202,18 @@
 
 - (void)getData
 {
-    NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataRealtime?UUID=%@&DataProperty=4&FromDate=&FromTime=",HardWareUUID];
+    NSDate *date = [NSDate date];
+    //系统时区
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    //和格林尼治时间差
+    NSInteger timeOff = [zone secondsFromGMT]-60;
+    //视察转化
+    NSDate *timeOffDate = [date dateByAddingTimeInterval:timeOff];
+    NSString *timeString = [NSString stringWithFormat:@"%@",timeOffDate];
+    NSString *yearMonth = [NSString stringWithFormat:@"%@%@%@",[timeString substringWithRange:NSMakeRange(0, 4)],[timeString substringWithRange:NSMakeRange(5, 2)],[timeString substringWithRange:NSMakeRange(8, 2)]];
+    NSString *secondAndHour = [timeString substringWithRange:NSMakeRange(11, 8)];
+    NSLog(@"现在的时间是%@ he %@",yearMonth,secondAndHour);
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataRealtime?UUID=%@&DataProperty=4&FromDate%@=&FromTime=%@",HardWareUUID,yearMonth,secondAndHour];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -219,52 +230,55 @@
                     
                 }];
                 HaviLog(@"测试心率数组%@和时间%@",arr,self.queryEndDateString);
-                //                NSString *dateString = [[arr lastObject]objectForKey:@"At"];
-                //                NSDate *date = [self.dateFormmatterHeart dateFromString:dateString];
-                //                NSDate *newDate = [[NSDate date]dateByAddingTimeInterval:8*60*60];
-                //                if ([newDate timeIntervalSinceDate:date]>30) {
-                //                    for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-                //                        self.ceshiArr[i] = self.ceshiArr[i-1];
-                //                    }
-                //                    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
-                //                }else{
-                //                }
-                //
-                for (int i=0; i<arr.count; i++) {
-                    if (self.queryEndDateString) {
-                        for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-                            self.ceshiArr[i] = self.ceshiArr[i-1];
-                        }
-                        [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"] intValue]]];
-                        
-                        /*
-                         NSString *dateString = [[arr objectAtIndex:i]objectForKey:@"At"];
-                         NSDate *date = [self.dateFormmatterHeart dateFromString:dateString];
-                         if ([date timeIntervalSinceDate:self.queryEndDateString]>0) {
-                         for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-                         self.ceshiArr[i] = self.ceshiArr[i-1];
-                         }
-                         [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"] intValue]]];
-                         }else{
-                         
-                         }
-                         */
-                    }else {
-                        //第一次请求
-                        if (i<230) {
-                            [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"]intValue]]];
+                NSString *dateString = [[arr lastObject]objectForKey:@"At"];
+                NSDate *date = [self.dateFormmatterHeart dateFromString:dateString];
+                NSDate *newDate = [[NSDate date]dateByAddingTimeInterval:8*60*60];
+                if ([newDate timeIntervalSinceDate:date]<30) {
+                    
+                    for (int i=0; i<arr.count; i++) {
+                        if (self.queryEndDateString) {
+                            for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+                                self.ceshiArr[i] = self.ceshiArr[i-1];
+                            }
+                            [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"] intValue]]];
+                            
+                            /*
+                             NSString *dateString = [[arr objectAtIndex:i]objectForKey:@"At"];
+                             NSDate *date = [self.dateFormmatterHeart dateFromString:dateString];
+                             if ([date timeIntervalSinceDate:self.queryEndDateString]>0) {
+                             for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+                             self.ceshiArr[i] = self.ceshiArr[i-1];
+                             }
+                             [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"] intValue]]];
+                             }else{
+                             
+                             }
+                             */
+                        }else {
+                            //第一次请求
+                            if (i<50) {
+                                [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"]intValue]]];
+                            }
                         }
                     }
+                    
+                    NSString *s = [[arr lastObject] objectForKey:@"At"];
+                    self.queryEndDateString = [self.dateFormmatterHeart dateFromString:s];
+                }else{
+                    
+                    for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+                        self.ceshiArr[i] = self.ceshiArr[i-1];
+                    }
+                    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+                    
                 }
-                
-                NSString *s = [[arr lastObject] objectForKey:@"At"];
-                self.queryEndDateString = [self.dateFormmatterHeart dateFromString:s];
+                //
             }else{
                 //是200但是没有数据
                 for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
                     self.ceshiArr[i] = self.ceshiArr[i-1];
                 }
-                [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
+                [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
             }
             
         }else{
@@ -272,13 +286,15 @@
             for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
                 self.ceshiArr[i] = self.ceshiArr[i-1];
             }
-            [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
+            [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
         }
         self.dataSource = self.ceshiArr;
     } failure:^(YTKBaseRequest *request) {
         
     }];
+    
 }
+
 
 -(int)getRandomNumber:(int)from to:(int)to
 {
@@ -311,7 +327,7 @@
     xCoordinateInMoniter += pixelPerPoint;
     xCoordinateInMoniter %= (int)(LiveViewWidth - RightLiveLinePadding);
     
-    NSLog(@"呼吸吐出来的点:%@",NSStringFromCGPoint(targetPointToAdd));
+//    NSLog(@"呼吸吐出来的点:%@",NSStringFromCGPoint(targetPointToAdd));
     //更新数据
     self.data = (int)value;
     [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
