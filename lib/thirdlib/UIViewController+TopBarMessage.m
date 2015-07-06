@@ -38,8 +38,8 @@
 
 - (void)layoutSubviews
 {
-    CGSize textSize = [self.label.text sizeWithFont:self.label.font constrainedToSize:CGSizeMake(CGRectGetWidth(self.bounds) * 0.9, 20.f) lineBreakMode:NSLineBreakByTruncatingTail];
-    CGFloat betweenIconAndText  = 10.0f;
+    CGSize textSize = [self.label.text sizeWithFont:self.label.font constrainedToSize:CGSizeMake(CGRectGetWidth(self.bounds) * 0.9, 16.f) lineBreakMode:NSLineBreakByTruncatingTail];
+    CGFloat betweenIconAndText  = 5.0f;
     CGFloat iconWidth = 20.0f;
     if (!self.iconIgv.image) {
         iconWidth = 0.0f;

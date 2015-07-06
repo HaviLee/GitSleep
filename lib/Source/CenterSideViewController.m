@@ -445,9 +445,12 @@
             DeviceStatus = YES;
         }else{
             [self reloadStatusImage:NO];
+            /*
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您的设备未处于工作状态,请确认设备处于工作状态。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             alert.tag = 902;
             [alert show];
+             */
+            [self showTopMessage:@"您的设备未处于工作状态,请确认设备处于工作状态!"];
         }
     } failure:^(YTKBaseRequest *request) {
         
