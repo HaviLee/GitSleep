@@ -22,6 +22,7 @@
 //
 #import "TodayDataViewController.h"
 #import "YTKChainRequest.h"
+#import "UIViewController+TopBarMessage.h"
 
 #define SleepWidthAndHeightScale    1.47884187  //old 1.47884187/1.3848
 #define DatePickerHeight            self.view.frame.size.height*0.252623
@@ -199,9 +200,12 @@
             DeviceStatus = YES;
         }else{
             [self reloadStatusImage:NO];
+            [self showTopMessage:@"您的设备未处于工作状态,请确认设备处于工作状态!"];
+            /*
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您的设备未处于工作状态,请确认设备处于工作状态。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             alert.tag = 902;
             [alert show];
+             */
         }
     }
 }

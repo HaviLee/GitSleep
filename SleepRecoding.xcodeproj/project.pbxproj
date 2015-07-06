@@ -390,6 +390,7 @@
 		2C8C62951AB5B8A200CF4C19 /* papasscode_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C8C628B1AB5B8A200CF4C19 /* papasscode_marker.png */; };
 		2C8C62961AB5B8A200CF4C19 /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C8C628C1AB5B8A200CF4C19 /* papasscode_marker@2x.png */; };
 		2C8C62971AB5B8A200CF4C19 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C628E1AB5B8A200CF4C19 /* PAPasscodeViewController.m */; };
+		2C8CB3FA1B4A51B5007E97E5 /* UIViewController+TopBarMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CB3F91B4A51B5007E97E5 /* UIViewController+TopBarMessage.m */; };
 		2C8F7BB61AF3747700E56513 /* JTCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F7BA21AF3747700E56513 /* JTCalendar.m */; };
 		2C8F7BB71AF3747700E56513 /* JTCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F7BA41AF3747700E56513 /* JTCalendarAppearance.m */; };
 		2C8F7BB81AF3747700E56513 /* JTCalendarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F7BA61AF3747700E56513 /* JTCalendarContentView.m */; };
@@ -985,6 +986,8 @@
 		2C8C628C1AB5B8A200CF4C19 /* papasscode_marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_marker@2x.png"; sourceTree = "<group>"; };
 		2C8C628D1AB5B8A200CF4C19 /* PAPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAPasscodeViewController.h; sourceTree = "<group>"; };
 		2C8C628E1AB5B8A200CF4C19 /* PAPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAPasscodeViewController.m; sourceTree = "<group>"; };
+		2C8CB3F81B4A51B5007E97E5 /* UIViewController+TopBarMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+TopBarMessage.h"; path = "lib/thirdlib/UIViewController+TopBarMessage.h"; sourceTree = "<group>"; };
+		2C8CB3F91B4A51B5007E97E5 /* UIViewController+TopBarMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+TopBarMessage.m"; path = "lib/thirdlib/UIViewController+TopBarMessage.m"; sourceTree = "<group>"; };
 		2C8F7BA11AF3747700E56513 /* JTCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTCalendar.h; path = JTCalendar/JTCalendar.h; sourceTree = "<group>"; };
 		2C8F7BA21AF3747700E56513 /* JTCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTCalendar.m; path = JTCalendar/JTCalendar.m; sourceTree = "<group>"; };
 		2C8F7BA31AF3747700E56513 /* JTCalendarAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTCalendarAppearance.h; path = JTCalendar/JTCalendarAppearance.h; sourceTree = "<group>"; };
@@ -2321,6 +2324,8 @@
 				5772BE431AAFFF1B00E108BB /* HaviSwitch.m */,
 				577086091ABBB239004A2C07 /* HaviAnimationView.h */,
 				5770860A1ABBB239004A2C07 /* HaviAnimationView.m */,
+				2C8CB3F81B4A51B5007E97E5 /* UIViewController+TopBarMessage.h */,
+				2C8CB3F91B4A51B5007E97E5 /* UIViewController+TopBarMessage.m */,
 				57747DCD1AA57FAD002B5A49 /* Sources */,
 			);
 			name = ThirdLib;
@@ -2977,6 +2982,7 @@
 				2C435E811AD2D4C4003B1604 /* DataStaticViewController.m in Sources */,
 				2C1F1FEB1ADBF38F00393E04 /* WQCalendarTileView.m in Sources */,
 				579AC7D81AA01D9A0045E9A2 /* IconTableViewCell.m in Sources */,
+				2C8CB3FA1B4A51B5007E97E5 /* UIViewController+TopBarMessage.m in Sources */,
 				57490FC71ACAA1A10057DC05 /* CBChartView.m in Sources */,
 				2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */,
 				577086131ABBEA8E004A2C07 /* UserInfoNameTableViewCell.m in Sources */,
