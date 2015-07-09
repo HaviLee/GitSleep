@@ -459,7 +459,6 @@
 		5764518F1AC69701008E3526 /* ScanBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5764518E1AC69701008E3526 /* ScanBarcodeViewController.m */; };
 		5764CB141AB6B2C2002A0B85 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5764CB131AB6B2C2002A0B85 /* LoginViewController.m */; };
 		576A76751AC1337600BE8206 /* ShowAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 576A76741AC1337600BE8206 /* ShowAlertView.m */; };
-		576A76781AC1478D00BE8206 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 576A76771AC1478D00BE8206 /* Toast+UIView.m */; };
 		576A767B1AC1513400BE8206 /* GetInavlideCodeApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 576A767A1AC1513400BE8206 /* GetInavlideCodeApi.m */; };
 		576B02461A9EB22C004DB418 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 576B02451A9EB22C004DB418 /* BaseViewController.m */; };
 		576B02491A9EB24B004DB418 /* LeftSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 576B02481A9EB24B004DB418 /* LeftSideViewController.m */; };
@@ -1144,8 +1143,6 @@
 		5764CB131AB6B2C2002A0B85 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = controller/LoginViewController.m; sourceTree = "<group>"; };
 		576A76731AC1337600BE8206 /* ShowAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShowAlertView.h; path = lib/thirdlib/ShowAlertView.h; sourceTree = "<group>"; };
 		576A76741AC1337600BE8206 /* ShowAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShowAlertView.m; path = lib/thirdlib/ShowAlertView.m; sourceTree = "<group>"; };
-		576A76761AC1478D00BE8206 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Toast+UIView.h"; path = "lib/thirdlib/Toast+UIView.h"; sourceTree = "<group>"; };
-		576A76771AC1478D00BE8206 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Toast+UIView.m"; path = "lib/thirdlib/Toast+UIView.m"; sourceTree = "<group>"; };
 		576A76791AC1513400BE8206 /* GetInavlideCodeApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetInavlideCodeApi.h; path = controller/GetInavlideCodeApi.h; sourceTree = SOURCE_ROOT; };
 		576A767A1AC1513400BE8206 /* GetInavlideCodeApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetInavlideCodeApi.m; path = controller/GetInavlideCodeApi.m; sourceTree = SOURCE_ROOT; };
 		576B02441A9EB22C004DB418 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -2420,8 +2417,6 @@
 				2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */,
 				577120071AD5088700508C5C /* KxMenu.h */,
 				577120081AD5088700508C5C /* KxMenu.m */,
-				576A76761AC1478D00BE8206 /* Toast+UIView.h */,
-				576A76771AC1478D00BE8206 /* Toast+UIView.m */,
 				576A76731AC1337600BE8206 /* ShowAlertView.h */,
 				576A76741AC1337600BE8206 /* ShowAlertView.m */,
 				57063D2A1ABFDE7B00A61267 /* ImageUtil.h */,
@@ -3026,7 +3021,6 @@
 				57747DD61AA57FAD002B5A49 /* DIDatepicker.m in Sources */,
 				2C77D5201AEB8F45004123D2 /* DVSwitch.m in Sources */,
 				2C3AF2BA1AF4621600B66E32 /* TodayBreathViewController.m in Sources */,
-				576A76781AC1478D00BE8206 /* Toast+UIView.m in Sources */,
 				5764518F1AC69701008E3526 /* ScanBarcodeViewController.m in Sources */,
 				5759ECE91AC52DD800E9BFF2 /* UIViewController+MLTransition.m in Sources */,
 				2C6117021ABD6F6C00261A1E /* RMDateSelectionViewController.m in Sources */,
