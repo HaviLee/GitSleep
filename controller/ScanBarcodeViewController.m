@@ -329,7 +329,7 @@
             [MMProgressHUD dismiss];
             [self activeUUID:self.barTextfield.text];
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
-            [MMProgressHUD dismissWithSuccess:[resposeDic objectForKey:@"ErrorMessage"] title:nil afterDelay:2];
+            [MMProgressHUD dismissWithSuccess:@"不存在该硬件,请核对设备ID" title:nil afterDelay:2];
         }else{
             [MMProgressHUD dismissWithSuccess:[resposeDic objectForKey:@"ErrorMessage"] title:nil afterDelay:2];
         }
