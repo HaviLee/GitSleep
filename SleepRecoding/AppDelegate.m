@@ -14,6 +14,8 @@
 #import "LoginViewController.h"
 #import "UIViewController+MLTransition.h"
 #import "GetSuggestionList.h"
+#import "Reachability.h"
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 @interface AppDelegate ()
 
@@ -68,7 +70,7 @@
     }else{
         isUserDefaultTime = YES;
     }
-    
+    [self setWifiNotification];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]];
     LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
     
@@ -93,6 +95,72 @@
     [self.window makeKeyAndVisible];
 
     return YES;
+}
+
+-(void) setWifiNotification {
+    CTTelephonyNetworkInfo *telephonyInfo = [CTTelephonyNetworkInfo new];
+    NSLog(@"Current Radio Access Technology: %@", telephonyInfo.currentRadioAccessTechnology);
+    [NSNotificationCenter.defaultCenter addObserverForName:CTRadioAccessTechnologyDidChangeNotification
+                                                    object:nil
+                                                     queue:nil
+                                                usingBlock:^(NSNotification *note)
+     {
+         NSLog(@"New Radio Access Technology: %@", telephonyInfo.currentRadioAccessTechnology);
+     }];
+    @try {
+        
+        Reachability * reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reachabilityChanged:)
+                                                     name:kReachabilityChangedNotification
+                                                   object:nil];
+        reach.reachableBlock = ^(Reachability * reachability)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Block Says Reachable");
+            });
+        };
+        
+        reach.unreachableBlock = ^(Reachability * reachability)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Block Says Unreachable");
+            });
+        };
+        [reach startNotifier];
+    }@catch (NSException *e) {
+        ;
+    }
+}
+
+-(void)reachabilityChanged:(NSNotification*)note
+{
+    @try {
+        
+        Reachability * reach = [note object];
+        
+        if ([reach isReachable]) {
+            if ([reach isReachableViaWiFi]) {
+                [[UIApplication sharedApplication].keyWindow makeToast:@"您已切换至Wifi网络" duration:3 position:@"center"];
+                //                [self.view makeToast:@"您已切换至Wifi网络" duration:3 position:@"center"];
+            }else if ([reach isReachableViaWWAN]){
+                if ([[reach currentReachabilityFrom234G]isEqualToString:@"2G"]) {
+                    
+                    [[UIApplication sharedApplication].keyWindow makeToast:@"您已切换至2G网络" duration:3 position:@"center"];
+                }else if ([[reach currentReachabilityFrom234G]isEqualToString:@"3G"]) {
+                    [[UIApplication sharedApplication].keyWindow makeToast:@"您已切换至3G网络" duration:3 position:@"center"];
+                }else if ([[reach currentReachabilityFrom234G]isEqualToString:@"4G"]){
+                    [[UIApplication sharedApplication].keyWindow makeToast:@"您已切换至4G网络" duration:3 position:@"center"];
+                    
+                }
+            }
+        }else {
+            //            [self.view makeToast:@"当前没有网络,请检查您的手机" duration:3 position:@"center"];
+            [[UIApplication sharedApplication].keyWindow makeToast:@"没有网络,请检查您的网络！" duration:3 position:@"center"];
+        }
+    } @catch (NSException *e) {
+        ;
+    }
 }
 
 - (NSDate *)getNowDateFromatAnDate:(NSDate *)anyDate
