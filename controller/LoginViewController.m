@@ -257,7 +257,6 @@
         }
        
     } failure:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",@"网络出错啦"] afterDelay:3];
     }];
     

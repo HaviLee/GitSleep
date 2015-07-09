@@ -35,7 +35,7 @@
 #define PeopleToLeftPadding1        (SleepCircleHeight/2-PeopleCenterToLeftPadding)
 #define PeoplePadding               (SleepCircleWidth/2 - PeopleToLeftPadding1)
 
-@interface CenterSideViewController ()<SetScrollDateDelegate,SelectCalenderDate,UIAlertViewDelegate,YTKChainRequestDelegate>
+@interface CenterSideViewController ()<SetScrollDateDelegate,SelectCalenderDate,UIAlertViewDelegate>
 {
     UIImageView *sleepCircle;
     BOOL deviceStatus;
@@ -92,7 +92,13 @@
     //
     //获取时间
     if (!selectedDateToUse) {
-        selectedDateToUse = [NSDate date];
+        NSDate *date = [NSDate date];
+        //系统时区
+        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+        //和格林尼治时间差
+        NSInteger timeOff = [zone secondsFromGMT];
+        //视察转化
+        selectedDateToUse = [date dateByAddingTimeInterval:timeOff];
     }
     //
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{@"yindao":@"YES"}];
@@ -133,17 +139,18 @@
     [client getActiveDeviceUUID:header withDetailUrl:urlString];
     YTKChainRequest *chainRequest = [[YTKChainRequest alloc]init];
     [chainRequest addRequest:client callback:^(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSDictionary *resposeDic = (NSDictionary *)baseRequest.responseJSONObject;
         HaviLog(@"获取硬件信息是%@",resposeDic);
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
         if (arr.count == 0) {
-            HardWareUUID = NOBINDUUID;
+            HardWareUUID = @"";
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             alert.tag = 900;
             [alert show];
-            [self reloadStatusImage:YES];
+            [self reloadStatusImage:NO];
         }else{
-            HardWareUUID = NOUSEUUID;
+            HardWareUUID = @"";
             for (NSDictionary *dic in arr) {
                 if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
                     HardWareUUID = [dic objectForKey:@"UUID"];
@@ -151,55 +158,19 @@
                     break;
                 }
             }
-            if ([HardWareUUID isEqualToString:NOUSEUUID]) {
+            if ([HardWareUUID isEqualToString:@""]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                 alert.tag = 901;
                 [alert show];
                 [self reloadStatusImage:NO];
             }else{
                 [self reloadStatusImage:NO];
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
                 [self checkDeviceStatus];
             }
         }
     }];
-    chainRequest.delegate = self;
     [chainRequest start];
-}
-
-- (void)chainRequestFinished:(YTKChainRequest *)chainRequest
-{
-    //暂时不做处理
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    if (chainRequest.requestArray.count>1) {
-        CheckDeviceStatusAPI *API = (CheckDeviceStatusAPI *)[chainRequest.requestArray objectAtIndex:1];
-        NSDictionary *resposeDic = (NSDictionary *)API.responseJSONObject;
-        //    NSDictionary *resposeDic = (NSDictionary *)chainRequest.responseJSONObject;
-        HaviLog(@"设备状态是%@",resposeDic);
-        NSDictionary *dic = [resposeDic objectForKey:@"SensorInfo"];
-        if ([[dic objectForKey:@"ActivationStatusCode"]intValue]==1) {
-            [self reloadStatusImage:YES];
-            //获取数据
-            NSDate *newDate = [self getNowDateFromatAnDate:[NSDate date]];
-            NSString *nowDate = [NSString stringWithFormat:@"%@",newDate];
-            NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
-            [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
-            
-            DeviceStatus = YES;
-        }else{
-            [self reloadStatusImage:NO];
-            [self showTopMessage:@"您的设备未处于工作状态,请确认设备处于工作状态!"];
-            /*
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您的设备未处于工作状态,请确认设备处于工作状态。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            alert.tag = 902;
-            [alert show];
-             */
-        }
-    }
-}
-
-- (void)chainRequestFailed:(YTKChainRequest *)chainRequest failedBaseRequest:(YTKBaseRequest *)request
-{
-    
 }
 
 #pragma mark end
@@ -262,6 +233,7 @@
 - (void)getTodayUserData:(NSString *)fromDate endDate:(NSString *)endDate withCompareDate:(NSDate *)compDate
 {
     //fromdate 是当天的日期
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     if (!fromDate) {
         
 //        [ShowAlertView showAlert:@"CenterSideViewController:214,line开始时间为空"];
@@ -419,6 +391,7 @@
     }
     [client checkStatus:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"设备状态是%@",resposeDic);
         NSDictionary *dic = [resposeDic objectForKey:@"SensorInfo"];
@@ -467,10 +440,6 @@
 - (void)getScrollSelectedDate:(NSDate *)date
 {
     if (date) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        });
         selectedDateToUse = date;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];

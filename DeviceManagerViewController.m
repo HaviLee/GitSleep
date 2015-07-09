@@ -168,13 +168,13 @@
     if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
-    if (self.selectedPath) {
-        if (indexPath == self.selectedPath) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }else{
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-    }
+//    if (self.selectedPath) {
+//        if (indexPath == self.selectedPath) {
+//            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        }else{
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//        }
+//    }
     return cell;
 }
 
@@ -267,7 +267,7 @@
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [self getUserDeviceList];
             }];
-            [MMProgressHUD dismissWithSuccess:@"设备切换成功" title:nil afterDelay:2];
+            [MMProgressHUD dismissWithSuccess:@"设备切换成功" title:nil afterDelay:1];
         }else{
             [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
         }
