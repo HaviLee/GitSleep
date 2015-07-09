@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0912C71B4E782700BEE2FF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0912C31B4E782700BEE2FF /* Reachability.m */; };
+		2C0912C81B4E782700BEE2FF /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0912C61B4E782700BEE2FF /* Toast+UIView.m */; };
 		2C0EBE321AF0C13000F2D2F7 /* user3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C0EBE311AF0C13000F2D2F7 /* user3.wav */; };
 		2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E6751AF1FF3F00142F36 /* GetHeartSleepDataAPI.m */; };
 		2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E6781AF1FF5600142F36 /* GetBreathSleepDataAPI.m */; };
@@ -552,6 +554,10 @@
 /* Begin PBXFileReference section */
 		0F9FF27F68F04C4F2A6106C9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9FC4F9CFB9F87E74D5F2EB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		2C0912C21B4E782700BEE2FF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		2C0912C31B4E782700BEE2FF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		2C0912C51B4E782700BEE2FF /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
+		2C0912C61B4E782700BEE2FF /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		2C0EBE311AF0C13000F2D2F7 /* user3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = user3.wav; sourceTree = "<group>"; };
 		2C15E6741AF1FF3F00142F36 /* GetHeartSleepDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetHeartSleepDataAPI.h; path = API/GetHeartSleepDataAPI.h; sourceTree = "<group>"; };
 		2C15E6751AF1FF3F00142F36 /* GetHeartSleepDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetHeartSleepDataAPI.m; path = API/GetHeartSleepDataAPI.m; sourceTree = "<group>"; };
@@ -1330,6 +1336,26 @@
 				576B02431A9EB210004DB418 /* BaseView */,
 			);
 			name = MainController;
+			sourceTree = "<group>";
+		};
+		2C0912C11B4E782700BEE2FF /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				2C0912C21B4E782700BEE2FF /* Reachability.h */,
+				2C0912C31B4E782700BEE2FF /* Reachability.m */,
+			);
+			name = Reachability;
+			path = lib/thirdlib/Reachability;
+			sourceTree = "<group>";
+		};
+		2C0912C41B4E782700BEE2FF /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				2C0912C51B4E782700BEE2FF /* Toast+UIView.h */,
+				2C0912C61B4E782700BEE2FF /* Toast+UIView.m */,
+			);
+			name = Toast;
+			path = lib/thirdlib/Toast;
 			sourceTree = "<group>";
 		};
 		2C15E68C1AF214CF00142F36 /* color1 */ = {
@@ -2392,6 +2418,8 @@
 		579AC7DF1AA033BC0045E9A2 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				2C0912C11B4E782700BEE2FF /* Reachability */,
+				2C0912C41B4E782700BEE2FF /* Toast */,
 				2C875AC31B3BA1720076C489 /* SCLAlertView */,
 				2C77D5021AEB31CC004123D2 /* MGSwipeTableCell */,
 				2C435E511AD0CA05003B1604 /* toglleview */,
@@ -3006,6 +3034,7 @@
 				2CD404291B1461260020B89E /* LeaveBedView.m in Sources */,
 				577086211ABC0BB1004A2C07 /* LRGlowingButton.m in Sources */,
 				2C8977CA1B194DF30032D258 /* LiveLeaveDataViewController.m in Sources */,
+				2C0912C81B4E782700BEE2FF /* Toast+UIView.m in Sources */,
 				2C8F7BB71AF3747700E56513 /* JTCalendarAppearance.m in Sources */,
 				577062DD1AC285F100790F79 /* STAlertView.m in Sources */,
 				2C6D2F411AF620A2008C285B /* UserInfoTableViewCell.m in Sources */,
@@ -3107,6 +3136,7 @@
 				2C77D5321AEF4E23004123D2 /* HeartViewViewController.m in Sources */,
 				2C435E811AD2D4C4003B1604 /* DataStaticViewController.m in Sources */,
 				2C1F1FEB1ADBF38F00393E04 /* WQCalendarTileView.m in Sources */,
+				2C0912C71B4E782700BEE2FF /* Reachability.m in Sources */,
 				579AC7D81AA01D9A0045E9A2 /* IconTableViewCell.m in Sources */,
 				57490FC71ACAA1A10057DC05 /* CBChartView.m in Sources */,
 				2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */,
