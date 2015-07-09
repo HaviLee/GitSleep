@@ -23,6 +23,7 @@
 #import "TodayDataViewController.h"
 #import "YTKChainRequest.h"
 #import "UIViewController+TopBarMessage.h"
+#import "MTStatusBarOverlay.h"
 
 #define SleepWidthAndHeightScale    1.47884187  //old 1.47884187/1.3848
 #define DatePickerHeight            self.view.frame.size.height*0.252623
@@ -86,7 +87,7 @@
     //观察这个值是否发生变化。
     //创建子视图
     [self creatSubView];
-    //检测用户下的设备列表在进入app首先获取id；
+    //检测用户下的设备列表在进入app首先获取id
     
     //
     //获取时间
@@ -112,6 +113,8 @@
     if ([HardWareUUID isEqualToString:@""]) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [self getDeviceStatusWithUserNewAPI:GloableUserId];
+    }else {
+        [self checkDeviceStatus];
     }
 }
 
@@ -152,26 +155,10 @@
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                 alert.tag = 901;
                 [alert show];
-                [self reloadStatusImage:YES];
+                [self reloadStatusImage:NO];
             }else{
-                [self reloadStatusImage:YES];
-                /*
-                //获取数据
-                NSDate *newDate = [self getNowDateFromatAnDate:[NSDate date]];
-                NSString *nowDate = [NSString stringWithFormat:@"%@",newDate];
-                NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
-                [self getTodayUserData:subString endDate:subString withCompareDate:[NSDate date]];
-                
-                DeviceStatus = YES;
-                 */
-
-                NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",HardWareUUID];
-                NSDictionary *header = @{
-                                         @"AccessToken":@"123456789"
-                                         };
-                CheckDeviceStatusAPI *client1 = [CheckDeviceStatusAPI shareInstance];
-                [client1 checkStatus:header withDetailUrl:urlString];
-                [chainRequest addRequest:client1 callback:nil];
+                [self reloadStatusImage:NO];
+                [self checkDeviceStatus];
             }
         }
     }];
@@ -450,7 +437,13 @@
             alert.tag = 902;
             [alert show];
              */
-            [self showTopMessage:@"您的设备未处于工作状态,请确认设备处于工作状态!"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
+                overlay.backgroundColor = [UIColor redColor];
+                overlay.customTextColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+                [overlay postErrorMessage:@"您的设备未处于工作状态,请确认!" duration:5 animated:YES];
+            });
+//            [self showTopMessage:@"您的设备未处于工作状态,请确认设备处于工作状态!"];
         }
     } failure:^(YTKBaseRequest *request) {
         
