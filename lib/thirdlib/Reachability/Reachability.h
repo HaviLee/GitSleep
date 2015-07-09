@@ -74,6 +74,8 @@ typedef void (^NetworkUnreachable)(Reachability * reachability);
 -(BOOL)startNotifier;
 -(void)stopNotifier;
 
+//
+
 -(BOOL)isReachable;
 -(BOOL)isReachableViaWWAN;
 -(BOOL)isReachableViaWiFi;
@@ -91,5 +93,6 @@ typedef void (^NetworkUnreachable)(Reachability * reachability);
 -(SCNetworkReachabilityFlags)reachabilityFlags;
 -(NSString*)currentReachabilityString;
 -(NSString*)currentReachabilityFlags;
+- (NSString *)currentReachabilityFrom234G;
 
 @end

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2C0912B71B4E521F00BEE2FF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0912B41B4E521F00BEE2FF /* Reachability.m */; };
 		2C0912BC1B4E591A00BEE2FF /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0912BB1B4E591A00BEE2FF /* Toast+UIView.m */; };
+		2C0912BE1B4E65A900BEE2FF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0912BD1B4E65A900BEE2FF /* CFNetwork.framework */; };
+		2C0912C01B4E668F00BEE2FF /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0912BF1B4E668F00BEE2FF /* CoreTelephony.framework */; };
 		2C0EBE321AF0C13000F2D2F7 /* user3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C0EBE311AF0C13000F2D2F7 /* user3.wav */; };
 		2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E6751AF1FF3F00142F36 /* GetHeartSleepDataAPI.m */; };
 		2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E6781AF1FF5600142F36 /* GetBreathSleepDataAPI.m */; };
@@ -539,6 +541,8 @@
 		2C0912B41B4E521F00BEE2FF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		2C0912BA1B4E591A00BEE2FF /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
 		2C0912BB1B4E591A00BEE2FF /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
+		2C0912BD1B4E65A900BEE2FF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		2C0912BF1B4E668F00BEE2FF /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		2C0EBE311AF0C13000F2D2F7 /* user3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = user3.wav; sourceTree = "<group>"; };
 		2C15E6741AF1FF3F00142F36 /* GetHeartSleepDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetHeartSleepDataAPI.h; path = API/GetHeartSleepDataAPI.h; sourceTree = "<group>"; };
 		2C15E6751AF1FF3F00142F36 /* GetHeartSleepDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetHeartSleepDataAPI.m; path = API/GetHeartSleepDataAPI.m; sourceTree = "<group>"; };
@@ -1247,6 +1251,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C0912C01B4E668F00BEE2FF /* CoreTelephony.framework in Frameworks */,
+				2C0912BE1B4E65A900BEE2FF /* CFNetwork.framework in Frameworks */,
 				576F09CC1AC3A6AB0083395C /* SystemConfiguration.framework in Frameworks */,
 				576C3F041ABFAAE700815EF3 /* MobileCoreServices.framework in Frameworks */,
 				576C3F021ABFAA4500815EF3 /* AudioToolbox.framework in Frameworks */,
@@ -2367,6 +2373,8 @@
 		B2B6D8396C0101919F09B9EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C0912BF1B4E668F00BEE2FF /* CoreTelephony.framework */,
+				2C0912BD1B4E65A900BEE2FF /* CFNetwork.framework */,
 				576F09CB1AC3A6AB0083395C /* SystemConfiguration.framework */,
 				576C3F031ABFAAE700815EF3 /* MobileCoreServices.framework */,
 				576C3F011ABFAA4500815EF3 /* AudioToolbox.framework */,

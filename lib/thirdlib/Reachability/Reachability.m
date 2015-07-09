@@ -33,7 +33,7 @@
 #import <arpa/inet.h>
 #import <ifaddrs.h>
 #import <netdb.h>
-
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 NSString *const kReachabilityChangedNotification = @"kReachabilityChangedNotification";
 
@@ -293,6 +293,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     
     if(SCNetworkReachabilityGetFlags(self.reachabilityRef, &flags))
     {
+        
         // Check we're REACHABLE
         if(flags & kSCNetworkReachabilityFlagsReachable)
         {
@@ -308,7 +309,48 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return NO;
 }
 
--(BOOL)isReachableViaWiFi 
+- (NSString *)currentReachabilityFrom234G
+{
+    SCNetworkReachabilityFlags flags = 0;
+    
+    if(SCNetworkReachabilityGetFlags(self.reachabilityRef, &flags))
+    {
+        
+        // Check we're REACHABLE
+        if(flags & kSCNetworkReachabilityFlagsReachable)
+        {
+            // Now, check we're on WWAN
+            if (flags & kSCNetworkReachabilityFlagsIsWWAN) {
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+                    CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
+                    NSString *currentRadioAccessTechnology = info.currentRadioAccessTechnology;
+                    if (currentRadioAccessTechnology) {
+                        if ([currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyLTE]) {
+                            return @"4G";
+                        } else if ([currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyEdge] || [currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyGPRS]) {
+                            return @"2G";
+                        } else {
+                            return @"3G";
+                        }
+                    }
+                }
+                
+                if ((flags & kSCNetworkReachabilityFlagsTransientConnection) == kSCNetworkReachabilityFlagsTransientConnection) {
+                    if((flags & kSCNetworkReachabilityFlagsConnectionRequired) == kSCNetworkReachabilityFlagsConnectionRequired) {
+                        return @"2G";
+                    }
+                    return @"3G";
+                }
+                return @"运营商";
+            }
+        }
+    }
+    return @"运营商";
+    
+}
+
+
+-(BOOL)isReachableViaWiFi
 {
     SCNetworkReachabilityFlags flags = 0;
     
