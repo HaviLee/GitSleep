@@ -81,4 +81,8 @@
 - (UIColor*) colorWithHex:(NSInteger)hexValue alpha:(CGFloat)alphaValue;
 //进行日期时区的转换
 - (NSDate *)getNowDateFromatAnDate:(NSDate *)anyDate;
+//检测网络的
++ (NSInteger)networkStatus;
++ (BOOL)isNetworkExist;
+
 @end

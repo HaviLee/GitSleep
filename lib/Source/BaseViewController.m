@@ -11,6 +11,8 @@
 #import "YTKNetworkPrivate.h"
 #import "THPinViewController.h"
 #import "LoginViewController.h"
+#import "Reachability.h"
+#import "Toast+UIView.h"
 
 @interface BaseViewController ()<THPinViewControllerDelegate>
 {
@@ -199,6 +201,32 @@
     //进行检测是不是有app 密码
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{AppPassWordKey:@"NO"}];
     [self isShowAppSettingPassWord];
+    //监听网络
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
+}
+
+//reachablility changed
+-(void)reachabilityChanged:(NSNotification*)note
+{
+    @try {
+        
+        Reachability * reach = [note object];
+        
+        if ([reach isReachable]) {
+            if ([reach isReachableViaWiFi]) {
+                [self.view makeToast:@"您已切换至Wifi网络" duration:3 position:@"center"];
+            }else if ([reach isReachableViaWWAN]){
+                [self.view makeToast:@"您已切换至运营商,如需激活设备请打开Wifi" duration:3 position:@"center"];
+            }
+        }else {
+            [self.view makeToast:@"当前没有网络,请检查您的手机" duration:3 position:@"center"];
+        }
+    } @catch (NSException *e) {
+        ;
+    }
 }
 
 /**
@@ -898,6 +926,18 @@
     NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:anyDate];
 
     return destinationDateNow;
+}
+
+#pragma mark 检测网络
++ (NSInteger)networkStatus
+{
+    Reachability *reachability = [Reachability reachabilityWithHostName:@"www.oschina.net"];
+    return reachability.currentReachabilityStatus;
+}
+
++ (BOOL)isNetworkExist
+{
+    return [self networkStatus] > 0;
 }
 
 /*

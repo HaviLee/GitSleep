@@ -14,6 +14,7 @@
 #import "LoginViewController.h"
 #import "UIViewController+MLTransition.h"
 #import "GetSuggestionList.h"
+#import "Reachability.h"
 
 @interface AppDelegate ()
 
@@ -60,6 +61,8 @@
     navi.navigationBarHidden = YES;
     self.window.rootViewController = navi;
     [self getSuggestionList];
+    //监听网络
+    [self setWifiNotification];
     //默认注册一个不开启睡眠时间设置
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{SleepSettingSwitchKey:@"NO"}];
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:@"18:00"}];
@@ -95,6 +98,31 @@
 
     return YES;
 }
+
+-(void) setWifiNotification {
+    @try {
+        
+        Reachability * reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+        
+        reach.reachableBlock = ^(Reachability * reachability)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Block Says Reachable");
+            });
+        };
+        
+        reach.unreachableBlock = ^(Reachability * reachability)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Block Says Unreachable");
+            });
+        };
+        [reach startNotifier];
+    }@catch (NSException *e) {
+        ;
+    }
+}
+//监听
 
 - (NSDate *)getNowDateFromatAnDate:(NSDate *)anyDate
 {

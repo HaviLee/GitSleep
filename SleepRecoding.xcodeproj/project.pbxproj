@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0912B71B4E521F00BEE2FF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0912B41B4E521F00BEE2FF /* Reachability.m */; };
+		2C0912BC1B4E591A00BEE2FF /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0912BB1B4E591A00BEE2FF /* Toast+UIView.m */; };
 		2C0EBE321AF0C13000F2D2F7 /* user3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C0EBE311AF0C13000F2D2F7 /* user3.wav */; };
 		2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E6751AF1FF3F00142F36 /* GetHeartSleepDataAPI.m */; };
 		2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E6781AF1FF5600142F36 /* GetBreathSleepDataAPI.m */; };
@@ -440,7 +442,6 @@
 		5764518F1AC69701008E3526 /* ScanBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5764518E1AC69701008E3526 /* ScanBarcodeViewController.m */; };
 		5764CB141AB6B2C2002A0B85 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5764CB131AB6B2C2002A0B85 /* LoginViewController.m */; };
 		576A76751AC1337600BE8206 /* ShowAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 576A76741AC1337600BE8206 /* ShowAlertView.m */; };
-		576A76781AC1478D00BE8206 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 576A76771AC1478D00BE8206 /* Toast+UIView.m */; };
 		576A767B1AC1513400BE8206 /* GetInavlideCodeApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 576A767A1AC1513400BE8206 /* GetInavlideCodeApi.m */; };
 		576B02461A9EB22C004DB418 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 576B02451A9EB22C004DB418 /* BaseViewController.m */; };
 		576B02491A9EB24B004DB418 /* LeftSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 576B02481A9EB24B004DB418 /* LeftSideViewController.m */; };
@@ -534,6 +535,10 @@
 /* Begin PBXFileReference section */
 		0F9FF27F68F04C4F2A6106C9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9FC4F9CFB9F87E74D5F2EB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		2C0912B31B4E521F00BEE2FF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		2C0912B41B4E521F00BEE2FF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		2C0912BA1B4E591A00BEE2FF /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
+		2C0912BB1B4E591A00BEE2FF /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		2C0EBE311AF0C13000F2D2F7 /* user3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = user3.wav; sourceTree = "<group>"; };
 		2C15E6741AF1FF3F00142F36 /* GetHeartSleepDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetHeartSleepDataAPI.h; path = API/GetHeartSleepDataAPI.h; sourceTree = "<group>"; };
 		2C15E6751AF1FF3F00142F36 /* GetHeartSleepDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetHeartSleepDataAPI.m; path = API/GetHeartSleepDataAPI.m; sourceTree = "<group>"; };
@@ -1086,8 +1091,6 @@
 		5764CB131AB6B2C2002A0B85 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = controller/LoginViewController.m; sourceTree = "<group>"; };
 		576A76731AC1337600BE8206 /* ShowAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShowAlertView.h; path = lib/thirdlib/ShowAlertView.h; sourceTree = "<group>"; };
 		576A76741AC1337600BE8206 /* ShowAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShowAlertView.m; path = lib/thirdlib/ShowAlertView.m; sourceTree = "<group>"; };
-		576A76761AC1478D00BE8206 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Toast+UIView.h"; path = "lib/thirdlib/Toast+UIView.h"; sourceTree = "<group>"; };
-		576A76771AC1478D00BE8206 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Toast+UIView.m"; path = "lib/thirdlib/Toast+UIView.m"; sourceTree = "<group>"; };
 		576A76791AC1513400BE8206 /* GetInavlideCodeApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetInavlideCodeApi.h; path = controller/GetInavlideCodeApi.h; sourceTree = SOURCE_ROOT; };
 		576A767A1AC1513400BE8206 /* GetInavlideCodeApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetInavlideCodeApi.m; path = controller/GetInavlideCodeApi.m; sourceTree = SOURCE_ROOT; };
 		576B02441A9EB22C004DB418 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -1274,6 +1277,26 @@
 				576B02431A9EB210004DB418 /* BaseView */,
 			);
 			name = MainController;
+			sourceTree = "<group>";
+		};
+		2C0912B11B4E521F00BEE2FF /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				2C0912B31B4E521F00BEE2FF /* Reachability.h */,
+				2C0912B41B4E521F00BEE2FF /* Reachability.m */,
+			);
+			name = Reachability;
+			path = lib/thirdlib/Reachability;
+			sourceTree = "<group>";
+		};
+		2C0912B91B4E591A00BEE2FF /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				2C0912BA1B4E591A00BEE2FF /* Toast+UIView.h */,
+				2C0912BB1B4E591A00BEE2FF /* Toast+UIView.m */,
+			);
+			name = Toast;
+			path = lib/thirdlib/Toast;
 			sourceTree = "<group>";
 		};
 		2C15E68C1AF214CF00142F36 /* color1 */ = {
@@ -2280,6 +2303,8 @@
 		579AC7DF1AA033BC0045E9A2 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				2C0912B91B4E591A00BEE2FF /* Toast */,
+				2C0912B11B4E521F00BEE2FF /* Reachability */,
 				2C77D5021AEB31CC004123D2 /* MGSwipeTableCell */,
 				2C435E511AD0CA05003B1604 /* toglleview */,
 				57490FC11ACAA1A10057DC05 /* CBChart */,
@@ -2304,8 +2329,6 @@
 				2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */,
 				577120071AD5088700508C5C /* KxMenu.h */,
 				577120081AD5088700508C5C /* KxMenu.m */,
-				576A76761AC1478D00BE8206 /* Toast+UIView.h */,
-				576A76771AC1478D00BE8206 /* Toast+UIView.m */,
 				576A76731AC1337600BE8206 /* ShowAlertView.h */,
 				576A76741AC1337600BE8206 /* ShowAlertView.m */,
 				57063D2A1ABFDE7B00A61267 /* ImageUtil.h */,
@@ -2874,6 +2897,7 @@
 				578681541ADCEE1200E881A2 /* WTURLSessionManager.m in Sources */,
 				572AA9851AC29A5700DED1D9 /* THPinInputCircleView.m in Sources */,
 				2C5E5C231B12B3F200123CC4 /* RESideMenu.m in Sources */,
+				2C0912BC1B4E591A00BEE2FF /* Toast+UIView.m in Sources */,
 				2C1F1FC41AD8B7E700393E04 /* QuaterCalenderView.m in Sources */,
 				2C1F1FEA1ADBF38F00393E04 /* WQCalendarLogic.m in Sources */,
 				2C1AD7191AAAE74A00655A5B /* ScaleAnimation.m in Sources */,
@@ -2905,7 +2929,6 @@
 				57747DD61AA57FAD002B5A49 /* DIDatepicker.m in Sources */,
 				2C77D5201AEB8F45004123D2 /* DVSwitch.m in Sources */,
 				2C3AF2BA1AF4621600B66E32 /* TodayBreathViewController.m in Sources */,
-				576A76781AC1478D00BE8206 /* Toast+UIView.m in Sources */,
 				5764518F1AC69701008E3526 /* ScanBarcodeViewController.m in Sources */,
 				5759ECE91AC52DD800E9BFF2 /* UIViewController+MLTransition.m in Sources */,
 				2C6117021ABD6F6C00261A1E /* RMDateSelectionViewController.m in Sources */,
@@ -2934,6 +2957,7 @@
 				57D4C0071ABAC5520026A559 /* OTCover.m in Sources */,
 				2C8C62971AB5B8A200CF4C19 /* PAPasscodeViewController.m in Sources */,
 				2C77D5261AED198B004123D2 /* GetDefatultSleepAPI.m in Sources */,
+				2C0912B71B4E521F00BEE2FF /* Reachability.m in Sources */,
 				2C8F7BBA1AF3747700E56513 /* JTCalendarMenuMonthView.m in Sources */,
 				2C15E67F1AF1FF8900142F36 /* GetTurnSleepDataAPI.m in Sources */,
 				2C8C62821AB5B0D100CF4C19 /* ModifyPassWordViewController.m in Sources */,
