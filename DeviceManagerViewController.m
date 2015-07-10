@@ -113,7 +113,7 @@
                              @"AccessToken":@"123456789"
                              };
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"请求中..."];
+    [MMProgressHUD showWithStatus:@"获取设备列表..."];
     GetDeviceListAPI *client = [GetDeviceListAPI shareInstance];
     [client getDeviceList:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
