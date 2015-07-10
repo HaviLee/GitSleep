@@ -168,13 +168,6 @@
     if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
-    if (self.selectedPath) {
-        if (indexPath == self.selectedPath) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }else{
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-    }
     return cell;
 }
 
