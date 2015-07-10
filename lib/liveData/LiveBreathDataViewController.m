@@ -322,7 +322,6 @@
     
     NSInteger pixelPerPoint = 1;
     static NSInteger xCoordinateInMoniter = 1;
-    
     CGFloat height = CGRectGetHeight(self.heartMoniterView.frame);
     float value = (float)[self.dataSource[dataSourceCounterIndex] integerValue];
     CGFloat yCoor = [self getYCoordinate:value];
@@ -330,12 +329,16 @@
     xCoordinateInMoniter += pixelPerPoint;
     xCoordinateInMoniter %= (int)(LiveViewWidth - RightLiveLinePadding);
     
-//    NSLog(@"呼吸吐出来的点:%@",NSStringFromCGPoint(targetPointToAdd));
-    //更新数据
+    //    NSLog(@"心率吐出来的点:%@",NSStringFromCGPoint(targetPointToAdd));
     self.data = (int)value;
     [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    //modify
+    //    for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+    //        self.ceshiArr[i] = self.ceshiArr[i-1];
+    //    }
+    //    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:60]];
+    //    self.dataSource = self.ceshiArr;
     return targetPointToAdd;
-    
 }
 
 - (CGFloat)getYCoordinate:(float)value
