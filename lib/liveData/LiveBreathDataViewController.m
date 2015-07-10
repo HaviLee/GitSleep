@@ -272,7 +272,7 @@
                     for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
                         self.ceshiArr[i] = self.ceshiArr[i-1];
                     }
-                    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+                    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
                     
                 }
                 //
@@ -281,7 +281,7 @@
                 for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
                     self.ceshiArr[i] = self.ceshiArr[i-1];
                 }
-                [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+                [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
             }
             
         }else{
@@ -289,7 +289,7 @@
             for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
                 self.ceshiArr[i] = self.ceshiArr[i-1];
             }
-            [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+            [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
         }
         self.dataSource = self.ceshiArr;
     } failure:^(YTKBaseRequest *request) {
@@ -366,6 +366,7 @@
     [super viewDidDisappear:animated];
     [self.timer1 invalidate];
     [self.getDataTimer invalidate];
+    self.heartMoniterView = nil;
 }
 
 /*
