@@ -41,7 +41,7 @@
     // Do any additional setup after loading the view.
     self.ceshiArr = [[NSMutableArray alloc]init];
     //添加日历
-    for ( int i= 0; i<50; i++) {
+    for ( int i= 0; i<60; i++) {
         int num = [self getRandomNumber:4 to:4];
         [self.ceshiArr addObject:[NSNumber numberWithInt:num]];
     }
@@ -259,7 +259,7 @@
                              */
                         }else {
                             //第一次请求
-                            if (i<50) {
+                            if (i<60) {
                                 [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"]intValue]]];
                             }
                         }
