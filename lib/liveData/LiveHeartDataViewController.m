@@ -298,7 +298,7 @@
                 NSString *dateString = [[arr lastObject]objectForKey:@"At"];
                 NSDate *date = [self.dateFormmatterHeart dateFromString:dateString];
                 NSDate *newDate = [[NSDate date]dateByAddingTimeInterval:8*60*60];
-                if ([newDate timeIntervalSinceDate:date]<30) {
+                if ([newDate timeIntervalSinceDate:date]<60) {
                     
                     for (int i=0; i<arr.count; i++) {
                         if (self.queryEndDateString) {
