@@ -50,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.arr1 = @[@"本季度睡眠质量:",@"心率平均值:",@"心率异常次数:",@"呼吸平均值:",@"呼吸异常次数:"];
+    self.arr1 = @[@"本周睡眠质量:",@"心率平均值:",@"心率异常次数:",@"呼吸平均值:",@"呼吸异常次数:"];
     self.arr2 = @[@"还没有数据哦",@"0次/分钟",@"0次",@"0次/分钟",@"0次"];
     _views = @[self.tableView1,self.tableView2];
     
