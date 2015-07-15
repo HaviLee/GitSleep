@@ -224,6 +224,9 @@
     [client getBreathLiveData:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        if (resposeDic.count==0) {
+            NSLog(@"请求成功，网络没有反应");
+        }
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200){
             if ([[[[resposeDic objectForKey:@"SensorData"] objectAtIndex:0] objectForKey:@"Data"] count]>0) {
                 NSArray *arr1 = [[[resposeDic objectForKey:@"SensorData"] objectAtIndex:0] objectForKey:@"Data"];
