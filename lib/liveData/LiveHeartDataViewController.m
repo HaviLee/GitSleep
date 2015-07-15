@@ -355,7 +355,12 @@
         }
         self.dataSource = self.ceshiArr;
     } failure:^(YTKBaseRequest *request) {
-        
+        NSLog(@"请求失败");
+        for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+            self.ceshiArr[i] = self.ceshiArr[i-1];
+        }
+        [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
+        self.dataSource = self.ceshiArr;
     }];
     
 }
