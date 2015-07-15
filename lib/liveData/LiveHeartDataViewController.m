@@ -371,6 +371,8 @@
     [super viewDidDisappear:animated];
     [self.timer1 invalidate];
     [self.getDataTimer invalidate];
+    self.timer1 = nil;
+    self.getDataTimer = nil;
 }
 
 - (void)didReceiveMemoryWarning {
