@@ -43,7 +43,7 @@
     // Do any additional setup after loading the view.
     //
     self.ceshiArr = [[NSMutableArray alloc]init];
-    for ( int i= 0; i<60; i++) {
+    for ( int i= 0; i<30; i++) {
         int num = [self getRandomNumber:39 to:39];
         [self.ceshiArr addObject:[NSNumber numberWithInt:num]];
     }
@@ -217,12 +217,13 @@
 {
     static NSInteger dataSourceCounterIndex = -1;
     dataSourceCounterIndex ++;
-    dataSourceCounterIndex %= [self.dataSource count];
+    dataSourceCounterIndex %= [self.ceshiArr count];
     
     NSInteger pixelPerPoint = 1;
     static NSInteger xCoordinateInMoniter = 1;
     CGFloat height = CGRectGetHeight(self.heartMoniterView.frame);
-    float value = (float)[self.dataSource[dataSourceCounterIndex] integerValue];
+    float value = (float)[self.ceshiArr[dataSourceCounterIndex] integerValue];
+//    float value = (float)[self.ceshiArr[0] integerValue];
     CGFloat yCoor = [self getYCoordinate:value];
     CGPoint targetPointToAdd = (CGPoint){LiveViewWidth - RightLiveLinePadding -xCoordinateInMoniter,height - yCoor};
     xCoordinateInMoniter += pixelPerPoint;
@@ -324,7 +325,7 @@
                              */
                         }else {
                             //第一次请求
-                            if (i<60) {
+                            if (i<30) {
                                 [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"]intValue]]];
                             }
                         }
@@ -334,35 +335,44 @@
                     self.queryEndDateString = [self.dateFormmatterHeart dateFromString:s];
                 }else{
                     
-                    for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-                        self.ceshiArr[i] = self.ceshiArr[i-1];
+                    for ( int i= 0; i<30; i++) {
+                        [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
                     }
-                    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
                     
                 }
 //
             }else{
                 //是200但是没有数据
-                for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-                    self.ceshiArr[i] = self.ceshiArr[i-1];
+                for ( int i= 0; i<30; i++) {
+                    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
                 }
-                [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
             }
             
         }else{
            //这个是returncode 不是200
-            for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-                self.ceshiArr[i] = self.ceshiArr[i-1];
+            for ( int i= 0; i<30; i++) {
+                [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
             }
-            [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
+            /*
+             for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+             self.ceshiArr[i] = self.ceshiArr[i-1];
+             }
+             [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
+             */
         }
         self.dataSource = self.ceshiArr;
     } failure:^(YTKBaseRequest *request) {
         NSLog(@"请求失败");
-        for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-            self.ceshiArr[i] = self.ceshiArr[i-1];
+        for ( int i= 0; i<30; i++) {
+            [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
         }
-        [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:39]];
+        /*
+         for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+         self.ceshiArr[i] = self.ceshiArr[i-1];
+         }
+         [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+         */
+
         self.dataSource = self.ceshiArr;
     }];
     

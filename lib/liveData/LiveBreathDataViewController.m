@@ -41,7 +41,7 @@
     // Do any additional setup after loading the view.
     self.ceshiArr = [[NSMutableArray alloc]init];
     //添加日历
-    for ( int i= 0; i<60; i++) {
+    for ( int i= 0; i<30; i++) {
         int num = [self getRandomNumber:4 to:4];
         [self.ceshiArr addObject:[NSNumber numberWithInt:num]];
     }
@@ -262,7 +262,7 @@
                              */
                         }else {
                             //第一次请求
-                            if (i<60) {
+                            if (i<30) {
                                 [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:[[[arr objectAtIndex:i] objectForKey:@"Value"]intValue]]];
                             }
                         }
@@ -271,11 +271,15 @@
                     NSString *s = [[arr lastObject] objectForKey:@"At"];
                     self.queryEndDateString = [self.dateFormmatterHeart dateFromString:s];
                 }else{
-                    
+                    for ( int i= 0; i<30; i++) {
+                        [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+                    }
+                    /*havi old
                     for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
                         self.ceshiArr[i] = self.ceshiArr[i-1];
                     }
                     [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+                     */
                     
                 }
                 //
@@ -289,17 +293,27 @@
             
         }else{
             //这个是returncode 不是200
+            for ( int i= 0; i<30; i++) {
+                [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+            }
+            /*
             for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
                 self.ceshiArr[i] = self.ceshiArr[i-1];
             }
             [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+             */
         }
         self.dataSource = self.ceshiArr;
     } failure:^(YTKBaseRequest *request) {
+        for ( int i= 0; i<30; i++) {
+            [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+        }
+        /*
         for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
             self.ceshiArr[i] = self.ceshiArr[i-1];
         }
         [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+         */
         self.dataSource = self.ceshiArr;
     }];
     
@@ -325,12 +339,13 @@
 {
     static NSInteger dataSourceCounterIndex = -1;
     dataSourceCounterIndex ++;
-    dataSourceCounterIndex %= [self.dataSource count];
+    dataSourceCounterIndex %= [self.ceshiArr count];
     
     NSInteger pixelPerPoint = 1;
     static NSInteger xCoordinateInMoniter = 1;
     CGFloat height = CGRectGetHeight(self.heartMoniterView.frame);
-    float value = (float)[self.dataSource[dataSourceCounterIndex] integerValue];
+    float value = (float)[self.ceshiArr[dataSourceCounterIndex] integerValue];
+//    float value = (float)[self.ceshiArr[0] integerValue];
     CGFloat yCoor = [self getYCoordinate:value];
     CGPoint targetPointToAdd = (CGPoint){LiveViewWidth - RightLiveLinePadding -xCoordinateInMoniter,height - yCoor};
     xCoordinateInMoniter += pixelPerPoint;
