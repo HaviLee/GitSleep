@@ -239,8 +239,10 @@
                 NSString *dateString = [[arr lastObject]objectForKey:@"At"];
                 NSDate *date = [self.dateFormmatterHeart dateFromString:dateString];
                 NSDate *newDate = [[NSDate date]dateByAddingTimeInterval:8*60*60];
-                if ([newDate timeIntervalSinceDate:date]<60) {
-                    
+                if ([newDate timeIntervalSinceDate:date]<90) {
+                    for (int i = 0; i<self.ceshiArr.count; i++) {
+                        [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:10]];
+                    }
                     for (int i=0; i<arr.count; i++) {
                         if (self.queryEndDateString) {
                             for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
@@ -272,29 +274,30 @@
                     self.queryEndDateString = [self.dateFormmatterHeart dateFromString:s];
                 }else{
                     for ( int i= 0; i<30; i++) {
-                        [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+                        [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:4]];
                     }
-                    /*havi old
-                    for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-                        self.ceshiArr[i] = self.ceshiArr[i-1];
-                    }
-                    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
-                     */
+//                    for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+//                        self.ceshiArr[i] = self.ceshiArr[i-1];
+//                    }
+//                    [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
                     
                 }
                 //
             }else{
                 //是200但是没有数据
-                for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
-                    self.ceshiArr[i] = self.ceshiArr[i-1];
+                for ( int i= 0; i<30; i++) {
+                    [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:4]];
                 }
-                [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+//                for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
+//                    self.ceshiArr[i] = self.ceshiArr[i-1];
+//                }
+//                [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
             }
             
         }else{
             //这个是returncode 不是200
             for ( int i= 0; i<30; i++) {
-                [self.ceshiArr replaceObjectAtIndex:0 withObject:[NSNumber numberWithInt:4]];
+                [self.ceshiArr replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:4]];
             }
             /*
             for (int i =(int)self.ceshiArr.count-1; i>0; i--) {
