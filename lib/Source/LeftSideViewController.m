@@ -88,10 +88,11 @@
     }];
     self.sideTableView.showsVerticalScrollIndicator = NO;
     //
-    self.sideArray = @[@[@"今日数据",@"数据分析",@"设备管理",@"睡眠设置",@"设       定"],@[@"退出登录"]];
+    self.sideArray = @[@[@"今日数据",@"数据分析",@"设备管理",@"睡眠设置",@"设       定"]];
 
-    self.imageArr = @[@[[NSString stringWithFormat:@"icon_todays_data_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_data_analysis_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_equipment_management_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_alarm_clock_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_setting_%d",selectedThemeIndex]],@[@"icon_setting"]];
+    self.imageArr = @[@[[NSString stringWithFormat:@"icon_todays_data_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_data_analysis_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_equipment_management_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_alarm_clock_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_setting_%d",selectedThemeIndex]]];
     //添加退出
+    /*
     UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [logoutButton setTitle:@"退出帐号" forState:UIControlStateNormal];
     [logoutButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -105,6 +106,7 @@
         make.right.equalTo(self.view.right).offset(-widthCenter);
         make.height.equalTo(40);
     }];
+     */
     
 }
 
@@ -328,7 +330,7 @@
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_night"];
     }
 }
-
+/*
 - (void)logoutCurrentUser:(UIButton *)button
 {
     
@@ -337,7 +339,7 @@
     [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]] animated:NO];
     [self.sideMenuViewController hideMenuViewController];
 }
-
+*/
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];

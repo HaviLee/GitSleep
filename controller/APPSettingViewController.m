@@ -52,7 +52,7 @@
 //
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.sideArray.count-1;
+    return self.sideArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -167,7 +167,7 @@
             break;
         }
         case 2:{
-//            [self logoutMyId];
+            [self logoutMyId];
         }
             
             
@@ -175,7 +175,6 @@
             break;
     }
 }
-/*
 - (void)logoutMyId
 {
     HaviLog(@"登出");
@@ -183,7 +182,6 @@
     isLogout = YES;
     [[NSNotificationCenter defaultCenter]postNotificationName:POSTLOGOUTNOTI object:nil];
 }
-*/
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return TableViewCellHeight;
