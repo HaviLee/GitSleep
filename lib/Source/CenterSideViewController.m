@@ -120,7 +120,8 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [self getDeviceStatusWithUserNewAPI:GloableUserId];
     }else {
-        [self checkDeviceStatus];
+        
+//        [self checkDeviceStatus];
     }
 }
 
@@ -165,8 +166,8 @@
                 [self reloadStatusImage:NO];
             }else{
                 [self reloadStatusImage:NO];
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-                [self checkDeviceStatus];
+//                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+//                [self checkDeviceStatus];
             }
         }
     }];
@@ -206,7 +207,8 @@
 
 - (void)changeDeviceUUID:(NSNotification *)noti
 {
-    [self checkDeviceStatus];
+    
+//    [self checkDeviceStatus];
 }
 
 ////登出时进行此操作
