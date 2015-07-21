@@ -20,7 +20,7 @@
 
 - (NSString *)cacheFileName {
     NSString *requestUrl = [self requestUrl];
-    NSString *requestInfo = [NSString stringWithFormat:@"%@",requestUrl];
+    NSString *requestInfo = [NSString stringWithFormat:@"%@&%@",requestUrl,GloableUserId];
 //    HaviLog(@"自己做的缓存名称是%@",requestInfo);
     return requestInfo;
 }

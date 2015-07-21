@@ -206,7 +206,7 @@
         CGContextSetLineCap(context, kCGLineCapRound);
         CGContextSetLineJoin(context, kCGLineJoinRound);
         int index = 0;
-        for (index = 1; index<_funcPoints.count; index++) {
+        for (index = 0; index<_funcPoints.count; index++) {
             CGPoint linePoint = [[_funcPoints objectAtIndex:index] CGPointValue];
             if (linePoint.y< (yCoordinateHeight - (yCoordinateHeight/self.maxYValue* [self.alarmMaxValue floatValue])+5)) {
                 if (linePoint.y <yCoordinateHeight) {
@@ -245,9 +245,12 @@
                     [self addSubview:buttonImage];
                 }
             }
-            if ((linePoint.y != yCoordinateHeight+5) && ([[_funcPoints objectAtIndex:index-1]CGPointValue].y != yCoordinateHeight+5)) {
-                CGContextAddLineToPoint(context, linePoint.x, linePoint.y);
-            }else if (linePoint.y>0&&linePoint.y!=yCoordinateHeight +5){
+            if (index!=0) {
+                if ((linePoint.y != yCoordinateHeight+5) && ([[_funcPoints objectAtIndex:index-1]CGPointValue].y != yCoordinateHeight+5)) {
+                    CGContextAddLineToPoint(context, linePoint.x, linePoint.y);
+                }
+            }
+            else if (linePoint.y>0&&linePoint.y!=yCoordinateHeight +5){
                 CGPoint linePoint = [[_funcPoints objectAtIndex:index] CGPointValue];
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                 button.frame = CGRectMake(0, 0, 3, 3);
