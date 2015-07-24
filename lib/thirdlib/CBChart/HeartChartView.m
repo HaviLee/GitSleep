@@ -145,7 +145,6 @@
     // 根据值画x/y轴的值
     [self setUpXcoorWithValues:self.xValues];
     [self setUpYcoorWithValues:self.yValues];
-    [self drawHrizonerLine];
     [self drawBackColor];
     if (self.isDrawDashLine) {
         // 绘制网格
@@ -157,7 +156,11 @@
         
     }else{
         [self setBackImage];
-    }}
+    }
+    [self drawHrizonerLine];
+
+}
+
 
 - (void)setBackImage
 {
@@ -319,7 +322,7 @@
     CGPoint maxXPoint = [[self.xPoints lastObject] CGPointValue];
     // 设置上下文环境 属性
     CGFloat dashLineWidth = 1;
-    [selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] setStroke];
+    [selectedThemeIndex==0?RGBA(251, 82, 106, 1):[UIColor whiteColor] setStroke];
     CGContextSetLineWidth(ctx, dashLineWidth);
     CGContextSetLineCap(ctx, kCGLineCapRound);
     CGContextSetAlpha(ctx, 0.6);

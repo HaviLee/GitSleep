@@ -318,7 +318,7 @@
     CGPoint maxXPoint = [[self.xPoints lastObject] CGPointValue];
     // 设置上下文环境 属性
     CGFloat dashLineWidth = 1;
-    [selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] setStroke];
+    [selectedThemeIndex==0?RGBA(251, 82, 106, 1):[UIColor whiteColor] setStroke];
     CGContextSetLineWidth(ctx, dashLineWidth);
     CGContextSetLineCap(ctx, kCGLineCapRound);
     CGContextSetAlpha(ctx, 0.6);
