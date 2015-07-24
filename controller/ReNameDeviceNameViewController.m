@@ -152,10 +152,13 @@
                 
                 [self backToHomeView:nil];
             }];
+            [MMProgressHUD dismiss];
         }else{
+            
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 
             }];
+            [MMProgressHUD dismiss];
         }
     } failure:^(YTKBaseRequest *request) {
         
