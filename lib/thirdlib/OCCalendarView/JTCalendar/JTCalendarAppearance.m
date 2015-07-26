@@ -67,7 +67,7 @@
     
     dispatch_once(&once, ^{
         calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        calendar.timeZone = [NSTimeZone localTimeZone];
+        calendar.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+0800"];
     });
     
     return calendar;

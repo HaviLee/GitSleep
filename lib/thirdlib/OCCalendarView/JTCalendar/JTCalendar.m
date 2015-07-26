@@ -24,8 +24,15 @@
     if(!self){
         return nil;
     }
-    
-    self->_currentDate = [NSDate date];
+    NSDate *date = [NSDate date];
+    //系统时区
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    //和格林尼治时间差
+    NSInteger timeOff = [zone secondsFromGMT];
+    //视察转化
+    NSDate *timeOffDate = [date dateByAddingTimeInterval:timeOff];
+
+    self.currentDate = timeOffDate;
     calendarAppearance = [JTCalendarAppearance new];
     
     return self;
@@ -55,7 +62,14 @@
     [self->_contentView setDelegate:self];
     [self->_contentView setCalendarManager:self];
     
-    [self.contentView setCurrentDate:self.currentDate];
+    NSDate *date = [NSDate date];
+    //系统时区
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    //和格林尼治时间差
+    NSInteger timeOff = [zone secondsFromGMT];
+    //视察转化
+    NSDate *timeOffDate = [date dateByAddingTimeInterval:timeOff];
+    [self.contentView setCurrentDate:timeOffDate];
     [self.contentView reloadAppearance];
 }
 

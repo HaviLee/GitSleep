@@ -110,7 +110,7 @@
     NSCalendar *calendar = self.calendarManager.calendarAppearance.calendar;
     
     {
-        NSDateComponents *comps = [calendar components:NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate];
+        NSDateComponents *comps = [calendar components:NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour fromDate:currentDate];
                 
         currentMonthIndex = comps.month;
         

@@ -41,6 +41,14 @@
     
     self.calendarContentView = [[JTCalendarContentView alloc]initWithFrame:CGRectMake(0, 113, self.view.frame.size.width, 230)];
     [self.view addSubview:self.calendarContentView];
+    NSDate *date = [NSDate date];
+    //系统时区
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    //和格林尼治时间差
+    NSInteger timeOff = [zone secondsFromGMT];
+    //视察转化
+    NSDate *timeOffDate = [date dateByAddingTimeInterval:timeOff];
+    self.calendarContentView.currentDate = timeOffDate;
     self.calendarContentView.delegate = self;
     self.calendar = [JTCalendar new];
     self.calendarContentView.backgroundColor = [UIColor whiteColor];
@@ -102,7 +110,16 @@
 - (void)calendarDidDateSelected:(JTCalendar *)calendar date:(NSDate *)date
 {
     NSLog(@"Date: %@", date);
-    [self.calenderDelegate selectedCalenderDate:date];//先将时间更该了
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    
+    [offsetComponents setDay:1];
+    
+    // Calculate when, according to Tom Lehrer, World War III will end
+    NSDate *endOfWorldWar3 = [gregorian dateByAddingComponents:offsetComponents toDate:date options:0];
+    
+    [self.calenderDelegate selectedCalenderDate:endOfWorldWar3];//先将时间更该了
     [self dismissViewControllerAnimated:YES completion:^{
     }];
     
