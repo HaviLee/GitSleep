@@ -253,6 +253,9 @@
         [self.view makeToast:@"验证码错误" duration:2 position:@"center"];
         return;
     }
+//    [[NSNotificationCenter defaultCenter]removeObserver:self name:UITextFieldTextDidChangeNotification object:self.codeText];
+//    [[NSNotificationCenter defaultCenter]removeObserver:self name:UITextFieldTextDidChangeNotification object:self.phoneText];
+//    self.registerButtonClicked(self.phoneText.text);
     RegisterViewController *registerController = [[RegisterViewController alloc]init];
     registerController.cellPhoneNum = self.phoneText.text;
     [self.navigationController pushViewController:registerController animated:YES];
@@ -307,6 +310,7 @@
 
 - (void)backToHomeView:(UIButton*)button
 {
+//    self.backToLoginButtonClicked(1);
     [self.navigationController popViewControllerAnimated:YES];
 }
 

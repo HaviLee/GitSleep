@@ -9,5 +9,7 @@
 #import "BaseViewController.h"
 
 @interface GetCodeViewController : BaseViewController
+@property (nonatomic, strong) void (^backToLoginButtonClicked)(NSUInteger index);
+@property (nonatomic, strong) void (^registerButtonClicked)(NSString *phone);
 
 @end

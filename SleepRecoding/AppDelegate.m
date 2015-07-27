@@ -16,9 +16,10 @@
 #import "GetSuggestionList.h"
 #import "Reachability.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
-
+//
+#import "LoginContainerViewController.h"
 @interface AppDelegate ()
-
+@property (nonatomic,strong) LoginContainerViewController *loginView;
 @end
 
 @implementation AppDelegate
@@ -94,10 +95,20 @@
     sideMenuViewController.contentViewShadowRadius = 12;
     sideMenuViewController.contentViewShadowEnabled = YES;
     self.sideMenuController = sideMenuViewController;
+//    self.window.rootViewController = self.sideMenuController;
 //    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
     [self.window makeKeyAndVisible];
-
+//    [self setLoginView];
+    
     return YES;
+}
+
+//设置登录界面。
+- (void)setLoginView
+{
+    self.loginView = [[LoginContainerViewController alloc]init];
+    _loginView.view.frame = [UIScreen mainScreen].bounds;
+    [self.window addSubview:_loginView.view];
 }
 
 -(void) setWifiNotification {

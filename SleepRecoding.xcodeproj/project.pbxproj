@@ -411,6 +411,7 @@
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
 		2CCDE2C31AF8A7FC00CAE9CB /* QueryDataCacheAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */; };
 		2CCF41D51AF867E0008BEFD3 /* libSniffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCF41D41AF867E0008BEFD3 /* libSniffer.a */; };
+		2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD386C51B65F33C00A3AF04 /* LoginContainerViewController.m */; };
 		2CD404181B1460F60020B89E /* DataShowChartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD404171B1460F60020B89E /* DataShowChartTableViewCell.m */; };
 		2CD404261B1461260020B89E /* BasePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD4041B1B1461260020B89E /* BasePicView.m */; };
 		2CD404271B1461260020B89E /* BreatheView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD4041D1B1461260020B89E /* BreatheView.m */; };
@@ -1030,6 +1031,8 @@
 		2CCDE2C11AF8A7FC00CAE9CB /* QueryDataCacheAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryDataCacheAPI.h; path = API/QueryDataCacheAPI.h; sourceTree = "<group>"; };
 		2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryDataCacheAPI.m; path = API/QueryDataCacheAPI.m; sourceTree = "<group>"; };
 		2CCF41D41AF867E0008BEFD3 /* libSniffer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSniffer.a; sourceTree = "<group>"; };
+		2CD386C41B65F33C00A3AF04 /* LoginContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginContainerViewController.h; path = controller/LoginContainerViewController.h; sourceTree = "<group>"; };
+		2CD386C51B65F33C00A3AF04 /* LoginContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginContainerViewController.m; path = controller/LoginContainerViewController.m; sourceTree = "<group>"; };
 		2CD404161B1460F60020B89E /* DataShowChartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataShowChartTableViewCell.h; path = controller/DataShowChartTableViewCell.h; sourceTree = "<group>"; };
 		2CD404171B1460F60020B89E /* DataShowChartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataShowChartTableViewCell.m; path = controller/DataShowChartTableViewCell.m; sourceTree = "<group>"; };
 		2CD4041A1B1461260020B89E /* BasePicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasePicView.h; path = lib/Source/Views/BasePicView.h; sourceTree = "<group>"; };
@@ -2025,6 +2028,8 @@
 				57F1D1451AB822C900B5B0D1 /* RegisterViewController.m */,
 				5759E35A1ABA67A700E51690 /* GetCodeViewController.h */,
 				5759E35B1ABA67A700E51690 /* GetCodeViewController.m */,
+				2CD386C41B65F33C00A3AF04 /* LoginContainerViewController.h */,
+				2CD386C51B65F33C00A3AF04 /* LoginContainerViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -2992,6 +2997,7 @@
 				5770861B1ABC019C004A2C07 /* UserContactTableViewCell.m in Sources */,
 				577B85231AE9EE2900D876E8 /* HeartChartView.m in Sources */,
 				572AA9871AC29A5700DED1D9 /* THPinNumPadView.m in Sources */,
+				2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */,
 				2C1F1FC71AD95CA600393E04 /* MonthReportTableViewCell.m in Sources */,
 				2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */,
 				572AA9861AC29A5700DED1D9 /* THPinNumButton.m in Sources */,

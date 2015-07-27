@@ -302,6 +302,7 @@
     HaviLog(@"register");
     GetCodeViewController *code = [[GetCodeViewController alloc]init];
     [self.navigationController pushViewController:code animated:YES];
+//    self.getCodeButtonClicked(1);
     
 //  
 }

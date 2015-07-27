@@ -204,16 +204,16 @@
                              };
     [client addNewUserWithHeader:header andWithPara:dic];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
-            NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
-            if ([[responseDic objectForKey:@"ReturnCode"]intValue]==10005) {
-                [MMProgressHUD dismissWithError:@"该手机号已注册" afterDelay:2];
-            }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
-               [MMProgressHUD dismissWithSuccess:@"注册成功" title:nil afterDelay:2];
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
-            
-        }];
+        NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
+        
+        if ([[responseDic objectForKey:@"ReturnCode"]intValue]==10005) {
+            [MMProgressHUD dismissWithError:@"该手机号已注册" afterDelay:2];
+        }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
+            [MMProgressHUD dismissWithSuccess:@"注册成功" title:nil afterDelay:2];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }else{
+            [MMProgressHUD dismiss];
+        }
     } failure:^(YTKBaseRequest *request) {
         NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
         [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",responseDic] afterDelay:2];
