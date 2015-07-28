@@ -10,4 +10,6 @@
 
 @interface RegisterViewController : BaseViewController
 @property (nonatomic, strong) NSString *cellPhoneNum;
+@property (nonatomic, strong) void (^backToCodeButtonClicked)(NSUInteger index);
+@property (nonatomic, strong) void (^registerSuccessed)(NSUInteger index);
 @end

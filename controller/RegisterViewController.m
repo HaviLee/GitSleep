@@ -210,6 +210,7 @@
             [MMProgressHUD dismissWithError:@"该手机号已注册" afterDelay:2];
         }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
             [MMProgressHUD dismissWithSuccess:@"注册成功" title:nil afterDelay:2];
+            self.registerSuccessed(1);
             [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
             [MMProgressHUD dismiss];
@@ -551,8 +552,9 @@ static NSString * const FORM_FLE_INPUT = @"file";
 
 - (void)backToHomeView:(UIButton*)button
 {
-    self.navigationController.navigationBarHidden = YES;
-    [self.navigationController popViewControllerAnimated:YES];
+//    self.navigationController.navigationBarHidden = YES;
+//    [self.navigationController popViewControllerAnimated:YES];
+    self.backToCodeButtonClicked(1);
 }
 
 - (void)didReceiveMemoryWarning {

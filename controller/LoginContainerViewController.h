@@ -10,4 +10,6 @@
 
 @interface LoginContainerViewController : BaseViewController
 
+@property (nonatomic, copy) void (^loginSuccessed)(NSUInteger index);
+
 @end

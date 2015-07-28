@@ -12,6 +12,10 @@
 #import "GetCodeViewController.h"
 
 @interface LoginContainerViewController ()
+
+@property (strong, nonatomic) LoginViewController *loginView;
+@property (strong, nonatomic) GetCodeViewController *getCodeView;
+@property (strong, nonatomic) RegisterViewController *registerView;
 @property (strong, nonatomic) UIView *currentView;
 @property (strong, nonatomic) UIView *containerView;
 @property (strong, nonatomic) UIViewController *viewController;
@@ -22,57 +26,101 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor redColor];
     self.containerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     NSLog(@"the height is %f",self.view.frame.size.height);
     self.containerView.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:self.containerView];
     self.currentView = self.containerView;
-    [self loginView];
+    [self changeLoginViewIn:YES];
 }
 
-- (void)loginView
+- (LoginViewController*)loginView
 {
-    LoginViewController *lmvc = [[LoginViewController alloc]init];
-    lmvc.getCodeButtonClicked = ^(NSUInteger index) {
-        [self getCodeView];
-    };
-    self.viewController = lmvc;
+    if (_loginView==nil) {
+        _loginView = [[LoginViewController alloc]init];
+        __block typeof(self) weakSelf = self;
+        _loginView.getCodeButtonClicked = ^(NSUInteger index) {
+            [weakSelf changeGetCodeViewIn:YES];
+        };
+        _loginView.loginButtonClicked = ^(NSUInteger index) {
+            weakSelf.loginSuccessed(1);
+        };
+    }
+    return _loginView;
+}
+
+- (GetCodeViewController*)getCodeView
+{
+    if (_getCodeView == nil) {
+        _getCodeView = [[GetCodeViewController alloc]init];
+        
+    }
+    return _getCodeView;
+}
+
+- (RegisterViewController *)registerView
+{
+    if (_registerView == nil) {
+        _registerView = [[RegisterViewController alloc]init];
+    }
+    return _registerView;
+}
+
+- (void)changeLoginViewIn:(BOOL)isIn
+{
+//    __block typeof(self) weakSelf = self;
+//    self.loginView.getCodeButtonClicked = ^(NSUInteger index) {
+//        [weakSelf changeGetCodeViewIn:YES];
+//    };
+    UIViewAnimationOptions animation = isIn ? UIViewAnimationOptionTransitionCurlUp : UIViewAnimationOptionTransitionCurlDown;
+    self.viewController = self.loginView;
     if (self.currentView != self.viewController.view) {
         self.viewController.view.frame = self.currentView.frame;
-        [UIView transitionFromView:self.currentView toView:self.viewController.view duration:0.4f options:UIViewAnimationOptionTransitionCurlUp completion:^(BOOL finished) {
+        [UIView transitionFromView:self.currentView toView:self.viewController.view duration:0.4f options:animation completion:^(BOOL finished) {
             self.currentView = self.viewController.view;
             
         }];
     }
 }
 
-- (void)getCodeView
+- (void)changeGetCodeViewIn:(BOOL)isIn
 {
     NSLog(@"getcode");
-    GetCodeViewController *getCodeVC = [[GetCodeViewController alloc]init];
-    self.viewController = getCodeVC;
-    getCodeVC.backToLoginButtonClicked = ^(NSUInteger index) {
-        [self loginView];
+//    GetCodeViewController *getCodeVC = [[GetCodeViewController alloc]init];
+    self.viewController = self.getCodeView;
+    __block typeof(self) weakSelf = self;
+    self.getCodeView.backToLoginButtonClicked = ^(NSUInteger index) {
+        [weakSelf changeLoginViewIn:NO];
     };
-    getCodeVC.registerButtonClicked = ^(NSString *phone) {
-        [self registerViewWith:phone];
+    self.getCodeView.registerButtonClicked = ^(NSString *phone) {
+        [weakSelf registerViewWith:phone andIn:YES];
     };
+    UIViewAnimationOptions animation = isIn ? UIViewAnimationOptionTransitionCurlUp : UIViewAnimationOptionTransitionCurlDown;
     if (self.currentView != self.viewController.view) {
         self.viewController.view.frame = self.currentView.frame;
-        [UIView transitionFromView:self.currentView toView:self.viewController.view duration:0.4f options:UIViewAnimationOptionTransitionCurlDown completion:^(BOOL finished) {
+        [UIView transitionFromView:self.currentView toView:self.viewController.view duration:0.5f options:animation completion:^(BOOL finished) {
             self.currentView = self.viewController.view;
         }];
     }
 }
 
-- (void)registerViewWith:(NSString *)phone
+- (void)registerViewWith:(NSString *)phone andIn:(BOOL)isIn
 {
-    RegisterViewController *getCodeVC = [[RegisterViewController alloc]init];
-    getCodeVC.cellPhoneNum = phone;
-    self.viewController = getCodeVC;
+//    RegisterViewController *registerView = [[RegisterViewController alloc]init];
+    self.registerView.cellPhoneNum = phone;
+    __block typeof(self) weakSelf = self;
+    self.registerView.backToCodeButtonClicked = ^(NSUInteger index) {
+        [weakSelf changeGetCodeViewIn:NO];
+    };
+    self.registerView.registerSuccessed = ^(NSUInteger index) {
+        weakSelf.loginSuccessed(1);
+    };
+    self.viewController = self.registerView;
+    UIViewAnimationOptions animation = isIn ? UIViewAnimationOptionTransitionCurlUp : UIViewAnimationOptionTransitionCurlDown;
     if (self.currentView != self.viewController.view) {
         self.viewController.view.frame = self.currentView.frame;
-        [UIView transitionFromView:self.currentView toView:self.viewController.view duration:0.4f options:UIViewAnimationOptionTransitionCurlDown completion:^(BOOL finished) {
+        [UIView transitionFromView:self.currentView toView:self.viewController.view duration:0.5f options:animation completion:^(BOOL finished) {
             self.currentView = self.viewController.view;
         }];
     }

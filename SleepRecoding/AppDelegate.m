@@ -58,10 +58,12 @@
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"background1.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     //
+    /*
     LoginViewController *login = [[LoginViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
     navi.navigationBarHidden = YES;
     self.window.rootViewController = navi;
+     */
     [self getSuggestionList];
     //监听网络
     [self setWifiNotification];
@@ -95,10 +97,10 @@
     sideMenuViewController.contentViewShadowRadius = 12;
     sideMenuViewController.contentViewShadowEnabled = YES;
     self.sideMenuController = sideMenuViewController;
-//    self.window.rootViewController = self.sideMenuController;
+    self.window.rootViewController = self.sideMenuController;
 //    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
     [self.window makeKeyAndVisible];
-//    [self setLoginView];
+    [self setLoginView];
     
     return YES;
 }
@@ -108,8 +110,36 @@
 {
     self.loginView = [[LoginContainerViewController alloc]init];
     _loginView.view.frame = [UIScreen mainScreen].bounds;
+    __block typeof(self) weakSelf = self;
+    _loginView.loginSuccessed = ^(NSUInteger index) {
+        [weakSelf hideLoginView];
+    };
     [self.window addSubview:_loginView.view];
 }
+
+- (void)hideLoginView
+{
+    
+    CABasicAnimation *theAnimation;
+    theAnimation=[CABasicAnimation animationWithKeyPath:@"transform.translation.y"];
+    theAnimation.delegate = self;
+    theAnimation.duration = 1;
+    theAnimation.repeatCount = 0;
+    theAnimation.removedOnCompletion = FALSE;
+    theAnimation.fillMode = kCAFillModeForwards;
+    theAnimation.autoreverses = NO;
+    theAnimation.fromValue = [NSNumber numberWithFloat:0];
+    theAnimation.toValue = [NSNumber numberWithFloat:-[UIScreen mainScreen].bounds.size.height];
+    [self.loginView.view.layer addAnimation:theAnimation forKey:@"animateLayer"];
+}
+//
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    if (flag) {
+        [self.loginView.view removeFromSuperview];
+    }
+}
+
 
 -(void) setWifiNotification {
     CTTelephonyNetworkInfo *telephonyInfo = [CTTelephonyNetworkInfo new];

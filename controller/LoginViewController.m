@@ -234,6 +234,7 @@
             [[NSUserDefaults standardUserDefaults]synchronize];
             [[NSUserDefaults standardUserDefaults]setObject:self.passWordText.text forKey:@"userPassword"];
             [[NSUserDefaults standardUserDefaults]synchronize];
+            self.loginButtonClicked(1);
             //
             if (!isLogout) {
                 [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
@@ -300,9 +301,9 @@
 - (void)registerButton:(UIButton *)sender
 {
     HaviLog(@"register");
-    GetCodeViewController *code = [[GetCodeViewController alloc]init];
-    [self.navigationController pushViewController:code animated:YES];
-//    self.getCodeButtonClicked(1);
+//    GetCodeViewController *code = [[GetCodeViewController alloc]init];
+//    [self.navigationController pushViewController:code animated:YES];
+    self.getCodeButtonClicked(1);
     
 //  
 }
