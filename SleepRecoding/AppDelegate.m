@@ -17,7 +17,8 @@
 #import "Reachability.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 //
-#import "LoginContainerViewController.h"
+#import "LoginContainerViewController.h"//架构重构
+#import "CenterViewController.h"//架构重构
 @interface AppDelegate ()
 @property (nonatomic,strong) LoginContainerViewController *loginView;
 @end
@@ -76,7 +77,8 @@
     }else{
         isUserDefaultTime = YES;
     }
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]];
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterViewController alloc] init]];
     LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
     
     RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController

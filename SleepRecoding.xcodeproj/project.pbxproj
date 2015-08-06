@@ -232,6 +232,9 @@
 		2C77D5471AEFB68F004123D2 /* GetBreathDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5461AEFB68F004123D2 /* GetBreathDataAPI.m */; };
 		2C77D54A1AEFC127004123D2 /* GetLeaveDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5491AEFC127004123D2 /* GetLeaveDataAPI.m */; };
 		2C77D54D1AEFC8CF004123D2 /* GetTurnDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D54C1AEFC8CF004123D2 /* GetTurnDataAPI.m */; };
+		2C7CA01E1B67561300AA511D /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA01D1B67561300AA511D /* CenterViewController.m */; };
+		2C7CA0221B67656300AA511D /* UITableView+Wave.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA0211B67656300AA511D /* UITableView+Wave.m */; };
+		2C7CA0281B6FCFD300AA511D /* CenterViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA0271B6FCFD300AA511D /* CenterViewTableViewCell.m */; };
 		2C7D21EF1AF1C3C30011A45C /* pic_bg_day1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D21ED1AF1C3C30011A45C /* pic_bg_day1@2x.png */; };
 		2C7D21F01AF1C3C30011A45C /* pic_bg_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D21EE1AF1C3C30011A45C /* pic_bg_night@2x.png */; };
 		2C7D21FE1AF1C6550011A45C /* birthday@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D21F11AF1C6550011A45C /* birthday@2x.png */; };
@@ -832,6 +835,12 @@
 		2C77D5491AEFC127004123D2 /* GetLeaveDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetLeaveDataAPI.m; path = API/GetLeaveDataAPI.m; sourceTree = "<group>"; };
 		2C77D54B1AEFC8CF004123D2 /* GetTurnDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetTurnDataAPI.h; path = API/GetTurnDataAPI.h; sourceTree = "<group>"; };
 		2C77D54C1AEFC8CF004123D2 /* GetTurnDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetTurnDataAPI.m; path = API/GetTurnDataAPI.m; sourceTree = "<group>"; };
+		2C7CA01C1B67561300AA511D /* CenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterViewController.h; sourceTree = "<group>"; };
+		2C7CA01D1B67561300AA511D /* CenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterViewController.m; sourceTree = "<group>"; };
+		2C7CA0201B67656300AA511D /* UITableView+Wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Wave.h"; sourceTree = "<group>"; };
+		2C7CA0211B67656300AA511D /* UITableView+Wave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Wave.m"; sourceTree = "<group>"; };
+		2C7CA0261B6FCFD300AA511D /* CenterViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CenterViewTableViewCell.h; path = controller/CenterViewTableViewCell.h; sourceTree = "<group>"; };
+		2C7CA0271B6FCFD300AA511D /* CenterViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CenterViewTableViewCell.m; path = controller/CenterViewTableViewCell.m; sourceTree = "<group>"; };
 		2C7D21ED1AF1C3C30011A45C /* pic_bg_day1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pic_bg_day1@2x.png"; path = "common/pic_bg_day1@2x.png"; sourceTree = "<group>"; };
 		2C7D21EE1AF1C3C30011A45C /* pic_bg_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pic_bg_night@2x.png"; path = "common/pic_bg_night@2x.png"; sourceTree = "<group>"; };
 		2C7D21F11AF1C6550011A45C /* birthday@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "birthday@2x.png"; path = "common/birthday@2x.png"; sourceTree = "<group>"; };
@@ -1717,6 +1726,16 @@
 			name = MGSwipeTableCell;
 			sourceTree = "<group>";
 		};
+		2C7CA01F1B67656300AA511D /* Wave */ = {
+			isa = PBXGroup;
+			children = (
+				2C7CA0201B67656300AA511D /* UITableView+Wave.h */,
+				2C7CA0211B67656300AA511D /* UITableView+Wave.m */,
+			);
+			name = Wave;
+			path = lib/thirdlib/Wave;
+			sourceTree = "<group>";
+		};
 		2C7D220D1AF1C9E00011A45C /* color0 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2045,6 +2064,8 @@
 				576B024B1A9EB25F004DB418 /* RightSideViewController.m */,
 				576B024D1A9EB269004DB418 /* CenterSideViewController.h */,
 				576B024E1A9EB269004DB418 /* CenterSideViewController.m */,
+				2C7CA01C1B67561300AA511D /* CenterViewController.h */,
+				2C7CA01D1B67561300AA511D /* CenterViewController.m */,
 			);
 			name = BaseView;
 			path = lib/Source;
@@ -2265,6 +2286,8 @@
 				2C435E801AD2D4C4003B1604 /* DataStaticViewController.m */,
 				2C77D5091AEB3702004123D2 /* ReNameDeviceNameViewController.h */,
 				2C77D50A1AEB3702004123D2 /* ReNameDeviceNameViewController.m */,
+				2C7CA0261B6FCFD300AA511D /* CenterViewTableViewCell.h */,
+				2C7CA0271B6FCFD300AA511D /* CenterViewTableViewCell.m */,
 			);
 			name = LeftViewController;
 			sourceTree = "<group>";
@@ -2317,6 +2340,7 @@
 		579AC7DF1AA033BC0045E9A2 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				2C7CA01F1B67656300AA511D /* Wave */,
 				2C0912B91B4E591A00BEE2FF /* Toast */,
 				2C0912B11B4E521F00BEE2FF /* Reachability */,
 				2C77D5021AEB31CC004123D2 /* MGSwipeTableCell */,
@@ -2872,6 +2896,7 @@
 				5772BE441AAFFF1B00E108BB /* HaviSwitch.m in Sources */,
 				57747DD51AA57FAD002B5A49 /* DatePickerView.m in Sources */,
 				2C8F7BB91AF3747700E56513 /* JTCalendarDayView.m in Sources */,
+				2C7CA0221B67656300AA511D /* UITableView+Wave.m in Sources */,
 				2C1AD7171AAAE74A00655A5B /* BaseAnimation.m in Sources */,
 				57802E241AE7398200823E39 /* GetImageApi.m in Sources */,
 				57F1D1461AB822C900B5B0D1 /* RegisterViewController.m in Sources */,
@@ -2964,6 +2989,7 @@
 				577086181ABBFCE3004A2C07 /* UserInfoPhoneTableViewCell.m in Sources */,
 				57802E281AE7398200823E39 /* QHConfiguredObj.m in Sources */,
 				57D7A1961AB980FD00797059 /* LabelLine.m in Sources */,
+				2C7CA0281B6FCFD300AA511D /* CenterViewTableViewCell.m in Sources */,
 				575F5ACB1AAEEE0D0061AA11 /* ZHPickView.m in Sources */,
 				5770860B1ABBB239004A2C07 /* HaviAnimationView.m in Sources */,
 				57802E261AE7398200823E39 /* GetSuggestionList.m in Sources */,
@@ -3017,6 +3043,7 @@
 				579AC7E91AA03F720045E9A2 /* DefaultTableViewCell.m in Sources */,
 				57802E231AE7398200823E39 /* GetDeviceStatusAPI.m in Sources */,
 				2C8F7BBD1AF3747700E56513 /* JTCalendarMonthWeekDaysView.m in Sources */,
+				2C7CA01E1B67561300AA511D /* CenterViewController.m in Sources */,
 				2C77D5381AEF4E49004123D2 /* LeaveBedViewController.m in Sources */,
 				2C15E67C1AF1FF6F00142F36 /* GetLeaveBedSleepAPI.m in Sources */,
 				572AA9841AC29A5700DED1D9 /* THPinInputCirclesView.m in Sources */,
