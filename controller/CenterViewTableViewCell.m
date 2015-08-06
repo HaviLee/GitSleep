@@ -53,14 +53,7 @@
             make.height.equalTo(self.height);
         }];
         //
-        UIImageView *imageLine = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"line_640_%d",selectedThemeIndex]]];
-        [self addSubview:imageLine];
-        [imageLine makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self).offset(5);
-            make.right.equalTo(self).offset(-5);
-            make.bottom.equalTo(self).offset(-1);
-            make.height.equalTo(0.5);
-        }];
+        
         
     }
     return self;
@@ -70,7 +63,7 @@
 {
     [super layoutSubviews];
     cellNameLabel.text = self.cellTitle;
-//    cellImage.image = [UIImage imageNamed:self.cellImageName];
+    cellImage.image = [UIImage imageNamed:self.cellImageName];
     cellDataLabel.text = self.cellData;
 }
 
