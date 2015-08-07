@@ -78,7 +78,8 @@
         isUserDefaultTime = YES;
     }
 //    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterViewController alloc] init]];
+    self.centerViewController = [[CenterViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.centerViewController];
     LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
     
     RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController

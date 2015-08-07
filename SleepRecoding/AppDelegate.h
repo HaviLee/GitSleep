@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "UDPController.h"
 #import "RESideMenu.h"
+#import "CenterViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic)  UDPController* udpController;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) RESideMenu *sideMenuController;
+@property (strong, nonatomic) CenterViewController *centerViewController;
 
 @end
 

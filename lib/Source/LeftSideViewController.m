@@ -17,7 +17,9 @@
 #import "APPSettingViewController.h"
 #import "DataStaticViewController.h"
 #import "CenterSideViewController.h"
+#import "CenterViewController.h"
 #import "SleepAnalysisViewController.h"
+#import "AppDelegate.h"
 
 @interface LeftSideViewController ()
 @property (nonatomic,strong) UIView *tableHeaderView;
@@ -230,7 +232,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:{
-            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]] animated:YES];
+            AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:app.centerViewController] animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             break;
         }
