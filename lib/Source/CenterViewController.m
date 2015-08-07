@@ -11,12 +11,16 @@
 #import "CenterViewTableViewCell.h"
 #import "UITableView+Wave.h"
 #import "CHCircleGaugeView.h"
+//
+#import "GetDeviceStatusAPI.h"
+#import "GetDefatultSleepAPI.h"
 
 @interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate>
-
+@property (nonatomic, assign) NSInteger todayHour;
 @property (nonatomic, strong) UITableView *cellTableView;
 @property (nonatomic, strong) UILabel *sleepTimeLabel;
 @property (nonatomic, strong) CHCircleGaugeView *circleView;
+@property (nonatomic, strong) NSArray *cellDataArr;
 
 @end
 
@@ -25,10 +29,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self initData];
     [self setCalenderAndMenu];
     [self createTableView];
     [self createCircleView];
     [self setNotifationList];
+}
+
+- (void)initData
+{
+    self.cellDataArr = @[@"0次/分",@"0次/分",@"0次/天",@"0次/天"];
 }
 #pragma mark 创建消息监听
 
@@ -42,7 +52,131 @@
 
 - (void)loginSuccessAndQueryData:(NSNotification *)noti
 {
+    [self getAllDeviceList];
+}
+
+#pragma mark 数据请求
+//请求帐号下的设备列表
+- (void)getAllDeviceList
+{
+    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",GloableUserId];
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    GetDeviceStatusAPI *client = [GetDeviceStatusAPI shareInstance];
+    if ([client isExecuting]) {
+        [client stop];
+    }
+    [client getActiveDeviceUUID:header withDetailUrl:urlString];
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        HaviLog(@"用户%@下所有的设备%@",GloableUserId,resposeDic);
+        [MMProgressHUD dismiss];
+        NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
+        if (arr.count == 0) {
+            HardWareUUID = NOBINDUUID;
+        }else{
+            HardWareUUID = NOUSEUUID;
+            for (NSDictionary *dic in arr) {
+                if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+                    HardWareUUID = [dic objectForKey:@"UUID"];
+                    HaviLog(@"用户%@关联默认的uuid是%@",GloableUserId,HardWareUUID);
+                    break;
+                }
+            }
+        }
+        
+        NSDate *nowDate = [self getNowDate];
+        NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+        [self getTodaySleepQualityData:newString];
+    } failure:^(YTKBaseRequest *request) {
+        
+    }];
+}
+
+- (void)getActiveDeviceUUID
+{
     
+}
+
+- (void)getTodaySleepQualityData:(NSString *)nowDateString
+{
+    //fromdate 是当天的日期
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    if (!nowDateString) {
+        
+        return;
+    }
+    NSDate *newDate = [self.dateFormmatterBase dateFromString:nowDateString];
+    NSString *urlString = @"";
+    if (self.todayHour<18) {
+        self.dateComponentsBase.day = -1;
+        NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
+        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,nowDateString];
+    }else {
+        self.dateComponentsBase.day = 1;
+        NSDate *nextDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *nextDayString = [NSString stringWithFormat:@"%@",nextDay];
+        NSString *newNextDayString = [NSString stringWithFormat:@"%@%@%@",[nextDayString substringWithRange:NSMakeRange(0, 4)],[nextDayString substringWithRange:NSMakeRange(5, 2)],[nextDayString substringWithRange:NSMakeRange(8, 2)]];
+        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,nowDateString,newNextDayString];
+        
+    }
+    
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    GetDefatultSleepAPI *client = [GetDefatultSleepAPI shareInstance];
+    /*
+     增加了一个判断当前的是不是在进行，进行的话终止
+     */
+    if ([client isExecuting]) {
+        [client stop];
+    }
+    [client queryDefaultSleep:header withDetailUrl:urlString];
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+        }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alert.tag = 900;
+            [alert show];
+        }else{
+            
+        }
+        [self refreshViewWithSleepData:resposeDic];
+        HaviLog(@"获取%@日睡眠质量:%@ \n url:%@ \n",nowDateString,resposeDic,urlString);
+    } failure:^(YTKBaseRequest *request) {
+        
+    }];
+}
+
+
+- (void)refreshViewWithSleepData:(NSDictionary *)sleepDic
+{
+    
+    self.cellDataArr = @[
+                         [NSString stringWithFormat:@"%@次/小时",[sleepDic objectForKey:@"AverageHeartRate"]],
+                         [NSString stringWithFormat:@"%@次/小时",[sleepDic objectForKey:@"AverageRespiratoryRate"]],
+                         [NSString stringWithFormat:@"%@次/天",[sleepDic objectForKey:@"OutOfBedTimes"]],
+                         [NSString stringWithFormat:@"%@次/天",[sleepDic objectForKey:@"BodyMovementTimes"]]
+                         ];
+    [self.cellTableView reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.cellTableView reloadDataAnimateWithWave:RightToLeftWaveAnimation];
+    });
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        int sleepLevel = [[sleepDic objectForKey:@"SleepQuality"]intValue];
+        [self.circleView changeSleepQualityValue:sleepLevel*20];
+        [self.circleView changeSleepTimeValue:sleepLevel*20];
+        [self.circleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
+        [self setClockRoationValue];
+    });
+
 }
 
 #pragma mark 创建图表
@@ -209,10 +343,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }else{
         NSArray *titleArr = @[@"心率",@"呼吸",@"离床",@"体动"];
-        NSArray *dataArr = @[@"60次/分",@"15次/分",@"2次/天",@"4次/天"];
         NSArray *cellImage = @[[NSString stringWithFormat:@"icon_heart_rate_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_breathe_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_get_up_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_turn_over_%d",selectedThemeIndex]];
         cell.cellTitle = [titleArr objectAtIndex:indexPath.row];
-        cell.cellData = [dataArr objectAtIndex:indexPath.row];
+        cell.cellData = [self.cellDataArr objectAtIndex:indexPath.row];
         cell.cellImageName = [cellImage objectAtIndex:indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         UIImageView *imageLine = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"line_640_%d",selectedThemeIndex]]];
@@ -235,12 +368,52 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    if (indexPath.row == 3) {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [tableView reloadDataAnimateWithWave:LeftToRightWaveAnimation];
+//        });
+//    }
+}
+
+- (NSString *)changeNumToWord:(int)level
+{
+    switch (level) {
+        case 1:{
+            return @"非常差";
+            break;
+        }
+        case 2:{
+            return @"差";
+            break;
+        }
+        case 3:{
+            return @"一般";
+            break;
+        }
+        case 4:{
+            return @"好";
+            break;
+        }
+        case 5:{
+            return @"非常好";
+            break;
+        }
+            
+        default:
+            return @"还没有数据哦";
+            break;
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.cellTableView reloadDataAnimateWithWave:RightToLeftWaveAnimation];
-    });
+    //每次都判断一下当前的时间是不是18：00；
+    NSDate *nowDate = [self getNowDate];
+    NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+    self.todayHour = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
 }
 
 - (void)didReceiveMemoryWarning {

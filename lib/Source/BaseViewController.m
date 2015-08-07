@@ -907,6 +907,11 @@
     return destinationDateNow;
 }
 
+- (NSDate*)getNowDate
+{
+    return [self getNowDateFromatAnDate:[NSDate date]];
+}
+
 #pragma mark 检测网络
 + (NSInteger)networkStatus
 {

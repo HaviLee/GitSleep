@@ -217,6 +217,15 @@ static NSString * const CHKeyDefaultNoAnswersText = @"%";
     [self.cView setPercent:value animated:YES];
 }
 
+- (void)changeSleepLevelValue:(NSString *)valueString
+{
+    NSDictionary *stringAttributes = @{
+                                       NSForegroundColorAttributeName : [UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f],
+                                       NSFontAttributeName : [UIFont systemFontOfSize:17]
+                                       };
+    self.resposeTextLabel.attributedText = [[NSAttributedString alloc] initWithString:valueString attributes:stringAttributes];
+}
+
 - (UIBezierPath *)outsideCirclePathIndex:(NSInteger)index {
     
     CGPoint arcCenter = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));

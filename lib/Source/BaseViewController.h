@@ -85,4 +85,6 @@
 + (NSInteger)networkStatus;
 + (BOOL)isNetworkExist;
 
+- (NSDate*)getNowDate;
+
 @end

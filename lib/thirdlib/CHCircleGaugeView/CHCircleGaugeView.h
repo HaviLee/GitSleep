@@ -73,6 +73,8 @@ typedef NS_ENUM(NSInteger, CHCircleGaugeStyle) {
 
 - (void)changeSleepTimeValue:(CGFloat)value;
 
+- (void)changeSleepLevelValue:(NSString *)valueString;
+
 /** @name Managing the gauge */
 
 /**

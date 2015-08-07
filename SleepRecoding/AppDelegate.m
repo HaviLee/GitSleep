@@ -127,7 +127,7 @@
     CABasicAnimation *theAnimation;
     theAnimation=[CABasicAnimation animationWithKeyPath:@"transform.translation.y"];
     theAnimation.delegate = self;
-    theAnimation.duration = 1;
+    theAnimation.duration = 0.5;
     theAnimation.repeatCount = 0;
     theAnimation.removedOnCompletion = FALSE;
     theAnimation.fillMode = kCAFillModeForwards;
