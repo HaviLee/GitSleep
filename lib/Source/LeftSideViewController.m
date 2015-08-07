@@ -17,6 +17,7 @@
 #import "APPSettingViewController.h"
 #import "DataStaticViewController.h"
 #import "CenterSideViewController.h"
+#import "SleepAnalysisViewController.h"
 
 @interface LeftSideViewController ()
 @property (nonatomic,strong) UIView *tableHeaderView;
@@ -82,7 +83,7 @@
     [self.sideTableView makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(0);
         make.top.equalTo(iconBackView.bottom).offset(0);
-        make.bottom.equalTo(self.view.bottom).offset(-70);
+        make.bottom.equalTo(self.view.bottom).offset(0);
         int widthCenter = (self.view.frame.size.width)*0.3;
         make.right.equalTo(self.view.right).offset(-widthCenter);
     }];
@@ -210,7 +211,7 @@
 {
     switch (indexPath.row) {
         case 1:{
-            return 115;
+            return 140;
             break;
         }
         default:
@@ -298,12 +299,22 @@
     if (sender.tag == 101) {
         user = [[DataStaticViewController alloc]init];
         user.title = @"周报";
+        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
+        [self.sideMenuViewController hideMenuViewController];
     }else if(sender.tag == 102){
         user = [[DataStaticViewController alloc]init];
         user.title = @"月报";
+        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
+        [self.sideMenuViewController hideMenuViewController];
     }else if (sender.tag == 103){
         user = [[DataStaticViewController alloc]init];
         user.title = @"季报";
+        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
+        [self.sideMenuViewController hideMenuViewController];
+    }else if (sender.tag == 104){
+        SleepAnalysisViewController *analysis = [[SleepAnalysisViewController alloc]init];
+        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:analysis] animated:YES];
+        [self.sideMenuViewController hideMenuViewController];
     }
     /*
     UINavigationController *navi = (UINavigationController*)self.drawerController.centerViewController;
@@ -311,8 +322,7 @@
     [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
     }];
      */
-    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
-    [self.sideMenuViewController hideMenuViewController];
+    
 
 }
 

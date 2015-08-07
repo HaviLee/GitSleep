@@ -216,6 +216,9 @@
 		2C6D2F441AF62267008C285B /* icon_phone_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */; };
 		2C6D2F451AF62267008C285B /* tel_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D2F431AF62267008C285B /* tel_1@2x.png */; };
 		2C73197C1B7462C8005A3EE4 /* qq_share.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C73197B1B7462C8005A3EE4 /* qq_share.png */; };
+		2C73197E1B746567005A3EE4 /* sleep_analysis_textbox_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C73197D1B746567005A3EE4 /* sleep_analysis_textbox_0.png */; };
+		2C7319821B74678B005A3EE4 /* sleep_analysis_textbox_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7319811B74678B005A3EE4 /* sleep_analysis_textbox_1.png */; };
+		2C7319CF1B74859A005A3EE4 /* SleepAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319CE1B74859A005A3EE4 /* SleepAnalysisViewController.m */; };
 		2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */; };
 		2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5041AEB31F0004123D2 /* MGSwipeButton.m */; };
 		2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5061AEB31F0004123D2 /* MGSwipeTableCell.m */; };
@@ -805,6 +808,10 @@
 		2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_phone_1@2x.png"; path = "common/icon_phone_1@2x.png"; sourceTree = "<group>"; };
 		2C6D2F431AF62267008C285B /* tel_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tel_1@2x.png"; path = "common/tel_1@2x.png"; sourceTree = "<group>"; };
 		2C73197B1B7462C8005A3EE4 /* qq_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qq_share.png; sourceTree = "<group>"; };
+		2C73197D1B746567005A3EE4 /* sleep_analysis_textbox_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sleep_analysis_textbox_0.png; sourceTree = "<group>"; };
+		2C7319811B74678B005A3EE4 /* sleep_analysis_textbox_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sleep_analysis_textbox_1.png; sourceTree = "<group>"; };
+		2C7319CD1B74859A005A3EE4 /* SleepAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SleepAnalysisViewController.h; path = controller/SleepAnalysisViewController.h; sourceTree = "<group>"; };
+		2C7319CE1B74859A005A3EE4 /* SleepAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SleepAnalysisViewController.m; path = controller/SleepAnalysisViewController.m; sourceTree = "<group>"; };
 		2C77D4FB1AEA9846004123D2 /* CheckDeviceStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckDeviceStatusAPI.h; path = API/CheckDeviceStatusAPI.h; sourceTree = "<group>"; };
 		2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckDeviceStatusAPI.m; path = API/CheckDeviceStatusAPI.m; sourceTree = "<group>"; };
 		2C77D5031AEB31F0004123D2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSwipeButton.h; path = lib/thirdlib/MGSwipeTableCell/MGSwipeButton.h; sourceTree = "<group>"; };
@@ -1752,6 +1759,8 @@
 		2C7D220D1AF1C9E00011A45C /* color0 */ = {
 			isa = PBXGroup;
 			children = (
+				2C73197D1B746567005A3EE4 /* sleep_analysis_textbox_0.png */,
+				2C7319811B74678B005A3EE4 /* sleep_analysis_textbox_1.png */,
 				2C7D220E1AF1C9F70011A45C /* btn_add_0@2x.png */,
 				2C7D220F1AF1C9F70011A45C /* btn_back_right@2x.png */,
 				2C7D22101AF1C9F70011A45C /* icon_breathe_0@2x.png */,
@@ -2316,6 +2325,8 @@
 				2C77D50A1AEB3702004123D2 /* ReNameDeviceNameViewController.m */,
 				2C7CA0261B6FCFD300AA511D /* CenterViewTableViewCell.h */,
 				2C7CA0271B6FCFD300AA511D /* CenterViewTableViewCell.m */,
+				2C7319CD1B74859A005A3EE4 /* SleepAnalysisViewController.h */,
+				2C7319CE1B74859A005A3EE4 /* SleepAnalysisViewController.m */,
 			);
 			name = LeftViewController;
 			sourceTree = "<group>";
@@ -2566,6 +2577,7 @@
 				2C7D22971AF1CA050011A45C /* btn_caeate_account_0@2x.png in Resources */,
 				2C7D230E1AF1CA300011A45C /* breathe3_0@2x.png in Resources */,
 				2C7D231E1AF1CA450011A45C /* get_up4_0@2x.png in Resources */,
+				2C7319821B74678B005A3EE4 /* sleep_analysis_textbox_1.png in Resources */,
 				2C7D22981AF1CA050011A45C /* btn_compose_0@2x.png in Resources */,
 				2C8C62901AB5B8A200CF4C19 /* failedBg.psd in Resources */,
 				2C7D23111AF1CA300011A45C /* breathe6_0@2x.png in Resources */,
@@ -2590,6 +2602,7 @@
 				2C7D220A1AF1C6550011A45C /* wireframe.png in Resources */,
 				2C7D22C31AF1CA050011A45C /* line_diagnose_0@2x.png in Resources */,
 				2C7D23001AF1CA220011A45C /* heart_5_0.png in Resources */,
+				2C73197E1B746567005A3EE4 /* sleep_analysis_textbox_0.png in Resources */,
 				2C7D22D51AF1CA050011A45C /* pic_diagnostic_centre_0@2x.png in Resources */,
 				2C7D22EB1AF1CA050011A45C /* textbox_solid_0@2x.png in Resources */,
 				2C7D22EC1AF1CA050011A45C /* textbox_verification_code_0@2x.png in Resources */,
@@ -3008,6 +3021,7 @@
 				2C6117021ABD6F6C00261A1E /* RMDateSelectionViewController.m in Sources */,
 				2C8F7BBE1AF3747700E56513 /* JTCalendarWeekView.m in Sources */,
 				578681521ADCEE1200E881A2 /* WTURLRequestOperation.m in Sources */,
+				2C7319CF1B74859A005A3EE4 /* SleepAnalysisViewController.m in Sources */,
 				2C1F1FF51ADBF42700393E04 /* CalenderView.m in Sources */,
 				2C77D54D1AEFC8CF004123D2 /* GetTurnDataAPI.m in Sources */,
 				2C1F1FE81ADBF38F00393E04 /* WQCalendarDay.m in Sources */,
