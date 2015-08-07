@@ -409,10 +409,9 @@
 		2C8F7BBE1AF3747700E56513 /* JTCalendarWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F7BB31AF3747700E56513 /* JTCalendarWeekView.m */; };
 		2C8F7BBF1AF3747700E56513 /* JTCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F7BB51AF3747700E56513 /* JTCircleView.m */; };
 		2C8F7BC21AF374A500E56513 /* CalenderCantainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F7BC11AF374A500E56513 /* CalenderCantainerViewController.m */; };
-		2C95C2781B734D6400C626D9 /* CHCircleGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2711B734D6400C626D9 /* CHCircleGaugeView.m */; };
-		2C95C2791B734D6400C626D9 /* CirlcleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2741B734D6400C626D9 /* CirlcleView.m */; };
-		2C95C27B1B734D6400C626D9 /* UILabel+FlickerNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2771B734D6400C626D9 /* UILabel+FlickerNumber.m */; };
-		2C95C27E1B73661E00C626D9 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C27D1B73661E00C626D9 /* ClockView.m */; };
+		2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */; };
+		2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2841B74430C00C626D9 /* CirlcleView.m */; };
+		2C95C2891B74430C00C626D9 /* UILabel+FlickerNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2861B74430C00C626D9 /* UILabel+FlickerNumber.m */; };
 		2C9C01621AD0215F006362E9 /* TurnChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C01611AD0215F006362E9 /* TurnChartView.m */; };
 		2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */; };
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
@@ -1035,15 +1034,13 @@
 		2C8F7BB51AF3747700E56513 /* JTCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTCircleView.m; path = JTCalendar/JTCircleView.m; sourceTree = "<group>"; };
 		2C8F7BC01AF374A500E56513 /* CalenderCantainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalenderCantainerViewController.h; path = controller/CalenderCantainerViewController.h; sourceTree = "<group>"; };
 		2C8F7BC11AF374A500E56513 /* CalenderCantainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalenderCantainerViewController.m; path = controller/CalenderCantainerViewController.m; sourceTree = "<group>"; };
-		2C95C2701B734D6400C626D9 /* CHCircleGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeView.h; sourceTree = "<group>"; };
-		2C95C2711B734D6400C626D9 /* CHCircleGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCircleGaugeView.m; sourceTree = "<group>"; };
-		2C95C2721B734D6400C626D9 /* CHCircleGaugeViewDebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeViewDebugMacros.h; sourceTree = "<group>"; };
-		2C95C2731B734D6400C626D9 /* CirlcleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CirlcleView.h; sourceTree = "<group>"; };
-		2C95C2741B734D6400C626D9 /* CirlcleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CirlcleView.m; sourceTree = "<group>"; };
-		2C95C2761B734D6400C626D9 /* UILabel+FlickerNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+FlickerNumber.h"; sourceTree = "<group>"; };
-		2C95C2771B734D6400C626D9 /* UILabel+FlickerNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FlickerNumber.m"; sourceTree = "<group>"; };
-		2C95C27C1B73661E00C626D9 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
-		2C95C27D1B73661E00C626D9 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
+		2C95C2801B74430C00C626D9 /* CHCircleGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeView.h; sourceTree = "<group>"; };
+		2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCircleGaugeView.m; sourceTree = "<group>"; };
+		2C95C2821B74430C00C626D9 /* CHCircleGaugeViewDebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeViewDebugMacros.h; sourceTree = "<group>"; };
+		2C95C2831B74430C00C626D9 /* CirlcleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CirlcleView.h; sourceTree = "<group>"; };
+		2C95C2841B74430C00C626D9 /* CirlcleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CirlcleView.m; sourceTree = "<group>"; };
+		2C95C2851B74430C00C626D9 /* UILabel+FlickerNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+FlickerNumber.h"; sourceTree = "<group>"; };
+		2C95C2861B74430C00C626D9 /* UILabel+FlickerNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FlickerNumber.m"; sourceTree = "<group>"; };
 		2C9C01601AD0215F006362E9 /* TurnChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnChartView.h; sourceTree = "<group>"; };
 		2C9C01611AD0215F006362E9 /* TurnChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurnChartView.m; sourceTree = "<group>"; };
 		2C9C01631AD0217F006362E9 /* ChartViewDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartViewDefine.h; sourceTree = "<group>"; };
@@ -1963,21 +1960,19 @@
 			name = JTCalender;
 			sourceTree = "<group>";
 		};
-		2C95C26F1B734D6400C626D9 /* CHCircleGaugeView */ = {
+		2C95C27F1B74430C00C626D9 /* CHCircleGaugeView */ = {
 			isa = PBXGroup;
 			children = (
-				2C95C2701B734D6400C626D9 /* CHCircleGaugeView.h */,
-				2C95C2711B734D6400C626D9 /* CHCircleGaugeView.m */,
-				2C95C2721B734D6400C626D9 /* CHCircleGaugeViewDebugMacros.h */,
-				2C95C2731B734D6400C626D9 /* CirlcleView.h */,
-				2C95C2741B734D6400C626D9 /* CirlcleView.m */,
-				2C95C27C1B73661E00C626D9 /* ClockView.h */,
-				2C95C27D1B73661E00C626D9 /* ClockView.m */,
-				2C95C2761B734D6400C626D9 /* UILabel+FlickerNumber.h */,
-				2C95C2771B734D6400C626D9 /* UILabel+FlickerNumber.m */,
+				2C95C2801B74430C00C626D9 /* CHCircleGaugeView.h */,
+				2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */,
+				2C95C2821B74430C00C626D9 /* CHCircleGaugeViewDebugMacros.h */,
+				2C95C2831B74430C00C626D9 /* CirlcleView.h */,
+				2C95C2841B74430C00C626D9 /* CirlcleView.m */,
+				2C95C2851B74430C00C626D9 /* UILabel+FlickerNumber.h */,
+				2C95C2861B74430C00C626D9 /* UILabel+FlickerNumber.m */,
 			);
 			name = CHCircleGaugeView;
-			path = "../../Desktop/练习/Circle/Circle/CHCircleGaugeView";
+			path = lib/thirdlib/CHCircleGaugeView;
 			sourceTree = "<group>";
 		};
 		2CD404191B1461090020B89E /* view */ = {
@@ -2370,7 +2365,7 @@
 		579AC7DF1AA033BC0045E9A2 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
-				2C95C26F1B734D6400C626D9 /* CHCircleGaugeView */,
+				2C95C27F1B74430C00C626D9 /* CHCircleGaugeView */,
 				2C7CA01F1B67656300AA511D /* Wave */,
 				2C0912B91B4E591A00BEE2FF /* Toast */,
 				2C0912B11B4E521F00BEE2FF /* Reachability */,
@@ -2947,7 +2942,7 @@
 				5764517B1AC6478D008E3526 /* SelectThemeCollectionViewCell.m in Sources */,
 				57063D2C1ABFDE7B00A61267 /* ImageUtil.m in Sources */,
 				577B85201AE9DD6E00D876E8 /* GetExceptionAPI.m in Sources */,
-				2C95C27B1B734D6400C626D9 /* UILabel+FlickerNumber.m in Sources */,
+				2C95C2891B74430C00C626D9 /* UILabel+FlickerNumber.m in Sources */,
 				57747DD71AA57FAD002B5A49 /* DIDatepickerDateView.m in Sources */,
 				576B024F1A9EB269004DB418 /* CenterSideViewController.m in Sources */,
 				57802E2C1AE7398200823E39 /* UploadImageApi.m in Sources */,
@@ -2973,7 +2968,7 @@
 				2C5E5C231B12B3F200123CC4 /* RESideMenu.m in Sources */,
 				2C0912BC1B4E591A00BEE2FF /* Toast+UIView.m in Sources */,
 				2C1F1FC41AD8B7E700393E04 /* QuaterCalenderView.m in Sources */,
-				2C95C2791B734D6400C626D9 /* CirlcleView.m in Sources */,
+				2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */,
 				2C1F1FEA1ADBF38F00393E04 /* WQCalendarLogic.m in Sources */,
 				2C1AD7191AAAE74A00655A5B /* ScaleAnimation.m in Sources */,
 				5763BAB91AA1665A00EFECD7 /* UserInfoViewController.m in Sources */,
@@ -2992,7 +2987,6 @@
 				2C8F7BB71AF3747700E56513 /* JTCalendarAppearance.m in Sources */,
 				577062DD1AC285F100790F79 /* STAlertView.m in Sources */,
 				2C6D2F411AF620A2008C285B /* UserInfoTableViewCell.m in Sources */,
-				2C95C27E1B73661E00C626D9 /* ClockView.m in Sources */,
 				2C77D5351AEF4E36004123D2 /* BreathViewController.m in Sources */,
 				572AA9881AC29A5700DED1D9 /* THPinView.m in Sources */,
 				578681511ADCEE1200E881A2 /* WTRequestCenter.m in Sources */,
@@ -3041,7 +3035,7 @@
 				2C1F1FEF1ADBF38F00393E04 /* WQScrollCalendarWrapperView.m in Sources */,
 				2C1F1FEE1ADBF38F00393E04 /* WQScrollCalendarView.m in Sources */,
 				2C77D5291AEE7095004123D2 /* MMPickerView.m in Sources */,
-				2C95C2781B734D6400C626D9 /* CHCircleGaugeView.m in Sources */,
+				2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */,
 				2C1F1FD01ADA57AB00393E04 /* WeekCalenderView.m in Sources */,
 				2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */,
 				2C5E5C221B12B3F200123CC4 /* RECommonFunctions.m in Sources */,

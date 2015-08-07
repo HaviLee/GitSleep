@@ -33,7 +33,7 @@
 - (void)createTableView
 {
     [self.view addSubview:self.cellTableView];
-    
+    self.bgImageView.image = [UIImage imageNamed:@"pic_bg_night"];
 }
 
 - (void)createCircleView
@@ -76,7 +76,7 @@
     if (_circleView == nil) {
         int datePickerHeight = self.view.frame.size.height*0.202623;
         _circleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 64 + 4*44 +30 + 10, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10)];
-        _circleView.trackTintColor = [UIColor blueColor];
+        _circleView.trackTintColor = [UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f];
         _circleView.trackWidth = 1;
         _circleView.gaugeStyle = CHCircleGaugeStyleOutside;
         _circleView.gaugeTintColor = [UIColor blackColor];
@@ -86,7 +86,7 @@
         _circleView.font = [UIFont systemFontOfSize:38];
         _circleView.rotationValue = 100;
         _circleView.value = 0.0;
-        _circleView.backgroundColor = [UIColor lightGrayColor];
+//        _circleView.backgroundColor = [UIColor lightGrayColor];
     }
     return _circleView;
 }
@@ -107,12 +107,25 @@
         return nil;
     }];
 }
-
+#pragma mark 更新clock
 - (void)changeValueAnimation:(UITapGestureRecognizer *)gesture
 {
     //在这里请求最新的当日数据或者仅仅是更新数据。
 //    [self.cellTableView reloadDataAnimateWithWave:RightToLeftWaveAnimation];
-    [self.circleView changeValue:70];
+    CGPoint point = [gesture locationInView:self.circleView];
+    if (point.x>(self.circleView.frame.size.width- self.circleView.frame.size.height)/2 && point.x <self.circleView.frame.size.height+(self.circleView.frame.size.width- self.circleView.frame.size.height)/2) {
+        //changevalue是睡眠时长。
+        [self.circleView changeSleepQualityValue:70];
+        [self.circleView changeSleepTimeValue:50];
+        [self setClockRoationValue];
+    }
+}
+
+- (void)setClockRoationValue
+{
+    //这里value是从左侧边缘算起
+    self.circleView.rotationValue = 1;
+    
 }
 
 #pragma mark 日历展示和代理
