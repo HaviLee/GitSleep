@@ -28,8 +28,24 @@
     [self setCalenderAndMenu];
     [self createTableView];
     [self createCircleView];
+    [self setNotifationList];
+}
+#pragma mark 创建消息监听
+
+- (void)setNotifationList
+{
+   //监听登录成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessAndQueryData:) name:LoginSuccessedNoti object:nil];
 }
 
+#pragma mark 消息监听方法
+
+- (void)loginSuccessAndQueryData:(NSNotification *)noti
+{
+    
+}
+
+#pragma mark 创建图表
 - (void)createTableView
 {
     [self.view addSubview:self.cellTableView];
@@ -42,7 +58,26 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeValueAnimation:)];
     [self.circleView addGestureRecognizer:tap];
 }
-//setter meathod
+
+- (void)setCalenderAndMenu
+{
+    [self.view addSubview:self.datePicker];
+    [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
+    self.datePicker.dateDelegate = self;
+    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    //自定义导航栏
+    [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
+        if (nIndex == 1)
+        {
+            return self.menuButton;
+        }
+        return nil;
+    }];
+}
+
+#pragma mark  setter meathod
+
 - (UITableView *)cellTableView
 {
     if (_cellTableView == nil) {
@@ -91,22 +126,7 @@
     return _circleView;
 }
 
-- (void)setCalenderAndMenu
-{
-    [self.view addSubview:self.datePicker];
-    [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-    [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
-    self.datePicker.dateDelegate = self;
-    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-    //自定义导航栏
-    [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
-        if (nIndex == 1)
-        {
-            return self.menuButton;
-        }
-        return nil;
-    }];
-}
+
 #pragma mark 更新clock
 - (void)changeValueAnimation:(UITapGestureRecognizer *)gesture
 {
@@ -125,7 +145,6 @@
 {
     //这里value是从左侧边缘算起
     self.circleView.rotationValue = 1;
-    
 }
 
 #pragma mark 日历展示和代理

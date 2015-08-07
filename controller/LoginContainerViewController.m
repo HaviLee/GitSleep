@@ -87,7 +87,6 @@
 - (void)changeGetCodeViewIn:(BOOL)isIn
 {
     NSLog(@"getcode");
-//    GetCodeViewController *getCodeVC = [[GetCodeViewController alloc]init];
     self.viewController = self.getCodeView;
     __block typeof(self) weakSelf = self;
     self.getCodeView.backToLoginButtonClicked = ^(NSUInteger index) {

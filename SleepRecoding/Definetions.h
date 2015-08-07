@@ -65,7 +65,11 @@
 #define SleepSettingSwitchKey @"isSleepSetting"
 #define UserDefaultStartTime   @"defaultStartTime"
 #define UserDefaultEndTime   @"defaultEndTime"
+/**
+ *  登录成功的noti
+ */
 
+#define LoginSuccessedNoti @"LoginSuccessedNoti"
 //四个界面noti
 #define HeartViewNoti   @"HeartViewNoti"
 #define BreathViewNoti  @"BreathViewNoti"

@@ -115,6 +115,8 @@
     __block typeof(self) weakSelf = self;
     _loginView.loginSuccessed = ^(NSUInteger index) {
         [weakSelf hideLoginView];
+        //发送登录成noti
+        [[NSNotificationCenter defaultCenter]postNotificationName:LoginSuccessedNoti object:nil userInfo:nil];
     };
     [self.window addSubview:_loginView.view];
 }

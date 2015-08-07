@@ -206,7 +206,7 @@
     UIButton *weixinButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:weixinButton];
     [weixinButton addTarget:self action:@selector(weixinButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    [weixinButton setBackgroundImage:[UIImage imageNamed:@"icon_wechat"] forState:UIControlStateNormal];
+    [weixinButton setBackgroundImage:[UIImage imageNamed:@"icon_friend"] forState:UIControlStateNormal];
     [weixinButton makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.centerX);
         make.height.equalTo(weixinButton.width);
@@ -219,7 +219,7 @@
     [self.view addSubview:qqButton];
     [qqButton addTarget:self action:@selector(qqButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     float centerfriend = self.view.frame.size.width/4;
-    [qqButton setBackgroundImage:[UIImage imageNamed:@"icon_friend"] forState:UIControlStateNormal];
+    [qqButton setBackgroundImage:[UIImage imageNamed:@"qq_share"] forState:UIControlStateNormal];
     [qqButton makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weixinButton.centerY);
         make.height.equalTo(qqButton.width);

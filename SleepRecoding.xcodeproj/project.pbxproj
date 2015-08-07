@@ -215,6 +215,7 @@
 		2C6D2F411AF620A2008C285B /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D2F401AF620A2008C285B /* UserInfoTableViewCell.m */; };
 		2C6D2F441AF62267008C285B /* icon_phone_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */; };
 		2C6D2F451AF62267008C285B /* tel_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D2F431AF62267008C285B /* tel_1@2x.png */; };
+		2C73197C1B7462C8005A3EE4 /* qq_share.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C73197B1B7462C8005A3EE4 /* qq_share.png */; };
 		2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */; };
 		2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5041AEB31F0004123D2 /* MGSwipeButton.m */; };
 		2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5061AEB31F0004123D2 /* MGSwipeTableCell.m */; };
@@ -803,6 +804,7 @@
 		2C6D2F401AF620A2008C285B /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoTableViewCell.m; path = controller/UserInfoTableViewCell.m; sourceTree = "<group>"; };
 		2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_phone_1@2x.png"; path = "common/icon_phone_1@2x.png"; sourceTree = "<group>"; };
 		2C6D2F431AF62267008C285B /* tel_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tel_1@2x.png"; path = "common/tel_1@2x.png"; sourceTree = "<group>"; };
+		2C73197B1B7462C8005A3EE4 /* qq_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qq_share.png; sourceTree = "<group>"; };
 		2C77D4FB1AEA9846004123D2 /* CheckDeviceStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckDeviceStatusAPI.h; path = API/CheckDeviceStatusAPI.h; sourceTree = "<group>"; };
 		2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckDeviceStatusAPI.m; path = API/CheckDeviceStatusAPI.m; sourceTree = "<group>"; };
 		2C77D5031AEB31F0004123D2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSwipeButton.h; path = lib/thirdlib/MGSwipeTableCell/MGSwipeButton.h; sourceTree = "<group>"; };
@@ -1406,6 +1408,7 @@
 				2C15E6B81AF214E800142F36 /* icon_heart_rate_1@2x.png */,
 				2C15E6B91AF214E800142F36 /* icon_password_1@2x.png */,
 				2C15E6BA1AF214E800142F36 /* icon_phone_1@2x.png */,
+				2C73197B1B7462C8005A3EE4 /* qq_share.png */,
 				2C15E6BB1AF214E800142F36 /* icon_phone_urgency_1@2x.png */,
 				2C1A8CBE1AF5C9CD00B0B553 /* icon_logo_login_1@2x.png */,
 				2C15E6BC1AF214E800142F36 /* icon_setting_1@2x.png */,
@@ -2791,6 +2794,7 @@
 				2C7D22D21AF1CA050011A45C /* pic_breathe_0@2x.png in Resources */,
 				2C15E71C1AF214E800142F36 /* icon_password_1@2x.png in Resources */,
 				2C15E78A1AF2152100142F36 /* heart_4_1.png in Resources */,
+				2C73197C1B7462C8005A3EE4 /* qq_share.png in Resources */,
 				2C8C628F1AB5B8A200CF4C19 /* digitCell.psd in Resources */,
 				2C7D22A01AF1CA050011A45C /* btn_over_0@2x.png in Resources */,
 				2C7D22FC1AF1CA220011A45C /* heart_1_0.png in Resources */,
