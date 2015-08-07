@@ -269,9 +269,13 @@
     CGPoint point = [gesture locationInView:self.circleView];
     if (point.x>(self.circleView.frame.size.width- self.circleView.frame.size.height)/2 && point.x <self.circleView.frame.size.height+(self.circleView.frame.size.width- self.circleView.frame.size.height)/2) {
         //changevalue是睡眠时长。
-        [self.circleView changeSleepQualityValue:70];
-        [self.circleView changeSleepTimeValue:50];
+        [self.circleView changeSleepQualityValue:0];
+        [self.circleView changeSleepTimeValue:0];
         [self setClockRoationValue];
+        NSDate *nowDate = [self getNowDate];
+        NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+        [self getTodaySleepQualityData:newString];
     }
 }
 
