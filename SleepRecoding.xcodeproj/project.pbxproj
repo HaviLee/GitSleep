@@ -224,6 +224,8 @@
 		2C7319D71B759911005A3EE4 /* night_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7319D61B759911005A3EE4 /* night_icon@2x.png */; };
 		2C7319D91B75991A005A3EE4 /* day_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7319D81B75991A005A3EE4 /* day_icon@2x.png */; };
 		2C7319DC1B75A309005A3EE4 /* TagShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319DB1B75A309005A3EE4 /* TagShowViewController.m */; };
+		2C7319E81B75E598005A3EE4 /* TagObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319E51B75E598005A3EE4 /* TagObject.m */; };
+		2C7319E91B75E598005A3EE4 /* TLTagsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319E71B75E598005A3EE4 /* TLTagsControl.m */; };
 		2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */; };
 		2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5041AEB31F0004123D2 /* MGSwipeButton.m */; };
 		2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5061AEB31F0004123D2 /* MGSwipeTableCell.m */; };
@@ -825,6 +827,10 @@
 		2C7319D81B75991A005A3EE4 /* day_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "day_icon@2x.png"; sourceTree = "<group>"; };
 		2C7319DA1B75A309005A3EE4 /* TagShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagShowViewController.h; path = controller/TagShowViewController.h; sourceTree = "<group>"; };
 		2C7319DB1B75A309005A3EE4 /* TagShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagShowViewController.m; path = controller/TagShowViewController.m; sourceTree = "<group>"; };
+		2C7319E41B75E598005A3EE4 /* TagObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagObject.h; sourceTree = "<group>"; };
+		2C7319E51B75E598005A3EE4 /* TagObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagObject.m; sourceTree = "<group>"; };
+		2C7319E61B75E598005A3EE4 /* TLTagsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTagsControl.h; sourceTree = "<group>"; };
+		2C7319E71B75E598005A3EE4 /* TLTagsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTagsControl.m; sourceTree = "<group>"; };
 		2C77D4FB1AEA9846004123D2 /* CheckDeviceStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckDeviceStatusAPI.h; path = API/CheckDeviceStatusAPI.h; sourceTree = "<group>"; };
 		2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckDeviceStatusAPI.m; path = API/CheckDeviceStatusAPI.m; sourceTree = "<group>"; };
 		2C77D5031AEB31F0004123D2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSwipeButton.h; path = lib/thirdlib/MGSwipeTableCell/MGSwipeButton.h; sourceTree = "<group>"; };
@@ -1750,6 +1756,18 @@
 			path = lib/thirdlib/OCCalendarView;
 			sourceTree = "<group>";
 		};
+		2C7319E31B75E598005A3EE4 /* TLTagsContol */ = {
+			isa = PBXGroup;
+			children = (
+				2C7319E41B75E598005A3EE4 /* TagObject.h */,
+				2C7319E51B75E598005A3EE4 /* TagObject.m */,
+				2C7319E61B75E598005A3EE4 /* TLTagsControl.h */,
+				2C7319E71B75E598005A3EE4 /* TLTagsControl.m */,
+			);
+			name = TLTagsContol;
+			path = lib/thirdlib/TLTagsContol;
+			sourceTree = "<group>";
+		};
 		2C77D5021AEB31CC004123D2 /* MGSwipeTableCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2400,6 +2418,7 @@
 		579AC7DF1AA033BC0045E9A2 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				2C7319E31B75E598005A3EE4 /* TLTagsContol */,
 				2C95C27F1B74430C00C626D9 /* CHCircleGaugeView */,
 				2C7CA01F1B67656300AA511D /* Wave */,
 				2C0912B91B4E591A00BEE2FF /* Toast */,
@@ -3085,6 +3104,7 @@
 				57711FF61AD4D1DC00508C5C /* MontheReportViewController.m in Sources */,
 				5793D1C11AA9A1BA00BC24CA /* XLScrollViewer.m in Sources */,
 				2C77D50B1AEB3702004123D2 /* ReNameDeviceNameViewController.m in Sources */,
+				2C7319E81B75E598005A3EE4 /* TagObject.m in Sources */,
 				2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */,
 				57802E2B1AE7398200823E39 /* SHPutClient.m in Sources */,
 				57711FF31AD4CFF400508C5C /* WeekReportViewController.m in Sources */,
@@ -3141,6 +3161,7 @@
 				2C3AF2B11AF4611E00B66E32 /* NKJPagerViewController.m in Sources */,
 				2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */,
 				2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */,
+				2C7319E91B75E598005A3EE4 /* TLTagsControl.m in Sources */,
 				577120091AD5088700508C5C /* KxMenu.m in Sources */,
 				572AA98B1AC29A5700DED1D9 /* UIImage+ImageEffects.m in Sources */,
 				2C77D54A1AEFC127004123D2 /* GetLeaveDataAPI.m in Sources */,
