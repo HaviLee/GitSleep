@@ -11,6 +11,9 @@
 #import "CenterViewTableViewCell.h"
 #import "UITableView+Wave.h"
 #import "CHCircleGaugeView.h"
+#import "NightTimeView.h"
+#import "DayTimeView.h"
+#import "TagShowViewController.h"
 //
 #import "GetDeviceStatusAPI.h"
 #import "GetDefatultSleepAPI.h"
@@ -21,6 +24,11 @@
 @property (nonatomic, strong) UILabel *sleepTimeLabel;
 @property (nonatomic, strong) CHCircleGaugeView *circleView;
 @property (nonatomic, strong) NSArray *cellDataArr;
+@property (nonatomic, strong) NightTimeView *nightView;
+@property (nonatomic, strong) DayTimeView *dayView;
+@property (nonatomic, strong) UITapGestureRecognizer *tapDayViewGesture;
+@property (nonatomic, strong) UITapGestureRecognizer *tapNightViewGesture;
+
 
 @end
 
@@ -176,6 +184,13 @@
         [self.circleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
         [self setClockRoationValue];
     });
+    
+    //
+    [self.circleView addSubview:self.nightView];
+    self.nightView.nightTime = @"23:01PM";
+    
+    [self.circleView addSubview:self.dayView];
+    self.dayView.dayTime = @"08:01AM";
 
 }
 
@@ -190,12 +205,20 @@
 {
     [self.view addSubview:self.circleView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeValueAnimation:)];
-    [self.circleView addGestureRecognizer:tap];
+    [self.circleView.cView addGestureRecognizer:tap];
 }
 
 - (void)setCalenderAndMenu
 {
     [self.view addSubview:self.datePicker];
+    NSDate *nowDate = [self getNowDate];
+    NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+    self.todayHour = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
+    if (self.todayHour<18) {
+        self.dateComponentsBase.day = -1;
+        NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:nowDate options:0];
+        [self.datePicker updateCalenderSelectedDate:yestoday];
+    }
     [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
     self.datePicker.dateDelegate = self;
@@ -211,6 +234,44 @@
 }
 
 #pragma mark  setter meathod
+
+- (UITapGestureRecognizer *)tapDayViewGesture
+{
+    if (_tapDayViewGesture == nil) {
+        _tapDayViewGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showTagView:)];
+    }
+    return _tapDayViewGesture;
+}
+
+- (UITapGestureRecognizer *)tapNightViewGesture
+{
+    if (_tapNightViewGesture == nil) {
+        _tapNightViewGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showTagView:)];
+    }
+    return _tapNightViewGesture;
+}
+
+- (DayTimeView *)dayView
+{
+    if (_dayView == nil) {
+        _dayView = [[DayTimeView alloc]init];
+        _dayView.center = CGPointMake(50, 120);
+        _dayView.userInteractionEnabled = YES;
+        [_dayView addGestureRecognizer:self.tapDayViewGesture];
+    }
+    return _dayView;
+}
+
+- (NightTimeView*)nightView
+{
+    if (_nightView==nil) {
+        _nightView = [[NightTimeView alloc]init];
+        _nightView.center = CGPointMake(50, 40);
+        _nightView.userInteractionEnabled = YES;
+        [_nightView addGestureRecognizer:self.tapNightViewGesture];
+    }
+    return _nightView;
+}
 
 - (UITableView *)cellTableView
 {
@@ -260,6 +321,13 @@
     return _circleView;
 }
 
+#pragma mark 其他方法
+
+- (void)showTagView:(UITapGestureRecognizer *)gesture
+{
+    TagShowViewController *tag = [[TagShowViewController alloc]init];
+    [self presentViewController:tag animated:YES completion:nil];
+}
 
 #pragma mark 更新clock
 - (void)changeValueAnimation:(UITapGestureRecognizer *)gesture
@@ -406,7 +474,7 @@
         }
             
         default:
-            return @"还没有数据哦";
+            return @"没有数据哦";
             break;
     }
 }

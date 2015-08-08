@@ -29,7 +29,6 @@
 #import "CHCircleGaugeViewDebugMacros.h"
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
-#import "CirlcleView.h"
 #import "UILabel+FlickerNumber.h"
 
 static CGFloat const CHKeyAnimationDuration = 0.5f;
@@ -60,7 +59,6 @@ static NSString * const CHKeyDefaultNoAnswersText = @"%";
 @property (nonatomic, strong) CAShapeLayer *trackLayer;
 @property (nonatomic, strong) CALayer *gradientLayer;
 @property (nonatomic, assign) CGRect viewRect;
-@property (nonatomic, strong) CirlcleView *cView;
 
 @property (nonatomic, strong) UILabel *valueTextLabel;
 @property (nonatomic, strong) UILabel *valueTitleLabel;//havi

@@ -219,6 +219,11 @@
 		2C73197E1B746567005A3EE4 /* sleep_analysis_textbox_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C73197D1B746567005A3EE4 /* sleep_analysis_textbox_0.png */; };
 		2C7319821B74678B005A3EE4 /* sleep_analysis_textbox_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7319811B74678B005A3EE4 /* sleep_analysis_textbox_1.png */; };
 		2C7319CF1B74859A005A3EE4 /* SleepAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319CE1B74859A005A3EE4 /* SleepAnalysisViewController.m */; };
+		2C7319D21B759237005A3EE4 /* DayTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319D11B759237005A3EE4 /* DayTimeView.m */; };
+		2C7319D51B759248005A3EE4 /* NightTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319D41B759248005A3EE4 /* NightTimeView.m */; };
+		2C7319D71B759911005A3EE4 /* night_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7319D61B759911005A3EE4 /* night_icon@2x.png */; };
+		2C7319D91B75991A005A3EE4 /* day_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7319D81B75991A005A3EE4 /* day_icon@2x.png */; };
+		2C7319DC1B75A309005A3EE4 /* TagShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319DB1B75A309005A3EE4 /* TagShowViewController.m */; };
 		2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */; };
 		2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5041AEB31F0004123D2 /* MGSwipeButton.m */; };
 		2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5061AEB31F0004123D2 /* MGSwipeTableCell.m */; };
@@ -812,6 +817,14 @@
 		2C7319811B74678B005A3EE4 /* sleep_analysis_textbox_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sleep_analysis_textbox_1.png; sourceTree = "<group>"; };
 		2C7319CD1B74859A005A3EE4 /* SleepAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SleepAnalysisViewController.h; path = controller/SleepAnalysisViewController.h; sourceTree = "<group>"; };
 		2C7319CE1B74859A005A3EE4 /* SleepAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SleepAnalysisViewController.m; path = controller/SleepAnalysisViewController.m; sourceTree = "<group>"; };
+		2C7319D01B759237005A3EE4 /* DayTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DayTimeView.h; path = controller/DayTimeView.h; sourceTree = "<group>"; };
+		2C7319D11B759237005A3EE4 /* DayTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DayTimeView.m; path = controller/DayTimeView.m; sourceTree = "<group>"; };
+		2C7319D31B759248005A3EE4 /* NightTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NightTimeView.h; path = controller/NightTimeView.h; sourceTree = "<group>"; };
+		2C7319D41B759248005A3EE4 /* NightTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NightTimeView.m; path = controller/NightTimeView.m; sourceTree = "<group>"; };
+		2C7319D61B759911005A3EE4 /* night_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "night_icon@2x.png"; sourceTree = "<group>"; };
+		2C7319D81B75991A005A3EE4 /* day_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "day_icon@2x.png"; sourceTree = "<group>"; };
+		2C7319DA1B75A309005A3EE4 /* TagShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagShowViewController.h; path = controller/TagShowViewController.h; sourceTree = "<group>"; };
+		2C7319DB1B75A309005A3EE4 /* TagShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagShowViewController.m; path = controller/TagShowViewController.m; sourceTree = "<group>"; };
 		2C77D4FB1AEA9846004123D2 /* CheckDeviceStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckDeviceStatusAPI.h; path = API/CheckDeviceStatusAPI.h; sourceTree = "<group>"; };
 		2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckDeviceStatusAPI.m; path = API/CheckDeviceStatusAPI.m; sourceTree = "<group>"; };
 		2C77D5031AEB31F0004123D2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSwipeButton.h; path = lib/thirdlib/MGSwipeTableCell/MGSwipeButton.h; sourceTree = "<group>"; };
@@ -1589,6 +1602,8 @@
 				2C7D21FB1AF1C6550011A45C /* pic_heder_portrait@2x.png */,
 				2C7D21FC1AF1C6550011A45C /* weight@2x.png */,
 				2C7D21FD1AF1C6550011A45C /* wireframe.png */,
+				2C7319D61B759911005A3EE4 /* night_icon@2x.png */,
+				2C7319D81B75991A005A3EE4 /* day_icon@2x.png */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -2327,6 +2342,12 @@
 				2C7CA0271B6FCFD300AA511D /* CenterViewTableViewCell.m */,
 				2C7319CD1B74859A005A3EE4 /* SleepAnalysisViewController.h */,
 				2C7319CE1B74859A005A3EE4 /* SleepAnalysisViewController.m */,
+				2C7319D01B759237005A3EE4 /* DayTimeView.h */,
+				2C7319D11B759237005A3EE4 /* DayTimeView.m */,
+				2C7319D31B759248005A3EE4 /* NightTimeView.h */,
+				2C7319D41B759248005A3EE4 /* NightTimeView.m */,
+				2C7319DA1B75A309005A3EE4 /* TagShowViewController.h */,
+				2C7319DB1B75A309005A3EE4 /* TagShowViewController.m */,
 			);
 			name = LeftViewController;
 			sourceTree = "<group>";
@@ -2749,6 +2770,7 @@
 				2C15E6831AF210AF00142F36 /* papasscode_background@2x.png in Resources */,
 				2C7D22B71AF1CA050011A45C /* icon_heart_rate1_0@2x.png in Resources */,
 				2C15E7341AF214E800142F36 /* pic_bg_1@2x.png in Resources */,
+				2C7319D71B759911005A3EE4 /* night_icon@2x.png in Resources */,
 				2C7D221F1AF1C9F70011A45C /* icon_heart_rate_0@2x.png in Resources */,
 				2C15E7781AF2151500142F36 /* get_up3_1@2x.png in Resources */,
 				2C7D22D81AF1CA050011A45C /* pic_head_portrait_0@2x.png in Resources */,
@@ -2843,6 +2865,7 @@
 				2C7D22CB1AF1CA050011A45C /* navigation_bar_bg_0@2x.png in Resources */,
 				2C7D22A91AF1CA050011A45C /* emergency_contact_0@2x.png in Resources */,
 				2C7D22DA1AF1CA050011A45C /* pic_night_0@2x.png in Resources */,
+				2C7319D91B75991A005A3EE4 /* day_icon@2x.png in Resources */,
 				2C15E7961AF2180500142F36 /* pic_bad_1@2x.png in Resources */,
 				2C15E6F51AF214E800142F36 /* btn_24h_1@2x.png in Resources */,
 				2C7D21F01AF1C3C30011A45C /* pic_bg_night@2x.png in Resources */,
@@ -2949,6 +2972,7 @@
 				2C435E661AD0D8FA003B1604 /* ToggleView.m in Sources */,
 				5777E6921AD76A2F00A7C6C4 /* MonthCalenderView.m in Sources */,
 				577120061AD5022800508C5C /* HaviButton.m in Sources */,
+				2C7319D51B759248005A3EE4 /* NightTimeView.m in Sources */,
 				2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */,
 				2C77D53B1AEF4E5D004123D2 /* TurnRoundViewController.m in Sources */,
 				2C5E5C241B12B3F200123CC4 /* UIViewController+RESideMenu.m in Sources */,
@@ -3050,6 +3074,7 @@
 				2C8F7BBA1AF3747700E56513 /* JTCalendarMenuMonthView.m in Sources */,
 				2C15E67F1AF1FF8900142F36 /* GetTurnSleepDataAPI.m in Sources */,
 				2C8C62821AB5B0D100CF4C19 /* ModifyPassWordViewController.m in Sources */,
+				2C7319D21B759237005A3EE4 /* DayTimeView.m in Sources */,
 				2C1F1FEF1ADBF38F00393E04 /* WQScrollCalendarWrapperView.m in Sources */,
 				2C1F1FEE1ADBF38F00393E04 /* WQScrollCalendarView.m in Sources */,
 				2C77D5291AEE7095004123D2 /* MMPickerView.m in Sources */,
@@ -3101,6 +3126,7 @@
 				2C8CB3FA1B4A51B5007E97E5 /* UIViewController+TopBarMessage.m in Sources */,
 				57490FC71ACAA1A10057DC05 /* CBChartView.m in Sources */,
 				2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */,
+				2C7319DC1B75A309005A3EE4 /* TagShowViewController.m in Sources */,
 				577086131ABBEA8E004A2C07 /* UserInfoNameTableViewCell.m in Sources */,
 				5781D00B1AE8DB9C0092E8CD /* BindingDeviceUUIDAPI.m in Sources */,
 				575F5AA01AAE900B0061AA11 /* SleepSettingViewController.m in Sources */,

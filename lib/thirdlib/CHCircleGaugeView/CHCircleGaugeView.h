@@ -26,6 +26,8 @@
 // 发布代码于最专业的源码分享网站: Code4App.com
 
 #import <UIKit/UIKit.h>
+#import "CirlcleView.h"
+
 
 /**
  Enumeration with the possible state of the circle gauge view.
@@ -74,6 +76,9 @@ typedef NS_ENUM(NSInteger, CHCircleGaugeStyle) {
 - (void)changeSleepTimeValue:(CGFloat)value;
 
 - (void)changeSleepLevelValue:(NSString *)valueString;
+
+
+@property (nonatomic, strong) CirlcleView *cView;
 
 /** @name Managing the gauge */
 
