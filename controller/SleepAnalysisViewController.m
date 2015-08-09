@@ -9,6 +9,7 @@
 #import "SleepAnalysisViewController.h"
 #import "WeekCalenderView.h"
 #import "SleepAnalisis.h"
+#import "SleepTimeTagView.h"
 
 @interface SleepAnalysisViewController ()
 @property (nonatomic,strong) UIButton *leftCalButton;
@@ -21,6 +22,11 @@
 @property (nonatomic,strong) NSDateComponents *dateComponents;
 @property (nonatomic,strong) SleepAnalisis *sleepAnalysisView;
 @property (nonatomic,strong) NSMutableArray *mutableArr;
+//
+@property (nonatomic,strong) SleepTimeTagView *longSleepView;
+@property (nonatomic,strong) SleepTimeTagView *shortSleepView;
+
+@property (nonatomic,strong) UILabel *sleepLongTimeLabel;
 
 @end
 
@@ -39,6 +45,43 @@
      }];
     [self createCalenderView];
     [self createChartView];
+    [self creatSubView];
+}
+
+- (void)creatSubView
+{
+    UIView *backView = [[UIView alloc]init];
+    backView.backgroundColor = [UIColor clearColor];
+    backView.frame = CGRectMake(0,self.view.frame.size.height-254, self.view.frame.size.width, 254);
+    [self.view addSubview:backView];
+    UILabel *sleepTimeLabel = [[UILabel alloc]init];
+    sleepTimeLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 30);
+    sleepTimeLabel.textAlignment = NSTextAlignmentCenter;
+    sleepTimeLabel.text = @"周平均睡眠时长";
+    [backView addSubview:sleepTimeLabel];
+    [backView addSubview:self.sleepLongTimeLabel];
+    
+    self.longSleepView = [[SleepTimeTagView alloc]init ];
+    self.longSleepView.frame = CGRectMake(0, 60, self.view.frame.size.width, 98);
+    [backView addSubview:self.longSleepView];
+    TagObject *tag1 = [[TagObject alloc]init];
+    tag1.tagName = @"噩梦过多";
+    tag1.isSelect = NO;
+    
+    TagObject *tag2 = [[TagObject alloc]init];
+    tag2.tagName = @"离床过频";
+    tag2.isSelect = NO;
+    self.longSleepView.sleepTitleLabel.tags = [@[tag1]mutableCopy];
+    [self.longSleepView.sleepTitleLabel reloadTagSubviews];
+    self.longSleepView.sleepTagLabel.tags = [@[tag2]mutableCopy];
+    [self.longSleepView.sleepTagLabel reloadTagSubviews];
+    
+    self.shortSleepView = [[SleepTimeTagView alloc]init ];
+    //    self.longSleepView.backgroundColor = [UIColor redColor];
+    self.shortSleepView.frame = CGRectMake(0, 158, self.view.frame.size.width, 98);
+    [backView addSubview:self.shortSleepView];
+    self.shortSleepView.sleepTitleLabel.tags = [@[tag1,tag2]mutableCopy];
+    [self.shortSleepView.sleepTitleLabel reloadTagSubviews];
 }
 
 - (void)createCalenderView
@@ -105,10 +148,10 @@
     
     self.sleepAnalysisView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self.view addSubview:self.sleepAnalysisView];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(changeImage) userInfo:nil repeats:YES];
-//        
-//    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(changeImage) userInfo:nil repeats:NO];
+        
+    });
 }
 #pragma mark 测试使用
 - (void)changeImage
@@ -136,6 +179,17 @@
 //end
 
 #pragma mark setter
+
+- (UILabel *)sleepLongTimeLabel
+{
+    if (_sleepLongTimeLabel == nil) {
+        _sleepLongTimeLabel = [[UILabel alloc]init];
+        _sleepLongTimeLabel.frame = CGRectMake(0, 30, self.view.frame.size.width, 30);
+        _sleepLongTimeLabel.text = @"7时50分";
+        _sleepLongTimeLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _sleepLongTimeLabel;
+}
 
 - (NSMutableArray *)mutableArr
 {

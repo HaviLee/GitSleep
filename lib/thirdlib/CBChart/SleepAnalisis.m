@@ -208,7 +208,13 @@
 //睡眠指数label
 - (void)setYCoorLabel
 {
+    for (UIView *view in self.subviews) {
+        if(view.tag == 2000){
+            [view removeFromSuperview];
+        }
+    }
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, -30, 60, 30)];
+    label.tag = 2000;
     label.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
     CGPoint center = label.center;
@@ -232,9 +238,6 @@
 {
     for (UIView *view in self.subviews) {
         if ([view isKindOfClass:[PNBarNew class]]) {
-            [view removeFromSuperview];
-        }
-        if (view.tag ==999) {
             [view removeFromSuperview];
         }
     }
@@ -335,17 +338,11 @@
     [self.viewArr removeAllObjects];
     for (int i=0; i<self.yPoints.count; i++) {
         UIView *horironLine = [[UIView alloc]init];
-        horironLine.tag = 2000;
-//        [[UIColor colorWithRed:0.569f green:0.765f blue:0.867f alpha:1.00f] setStroke];
         horironLine.backgroundColor = [UIColor colorWithRed:0.569f green:0.765f blue:0.867f alpha:1.00f] ;
         CGPoint yPoint = [[self.yPoints objectAtIndex:i] CGPointValue];
         horironLine.frame = CGRectMake(self.leftLineMargin, yPoint.y, 2, 1);
         [self addSubview:horironLine];
         [self.viewArr addObject:horironLine];
-        /*
-         CGPathMoveToPoint(path, nil, yPoint.x, yPoint.y );
-         CGPathAddLineToPoint(path, nil, maxXPoint.x+15, yPoint.y);
-         */
         
     }
 }
