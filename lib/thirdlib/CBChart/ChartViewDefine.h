@@ -11,7 +11,7 @@
 
 #define RandomColor [UIColor colorWithRed:arc4random_uniform(255)/155.0 green:arc4random_uniform(255)/155.0 blue:arc4random_uniform(255)/155.0 alpha:0.7]
 
-#define coorLineWidth 2
+#define coorLineWidth 1
 #define bottomLineMargin 20
 #define coordinateOriginFrame CGRectMake(self.leftLineMargin, self.frame.size.height - bottomLineMargin, coorLineWidth, coorLineWidth)  // 原点坐标
 #define xCoordinateWidth (self.frame.size.width - self.leftLineMargin - 5)

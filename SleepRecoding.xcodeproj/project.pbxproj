@@ -226,6 +226,8 @@
 		2C7319DC1B75A309005A3EE4 /* TagShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319DB1B75A309005A3EE4 /* TagShowViewController.m */; };
 		2C7319E81B75E598005A3EE4 /* TagObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319E51B75E598005A3EE4 /* TagObject.m */; };
 		2C7319E91B75E598005A3EE4 /* TLTagsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319E71B75E598005A3EE4 /* TLTagsControl.m */; };
+		2C7319EC1B7650AA005A3EE4 /* SleepAnalisis.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319EB1B7650AA005A3EE4 /* SleepAnalisis.m */; };
+		2C7319EF1B76EE49005A3EE4 /* PNBarNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319EE1B76EE49005A3EE4 /* PNBarNew.m */; };
 		2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */; };
 		2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5041AEB31F0004123D2 /* MGSwipeButton.m */; };
 		2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5061AEB31F0004123D2 /* MGSwipeTableCell.m */; };
@@ -831,6 +833,10 @@
 		2C7319E51B75E598005A3EE4 /* TagObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagObject.m; sourceTree = "<group>"; };
 		2C7319E61B75E598005A3EE4 /* TLTagsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTagsControl.h; sourceTree = "<group>"; };
 		2C7319E71B75E598005A3EE4 /* TLTagsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTagsControl.m; sourceTree = "<group>"; };
+		2C7319EA1B7650AA005A3EE4 /* SleepAnalisis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleepAnalisis.h; sourceTree = "<group>"; };
+		2C7319EB1B7650AA005A3EE4 /* SleepAnalisis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleepAnalisis.m; sourceTree = "<group>"; };
+		2C7319ED1B76EE49005A3EE4 /* PNBarNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBarNew.h; sourceTree = "<group>"; };
+		2C7319EE1B76EE49005A3EE4 /* PNBarNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBarNew.m; sourceTree = "<group>"; };
 		2C77D4FB1AEA9846004123D2 /* CheckDeviceStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckDeviceStatusAPI.h; path = API/CheckDeviceStatusAPI.h; sourceTree = "<group>"; };
 		2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckDeviceStatusAPI.m; path = API/CheckDeviceStatusAPI.m; sourceTree = "<group>"; };
 		2C77D5031AEB31F0004123D2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSwipeButton.h; path = lib/thirdlib/MGSwipeTableCell/MGSwipeButton.h; sourceTree = "<group>"; };
@@ -1434,7 +1440,6 @@
 				2C15E6B81AF214E800142F36 /* icon_heart_rate_1@2x.png */,
 				2C15E6B91AF214E800142F36 /* icon_password_1@2x.png */,
 				2C15E6BA1AF214E800142F36 /* icon_phone_1@2x.png */,
-				2C73197B1B7462C8005A3EE4 /* qq_share.png */,
 				2C15E6BB1AF214E800142F36 /* icon_phone_urgency_1@2x.png */,
 				2C1A8CBE1AF5C9CD00B0B553 /* icon_logo_login_1@2x.png */,
 				2C15E6BC1AF214E800142F36 /* icon_setting_1@2x.png */,
@@ -1797,6 +1802,7 @@
 				2C7D220E1AF1C9F70011A45C /* btn_add_0@2x.png */,
 				2C7D220F1AF1C9F70011A45C /* btn_back_right@2x.png */,
 				2C7D22101AF1C9F70011A45C /* icon_breathe_0@2x.png */,
+				2C73197B1B7462C8005A3EE4 /* qq_share.png */,
 				2C7D22111AF1C9F70011A45C /* icon_friend.png */,
 				2C7D22121AF1C9F70011A45C /* icon_get_up_0@2x.png */,
 				2C7D22131AF1C9F70011A45C /* icon_heart_rate_0@2x.png */,
@@ -2079,8 +2085,12 @@
 				2C1F1FC91AD96A5800393E04 /* MonthReportView.m */,
 				2C1F1FCB1AD989DB00393E04 /* QuaterReportView.h */,
 				2C1F1FCC1AD989DB00393E04 /* QuaterReportView.m */,
+				2C7319EA1B7650AA005A3EE4 /* SleepAnalisis.h */,
+				2C7319EB1B7650AA005A3EE4 /* SleepAnalisis.m */,
 				578065BF1ADBA45F00769A1D /* PNBar.h */,
 				578065C01ADBA45F00769A1D /* PNBar.m */,
+				2C7319ED1B76EE49005A3EE4 /* PNBarNew.h */,
+				2C7319EE1B76EE49005A3EE4 /* PNBarNew.m */,
 			);
 			name = CBChart;
 			path = lib/thirdlib/CBChart;
@@ -3000,6 +3010,7 @@
 				577086101ABBDF80004A2C07 /* GBPathImageView.m in Sources */,
 				2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */,
 				5764517B1AC6478D008E3526 /* SelectThemeCollectionViewCell.m in Sources */,
+				2C7319EC1B7650AA005A3EE4 /* SleepAnalisis.m in Sources */,
 				57063D2C1ABFDE7B00A61267 /* ImageUtil.m in Sources */,
 				577B85201AE9DD6E00D876E8 /* GetExceptionAPI.m in Sources */,
 				2C95C2891B74430C00C626D9 /* UILabel+FlickerNumber.m in Sources */,
@@ -3103,6 +3114,7 @@
 				2C5E5C221B12B3F200123CC4 /* RECommonFunctions.m in Sources */,
 				57711FF61AD4D1DC00508C5C /* MontheReportViewController.m in Sources */,
 				5793D1C11AA9A1BA00BC24CA /* XLScrollViewer.m in Sources */,
+				2C7319EF1B76EE49005A3EE4 /* PNBarNew.m in Sources */,
 				2C77D50B1AEB3702004123D2 /* ReNameDeviceNameViewController.m in Sources */,
 				2C7319E81B75E598005A3EE4 /* TagObject.m in Sources */,
 				2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */,

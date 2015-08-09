@@ -41,20 +41,6 @@
 }
 
 - (void)initSetup {
-    
-//    _state = CHCircleGaugeViewStateNA;
-//    _value = CHKeyDefaultValue;
-//    _trackTintColor = CHKeyDefaultTrackTintColor;
-//    _gaugeTintColor = CHKeyDefaultGaugeTintColor;
-//    _textColor = CHKeyDefaultTextColor;
-//    _font = [UIFont systemFontOfSize:CHKeyDefaultFontSize];
-//    _trackWidth = CHKeyDefaultTrackWidth;
-//    _gaugeWidth = CHKeyDefaultGaugeWidth;
-//    _notApplicableString = CHKeyDefaultNAText;
-//    _noDataString = CHKeyDefaultNoAnswersText;
-//    //哈维
-//    _arrCircle = [[NSMutableArray alloc]init];
-//    _arrColor = @[[self colorWithHex:0x1b5e62 alpha:1],[self colorWithHex:0x1c5e62 alpha:1],[self colorWithHex:0x1c5f63 alpha:1],[self colorWithHex:0x1c5f62 alpha:1],[self colorWithHex:0x1c5c62 alpha:1],[self colorWithHex:0x1c5d62 alpha:1],[self colorWithHex:0x1d5761 alpha:1],[self colorWithHex:0x1e5361 alpha:1],[self colorWithHex:0x1e4e60 alpha:1],[self colorWithHex:0x1a4658 alpha:1]];
     [self createGauge];
 }
 
