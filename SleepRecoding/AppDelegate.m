@@ -28,6 +28,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //向微信注册
+    [WXApi registerApp:@"wx7be2e0c9ebd9e161"];
     //因为有闹钟的印象，清楚闹钟。
     int picIndex = [QHConfiguredObj defaultConfigure].nThemeIndex;
     selectedThemeIndex = picIndex;

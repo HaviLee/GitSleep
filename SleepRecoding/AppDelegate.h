@@ -10,6 +10,7 @@
 #import "UDPController.h"
 #import "RESideMenu.h"
 #import "CenterViewController.h"
+#import "WXApi.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

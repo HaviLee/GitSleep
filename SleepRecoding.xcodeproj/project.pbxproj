@@ -229,6 +229,11 @@
 		2C7319EC1B7650AA005A3EE4 /* SleepAnalisis.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319EB1B7650AA005A3EE4 /* SleepAnalisis.m */; };
 		2C7319EF1B76EE49005A3EE4 /* PNBarNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7319EE1B76EE49005A3EE4 /* PNBarNew.m */; };
 		2C7345CB1B772F34004D8AB3 /* SleepTimeTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7345CA1B772F34004D8AB3 /* SleepTimeTagView.m */; };
+		2C7345D41B776775004D8AB3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7345D01B776775004D8AB3 /* libWeChatSDK.a */; };
+		2C7345D51B776775004D8AB3 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C7345D11B776775004D8AB3 /* read_me.txt */; };
+		2C7345D71B776ECB004D8AB3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7345D61B776ECB004D8AB3 /* libz.dylib */; };
+		2C7345D91B776ED9004D8AB3 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7345D81B776ED9004D8AB3 /* libsqlite3.0.dylib */; };
+		2C7345DB1B776EE8004D8AB3 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7345DA1B776EE8004D8AB3 /* libc++.dylib */; };
 		2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */; };
 		2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5041AEB31F0004123D2 /* MGSwipeButton.m */; };
 		2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5061AEB31F0004123D2 /* MGSwipeTableCell.m */; };
@@ -840,6 +845,13 @@
 		2C7319EE1B76EE49005A3EE4 /* PNBarNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBarNew.m; sourceTree = "<group>"; };
 		2C7345C91B772F34004D8AB3 /* SleepTimeTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SleepTimeTagView.h; path = controller/SleepTimeTagView.h; sourceTree = "<group>"; };
 		2C7345CA1B772F34004D8AB3 /* SleepTimeTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SleepTimeTagView.m; path = controller/SleepTimeTagView.m; sourceTree = "<group>"; };
+		2C7345D01B776775004D8AB3 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		2C7345D11B776775004D8AB3 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
+		2C7345D21B776775004D8AB3 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		2C7345D31B776775004D8AB3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		2C7345D61B776ECB004D8AB3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		2C7345D81B776ED9004D8AB3 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		2C7345DA1B776EE8004D8AB3 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		2C77D4FB1AEA9846004123D2 /* CheckDeviceStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckDeviceStatusAPI.h; path = API/CheckDeviceStatusAPI.h; sourceTree = "<group>"; };
 		2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckDeviceStatusAPI.m; path = API/CheckDeviceStatusAPI.m; sourceTree = "<group>"; };
 		2C77D5031AEB31F0004123D2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSwipeButton.h; path = lib/thirdlib/MGSwipeTableCell/MGSwipeButton.h; sourceTree = "<group>"; };
@@ -1312,8 +1324,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C7345DB1B776EE8004D8AB3 /* libc++.dylib in Frameworks */,
+				2C7345D91B776ED9004D8AB3 /* libsqlite3.0.dylib in Frameworks */,
+				2C7345D71B776ECB004D8AB3 /* libz.dylib in Frameworks */,
 				2C0912C01B4E668F00BEE2FF /* CoreTelephony.framework in Frameworks */,
 				2C0912BE1B4E65A900BEE2FF /* CFNetwork.framework in Frameworks */,
+				2C7345D41B776775004D8AB3 /* libWeChatSDK.a in Frameworks */,
 				576F09CC1AC3A6AB0083395C /* SystemConfiguration.framework in Frameworks */,
 				576C3F041ABFAAE700815EF3 /* MobileCoreServices.framework in Frameworks */,
 				576C3F021ABFAA4500815EF3 /* AudioToolbox.framework in Frameworks */,
@@ -1641,6 +1657,7 @@
 		2C4FCB011A8F56E800DCEEF3 = {
 			isa = PBXGroup;
 			children = (
+				2C7345CF1B776775004D8AB3 /* WeChatSDK_1.5_OnlyIphone */,
 				576F09BE1AC3A3DF0083395C /* HardWare */,
 				2C8C621A1AB09B0E00CF4C19 /* Images */,
 				579AC7DF1AA033BC0045E9A2 /* ThirdLib */,
@@ -1774,6 +1791,18 @@
 			);
 			name = TLTagsContol;
 			path = lib/thirdlib/TLTagsContol;
+			sourceTree = "<group>";
+		};
+		2C7345CF1B776775004D8AB3 /* WeChatSDK_1.5_OnlyIphone */ = {
+			isa = PBXGroup;
+			children = (
+				2C7345D01B776775004D8AB3 /* libWeChatSDK.a */,
+				2C7345D11B776775004D8AB3 /* read_me.txt */,
+				2C7345D21B776775004D8AB3 /* WXApi.h */,
+				2C7345D31B776775004D8AB3 /* WXApiObject.h */,
+			);
+			name = WeChatSDK_1.5_OnlyIphone;
+			path = lib/Source/WeChatSDK_1.5_OnlyIphone;
 			sourceTree = "<group>";
 		};
 		2C77D5021AEB31CC004123D2 /* MGSwipeTableCell */ = {
@@ -2500,6 +2529,9 @@
 		B2B6D8396C0101919F09B9EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C7345DA1B776EE8004D8AB3 /* libc++.dylib */,
+				2C7345D81B776ED9004D8AB3 /* libsqlite3.0.dylib */,
+				2C7345D61B776ECB004D8AB3 /* libz.dylib */,
 				2C0912BF1B4E668F00BEE2FF /* CoreTelephony.framework */,
 				2C0912BD1B4E65A900BEE2FF /* CFNetwork.framework */,
 				576F09CB1AC3A6AB0083395C /* SystemConfiguration.framework */,
@@ -2637,6 +2669,7 @@
 				2C8C62901AB5B8A200CF4C19 /* failedBg.psd in Resources */,
 				2C7D23111AF1CA300011A45C /* breathe6_0@2x.png in Resources */,
 				2C7D22B51AF1CA050011A45C /* icon_general_exception_0@2x.png in Resources */,
+				2C7345D51B776775004D8AB3 /* read_me.txt in Resources */,
 				2C8C62941AB5B8A200CF4C19 /* papasscode_failed_bg@2x.png in Resources */,
 				2C3AF2D01AF470C800B66E32 /* btn_up_two.png in Resources */,
 				2C15E7471AF214E800142F36 /* textbox_devicename_1@2x.png in Resources */,
@@ -3314,6 +3347,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/thirdlib/libSmartLinkStaticLib",
+					"$(PROJECT_DIR)/lib/Source/WeChatSDK_1.5_OnlyIphone",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -3335,6 +3369,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/thirdlib/libSmartLinkStaticLib",
+					"$(PROJECT_DIR)/lib/Source/WeChatSDK_1.5_OnlyIphone",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
