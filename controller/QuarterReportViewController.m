@@ -539,9 +539,19 @@
     monthView.quaterTitle = sub1;
     monthView.currentQuaterNum = [sub2 intValue];
     monthView.delegate = self;
-    [UIView animateWithDuration:1.5 animations:^{
-        [[UIApplication sharedApplication].keyWindow addSubview:monthView];
-    }];
+    [[UIApplication sharedApplication].keyWindow addSubview:monthView];
+    
+    CABasicAnimation *theAnimation;
+    theAnimation=[CABasicAnimation animationWithKeyPath:@"transform.translation.y"];
+    theAnimation.delegate = self;
+    theAnimation.duration = 0.5;
+    theAnimation.repeatCount = 0;
+    theAnimation.removedOnCompletion = FALSE;
+    theAnimation.fillMode = kCAFillModeForwards;
+    theAnimation.autoreverses = NO;
+    theAnimation.fromValue = [NSNumber numberWithFloat:-[UIScreen mainScreen].bounds.size.height];
+    theAnimation.toValue = [NSNumber numberWithFloat:0];
+    [monthView.layer addAnimation:theAnimation forKey:@"animateLayer"];
 }
 
 - (NSString *)changeQuaterToMonth:(int)quater

@@ -240,6 +240,7 @@
 		2C7345EA1B78431D004D8AB3 /* sina.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7345E91B78431D004D8AB3 /* sina.png */; };
 		2C7345EC1B784324004D8AB3 /* weixin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7345EB1B784324004D8AB3 /* weixin.png */; };
 		2C7345EE1B78531D004D8AB3 /* bg_pic_tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7345ED1B78531D004D8AB3 /* bg_pic_tag@2x.png */; };
+		2C7345F11B787C2B004D8AB3 /* PNLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7345F01B787C2B004D8AB3 /* PNLineView.m */; };
 		2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */; };
 		2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5041AEB31F0004123D2 /* MGSwipeButton.m */; };
 		2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5061AEB31F0004123D2 /* MGSwipeTableCell.m */; };
@@ -865,6 +866,8 @@
 		2C7345E91B78431D004D8AB3 /* sina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sina.png; sourceTree = "<group>"; };
 		2C7345EB1B784324004D8AB3 /* weixin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weixin.png; sourceTree = "<group>"; };
 		2C7345ED1B78531D004D8AB3 /* bg_pic_tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_pic_tag@2x.png"; sourceTree = "<group>"; };
+		2C7345EF1B787C2B004D8AB3 /* PNLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLineView.h; sourceTree = "<group>"; };
+		2C7345F01B787C2B004D8AB3 /* PNLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineView.m; sourceTree = "<group>"; };
 		2C77D4FB1AEA9846004123D2 /* CheckDeviceStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckDeviceStatusAPI.h; path = API/CheckDeviceStatusAPI.h; sourceTree = "<group>"; };
 		2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckDeviceStatusAPI.m; path = API/CheckDeviceStatusAPI.m; sourceTree = "<group>"; };
 		2C77D5031AEB31F0004123D2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSwipeButton.h; path = lib/thirdlib/MGSwipeTableCell/MGSwipeButton.h; sourceTree = "<group>"; };
@@ -2140,6 +2143,8 @@
 				578065C01ADBA45F00769A1D /* PNBar.m */,
 				2C7319ED1B76EE49005A3EE4 /* PNBarNew.h */,
 				2C7319EE1B76EE49005A3EE4 /* PNBarNew.m */,
+				2C7345EF1B787C2B004D8AB3 /* PNLineView.h */,
+				2C7345F01B787C2B004D8AB3 /* PNLineView.m */,
 			);
 			name = CBChart;
 			path = lib/thirdlib/CBChart;
@@ -3069,6 +3074,7 @@
 				576B02461A9EB22C004DB418 /* BaseViewController.m in Sources */,
 				577086101ABBDF80004A2C07 /* GBPathImageView.m in Sources */,
 				2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */,
+				2C7345F11B787C2B004D8AB3 /* PNLineView.m in Sources */,
 				5764517B1AC6478D008E3526 /* SelectThemeCollectionViewCell.m in Sources */,
 				2C7319EC1B7650AA005A3EE4 /* SleepAnalisis.m in Sources */,
 				57063D2C1ABFDE7B00A61267 /* ImageUtil.m in Sources */,

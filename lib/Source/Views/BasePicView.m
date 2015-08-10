@@ -56,7 +56,7 @@
         _diagnoseChoice = [[LabelLine alloc]init];
         _diagnoseChoice.frame = CGRectMake(10, 0, 100, 40);
         _diagnoseChoice.text = @"建议";
-        _diagnoseChoice.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];;
+        _diagnoseChoice.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
         _diagnoseChoice.font = [UIFont systemFontOfSize:17];
         
     }

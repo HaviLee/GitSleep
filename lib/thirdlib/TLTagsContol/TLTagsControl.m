@@ -221,7 +221,7 @@
         
         UILabel *tagLabel = [[UILabel alloc] init];
         CGRect labelFrame = tagLabel.frame;
-        tagLabel.font = tagInputField_.font;
+        tagLabel.font = _tagFont ? _tagFont : tagInputField_.font;
         
         labelFrame.size.width = width + 16;
         labelFrame.size.height = tagInputField_.frame.size.height;
@@ -368,6 +368,11 @@
 
 - (void)setTags:(NSMutableArray *)tags {
     _tags = tags;
+}
+
+- (void)setTagFont:(UIFont *)tagFont
+{
+    _tagFont = tagFont;
 }
 
 - (void)setPlaceholder:(NSString *)tagPlaceholder {

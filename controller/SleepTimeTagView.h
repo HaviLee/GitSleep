@@ -15,5 +15,6 @@
 @property (nonatomic,strong) NSString *sleepYearMonthDayString;
 @property (nonatomic,strong) NSString *sleepTimeLongString;
 @property (nonatomic,strong) NSString *sleepNameLabelString;
+@property (nonatomic,assign) CGFloat grade;//百分比和24小时的
 
 @end

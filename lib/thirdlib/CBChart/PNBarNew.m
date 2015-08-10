@@ -25,7 +25,7 @@
         self.gradientLayer.colors = @[(__bridge id)[UIColor colorWithRed:0.000f green:0.855f blue:0.573f alpha:1.00f].CGColor,(__bridge id)[UIColor colorWithRed:0.200f green:0.443f blue:0.545f alpha:1.00f].CGColor];
         
         //设定颜色分割点
-        self.gradientLayer.locations = @[@(0.6f) ,@(1.0f)];
+        self.gradientLayer.locations = @[@(0.2f) ,@(1.0f)];
         self.gradientLayer.cornerRadius = 3;
         [self.layer addSublayer:self.gradientLayer];
     }

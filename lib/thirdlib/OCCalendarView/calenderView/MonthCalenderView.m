@@ -25,11 +25,11 @@
         [self.backView makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(0);
             make.right.equalTo(self).offset(0);
-            make.top.equalTo(self).offset(113);
+            make.top.equalTo(self).offset(64);
             make.height.equalTo(200);
         }];
     }
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor colorWithRed:0.616f green:0.616f blue:0.616f alpha:.50f];
     return self;
 }
 
@@ -37,8 +37,9 @@
 {
     if (!_backView) {
         _backView = [[AMBlurView alloc]init];
-        _backView.layer.cornerRadius = 5;
+        _backView.layer.cornerRadius = 1;
         _backView.layer.masksToBounds = YES;
+        _backView.blurTintColor = [UIColor colorWithRed:0.012f green:0.090f blue:0.196f alpha:1.00f];
     }
     return _backView;
 }
@@ -101,6 +102,23 @@
 }
 
 - (void)dismissView
+{
+    //    [self removeFromSuperview];
+    CABasicAnimation *theAnimation;
+    theAnimation=[CABasicAnimation animationWithKeyPath:@"transform.translation.y"];
+    theAnimation.delegate = self;
+    theAnimation.duration = 0.5;
+    theAnimation.repeatCount = 0;
+    theAnimation.removedOnCompletion = FALSE;
+    theAnimation.fillMode = kCAFillModeForwards;
+    theAnimation.autoreverses = NO;
+    theAnimation.fromValue = [NSNumber numberWithFloat:0];
+    theAnimation.toValue = [NSNumber numberWithFloat:-[UIScreen mainScreen].bounds.size.height];
+    theAnimation.delegate = self;
+    [self.layer addAnimation:theAnimation forKey:@"animateLayer"];
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     [self removeFromSuperview];
 }
