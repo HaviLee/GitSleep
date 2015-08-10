@@ -12,6 +12,7 @@
 #import "WeekCalenderView.h"
 #import "WeekReportView.h"
 #import "HaviGetNewClient.h"
+#import "ReportTableViewCell.h"
 
 @interface WeekReportViewController ()<SelectedWeek,UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 //切换月份
@@ -23,6 +24,8 @@
 @property (nonatomic,strong) NSDateFormatter *dateFormmatter;
 //
 @property (nonatomic,strong) JT3DScrollView *jScrollView;
+@property (nonatomic,strong) UITableView *reportTableView;
+
 @property (nonatomic,strong) NSArray *views;
 //
 @property (nonatomic,strong) UITableView *tableView1;
@@ -57,11 +60,9 @@
     [self createCalenderView];
     //创建表哥
     [self createChartView];
-    //
-    [self.view addSubview:self.jScrollView];
-    //
-    [self createSubButton];
-    //
+    [self.view addSubview:self.reportTableView];
+//    [self.view addSubview:self.jScrollView];
+//    [self createSubButton];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.65 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self getUserData];
     });
@@ -119,18 +120,19 @@
 {
     HaviLog(@"周报数据是%@",dic);
     self.reportData = dic;
-    int sleepLevel = [[dic objectForKey:@"SleepQuality"]intValue];
-    int averageHeart = [[dic objectForKey:@"AverageHeartRate"]intValue];
-    int heartBad = [[dic objectForKey:@"FastHeartRateTimes"]intValue] + [[dic objectForKey:@"SlowHeartRateTimes"]intValue];
-    int averageBreath = [[dic objectForKey:@"AverageRespiratoryRate"]intValue];
-    int breathBad = [[dic objectForKey:@"FastRespiratoryRateTimes"]intValue] + [[dic objectForKey:@"SlowRespiratoryRateTimes"]intValue];
-    self.arr2 = @[[NSString stringWithFormat:@"%@",[self changeNumToWord:sleepLevel]],[NSString stringWithFormat:@"%d次/分钟",averageHeart],[NSString stringWithFormat:@"%d次",heartBad],[NSString stringWithFormat:@"%d次/分钟",averageBreath],[NSString stringWithFormat:@"%d次",breathBad]];
+//    int sleepLevel = [[dic objectForKey:@"SleepQuality"]intValue];
+//    int averageHeart = [[dic objectForKey:@"AverageHeartRate"]intValue];
+//    int heartBad = [[dic objectForKey:@"FastHeartRateTimes"]intValue] + [[dic objectForKey:@"SlowHeartRateTimes"]intValue];
+//    int averageBreath = [[dic objectForKey:@"AverageRespiratoryRate"]intValue];
+//    int breathBad = [[dic objectForKey:@"FastRespiratoryRateTimes"]intValue] + [[dic objectForKey:@"SlowRespiratoryRateTimes"]intValue];
+//    self.arr2 = @[[NSString stringWithFormat:@"%@",[self changeNumToWord:sleepLevel]],[NSString stringWithFormat:@"%d次/分钟",averageHeart],[NSString stringWithFormat:@"%d次",heartBad],[NSString stringWithFormat:@"%d次/分钟",averageBreath],[NSString stringWithFormat:@"%d次",breathBad]];
+//    //
+//    [self.tableView1 reloadData];
+//    //
+//    self.suggestDic = (NSDictionary *)[[NSUserDefaults standardUserDefaults]objectForKey:[ NSString stringWithFormat:@"%@",[dic objectForKey:@"AssessmentCode"]]];
+//    [self.tableView2 reloadData];
     //
-    [self.tableView1 reloadData];
-    //
-    self.suggestDic = (NSDictionary *)[[NSUserDefaults standardUserDefaults]objectForKey:[ NSString stringWithFormat:@"%@",[dic objectForKey:@"AssessmentCode"]]];
-    [self.tableView2 reloadData];
-    //
+    [self.reportTableView reloadData];
     [self reloadReportChart:[self.reportData objectForKey:@"Data"]];
     
 }
@@ -316,6 +318,19 @@
 
 #pragma mark setter meathod
 
+- (UITableView *)reportTableView
+{
+    if (_reportTableView == nil) {
+        _reportTableView = [[UITableView alloc]initWithFrame:CGRectMake(20, self.view.frame.size.height -224-64, self.view.frame.size.width-40, 194) style:UITableViewStylePlain];
+        _reportTableView.backgroundColor = [UIColor clearColor];
+        _reportTableView.delegate = self;
+        _reportTableView.dataSource = self;
+        [_reportTableView setBackgroundView:self.backImage];
+        _reportTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _reportTableView.scrollEnabled = NO;
+    }
+    return _reportTableView;
+}
 
 - (NSMutableArray *)mutableArr
 {
@@ -639,9 +654,9 @@
 
 - (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([tableView isEqual:self.tableView1]) {
+    if ([tableView isEqual:self.reportTableView]) {
         
-        return 5;
+        return 7;
     }else{
         return 1;
     }
@@ -663,19 +678,43 @@
         
     }else{
         static NSString *cellIndentifier = @"cell2";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+        ReportTableViewCell *cell = (ReportTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
         if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+            cell = [[ReportTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
             
         }
-        cell.textLabel.numberOfLines = 0;
-        NSString *report = ([NSString stringWithFormat:@"%@",[self.suggestDic objectForKey:@"Suggestion"]].length) == 0 ? @"快躺到床上试试吧":[self.suggestDic objectForKey:@"Suggestion"];
-        if (!report) {
-            report = @"快躺到床上试试吧";
+        if (indexPath.row == 0) {
+            cell.cellFont = [UIFont systemFontOfSize:18];
+            cell.leftDataString = @"心率分析";
+            cell.rightDataString = @"呼吸分析";
+        }else if(indexPath.row == 1){
+            cell.cellFont = [UIFont systemFontOfSize:13];
+            cell.leftDataString = @"心率平均值";
+            cell.rightDataString = @"呼吸平均值";
+        }else if (indexPath.row == 2){
+            cell.cellFont = [UIFont systemFontOfSize:13];
+            cell.leftDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]];
+            cell.rightDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageRespiratoryRate"] intValue]];
+        }else if (indexPath.row == 3){
+            cell.cellFont = [UIFont systemFontOfSize:13];
+            cell.leftDataString = @"心率异常数";
+            cell.rightDataString = @"呼吸异常数";
+        }else if (indexPath.row == 4){
+            cell.cellFont = [UIFont systemFontOfSize:13];
+            cell.leftDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]];
+            cell.rightDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]];
+        }else if (indexPath.row == 5){
+            cell.cellFont = [UIFont systemFontOfSize:13];
+            cell.leftDataString = @"心率异常数高于";
+            cell.rightDataString = @"呼吸异常数高于";
+        }else if (indexPath.row == 6){
+            cell.cellFont = [UIFont systemFontOfSize:13];
+            cell.leftDataString = @"5%用户";
+            cell.rightDataString = @"10%用户";
         }
-        cell.textLabel.text = [NSString stringWithFormat:@"睡眠改进建议:\n%@",report];
+        
         cell.backgroundColor = [UIColor clearColor];
-        cell.textLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -684,8 +723,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([tableView isEqual:self.tableView1]) {
-        return self.tableView1.frame.size.height/5;
+    if ([tableView isEqual:self.reportTableView]) {
+        if (indexPath.row == 0) {
+            return 40;
+        }else{
+            return (self.reportTableView.frame.size.height-40)/6;
+        }
     }else{
         return self.jScrollView.frame.size.height;
     }
