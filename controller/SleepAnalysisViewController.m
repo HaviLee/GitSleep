@@ -35,14 +35,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self createNavWithTitle:@"睡眠分析" createMenuItem:^UIView *(int nIndex)
-     {
-         if (nIndex == 1)
-         {
-             return self.menuButton;
-         }
-         return nil;
-     }];
+    [self createClearBgNavWithTitle:@"睡眠分析" createMenuItem:^UIView *(int nIndex) {
+        if (nIndex == 1)
+        {
+            return self.menuButton;
+        }
+        return nil;
+    }];
     [self createCalenderView];
     [self createChartView];
     [self creatSubView];

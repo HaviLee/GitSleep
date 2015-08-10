@@ -16,6 +16,7 @@
 #import "GetSuggestionList.h"
 #import "Reachability.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import "WeiXinAPI.h"
 //
 #import "LoginContainerViewController.h"//架构重构
 #import "CenterViewController.h"//架构重构
@@ -342,12 +343,37 @@
     else if([resp isKindOfClass:[SendAuthResp class]])
     {
         SendAuthResp *temp = (SendAuthResp*)resp;
+        [WeiXinAPI getWeiXinInfoWith:temp.code parameters:nil finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"用户信息是%@",obj);
+        } failed:^(NSURLResponse *response, NSError *error) {
+            
+        }];
         
-        NSString *strTitle = [NSString stringWithFormat:@"Auth结果"];
-        NSString *strMsg = [NSString stringWithFormat:@"code:%@,state:%@,errcode:%d", temp.code, temp.state, temp.errCode];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+        /*
+        NSString *tockenUrl = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",@"wx7be2e0c9ebd9e161",@"8fc579120ceceae54cb43dc2a17f1d54",temp.code];
+        [WTRequestCenter getWithURL:tockenUrl parameters:nil finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            HaviLog(@"微信是%@",obj);
+            NSString *refreshTockenUrl = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=%@&grant_type=refresh_token&refresh_token=%@",@"wx7be2e0c9ebd9e161",[obj objectForKey:@"refresh_token"]];
+            
+            [WTRequestCenter getWithURL:refreshTockenUrl parameters:nil finished:^(NSURLResponse *response, NSData *data) {
+                NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"刷新tocken是%@",obj);
+                NSString *userInfoUrl = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@",[obj objectForKey:@"access_token"],[obj objectForKey:@"openid"]];
+                [WTRequestCenter getWithURL:userInfoUrl parameters:nil finished:^(NSURLResponse *response, NSData *data) {
+                    NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                    NSLog(@"用户信息是%@",obj);
+                } failed:^(NSURLResponse *response, NSError *error) {
+                    
+                }];
+            } failed:^(NSURLResponse *response, NSError *error) {
+                
+            }];
+        } failed:^(NSURLResponse *response, NSError *error) {
+            
+        }];
+         */
     }
     else if ([resp isKindOfClass:[AddCardToWXCardPackageResp class]])
     {

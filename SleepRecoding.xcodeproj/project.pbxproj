@@ -234,6 +234,12 @@
 		2C7345D71B776ECB004D8AB3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7345D61B776ECB004D8AB3 /* libz.dylib */; };
 		2C7345D91B776ED9004D8AB3 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7345D81B776ED9004D8AB3 /* libsqlite3.0.dylib */; };
 		2C7345DB1B776EE8004D8AB3 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7345DA1B776EE8004D8AB3 /* libc++.dylib */; };
+		2C7345E11B77A943004D8AB3 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7345E01B77A943004D8AB3 /* UserManager.m */; };
+		2C7345E41B7835DA004D8AB3 /* WeiXinAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7345E31B7835DA004D8AB3 /* WeiXinAPI.m */; };
+		2C7345E81B7841C2004D8AB3 /* qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7345E71B7841C2004D8AB3 /* qq.png */; };
+		2C7345EA1B78431D004D8AB3 /* sina.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7345E91B78431D004D8AB3 /* sina.png */; };
+		2C7345EC1B784324004D8AB3 /* weixin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7345EB1B784324004D8AB3 /* weixin.png */; };
+		2C7345EE1B78531D004D8AB3 /* bg_pic_tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7345ED1B78531D004D8AB3 /* bg_pic_tag@2x.png */; };
 		2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */; };
 		2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5041AEB31F0004123D2 /* MGSwipeButton.m */; };
 		2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5061AEB31F0004123D2 /* MGSwipeTableCell.m */; };
@@ -275,7 +281,6 @@
 		2C7D221D1AF1C9F70011A45C /* icon_friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22111AF1C9F70011A45C /* icon_friend.png */; };
 		2C7D221E1AF1C9F70011A45C /* icon_get_up_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22121AF1C9F70011A45C /* icon_get_up_0@2x.png */; };
 		2C7D221F1AF1C9F70011A45C /* icon_heart_rate_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22131AF1C9F70011A45C /* icon_heart_rate_0@2x.png */; };
-		2C7D22201AF1C9F70011A45C /* icon_sina.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22141AF1C9F70011A45C /* icon_sina.png */; };
 		2C7D22211AF1C9F70011A45C /* icon_turn_over_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22151AF1C9F70011A45C /* icon_turn_over_0@2x.png */; };
 		2C7D22221AF1C9F70011A45C /* icon_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22161AF1C9F70011A45C /* icon_wechat.png */; };
 		2C7D22231AF1C9F70011A45C /* pic_1136@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22171AF1C9F70011A45C /* pic_1136@2x.png */; };
@@ -852,6 +857,14 @@
 		2C7345D61B776ECB004D8AB3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2C7345D81B776ED9004D8AB3 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		2C7345DA1B776EE8004D8AB3 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		2C7345DF1B77A943004D8AB3 /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		2C7345E01B77A943004D8AB3 /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		2C7345E21B7835DA004D8AB3 /* WeiXinAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiXinAPI.h; sourceTree = "<group>"; };
+		2C7345E31B7835DA004D8AB3 /* WeiXinAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiXinAPI.m; sourceTree = "<group>"; };
+		2C7345E71B7841C2004D8AB3 /* qq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qq.png; sourceTree = "<group>"; };
+		2C7345E91B78431D004D8AB3 /* sina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sina.png; sourceTree = "<group>"; };
+		2C7345EB1B784324004D8AB3 /* weixin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weixin.png; sourceTree = "<group>"; };
+		2C7345ED1B78531D004D8AB3 /* bg_pic_tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_pic_tag@2x.png"; sourceTree = "<group>"; };
 		2C77D4FB1AEA9846004123D2 /* CheckDeviceStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckDeviceStatusAPI.h; path = API/CheckDeviceStatusAPI.h; sourceTree = "<group>"; };
 		2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckDeviceStatusAPI.m; path = API/CheckDeviceStatusAPI.m; sourceTree = "<group>"; };
 		2C77D5031AEB31F0004123D2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSwipeButton.h; path = lib/thirdlib/MGSwipeTableCell/MGSwipeButton.h; sourceTree = "<group>"; };
@@ -914,7 +927,6 @@
 		2C7D22111AF1C9F70011A45C /* icon_friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_friend.png; path = color0/icon_friend.png; sourceTree = "<group>"; };
 		2C7D22121AF1C9F70011A45C /* icon_get_up_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_get_up_0@2x.png"; path = "color0/icon_get_up_0@2x.png"; sourceTree = "<group>"; };
 		2C7D22131AF1C9F70011A45C /* icon_heart_rate_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_heart_rate_0@2x.png"; path = "color0/icon_heart_rate_0@2x.png"; sourceTree = "<group>"; };
-		2C7D22141AF1C9F70011A45C /* icon_sina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_sina.png; path = color0/icon_sina.png; sourceTree = "<group>"; };
 		2C7D22151AF1C9F70011A45C /* icon_turn_over_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_turn_over_0@2x.png"; path = "color0/icon_turn_over_0@2x.png"; sourceTree = "<group>"; };
 		2C7D22161AF1C9F70011A45C /* icon_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_wechat.png; path = color0/icon_wechat.png; sourceTree = "<group>"; };
 		2C7D22171AF1C9F70011A45C /* pic_1136@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pic_1136@2x.png"; path = "color0/pic_1136@2x.png"; sourceTree = "<group>"; };
@@ -1634,6 +1646,7 @@
 				2C7D21FD1AF1C6550011A45C /* wireframe.png */,
 				2C7319D61B759911005A3EE4 /* night_icon@2x.png */,
 				2C7319D81B75991A005A3EE4 /* day_icon@2x.png */,
+				2C7345ED1B78531D004D8AB3 /* bg_pic_tag@2x.png */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -1688,6 +1701,8 @@
 				2C4FCB121A8F56E800DCEEF3 /* AppDelegate.m */,
 				577062DE1AC2919900790F79 /* Gloable.h */,
 				577062DF1AC2919900790F79 /* Gloable.m */,
+				2C7345DF1B77A943004D8AB3 /* UserManager.h */,
+				2C7345E01B77A943004D8AB3 /* UserManager.m */,
 				2C4FCB1A1A8F56E800DCEEF3 /* Images.xcassets */,
 				2C4FCB1C1A8F56E800DCEEF3 /* LaunchScreen.xib */,
 				2C4FCB0D1A8F56E800DCEEF3 /* Supporting Files */,
@@ -1835,10 +1850,12 @@
 				2C7D220F1AF1C9F70011A45C /* btn_back_right@2x.png */,
 				2C7D22101AF1C9F70011A45C /* icon_breathe_0@2x.png */,
 				2C73197B1B7462C8005A3EE4 /* qq_share.png */,
+				2C7345E91B78431D004D8AB3 /* sina.png */,
+				2C7345EB1B784324004D8AB3 /* weixin.png */,
+				2C7345E71B7841C2004D8AB3 /* qq.png */,
 				2C7D22111AF1C9F70011A45C /* icon_friend.png */,
 				2C7D22121AF1C9F70011A45C /* icon_get_up_0@2x.png */,
 				2C7D22131AF1C9F70011A45C /* icon_heart_rate_0@2x.png */,
-				2C7D22141AF1C9F70011A45C /* icon_sina.png */,
 				2C7D22151AF1C9F70011A45C /* icon_turn_over_0@2x.png */,
 				2C7D22161AF1C9F70011A45C /* icon_wechat.png */,
 				2C7D22171AF1C9F70011A45C /* pic_1136@2x.png */,
@@ -2345,6 +2362,8 @@
 				5786814E1ADCEE1200E881A2 /* WTURLRequestSerialization.m */,
 				5786814F1ADCEE1200E881A2 /* WTURLSessionManager.h */,
 				578681501ADCEE1200E881A2 /* WTURLSessionManager.m */,
+				2C7345E21B7835DA004D8AB3 /* WeiXinAPI.h */,
+				2C7345E31B7835DA004D8AB3 /* WeiXinAPI.m */,
 			);
 			path = networking;
 			sourceTree = "<group>";
@@ -2850,6 +2869,7 @@
 				2C15E7691AF2150900142F36 /* breathe5_1@2x.png in Resources */,
 				2C4FCB1B1A8F56E800DCEEF3 /* Images.xcassets in Resources */,
 				2C7D22FF1AF1CA220011A45C /* heart_4_0.png in Resources */,
+				2C7345EC1B784324004D8AB3 /* weixin.png in Resources */,
 				2C15E7071AF214E800142F36 /* btn_share_1@2x.png in Resources */,
 				2C7D22B21AF1CA050011A45C /* icon_data_analysis_0@2x.png in Resources */,
 				2C7D231D1AF1CA450011A45C /* get_up3_0@2x.png in Resources */,
@@ -2870,6 +2890,7 @@
 				2C7D22E71AF1CA050011A45C /* textbox_hollow_0@2x.png in Resources */,
 				2C7D22C21AF1CA050011A45C /* line_abnormal_0@2x.png in Resources */,
 				2C7D23101AF1CA300011A45C /* breathe5_0@2x.png in Resources */,
+				2C7345EA1B78431D004D8AB3 /* sina.png in Resources */,
 				2C7D22C11AF1CA050011A45C /* line_640_0@2x.png in Resources */,
 				2C7D22BC1AF1CA050011A45C /* icon_setting_0@2x.png in Resources */,
 				2C15E7881AF2152100142F36 /* heart_2_1.png in Resources */,
@@ -2938,6 +2959,7 @@
 				2C7D21F01AF1C3C30011A45C /* pic_bg_night@2x.png in Resources */,
 				2C7D23031AF1CA220011A45C /* heart_8_0.png in Resources */,
 				2C7D22C81AF1CA050011A45C /* menology_0@2x.png in Resources */,
+				2C7345E81B7841C2004D8AB3 /* qq.png in Resources */,
 				2C7D229A1AF1CA050011A45C /* btn_fatal_exception_0@2x.png in Resources */,
 				2C7D229E1AF1CA050011A45C /* btn_next_t_0@2x.png in Resources */,
 				2C15E7331AF214E800142F36 /* pic_2208_1.png in Resources */,
@@ -2966,10 +2988,10 @@
 				2C15E7A21AF2476200142F36 /* pic_Prompt@2x.png in Resources */,
 				2C15E7311AF214E800142F36 /* pic_1136_1.png in Resources */,
 				2C15E73A1AF214E800142F36 /* pic_diagnostic_deep_1@2x.png in Resources */,
+				2C7345EE1B78531D004D8AB3 /* bg_pic_tag@2x.png in Resources */,
 				2C15E78E1AF2152100142F36 /* heart_8_1.png in Resources */,
 				2C7D22911AF1CA050011A45C /* birthday_0@2x.png in Resources */,
 				2C7D229C1AF1CA050011A45C /* btn_get_back_0@2x.png in Resources */,
-				2C7D22201AF1C9F70011A45C /* icon_sina.png in Resources */,
 				2C7D23011AF1CA220011A45C /* heart_6_0.png in Resources */,
 				2C7D22931AF1CA050011A45C /* btn_abnormal_0@2x.png in Resources */,
 				2C7D22251AF1C9F70011A45C /* pic_on_line_0@2x.png in Resources */,
@@ -3077,6 +3099,7 @@
 				572AA9851AC29A5700DED1D9 /* THPinInputCircleView.m in Sources */,
 				2C5E5C231B12B3F200123CC4 /* RESideMenu.m in Sources */,
 				2C0912BC1B4E591A00BEE2FF /* Toast+UIView.m in Sources */,
+				2C7345E11B77A943004D8AB3 /* UserManager.m in Sources */,
 				2C1F1FC41AD8B7E700393E04 /* QuaterCalenderView.m in Sources */,
 				2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */,
 				2C1F1FEA1ADBF38F00393E04 /* WQCalendarLogic.m in Sources */,
@@ -3168,6 +3191,7 @@
 				572AA9871AC29A5700DED1D9 /* THPinNumPadView.m in Sources */,
 				2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */,
 				2C1F1FC71AD95CA600393E04 /* MonthReportTableViewCell.m in Sources */,
+				2C7345E41B7835DA004D8AB3 /* WeiXinAPI.m in Sources */,
 				2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */,
 				572AA9861AC29A5700DED1D9 /* THPinNumButton.m in Sources */,
 				576A76751AC1337600BE8206 /* ShowAlertView.m in Sources */,

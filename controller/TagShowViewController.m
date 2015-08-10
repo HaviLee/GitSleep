@@ -26,17 +26,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self createNavWithTitle:@"睡眠报告" createMenuItem:^UIView *(int nIndex)
+    [self createClearBgNavWithTitle:@"睡眠报告" andTitleColor:[UIColor whiteColor] createMenuItem:^UIView *(int nIndex)
      {
          if (nIndex == 1)
          {
              [self.leftButton addTarget:self action:@selector(backToView:) forControlEvents:UIControlEventTouchUpInside];
+             [self.leftButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",1]] forState:UIControlStateNormal];
              return self.leftButton;
 
          }
          return nil;
      }];
-//    self.bgImageView.image = nil;
+    self.bgImageView.image = [UIImage imageNamed:@"bg_pic_tag"];
     [self setSleepTag];
     [self setSleepTagContraints];
     
@@ -92,7 +93,7 @@
 {
     if (_beforeSleepTag==nil) {
         _beforeSleepTag = [[TLTagsControl alloc]initWithFrame:CGRectMake(0, 100, 300, 30) andTags:self.beforeListArr withTagsControlMode:TLTagsControlModeList];
-        _beforeSleepTag.tagsBackgroundColor = [UIColor colorWithRed:0.278f green:0.624f blue:0.616f alpha:1.00f];
+        _beforeSleepTag.tagsBackgroundColor = [UIColor colorWithRed:0.212f green:0.498f blue:0.553f alpha:1.00f];
         _beforeSleepTag.tagsTextColor = [UIColor lightGrayColor];
         
     }
@@ -103,7 +104,7 @@
 {
     if (_afterSleepTag==nil) {
         _afterSleepTag = [[TLTagsControl alloc]initWithFrame:CGRectMake(0, 100, 300, 30) andTags:self.afterListArr withTagsControlMode:TLTagsControlModeList];
-        _afterSleepTag.tagsBackgroundColor = [UIColor colorWithRed:0.278f green:0.624f blue:0.616f alpha:1.00f];
+        _afterSleepTag.tagsBackgroundColor = [UIColor colorWithRed:0.114f green:0.847f blue:0.553f alpha:1.00f];
         _afterSleepTag.tagsTextColor = [UIColor lightGrayColor];
     }
     return _afterSleepTag;
@@ -132,7 +133,7 @@
     if (_beforeSleepLabel==nil) {
         _beforeSleepLabel = [[UILabel alloc]init];
         _beforeSleepLabel.text = @"睡前报告";
-        _beforeSleepLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
+        _beforeSleepLabel.textColor = [UIColor colorWithRed:0.247f green:0.369f blue:0.553f alpha:1.00f];
     }
     return _beforeSleepLabel;
 }
@@ -142,7 +143,7 @@
     if (_afterSleepLabel == nil) {
         _afterSleepLabel = [[UILabel alloc]init];
         _afterSleepLabel.text = @"睡眠报告";
-        _afterSleepLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
+        _afterSleepLabel.textColor = [UIColor colorWithRed:0.106f green:0.851f blue:0.557f alpha:1.00f];
     }
     return _afterSleepLabel;
 }

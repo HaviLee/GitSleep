@@ -25,4 +25,12 @@ BOOL isUserDefaultTime = NO;
 
 int selectedThemeIndex = 0;
 
+NSString *userLoginUserId = nil;
+NSString *userAccessToken = nil;
+
+NSString *thirdPartyLogoutUserId = nil;
+NSString *thirdPartyLogoutToken = nil;
+NSString *thirdPartyLogoutImei = nil;
+NSString *thirdPartyLogoutPlatform = nil;
+
 

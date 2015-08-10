@@ -78,6 +78,7 @@
 - (void)createNavWithTitle:(NSString *)szTitle createMenuItem:(UIView *(^)(int nIndex))menuItem;
 //创建透明背景的
 - (void)createClearBgNavWithTitle:(NSString *)szTitle createMenuItem:(UIView *(^)(int nIndex))menuItem;
+- (void)createClearBgNavWithTitle:(NSString *)szTitle andTitleColor:(UIColor *)color createMenuItem:(UIView *(^)(int nIndex))menuItem;
 - (UIColor*) colorWithHex:(NSInteger)hexValue alpha:(CGFloat)alphaValue;
 //进行日期时区的转换
 - (NSDate *)getNowDateFromatAnDate:(NSDate *)anyDate;

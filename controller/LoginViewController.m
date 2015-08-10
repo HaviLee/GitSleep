@@ -208,11 +208,11 @@
     UIButton *weixinButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:weixinButton];
     [weixinButton addTarget:self action:@selector(weixinButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    [weixinButton setBackgroundImage:[UIImage imageNamed:@"icon_friend"] forState:UIControlStateNormal];
+    [weixinButton setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
     [weixinButton makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.centerX);
         make.height.equalTo(weixinButton.width);
-        make.height.equalTo(40);
+        make.height.equalTo(60);
         make.top.equalTo(thirdLoginLabel.bottom).offset(10);
     }];
     
@@ -221,11 +221,11 @@
     [self.view addSubview:qqButton];
     [qqButton addTarget:self action:@selector(qqButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     float centerfriend = self.view.frame.size.width/4;
-    [qqButton setBackgroundImage:[UIImage imageNamed:@"qq_share"] forState:UIControlStateNormal];
+    [qqButton setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
     [qqButton makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weixinButton.centerY);
         make.height.equalTo(qqButton.width);
-        make.height.equalTo(40);
+        make.height.equalTo(60);
         make.centerX.equalTo(self.view.centerX).offset(-centerfriend);
         
     }];
@@ -233,11 +233,11 @@
     UIButton *sinaButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [sinaButton addTarget:self action:@selector(sinaButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sinaButton];
-    [sinaButton setBackgroundImage:[UIImage imageNamed:@"icon_sina"] forState:UIControlStateNormal];
+    [sinaButton setBackgroundImage:[UIImage imageNamed:@"sina"] forState:UIControlStateNormal];
     [sinaButton makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weixinButton.centerY);
         make.height.equalTo(sinaButton.width);
-        make.height.equalTo(40);
+        make.height.equalTo(60);
         make.centerX.equalTo(self.view.centerX).offset(centerfriend);
     }];
     

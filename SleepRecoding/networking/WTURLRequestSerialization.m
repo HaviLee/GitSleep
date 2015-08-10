@@ -316,6 +316,26 @@ static NSString *defaultUserAgentString = nil;
     return request;
 }
 
+- (NSMutableURLRequest *)requestWithMethod:(NSString *)method
+                                 URLString:(NSString *)URLString
+                                parameters:(id)parameters
+                                     error:(NSError *__autoreleasing *)error
+{
+    assert(method!=nil);
+    assert(URLString!=nil);
+    NSURL *url = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:_timeoutInterval];
+    request.HTTPMethod = method;
+    if (parameters) {
+        NSData *data1 = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+        [request setHTTPBody:data1];
+        
+    }
+    return request;
+}
+
+
 - (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
                                withParameters:(id)parameters
                                         error:(NSError *__autoreleasing *)error

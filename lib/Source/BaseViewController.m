@@ -309,7 +309,7 @@
     
     if (szTitle != nil)
     {
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_clearNavView.frame.size.width - 200)/2, (_navView.frame.size.height - 40)/2, 200, 40)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_clearNavView.frame.size.width - 200)/2, 0, 200, 40)];
         [titleLabel setText:szTitle];
         titleLabel.tag = 2001;
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -331,6 +331,44 @@
         [_clearNavView addSubview:item2];
     }
 }
+
+- (void)createClearBgNavWithTitle:(NSString *)szTitle andTitleColor:(UIColor *)color createMenuItem:(UIView *(^)(int nIndex))menuItem
+{
+    UIImageView *navIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, _nSpaceNavY, self.view.frame.size.width, 64-_nSpaceNavY)];
+    navIV.tag = 2000;
+    [self.view addSubview:navIV];
+    
+    /* { 导航条 } */
+    _clearNavView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, StatusbarSize, self.view.frame.size.width, 44.f)];
+    ((UIImageView *)_navView).backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_clearNavView];
+    _clearNavView.userInteractionEnabled = YES;
+    
+    if (szTitle != nil)
+    {
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_clearNavView.frame.size.width - 200)/2, 0, 200, 40)];
+        [titleLabel setText:szTitle];
+        titleLabel.tag = 2001;
+        [titleLabel setTextAlignment:NSTextAlignmentCenter];
+        [titleLabel setTextColor:color];
+        [titleLabel setFont:DefaultWordFont];
+        [titleLabel setBackgroundColor:[UIColor clearColor]];
+        [_clearNavView addSubview:titleLabel];
+    }
+    
+    UIView *item1 = menuItem(0);
+    if (item1 != nil)
+    {
+        [_clearNavView addSubview:item1];
+    }
+    UIView *item2 = menuItem(1);
+    if (item2 != nil)
+    {
+        _clearRightV = item2;
+        [_clearNavView addSubview:item2];
+    }
+}
+
 
 - (void)addObserver
 {

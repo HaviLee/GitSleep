@@ -115,7 +115,7 @@
             make.left.equalTo(self).offset(20);
             make.right.equalTo(self).offset(-40);
             make.top.equalTo(buttonType2.bottom).offset(10);
-            make.height.equalTo(20);
+            make.height.equalTo(30);
         }];
         [buttonType4 setTitle:@"睡眠分析" forState:UIControlStateNormal];
         [buttonType4 setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"sleep_analysis_textbox_%d",selectedThemeIndex]] forState:UIControlStateNormal];
