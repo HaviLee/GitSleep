@@ -69,10 +69,15 @@
  *  登录成功的noti
  */
 //第三方appkey
+#define WXPlatform @"wx9.com"
+#define SinaPlatform @"sina.com"
+#define TXPlatform @"qq.com"
 #define WXAPPKey @"wx7be2e0c9ebd9e161"
 #define WXAPPSecret @"8fc579120ceceae54cb43dc2a17f1d54"
 
 #define LoginSuccessedNoti @"LoginSuccessedNoti"
+#define ShowPhoneInputViewNoti  @"ShowPhoneInputViewNoti"
+#define ThirdGetPhoneSuccessedNoti  @"ThirdGetPhoneSuccessed"
 //四个界面noti
 #define HeartViewNoti   @"HeartViewNoti"
 #define BreathViewNoti  @"BreathViewNoti"

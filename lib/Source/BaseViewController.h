@@ -87,5 +87,5 @@
 + (BOOL)isNetworkExist;
 
 - (NSDate*)getNowDate;
-
+- (void)keyboardWillShow:(NSNotification *)notification;
 @end

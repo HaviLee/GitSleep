@@ -271,7 +271,7 @@
     }
     SHPutClient *client = [SHPutClient shareInstance];
     NSDictionary *dic = @{
-                          @"UserID": GloableUserId, //关键字，必须传递
+                          @"UserID": thirdPartyLoginUserId, //关键字，必须传递
                           @"UserName": self.nameTextField.text, //真实姓名
                           @"Birthday": self.birthteTextField.text, //生日
                           @"Gender": self.sexTextField.text, //性别
@@ -701,7 +701,7 @@
     [HaviAnimationView animationMoveUp:self.iconImageView1 duration:1.8];
 //    [self uploadImage:image andTitle:@"li"];
 //    [self uploadImage:image andTitle:@"上传icon"];
-    NSString *string = [NSString stringWithFormat:@"http://webservice.meddo99.com:9000/v1/file/UploadFile/%@/header",GloableUserId];
+    NSString *string = [NSString stringWithFormat:@"http://webservice.meddo99.com:9000/v1/file/UploadFile/%@/header",thirdPartyLoginUserId];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self postRequestWithURL:string postParems:@{@"AccessToken":@"123456789"} picFilePath:@"li" picFileName:@"13122785292" withHeader:nil andData:[self calculateIconImage:image]];

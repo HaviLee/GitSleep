@@ -242,6 +242,9 @@
 		2C7345EE1B78531D004D8AB3 /* bg_pic_tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7345ED1B78531D004D8AB3 /* bg_pic_tag@2x.png */; };
 		2C7345F11B787C2B004D8AB3 /* PNLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7345F01B787C2B004D8AB3 /* PNLineView.m */; };
 		2C7345F41B789859004D8AB3 /* ReportTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7345F31B789859004D8AB3 /* ReportTableViewCell.m */; };
+		2C7345F71B79894F004D8AB3 /* ThirdRegisterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7345F61B79894F004D8AB3 /* ThirdRegisterAPI.m */; };
+		2C7345FA1B79C33C004D8AB3 /* CheckUserIsRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7345F91B79C33C004D8AB3 /* CheckUserIsRegister.m */; };
+		2C7345FD1B79C882004D8AB3 /* RegisterPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7345FC1B79C882004D8AB3 /* RegisterPhoneViewController.m */; };
 		2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */; };
 		2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5041AEB31F0004123D2 /* MGSwipeButton.m */; };
 		2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D5061AEB31F0004123D2 /* MGSwipeTableCell.m */; };
@@ -871,6 +874,12 @@
 		2C7345F01B787C2B004D8AB3 /* PNLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineView.m; sourceTree = "<group>"; };
 		2C7345F21B789859004D8AB3 /* ReportTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReportTableViewCell.h; path = controller/ReportTableViewCell.h; sourceTree = "<group>"; };
 		2C7345F31B789859004D8AB3 /* ReportTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReportTableViewCell.m; path = controller/ReportTableViewCell.m; sourceTree = "<group>"; };
+		2C7345F51B79894F004D8AB3 /* ThirdRegisterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThirdRegisterAPI.h; path = API/ThirdRegisterAPI.h; sourceTree = "<group>"; };
+		2C7345F61B79894F004D8AB3 /* ThirdRegisterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThirdRegisterAPI.m; path = API/ThirdRegisterAPI.m; sourceTree = "<group>"; };
+		2C7345F81B79C33C004D8AB3 /* CheckUserIsRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckUserIsRegister.h; path = API/CheckUserIsRegister.h; sourceTree = "<group>"; };
+		2C7345F91B79C33C004D8AB3 /* CheckUserIsRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckUserIsRegister.m; path = API/CheckUserIsRegister.m; sourceTree = "<group>"; };
+		2C7345FB1B79C882004D8AB3 /* RegisterPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterPhoneViewController.h; path = controller/RegisterPhoneViewController.h; sourceTree = "<group>"; };
+		2C7345FC1B79C882004D8AB3 /* RegisterPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterPhoneViewController.m; path = controller/RegisterPhoneViewController.m; sourceTree = "<group>"; };
 		2C77D4FB1AEA9846004123D2 /* CheckDeviceStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckDeviceStatusAPI.h; path = API/CheckDeviceStatusAPI.h; sourceTree = "<group>"; };
 		2C77D4FC1AEA9846004123D2 /* CheckDeviceStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckDeviceStatusAPI.m; path = API/CheckDeviceStatusAPI.m; sourceTree = "<group>"; };
 		2C77D5031AEB31F0004123D2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGSwipeButton.h; path = lib/thirdlib/MGSwipeTableCell/MGSwipeButton.h; sourceTree = "<group>"; };
@@ -2180,6 +2189,8 @@
 			children = (
 				5764CB121AB6B2C2002A0B85 /* LoginViewController.h */,
 				5764CB131AB6B2C2002A0B85 /* LoginViewController.m */,
+				2C7345FB1B79C882004D8AB3 /* RegisterPhoneViewController.h */,
+				2C7345FC1B79C882004D8AB3 /* RegisterPhoneViewController.m */,
 				57F1D1441AB822C900B5B0D1 /* RegisterViewController.h */,
 				57F1D1451AB822C900B5B0D1 /* RegisterViewController.m */,
 				5759E35A1ABA67A700E51690 /* GetCodeViewController.h */,
@@ -2354,6 +2365,10 @@
 				2C77D5221AED13EF004123D2 /* GetUserDefaultDataAPI.m */,
 				2CCDE2C11AF8A7FC00CAE9CB /* QueryDataCacheAPI.h */,
 				2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */,
+				2C7345F51B79894F004D8AB3 /* ThirdRegisterAPI.h */,
+				2C7345F61B79894F004D8AB3 /* ThirdRegisterAPI.m */,
+				2C7345F81B79C33C004D8AB3 /* CheckUserIsRegister.h */,
+				2C7345F91B79C33C004D8AB3 /* CheckUserIsRegister.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -3071,6 +3086,7 @@
 				2C435E661AD0D8FA003B1604 /* ToggleView.m in Sources */,
 				5777E6921AD76A2F00A7C6C4 /* MonthCalenderView.m in Sources */,
 				577120061AD5022800508C5C /* HaviButton.m in Sources */,
+				2C7345FA1B79C33C004D8AB3 /* CheckUserIsRegister.m in Sources */,
 				2C7319D51B759248005A3EE4 /* NightTimeView.m in Sources */,
 				2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */,
 				2C77D53B1AEF4E5D004123D2 /* TurnRoundViewController.m in Sources */,
@@ -3114,6 +3130,7 @@
 				2C1F1FC41AD8B7E700393E04 /* QuaterCalenderView.m in Sources */,
 				2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */,
 				2C1F1FEA1ADBF38F00393E04 /* WQCalendarLogic.m in Sources */,
+				2C7345F71B79894F004D8AB3 /* ThirdRegisterAPI.m in Sources */,
 				2C1AD7191AAAE74A00655A5B /* ScaleAnimation.m in Sources */,
 				5763BAB91AA1665A00EFECD7 /* UserInfoViewController.m in Sources */,
 				2C8F7BB61AF3747700E56513 /* JTCalendar.m in Sources */,
@@ -3134,6 +3151,7 @@
 				2C77D5351AEF4E36004123D2 /* BreathViewController.m in Sources */,
 				572AA9881AC29A5700DED1D9 /* THPinView.m in Sources */,
 				578681511ADCEE1200E881A2 /* WTRequestCenter.m in Sources */,
+				2C7345FD1B79C882004D8AB3 /* RegisterPhoneViewController.m in Sources */,
 				2C1F1FEC1ADBF38F00393E04 /* WQCalendarView.m in Sources */,
 				2C3AF2BD1AF4622A00B66E32 /* TodayLeaveViewController.m in Sources */,
 				2C1AD71A1AAAE74A00655A5B /* ShuffleAnimation.m in Sources */,

@@ -108,7 +108,7 @@
 #pragma mark 请求数据
 - (void)getUserDeviceList
 {
-    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",GloableUserId];
+    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",thirdPartyLoginUserId];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -256,7 +256,7 @@
                              @"AccessToken":@"123456789"
                              };
     NSDictionary *para = @{
-                           @"UserID":GloableUserId,
+                           @"UserID":thirdPartyLoginUserId,
                            @"UUID": UUID,
                            };
     ChangeUUIDAPI *client = [ChangeUUIDAPI shareInstance];
@@ -301,7 +301,7 @@
                              @"AccessToken":@"123456789"
                              };
     NSDictionary *para = @{
-                           @"UserID":GloableUserId,
+                           @"UserID":thirdPartyLoginUserId,
                            @"UUID": UUID,
                            };
     [WTRequestCenter putWithURL:urlString header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {
@@ -333,7 +333,7 @@
                              @"AccessToken":@"123456789"
                              };
     NSDictionary *para = @{
-                           @"UserID":GloableUserId,
+                           @"UserID":thirdPartyLoginUserId,
                            @"UUID": UUID,
                            };
     [WTRequestCenter putWithURL:urlString header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {

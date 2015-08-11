@@ -118,7 +118,7 @@
     //获取用户相关联的设备uuid
     if ([HardWareUUID isEqualToString:@""]) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        [self getDeviceStatusWithUserNewAPI:GloableUserId];
+        [self getDeviceStatusWithUserNewAPI:thirdPartyLoginUserId];
     }else {
         
 //        [self checkDeviceStatus];
@@ -129,7 +129,7 @@
 
 - (void)getDeviceStatusWithUserNewAPI:(NSString *)userID
 {
-    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",GloableUserId];
+    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",thirdPartyLoginUserId];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -346,7 +346,7 @@
 - (void)getDeviceStatusWithUserId:(NSString *)userId
 {
     
-    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",GloableUserId];
+    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",thirdPartyLoginUserId];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };

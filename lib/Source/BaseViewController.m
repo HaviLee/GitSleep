@@ -770,7 +770,7 @@
      */
     
     NSDictionary *userInfo = [notification userInfo];
-    [self adjustTextViewByKeyboardState:YES keyboardInfo:userInfo];
+//    [self adjustTextViewByKeyboardState:YES keyboardInfo:userInfo];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -779,17 +779,17 @@
      Restore the size of the text view (fill self's view).
      Animate the resize so that it's in sync with the disappearance of the keyboard.
      */
-    if(!_keybordView){
-        return;
-    }
-    //一个bool值判断这个
-    mIsShowKeyboard = NO;
-    [UIView beginAnimations:nil context:nil];
-    //设定动画持续时间
-    [UIView setAnimationDuration:0.3];
-    _keybordView.frame = mRectkeybordview;
-    //参数设置完成之后，才开始进行动画效果，
-    [UIView commitAnimations];
+//    if(!_keybordView){
+//        return;
+//    }
+//    //一个bool值判断这个
+//    mIsShowKeyboard = NO;
+//    [UIView beginAnimations:nil context:nil];
+//    //设定动画持续时间
+//    [UIView setAnimationDuration:0.3];
+//    _keybordView.frame = mRectkeybordview;
+//    //参数设置完成之后，才开始进行动画效果，
+//    [UIView commitAnimations];
     
 }
 

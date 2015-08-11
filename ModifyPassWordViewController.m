@@ -131,7 +131,7 @@
     [MMProgressHUD showWithStatus:@"提交中..."];
     SHPutClient *client = [SHPutClient shareInstance];
     NSDictionary *dic = @{
-                          @"UserID": GloableUserId, //关键字，必须传递
+                          @"UserID": thirdPartyLoginUserId, //关键字，必须传递
                           @"Password": self.changeTextFieldPass.text,
                           @"OldPassword":self.oldTextFieldPass.text,//密码
                           };

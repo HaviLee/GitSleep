@@ -316,7 +316,7 @@
                              @"AccessToken":@"123456789"
                              };
     NSDictionary *para = @{
-                           @"UserID":GloableUserId,
+                           @"UserID":thirdPartyLoginUserId,
                            @"UUID": self.barTextfield.text,
                            @"Description":self.deviceName,
                            };
@@ -346,7 +346,7 @@
                              @"AccessToken":@"123456789"
                              };
     NSDictionary *para = @{
-                           @"UserID":GloableUserId,
+                           @"UserID":thirdPartyLoginUserId,
                            @"UUID": UUID,
                            };
     ActiveDeviceAPI *client = [ActiveDeviceAPI shareInstance];

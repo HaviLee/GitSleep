@@ -121,7 +121,7 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    [client downloadImage:header andImageId:GloableUserId];
+    [client downloadImage:header andImageId:thirdPartyLoginUserId];
     if ([client cacheJson]) {
         NSDictionary *json = [client cacheJson];
         HaviLog(@"json = %@", json);
@@ -154,7 +154,7 @@
         [client stop];
     }
     NSDictionary *dic = @{
-                          @"UserId": GloableUserId, //手机号码
+                          @"UserId": thirdPartyLoginUserId, //手机号码
                           };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"

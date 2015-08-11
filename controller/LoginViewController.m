@@ -22,6 +22,7 @@
 #import "GetInavlideCodeApi.h"
 #import "SHPutClient.h"
 #import "GetDeviceStatusAPI.h"
+#import "RegisterPhoneViewController.h"
 //
 #import "WXApi.h"
 
@@ -33,6 +34,7 @@
 
 @property (nonatomic,strong)  NSString *cellPhone;
 @property (assign,nonatomic)  int forgetPassWord;
+@property (nonatomic,strong) RegisterPhoneViewController *phoneView;
 @end
 
 @implementation LoginViewController
@@ -40,9 +42,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.keybordView = self.view;
+    //接受消息，弹出输入电话号码
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showPhoneInputView) name:ShowPhoneInputViewNoti object:nil];
     // Do any additional setup after loading the view.
-//    logo
-//    self.bgImageView.image = [UIImage imageNamed:@"pic_login_bg"];
     int picIndex = [QHConfiguredObj defaultConfigure].nThemeIndex;
     NSString *imageName = [NSString stringWithFormat:@"icon_logo_login_%d",picIndex];
     UIImageView *logoImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
@@ -253,6 +255,23 @@
 
 }
 
+- (void)showPhoneInputView
+{
+    self.phoneView = [[RegisterPhoneViewController alloc]init];
+    [self.view addSubview:self.phoneView.view];
+    CABasicAnimation *theAnimation;
+    theAnimation=[CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
+    theAnimation.delegate = self;
+    theAnimation.duration = 0.4;
+    theAnimation.repeatCount = 0;
+    theAnimation.removedOnCompletion = FALSE;
+    theAnimation.fillMode = kCAFillModeForwards;
+    theAnimation.autoreverses = NO;
+    theAnimation.fromValue = [NSNumber numberWithFloat:[UIScreen mainScreen].bounds.size.width];
+    theAnimation.toValue = [NSNumber numberWithFloat:0];
+    [self.phoneView.view.layer addAnimation:theAnimation forKey:@"animateLayer"];
+}
+
 //userbutton taped
 - (void)weixinButtonTaped:(UIButton *)sender
 {
@@ -322,7 +341,7 @@
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             NSString *userId = [resposeDic objectForKey:@"UserID"];
-            GloableUserId = userId;
+            thirdPartyLoginUserId = userId;
             [[NSUserDefaults standardUserDefaults]setObject:self.nameText.text forKey:@"userName"];
             [[NSUserDefaults standardUserDefaults]synchronize];
             [[NSUserDefaults standardUserDefaults]setObject:self.passWordText.text forKey:@"userPassword"];
@@ -496,12 +515,13 @@
         self.keybordheight = height;
         [textField setReturnKeyType:UIReturnKeyNext];
         return YES;
-    }else{
+    }else if([textField isEqual:self.passWordText]){
         int height = self.view.bounds.size.height/2 + 108;
         self.keybordheight = height;
         [textField setReturnKeyType:UIReturnKeyDone];
         return YES;
     }
+    return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -521,6 +541,18 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     HaviLog(@"进行");
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if ([UserManager IsUserLogged]) {
+        [MMProgressHUD showWithStatus:@"登录中..."];
+        [MMProgressHUD dismissAfterDelay:1];
+        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
+            self.loginButtonClicked(1);
+        }];
+    }
 }
 
 

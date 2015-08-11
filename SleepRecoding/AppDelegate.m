@@ -17,11 +17,14 @@
 #import "Reachability.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import "WeiXinAPI.h"
+#import "ThirdRegisterAPI.h"
+#import "CheckUserIsRegister.h"
 //
 #import "LoginContainerViewController.h"//架构重构
 #import "CenterViewController.h"//架构重构
 @interface AppDelegate ()<WXApiDelegate>
 @property (nonatomic,strong) LoginContainerViewController *loginView;
+@property (nonatomic,strong) NSDictionary *ThirdPlatformInfoDic;
 @end
 
 @implementation AppDelegate
@@ -54,7 +57,7 @@
     self.udpController = [[UDPController alloc]init];
     //网络配置
     YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
-    config.baseUrl = @"http://webservice.meddo99.com:9000/";
+    config.baseUrl = @"http://webservice.meddo99.com:9001/";
 //    config.baseUrl = @"http://sdk4report.eucp.b2m.cn:8080/";
     /*
      设置状态栏的字体颜色
@@ -70,6 +73,7 @@
     self.window.rootViewController = navi;
      */
     [self getSuggestionList];
+    [self setThirdLoginNoti];
     //监听网络
     [self setWifiNotification];
     //默认注册一个不开启睡眠时间设置
@@ -82,6 +86,9 @@
         isUserDefaultTime = YES;
     }
 //    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]];
+    if ([UserManager IsUserLogged]) {
+        [UserManager GetUserObj];
+    }
     self.centerViewController = [[CenterViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.centerViewController];
     LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
@@ -110,6 +117,11 @@
     [self setLoginView];
     
     return YES;
+}
+
+- (void)setThirdLoginNoti
+{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(thirdUserPhoneNoti:) name:ThirdGetPhoneSuccessedNoti object:nil];
 }
 
 //设置登录界面。
@@ -345,35 +357,14 @@
         SendAuthResp *temp = (SendAuthResp*)resp;
         [WeiXinAPI getWeiXinInfoWith:temp.code parameters:nil finished:^(NSURLResponse *response, NSData *data) {
             NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            //第三方登录
+            self.ThirdPlatformInfoDic = obj;
+            [self checkUseridIsRegister:obj andPlatform:WXPlatform];
             NSLog(@"用户信息是%@",obj);
         } failed:^(NSURLResponse *response, NSError *error) {
             
         }];
         
-        /*
-        NSString *tockenUrl = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",@"wx7be2e0c9ebd9e161",@"8fc579120ceceae54cb43dc2a17f1d54",temp.code];
-        [WTRequestCenter getWithURL:tockenUrl parameters:nil finished:^(NSURLResponse *response, NSData *data) {
-            NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            HaviLog(@"微信是%@",obj);
-            NSString *refreshTockenUrl = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=%@&grant_type=refresh_token&refresh_token=%@",@"wx7be2e0c9ebd9e161",[obj objectForKey:@"refresh_token"]];
-            
-            [WTRequestCenter getWithURL:refreshTockenUrl parameters:nil finished:^(NSURLResponse *response, NSData *data) {
-                NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                NSLog(@"刷新tocken是%@",obj);
-                NSString *userInfoUrl = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@",[obj objectForKey:@"access_token"],[obj objectForKey:@"openid"]];
-                [WTRequestCenter getWithURL:userInfoUrl parameters:nil finished:^(NSURLResponse *response, NSData *data) {
-                    NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                    NSLog(@"用户信息是%@",obj);
-                } failed:^(NSURLResponse *response, NSError *error) {
-                    
-                }];
-            } failed:^(NSURLResponse *response, NSError *error) {
-                
-            }];
-        } failed:^(NSURLResponse *response, NSError *error) {
-            
-        }];
-         */
     }
     else if ([resp isKindOfClass:[AddCardToWXCardPackageResp class]])
     {
@@ -387,6 +378,74 @@
     }
 }
 
+- (void)checkUseridIsRegister:(NSDictionary *)infoDic andPlatform:(NSString *)platfrom
+{
+    CheckUserIsRegister *client = [CheckUserIsRegister shareInstance];
+    NSDictionary *dic = @{
+                          @"UserID": [NSString stringWithFormat:@"%@$%@",platfrom,[infoDic objectForKey:@"nickname"]], //手机号码
+                          };
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    
+    [client checkUserIsRegister:header andWithPara:dic];
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        NSLog(@"检查结果%@",resposeDic);
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            thirdPartyLoginPlatform = platfrom;
+            thirdPartyLoginUserId = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserID"];
+            thirdPartyLoginNickName = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserIdOriginal"];
+            thirdPartyLoginIcon = @"";
+            thirdPartyLoginToken = @"";
+            [UserManager setGlobalOauth];
+            [self hideLoginView];
+            
+        }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10006){
+            [[NSNotificationCenter defaultCenter]postNotificationName:ShowPhoneInputViewNoti object:nil userInfo:nil];
+        }
+    } failure:^(YTKBaseRequest *request) {
+        
+    }];
+
+}
+
+- (void)thirdUserPhoneNoti:(NSNotification*)noti
+{
+    NSDictionary *dic = (NSDictionary *)noti.userInfo;
+    [self thirdUserRegister:self.ThirdPlatformInfoDic andPhoneDic:dic andPlatform:WXPlatform];
+}
+
+- (void)thirdUserRegister:(NSDictionary *)infoDic andPhoneDic:(NSDictionary *)phoneDic andPlatform:(NSString*)platform
+{
+    ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
+    NSDictionary *dic = @{
+                          @"CellPhone": [phoneDic objectForKey:@"phone"], //手机号码
+                          @"Email": @"", //邮箱地址，可留空，扩展注册用
+                          @"Password": @"" ,//传递明文，服务器端做加密存储
+                          @"UserValidationServer" : platform,
+                          @"UserIdOriginal":[infoDic objectForKey:@"nickname"]
+                          };
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    
+    [client loginThirdUserWithHeader:header andWithPara:dic];
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        NSLog(@"注册成功%@",resposeDic);
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            thirdPartyLoginPlatform = platform;
+            thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
+            thirdPartyLoginIcon = @"";
+            thirdPartyLoginToken = @"";
+            [UserManager setGlobalOauth];
+            [self hideLoginView];
+        }
+    } failure:^(YTKBaseRequest *request) {
+        
+    }];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

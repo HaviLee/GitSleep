@@ -911,7 +911,7 @@
     NSString *isSleepOn = isOn ? @"true":@"false";
     SHPutClient *client = [SHPutClient shareInstance];
     NSDictionary *dic = @{
-                          @"UserID": GloableUserId, //关键字，必须传递
+                          @"UserID": thirdPartyLoginUserId, //关键字，必须传递
                           alartType:isSleepOn,
                           };
     NSDictionary *header = @{
@@ -947,7 +947,7 @@
 {
     SHPutClient *client = [SHPutClient shareInstance];
     NSDictionary *dic = @{
-                          @"UserID": GloableUserId, //关键字，必须传递
+                          @"UserID": thirdPartyLoginUserId, //关键字，必须传递
                           alartType:aString,
                           };
     NSDictionary *header = @{

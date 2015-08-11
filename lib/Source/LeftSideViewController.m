@@ -357,10 +357,10 @@
 {
     [super viewDidAppear:animated];
     //因为userid无法在启动就获得
-    NSMutableString *userId = [[NSMutableString alloc]initWithString:GloableUserId];
+    NSMutableString *userId = [[NSMutableString alloc]initWithString:thirdPartyLoginNickName];
     if (userId.length == 0) {
         _userName.text = @"匿名用户";
-    }else if ([userId intValue]){
+    }else if ([userId intValue]>0){
         [userId replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
         _userName.text = userId;
     }else{

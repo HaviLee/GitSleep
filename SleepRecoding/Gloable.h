@@ -27,12 +27,11 @@ extern BOOL isUserDefaultTime;
 //
 extern int selectedThemeIndex;
 
-extern NSString *userLoginUserId;
-extern NSString *userAccessToken;
+extern NSString *thirdPartyLoginUserId;
+extern NSString *thirdPartyLoginToken;
+extern NSString *thirdPartyLoginIcon;
+extern NSString *thirdPartyLoginPlatform;
+extern NSString *thirdPartyLoginNickName;
 
-extern NSString *thirdPartyLogoutUserId;
-extern NSString *thirdPartyLogoutToken;
-extern NSString *thirdPartyLogoutImei;
-extern NSString *thirdPartyLogoutPlatform;
 
 

@@ -67,7 +67,7 @@
 //请求帐号下的设备列表
 - (void)getAllDeviceList
 {
-    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",GloableUserId];
+    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",thirdPartyLoginUserId];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -78,7 +78,7 @@
     [client getActiveDeviceUUID:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        HaviLog(@"用户%@下所有的设备%@",GloableUserId,resposeDic);
+        HaviLog(@"用户%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
         [MMProgressHUD dismiss];
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
         if (arr.count == 0) {
@@ -88,7 +88,7 @@
             for (NSDictionary *dic in arr) {
                 if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
                     HardWareUUID = [dic objectForKey:@"UUID"];
-                    HaviLog(@"用户%@关联默认的uuid是%@",GloableUserId,HardWareUUID);
+                    HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,HardWareUUID);
                     break;
                 }
             }

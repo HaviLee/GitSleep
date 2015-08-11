@@ -178,6 +178,7 @@
 - (void)logoutMyId
 {
     HaviLog(@"登出");
+    [UserManager resetUserInfo];
     [self.navigationController popToRootViewControllerAnimated:NO];
     isLogout = YES;
     [[NSNotificationCenter defaultCenter]postNotificationName:POSTLOGOUTNOTI object:nil];

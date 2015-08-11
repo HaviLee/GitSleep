@@ -137,7 +137,7 @@
                              @"AccessToken":@"123456789"
                              };
     NSDictionary *para = @{
-                           @"UserID":GloableUserId,
+                           @"UserID":thirdPartyLoginUserId,
                            @"UUID": [NSString stringWithFormat:@"%@",[self.deviceInfo  objectForKey:@"UUID"]],
                            @"Description":self.nameTextField.text,
                            };
