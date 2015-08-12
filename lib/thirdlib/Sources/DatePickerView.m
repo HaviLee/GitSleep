@@ -72,7 +72,7 @@
         make.left.equalTo(_monthLabel.right).offset(5);
     }];
     self.backLine = [[UIImageView alloc]init];
-    self.backLine.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.backLine.backgroundColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
     [self addSubview:self.backLine];
     [_backLine makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@1);

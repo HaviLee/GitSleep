@@ -61,7 +61,7 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
     NSMutableAttributedString *dateTitleAttributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",[self getChinaWeekDay:[dayInWeekFormattedString uppercaseString]]]];
     [dateTitleAttributeString addAttributes:@{
                                 NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:15],
-                                NSForegroundColorAttributeName: selectedThemeIndex==0?DefaultColor:[UIColor grayColor]
+                                NSForegroundColorAttributeName: selectedThemeIndex==0?[UIColor whiteColor]:[UIColor grayColor]
                                 }
                         range:NSMakeRange(0, dateTitleAttributeString.length)];
 
@@ -134,8 +134,8 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
         self.dateTitleLabel.textColor = [UIColor whiteColor];
         self.dateLabel.textColor = [UIColor whiteColor];
     }else{
-        self.dateTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor colorWithRed:0.737f green:0.867f blue:0.925f alpha:0.50f];
-        self.dateLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor colorWithRed:0.737f green:0.867f blue:0.925f alpha:0.50f];
+        self.dateTitleLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
+        self.dateLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
     }
 }
 
@@ -146,7 +146,7 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
         _dateLabel.numberOfLines = 2;
         _dateLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_dateLabel];
-        _dateLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];;
+        _dateLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor grayColor];;
     }
 //    _dateLabel.backgroundColor = [UIColor redColor];
     return _dateLabel;
@@ -157,7 +157,7 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
         _dateTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x, 0, self.bounds.size.width, self.bounds.size.height/2)];
         _dateTitleLabel.numberOfLines = 2;
         _dateTitleLabel.textAlignment = NSTextAlignmentCenter;
-        _dateTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
+        _dateTitleLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor grayColor];
         [self addSubview:_dateTitleLabel];
     }
     
