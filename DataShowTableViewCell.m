@@ -121,7 +121,7 @@
         [buttonType4 setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"sleep_analysis_textbox_%d",selectedThemeIndex]] forState:UIControlStateNormal];
         buttonType4.titleLabel.font = [UIFont systemFontOfSize:15];
         buttonType4.tag = 104;
-        [buttonType4 setTitleColor:selectedThemeIndex==0?DefaultColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [buttonType4 setTitleColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] forState:UIControlStateNormal];
         buttonArray = @[buttonType1,buttonType2,buttonType3,buttonType4];
         
         UIImageView *imageLine = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"line_640_%d",selectedThemeIndex]]];

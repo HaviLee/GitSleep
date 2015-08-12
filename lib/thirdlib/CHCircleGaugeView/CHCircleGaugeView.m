@@ -128,52 +128,64 @@ static NSString * const CHKeyDefaultNoAnswersText = @"%";
 {
     CGFloat radius = (CGRectGetHeight(self.bounds) / 2.0f) - PROGRESS_LINE_WIDTH;
     UIView *leftView1 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 - radius , self.viewRect.size.height/2, 4, 1)];
+    leftView1.tag = 101;
     leftView1.backgroundColor = CHKeyClockViewColor;
     [self addSubview:leftView1];
     UIView *leftView2 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 + radius-4 , self.viewRect.size.height/2, 4, 1)];
+    leftView2.tag = 102;
     leftView2.backgroundColor = CHKeyClockViewColor;
     [self addSubview:leftView2];
     UIView *upView1 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 , PROGRESS_LINE_WIDTH, 1, 4)];
+    upView1.tag = 103;
     upView1.backgroundColor = CHKeyClockViewColor;
     [self addSubview:upView1];
     UIView *upView2 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 ,self.viewRect.size.height- PROGRESS_LINE_WIDTH-4, 1, 4)];
+    upView2.tag = 112;
     upView2.backgroundColor = CHKeyClockViewColor;
     [self addSubview:upView2];
     //
     UIView *upView3 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 - radius* cos(M_PI/6)-2 , PROGRESS_LINE_WIDTH+ radius - radius*sin(M_PI/6)+2, 4, 1)];
+    upView3.tag = 104;
     upView3.transform = CGAffineTransformMakeRotation(M_PI/6);
     upView3.backgroundColor = CHKeyClockViewColor;
     [self addSubview:upView3];
     UIView *upView31 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 - radius* cos(M_PI/3)-2 , PROGRESS_LINE_WIDTH+ radius - radius*sin(M_PI/3)+2, 4, 1)];
     upView31.transform = CGAffineTransformMakeRotation(M_PI/3);
     upView31.backgroundColor = CHKeyClockViewColor;
+    upView31.tag = 105;
     [self addSubview:upView31];
     
     UIView *upView4 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 + radius* cos(M_PI/6) -2, PROGRESS_LINE_WIDTH+ radius - radius*sin(M_PI/6)+2, 4, 1)];
     upView4.transform = CGAffineTransformMakeRotation(-M_PI/6);
     upView4.backgroundColor = CHKeyClockViewColor;
+    upView4.tag = 106;
     [self addSubview:upView4];
     UIView *upView41 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 + radius* cos(M_PI/3) -2, PROGRESS_LINE_WIDTH+ radius - radius*sin(M_PI/3)+2, 4, 1)];
     upView41.transform = CGAffineTransformMakeRotation(-M_PI/3);
     upView41.backgroundColor = CHKeyClockViewColor;
+    upView41.tag = 107;
     [self addSubview:upView41];
     
     UIView *upView5 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 - radius* cos(M_PI/6) , PROGRESS_LINE_WIDTH+ radius + radius*sin(M_PI/6)-2, 4, 1)];
+    upView5.tag = 108;
     upView5.transform = CGAffineTransformMakeRotation(-M_PI/6);
     upView5.backgroundColor = CHKeyClockViewColor;
     [self addSubview:upView5];
     UIView *upView51 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 - radius* cos(M_PI/3) , PROGRESS_LINE_WIDTH+ radius + radius*sin(M_PI/3)-2, 4, 1)];
     upView51.transform = CGAffineTransformMakeRotation(-M_PI/3);
     upView51.backgroundColor = CHKeyClockViewColor;
+    upView51.tag = 109;
     [self addSubview:upView51];
     
     UIView *upView6 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 + radius* cos(M_PI/3)-4, PROGRESS_LINE_WIDTH+ radius + radius*sin(M_PI/3), 4, 1)];
     upView6.transform = CGAffineTransformMakeRotation(M_PI/3);
     upView6.backgroundColor = CHKeyClockViewColor;
+    upView6.tag = 110;
     [self addSubview:upView6];
     UIView *upView61 = [[UIView alloc]initWithFrame:CGRectMake(self.viewRect.size.width/2 + radius* cos(M_PI/6)-4, PROGRESS_LINE_WIDTH+ radius + radius*sin(M_PI/6), 4, 1)];
     upView61.transform = CGAffineTransformMakeRotation(M_PI/6);
     upView61.backgroundColor = CHKeyClockViewColor;
+    upView61.tag = 111;
     [self addSubview:upView61];
 }
 
@@ -357,6 +369,11 @@ static NSString * const CHKeyDefaultNoAnswersText = @"%";
         
         _trackTintColor = trackTintColor;
         self.trackCircleLayer.strokeColor = trackTintColor.CGColor;
+        for (UIView *subView in self.subviews ) {
+            if (subView.tag>100 && subView.tag<113) {
+                subView.backgroundColor = trackTintColor;
+            }
+        }
     }
 }
 

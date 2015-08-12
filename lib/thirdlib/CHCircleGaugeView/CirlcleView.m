@@ -61,7 +61,7 @@
     [self.layer addSublayer:_trackLayer];
     _trackLayer.fillColor = [[UIColor clearColor] CGColor];
     _trackLayer.strokeColor = [[UIColor lightGrayColor] CGColor];//指定path的渲染颜色
-    _trackLayer.opacity = 0.05; //背景同学你就甘心做背景吧，不要太明显了，透明度小一点
+    _trackLayer.opacity = 0.1; //背景同学你就甘心做背景吧，不要太明显了，透明度小一点
     _trackLayer.lineCap = kCALineCapRound;//指定线的边缘是圆的
     _trackLayer.lineWidth = PROGRESS_LINE_WIDTH;//线的宽度
     CGPoint arcCenter = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));

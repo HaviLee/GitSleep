@@ -205,7 +205,7 @@
 - (void)createTableView
 {
     [self.view addSubview:self.cellTableView];
-    self.bgImageView.image = [UIImage imageNamed:@"pic_bg_night"];
+    self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",selectedThemeIndex]];
 }
 
 - (void)createCircleView
@@ -313,7 +313,7 @@
     if (_circleView == nil) {
         int datePickerHeight = self.view.frame.size.height*0.202623;
         _circleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 64 + 4*44 +30 + 10, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10)];
-        _circleView.trackTintColor = [UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f];
+        _circleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
         _circleView.trackWidth = 1;
         _circleView.gaugeStyle = CHCircleGaugeStyleOutside;
         _circleView.gaugeTintColor = [UIColor blackColor];
@@ -519,6 +519,21 @@
         }
     }
     
+}
+
+#pragma mark 换肤
+
+- (void)reloadImage
+{
+    [super reloadImage];
+    self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",selectedThemeIndex]];
+    [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [self.menuButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    _circleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
+    self.datePicker.backLine.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [self.cellTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
