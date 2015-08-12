@@ -182,7 +182,7 @@
     [self.view addSubview:thirdLoginLabel];
     thirdLoginLabel.text = @"其他登录方式";
     thirdLoginLabel.font = [UIFont systemFontOfSize:15];
-    thirdLoginLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
+    thirdLoginLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [thirdLoginLabel makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.centerX);
         make.top.equalTo(forgetButton.bottom).offset(0);
@@ -190,7 +190,7 @@
     }];
     UIView *leftLineView = [[UIView alloc]init];
     [self.view addSubview:leftLineView];
-    leftLineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
+    leftLineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [leftLineView makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(thirdLoginLabel.centerY);
         make.height.equalTo(0.5);
@@ -200,7 +200,7 @@
     
     UIView *rightLineView = [[UIView alloc]init];
     [self.view addSubview:rightLineView];
-    rightLineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
+    rightLineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [rightLineView makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(thirdLoginLabel.centerY);
         make.height.equalTo(0.5);
