@@ -18,6 +18,7 @@
 #import "RMDateSelectionViewController.h"
 #import "SHPutClient.h"
 #import "MMPickerView.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface EditUserInfoViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate,RMDateSelectionViewControllerDelegate>
 
@@ -545,9 +546,9 @@
 //        self.iconImageView1.layer.borderColor = [UIColor whiteColor].CGColor;
         self.iconImageView1 = [[GBPathImageView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width-100)/2, -50, 100, 100) image:iconImage pathType:GBPathImageViewTypeCircle pathColor:[UIColor whiteColor] borderColor:[UIColor lightGrayColor] pathWidth:0.0];
         [sectionView addSubview:self.iconImageView1];
-//        self.iconImageView1.layer.cornerRadius = 50;
-//        self.iconImageView1.layer.masksToBounds = YES;
-        self.iconImageView1.userInteractionEnabled = YES;
+        [_iconImageView1 setImageWithURL:[NSURL URLWithString:thirdPartyLoginIcon] placeholderImage:iconImage];
+        _iconImageView1.layer.cornerRadius = 50;
+        _iconImageView1.layer.masksToBounds = YES;        self.iconImageView1.userInteractionEnabled = YES;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapIconImage:)];
         [self.iconImageView1 addGestureRecognizer:tap];

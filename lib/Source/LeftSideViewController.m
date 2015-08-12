@@ -20,12 +20,13 @@
 #import "CenterViewController.h"
 #import "SleepAnalysisViewController.h"
 #import "AppDelegate.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface LeftSideViewController ()
 @property (nonatomic,strong) UIView *tableHeaderView;
 @property (nonatomic,strong) NSArray *imageArr;
 //
-@property (nonatomic,strong) BTRippleButtton *iconImageButton;
+@property (nonatomic,strong) UIImageView *iconImageButton;
 @property (nonatomic,strong) UILabel *userName;
 @property (nonatomic,strong) NSString *changeNowDate;
 @end
@@ -115,8 +116,21 @@
 
 #pragma mark setter method
 
-- (BTRippleButtton *)iconImageButton
+- (UIImageView *)iconImageButton
 {
+    if (_iconImageButton == nil) {
+        _iconImageButton = [[UIImageView alloc]initWithFrame:CGRectMake(20, 59, 60, 60)];
+        _iconImageButton.layer.borderWidth = 1;
+        _iconImageButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        _iconImageButton.layer.cornerRadius = 30;
+        _iconImageButton.layer.masksToBounds = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showUserInfo)];
+        [_iconImageButton addGestureRecognizer:tap];
+        _iconImageButton.userInteractionEnabled = YES;
+        
+    }
+    return _iconImageButton;
+    /*
     if (!_iconImageButton) {
         UIImage *iconImage;
         NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentIconImage"];
@@ -136,6 +150,7 @@
         [_iconImageButton setRippleEffectWithColor:[UIColor whiteColor]];
         
     }
+     */
     return _iconImageButton;
 }
 
@@ -366,7 +381,9 @@
     }else{
         _userName.text = userId;
     }
-    //
+    
+    
+    /*
     UIImage *iconImage;
     NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentIconImage"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -377,7 +394,8 @@
         iconImage = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
 
     }
-    [self.iconImageButton changeImage:iconImage];
+     */
+    [self.iconImageButton setImageWithURL:[NSURL URLWithString:thirdPartyLoginIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -78,6 +78,7 @@
 #define LoginSuccessedNoti @"LoginSuccessedNoti"
 #define ShowPhoneInputViewNoti  @"ShowPhoneInputViewNoti"
 #define ThirdGetPhoneSuccessedNoti  @"ThirdGetPhoneSuccessed"
+#define ThirdUserLogoutNoti @"ThirdUserLogoutNoti"
 //四个界面noti
 #define HeartViewNoti   @"HeartViewNoti"
 #define BreathViewNoti  @"BreathViewNoti"

@@ -14,6 +14,7 @@
 #import "AboutMeViewController.h"
 #import "LoginViewController.h"
 #import "UserProtocolViewController.h"
+#import "AppDelegate.h"
 
 @interface APPSettingViewController ()
 @property (nonatomic,strong) UIButton *logoutButton;
@@ -179,9 +180,11 @@
 {
     HaviLog(@"登出");
     [UserManager resetUserInfo];
-    [self.navigationController popToRootViewControllerAnimated:NO];
     isLogout = YES;
-    [[NSNotificationCenter defaultCenter]postNotificationName:POSTLOGOUTNOTI object:nil];
+    AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:app.centerViewController] animated:YES];
+    [self.sideMenuViewController hideMenuViewController];
+    [[NSNotificationCenter defaultCenter]postNotificationName:ThirdUserLogoutNoti object:nil];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

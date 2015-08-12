@@ -122,6 +122,7 @@
 - (void)setThirdLoginNoti
 {
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(thirdUserPhoneNoti:) name:ThirdGetPhoneSuccessedNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setLoginView) name:ThirdUserLogoutNoti object:nil];
 }
 
 //设置登录界面。
@@ -396,7 +397,9 @@
             thirdPartyLoginPlatform = platfrom;
             thirdPartyLoginUserId = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserID"];
             thirdPartyLoginNickName = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserIdOriginal"];
-            thirdPartyLoginIcon = @"";
+            if ([platfrom isEqualToString:WXPlatform]) {
+                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"headimgurl"];
+            }
             thirdPartyLoginToken = @"";
             [UserManager setGlobalOauth];
             [self hideLoginView];
@@ -437,7 +440,10 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             thirdPartyLoginPlatform = platform;
             thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
-            thirdPartyLoginIcon = @"";
+            thirdPartyLoginNickName = [infoDic objectForKey:@"nickname"];
+            if ([platform isEqualToString:WXPlatform]) {
+                thirdPartyLoginIcon = [infoDic objectForKey:@"headimgurl"];
+            }
             thirdPartyLoginToken = @"";
             [UserManager setGlobalOauth];
             [self hideLoginView];

@@ -15,6 +15,7 @@
 #import "EditUserInfoViewController.h"
 #import "SHGetClient.h"
 #import "UserInfoTableViewCell.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface UserInfoViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate>
 
@@ -325,6 +326,9 @@
         self.iconImageView1 = [[GBPathImageView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width-100)/2, -50, 100, 100) image:iconImage pathType:GBPathImageViewTypeCircle pathColor:[UIColor whiteColor] borderColor:[UIColor whiteColor] pathWidth:0.0];
         [sectionView addSubview:_iconImageView1];
         _iconImageView1.userInteractionEnabled = YES;
+        [_iconImageView1 setImageWithURL:[NSURL URLWithString:thirdPartyLoginIcon] placeholderImage:iconImage];
+        _iconImageView1.layer.cornerRadius = 50;
+        _iconImageView1.layer.masksToBounds = YES;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapIconImage:)];
         [_iconImageView1 addGestureRecognizer:tap];
@@ -415,17 +419,22 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    UIImage *iconImage;
-    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentIconImage"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:fullPath]) {
-        NSData *imageData = [NSData dataWithContentsOfFile:fullPath];
-        iconImage = [[UIImage alloc] initWithData:imageData];
+    if (thirdPartyLoginIcon.length>0) {
+        [_iconImageView1 setImageWithURL:[NSURL URLWithString:thirdPartyLoginIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
     }else{
-        iconImage = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
+        UIImage *iconImage;
+        NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentIconImage"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if ([fileManager fileExistsAtPath:fullPath]) {
+            NSData *imageData = [NSData dataWithContentsOfFile:fullPath];
+            iconImage = [[UIImage alloc] initWithData:imageData];
+        }else{
+            iconImage = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
+        }
+        self.iconImageView1.originalImage = iconImage;
+        [self.iconImageView1 draw];
     }
-    self.iconImageView1.originalImage = iconImage;
-    [self.iconImageView1 draw];
+    
     [super viewWillAppear:animated];
 }
 

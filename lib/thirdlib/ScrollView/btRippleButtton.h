@@ -11,8 +11,8 @@
 typedef void (^completion)(BOOL success);
 
 @interface BTRippleButtton : UIView{
-    @private
     UIImageView *imageView;
+    @private
     UILabel *title;
     UITapGestureRecognizer *gesture;
     SEL methodName;

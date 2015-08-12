@@ -14,11 +14,13 @@
 #import "NightTimeView.h"
 #import "DayTimeView.h"
 #import "TagShowViewController.h"
+#import "DeviceManagerViewController.h"
+#import "UDPAddProductViewController.h"
 //
 #import "GetDeviceStatusAPI.h"
 #import "GetDefatultSleepAPI.h"
 
-@interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate>
+@interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (nonatomic, assign) NSInteger todayHour;
 @property (nonatomic, strong) UITableView *cellTableView;
 @property (nonatomic, strong) UILabel *sleepTimeLabel;
@@ -93,11 +95,16 @@
                 }
             }
         }
-        
-        NSDate *nowDate = [self getNowDate];
-        NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
-        [self getTodaySleepQualityData:newString];
+        if (![HardWareUUID isEqualToString:NOBINDUUID]) {
+            NSDate *nowDate = [self getNowDate];
+            NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+            [self getTodaySleepQualityData:newString];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alert.tag = 900;
+            [alert show];
+        }
     } failure:^(YTKBaseRequest *request) {
         
     }];
@@ -149,8 +156,8 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            alert.tag = 900;
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"不存在当前设备，请检查您的设备？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+            alert.tag = 901;
             [alert show];
         }else{
             
@@ -167,10 +174,10 @@
 {
     
     self.cellDataArr = @[
-                         [NSString stringWithFormat:@"%@次/小时",[sleepDic objectForKey:@"AverageHeartRate"]],
-                         [NSString stringWithFormat:@"%@次/小时",[sleepDic objectForKey:@"AverageRespiratoryRate"]],
-                         [NSString stringWithFormat:@"%@次/天",[sleepDic objectForKey:@"OutOfBedTimes"]],
-                         [NSString stringWithFormat:@"%@次/天",[sleepDic objectForKey:@"BodyMovementTimes"]]
+                         [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageHeartRate"]intValue]],
+                         [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageRespiratoryRate"]intValue]],
+                         [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"OutOfBedTimes"]intValue]],
+                         [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
                          ];
     [self.cellTableView reloadData];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -486,6 +493,32 @@
     NSDate *nowDate = [self getNowDate];
     NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
     self.todayHour = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
+}
+
+#pragma mark alertview 代理
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex ==0) {
+        DeviceStatus = YES;
+    }
+    if (alertView.tag == 900) {
+        if (buttonIndex == 1) {
+            DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
+            [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+        }
+    }else if (alertView.tag == 901){
+        if (buttonIndex == 1) {
+            DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
+            [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+        }
+    }else if (alertView.tag == 902){
+        if (buttonIndex == 1) {
+            UDPAddProductViewController *user = [[UDPAddProductViewController alloc]init];
+            [self.navigationController pushViewController:user animated:YES];
+        }
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
