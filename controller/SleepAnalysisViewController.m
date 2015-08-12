@@ -67,7 +67,7 @@
     [_backView addSubview:self.longSleepView];
     [_backView addSubview:self.shortSleepView];
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(5, 145, self.view.frame.size.width-10, 0.7)];
-    lineView.backgroundColor = [UIColor colorWithRed:0.082f green:0.192f blue:0.310f alpha:1.00f];
+    lineView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.082f green:0.192f blue:0.310f alpha:1.00f]:[UIColor whiteColor];
     [_backView addSubview:lineView];
     _longSleepView.sleepNightCategoryString = @"最长的夜晚";
     _shortSleepView.sleepNightCategoryString = @"最短的夜晚";

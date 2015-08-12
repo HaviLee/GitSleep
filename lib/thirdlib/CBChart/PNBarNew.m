@@ -34,15 +34,15 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    //Draw BG
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-//    CGContextSetFillColorWithColor(context, [UIColor colorWithRed:0.329f green:0.557f blue:0.729f alpha:1.0f].CGColor);
-    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
-    CGContextFillRect(context, rect);
-    
-}
+//- (void)drawRect:(CGRect)rect
+//{
+//    //Draw BG
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    
+////    CGContextSetFillColorWithColor(context, [UIColor colorWithRed:0.329f green:0.557f blue:0.729f alpha:1.0f].CGColor);
+////    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+//    CGContextFillRect(context, rect);
+//    
+//}
 
 @end

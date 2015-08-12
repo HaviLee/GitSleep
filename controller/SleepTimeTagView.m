@@ -39,25 +39,25 @@
     sleepNightCategoryLabel = [[UILabel alloc]init];
     sleepNightCategoryLabel.font = [UIFont systemFontOfSize:11];
     sleepNightCategoryLabel.text = @"最长的夜晚";
-    sleepNightCategoryLabel.textColor = [UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f];
+    sleepNightCategoryLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
     [self addSubview:sleepNightCategoryLabel];
     
     sleepYearMonthDayLabel = [[UILabel alloc]init];
     sleepYearMonthDayLabel.font = [UIFont systemFontOfSize:11];
     sleepYearMonthDayLabel.text = @"15-08-09";
-    sleepYearMonthDayLabel.textColor = [UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f];
+    sleepYearMonthDayLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
     [self addSubview:sleepYearMonthDayLabel];
     
     sleepTimeLongLabel = [[UILabel alloc]init];
     sleepTimeLongLabel.font = [UIFont systemFontOfSize:11];
     sleepTimeLongLabel.text = @"10小时35分";
-    sleepTimeLongLabel.textColor = [UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f];
+    sleepTimeLongLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
     [self addSubview:sleepTimeLongLabel];
     
     sleepNameLabel = [[UILabel alloc]init];
     sleepNameLabel.font = [UIFont systemFontOfSize:11];
     sleepNameLabel.text = @"睡前:";
-    sleepNameLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
+    sleepNameLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self addSubview:sleepNameLabel];
     
     sleepTimeImageView = [[UIImageView alloc]init];
@@ -124,7 +124,7 @@
 {
     if (_sleepTitleLabel==nil) {
         _sleepTitleLabel = [[TLTagsControl alloc]initWithFrame:CGRectMake(0, 100, 250, 17) andTags:nil withTagsControlMode:TLTagsControlModeList];
-        _sleepTitleLabel.tagsBackgroundColor = [UIColor colorWithRed:0.157f green:0.251f blue:0.357f alpha:1.00f];
+        _sleepTitleLabel.tagsBackgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.157f green:0.251f blue:0.357f alpha:1.00f]:[UIColor whiteColor];
         _sleepTitleLabel.tagFont = [UIFont systemFontOfSize:11];
         _sleepTitleLabel.tagsTextColor = [UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f];
         
@@ -137,7 +137,7 @@
     if (_sleepTagLabel==nil) {
         _sleepTagLabel = [[TLTagsControl alloc]initWithFrame:CGRectMake(0, 100, 250, 17) andTags:nil withTagsControlMode:TLTagsControlModeList];
         _sleepTagLabel.tagFont = [UIFont systemFontOfSize:11];
-        _sleepTagLabel.tagsBackgroundColor = [UIColor colorWithRed:0.157f green:0.251f blue:0.357f alpha:1.00f];
+        _sleepTagLabel.tagsBackgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.157f green:0.251f blue:0.357f alpha:1.00f]:[UIColor whiteColor];
         _sleepTagLabel.tagsTextColor = [UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f];
         
     }
