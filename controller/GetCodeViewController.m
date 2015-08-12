@@ -126,7 +126,7 @@
     [nextButton addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
     nextButton.layer.cornerRadius = 0;
     nextButton.layer.masksToBounds = YES;
-    nextButton.userInteractionEnabled = NO;
+//    nextButton.userInteractionEnabled = NO;//测试使用
     [self.view addSubview:nextButton];
     
     //

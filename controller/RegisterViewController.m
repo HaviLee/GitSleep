@@ -16,6 +16,7 @@
 #import "ImageUtil.h"
 #import "UploadImageApi.h"
 #import "SHPostClient.h"
+#import "ThirdRegisterAPI.h"
 
 @interface RegisterViewController ()<UITextFieldDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate>
 @property (nonatomic,strong) UITextField *nameText;
@@ -193,16 +194,29 @@
     }
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"注册中..."];
-    SHPostClient *client = [SHPostClient shareInstance];
+    ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": self.cellPhoneNum, //手机号码
                           @"Email": @"", //邮箱地址，可留空，扩展注册用
-                          @"Password": self.passWordText.text //传递明文，服务器端做加密存储
+                          @"Password": self.passWordText.text ,//传递明文，服务器端做加密存储
+                          @"UserValidationServer" : MeddoPlatform,
+                          @"UserIdOriginal":@""
                           };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    [client addNewUserWithHeader:header andWithPara:dic];
+    
+    [client loginThirdUserWithHeader:header andWithPara:dic];
+//    SHPostClient *client = [SHPostClient shareInstance];
+//    NSDictionary *dic = @{
+//                          @"CellPhone": self.cellPhoneNum, //手机号码
+//                          @"Email": @"", //邮箱地址，可留空，扩展注册用
+//                          @"Password": self.passWordText.text //传递明文，服务器端做加密存储
+//                          };
+//    NSDictionary *header = @{
+//                             @"AccessToken":@"123456789"
+//                             };
+//    [client addNewUserWithHeader:header andWithPara:dic];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
         
@@ -211,7 +225,13 @@
         }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
             [MMProgressHUD dismissWithSuccess:@"注册成功" title:nil afterDelay:2];
             self.registerSuccessed(1);
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            thirdPartyLoginPlatform = MeddoPlatform;
+            thirdPartyLoginUserId = [responseDic objectForKey:@"UserID"];
+            NSRange range = [thirdPartyLoginUserId rangeOfString:@"$"];
+            thirdPartyLoginNickName = [[responseDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];
+            thirdPartyLoginIcon = @"";
+            thirdPartyLoginToken = @"";
+            [UserManager setGlobalOauth];
         }else{
             [MMProgressHUD dismiss];
         }

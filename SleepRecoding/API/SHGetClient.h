@@ -20,6 +20,8 @@
 
 - (void)loginUserWithHeader:(NSDictionary *)header andWithPara:(NSDictionary *)parameter;
 
+- (void)loginUserWithHeaderNewApi:(NSDictionary *)header andWithPara:(NSDictionary *)parameter;
+
 - (void)queryUserInfoWithHeader:(NSDictionary *)header andWithPara:(NSDictionary *)parameter;
 
 - (void)queryUserProductHeader:(NSDictionary *)header andWithPara:(NSDictionary *)parameter;

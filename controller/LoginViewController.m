@@ -324,10 +324,10 @@
 
 - (void)login:(UIButton *)sender
 {
-    if ([self.nameText.text isEqualToString:@""]) {
-        [self.view makeToast:@"请输入电话号码" duration:1.5 position:@"center"];
-        return;
-    }
+//    if ([self.nameText.text isEqualToString:@""]) {
+//        [self.view makeToast:@"请输入电话号码" duration:1.5 position:@"center"];
+//        return;
+//    }
     if ([self.passWordText.text isEqualToString:@""]) {
         [self.view makeToast:@"请输入密码" duration:1.5 position:@"center"];
         return;
@@ -345,7 +345,7 @@
                              @"AccessToken":@"123456789"
                              };
     
-    [client loginUserWithHeader:header andWithPara:dic];
+    [client loginUserWithHeaderNewApi:header andWithPara:dic];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
@@ -356,21 +356,14 @@
             [[NSUserDefaults standardUserDefaults]setObject:self.passWordText.text forKey:@"userPassword"];
             [[NSUserDefaults standardUserDefaults]synchronize];
             self.loginButtonClicked(1);
-            //
-            if (!isLogout) {
-                [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
-                    [self loginView];
-                }];
-                [MMProgressHUD dismissAfterDelay:0.0];
-            }else{
-                [MMProgressHUD dismissAfterDelay:0.3];
-                [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
-                    [self dismissViewControllerAnimated:YES completion:^{
-                        [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEUSERID object:nil];
-                    }];
-                }];
-            }
-            
+            thirdPartyLoginPlatform = MeddoPlatform;
+            thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
+            NSRange range = [thirdPartyLoginUserId rangeOfString:@"$"];
+            thirdPartyLoginNickName = [[resposeDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];
+            thirdPartyLoginIcon = @"";
+            thirdPartyLoginToken = @"";
+            [UserManager setGlobalOauth];
+            [MMProgressHUD dismissAfterDelay:0.3];            
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10012) {
             
             [MMProgressHUD dismissWithError:@"密码或者帐号错误,请重试。" afterDelay:2];
