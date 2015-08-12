@@ -18,6 +18,9 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) RESideMenu *sideMenuController;
 @property (strong, nonatomic) CenterViewController *centerViewController;
+//
+@property (strong, nonatomic) NSString *wbtoken;
+@property (strong, nonatomic) NSString *wbCurrentUserID;
 
 @end
 

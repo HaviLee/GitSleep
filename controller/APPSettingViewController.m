@@ -15,6 +15,7 @@
 #import "LoginViewController.h"
 #import "UserProtocolViewController.h"
 #import "AppDelegate.h"
+#import "WeiBoLogoutAPI.h"
 
 @interface APPSettingViewController ()
 @property (nonatomic,strong) UIButton *logoutButton;
@@ -181,7 +182,14 @@
     HaviLog(@"登出");
     [UserManager resetUserInfo];
     isLogout = YES;
+    
     AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    [WeiBoLogoutAPI weiBoLogoutWithTocken:app.wbtoken parameters:nil finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"微博登出结果%@",obj);
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
     [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:app.centerViewController] animated:YES];
     [self.sideMenuViewController hideMenuViewController];
     [[NSNotificationCenter defaultCenter]postNotificationName:ThirdUserLogoutNoti object:nil];

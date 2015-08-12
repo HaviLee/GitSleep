@@ -17,14 +17,17 @@
 #import "Reachability.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import "WeiXinAPI.h"
+#import "WeiboSDK.h"
 #import "ThirdRegisterAPI.h"
 #import "CheckUserIsRegister.h"
+#import "WeiBoAPI.h"
 //
 #import "LoginContainerViewController.h"//架构重构
 #import "CenterViewController.h"//架构重构
-@interface AppDelegate ()<WXApiDelegate>
+@interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate>
 @property (nonatomic,strong) LoginContainerViewController *loginView;
 @property (nonatomic,strong) NSDictionary *ThirdPlatformInfoDic;
+@property (nonatomic,strong) NSString *thirdPlatform;
 @end
 
 @implementation AppDelegate
@@ -32,9 +35,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    //微博注册
+    [WeiboSDK registerApp:WBAPPKey];
+    [WeiboSDK enableDebugMode:YES];
     //向微信注册
-    [WXApi registerApp:@"wx7be2e0c9ebd9e161"];
+    [WXApi registerApp:WXAPPKey];
     //因为有闹钟的印象，清楚闹钟。
     int picIndex = [QHConfiguredObj defaultConfigure].nThemeIndex;
     selectedThemeIndex = picIndex;
@@ -162,7 +167,7 @@
     }
 }
 
-
+#pragma mark 网络监听
 -(void) setWifiNotification {
     CTTelephonyNetworkInfo *telephonyInfo = [CTTelephonyNetworkInfo new];
     NSLog(@"Current Radio Access Technology: %@", telephonyInfo.currentRadioAccessTechnology);
@@ -254,7 +259,7 @@
     }
     return destinationDateNow;
 }
-//获取专家建议表
+#pragma mark 获取专家建议表
 - (void)getSuggestionList
 {
     NSString *urlString = [NSString stringWithFormat:@"v1/app/AssessmentList"];
@@ -291,15 +296,24 @@
     
 }
 
+#pragma mark 第三方回调函数
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    return  [WXApi handleOpenURL:url delegate:self];
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return  [WXApi handleOpenURL:url delegate:self];
+    if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
+        return  [WXApi handleOpenURL:url delegate:self];
+    }else if ([sourceApplication isEqualToString:@"com.sina.weibo"]){
+        return [WeiboSDK handleOpenURL:url delegate:self];
+    }else{
+        return YES;
+    }
 }
+
+#pragma mark 微信回调函数
 
 -(void) onReq:(BaseReq*)req
 {
@@ -356,15 +370,19 @@
     else if([resp isKindOfClass:[SendAuthResp class]])
     {
         SendAuthResp *temp = (SendAuthResp*)resp;
-        [WeiXinAPI getWeiXinInfoWith:temp.code parameters:nil finished:^(NSURLResponse *response, NSData *data) {
-            NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            //第三方登录
-            self.ThirdPlatformInfoDic = obj;
-            [self checkUseridIsRegister:obj andPlatform:WXPlatform];
-            NSLog(@"用户信息是%@",obj);
-        } failed:^(NSURLResponse *response, NSError *error) {
-            
-        }];
+        if (temp.code) {
+            [WeiXinAPI getWeiXinInfoWith:temp.code parameters:nil finished:^(NSURLResponse *response, NSData *data) {
+                NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                //第三方登录
+                self.ThirdPlatformInfoDic = obj;
+                [self checkUseridIsRegister:obj andPlatform:WXPlatform];
+                NSLog(@"用户信息是%@",obj);
+            } failed:^(NSURLResponse *response, NSError *error) {
+                
+            }];
+        }else{
+            [self.window makeToast:@"取消登录" duration:1 position:@"center"];
+        }
         
     }
     else if ([resp isKindOfClass:[AddCardToWXCardPackageResp class]])
@@ -379,11 +397,87 @@
     }
 }
 
+#pragma mark 新浪回调
+
+- (void)didReceiveWeiboRequest:(WBBaseRequest *)request
+{
+    
+}
+
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response
+{
+    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
+    {
+        NSString *title = NSLocalizedString(@"发送结果", nil);
+        NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
+                                              otherButtonTitles:nil];
+        WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
+        NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
+        if (accessToken)
+        {
+            self.wbtoken = accessToken;
+        }
+        NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
+        if (userID) {
+            self.wbCurrentUserID = userID;
+        }
+        [alert show];
+    }
+    else if ([response isKindOfClass:WBAuthorizeResponse.class])
+    {
+        self.wbtoken = [(WBAuthorizeResponse *)response accessToken];
+        if (self.wbtoken) {
+            self.wbCurrentUserID = [(WBAuthorizeResponse *)response userID];
+            NSDictionary *dic = @{
+                                  @"access_token" : self.wbtoken,
+                                  @"uid" : self.wbCurrentUserID,
+                                  };
+            [WeiBoAPI getWeiBoInfoWith:nil parameters:dic finished:^(NSURLResponse *response, NSData *data) {
+                NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                self.ThirdPlatformInfoDic = obj;
+                [self checkUseridIsRegister:obj andPlatform:SinaPlatform];
+                NSLog(@"获取到微博个人信息%@",obj);
+                
+            } failed:^(NSURLResponse *response, NSError *error) {
+                
+            }];
+        }else{
+            [self.window makeToast:@"取消登录" duration:1 position:@"center"];
+        }
+    }
+    else if ([response isKindOfClass:WBPaymentResponse.class])
+    {
+        NSString *title = NSLocalizedString(@"支付结果", nil);
+        NSString *message = [NSString stringWithFormat:@"%@: %d\nresponse.payStatusCode: %@\nresponse.payStatusMessage: %@\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode,[(WBPaymentResponse *)response payStatusCode], [(WBPaymentResponse *)response payStatusMessage], NSLocalizedString(@"响应UserInfo数据", nil),response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil), response.requestUserInfo];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+
+#pragma mark 自身帐号注册检查
+
 - (void)checkUseridIsRegister:(NSDictionary *)infoDic andPlatform:(NSString *)platfrom
 {
     CheckUserIsRegister *client = [CheckUserIsRegister shareInstance];
+    NSString *thirdName;
+    if ([platfrom isEqualToString:WXPlatform]) {
+        thirdName = [infoDic objectForKey:@"nickname"];
+    }else if ([platfrom isEqualToString:SinaPlatform]){
+        thirdName = [infoDic objectForKey:@"name"];
+    }else{
+        
+    }
     NSDictionary *dic = @{
-                          @"UserID": [NSString stringWithFormat:@"%@$%@",platfrom,[infoDic objectForKey:@"nickname"]], //手机号码
+                          @"UserID": [NSString stringWithFormat:@"%@$%@",platfrom,thirdName], //手机号码
                           };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -393,18 +487,24 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         NSLog(@"检查结果%@",resposeDic);
+        //检查第三方帐号发现已经注册过
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             thirdPartyLoginPlatform = platfrom;
             thirdPartyLoginUserId = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserID"];
             thirdPartyLoginNickName = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserIdOriginal"];
             if ([platfrom isEqualToString:WXPlatform]) {
                 thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"headimgurl"];
+            }else if ([platfrom isEqualToString:SinaPlatform]){
+                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"profile_image_url"];
+            }else {
             }
             thirdPartyLoginToken = @"";
             [UserManager setGlobalOauth];
+            [[NSNotificationCenter defaultCenter]postNotificationName:LoginSuccessedNoti object:nil userInfo:nil];
             [self hideLoginView];
-            
+            //发现第三方帐号没有注册过
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10006){
+            self.thirdPlatform = platfrom;
             [[NSNotificationCenter defaultCenter]postNotificationName:ShowPhoneInputViewNoti object:nil userInfo:nil];
         }
     } failure:^(YTKBaseRequest *request) {
@@ -412,22 +512,36 @@
     }];
 
 }
-
+#pragma mark 第三方输入手机号完成后的消息
 - (void)thirdUserPhoneNoti:(NSNotification*)noti
 {
     NSDictionary *dic = (NSDictionary *)noti.userInfo;
-    [self thirdUserRegister:self.ThirdPlatformInfoDic andPhoneDic:dic andPlatform:WXPlatform];
+    if ([self.thirdPlatform isEqualToString:WXPlatform]) {
+        [self thirdUserRegister:self.ThirdPlatformInfoDic andPhoneDic:dic andPlatform:WXPlatform];
+    }else if ([self.thirdPlatform isEqualToString:SinaPlatform]){
+        [self thirdUserRegister:self.ThirdPlatformInfoDic andPhoneDic:dic andPlatform:SinaPlatform];
+    }else{
+        [self thirdUserRegister:self.ThirdPlatformInfoDic andPhoneDic:dic andPlatform:TXPlatform];
+    }
 }
-
+#pragma mark 向我们自己的后台完成注册
 - (void)thirdUserRegister:(NSDictionary *)infoDic andPhoneDic:(NSDictionary *)phoneDic andPlatform:(NSString*)platform
 {
+    NSString *thirdName;
+    if ([platform isEqualToString:WXPlatform]) {
+        thirdName = [infoDic objectForKey:@"nickname"];
+    }else if ([platform isEqualToString:SinaPlatform]){
+        thirdName = [infoDic objectForKey:@"name"];
+    }else{
+        
+    }
     ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": [phoneDic objectForKey:@"phone"], //手机号码
                           @"Email": @"", //邮箱地址，可留空，扩展注册用
                           @"Password": @"" ,//传递明文，服务器端做加密存储
                           @"UserValidationServer" : platform,
-                          @"UserIdOriginal":[infoDic objectForKey:@"nickname"]
+                          @"UserIdOriginal":thirdName
                           };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -440,11 +554,16 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             thirdPartyLoginPlatform = platform;
             thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
-            thirdPartyLoginNickName = [infoDic objectForKey:@"nickname"];
+            thirdPartyLoginNickName = thirdName;
             if ([platform isEqualToString:WXPlatform]) {
-                thirdPartyLoginIcon = [infoDic objectForKey:@"headimgurl"];
+                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"headimgurl"];
+            }else if ([platform isEqualToString:SinaPlatform]){
+                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"profile_image_url"];
+            }else {
             }
+            
             thirdPartyLoginToken = @"";
+            [[NSNotificationCenter defaultCenter]postNotificationName:LoginSuccessedNoti object:nil userInfo:nil];
             [UserManager setGlobalOauth];
             [self hideLoginView];
         }
