@@ -79,8 +79,7 @@
      */
     [self getSuggestionList];
     [self setThirdLoginNoti];
-    //监听网络
-    [self setWifiNotification];
+    
     //默认注册一个不开启睡眠时间设置
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{SleepSettingSwitchKey:@"NO"}];
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:@"18:00"}];
@@ -138,6 +137,8 @@
     __block typeof(self) weakSelf = self;
     _loginView.loginSuccessed = ^(NSUInteger index) {
         [weakSelf hideLoginView];
+        //监听网络
+        [weakSelf setWifiNotification];
         //发送登录成noti
         [[NSNotificationCenter defaultCenter]postNotificationName:LoginSuccessedNoti object:nil userInfo:nil];
     };
@@ -169,39 +170,42 @@
 
 #pragma mark 网络监听
 -(void) setWifiNotification {
-    CTTelephonyNetworkInfo *telephonyInfo = [CTTelephonyNetworkInfo new];
-    NSLog(@"Current Radio Access Technology: %@", telephonyInfo.currentRadioAccessTechnology);
-    [NSNotificationCenter.defaultCenter addObserverForName:CTRadioAccessTechnologyDidChangeNotification
-                                                    object:nil
-                                                     queue:nil
-                                                usingBlock:^(NSNotification *note)
-    {
-        NSLog(@"New Radio Access Technology: %@", telephonyInfo.currentRadioAccessTechnology);
-    }];
-    @try {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        Reachability * reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(reachabilityChanged:)
-                                                     name:kReachabilityChangedNotification
-                                                   object:nil];
-        reach.reachableBlock = ^(Reachability * reachability)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"Block Says Reachable");
-            });
-        };
-        
-        reach.unreachableBlock = ^(Reachability * reachability)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"Block Says Unreachable");
-            });
-        };
-        [reach startNotifier];
-    }@catch (NSException *e) {
-        ;
-    }
+        CTTelephonyNetworkInfo *telephonyInfo = [CTTelephonyNetworkInfo new];
+        NSLog(@"Current Radio Access Technology: %@", telephonyInfo.currentRadioAccessTechnology);
+        [NSNotificationCenter.defaultCenter addObserverForName:CTRadioAccessTechnologyDidChangeNotification
+                                                        object:nil
+                                                         queue:nil
+                                                    usingBlock:^(NSNotification *note)
+         {
+             NSLog(@"New Radio Access Technology: %@", telephonyInfo.currentRadioAccessTechnology);
+         }];
+        @try {
+            
+            Reachability * reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(reachabilityChanged:)
+                                                         name:kReachabilityChangedNotification
+                                                       object:nil];
+            reach.reachableBlock = ^(Reachability * reachability)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"Block Says Reachable");
+                });
+            };
+            
+            reach.unreachableBlock = ^(Reachability * reachability)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"Block Says Unreachable");
+                });
+            };
+            [reach startNotifier];
+        }@catch (NSException *e) {
+            ;
+        }
+    });
 }
 
 -(void)reachabilityChanged:(NSNotification*)note
@@ -213,7 +217,6 @@
         if ([reach isReachable]) {
             if ([reach isReachableViaWiFi]) {
                 [[UIApplication sharedApplication].keyWindow makeToast:@"您已切换至Wifi网络" duration:3 position:@"center"];
-//                [self.view makeToast:@"您已切换至Wifi网络" duration:3 position:@"center"];
             }else if ([reach isReachableViaWWAN]){
                 if ([[reach currentReachabilityFrom234G]isEqualToString:@"2G"]) {
                     

@@ -553,6 +553,9 @@
         [MMProgressHUD dismissAfterDelay:1];
         [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
             self.loginButtonClicked(1);
+            //监听网络
+            AppDelegate *app = [UIApplication sharedApplication].delegate;
+            [app setWifiNotification];
         }];
     }
 }
