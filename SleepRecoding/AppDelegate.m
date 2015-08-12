@@ -236,6 +236,7 @@
         ;
     }
 }
+
 //监听
 
 - (NSDate *)getNowDateFromatAnDate:(NSDate *)anyDate
@@ -364,11 +365,13 @@
 {
     if([resp isKindOfClass:[SendMessageToWXResp class]])
     {
-        NSString *strTitle = [NSString stringWithFormat:@"发送媒体消息结果"];
-        NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+        if (resp.errCode == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"分享成功" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+            [alert show];
+        }else{
+            [self.window makeToast:@"取消分享" duration:2 position:@"center"];
+        }
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
     }
     else if([resp isKindOfClass:[SendAuthResp class]])
     {
@@ -411,13 +414,18 @@
 {
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
     {
-        NSString *title = NSLocalizedString(@"发送结果", nil);
-        NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
-                                              otherButtonTitles:nil];
+//        NSString *title = NSLocalizedString(@"发送结果", nil);
+//        NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
+        if ((int)response.statusCode ==0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"分享成功"
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"确定", nil)
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }else{
+            [self.window makeToast:@"取消分享" duration:2 position:@"center"];
+        }
         WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
         NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
         if (accessToken)
@@ -428,7 +436,6 @@
         if (userID) {
             self.wbCurrentUserID = userID;
         }
-        [alert show];
     }
     else if ([response isKindOfClass:WBAuthorizeResponse.class])
     {

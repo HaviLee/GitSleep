@@ -13,6 +13,9 @@
 #import "LoginViewController.h"
 #import "Reachability.h"
 #import "Toast+UIView.h"
+#import "WXApi.h"
+#import "WeiboSDK.h"
+#import "AppDelegate.h"
 
 @interface BaseViewController ()<THPinViewControllerDelegate>
 {
@@ -217,18 +220,93 @@
 {
     if (!_shareMenuView) {
         _shareMenuView = [[CHTumblrMenuView alloc] init];
+        __block typeof(self) weakSelf = self;
         [_shareMenuView addMenuItemWithTitle:@"朋友圈" andIcon:[UIImage imageNamed:@"icon_wechat"] andSelectedBlock:^{
             HaviLog(@"Text selected");
+            [weakSelf sendImageContent];
         }];
         [_shareMenuView addMenuItemWithTitle:@"新浪微博" andIcon:[UIImage imageNamed:@"icon_sina"] andSelectedBlock:^{
             HaviLog(@"Photo selected");
+            [weakSelf shareButtonPressed];
         }];
         [_shareMenuView addMenuItemWithTitle:@"微信好友" andIcon:[UIImage imageNamed:@"icon_friend"] andSelectedBlock:^{
             HaviLog(@"Quote selected");
+            [weakSelf sendImageToFriend];
             
         }];
     }
     return _shareMenuView;
+}
+#pragma mark 分享到微博
+- (void)shareButtonPressed
+{
+    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+    authRequest.redirectURI = WBRedirectURL;
+    authRequest.scope = @"all";
+    
+    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:[self messageToShare] authInfo:authRequest access_token:myDelegate.wbtoken];
+    request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
+                         @"Other_Info_1": [NSNumber numberWithInt:123],
+                         @"Other_Info_2": @[@"obj1", @"obj2"],
+                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
+    //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+    [WeiboSDK sendRequest:request];
+}
+
+- (WBMessageObject *)messageToShare
+{
+    WBMessageObject *message = [WBMessageObject message];
+    
+    WBImageObject *image = [WBImageObject object];
+    image.imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_1" ofType:@"jpg"]];
+    message.imageObject = image;
+    return message;
+}
+#pragma mark 分享给好友
+- (void)sendImageToFriend
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    [message setThumbImage:[UIImage imageNamed:@"res1thumb.png"]];
+    
+    WXImageObject *ext = [WXImageObject object];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"res1" ofType:@"jpg"];
+    ext.imageData = [NSData dataWithContentsOfFile:filePath];
+    
+    message.mediaObject = ext;
+    message.mediaTagName = @"WECHAT_TAG_JUMP_APP";
+    message.messageExt = @"这是第三方带的测试字段";
+    message.messageAction = @"<action>dotalist</action>";
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneSession;
+    
+    [WXApi sendReq:req];
+}
+#pragma mark 分享到朋友圈
+- (void)sendImageContent
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    [message setThumbImage:[UIImage imageNamed:@"res1thumb.png"]];
+    
+    WXImageObject *ext = [WXImageObject object];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"res1" ofType:@"jpg"];
+    ext.imageData = [NSData dataWithContentsOfFile:filePath];
+    
+    message.mediaObject = ext;
+    message.mediaTagName = @"WECHAT_TAG_JUMP_APP";
+    message.messageExt = @"这是第三方带的测试字段";
+    message.messageAction = @"<action>dotalist</action>";
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneTimeline;
+    
+    [WXApi sendReq:req];
 }
 /**
  *  自定义状态栏
