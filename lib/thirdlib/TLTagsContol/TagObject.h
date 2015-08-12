@@ -11,4 +11,5 @@
 @interface TagObject : NSObject
 @property (nonatomic, strong) NSString *tagName;
 @property (nonatomic, assign) BOOL isSelect;
+@property (nonatomic, assign) BOOL isEnabled;
 @end

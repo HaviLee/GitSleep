@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface TagShowViewController : BaseViewController
-
+@property (nonatomic, strong) NSString *timeDate;
 @end

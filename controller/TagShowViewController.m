@@ -8,6 +8,8 @@
 
 #import "TagShowViewController.h"
 #import "TLTagsControl.h"
+#import "UploadTagAPI.h"
+#import "GetTagListAPI.h"
 @interface TagShowViewController ()<TLTagsControlDelegate>
 
 @property (nonatomic, strong) TLTagsControl *beforeSleepTag;
@@ -18,6 +20,7 @@
 @property (nonatomic, strong) UILabel *afterSleepLabel;
 @property (nonatomic, strong) NSMutableArray *beforeListArr;
 @property (nonatomic, strong) NSMutableArray *afterListArr;
+@property (nonatomic, strong) NSMutableArray *sendTagListArr;
 
 @end
 
@@ -34,16 +37,36 @@
              [self.leftButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",1]] forState:UIControlStateNormal];
              return self.leftButton;
 
+         }else if (nIndex == 0){
+             self.rightButton.frame = CGRectMake(self.view.frame.size.width-60, 0, 50, 44);
+             self.rightButton.titleLabel.font = DefaultWordFont;
+             [self.rightButton addTarget:self action:@selector(sendTags:) forControlEvents:UIControlEventTouchUpInside];
+             [self.rightButton setTitle:@"保存" forState:UIControlStateNormal];
+             [self.rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+             return self.rightButton;
          }
          return nil;
      }];
     self.bgImageView.image = [UIImage imageNamed:@"bg_pic_tag"];
     [self setSleepTag];
     [self setSleepTagContraints];
-    
+    [self getTagLists];
 }
 
 #pragma mark setter meathod
+
+- (void)setTimeDate:(NSString *)timeDate
+{
+    _timeDate = timeDate;
+}
+
+- (NSMutableArray *)sendTagListArr
+{
+    if (_sendTagListArr==nil) {
+        _sendTagListArr = [[NSMutableArray alloc]init];
+    }
+    return _sendTagListArr;
+}
 
 - (NSMutableArray *)beforeListArr
 {
@@ -52,13 +75,16 @@
         TagObject *tag1 = [[TagObject alloc]init];
         tag1.tagName = @"运动健身";
         tag1.isSelect = NO;
+        tag1.isEnabled = NO;
         
         TagObject *tag2 = [[TagObject alloc]init];
         tag2.tagName = @"晚饭过量";
         tag2.isSelect = NO;
+        tag2.isEnabled = NO;
         
         TagObject *tag3 = [[TagObject alloc]init];
         tag3.tagName = @"吃的晚了";
+        tag3.isEnabled = NO;
         tag3.isSelect = NO;
         [_beforeListArr addObject:tag1];
         [_beforeListArr addObject:tag2];
@@ -73,15 +99,18 @@
         _afterListArr = [[NSMutableArray alloc]init];
         TagObject *tag1 = [[TagObject alloc]init];
         tag1.tagName = @"噩梦过多";
+        tag1.isEnabled = NO;
         tag1.isSelect = NO;
         
         TagObject *tag2 = [[TagObject alloc]init];
         tag2.tagName = @"离床过频";
         tag2.isSelect = NO;
+        tag2.isEnabled = NO;
         
         TagObject *tag3 = [[TagObject alloc]init];
         tag3.tagName = @"翻身过多";
         tag3.isSelect = NO;
+        tag3.isEnabled = NO;
         [_afterListArr addObject:tag1];
         [_afterListArr addObject:tag2];
         [_afterListArr addObject:tag3];
@@ -211,22 +240,158 @@
 }
 #pragma mark - TLTagsControlDelegate
 - (void)tagsControl:(TLTagsControl *)tagsControl tappedAtIndex:(NSInteger)index {
-    
-    if ([tagsControl isEqual:self.beforeSleepTag]) {
-        NSLog(@"beforeTag \"%@\" was tapped", tagsControl.tags[index]);
-        TagObject *tag = (TagObject *)tagsControl.tags[index];
-        tag.isSelect = !tag.isSelect;
-        [self.beforeListArr replaceObjectAtIndex:index withObject:tag];
-        self.beforeSleepTag.tags = self.beforeListArr;
-        [self.beforeSleepTag reloadTagSubviews];
+    [self.sendTagListArr removeAllObjects];
+    TagObject *tag = (TagObject *)tagsControl.tags[index];
+    if (!tag.isEnabled) {
         
+        if ([tagsControl isEqual:self.beforeSleepTag]) {
+            tag.isSelect = !tag.isSelect;
+            if (tag.isSelect) {
+                [self.sendTagListArr addObject:@{
+                                                 @"Tag" : tag.tagName,
+                                                 @"TagType" : @"-1",
+                                                 }];
+            }else{
+                if ([self.sendTagListArr containsObject:@{
+                                                          @"Tag" : tag.tagName,
+                                                          @"TagType" : @"-1",
+                                                          }]) {
+                    [self.sendTagListArr removeObject:@{
+                                                        @"Tag" : tag.tagName,
+                                                        @"TagType" : @"-1",
+                                                        }];
+                    
+                }
+            }
+            [self.beforeListArr replaceObjectAtIndex:index withObject:tag];
+            self.beforeSleepTag.tags = self.beforeListArr;
+            [self.beforeSleepTag reloadTagSubviews];
+            NSLog(@"beforeTag \"%@ 内容是%@\" was tapped", tagsControl.tags[index],tag.tagName);
+            
+        }else{
+            NSLog(@"afterTag \"%@\" was tapped", tagsControl.tags[index]);
+            tag.isSelect = !tag.isSelect;
+            if (tag.isSelect) {
+                [self.sendTagListArr addObject:@{
+                                                 @"Tag" : tag.tagName,
+                                                 @"TagType" : @"1",
+                                                 }];
+            }else{
+                if ([self.sendTagListArr containsObject:@{
+                                                          @"Tag" : tag.tagName,
+                                                          @"TagType" : @"1",
+                                                          }]) {
+                    [self.sendTagListArr removeObject:@{
+                                                        @"Tag" : tag.tagName,
+                                                        @"TagType" : @"1",
+                                                        }];
+                    
+                }
+            }
+            [self.afterListArr replaceObjectAtIndex:index withObject:tag];
+            self.afterSleepTag.tags = self.afterListArr;
+            [self.afterSleepTag reloadTagSubviews];
+        }
+    }
+}
+
+#pragma mark 提交标签
+
+- (void)getTagLists
+{
+    [MMProgressHUD showWithStatus:@"请求中..."];
+    NSDictionary *dic = @{
+                          @"url" : _timeDate,
+                          };
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    GetTagListAPI *client = [GetTagListAPI shareInstance];
+    if ([client isExecuting]) {
+        [client stop];
+    }
+    [client getTagTagWithHeader:header andWithPara:dic];
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        HaviLog(@"用户的标签是%@",resposeDic);
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [MMProgressHUD dismiss];
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                [self refreshTag:[resposeDic objectForKey:@"Tags"]];
+            }];
+        }else{
+            HaviLog(@"%@",resposeDic);
+            [MMProgressHUD dismissWithError:@"出错啦" afterDelay:1];
+        }
+    } failure:^(YTKBaseRequest *request) {
+        
+    }];
+}
+
+- (void)refreshTag:(NSArray *)tagArr
+{
+    for (NSDictionary *dic in tagArr) {
+        //1睡后
+        if ([[dic objectForKey:@"TagType"]intValue]==1) {
+            for (TagObject *tag in self.afterListArr) {
+                if ([tag.tagName isEqualToString:[dic objectForKey:@"Tag"]]) {
+                    tag.isSelect = !tag.isSelect;
+                    tag.isEnabled = YES;
+                }
+            }
+        }else{
+            for (TagObject *tag in self.beforeListArr) {
+                if ([tag.tagName isEqualToString:[dic objectForKey:@"Tag"]]) {
+                    tag.isSelect = !tag.isSelect;
+                    tag.isEnabled = YES;
+                }
+            }
+        }
+    }
+    
+    [self.afterSleepTag reloadTagSubviews];
+    [self.beforeSleepTag reloadTagSubviews];
+}
+
+- (void)sendTags:(UIButton *)sender
+{
+    if (HardWareUUID.length>0) {
+        
+        if (self.sendTagListArr.count==0) {
+            [self.view makeToast:@"请选择标签" duration:2 position:@"center"];
+            return;
+        }
+        HaviLog(@"提交标签标签是%@",self.sendTagListArr);
+        [MMProgressHUD showWithStatus:@"保存中..."];
+        NSDictionary *dic = @{
+                              @"UUID" : HardWareUUID,
+                              @"UserID" : thirdPartyLoginUserId,
+                              @"Tags" : self.sendTagListArr,
+                              };
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        UploadTagAPI *client = [UploadTagAPI shareInstance];
+        if ([client isExecuting]) {
+            [client stop];
+        }
+        [client uploadTagWithHeader:header andWithPara:dic];
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+                [MMProgressHUD dismiss];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }];
+            }else{
+                HaviLog(@"%@",resposeDic);
+                [MMProgressHUD dismissWithError:@"出错啦" afterDelay:1];
+            }
+        } failure:^(YTKBaseRequest *request) {
+            
+        }];
     }else{
-        NSLog(@"afterTag \"%@\" was tapped", tagsControl.tags[index]);
-        TagObject *tag = (TagObject *)tagsControl.tags[index];
-        tag.isSelect = !tag.isSelect;
-        [self.afterListArr replaceObjectAtIndex:index withObject:tag];
-        self.afterSleepTag.tags = self.afterListArr;
-        [self.afterSleepTag reloadTagSubviews];
+        [self.view makeToast:@"请先绑定设备ID" duration:2 position:@"center"];
     }
 }
 

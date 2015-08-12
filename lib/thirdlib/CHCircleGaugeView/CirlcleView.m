@@ -78,22 +78,22 @@
     _progressLayer.strokeEnd = 100;
     
     _gradientLayer = [CALayer layer];
-    CAGradientLayer *gradientLayer1 =  [CAGradientLayer layer];
-    gradientLayer1.frame = CGRectMake((self.viewRect.size.width - self.viewRect.size.height)/2, 0, self.viewRect.size.height, self.viewRect.size.height/2);
-    [gradientLayer1 setColors:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x356E8B alpha:1]CGColor],[[self colorWithHex:0x3e608d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]];
+    self.gradientLayer1 =  [CAGradientLayer layer];
+    _gradientLayer1.frame = CGRectMake((self.viewRect.size.width - self.viewRect.size.height)/2, 0, self.viewRect.size.height, self.viewRect.size.height/2);
+    [_gradientLayer1 setColors:selectedThemeIndex ==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x356E8B alpha:1]CGColor],[[self colorWithHex:0x3e608d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1C7A59 alpha:1]CGColor],[[self colorWithHex:0x0F705C alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
 //    0x318d8d
-    [gradientLayer1 setLocations:@[@0.3,@0.4,@1 ]];
-    [gradientLayer1 setStartPoint:CGPointMake(0, 1)];
-    [gradientLayer1 setEndPoint:CGPointMake(1,1)];
-    [_gradientLayer addSublayer:gradientLayer1];
+    [_gradientLayer1 setLocations:@[@0.3,@0.4,@1 ]];
+    [_gradientLayer1 setStartPoint:CGPointMake(0, 1)];
+    [_gradientLayer1 setEndPoint:CGPointMake(1,1)];
+    [_gradientLayer addSublayer:_gradientLayer1];
     
-    CAGradientLayer *gradientLayer2 =  [CAGradientLayer layer];
-    [gradientLayer2 setLocations:@[@0.2,@0.3,@1]];
-    gradientLayer2.frame = CGRectMake((self.viewRect.size.width - self.viewRect.size.height)/2, self.viewRect.size.height/2, self.viewRect.size.height, self.viewRect.size.height/2);
-    [gradientLayer2 setColors:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1cd98d alpha:1]CGColor],(id)[[self colorWithHex:0x21c88d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]];
-    [gradientLayer2 setStartPoint:CGPointMake(0, 0)];
-    [gradientLayer2 setEndPoint:CGPointMake(1, 0)];
-    [_gradientLayer addSublayer:gradientLayer2];
+    self.gradientLayer2 =  [CAGradientLayer layer];
+    [_gradientLayer2 setLocations:@[@0.2,@0.3,@1]];
+    _gradientLayer2.frame = CGRectMake((self.viewRect.size.width - self.viewRect.size.height)/2, self.viewRect.size.height/2, self.viewRect.size.height, self.viewRect.size.height/2);
+    [_gradientLayer2 setColors:selectedThemeIndex==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1cd98d alpha:1]CGColor],(id)[[self colorWithHex:0x21c88d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x8DEC45 alpha:1]CGColor],(id)[[self colorWithHex:0x85E445 alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
+    [_gradientLayer2 setStartPoint:CGPointMake(0, 0)];
+    [_gradientLayer2 setEndPoint:CGPointMake(1, 0)];
+    [_gradientLayer addSublayer:_gradientLayer2];
     
     
     

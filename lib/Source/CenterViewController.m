@@ -30,7 +30,8 @@
 @property (nonatomic, strong) DayTimeView *dayView;
 @property (nonatomic, strong) UITapGestureRecognizer *tapDayViewGesture;
 @property (nonatomic, strong) UITapGestureRecognizer *tapNightViewGesture;
-
+//为了标签使用
+@property (nonatomic, strong) NSString *tagFromDateAndEndDate;
 
 @end
 
@@ -139,7 +140,7 @@
         urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,nowDateString,newNextDayString];
         
     }
-    
+    self.tagFromDateAndEndDate = urlString;
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -333,6 +334,7 @@
 - (void)showTagView:(UITapGestureRecognizer *)gesture
 {
     TagShowViewController *tag = [[TagShowViewController alloc]init];
+    tag.timeDate = self.tagFromDateAndEndDate;
     [self presentViewController:tag animated:YES completion:nil];
 }
 
@@ -427,7 +429,13 @@
         cell.cellData = [self.cellDataArr objectAtIndex:indexPath.row];
         cell.cellImageName = [cellImage objectAtIndex:indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        for (UIImageView*imageLine in cell.subviews) {
+            if (imageLine.tag == 100) {
+                [imageLine removeFromSuperview];
+            }
+        }
         UIImageView *imageLine = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"line_640_%d",selectedThemeIndex]]];
+        imageLine.tag = 100;
         [cell addSubview:imageLine];
         [imageLine makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(cell.left).offset(5);
@@ -534,6 +542,8 @@
     self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     [self.cellTableView reloadData];
+    [_circleView.cView.gradientLayer1 setColors:selectedThemeIndex ==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x356E8B alpha:1]CGColor],[[self colorWithHex:0x3e608d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1C7A59 alpha:1]CGColor],[[self colorWithHex:0x0F705C alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
+    [_circleView.cView.gradientLayer2 setColors:selectedThemeIndex==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1cd98d alpha:1]CGColor],(id)[[self colorWithHex:0x21c88d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x8DEC45 alpha:1]CGColor],(id)[[self colorWithHex:0x85E445 alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
 }
 
 - (void)didReceiveMemoryWarning {
