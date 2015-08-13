@@ -308,6 +308,8 @@
     
     [WXApi sendReq:req];
 }
+
+#pragma mark 自定义状态栏
 /**
  *  自定义状态栏
  */

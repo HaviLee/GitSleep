@@ -19,6 +19,7 @@
 //
 #import "GetDeviceStatusAPI.h"
 #import "GetDefatultSleepAPI.h"
+#import "TodayDataViewController.h"
 
 @interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (nonatomic, assign) NSInteger todayHour;
@@ -458,6 +459,37 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSString *selectedIndex = @"心率";
+    NSInteger seledtedIndexNum = 0;
+    switch (indexPath.row) {
+        case 0:{
+            selectedIndex = @"心率";
+            seledtedIndexNum = 0;
+            break;
+        }
+        case 1:{
+            selectedIndex = @"呼吸";
+            seledtedIndexNum = 1;
+            break;
+        }
+        case 2:{
+            selectedIndex = @"离床";
+            seledtedIndexNum = 2;
+            break;
+        }
+        case 3:{
+            selectedIndex = @"体动";
+            seledtedIndexNum = 3;
+            break;
+        }
+            
+            
+        default:
+            break;
+    }
+    TodayDataViewController *today = [[TodayDataViewController alloc]init];
+    today.selectedIndex = seledtedIndexNum;
+    [self.navigationController pushViewController:today animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
