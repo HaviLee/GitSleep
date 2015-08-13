@@ -89,6 +89,7 @@
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
         if (arr.count == 0) {
             HardWareUUID = NOBINDUUID;
+            self.clearNaviTitleLabel.text = thirdHardDeviceName;
         }else{
             HardWareUUID = NOUSEUUID;
             for (NSDictionary *dic in arr) {
@@ -614,7 +615,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (![HardWareUUID isEqualToString:thirdHardDeviceUUID]&&![HardWareUUID isEqualToString:@""]) {
+    if (![HardWareUUID isEqualToString:thirdHardDeviceUUID]&&![HardWareUUID isEqualToString:@""]&&![thirdHardDeviceName isEqualToString:@""]) {
         [self getAllDeviceList];
         HaviLog(@"hard UUID出现不同");
     }
