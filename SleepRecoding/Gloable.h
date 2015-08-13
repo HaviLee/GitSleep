@@ -26,12 +26,13 @@ extern NSDate *selectedDateToUse;
 extern BOOL isUserDefaultTime;
 //
 extern int selectedThemeIndex;
-
+//userInfo
 extern NSString *thirdPartyLoginUserId;
 extern NSString *thirdPartyLoginToken;
 extern NSString *thirdPartyLoginIcon;
 extern NSString *thirdPartyLoginPlatform;
 extern NSString *thirdPartyLoginNickName;
-
+extern NSString *thirdHardDeviceUUID;
+extern NSString *thirdHardDeviceName;
 
 

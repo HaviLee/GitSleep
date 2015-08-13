@@ -13,9 +13,8 @@ static NSString* CUR_USERID = @"CURRENT_USER_ID";
 static NSString* CUR_USERTOKEN = @"CURRENT_USER_TOKEN";
 static NSString* CUR_USERICON = @"CURRENT_USER_ICON";
 static NSString* CUR_USERPLATFORM= @"CURRENT_USER_PLATFORM";
-
+static NSString* CUR_HardWareUUID = @"CUR_HardWareUUID";
 static NSString* CUR_USERNICKNAME = @"CUR_USERNICKNAME";
-static NSString* LOGIN_ACCESSTOKEN = @"LOGIN_ACCESSTOKEN";
 
 @implementation UserManager
 
@@ -31,6 +30,7 @@ static NSString* LOGIN_ACCESSTOKEN = @"LOGIN_ACCESSTOKEN";
     userinfo[CUR_USERICON] = thirdPartyLoginIcon;
     userinfo[CUR_USERPLATFORM] = thirdPartyLoginPlatform;
     userinfo[CUR_USERNICKNAME] = thirdPartyLoginNickName;
+    userinfo[CUR_HardWareUUID] = thirdHardDeviceUUID;
     [global setObject:userinfo forKey:CUR_USERINFO];
 }
 
@@ -60,6 +60,7 @@ static NSString* LOGIN_ACCESSTOKEN = @"LOGIN_ACCESSTOKEN";
         thirdPartyLoginIcon = [userinfo objectForKey:CUR_USERICON];
         thirdPartyLoginPlatform = [userinfo objectForKey:CUR_USERPLATFORM];
         thirdPartyLoginNickName = [userinfo objectForKey:CUR_USERNICKNAME];
+        thirdHardDeviceUUID = [userinfo objectForKey:CUR_HardWareUUID];
         return TRUE;
         
     } else {

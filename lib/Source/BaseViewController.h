@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UIImageView *clearStatusBarView;//状态栏
 @property (nonatomic, strong) UIView *clearNavView;//导航栏
 @property (nonatomic, strong) UIView *clearRightV;//右侧button
+@property (nonatomic, strong) UILabel *clearNaviTitleLabel;//title
 //
 @property (nonatomic,strong) OTCover *userInfoTableView;
 //

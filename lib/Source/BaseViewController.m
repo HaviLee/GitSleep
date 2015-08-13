@@ -346,7 +346,7 @@
 - (void)setStatusBarDefine
 {
     _statusBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320, 0.f)];
-    _nSpaceNavY = 20;
+    _nSpaceNavY = 0;
     _statusBarView.frame = CGRectMake(_statusBarView.frame.origin.x, _statusBarView.frame.origin.y, _statusBarView.frame.size.width, 20.f);
     _statusBarView.backgroundColor = [UIColor clearColor];
     ((UIImageView *)_statusBarView).backgroundColor = [UIColor clearColor];
@@ -419,14 +419,14 @@
     
     if (szTitle != nil)
     {
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_clearNavView.frame.size.width - 200)/2, 0, 200, 40)];
-        [titleLabel setText:szTitle];
-        titleLabel.tag = 2001;
-        [titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [titleLabel setTextColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor]];
-        [titleLabel setFont:DefaultWordFont];
-        [titleLabel setBackgroundColor:[UIColor clearColor]];
-        [_clearNavView addSubview:titleLabel];
+        self.clearNaviTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake((_clearNavView.frame.size.width - 200)/2, 0, 200, 44)];
+        [_clearNaviTitleLabel setText:szTitle];
+        _clearNaviTitleLabel.tag = 2001;
+        [_clearNaviTitleLabel setTextAlignment:NSTextAlignmentCenter];
+        [_clearNaviTitleLabel setTextColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor]];
+        [_clearNaviTitleLabel setFont:DefaultWordFont];
+        [_clearNaviTitleLabel setBackgroundColor:[UIColor clearColor]];
+        [_clearNavView addSubview:_clearNaviTitleLabel];
     }
     
     UIView *item1 = menuItem(0);

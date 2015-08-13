@@ -33,6 +33,8 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapNightViewGesture;
 //为了标签使用
 @property (nonatomic, strong) NSString *tagFromDateAndEndDate;
+//
+@property (nonatomic, strong) UILabel *DeviceNaviTitleNameLabel;//havi add
 
 @end
 
@@ -92,6 +94,10 @@
             for (NSDictionary *dic in arr) {
                 if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
                     HardWareUUID = [dic objectForKey:@"UUID"];
+                    thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
+                    thirdHardDeviceName = [dic objectForKey:@"Description"];
+                    self.clearNaviTitleLabel.text = thirdHardDeviceName;
+                    [UserManager setGlobalOauth];
                     HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,HardWareUUID);
                     break;
                 }
@@ -233,7 +239,7 @@
     self.datePicker.dateDelegate = self;
     self.datePicker.monthLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
     //自定义导航栏
-    [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
+    [self createClearBgNavWithTitle:thirdHardDeviceName createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
             return self.menuButton;
@@ -245,9 +251,24 @@
         }
         return nil;
     }];
+//    //哈维，8.13增加了显示
+//    [self.view addSubview:self.DeviceNaviTitleNameLabel];
+//    self.DeviceNaviTitleNameLabel.text = thirdHardDeviceName;
 }
 
 #pragma mark  setter meathod
+
+- (UILabel *)DeviceNaviTitleNameLabel
+{
+    if (_DeviceNaviTitleNameLabel==nil) {
+        _DeviceNaviTitleNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, 20, self.view.frame.size.width-160, 40)];
+        _DeviceNaviTitleNameLabel.textColor = [UIColor whiteColor];
+        _DeviceNaviTitleNameLabel.font = [UIFont systemFontOfSize:17];
+        _DeviceNaviTitleNameLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _DeviceNaviTitleNameLabel;
+    
+}
 
 - (UITapGestureRecognizer *)tapDayViewGesture
 {
@@ -587,6 +608,16 @@
 {
     [self.shareMenuView show];
 
+}
+#pragma mark view出现
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (![HardWareUUID isEqualToString:thirdHardDeviceUUID]&&![HardWareUUID isEqualToString:@""]) {
+        [self getAllDeviceList];
+        HaviLog(@"hard UUID出现不同");
+    }
 }
 
 - (void)didReceiveMemoryWarning {
