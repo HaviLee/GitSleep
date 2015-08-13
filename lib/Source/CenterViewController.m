@@ -34,7 +34,6 @@
 //为了标签使用
 @property (nonatomic, strong) NSString *tagFromDateAndEndDate;
 //
-@property (nonatomic, strong) UILabel *DeviceNaviTitleNameLabel;//havi add
 
 @end
 
@@ -252,24 +251,12 @@
         }
         return nil;
     }];
-//    //哈维，8.13增加了显示
-//    [self.view addSubview:self.DeviceNaviTitleNameLabel];
-//    self.DeviceNaviTitleNameLabel.text = thirdHardDeviceName;
+    self.clearNaviTitleLabel.textColor = [UIColor whiteColor];
+
 }
 
 #pragma mark  setter meathod
 
-- (UILabel *)DeviceNaviTitleNameLabel
-{
-    if (_DeviceNaviTitleNameLabel==nil) {
-        _DeviceNaviTitleNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, 20, self.view.frame.size.width-160, 40)];
-        _DeviceNaviTitleNameLabel.textColor = [UIColor whiteColor];
-        _DeviceNaviTitleNameLabel.font = [UIFont systemFontOfSize:17];
-        _DeviceNaviTitleNameLabel.textAlignment = NSTextAlignmentCenter;
-    }
-    return _DeviceNaviTitleNameLabel;
-    
-}
 
 - (UITapGestureRecognizer *)tapDayViewGesture
 {

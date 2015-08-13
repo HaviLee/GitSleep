@@ -310,7 +310,6 @@
 
 - (void)bindingDeviceWithUUID:(NSString *)UUID
 {
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"关联设备中..."];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -341,7 +340,6 @@
 //激活
 - (void)activeUUID:(NSString *)UUID
 {
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };

@@ -127,7 +127,6 @@
 
 - (void)saveDone
 {
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"提交中..."];
     SHPutClient *client = [SHPutClient shareInstance];
     NSDictionary *dic = @{

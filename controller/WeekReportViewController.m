@@ -63,7 +63,7 @@
     [self.view addSubview:self.reportTableView];
 //    [self.view addSubview:self.jScrollView];
 //    [self createSubButton];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.65 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self getUserData];
     });
 }
@@ -91,7 +91,6 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"加载中..."];
     HaviGetNewClient *client = [HaviGetNewClient shareInstance];
     if ([client isExecuting]) {
