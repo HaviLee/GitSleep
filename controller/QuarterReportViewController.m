@@ -94,6 +94,10 @@
 }
 - (void)getTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
 {
+    if ([HardWareUUID isEqualToString:@""]) {
+        [ShowAlertView showAlert:@"您还没有绑定设备"];
+        return;
+    }
     if (!fromDate) {
         return;
     }

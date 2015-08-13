@@ -87,10 +87,8 @@
         [MMProgressHUD dismiss];
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
         if (arr.count == 0) {
-            HardWareUUID = NOBINDUUID;
             self.clearNaviTitleLabel.text = thirdHardDeviceName;
         }else{
-            HardWareUUID = NOUSEUUID;
             for (NSDictionary *dic in arr) {
                 if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
                     HardWareUUID = [dic objectForKey:@"UUID"];
@@ -103,7 +101,7 @@
                 }
             }
         }
-        if (![HardWareUUID isEqualToString:NOBINDUUID]) {
+        if (![HardWareUUID isEqualToString:@""]) {
             NSDate *nowDate = [self getNowDate];
             NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
@@ -126,6 +124,10 @@
 - (void)getTodaySleepQualityData:(NSString *)nowDateString
 {
     //fromdate 是当天的日期
+    if ([HardWareUUID isEqualToString:@""]) {
+        [ShowAlertView showAlert:@"您还没有绑定设备"];
+        return;
+    }
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     if (!nowDateString) {
         
