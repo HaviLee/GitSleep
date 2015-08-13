@@ -17,6 +17,8 @@
 #import "WeiboSDK.h"
 #import "AppDelegate.h"
 
+//
+
 @interface BaseViewController ()<THPinViewControllerDelegate>
 {
     BOOL mIsShowKeyboard;
@@ -312,7 +314,6 @@
     WXMediaMessage *message = [WXMediaMessage message];
     UIImage *image = [self captureScreen];
     [message setThumbImage:image];
-    
     WXImageObject *ext = [WXImageObject object];
     NSData *data;
     if (UIImagePNGRepresentation(image) == nil) {
@@ -1072,6 +1073,7 @@
 }
 
 - (UIImage *) captureScreen {
+    
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     CGRect rect = [keyWindow bounds];
     UIGraphicsBeginImageContext(rect.size);
@@ -1079,7 +1081,6 @@
     [keyWindow.layer renderInContext:context];
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-//    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil);//保存到相册
     return img;
 }
 
