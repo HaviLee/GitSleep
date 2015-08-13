@@ -469,6 +469,7 @@
 		2CD6C04F1B7B852700F1FF6A /* res1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6C04D1B7B852700F1FF6A /* res1.jpg */; };
 		2CD6C0501B7B852700F1FF6A /* res1thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6C04E1B7B852700F1FF6A /* res1thumb.png */; };
 		2CD6C0521B7B894100F1FF6A /* image_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6C0511B7B894100F1FF6A /* image_1.jpg */; };
+		2CD6C0561B7C3FC000F1FF6A /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD6C0551B7C3FC000F1FF6A /* TencentOpenAPI.framework */; };
 		2CD9386C1B5E47F90096C244 /* pic_bg_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD9386B1B5E47F90096C244 /* pic_bg_day@2x.png */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
@@ -1185,6 +1186,7 @@
 		2CD6C04D1B7B852700F1FF6A /* res1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = res1.jpg; sourceTree = "<group>"; };
 		2CD6C04E1B7B852700F1FF6A /* res1thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = res1thumb.png; sourceTree = "<group>"; };
 		2CD6C0511B7B894100F1FF6A /* image_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_1.jpg; sourceTree = "<group>"; };
+		2CD6C0551B7C3FC000F1FF6A /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		2CD9386B1B5E47F90096C244 /* pic_bg_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pic_bg_day@2x.png"; path = "../../../Downloads/pic_bg_day@2x.png"; sourceTree = "<group>"; };
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
@@ -1403,6 +1405,7 @@
 				2C7345DB1B776EE8004D8AB3 /* libc++.dylib in Frameworks */,
 				2C7345D91B776ED9004D8AB3 /* libsqlite3.0.dylib in Frameworks */,
 				2C7345D71B776ECB004D8AB3 /* libz.dylib in Frameworks */,
+				2CD6C0561B7C3FC000F1FF6A /* TencentOpenAPI.framework in Frameworks */,
 				2C0912C01B4E668F00BEE2FF /* CoreTelephony.framework in Frameworks */,
 				2C0912BE1B4E65A900BEE2FF /* CFNetwork.framework in Frameworks */,
 				2C7345D41B776775004D8AB3 /* libWeChatSDK.a in Frameworks */,
@@ -1878,6 +1881,7 @@
 		2C7345CF1B776775004D8AB3 /* WeChatSDK_1.5_OnlyIphone */ = {
 			isa = PBXGroup;
 			children = (
+				2CD6C0551B7C3FC000F1FF6A /* TencentOpenAPI.framework */,
 				2C7345D01B776775004D8AB3 /* libWeChatSDK.a */,
 				2CD6C04D1B7B852700F1FF6A /* res1.jpg */,
 				2CD6C0511B7B894100F1FF6A /* image_1.jpg */,
@@ -3491,6 +3495,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib/Source/WeChatSDK_1.5_OnlyIphone",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SleepRecoding/PrefixHeader.pch";
 				INFOPLIST_FILE = SleepRecoding/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -3514,6 +3522,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib/Source/WeChatSDK_1.5_OnlyIphone",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SleepRecoding/PrefixHeader.pch";
 				INFOPLIST_FILE = SleepRecoding/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

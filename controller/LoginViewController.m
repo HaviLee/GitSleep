@@ -26,6 +26,7 @@
 //
 #import "WXApi.h"
 #import "WeiboSDK.h"
+#import <TencentOpenAPI/TencentOAuth.h>
 
 @interface LoginViewController ()<UITextFieldDelegate,WXApiDelegate>
 @property (nonatomic,strong) CKTextField *nameText;
@@ -179,70 +180,178 @@
     }];
     //第三方登录
     UILabel *thirdLoginLabel = [[UILabel alloc]init];
-    [self.view addSubview:thirdLoginLabel];
-    thirdLoginLabel.text = @"其他登录方式";
-    thirdLoginLabel.font = [UIFont systemFontOfSize:15];
-    thirdLoginLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-    [thirdLoginLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.centerX);
-        make.top.equalTo(forgetButton.bottom).offset(0);
-        make.height.equalTo(40);
-    }];
-    UIView *leftLineView = [[UIView alloc]init];
-    [self.view addSubview:leftLineView];
-    leftLineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-    [leftLineView makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(thirdLoginLabel.centerY);
-        make.height.equalTo(0.5);
-        make.left.equalTo(self.view.left).offset(15);
-        make.right.equalTo(thirdLoginLabel.left).offset(-15);
-    }];
-    
-    UIView *rightLineView = [[UIView alloc]init];
-    [self.view addSubview:rightLineView];
-    rightLineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-    [rightLineView makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(thirdLoginLabel.centerY);
-        make.height.equalTo(0.5);
-        make.left.equalTo(thirdLoginLabel.right).offset(15);
-        make.right.equalTo(self.view.right).offset(-15);
-    }];
-    //
-    UIButton *weixinButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:weixinButton];
-    [weixinButton addTarget:self action:@selector(weixinButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    [weixinButton setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
-    [weixinButton makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.centerX);
-        make.height.equalTo(weixinButton.width);
-        make.height.equalTo(60);
-        make.top.equalTo(thirdLoginLabel.bottom).offset(10);
-    }];
-    
-    //
-    UIButton *qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:qqButton];
-    [qqButton addTarget:self action:@selector(qqButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    float centerfriend = self.view.frame.size.width/4;
-    [qqButton setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
-    [qqButton makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weixinButton.centerY);
-        make.height.equalTo(qqButton.width);
-        make.height.equalTo(60);
-        make.centerX.equalTo(self.view.centerX).offset(-centerfriend);
+    if ([WXApi isWXAppInstalled]||[WeiboSDK isWeiboAppInstalled]||[TencentOAuth iphoneQQInstalled]) {
         
-    }];
-    
-    UIButton *sinaButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sinaButton addTarget:self action:@selector(sinaButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:sinaButton];
-    [sinaButton setBackgroundImage:[UIImage imageNamed:@"sina"] forState:UIControlStateNormal];
-    [sinaButton makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weixinButton.centerY);
-        make.height.equalTo(sinaButton.width);
-        make.height.equalTo(60);
-        make.centerX.equalTo(self.view.centerX).offset(centerfriend);
-    }];
+        [self.view addSubview:thirdLoginLabel];
+        thirdLoginLabel.text = @"其他登录方式";
+        thirdLoginLabel.font = [UIFont systemFontOfSize:15];
+        thirdLoginLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        [thirdLoginLabel makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view.centerX);
+            make.top.equalTo(forgetButton.bottom).offset(0);
+            make.height.equalTo(40);
+        }];
+        UIView *leftLineView = [[UIView alloc]init];
+        [self.view addSubview:leftLineView];
+        leftLineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        [leftLineView makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(thirdLoginLabel.centerY);
+            make.height.equalTo(0.5);
+            make.left.equalTo(self.view.left).offset(15);
+            make.right.equalTo(thirdLoginLabel.left).offset(-15);
+        }];
+        
+        UIView *rightLineView = [[UIView alloc]init];
+        [self.view addSubview:rightLineView];
+        rightLineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        [rightLineView makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(thirdLoginLabel.centerY);
+            make.height.equalTo(0.5);
+            make.left.equalTo(thirdLoginLabel.right).offset(15);
+            make.right.equalTo(self.view.right).offset(-15);
+        }];
+        //
+    }
+    float centerfriend = self.view.frame.size.width/4;
+    if ([WeiboSDK isWeiboAppInstalled]&&[WXApi isWXAppInstalled]&&![TencentOAuth iphoneQQInstalled]) {
+        UIButton *weixinButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.view addSubview:weixinButton];
+        [weixinButton addTarget:self action:@selector(weixinButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [weixinButton setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
+        [weixinButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(weixinButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+            make.centerX.equalTo(self.view.centerX).offset(-centerfriend);
+        }];
+        
+        UIButton *sinaButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sinaButton addTarget:self action:@selector(sinaButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:sinaButton];
+        [sinaButton setBackgroundImage:[UIImage imageNamed:@"sina"] forState:UIControlStateNormal];
+        float centerfriend = self.view.frame.size.width/4;
+        [sinaButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(sinaButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+            make.centerX.equalTo(self.view.centerX).offset(centerfriend);
+        }];
+
+
+    }else if ([WeiboSDK isWeiboAppInstalled]&&[TencentOAuth iphoneQQInstalled]&&![WXApi isWXAppInstalled]){
+        UIButton *sinaButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sinaButton addTarget:self action:@selector(sinaButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:sinaButton];
+        [sinaButton setBackgroundImage:[UIImage imageNamed:@"sina"] forState:UIControlStateNormal];
+        float centerfriend = self.view.frame.size.width/4;
+        [sinaButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(sinaButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+            make.centerX.equalTo(self.view.centerX).offset(centerfriend);
+        }];
+        
+        UIButton *qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [qqButton addTarget:self action:@selector(qqButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [qqButton setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
+        [qqButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(qqButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+            make.centerX.equalTo(self.view.centerX).offset(-centerfriend);
+        }];
+    }else if ([WXApi isWXAppInstalled]&&[TencentOAuth iphoneQQInstalled]&&![WeiboSDK isWeiboAppInstalled]){
+        UIButton *weixinButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.view addSubview:weixinButton];
+        [weixinButton addTarget:self action:@selector(weixinButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [weixinButton setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
+        [weixinButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(weixinButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+            make.centerX.equalTo(self.view.centerX).offset(centerfriend);
+        }];
+        
+        UIButton *qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [qqButton addTarget:self action:@selector(qqButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [qqButton setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
+        [qqButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(qqButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+            make.centerX.equalTo(self.view.centerX).offset(-centerfriend);
+        }];
+    }else if (![WXApi isWXAppInstalled]&&![TencentOAuth iphoneQQInstalled]&&[WeiboSDK isWeiboAppInstalled]){
+        UIButton *sinaButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sinaButton addTarget:self action:@selector(sinaButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:sinaButton];
+        [sinaButton setBackgroundImage:[UIImage imageNamed:@"sina"] forState:UIControlStateNormal];
+        [sinaButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(sinaButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+            make.centerX.equalTo(self.view.centerX);
+        }];
+    }else if ([WXApi isWXAppInstalled]&&![TencentOAuth iphoneQQInstalled]&&![WeiboSDK isWeiboAppInstalled]){
+        UIButton *weixinButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.view addSubview:weixinButton];
+        [weixinButton addTarget:self action:@selector(weixinButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [weixinButton setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
+        [weixinButton makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view.centerX);
+            make.height.equalTo(weixinButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+        }];
+    }else if (![WXApi isWXAppInstalled]&&[TencentOAuth iphoneQQInstalled]&&![WeiboSDK isWeiboAppInstalled]){
+        UIButton *qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [self.view addSubview:qqButton];
+        [qqButton addTarget:self action:@selector(qqButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [qqButton setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
+        [qqButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(qqButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+            make.centerX.equalTo(self.view.centerX);
+        }];
+    }else if ([WXApi isWXAppInstalled]&&[WeiboSDK isWeiboAppInstalled]&&[TencentOAuth iphoneQQInstalled]){
+        UIButton *weixinButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.view addSubview:weixinButton];
+        [weixinButton addTarget:self action:@selector(weixinButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [weixinButton setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
+        [weixinButton makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view.centerX);
+            make.height.equalTo(weixinButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+        }];
+        
+        UIButton *qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [self.view addSubview:qqButton];
+        [qqButton addTarget:self action:@selector(qqButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        float centerfriend = self.view.frame.size.width/4;
+        [qqButton setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
+        [qqButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(qqButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+            make.centerX.equalTo(self.view.centerX).offset(-centerfriend);
+        }];
+        
+        UIButton *sinaButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sinaButton addTarget:self action:@selector(sinaButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:sinaButton];
+        [sinaButton setBackgroundImage:[UIImage imageNamed:@"sina"] forState:UIControlStateNormal];
+        [sinaButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(sinaButton.width);
+            make.height.equalTo(60);
+            make.top.equalTo(thirdLoginLabel.bottom).offset(10);
+            make.centerX.equalTo(self.view.centerX).offset(centerfriend);
+        }];
+        
+    }
     
     
 //
