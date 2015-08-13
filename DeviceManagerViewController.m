@@ -23,7 +23,6 @@
 
 @property (nonatomic,strong) NSMutableArray *deviceArr;
 @property (nonatomic, strong) NSIndexPath *selectedPath;
-@property (nonatomic,strong)  NSString *oldUUID;
 
 @end
 
@@ -37,7 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.oldUUID = HardWareUUID;
     [self createNavWithTitle:@"设备管理" createMenuItem:^UIView *(int nIndex)
      {
          if (nIndex == 1)
@@ -168,13 +166,6 @@
     if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
-//    if (self.selectedPath) {
-//        if (indexPath == self.selectedPath) {
-//            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-//        }else{
-//            cell.accessoryType = UITableViewCellAccessoryNone;
-//        }
-//    }
     return cell;
 }
 
@@ -380,9 +371,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    if (![self.oldUUID isEqualToString:HardWareUUID]) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:POSTDEVICEUUIDCHANGENOTI object:nil];
-    }
 }
 
 - (void)reloadImage

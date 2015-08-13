@@ -474,7 +474,6 @@
     }
     cell.backgroundColor = [UIColor clearColor];
     
-//    cell.textLabel.text = [NSString stringWithFormat:@"li%ld",indexPath.row];
     return cell;
 }
 

@@ -399,7 +399,8 @@
                     
                     [self.navigationController popToViewController:controller animated:YES];
                     //泡个消息，让首界面更新数据
-                    [[NSNotificationCenter defaultCenter]postNotificationName:POSTDEVICEUUIDCHANGENOTI object:nil];
+                    HardWareUUID = self.barTextfield.text;
+//                    [[NSNotificationCenter defaultCenter]postNotificationName:POSTDEVICEUUIDCHANGENOTI object:nil];
                     break;
                 }
             }
@@ -407,6 +408,7 @@
         }else if (buttonIndex == 1){
             UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
             udp.productName = self.deviceName;
+            HardWareUUID = self.barTextfield.text;
             udp.productUUID = self.barTextfield.text;
             [self.navigationController pushViewController:udp animated:YES];
 
