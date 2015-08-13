@@ -260,7 +260,18 @@
     WBMessageObject *message = [WBMessageObject message];
     
     WBImageObject *image = [WBImageObject object];
-    image.imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_1" ofType:@"jpg"]];
+    NSData *data;
+    UIImage *image1 = [self captureScreen];
+
+    if (UIImagePNGRepresentation(image1) == nil) {
+        
+        data = UIImageJPEGRepresentation(image1, 1);
+        
+    } else {
+        
+        data = UIImagePNGRepresentation(image1);
+    }
+    image.imageData = data;
     message.imageObject = image;
     return message;
 }
@@ -268,11 +279,20 @@
 - (void)sendImageToFriend
 {
     WXMediaMessage *message = [WXMediaMessage message];
-    [message setThumbImage:[UIImage imageNamed:@"res1thumb.png"]];
+    UIImage *image = [self captureScreen];
+    [message setThumbImage:image];
     
     WXImageObject *ext = [WXImageObject object];
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"res1" ofType:@"jpg"];
-    ext.imageData = [NSData dataWithContentsOfFile:filePath];
+    NSData *data;
+    if (UIImagePNGRepresentation(image) == nil) {
+        
+        data = UIImageJPEGRepresentation(image, 1);
+        
+    } else {
+        
+        data = UIImagePNGRepresentation(image);
+    }
+    ext.imageData = data;
     
     message.mediaObject = ext;
     message.mediaTagName = @"WECHAT_TAG_JUMP_APP";
@@ -290,15 +310,25 @@
 - (void)sendImageContent
 {
     WXMediaMessage *message = [WXMediaMessage message];
-    [message setThumbImage:[UIImage imageNamed:@"res1thumb.png"]];
+    UIImage *image = [self captureScreen];
+    [message setThumbImage:image];
     
     WXImageObject *ext = [WXImageObject object];
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"res1" ofType:@"jpg"];
-    ext.imageData = [NSData dataWithContentsOfFile:filePath];
+    NSData *data;
+    if (UIImagePNGRepresentation(image) == nil) {
+        
+        data = UIImageJPEGRepresentation(image, 1);
+        
+    } else {
+        
+        data = UIImagePNGRepresentation(image);
+    }
+    ext.imageData = data;
     
     message.mediaObject = ext;
+    message.title = @"智照护";
     message.mediaTagName = @"WECHAT_TAG_JUMP_APP";
-    message.messageExt = @"这是第三方带的测试字段";
+    message.messageExt = @"智照护-您的睡眠管家";
     message.messageAction = @"<action>dotalist</action>";
     
     SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
@@ -1041,6 +1071,20 @@
 {
     return [self networkStatus] > 0;
 }
+
+- (UIImage *) captureScreen {
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    CGRect rect = [keyWindow bounds];
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [keyWindow.layer renderInContext:context];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+//    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil);//保存到相册
+    return img;
+}
+
+
 
 /*
 #pragma mark - Navigation

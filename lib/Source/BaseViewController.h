@@ -88,4 +88,5 @@
 
 - (NSDate*)getNowDate;
 - (void)keyboardWillShow:(NSNotification *)notification;
+- (UIImage *) captureScreen;
 @end
