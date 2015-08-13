@@ -62,7 +62,7 @@
     self.udpController = [[UDPController alloc]init];
     //网络配置
     YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
-    config.baseUrl = @"http://webservice.meddo99.com:9001/";
+    config.baseUrl = BaseUrl;
 //    config.baseUrl = @"http://sdk4report.eucp.b2m.cn:8080/";
     /*
      设置状态栏的字体颜色
@@ -308,6 +308,8 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    //从第三方回来
+    isThirdLogin = NO;
     if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
         return  [WXApi handleOpenURL:url delegate:self];
     }else if ([sourceApplication isEqualToString:@"com.sina.weibo"]){

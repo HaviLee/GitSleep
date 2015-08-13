@@ -16,6 +16,8 @@ static NSString* CUR_USERPLATFORM= @"CURRENT_USER_PLATFORM";
 static NSString* CUR_HardWareUUID = @"CUR_HardWareUUID";
 static NSString* CUR_HardWareName = @"CUR_HardWareName";
 static NSString* CUR_USERNICKNAME = @"CUR_USERNICKNAME";
+static NSString* CUR_MeddoPhone = @"CUR_MeddoPhone";
+static NSString* CUR_MeddoPassWord = @"CUR_MeddoPassWord";
 
 @implementation UserManager
 
@@ -33,6 +35,8 @@ static NSString* CUR_USERNICKNAME = @"CUR_USERNICKNAME";
     userinfo[CUR_USERNICKNAME] = thirdPartyLoginNickName;
     userinfo[CUR_HardWareUUID] = thirdHardDeviceUUID;
     userinfo[CUR_HardWareName] = thirdHardDeviceName;
+    userinfo[CUR_MeddoPhone] = thirdMeddoPhone;
+    userinfo[CUR_MeddoPassWord] = thirdMeddoPassWord;
     [global setObject:userinfo forKey:CUR_USERINFO];
 }
 
@@ -48,6 +52,8 @@ static NSString* CUR_USERNICKNAME = @"CUR_USERNICKNAME";
     thirdPartyLoginNickName = @"";
     thirdHardDeviceUUID = @"";
     thirdHardDeviceName = @"";
+    thirdMeddoPassWord = @"";
+    thirdMeddoPhone = @"";
     
 }
 
@@ -76,6 +82,8 @@ static NSString* CUR_USERNICKNAME = @"CUR_USERNICKNAME";
         thirdPartyLoginNickName = [userinfo objectForKey:CUR_USERNICKNAME];
         thirdHardDeviceUUID = [userinfo objectForKey:CUR_HardWareUUID];
         thirdHardDeviceName = [userinfo objectForKey:CUR_HardWareName];
+        thirdMeddoPhone = [userinfo objectForKey:CUR_MeddoPhone];
+        thirdMeddoPassWord = [userinfo objectForKey:CUR_MeddoPassWord];
         return TRUE;
         
     } else {

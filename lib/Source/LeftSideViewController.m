@@ -358,16 +358,7 @@
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_night"];
     }
 }
-/*
-- (void)logoutCurrentUser:(UIButton *)button
-{
-    
-    isLogout = YES;
-    [[NSNotificationCenter defaultCenter]postNotificationName:POSTLOGOUTNOTI object:nil];
-    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]] animated:NO];
-    [self.sideMenuViewController hideMenuViewController];
-}
-*/
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];

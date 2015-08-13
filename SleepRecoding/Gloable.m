@@ -18,8 +18,7 @@ NSString *HardWareUUID = @"";
 NSString *dayTimeToUse = @"";
 NSDate *selectedDateToUse = nil;
 BOOL DeviceStatus = NO;
-
-BOOL isLogout = NO;
+BOOL isThirdLogin = NO;
 
 BOOL isUserDefaultTime = NO;
 
@@ -32,5 +31,7 @@ NSString *thirdPartyLoginPlatform = @"";
 NSString *thirdPartyLoginNickName = @"";
 NSString *thirdHardDeviceUUID = @"";
 NSString *thirdHardDeviceName = @"";
+NSString *thirdMeddoPhone = @"";
+NSString *thirdMeddoPassWord = @"";
 
 

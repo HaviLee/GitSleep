@@ -70,16 +70,11 @@
     NSAttributedString *attrValue1 = [[NSAttributedString alloc] initWithString:@"密码" attributes:boldFont];
     self.nameText.attributedPlaceholder = attrValue;
     self.passWordText.attributedPlaceholder = attrValue1;
-    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userName"]) {
-        self.nameText.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"userName"];
+    if (thirdMeddoPhone) {
+        self.nameText.text = thirdMeddoPhone;
     }
-    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userPassword"]) {
-        self.passWordText.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"userPassword"];
-    }
-    if (isLogout) {
-        self.nameText.text = @"";
-        self.passWordText.text = @"";
-        
+    if (thirdMeddoPassWord) {
+        self.passWordText.text = thirdMeddoPassWord;
     }
     self.nameText.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passWordText.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -94,7 +89,6 @@
     [logoImage makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.centerX);
         make.bottom.equalTo(self.nameText.top).offset(-padding);
-//        make.top.equalTo(self.view.top).offset(25);
         make.height.width.equalTo(100);
     }];
 //
@@ -386,6 +380,8 @@
 - (void)weixinButtonTaped:(UIButton *)sender
 {
     NSLog(@"weixinbuttoned");
+    //防止设备锁
+    isThirdLogin = YES;
     SendAuthReq* req = [[SendAuthReq alloc] init];
     req.scope = @"snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact"; // @"post_timeline,sns"
     req.state = @"xxx";
@@ -397,11 +393,13 @@
 - (void)qqButtonTaped:(UIButton *)sender
 {
     NSLog(@"qqbutton");
+    isThirdLogin = YES;
 }
 
 - (void)sinaButtonTaped: (UIButton *)sender
 {
     NSLog(@"sinaButton");
+    isThirdLogin = YES;
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     request.redirectURI = WBRedirectURL;
     request.scope = @"all";
@@ -460,19 +458,18 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             NSString *userId = [resposeDic objectForKey:@"UserID"];
             thirdPartyLoginUserId = userId;
-            [[NSUserDefaults standardUserDefaults]setObject:self.nameText.text forKey:@"userName"];
-            [[NSUserDefaults standardUserDefaults]synchronize];
-            [[NSUserDefaults standardUserDefaults]setObject:self.passWordText.text forKey:@"userPassword"];
-            [[NSUserDefaults standardUserDefaults]synchronize];
-            self.loginButtonClicked(1);
             thirdPartyLoginPlatform = MeddoPlatform;
             thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
             NSRange range = [thirdPartyLoginUserId rangeOfString:@"$"];
             thirdPartyLoginNickName = [[resposeDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];
             thirdPartyLoginIcon = @"";
             thirdPartyLoginToken = @"";
+            thirdMeddoPhone = self.nameText.text;
+            thirdMeddoPassWord = self.passWordText.text;
             [UserManager setGlobalOauth];
-            [MMProgressHUD dismissAfterDelay:0.3];            
+            
+            self.loginButtonClicked(1);
+            [MMProgressHUD dismissAfterDelay:0.3];
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10012) {
             
             [MMProgressHUD dismissWithError:@"密码或者帐号错误,请重试。" afterDelay:2];

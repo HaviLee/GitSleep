@@ -14,7 +14,7 @@
 #endif
 
 
-
+#define BaseUrl @"http://webservice.meddo99.com:9001/"
 #define ViewWidth ([UIScreen mainScreen].bounds.size.width - 80)/7
 #define CircleWidth                 ([UIScreen mainScreen].bounds.size.height)*0.091454273
 #define ButtonViewWidth [UIScreen mainScreen].bounds.size.width - 40

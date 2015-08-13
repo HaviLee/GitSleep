@@ -180,9 +180,8 @@
 - (void)logoutMyId
 {
     HaviLog(@"登出");
-    [UserManager resetUserInfo];
-    isLogout = YES;
     
+    //微博登出
     AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
     [WeiBoLogoutAPI weiBoLogoutWithTocken:app.wbtoken parameters:nil finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -192,6 +191,7 @@
     }];
     [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:app.centerViewController] animated:YES];
     [self.sideMenuViewController hideMenuViewController];
+    [UserManager resetUserInfo];
     [[NSNotificationCenter defaultCenter]postNotificationName:ThirdUserLogoutNoti object:nil];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

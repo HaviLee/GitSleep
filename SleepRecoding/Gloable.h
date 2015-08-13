@@ -16,9 +16,9 @@ extern  NSString *HardWareIP;
 //硬件UUID
 extern NSString *HardWareUUID;
 
+extern BOOL isThirdLogin;
+
 extern BOOL DeviceStatus;
-//是否为登出
-extern BOOL isLogout;
 //
 extern NSString *dayTimeToUse;
 extern NSDate *selectedDateToUse;
@@ -34,5 +34,8 @@ extern NSString *thirdPartyLoginPlatform;
 extern NSString *thirdPartyLoginNickName;
 extern NSString *thirdHardDeviceUUID;
 extern NSString *thirdHardDeviceName;
+extern NSString *thirdMeddoPhone;
+extern NSString *thirdMeddoPassWord;
+
 
 
