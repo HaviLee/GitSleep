@@ -57,6 +57,8 @@
     dataLabel.text = self.rightDataString;
     titleLabel.font = _cellFont;
     dataLabel.font = _cellFont;
+    titleLabel.textColor = _cellColor;
+    dataLabel.textColor = _cellColor;
 }
 
 - (void)setCellFont:(UIFont *)cellFont
