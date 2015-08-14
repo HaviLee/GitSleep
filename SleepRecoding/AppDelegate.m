@@ -105,7 +105,7 @@
     if ([sub intValue]>7 && [sub intValue]<18) {
         sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_day"];
     }else{
-        sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_night"];
+        sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_night_0"];
     }
     sideMenuViewController.menuPreferredStatusBarStyle = 0; // UIStatusBarStyleLightContent
     //    sideMenuViewController.delegate = self;
@@ -303,7 +303,16 @@
 #pragma mark 第三方回调函数
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    return YES;
+    //wb2199355574://response?id=C332B448-99AA-48CB-9588-D18D3F122F9D&sdkversion=2.5
+    //
+    NSRange range = [[NSString stringWithFormat:@"%@",url]rangeOfString:@"://"];
+    if ([[[NSString stringWithFormat:@"%@",url] substringToIndex:range.location]isEqualToString:@"wb2199355574"]) {
+        return [WeiboSDK handleOpenURL:url delegate:self];
+    }else if([[[NSString stringWithFormat:@"%@",url] substringToIndex:range.location]isEqualToString:@"wx7be2e0c9ebd9e161"]){
+        return  [WXApi handleOpenURL:url delegate:self];
+    }else{
+        return YES;
+    }
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -479,7 +488,6 @@
 
 - (void)checkUseridIsRegister:(NSDictionary *)infoDic andPlatform:(NSString *)platfrom
 {
-    CheckUserIsRegister *client = [CheckUserIsRegister shareInstance];
     NSString *thirdName;
     if ([platfrom isEqualToString:WXPlatform]) {
         thirdName = [infoDic objectForKey:@"nickname"];
@@ -494,12 +502,9 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    
-    [client checkUserIsRegister:header andWithPara:dic];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        NSLog(@"检查结果%@",resposeDic);
-        //检查第三方帐号发现已经注册过
+//    [NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"]]
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"]] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             thirdPartyLoginPlatform = platfrom;
             thirdPartyLoginUserId = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserID"];
@@ -519,10 +524,10 @@
             self.thirdPlatform = platfrom;
             [[NSNotificationCenter defaultCenter]postNotificationName:ShowPhoneInputViewNoti object:nil userInfo:nil];
         }
-    } failure:^(YTKBaseRequest *request) {
+    } failed:^(NSURLResponse *response, NSError *error) {
         
     }];
-
+    
 }
 #pragma mark 第三方输入手机号完成后的消息
 - (void)thirdUserPhoneNoti:(NSNotification*)noti
@@ -547,7 +552,7 @@
     }else{
         
     }
-    ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
+//    ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": [phoneDic objectForKey:@"phone"], //手机号码
                           @"Email": @"", //邮箱地址，可留空，扩展注册用
@@ -558,7 +563,29 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    
+    [WTRequestCenter postWithURL:[NSString stringWithFormat:@"%@v1/user/UserRegister",BaseUrl] header:header parameters:dic finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"注册成功%@",resposeDic);
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            thirdPartyLoginPlatform = platform;
+            thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
+            thirdPartyLoginNickName = thirdName;
+            if ([platform isEqualToString:WXPlatform]) {
+                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"headimgurl"];
+            }else if ([platform isEqualToString:SinaPlatform]){
+                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"profile_image_url"];
+            }else {
+            }
+            
+            thirdPartyLoginToken = @"";
+            [[NSNotificationCenter defaultCenter]postNotificationName:LoginSuccessedNoti object:nil userInfo:nil];
+            [UserManager setGlobalOauth];
+            [self hideLoginView];
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
+    /*
     [client loginThirdUserWithHeader:header andWithPara:dic];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
@@ -582,6 +609,7 @@
     } failure:^(YTKBaseRequest *request) {
         
     }];
+     */
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -464,7 +464,7 @@
 		2CD6C0401B7B048100F1FF6A /* WeiBoLogoutAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C03F1B7B048100F1FF6A /* WeiBoLogoutAPI.m */; };
 		2CD6C0451B7B2A2B00F1FF6A /* UploadTagAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C0441B7B2A2B00F1FF6A /* UploadTagAPI.m */; };
 		2CD6C0481B7B342B00F1FF6A /* GetTagListAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C0471B7B342B00F1FF6A /* GetTagListAPI.m */; };
-		2CD6C04A1B7B45EF00F1FF6A /* pic_bg_night_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6C0491B7B45EF00F1FF6A /* pic_bg_night_1@2x.png */; };
+		2CD6C04A1B7B45EF00F1FF6A /* pic_bg_center_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6C0491B7B45EF00F1FF6A /* pic_bg_center_1@2x.png */; };
 		2CD6C04C1B7B47B800F1FF6A /* line_640_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6C04B1B7B47B800F1FF6A /* line_640_1@2x.png */; };
 		2CD6C04F1B7B852700F1FF6A /* res1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6C04D1B7B852700F1FF6A /* res1.jpg */; };
 		2CD6C0501B7B852700F1FF6A /* res1thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6C04E1B7B852700F1FF6A /* res1thumb.png */; };
@@ -1189,7 +1189,7 @@
 		2CD6C0441B7B2A2B00F1FF6A /* UploadTagAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploadTagAPI.m; path = API/UploadTagAPI.m; sourceTree = "<group>"; };
 		2CD6C0461B7B342B00F1FF6A /* GetTagListAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetTagListAPI.h; path = API/GetTagListAPI.h; sourceTree = "<group>"; };
 		2CD6C0471B7B342B00F1FF6A /* GetTagListAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetTagListAPI.m; path = API/GetTagListAPI.m; sourceTree = "<group>"; };
-		2CD6C0491B7B45EF00F1FF6A /* pic_bg_night_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_bg_night_1@2x.png"; sourceTree = "<group>"; };
+		2CD6C0491B7B45EF00F1FF6A /* pic_bg_center_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_bg_center_1@2x.png"; sourceTree = "<group>"; };
 		2CD6C04B1B7B47B800F1FF6A /* line_640_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line_640_1@2x.png"; sourceTree = "<group>"; };
 		2CD6C04D1B7B852700F1FF6A /* res1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = res1.jpg; sourceTree = "<group>"; };
 		2CD6C04E1B7B852700F1FF6A /* res1thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = res1thumb.png; sourceTree = "<group>"; };
@@ -1707,7 +1707,7 @@
 				57C723F01AF71906006BE7D0 /* scan_line@2x.png */,
 				57C723F21AF71920006BE7D0 /* scan_line@3x.png */,
 				2C7D21EE1AF1C3C30011A45C /* pic_bg_night_0@2x.png */,
-				2CD6C0491B7B45EF00F1FF6A /* pic_bg_night_1@2x.png */,
+				2CD6C0491B7B45EF00F1FF6A /* pic_bg_center_1@2x.png */,
 				2C15E6801AF20DF800142F36 /* pic_scan_mirror@2x.png */,
 				2C7D21F11AF1C6550011A45C /* birthday@2x.png */,
 				2C15E79B1AF219CE00142F36 /* common_green_checkbox@2x.png */,
@@ -3123,7 +3123,7 @@
 				2C15E70C1AF214E800142F36 /* btn_x_share_1@2x.png in Resources */,
 				2C7D22CB1AF1CA050011A45C /* navigation_bar_bg_0@2x.png in Resources */,
 				2C7D22A91AF1CA050011A45C /* emergency_contact_0@2x.png in Resources */,
-				2CD6C04A1B7B45EF00F1FF6A /* pic_bg_night_1@2x.png in Resources */,
+				2CD6C04A1B7B45EF00F1FF6A /* pic_bg_center_1@2x.png in Resources */,
 				2C7D22DA1AF1CA050011A45C /* pic_night_0@2x.png in Resources */,
 				2C7319D91B75991A005A3EE4 /* day_icon@2x.png in Resources */,
 				2C15E7961AF2180500142F36 /* pic_bad_1@2x.png in Resources */,
@@ -3567,7 +3567,7 @@
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
 			};
 			name = Debug;
 		};
@@ -3594,7 +3594,7 @@
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
 			};
 			name = Release;
 		};

@@ -215,7 +215,11 @@
 - (void)createTableView
 {
     [self.view addSubview:self.cellTableView];
-    self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",selectedThemeIndex]];
+    if (selectedThemeIndex == 0) {
+        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
+    }else{
+        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
+    }
 }
 
 - (void)createCircleView
