@@ -723,7 +723,6 @@
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-//                 [MMProgressHUD dismissWithError:@"请求失败,稍后重试"];
             }];
         }
     }
