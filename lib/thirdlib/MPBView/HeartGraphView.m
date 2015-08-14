@@ -170,15 +170,11 @@
         // 绘制网格竖线
         [self drawDashLine];
     }
-//    [self drawHorironLineWithColor];
-    // 画曲线
-//    [self drawFuncLine];
     if (isUserDefaultTime) {
         
     }else{
         [self setBackImage];
     }
-//    [self drawHrizonerLine];
     self.heartView.graphColor= selectedThemeIndex == 0?DefaultColor:[UIColor whiteColor];
     self.heartView.curved=YES;
     [self addSubview:self.heartView];
@@ -189,7 +185,7 @@
 - (void)drawHorironLineView
 {
     UIView *horironLine = [[UIView alloc]init];
-    horironLine.frame = CGRectMake(0, yCoordinateHeight - (yCoordinateHeight / self.maxYValue)*60-0.5, self.heartView.frame.size.width, 1);
+    horironLine.frame = CGRectMake(0, yCoordinateHeight - (yCoordinateHeight / self.maxYValue)*self.horizonLine-0.5, self.heartView.frame.size.width, 1);
     horironLine.backgroundColor = RGBA(251, 82, 106, 0.5) ;
     [self.heartView addSubview:horironLine];
 }

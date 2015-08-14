@@ -301,7 +301,7 @@
         return _detailView;
     }
     
-    UILabel* label=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+    UILabel* label=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
     label.textAlignment=NSTextAlignmentCenter;
     label.textColor=self.detailTextColor ? self.detailTextColor : ( self.graphColor );
     label.backgroundColor=self.detailBackgroundColor;

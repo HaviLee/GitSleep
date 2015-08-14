@@ -39,7 +39,7 @@
 @property (nonatomic,strong) UILabel *diagnoseDescriptionLabel;
 @property (nonatomic,strong) UILabel *diagnoseSuggestionLabel;
 //表哥
-@property (nonatomic,strong) HeartChartView *heartChartView;
+//@property (nonatomic,strong) HeartChartView *heartChartView;//old
 @property (nonatomic,strong) HeartGraphView *heartGraphView;//havi
 
 //数据
@@ -143,7 +143,6 @@
 {
     if (!_heartGraphView) {
         _heartGraphView = [[HeartGraphView alloc]initWithFrame:CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60)];
-//        _heartGraphView.frame = CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60);
         //设置警告值
         _heartGraphView.chartTitle = @"xinlv";
         _heartGraphView.alarmMaxValue = @"80";
@@ -210,6 +209,7 @@
     }
     return _heartGraphView;
 }
+/*
 
 - (HeartChartView*)heartChartView
 {
@@ -283,7 +283,7 @@
     return _heartChartView;
 }
 
-
+*/
 - (UILabel *)diagnoseConclutionLabel
 {
     if (!_diagnoseConclutionLabel) {
@@ -788,12 +788,18 @@
     self.heartDic = nil;
     for (NSDictionary *dic in arr) {
         self.heartDic = [self changeSeverDataToDefaultChartData:[dic objectForKey:@"Data"]];
-        
+        self.heartGraphView.heartView.values = self.heartDic;
+        [self.heartGraphView.heartView animate];
     }
-    if (self.heartChartView) {
-        [self.heartChartView removeFromSuperview];
-        self.heartChartView = nil;
+    if (arr.count==0) {
+        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+        for (int i=0; i<288; i++) {
+            [arr1 addObject:[NSNumber numberWithFloat:60]];
+        }
+        self.heartGraphView.heartView.values = arr1;
+        [self.heartGraphView.heartView animate];
     }
+
     [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     
 }
@@ -836,10 +842,7 @@
     }
     self.heartDic = arr;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.heartChartView) {
-            [self.heartChartView removeFromSuperview];
-            self.heartChartView = nil;
-        }
+        
         [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     });
     return arr;
@@ -952,26 +955,15 @@
         self.heartDic = [self changeSeverDataToChartData:[dic objectForKey:@"Data"]];
         
     }
-    
-//    if (!arr) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            if (self.heartChartView) {
-//                [self.heartChartView removeFromSuperview];
-//                self.heartChartView = nil;
-//            }
-//            if (self.upTableView.frame.size.height>0) {
-//                [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-//            }
-//        });
-//    }
-    /*
-    if (self.heartChartView) {
-        [self.heartChartView removeFromSuperview];
-        self.heartChartView = nil;
+    if (arr.count==0) {
+        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+        for (int i=0; i<288; i++) {
+            [arr1 addObject:[NSNumber numberWithFloat:60]];
+        }
+        self.heartGraphView.heartView.values = arr1;
+        [self.heartGraphView.heartView animate];
     }
     [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-     */
-    
 }
 
 // mark 转换数据
@@ -1020,40 +1012,6 @@
 {
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showHeartEmercenyView:) name:PostHeartEmergencyNoti object:nil];
-
-    /*
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        //保持统一的切换日期
-        if (isUserDefaultTime) {
-            [self.timeSwitchButton changeRightImageWithTime:0];
-        }else{
-            [self.timeSwitchButton changeLeftImageWithTime:0];
-        }
-        //和首页保持一致
-        if (selectedDateToUse) {
-            [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
-            NSString *selectDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
-            NSString *useDate = [NSString stringWithFormat:@"%@%@%@",[selectDateString substringToIndex:4],[selectDateString substringWithRange:NSMakeRange(5, 2)],[selectDateString substringWithRange:NSMakeRange(8, 2)]];
-            self.currentDate = useDate;
-            //因为这个地方会调用到日历中的请求数据
-        }else{
-            //进行请求数据
-            NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
-            NSString *query = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
-            //为了请求异常数据时间
-            if (isUserDefaultTime) {
-                self.currentDate = query;
-                [self getUserDefaultDaySensorData:query toDate:query];
-            }else{
-                self.currentDate = query;//20150425
-                [self getUserAllDaySensorData:query toDate:query];
-            }
-        }
-        //写下文件
-        [NSKeyedArchiver archiveRootObject:@{@"fileName":@"Heart"} toFile:[self cacheFilePathWithName:@"Heart"]];
-    });
-     */
 }
 
 
@@ -1144,57 +1102,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark 测试新的api
-
-- (void)getUserAllDaySensorDataWithNewAPI:(NSString *)fromDate toDate:(NSString *)toDate
-{
-    [MMProgressHUD showWithStatus:@"请求中..."];
-    NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
-    self.dateComponentsBase.day = -1;
-    NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-    NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-    NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-    NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
-    NSString *urlString1 = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
-    NSDictionary *header = @{
-                             @"AccessToken":@"123456789"
-                             };
-    
-    GetHeartDataAPI *client = [GetHeartDataAPI shareInstance];
-    [client getHeartData:header withDetailUrl:urlString];
-    YTKChainRequest *chain = [[YTKChainRequest alloc]init];
-    [chain addRequest:client callback:^(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest) {
-        NSDictionary *resposeDic = (NSDictionary *)baseRequest.responseJSONObject;
-        [MMProgressHUD dismiss];
-        HaviLog(@"请求的心率数据%@",resposeDic);
-        [self reloadUserViewWithData:resposeDic];
-        GetHeartSleepDataAPI *client1 = [GetHeartSleepDataAPI shareInstance];
-        [client1 getHeartSleepData:header withDetailUrl:urlString1];
-        [chainRequest addRequest:client1 callback:nil];
-    }];
-    chain.delegate = self;
-    [chain start];
-}
-
-- (void)chainRequestFinished:(YTKChainRequest *)chainRequest
-{
-    if (chainRequest.requestArray.count>1) {
-        GetHeartSleepDataAPI *API = (GetHeartSleepDataAPI *)[chainRequest.requestArray objectAtIndex:1];
-        NSDictionary *resposeDic = (NSDictionary *)API.responseJSONObject;
-        HaviLog(@"心率是%@",resposeDic);
-        //为了异常报告,和更新
-        self.currentSleepQulitity = resposeDic;
-        [self reloadSleepView:resposeDic];
-    }
-}
-
-- (void)chainRequestFailed:(YTKChainRequest *)chainRequest failedBaseRequest:(YTKBaseRequest *)request
-{
-    
-}
-#pragma mark 测试结束
- */
 
 /*
 #pragma mark - Navigation
