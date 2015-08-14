@@ -18,6 +18,9 @@
 #import "DiagnoseReportViewController.h"
 #import "ModalAnimation.h"
 #import "YTKChainRequest.h"
+//havi
+#import "HeartGraphView.h"
+
 
 @interface TodayHeartViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,ToggleViewDelegate,UIViewControllerTransitioningDelegate,YTKChainRequestDelegate>
 {
@@ -37,6 +40,7 @@
 @property (nonatomic,strong) UILabel *diagnoseSuggestionLabel;
 //表哥
 @property (nonatomic,strong) HeartChartView *heartChartView;
+@property (nonatomic,strong) HeartGraphView *heartGraphView;//havi
 
 //数据
 @property (nonatomic,strong) NSDictionary *suggestDic;
@@ -63,9 +67,9 @@
     rect.origin.y = rect.origin.y - 64;
     self.datePicker.frame = rect;
     [self.view addSubview:self.datePicker];
-    [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",1]] forState:UIControlStateNormal];
     [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
-    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
     //
     [self createSubView];
     //
@@ -84,13 +88,13 @@
     }else{
         [self.timeSwitchButton changeLeftImageWithTime:0];
     }
-    if (selectedDateToUse) {
-        [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
-        NSString *selectDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
-        NSString *useDate = [NSString stringWithFormat:@"%@%@%@",[selectDateString substringToIndex:4],[selectDateString substringWithRange:NSMakeRange(5, 2)],[selectDateString substringWithRange:NSMakeRange(8, 2)]];
-        self.currentDate = useDate;
-        //因为这个地方会调用到日历中的请求数据
-    }
+//    if (selectedDateToUse) {
+//        [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
+//        NSString *selectDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+//        NSString *useDate = [NSString stringWithFormat:@"%@%@%@",[selectDateString substringToIndex:4],[selectDateString substringWithRange:NSMakeRange(5, 2)],[selectDateString substringWithRange:NSMakeRange(8, 2)]];
+//        self.currentDate = useDate;
+//        //因为这个地方会调用到日历中的请求数据
+//    }
     //
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshView:) name:HeartViewNoti object:nil];
 }
@@ -134,6 +138,78 @@
 }
 
 #pragma mark setter meahtod
+
+- (HeartGraphView*)heartGraphView
+{
+    if (!_heartGraphView) {
+        _heartGraphView = [[HeartGraphView alloc]initWithFrame:CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60)];
+//        _heartGraphView.frame = CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60);
+        //设置警告值
+        _heartGraphView.chartTitle = @"xinlv";
+        _heartGraphView.alarmMaxValue = @"80";
+        _heartGraphView.alarmMinValue = @"60";
+        _heartGraphView.horizonLine = 60;
+        _heartGraphView.backMinValue = 50;
+        _heartGraphView.backMaxValue = 70;
+        //设置坐标轴
+        if (isUserDefaultTime) {
+            NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+            NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+            int startInt = [[startTime substringToIndex:2]intValue];
+            int endInt = [[endTime substringToIndex:2]intValue];
+            if ((startInt<endInt)&&(endInt-startInt>1)&&((endInt - startInt)<12||(endInt - startInt)==12)) {
+                NSMutableArray *arr = [[NSMutableArray alloc]init];
+                for (int i = startInt; i<endInt +1; i++) {
+                    [arr addObject:[NSString stringWithFormat:@"%d",i]];
+                }
+                _heartGraphView.xValues = arr;
+            }else if ((startInt<endInt)&&(endInt - startInt)>12){
+                NSMutableArray *arr = [[NSMutableArray alloc]init];
+                for (int i = 0; i<(int)(endInt -startInt)/2+1; i++) {
+                    [arr addObject:[NSString stringWithFormat:@"%d",startInt +2*i]];
+                    
+                }
+                [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
+                _heartGraphView.xValues = arr;
+            }else if (startInt>endInt){
+                NSMutableArray *arr = [[NSMutableArray alloc]init];
+                for (int i = 0; i<(int)(endInt+ 24-startInt)/2+1; i++) {
+                    int date = startInt +2*i;
+                    if (date>24) {
+                        date = date - 24;
+                    }
+                    [arr addObject:[NSString stringWithFormat:@"%d",date]];
+                    
+                }
+                [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
+                _heartGraphView.xValues = arr;
+            }else if ((endInt - startInt)==1){
+                _heartGraphView.xValues = @[[NSString stringWithFormat:@"%d:00",startInt],[NSString stringWithFormat:@"%d:10",startInt], [NSString stringWithFormat:@"%d:20",startInt],[NSString stringWithFormat:@"%d:30",startInt],[NSString stringWithFormat:@"%d:40",startInt],[NSString stringWithFormat:@"%d:50",startInt],[NSString stringWithFormat:@"%d:00",endInt]];
+            }else if ((endInt - startInt)==0){
+                NSMutableArray *arr = [[NSMutableArray alloc]init];
+                for (int i = 0; i<12+1; i++) {
+                    int date = startInt +2*i;
+                    if (date>24) {
+                        date = date - 24;
+                    }
+                    [arr addObject:[NSString stringWithFormat:@"%d",date]];
+                    
+                }
+                _heartGraphView.xValues = arr;
+            }
+            
+        }else{
+            _heartGraphView.xValues = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
+        }
+        
+        if (self.heartDic.count>0) {
+            self.heartGraphView.dataValues = self.heartDic;
+        }
+        _heartGraphView.yValues = @[@"20", @"40", @"60", @"80", @"100",@"120",@"140"];
+        _heartGraphView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    }
+    return _heartGraphView;
+}
 
 - (HeartChartView*)heartChartView
 {
@@ -378,7 +454,7 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indentifier];
             }
-            [cell addSubview:self.heartChartView];
+            [cell addSubview:self.heartGraphView];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = [UIColor clearColor];
@@ -876,17 +952,18 @@
         self.heartDic = [self changeSeverDataToChartData:[dic objectForKey:@"Data"]];
         
     }
-    if (!arr) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.heartChartView) {
-                [self.heartChartView removeFromSuperview];
-                self.heartChartView = nil;
-            }
-            if (self.upTableView.frame.size.height>0) {
-                [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            }
-        });
-    }
+    
+//    if (!arr) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if (self.heartChartView) {
+//                [self.heartChartView removeFromSuperview];
+//                self.heartChartView = nil;
+//            }
+//            if (self.upTableView.frame.size.height>0) {
+//                [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+//            }
+//        });
+//    }
     /*
     if (self.heartChartView) {
         [self.heartChartView removeFromSuperview];
@@ -904,7 +981,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *arr = [[NSMutableArray alloc]init];
         for (int i=0; i<288; i++) {
-            [arr addObject:[NSNumber numberWithFloat:0]];
+            [arr addObject:[NSNumber numberWithFloat:60]];
         }
         for (int i = 0; i<severDataArr.count; i++) {
             NSDictionary *dic = [severDataArr objectAtIndex:i];
@@ -921,11 +998,8 @@
         }
         self.heartDic = arr;
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.heartChartView) {
-                [self.heartChartView removeFromSuperview];
-                self.heartChartView = nil;
-            }
-            [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            self.heartGraphView.heartView.values = self.heartDic;
+            [self.heartGraphView.heartView animate];
         });
     });
     return nil;

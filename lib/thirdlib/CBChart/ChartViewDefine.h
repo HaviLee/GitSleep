@@ -14,7 +14,7 @@
 #define coorLineWidth 1
 #define bottomLineMargin 20
 #define coordinateOriginFrame CGRectMake(self.leftLineMargin, self.frame.size.height - bottomLineMargin, coorLineWidth, coorLineWidth)  // 原点坐标
-#define xCoordinateWidth (self.frame.size.width - self.leftLineMargin - 5)
+#define xCoordinateWidth (self.frame.size.width - 22.5 - 5)
 #define yCoordinateHeight (self.frame.size.height - bottomLineMargin - 5)
 
 #endif

@@ -470,7 +470,13 @@
 		2CD6C0501B7B852700F1FF6A /* res1thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6C04E1B7B852700F1FF6A /* res1thumb.png */; };
 		2CD6C0521B7B894100F1FF6A /* image_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6C0511B7B894100F1FF6A /* image_1.jpg */; };
 		2CD6C0561B7C3FC000F1FF6A /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD6C0551B7C3FC000F1FF6A /* TencentOpenAPI.framework */; };
-		2CD6C0581B7C9C6600F1FF6A /* libTelephonyIOKitDynamic.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD6C0571B7C9C6600F1FF6A /* libTelephonyIOKitDynamic.dylib */; };
+		2CD6C0651B7D812300F1FF6A /* MPBarsGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C05B1B7D812300F1FF6A /* MPBarsGraphView.m */; };
+		2CD6C0661B7D812300F1FF6A /* MPGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C05D1B7D812300F1FF6A /* MPGraphView.m */; };
+		2CD6C0671B7D812300F1FF6A /* MPPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C05F1B7D812300F1FF6A /* MPPlot.m */; };
+		2CD6C0681B7D812300F1FF6A /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C0601B7D812300F1FF6A /* README.md */; };
+		2CD6C0691B7D812300F1FF6A /* UIBezierPath+curved.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C0621B7D812300F1FF6A /* UIBezierPath+curved.m */; };
+		2CD6C06A1B7D812300F1FF6A /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C0641B7D812300F1FF6A /* UIView+Frame.m */; };
+		2CD6C06D1B7D827C00F1FF6A /* HeartGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C06C1B7D827C00F1FF6A /* HeartGraphView.m */; };
 		2CD9386C1B5E47F90096C244 /* pic_bg_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD9386B1B5E47F90096C244 /* pic_bg_day@2x.png */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
@@ -1189,6 +1195,19 @@
 		2CD6C0511B7B894100F1FF6A /* image_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_1.jpg; sourceTree = "<group>"; };
 		2CD6C0551B7C3FC000F1FF6A /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		2CD6C0571B7C9C6600F1FF6A /* libTelephonyIOKitDynamic.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libTelephonyIOKitDynamic.dylib; path = usr/lib/libTelephonyIOKitDynamic.dylib; sourceTree = SDKROOT; };
+		2CD6C05A1B7D812300F1FF6A /* MPBarsGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBarsGraphView.h; sourceTree = "<group>"; };
+		2CD6C05B1B7D812300F1FF6A /* MPBarsGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBarsGraphView.m; sourceTree = "<group>"; };
+		2CD6C05C1B7D812300F1FF6A /* MPGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGraphView.h; sourceTree = "<group>"; };
+		2CD6C05D1B7D812300F1FF6A /* MPGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGraphView.m; sourceTree = "<group>"; };
+		2CD6C05E1B7D812300F1FF6A /* MPPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPPlot.h; sourceTree = "<group>"; };
+		2CD6C05F1B7D812300F1FF6A /* MPPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPlot.m; sourceTree = "<group>"; };
+		2CD6C0601B7D812300F1FF6A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2CD6C0611B7D812300F1FF6A /* UIBezierPath+curved.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+curved.h"; sourceTree = "<group>"; };
+		2CD6C0621B7D812300F1FF6A /* UIBezierPath+curved.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+curved.m"; sourceTree = "<group>"; };
+		2CD6C0631B7D812300F1FF6A /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		2CD6C0641B7D812300F1FF6A /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		2CD6C06B1B7D827C00F1FF6A /* HeartGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartGraphView.h; sourceTree = "<group>"; };
+		2CD6C06C1B7D827C00F1FF6A /* HeartGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartGraphView.m; sourceTree = "<group>"; };
 		2CD9386B1B5E47F90096C244 /* pic_bg_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pic_bg_day@2x.png"; path = "../../../Downloads/pic_bg_day@2x.png"; sourceTree = "<group>"; };
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
@@ -1400,7 +1419,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CD6C0301B7AE04D00F1FF6A /* ImageIO.framework in Frameworks */,
-				2CD6C0581B7C9C6600F1FF6A /* libTelephonyIOKitDynamic.dylib in Frameworks */,
 				2CD6C0381B7AE09700F1FF6A /* CoreGraphics.framework in Frameworks */,
 				2CD6C0361B7AE08900F1FF6A /* Foundation.framework in Frameworks */,
 				2CD6C0341B7AE07400F1FF6A /* CoreText.framework in Frameworks */,
@@ -2189,6 +2207,27 @@
 			path = lib/Source/libWeiboSDK;
 			sourceTree = "<group>";
 		};
+		2CD6C0591B7D812300F1FF6A /* MPBView */ = {
+			isa = PBXGroup;
+			children = (
+				2CD6C05A1B7D812300F1FF6A /* MPBarsGraphView.h */,
+				2CD6C05B1B7D812300F1FF6A /* MPBarsGraphView.m */,
+				2CD6C05C1B7D812300F1FF6A /* MPGraphView.h */,
+				2CD6C05D1B7D812300F1FF6A /* MPGraphView.m */,
+				2CD6C05E1B7D812300F1FF6A /* MPPlot.h */,
+				2CD6C05F1B7D812300F1FF6A /* MPPlot.m */,
+				2CD6C0601B7D812300F1FF6A /* README.md */,
+				2CD6C0611B7D812300F1FF6A /* UIBezierPath+curved.h */,
+				2CD6C0621B7D812300F1FF6A /* UIBezierPath+curved.m */,
+				2CD6C0631B7D812300F1FF6A /* UIView+Frame.h */,
+				2CD6C0641B7D812300F1FF6A /* UIView+Frame.m */,
+				2CD6C06B1B7D827C00F1FF6A /* HeartGraphView.h */,
+				2CD6C06C1B7D827C00F1FF6A /* HeartGraphView.m */,
+			);
+			name = MPBView;
+			path = lib/thirdlib/MPBView;
+			sourceTree = "<group>";
+		};
 		572AA9731AC29A5700DED1D9 /* THPinViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2596,6 +2635,7 @@
 		579AC7DF1AA033BC0045E9A2 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				2CD6C0591B7D812300F1FF6A /* MPBView */,
 				2C7319E31B75E598005A3EE4 /* TLTagsContol */,
 				2C95C27F1B74430C00C626D9 /* CHCircleGaugeView */,
 				2C7CA01F1B67656300AA511D /* Wave */,
@@ -3199,6 +3239,7 @@
 				2C7345F11B787C2B004D8AB3 /* PNLineView.m in Sources */,
 				5764517B1AC6478D008E3526 /* SelectThemeCollectionViewCell.m in Sources */,
 				2C7319EC1B7650AA005A3EE4 /* SleepAnalisis.m in Sources */,
+				2CD6C0651B7D812300F1FF6A /* MPBarsGraphView.m in Sources */,
 				57063D2C1ABFDE7B00A61267 /* ImageUtil.m in Sources */,
 				577B85201AE9DD6E00D876E8 /* GetExceptionAPI.m in Sources */,
 				2C95C2891B74430C00C626D9 /* UILabel+FlickerNumber.m in Sources */,
@@ -3229,6 +3270,7 @@
 				2C0912BC1B4E591A00BEE2FF /* Toast+UIView.m in Sources */,
 				2C7345E11B77A943004D8AB3 /* UserManager.m in Sources */,
 				2C1F1FC41AD8B7E700393E04 /* QuaterCalenderView.m in Sources */,
+				2CD6C0661B7D812300F1FF6A /* MPGraphView.m in Sources */,
 				2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */,
 				2C1F1FEA1ADBF38F00393E04 /* WQCalendarLogic.m in Sources */,
 				2C7345F71B79894F004D8AB3 /* ThirdRegisterAPI.m in Sources */,
@@ -3279,7 +3321,9 @@
 				577062E01AC2919900790F79 /* Gloable.m in Sources */,
 				576F09CF1AC3CDC50083395C /* PassCodeSettingViewController.m in Sources */,
 				57D566801AD255DF00FE7439 /* DiagnoseReportTableViewCell.m in Sources */,
+				2CD6C0681B7D812300F1FF6A /* README.md in Sources */,
 				57F1D14C1AB8329500B5B0D1 /* UDPAddProductViewController.m in Sources */,
+				2CD6C06A1B7D812300F1FF6A /* UIView+Frame.m in Sources */,
 				577086181ABBFCE3004A2C07 /* UserInfoPhoneTableViewCell.m in Sources */,
 				57802E281AE7398200823E39 /* QHConfiguredObj.m in Sources */,
 				57D7A1961AB980FD00797059 /* LabelLine.m in Sources */,
@@ -3304,6 +3348,7 @@
 				2C1F1FEE1ADBF38F00393E04 /* WQScrollCalendarView.m in Sources */,
 				2C77D5291AEE7095004123D2 /* MMPickerView.m in Sources */,
 				2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */,
+				2CD6C0691B7D812300F1FF6A /* UIBezierPath+curved.m in Sources */,
 				2C1F1FD01ADA57AB00393E04 /* WeekCalenderView.m in Sources */,
 				2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */,
 				2CD6C0401B7B048100F1FF6A /* WeiBoLogoutAPI.m in Sources */,
@@ -3324,12 +3369,14 @@
 				577B85231AE9EE2900D876E8 /* HeartChartView.m in Sources */,
 				572AA9871AC29A5700DED1D9 /* THPinNumPadView.m in Sources */,
 				2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */,
+				2CD6C06D1B7D827C00F1FF6A /* HeartGraphView.m in Sources */,
 				2C1F1FC71AD95CA600393E04 /* MonthReportTableViewCell.m in Sources */,
 				2C7345E41B7835DA004D8AB3 /* WeiXinAPI.m in Sources */,
 				2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */,
 				572AA9861AC29A5700DED1D9 /* THPinNumButton.m in Sources */,
 				576A76751AC1337600BE8206 /* ShowAlertView.m in Sources */,
 				2C8F7BBF1AF3747700E56513 /* JTCircleView.m in Sources */,
+				2CD6C0671B7D812300F1FF6A /* MPPlot.m in Sources */,
 				2C77D5231AED13EF004123D2 /* GetUserDefaultDataAPI.m in Sources */,
 				5744AB8F1ACD2AED00AAA869 /* HaviBarView.m in Sources */,
 				2C1F1FCA1AD96A5800393E04 /* MonthReportView.m in Sources */,
