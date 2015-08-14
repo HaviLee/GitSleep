@@ -253,7 +253,7 @@
         }
         return nil;
     }];
-    self.clearNaviTitleLabel.textColor = [UIColor whiteColor];
+    self.clearNaviTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
 
 }
 
@@ -404,7 +404,7 @@
         NSString *dateString = [formatter stringFromDate:date];
         HaviLog(@"当前选中的日期是%@",dateString);
         NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
-//        [self getTodayUserData:subString endDate:subString withCompareDate:date];
+        [self getTodaySleepQualityData:subString];
     }
 }
 
