@@ -123,7 +123,7 @@
             CGFloat val=[p floatValue];
             
 //            val=((val-min)/(max-min));
-            val = val/140;
+            val = val/_horizonValue;
             
             [pointsArray addObject:@(val)];
         }
@@ -137,7 +137,10 @@
 
 #pragma mark setters
 
-
+- (void)setHorizonValue:(int)horizonValue
+{
+    _horizonValue = horizonValue;
+}
 
 - (void)setValues:(NSArray *)values{
     

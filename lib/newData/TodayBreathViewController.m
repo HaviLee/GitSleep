@@ -17,7 +17,8 @@
 #import "ModalAnimation.h"
 #import "GetDefatultSleepAPI.h"
 #import "GetUserDefaultDataAPI.h"
-
+//
+#import "BreathGraphView.h"
 
 @interface TodayBreathViewController ()<SetScrollDateDelegate,SelectCalenderDate,ToggleViewDelegate,UIViewControllerTransitioningDelegate>
 {
@@ -30,7 +31,9 @@
 @property (nonatomic,strong) UITableView *upTableView;
 @property (nonatomic,strong) UITableView *downTableView;
 //表哥
-@property (nonatomic,strong) CBChartView *breathView;
+//@property (nonatomic,strong) CBChartView *breathView;//old
+@property (nonatomic,strong) BreathGraphView *breathGraphView;//havi
+
 
 //
 @property (nonatomic, strong) UIView *indicatorView;
@@ -134,18 +137,20 @@
 }
 #pragma mark setter meahtod
 
-- (CBChartView *)breathView
+- (BreathGraphView *)breathGraphView
 {
-    if (!_breathView) {
-        _breathView = [CBChartView charView];
-        _breathView.frame = CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60);
+    if (!_breathGraphView) {
+        _breathGraphView = [BreathGraphView breathGraphView];
+        _breathGraphView.frame = CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60);
         //设置警告值
-        _breathView.alarmMaxValue = @"20";
-        _breathView.alarmMinValue = @"15";
-        _breathView.horizonLine = 15;
-        _breathView.backMinValue = 10;
-        _breathView.backMaxValue = 20;
-        _breathView.chartTitle = @"huxi";
+        _breathGraphView.yValues = @[@"10", @"20", @"30", @"40",];
+        _breathGraphView.alarmMaxValue = @"20";
+        _breathGraphView.alarmMinValue = @"15";
+        _breathGraphView.horizonLine = 15;
+        _breathGraphView.backMinValue = 10;
+        _breathGraphView.backMaxValue = 20;
+        _breathGraphView.chartTitle = @"huxi";
+        _breathGraphView.heartView.horizonValue = 40;
         //设置坐标轴
         //设置坐标轴
         if (isUserDefaultTime) {
@@ -158,7 +163,7 @@
                 for (int i = startInt; i<endInt +1; i++) {
                     [arr addObject:[NSString stringWithFormat:@"%d",i]];
                 }
-                _breathView.xValues = arr;
+                _breathGraphView.xValues = arr;
             }else if ((startInt<endInt)&&(endInt - startInt)>12){
                 NSMutableArray *arr = [[NSMutableArray alloc]init];
                 for (int i = 0; i<(int)(endInt -startInt)/2+1; i++) {
@@ -166,7 +171,7 @@
                     
                 }
                 [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
-                _breathView.xValues = arr;
+                _breathGraphView.xValues = arr;
             }else if (startInt>endInt){
                 NSMutableArray *arr = [[NSMutableArray alloc]init];
                 for (int i = 0; i<(int)(endInt+ 24-startInt)/2+1; i++) {
@@ -178,9 +183,9 @@
                     
                 }
                 [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
-                _breathView.xValues = arr;
+                _breathGraphView.xValues = arr;
             }else if ((endInt - startInt)==1){
-                _breathView.xValues = @[[NSString stringWithFormat:@"%d:00",startInt],[NSString stringWithFormat:@"%d:10",startInt], [NSString stringWithFormat:@"%d:20",startInt],[NSString stringWithFormat:@"%d:30",startInt],[NSString stringWithFormat:@"%d:40",startInt],[NSString stringWithFormat:@"%d:50",startInt],[NSString stringWithFormat:@"%d:00",endInt]];
+                _breathGraphView.xValues = @[[NSString stringWithFormat:@"%d:00",startInt],[NSString stringWithFormat:@"%d:10",startInt], [NSString stringWithFormat:@"%d:20",startInt],[NSString stringWithFormat:@"%d:30",startInt],[NSString stringWithFormat:@"%d:40",startInt],[NSString stringWithFormat:@"%d:50",startInt],[NSString stringWithFormat:@"%d:00",endInt]];
             }else if ((endInt - startInt)==0){
                 NSMutableArray *arr = [[NSMutableArray alloc]init];
                 for (int i = 0; i<12+1; i++) {
@@ -191,21 +196,94 @@
                     [arr addObject:[NSString stringWithFormat:@"%d",date]];
                     
                 }
-                _breathView.xValues = arr;
+                _breathGraphView.xValues = arr;
             }
             
         }else{
-            _breathView.xValues = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
+            _breathGraphView.xValues = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
         }
         
         if (self.breathDic.count>0) {
-            self.breathView.dataValues = self.breathDic;
+            self.breathGraphView.dataValues = self.breathDic;
         }
-        _breathView.yValues = @[@"10", @"20", @"30", @"40",];
-        _breathView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        
+        _breathGraphView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     }
-    return _breathView;
+    return _breathGraphView;
 }
+//
+//- (CBChartView *)breathView
+//{
+//    if (!_breathView) {
+//        _breathView = [CBChartView charView];
+//        _breathView.frame = CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60);
+//        //设置警告值
+//        _breathView.alarmMaxValue = @"20";
+//        _breathView.alarmMinValue = @"15";
+//        _breathView.horizonLine = 15;
+//        _breathView.backMinValue = 10;
+//        _breathView.backMaxValue = 20;
+//        _breathView.chartTitle = @"huxi";
+//        //设置坐标轴
+//        //设置坐标轴
+//        if (isUserDefaultTime) {
+//            NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+//            NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+//            int startInt = [[startTime substringToIndex:2]intValue];
+//            int endInt = [[endTime substringToIndex:2]intValue];
+//            if ((startInt<endInt)&&(endInt-startInt>1)&&((endInt - startInt)<12||(endInt - startInt)==12)) {
+//                NSMutableArray *arr = [[NSMutableArray alloc]init];
+//                for (int i = startInt; i<endInt +1; i++) {
+//                    [arr addObject:[NSString stringWithFormat:@"%d",i]];
+//                }
+//                _breathView.xValues = arr;
+//            }else if ((startInt<endInt)&&(endInt - startInt)>12){
+//                NSMutableArray *arr = [[NSMutableArray alloc]init];
+//                for (int i = 0; i<(int)(endInt -startInt)/2+1; i++) {
+//                    [arr addObject:[NSString stringWithFormat:@"%d",startInt +2*i]];
+//                    
+//                }
+//                [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
+//                _breathView.xValues = arr;
+//            }else if (startInt>endInt){
+//                NSMutableArray *arr = [[NSMutableArray alloc]init];
+//                for (int i = 0; i<(int)(endInt+ 24-startInt)/2+1; i++) {
+//                    int date = startInt +2*i;
+//                    if (date>24) {
+//                        date = date - 24;
+//                    }
+//                    [arr addObject:[NSString stringWithFormat:@"%d",date]];
+//                    
+//                }
+//                [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
+//                _breathView.xValues = arr;
+//            }else if ((endInt - startInt)==1){
+//                _breathView.xValues = @[[NSString stringWithFormat:@"%d:00",startInt],[NSString stringWithFormat:@"%d:10",startInt], [NSString stringWithFormat:@"%d:20",startInt],[NSString stringWithFormat:@"%d:30",startInt],[NSString stringWithFormat:@"%d:40",startInt],[NSString stringWithFormat:@"%d:50",startInt],[NSString stringWithFormat:@"%d:00",endInt]];
+//            }else if ((endInt - startInt)==0){
+//                NSMutableArray *arr = [[NSMutableArray alloc]init];
+//                for (int i = 0; i<12+1; i++) {
+//                    int date = startInt +2*i;
+//                    if (date>24) {
+//                        date = date - 24;
+//                    }
+//                    [arr addObject:[NSString stringWithFormat:@"%d",date]];
+//                    
+//                }
+//                _breathView.xValues = arr;
+//            }
+//            
+//        }else{
+//            _breathView.xValues = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
+//        }
+//        
+//        if (self.breathDic.count>0) {
+//            self.breathView.dataValues = self.breathDic;
+//        }
+//        _breathView.yValues = @[@"10", @"20", @"30", @"40",];
+//        _breathView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+//    }
+//    return _breathView;
+//}
 
 - (UILabel *)diagnoseConclutionLabel
 {
@@ -376,7 +454,7 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indentifier];
             }
-            [cell addSubview:self.breathView];
+            [cell addSubview:self.breathGraphView];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = [UIColor clearColor];
             return cell;
@@ -730,27 +808,20 @@
     self.breathDic = nil;
     for (NSDictionary *dic in arr) {
         self.breathDic = [self changeSeverDataToDefaultChartData:[dic objectForKey:@"Data"]];
+        self.breathGraphView.heartView.values = self.breathDic;
+        [self.breathGraphView.heartView animate];
         
     }
-    if (!arr) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.breathView) {
-                [self.breathView removeFromSuperview];
-                self.breathView = nil;
-            }
-//            self.breathDic = arr;
-            if (self.upTableView.frame.size.height>0) {
-                [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            }
-        });
+    if (arr.count==0) {
+        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+        for (int i=0; i<288; i++) {
+            [arr1 addObject:[NSNumber numberWithFloat:60]];
+        }
+        self.breathGraphView.heartView.values = arr1;
+        [self.breathGraphView.heartView animate];
     }
-    /*
-    if (self.breathView) {
-        [self.breathView removeFromSuperview];
-        self.breathView = nil;
-    }
+    
     [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-     */
 }
 
 - (NSMutableArray *)changeSeverDataToDefaultChartData:(NSArray *)severDataArr
@@ -788,11 +859,7 @@
         [arr replaceObjectAtIndex:indexIn withObject:[NSNumber numberWithFloat:[[dic objectForKey:@"Value"] floatValue]]];
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.breathView) {
-            [self.breathView removeFromSuperview];
-            self.breathView = nil;
-        }
-        self.breathDic = arr;
+        
         if (self.upTableView.frame.size.height>0) {
             [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         }
@@ -911,23 +978,15 @@
         self.breathDic = [self changeSeverDataToChartData:[dic objectForKey:@"Data"]];
         
     }
-    if (!arr) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.breathView) {
-                [self.breathView removeFromSuperview];
-                self.breathView = nil;
-            }
-            self.breathDic = arr;
-            [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-        });
-    }
-    /*
-    if (self.breathView) {
-        [self.breathView removeFromSuperview];
-        self.breathView = nil;
+    if (arr.count==0) {
+        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+        for (int i=0; i<288; i++) {
+            [arr1 addObject:[NSNumber numberWithFloat:60]];
+        }
+        self.breathGraphView.heartView.values = arr1;
+        [self.breathGraphView.heartView animate];
     }
     [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-     */
 }
 
 #pragma mark 转换数据
@@ -937,7 +996,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *arr = [[NSMutableArray alloc]init];
         for (int i=0; i<288; i++) {
-            [arr addObject:[NSNumber numberWithFloat:0]];
+            [arr addObject:[NSNumber numberWithFloat:15]];
         }
         for (int i = 0; i<severDataArr.count; i++) {
             NSDictionary *dic = [severDataArr objectAtIndex:i];
@@ -953,15 +1012,11 @@
             [arr replaceObjectAtIndex:indexIn withObject:[NSNumber numberWithFloat:[[dic objectForKey:@"Value"] floatValue]]];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.breathView) {
-                [self.breathView removeFromSuperview];
-                self.breathView = nil;
-            }
             self.breathDic = arr;
-            if (self.upTableView.frame.size.height>0) {
-                [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            }
-
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.breathGraphView.heartView.values = self.breathDic;
+                [self.breathGraphView.heartView animate];
+            });
         });
     });
     return nil;

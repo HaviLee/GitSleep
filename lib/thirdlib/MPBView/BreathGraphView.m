@@ -1,15 +1,15 @@
 //
-//  HeartGraphView.m
+//  BreathGraphView.m
 //  SleepRecoding
 //
 //  Created by Havi on 15/8/14.
 //  Copyright (c) 2015年 Havi. All rights reserved.
 //
 
-#import "HeartGraphView.h"
+#import "BreathGraphView.h"
 #import "ChartViewDefine.h"
 
-@interface HeartGraphView ()
+@interface BreathGraphView ()
 @property (nonatomic) CGContextRef context;
 
 @property (strong, nonatomic) NSMutableArray *xPoints;
@@ -22,43 +22,106 @@
 @property (assign, nonatomic) CGFloat leftLineMargin;
 @property (assign, nonatomic) BOOL islineDrawDone;
 @property (nonatomic, strong) NSMutableArray *viewArr;
+//
+@property (nonatomic, strong) UIImageView *leftImage;
+@property (nonatomic, strong) UIImageView *rightImage;
 @end
 
-@implementation HeartGraphView
+@implementation BreathGraphView
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         
         self.backgroundColor = [UIColor clearColor];
-        self.isDrawDashLine = YES;
     }
     return self;
-}
-
-- (NSMutableArray *)viewArr
-{
-    if (_viewArr == nil) {
-        _viewArr = [[NSMutableArray alloc]init];
-    }
-    return _viewArr;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
-        self.isDrawDashLine = YES;
     }
     return self;
 }
 
-+(instancetype)heartGraphView
++(instancetype)breathGraphView
 {
-    HeartGraphView *chartView = [[self alloc] init];
+    BreathGraphView *chartView = [[self alloc] init];
     // 默认值
     chartView.frame = CGRectMake(10, 70, 300, 220);
     return chartView;
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+    [self drawCoorPointAndDashLine];
+}
+
+#pragma mark setter meathod
+
+- (UIImageView *)leftImage
+{
+    if (_leftImage == nil) {
+        _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin, 5, xCoordinateWidth/2+2, yCoordinateHeight)];
+        _leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night_%d",selectedThemeIndex]];
+    }
+    return _leftImage;
+}
+
+- (UIImageView *)rightImage
+{
+    if (_rightImage == nil) {
+        _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin+xCoordinateWidth/2+2, 5, xCoordinateWidth/2, yCoordinateHeight)];
+        _rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_%d",selectedThemeIndex]];
+    }
+    return _rightImage;
+}
+
+- (void)setDataValues:(NSMutableArray *)dataValues
+{
+    if (!_funcPoints) {
+        _funcPoints = [[NSMutableArray alloc]init];
+    }
+    if (_funcPoints.count>0) {
+        [_funcPoints removeAllObjects];
+    }
+    for (int i = 0; i<dataValues.count; i++) {
+        [_funcPoints addObject:[dataValues objectAtIndex:i]];
+    }
+}
+
+- (MPGraphView *)heartView
+{
+    if (_heartView==nil) {
+        _heartView=[[MPGraphView alloc] initWithFrame:CGRectMake(self.leftLineMargin, 5, xCoordinateWidth, yCoordinateHeight)];
+        _heartView.waitToUpdate=NO;
+        _heartView.lineWidth = 0.5;
+        _heartView.backgroundColor = [UIColor clearColor];
+        //                _heartView.values=@[@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,];
+    }
+    return _heartView;
+}
+
+- (CGContextRef)context
+{
+    if (!_context) {
+        _context = UIGraphicsGetCurrentContext();
+    }
+    return _context;
+}
+
+-(NSDictionary *)textStyleDict
+{
+    if (!_textStyleDict) {
+        UIFont *font = [UIFont systemFontOfSize:13];
+        NSMutableParagraphStyle *style=[[NSMutableParagraphStyle alloc]init]; // 段落样式
+        style.alignment = NSTextAlignmentCenter;
+        _textStyleDict = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor],};
+    }
+    return _textStyleDict;
 }
 
 - (void)setXValues:(NSArray *)xValues
@@ -84,36 +147,16 @@
     
     self.leftLineMargin = maxStrWidth + 6;
     if (self.xValues.count != 0) {
-        if (!self.shutDefaultAnimation) {
-            [self setUpCoordinateSystem];
-        }
+        [self setUpCoordinateSystem];
     }
 }
 
-- (CGContextRef)context
+- (NSMutableArray *)viewArr
 {
-    if (!_context) {
-        _context = UIGraphicsGetCurrentContext();
+    if (_viewArr == nil) {
+        _viewArr = [[NSMutableArray alloc]init];
     }
-    return _context;
-}
--(void)drawRect:(CGRect)rect
-{
-    [super drawRect:rect];
-    [self drawCoorPointAndDashLine];
-}
-
-- (void)setDataValues:(NSMutableArray *)dataValues
-{
-    if (!_funcPoints) {
-        _funcPoints = [[NSMutableArray alloc]init];
-    }
-    if (_funcPoints.count>0) {
-        [_funcPoints removeAllObjects];
-    }
-    for (int i = 0; i<dataValues.count; i++) {
-        [_funcPoints addObject:[dataValues objectAtIndex:i]];
-    }
+    return _viewArr;
 }
 
 #pragma mark - 懒加载
@@ -134,16 +177,6 @@
     return _yPoints;
 }
 
--(NSDictionary *)textStyleDict
-{
-    if (!_textStyleDict) {
-        UIFont *font = [UIFont systemFontOfSize:13];
-        NSMutableParagraphStyle *style=[[NSMutableParagraphStyle alloc]init]; // 段落样式
-        style.alignment = NSTextAlignmentCenter;
-        _textStyleDict = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor],};
-    }
-    return _textStyleDict;
-}
 
 
 #pragma mark - 创建坐标系
@@ -169,15 +202,13 @@
     }];
 }
 
+#pragma mark 创建坐标轴刻度
 -(void)drawCoorPointAndDashLine
 {
     // 根据值画x/y轴的值
     [self setUpXcoorWithValues:self.xValues];
     [self setUpYcoorWithValues:self.yValues];
-    if (self.isDrawDashLine) {
-        // 绘制网格竖线
-        [self drawDashLine];
-    }
+    [self drawDashLine];
     if (isUserDefaultTime) {
         
     }else{
@@ -190,6 +221,7 @@
     [self drawBackColor];
 }
 
+#pragma mark 创建水平线
 - (void)drawHorironLineView
 {
     UIView *horironLine = [[UIView alloc]init];
@@ -197,7 +229,7 @@
     horironLine.backgroundColor = RGBA(251, 82, 106, 0.5) ;
     [self.heartView addSubview:horironLine];
 }
-
+#pragma mark 创建标准线范围
 - (void)drawBackColor
 {
     UIView *backView = [[UIView alloc]init];
@@ -212,8 +244,7 @@
     backView.alpha = 0.3;
     [self addSubview:backView];
 }
-
-
+/*旧的方法不再使用
 - (void)drawHrizonerLine
 {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
@@ -237,121 +268,25 @@
     CGContextDrawPath(ctx, kCGPathFillStroke);
     CGPathRelease(path);
 }
+ */
 
 - (void)setBackImage
 {
-    UIImageView *leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin, 5, xCoordinateWidth/2+2, yCoordinateHeight)];
-    leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night_%d",selectedThemeIndex]];
-    [self addSubview:leftImage];
-    UIImageView *rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin+xCoordinateWidth/2+2, 5, xCoordinateWidth/2, yCoordinateHeight)];
-    rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_%d",selectedThemeIndex]];
-    [self addSubview:rightImage];
+    
+    [self addSubview:self.leftImage];
+    
+    [self addSubview:self.rightImage];
 }
 
 //睡眠指数label
 
 - (void)reloadChartView
 {
-//    [self drawFuncLine];
+    //    [self drawFuncLine];
     [self setUpYcoorWithValues:self.yValues];
-    [self drawHorironLineWithColorView];
     
 }
-
-- (MPGraphView *)heartView
-{
-    if (_heartView==nil) {
-        _heartView=[[MPGraphView alloc] initWithFrame:CGRectMake(self.leftLineMargin, 5, xCoordinateWidth, yCoordinateHeight)];
-        _heartView.waitToUpdate=NO;
-        _heartView.lineWidth = 0.5;
-        _heartView.backgroundColor = [UIColor clearColor];
-//        _heartView.values=@[@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,];
-    }
-    return _heartView;
-}
-//作图
-/*
-- (void)drawFuncLine
-{
-    for (UIView *view in self.subviews) {
-        if ([view isKindOfClass:[PNBarNew class]]) {
-            [view removeFromSuperview];
-        }
-    }
-    
-    
-    for (int i=0; i<_funcPoints.count; i++) {
-        int gradePercent = [[_funcPoints objectAtIndex:i]intValue];
-        CGPoint xPoint = [[self.xPoints objectAtIndex:i]CGPointValue];
-        __block PNBarNew *bar = [[PNBarNew alloc] initWithFrame:CGRectMake(xPoint.x+15, 20+(yCoordinateHeight-15)/5*(5-gradePercent), (xCoordinateWidth-15-6)/_funcPoints.count-30,(yCoordinateHeight-15)/5*gradePercent)];
-        bar.alpha = 0;
-        [UIView animateWithDuration:1.0 animations:^{
-            bar.alpha = 1;
-        } completion:^(BOOL finished) {
-            
-        }];
-        
-        /*
-         PNBar * bar = [[PNBar alloc] initWithFrame:CGRectMake(xPoint.x+5, 20+(yCoordinateHeight-15)/5*(5-gradePercent), (xCoordinateWidth-15-6)/_funcPoints.count-10, (yCoordinateHeight-15)/5*gradePercent)];
-         //顺序决定了颜色
-         bar.barColor = [self returnColorWithSleepLevel:gradePercent];
-         bar.grade = gradePercent;
-         if (gradePercent!=0) {
-         UILabel *label = [self getTopLabelWithLevel:gradePercent andColor:[self returnColorWithSleepLevel:gradePercent] andFrame:CGRectMake(xPoint.x, 20+(yCoordinateHeight-15)/5*(5-gradePercent)- 20, (xCoordinateWidth-15-6)/_funcPoints.count, 20)];
-         label.tag = 999;
-         [self addSubview:label];
-         }
-        [self addSubview:bar];
-    }
-    
-}
-*/
-
-
--(CAShapeLayer *)setUpLineLayer
-{
-    CAShapeLayer *lineLayer = [CAShapeLayer layer];
-    lineLayer.lineCap = kCALineCapRound;
-    lineLayer.lineJoin = kCALineJoinBevel;
-    
-    lineLayer.strokeEnd   = 0.0;
-    if (self.chartColor) {
-        lineLayer.strokeColor = self.chartColor.CGColor;
-    }else{
-        lineLayer.strokeColor = RandomColor.CGColor;
-    }
-    if (self.chartWidth) {
-        lineLayer.lineWidth   = self.chartWidth;
-    }else{
-        lineLayer.lineWidth   = 1.0;
-    }
-    return lineLayer;
-}
-
-- (void)drawHorironLineWithColorView
-{
-    for (UIView *view in self.viewArr) {
-        [view removeFromSuperview];
-    }
-    [self.viewArr removeAllObjects];
-    for (int i=0; i<self.yPoints.count; i++) {
-        UIView *horironLine = [[UIView alloc]init];
-        horironLine.backgroundColor = [UIColor colorWithRed:0.569f green:0.765f blue:0.867f alpha:1.00f] ;
-        CGPoint yPoint = [[self.yPoints objectAtIndex:i] CGPointValue];
-        horironLine.frame = CGRectMake(self.leftLineMargin, yPoint.y, 2, 1);
-        [self addSubview:horironLine];
-        [self.viewArr addObject:horironLine];
-        
-    }
-}
-
-- (UIColor*) colorWithHex:(NSInteger)hexValue alpha:(CGFloat)alphaValue
-{
-    return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0
-                           green:((float)((hexValue & 0xFF00) >> 8))/255.0
-                            blue:((float)(hexValue & 0xFF))/255.0 alpha:alphaValue];
-}
-// 绘制网格竖虚线
+#pragma mark 绘制网格竖虚线
 -(void)drawDashLine
 {
     if (self.xPoints.count != 0 && self.yPoints.count != 0) {
@@ -399,8 +334,7 @@
     }
 }
 
-
-// 通过UIView得到x y轴坐标轴
+#pragma mark 通过UIView得到x y轴坐标轴
 -(UIView *)getLineCoor
 {
     UIView *lineView = [[UIView alloc] init];
@@ -408,28 +342,6 @@
     lineView.alpha = 0.3;
     lineView.frame = CGRectMake(self.leftLineMargin, self.frame.size.height - bottomLineMargin, coorLineWidth, coorLineWidth);
     return lineView;
-}
-
-// 通过coreGraphics画坐标轴
--(void)drawCoordinateXy
-{
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGMutablePathRef xPath = CGPathCreateMutable();
-    CGPathMoveToPoint(xPath, nil, self.leftLineMargin, self.frame.size.height - bottomLineMargin);
-    CGPathAddLineToPoint(xPath, nil, self.leftLineMargin + xCoordinateWidth + 2, self.frame.size.height - bottomLineMargin);
-    CGContextSetLineWidth(ctx, 1);
-    CGContextSetLineCap(ctx, kCGLineCapRound);
-    CGContextSetAlpha(ctx, 0.6);
-    CGContextAddPath(ctx, xPath);
-    CGContextDrawPath(ctx, kCGPathStroke);
-    CGPathRelease(xPath);
-    CGMutablePathRef yPath = CGPathCreateMutable();
-    CGPathMoveToPoint(yPath, nil, self.leftLineMargin, self.frame.size.height - bottomLineMargin);
-    CGPathAddLineToPoint(yPath, nil, self.leftLineMargin, self.frame.size.height - bottomLineMargin - yCoordinateHeight - 2);
-    CGContextAddPath(ctx, yPath);
-    CGContextDrawPath(ctx, kCGPathStroke);
-    CGPathRelease(yPath);
-    
 }
 
 #pragma mark - 添加坐标轴的值
@@ -463,11 +375,9 @@
             label.font = [UIFont systemFontOfSize:13];
             label.textAlignment = NSTextAlignmentLeft;
             [self addSubview:label];
-            //            [xValue drawAtPoint:CGPointMake(cX - size.width * 0.7 - ((xCoordinateWidth-15)/(count-1))/2, cY + 5) withAttributes:self.textStyleDict];
         }
     }
 }
-
 
 -(void)setUpYcoorWithValues:(NSArray *)values
 {

@@ -144,12 +144,14 @@
     if (!_heartGraphView) {
         _heartGraphView = [[HeartGraphView alloc]initWithFrame:CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60)];
         //设置警告值
+        _heartGraphView.yValues = @[@"20", @"40", @"60", @"80", @"100",@"120",@"140"];
         _heartGraphView.chartTitle = @"xinlv";
         _heartGraphView.alarmMaxValue = @"80";
         _heartGraphView.alarmMinValue = @"60";
         _heartGraphView.horizonLine = 60;
         _heartGraphView.backMinValue = 50;
         _heartGraphView.backMaxValue = 70;
+        _heartGraphView.heartView.horizonValue = 140;
         //设置坐标轴
         if (isUserDefaultTime) {
             NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
@@ -204,7 +206,7 @@
         if (self.heartDic.count>0) {
             self.heartGraphView.dataValues = self.heartDic;
         }
-        _heartGraphView.yValues = @[@"20", @"40", @"60", @"80", @"100",@"120",@"140"];
+        
         _heartGraphView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     }
     return _heartGraphView;

@@ -94,6 +94,7 @@ NS_INLINE MPGraphValuesRange MPGetBiggestRange(MPGraphValuesRange r1,MPGraphValu
 
 
 // detail View customization
+@property (nonatomic,assign) int horizonValue;
 @property (nonatomic,readwrite) UIView<MPDetailView> *detailView;
 @property (nonatomic,retain) UIColor *detailBackgroundColor;
 @property (nonatomic,retain) UIColor *detailTextColor;

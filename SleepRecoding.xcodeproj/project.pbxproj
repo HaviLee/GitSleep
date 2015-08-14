@@ -477,6 +477,7 @@
 		2CD6C0691B7D812300F1FF6A /* UIBezierPath+curved.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C0621B7D812300F1FF6A /* UIBezierPath+curved.m */; };
 		2CD6C06A1B7D812300F1FF6A /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C0641B7D812300F1FF6A /* UIView+Frame.m */; };
 		2CD6C06D1B7D827C00F1FF6A /* HeartGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C06C1B7D827C00F1FF6A /* HeartGraphView.m */; };
+		2CD6C0701B7DDBE000F1FF6A /* BreathGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6C06F1B7DDBE000F1FF6A /* BreathGraphView.m */; };
 		2CD9386C1B5E47F90096C244 /* pic_bg_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD9386B1B5E47F90096C244 /* pic_bg_day@2x.png */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
@@ -1208,6 +1209,8 @@
 		2CD6C0641B7D812300F1FF6A /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		2CD6C06B1B7D827C00F1FF6A /* HeartGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartGraphView.h; sourceTree = "<group>"; };
 		2CD6C06C1B7D827C00F1FF6A /* HeartGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartGraphView.m; sourceTree = "<group>"; };
+		2CD6C06E1B7DDBE000F1FF6A /* BreathGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BreathGraphView.h; sourceTree = "<group>"; };
+		2CD6C06F1B7DDBE000F1FF6A /* BreathGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BreathGraphView.m; sourceTree = "<group>"; };
 		2CD9386B1B5E47F90096C244 /* pic_bg_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pic_bg_day@2x.png"; path = "../../../Downloads/pic_bg_day@2x.png"; sourceTree = "<group>"; };
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
@@ -2223,6 +2226,8 @@
 				2CD6C0641B7D812300F1FF6A /* UIView+Frame.m */,
 				2CD6C06B1B7D827C00F1FF6A /* HeartGraphView.h */,
 				2CD6C06C1B7D827C00F1FF6A /* HeartGraphView.m */,
+				2CD6C06E1B7DDBE000F1FF6A /* BreathGraphView.h */,
+				2CD6C06F1B7DDBE000F1FF6A /* BreathGraphView.m */,
 			);
 			name = MPBView;
 			path = lib/thirdlib/MPBView;
@@ -3417,6 +3422,7 @@
 				57802E2A1AE7398200823E39 /* SHPostClient.m in Sources */,
 				2C3AF2B11AF4611E00B66E32 /* NKJPagerViewController.m in Sources */,
 				2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */,
+				2CD6C0701B7DDBE000F1FF6A /* BreathGraphView.m in Sources */,
 				2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */,
 				2C7319E91B75E598005A3EE4 /* TLTagsControl.m in Sources */,
 				577120091AD5088700508C5C /* KxMenu.m in Sources */,
