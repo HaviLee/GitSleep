@@ -489,20 +489,20 @@
 - (void)checkUseridIsRegister:(NSDictionary *)infoDic andPlatform:(NSString *)platfrom
 {
     NSString *thirdName;
-//    if ([platfrom isEqualToString:WXPlatform]) {
-//        thirdName = [infoDic objectForKey:@"nickname"];
-//    }else if ([platfrom isEqualToString:SinaPlatform]){
-//        thirdName = [infoDic objectForKey:@"name"];
-//    }else{
-//        
-//    }
     if ([platfrom isEqualToString:WXPlatform]) {
-        thirdName = [infoDic objectForKey:@"unionid"];
+        thirdName = [infoDic objectForKey:@"nickname"];
     }else if ([platfrom isEqualToString:SinaPlatform]){
-        thirdName = [infoDic objectForKey:@"id"];
+        thirdName = [infoDic objectForKey:@"name"];
     }else{
         
     }
+//    if ([platfrom isEqualToString:WXPlatform]) {
+//        thirdName = [infoDic objectForKey:@"unionid"];
+//    }else if ([platfrom isEqualToString:SinaPlatform]){
+//        thirdName = [infoDic objectForKey:@"id"];
+//    }else{
+//        
+//    }
 
     NSDictionary *dic = @{
                           @"UserID": [NSString stringWithFormat:@"%@$%@",platfrom,thirdName], //手机号码
@@ -554,20 +554,20 @@
 - (void)thirdUserRegister:(NSDictionary *)infoDic andPhoneDic:(NSDictionary *)phoneDic andPlatform:(NSString*)platform
 {
     NSString *thirdName;
-//    if ([platform isEqualToString:WXPlatform]) {
-//        thirdName = [infoDic objectForKey:@"nickname"];
-//    }else if ([platform isEqualToString:SinaPlatform]){
-//        thirdName = [infoDic objectForKey:@"name"];
-//    }else{
-//        
-//    }
     if ([platform isEqualToString:WXPlatform]) {
-        thirdName = [infoDic objectForKey:@"unionid"];
+        thirdName = [infoDic objectForKey:@"nickname"];
     }else if ([platform isEqualToString:SinaPlatform]){
-        thirdName = [infoDic objectForKey:@"id"];
+        thirdName = [infoDic objectForKey:@"name"];
     }else{
         
     }
+//    if ([platform isEqualToString:WXPlatform]) {
+//        thirdName = [infoDic objectForKey:@"unionid"];
+//    }else if ([platform isEqualToString:SinaPlatform]){
+//        thirdName = [infoDic objectForKey:@"id"];
+//    }else{
+//        
+//    }
 //    ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": [phoneDic objectForKey:@"phone"], //手机号码

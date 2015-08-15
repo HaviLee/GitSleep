@@ -70,7 +70,7 @@
  */
 //第三方appkey
 #define WXPlatform @"wx1.com"
-#define SinaPlatform @"sina10.com"
+#define SinaPlatform @"sina1.com"
 #define TXPlatform @"qq.com"
 #define MeddoPlatform @"meddo99.com"
 #define WXAPPKey @"wx7be2e0c9ebd9e161"

@@ -111,6 +111,32 @@
                              @"AccessToken":@"123456789"
                              };
     [MMProgressHUD showWithStatus:@"获取设备列表..."];
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"请求的设备列表是%@",resposeDic);
+        self.deviceArr = [resposeDic objectForKey:@"DeviceList"];
+        if (self.deviceArr.count == 0) {
+            [MMProgressHUD dismissWithSuccess:@"您还没有绑定硬件设备" title:nil afterDelay:2];
+        }
+        if (self.deviceArr.count>0) {
+            BOOL noActive = YES;
+            for (NSDictionary *dic in self.deviceArr) {
+                if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+                    noActive = NO;
+                }
+            }
+            if (noActive) {
+                [MMProgressHUD dismissWithSuccess:@"点击您需要绑定的设备进行绑定" title:nil afterDelay:2];
+            }else{
+                [MMProgressHUD dismiss];
+            }
+        }
+        [self.sideTableView reloadData];
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
+    /*
     GetDeviceListAPI *client = [GetDeviceListAPI shareInstance];
     [client getDeviceList:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
@@ -138,7 +164,7 @@
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
     }];
-    
+    */
 }
 
 //添加设备

@@ -73,13 +73,49 @@
 - (void)getAllDeviceList
 {
     NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",thirdPartyLoginUserId];
+    
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"用户%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
+        [MMProgressHUD dismiss];
+        NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
+        if (arr.count == 0) {
+            self.clearNaviTitleLabel.text = thirdHardDeviceName;
+        }else{
+            for (NSDictionary *dic in arr) {
+                if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+                    HardWareUUID = [dic objectForKey:@"UUID"];
+                    thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
+                    thirdHardDeviceName = [dic objectForKey:@"Description"];
+                    self.clearNaviTitleLabel.text = thirdHardDeviceName;
+                    [UserManager setGlobalOauth];
+                    HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,HardWareUUID);
+                    break;
+                }
+            }
+        }
+        if (![HardWareUUID isEqualToString:@""]) {
+            NSDate *nowDate = [self getNowDate];
+            NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+            [self getTodaySleepQualityData:newString];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alert.tag = 900;
+            [alert show];
+        }
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
     GetDeviceStatusAPI *client = [GetDeviceStatusAPI shareInstance];
     if ([client isExecuting]) {
         [client stop];
     }
+    /*
     [client getActiveDeviceUUID:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
@@ -114,6 +150,7 @@
     } failure:^(YTKBaseRequest *request) {
         
     }];
+     */
 }
 
 - (void)getActiveDeviceUUID

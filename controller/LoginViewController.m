@@ -433,10 +433,10 @@
 
 - (void)login:(UIButton *)sender
 {
-//    if ([self.nameText.text isEqualToString:@""]) {
-//        [self.view makeToast:@"请输入电话号码" duration:1.5 position:@"center"];
-//        return;
-//    }
+    if ([self.nameText.text isEqualToString:@""]) {
+        [self.view makeToast:@"请输入电话号码" duration:1.5 position:@"center"];
+        return;
+    }
     if ([self.passWordText.text isEqualToString:@""]) {
         [self.view makeToast:@"请输入密码" duration:1.5 position:@"center"];
         return;
@@ -444,12 +444,12 @@
     //获取设备状态
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"登录中..."];
-    SHGetClient *client = [SHGetClient shareInstance];
-    NSDictionary *dic = @{
-                          @"CellPhone": self.nameText.text, //手机号码
-                          @"Email": @"", //邮箱地址，可留空，扩展注册用
-                          @"Password": self.passWordText.text //传递明文，服务器端做加密存储
-                          };
+//    SHGetClient *client = [SHGetClient shareInstance];
+//    NSDictionary *dic = @{
+//                          @"CellPhone": self.nameText.text, //手机号码
+//                          @"Email": @"", //邮箱地址，可留空，扩展注册用
+//                          @"Password": self.passWordText.text //传递明文，服务器端做加密存储
+//                          };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -592,14 +592,32 @@
 
 - (void)modifyPassWord
 {
-    SHPutClient *client = [SHPutClient shareInstance];
+    
     NSDictionary *dic = @{
-                          @"UserID": self.cellPhone, //关键字，必须传递
+                          @"UserID": [NSString stringWithFormat:@"%@$%@",MeddoPlatform,self.cellPhone], //关键字，必须传递
                           @"Password": [NSString stringWithFormat:@"%d",self.forgetPassWord], //密码
                         };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    [WTRequestCenter putWithURL:[NSString stringWithFormat:@"%@v1/user/ModifyUserInfo",BaseUrl] header:header parameters:dic finished:^(NSURLResponse *response, NSData *data) {
+         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"新的密码是%d",self.forgetPassWord);
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [MMProgressHUD dismissWithSuccess:@"新的密码已发送到您手机,请查收" title:@"注意" afterDelay:3];
+            [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
+                self.passWordText.text = @"";
+            }];
+        }else{
+            [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:3];
+            self.passWordText.text = @"";
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
+    
+    /*
+     SHPutClient *client = [SHPutClient shareInstance];
     [client modifyUserInfo:header andWithPara:dic];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
@@ -616,6 +634,7 @@
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:3];
     }];
+     */
 }
 
 #pragma mark textfeild delegate
