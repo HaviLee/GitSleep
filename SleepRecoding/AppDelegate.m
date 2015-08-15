@@ -505,6 +505,7 @@
 //    [NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"]]
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"]] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"检测结果是userid 是%@：%@",[dic objectForKey:@"UserID"],resposeDic);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             thirdPartyLoginPlatform = platfrom;
             thirdPartyLoginUserId = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserID"];
@@ -571,9 +572,9 @@
             thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
             thirdPartyLoginNickName = thirdName;
             if ([platform isEqualToString:WXPlatform]) {
-                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"headimgurl"];
+                thirdPartyLoginIcon = [NSString stringWithFormat:@"%@",[self.ThirdPlatformInfoDic objectForKey:@"headimgurl"]];
             }else if ([platform isEqualToString:SinaPlatform]){
-                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"profile_image_url"];
+                thirdPartyLoginIcon = [NSString stringWithFormat:@"%@",[self.ThirdPlatformInfoDic objectForKey:@"profile_image_url"]];
             }else {
             }
             
@@ -581,6 +582,8 @@
             [[NSNotificationCenter defaultCenter]postNotificationName:LoginSuccessedNoti object:nil userInfo:nil];
             [UserManager setGlobalOauth];
             [self hideLoginView];
+        }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10005){
+            [self.window makeToast:@"该帐号已注册" duration:2 position:@"center"];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
         

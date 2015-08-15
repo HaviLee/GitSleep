@@ -69,8 +69,8 @@
  *  登录成功的noti
  */
 //第三方appkey
-#define WXPlatform @"wx16.com"
-#define SinaPlatform @"sina6.com"
+#define WXPlatform @"wx17.com"
+#define SinaPlatform @"sina7.com"
 #define TXPlatform @"qq.com"
 #define MeddoPlatform @"meddo99.com"
 #define WXAPPKey @"wx7be2e0c9ebd9e161"

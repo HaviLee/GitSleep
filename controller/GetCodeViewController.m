@@ -245,14 +245,14 @@
 
 - (void)registerUser:(UIButton *)button
 {
-    if (self.phoneText.text.length == 0) {
-        [self.view makeToast:@"请输入手机号" duration:2 position:@"center"];
-        return;
-    }
-    if ([self.codeText.text intValue]!=self.randomCode || [self.codeText.text intValue]<999) {
-        [self.view makeToast:@"验证码错误" duration:2 position:@"center"];
-        return;
-    }
+//    if (self.phoneText.text.length == 0) {
+//        [self.view makeToast:@"请输入手机号" duration:2 position:@"center"];
+//        return;
+//    }
+//    if ([self.codeText.text intValue]!=self.randomCode || [self.codeText.text intValue]<999) {
+//        [self.view makeToast:@"验证码错误" duration:2 position:@"center"];
+//        return;
+//    }
 //    [[NSNotificationCenter defaultCenter]removeObserver:self name:UITextFieldTextDidChangeNotification object:self.codeText];
 //    [[NSNotificationCenter defaultCenter]removeObserver:self name:UITextFieldTextDidChangeNotification object:self.phoneText];
     self.registerButtonClicked(self.phoneText.text);

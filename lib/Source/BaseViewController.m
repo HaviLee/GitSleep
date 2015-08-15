@@ -227,11 +227,11 @@
             HaviLog(@"Text selected");
             [weakSelf sendImageContent];
         }];
-        [_shareMenuView addMenuItemWithTitle:@"新浪微博" andIcon:[UIImage imageNamed:@"icon_sina"] andSelectedBlock:^{
+        [_shareMenuView addMenuItemWithTitle:@"新浪微博" andIcon:[UIImage imageNamed:@"sina"] andSelectedBlock:^{
             HaviLog(@"Photo selected");
             [weakSelf shareButtonPressed];
         }];
-        [_shareMenuView addMenuItemWithTitle:@"微信好友" andIcon:[UIImage imageNamed:@"icon_friend"] andSelectedBlock:^{
+        [_shareMenuView addMenuItemWithTitle:@"微信好友" andIcon:[UIImage imageNamed:@"weixin"] andSelectedBlock:^{
             HaviLog(@"Quote selected");
             [weakSelf sendImageToFriend];
             
