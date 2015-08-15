@@ -46,7 +46,8 @@
 
 - (void)checkUserIsRegister:(NSDictionary *)header andWithPara:(NSDictionary *)parameter
 {
-    _detailUrl = [NSString stringWithFormat:@"v1/user/UserInfo?UserID=%@",[parameter objectForKey:@"UserID"]];
+    _detailUrl =@"v1/user/UserInfo";
+//    [NSString stringWithFormat:@"v1/user/UserInfo?UserID=%@",[parameter objectForKey:@"UserID"]];
     _urlParaDic = parameter;
     _urlHeaderDic = header;
 }

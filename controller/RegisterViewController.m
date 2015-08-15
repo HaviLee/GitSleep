@@ -194,7 +194,7 @@
     }
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"注册中..."];
-    ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
+//    ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": self.cellPhoneNum, //手机号码
                           @"Email": @"", //邮箱地址，可留空，扩展注册用
@@ -205,18 +205,28 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    
+    [WTRequestCenter postWithURL:[NSString stringWithFormat:@"%@v1/user/UserRegister",BaseUrl] header:header parameters:dic finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *responseDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if ([[responseDic objectForKey:@"ReturnCode"]intValue]==10005) {
+            [MMProgressHUD dismissWithError:@"该手机号已注册" afterDelay:2];
+        }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
+            [MMProgressHUD dismissWithSuccess:@"注册成功" title:nil afterDelay:2];
+            self.registerSuccessed(1);
+            thirdPartyLoginPlatform = MeddoPlatform;
+            thirdPartyLoginUserId = [responseDic objectForKey:@"UserID"];
+            NSRange range = [thirdPartyLoginUserId rangeOfString:@"$"];
+            thirdPartyLoginNickName = [[responseDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];
+            thirdPartyLoginIcon = @"";
+            thirdPartyLoginToken = @"";
+            [UserManager setGlobalOauth];
+        }else{
+            [MMProgressHUD dismiss];
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
+    /*
     [client loginThirdUserWithHeader:header andWithPara:dic];
-//    SHPostClient *client = [SHPostClient shareInstance];
-//    NSDictionary *dic = @{
-//                          @"CellPhone": self.cellPhoneNum, //手机号码
-//                          @"Email": @"", //邮箱地址，可留空，扩展注册用
-//                          @"Password": self.passWordText.text //传递明文，服务器端做加密存储
-//                          };
-//    NSDictionary *header = @{
-//                             @"AccessToken":@"123456789"
-//                             };
-//    [client addNewUserWithHeader:header andWithPara:dic];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
         
@@ -239,6 +249,7 @@
         NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
         [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",responseDic] afterDelay:2];
     }];
+     */
 }
 
 #pragma mark 拍照

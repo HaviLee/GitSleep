@@ -489,21 +489,29 @@
 - (void)checkUseridIsRegister:(NSDictionary *)infoDic andPlatform:(NSString *)platfrom
 {
     NSString *thirdName;
+//    if ([platfrom isEqualToString:WXPlatform]) {
+//        thirdName = [infoDic objectForKey:@"nickname"];
+//    }else if ([platfrom isEqualToString:SinaPlatform]){
+//        thirdName = [infoDic objectForKey:@"name"];
+//    }else{
+//        
+//    }
     if ([platfrom isEqualToString:WXPlatform]) {
-        thirdName = [infoDic objectForKey:@"nickname"];
+        thirdName = [infoDic objectForKey:@"unionid"];
     }else if ([platfrom isEqualToString:SinaPlatform]){
-        thirdName = [infoDic objectForKey:@"name"];
+        thirdName = [infoDic objectForKey:@"id"];
     }else{
         
     }
+
     NSDictionary *dic = @{
                           @"UserID": [NSString stringWithFormat:@"%@$%@",platfrom,thirdName], //手机号码
                           };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-//    [NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"]]
-    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"]] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+    
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"] ] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         HaviLog(@"检测结果是userid 是%@：%@",[dic objectForKey:@"UserID"],resposeDic);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
@@ -521,7 +529,7 @@
             [[NSNotificationCenter defaultCenter]postNotificationName:LoginSuccessedNoti object:nil userInfo:nil];
             [self hideLoginView];
             //发现第三方帐号没有注册过
-        }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10006){
+        }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10029){
             self.thirdPlatform = platfrom;
             [[NSNotificationCenter defaultCenter]postNotificationName:ShowPhoneInputViewNoti object:nil userInfo:nil];
         }
@@ -546,10 +554,17 @@
 - (void)thirdUserRegister:(NSDictionary *)infoDic andPhoneDic:(NSDictionary *)phoneDic andPlatform:(NSString*)platform
 {
     NSString *thirdName;
+//    if ([platform isEqualToString:WXPlatform]) {
+//        thirdName = [infoDic objectForKey:@"nickname"];
+//    }else if ([platform isEqualToString:SinaPlatform]){
+//        thirdName = [infoDic objectForKey:@"name"];
+//    }else{
+//        
+//    }
     if ([platform isEqualToString:WXPlatform]) {
-        thirdName = [infoDic objectForKey:@"nickname"];
+        thirdName = [infoDic objectForKey:@"unionid"];
     }else if ([platform isEqualToString:SinaPlatform]){
-        thirdName = [infoDic objectForKey:@"name"];
+        thirdName = [infoDic objectForKey:@"id"];
     }else{
         
     }
@@ -560,6 +575,7 @@
                           @"Password": @"" ,//传递明文，服务器端做加密存储
                           @"UserValidationServer" : platform,
                           @"UserIdOriginal":thirdName
+//                              [thirdName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                           };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -574,7 +590,7 @@
             if ([platform isEqualToString:WXPlatform]) {
                 thirdPartyLoginIcon = [NSString stringWithFormat:@"%@",[self.ThirdPlatformInfoDic objectForKey:@"headimgurl"]];
             }else if ([platform isEqualToString:SinaPlatform]){
-                thirdPartyLoginIcon = [NSString stringWithFormat:@"%@",[self.ThirdPlatformInfoDic objectForKey:@"profile_image_url"]];
+                thirdPartyLoginIcon = [NSString stringWithFormat:@"%@",[self.ThirdPlatformInfoDic objectForKey:@"avatar_hd"]];
             }else {
             }
             

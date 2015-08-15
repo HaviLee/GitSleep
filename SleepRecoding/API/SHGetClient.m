@@ -54,9 +54,9 @@
 
 - (void)loginUserWithHeaderNewApi:(NSDictionary *)header andWithPara:(NSDictionary *)parameter
 {
-    NSString *url = [NSString stringWithFormat:@"v1/user/UserLogin?UserIDOrigianal=%@&Password=%@",[parameter objectForKey:@"CellPhone"],[parameter objectForKey:@"Password"]];
-    _detailUrl = url;
-    _urlParaDic = parameter;
+//    NSString *url = [NSString stringWithFormat:@"v1/user/UserLogin?UserIDOrigianal=%@&Password=%@",[parameter objectForKey:@"CellPhone"],[parameter objectForKey:@"Password"]];
+    _detailUrl = [parameter objectForKey:@"url"];
+//    _urlParaDic = parameter;
     _urlHeaderDic = header;
 }
 

@@ -363,7 +363,7 @@
 {
     [super viewDidAppear:animated];
     //因为userid无法在启动就获得
-    NSMutableString *userId = [[NSMutableString alloc]initWithString:thirdPartyLoginNickName];
+    NSMutableString *userId = [[NSMutableString alloc]initWithString:[NSString stringWithFormat:@"%@",thirdPartyLoginNickName]];
     if (userId.length == 0) {
         _userName.text = @"匿名用户";
     }else if ([userId intValue]>0){
@@ -386,7 +386,11 @@
 
     }
      */
-    [self.iconImageButton setImageWithURL:[NSURL URLWithString:thirdPartyLoginIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
+    if (thirdPartyLoginIcon.length>0) {
+        [self.iconImageButton setImageWithURL:[NSURL URLWithString:thirdPartyLoginIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
+    }else{
+        self.iconImageButton.image = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

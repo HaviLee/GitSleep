@@ -246,6 +246,7 @@
         }];
         
         UIButton *qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.view addSubview:qqButton];
         [qqButton addTarget:self action:@selector(qqButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
         [qqButton setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
         [qqButton makeConstraints:^(MASConstraintMaker *make) {
@@ -267,6 +268,7 @@
         }];
         
         UIButton *qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.view addSubview:qqButton];
         [qqButton addTarget:self action:@selector(qqButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
         [qqButton setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
         [qqButton makeConstraints:^(MASConstraintMaker *make) {
@@ -451,8 +453,36 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    
-    [client loginUserWithHeaderNewApi:header andWithPara:dic];
+    NSString *url = [NSString stringWithFormat:@"v1/user/UserLogin?UserIDOrigianal=%@&Password=%@",self.nameText.text,self.passWordText.text];
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,url] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            NSString *userId = [resposeDic objectForKey:@"UserID"];
+            thirdPartyLoginUserId = userId;
+            thirdPartyLoginPlatform = MeddoPlatform;
+            thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
+            NSRange range = [thirdPartyLoginUserId rangeOfString:@"$"];
+            thirdPartyLoginNickName = [[resposeDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];
+            thirdPartyLoginIcon = @"";
+            thirdPartyLoginToken = @"";
+            thirdMeddoPhone = self.nameText.text;
+            thirdMeddoPassWord = self.passWordText.text;
+            [UserManager setGlobalOauth];
+            
+            self.loginButtonClicked(1);
+            [MMProgressHUD dismissAfterDelay:0.3];
+        }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10012) {
+            
+            [MMProgressHUD dismissWithError:@"密码或者帐号错误,请重试。" afterDelay:2];
+        }else{
+            [MMProgressHUD dismissWithError:@"登录失败,请稍后重试。" afterDelay:2];
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
+    /*
+    NSDictionary *dic1 = @{@"url":url};
+    [client loginUserWithHeaderNewApi:dic1 andWithPara:dic];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
@@ -480,49 +510,21 @@
     } failure:^(YTKBaseRequest *request) {
         [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",@"网络出错啦"] afterDelay:3];
     }];
-    
+    */
 }
 
 #pragma mark 登录
 
 - (void)loginView
 {
-    /*
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]];
-    LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
-    
-    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController
-                                                                    leftMenuViewController:leftMenuViewController
-                                                                   rightMenuViewController:nil];
-    NSString *nowDateString = [NSString stringWithFormat:@"%@",[self getNowDateFromatAnDate:[NSDate date]]];
-    NSString *sub = [nowDateString substringWithRange:NSMakeRange(11, 2)];
-    if ([sub intValue]>7 && [sub intValue]<18) {
-        sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_day"];
-    }else{
-        sideMenuViewController.backgroundImage = [UIImage imageNamed:@"pic_bg_night"];
-    }
-    sideMenuViewController.menuPreferredStatusBarStyle = 0; // UIStatusBarStyleLightContent
-//    sideMenuViewController.delegate = self;
-    sideMenuViewController.contentViewShadowColor = [UIColor blackColor];
-    sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0);
-    sideMenuViewController.contentViewShadowOpacity = 0.6;
-    sideMenuViewController.contentViewShadowRadius = 12;
-    sideMenuViewController.contentViewShadowEnabled = YES;
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    window.rootViewController = sideMenuViewController;
-     */
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     AppDelegate *app = [UIApplication sharedApplication].delegate;
     window.rootViewController = app.sideMenuController;
-
-    
 }
 
 - (void)registerButton:(UIButton *)sender
 {
     HaviLog(@"register");
-//    GetCodeViewController *code = [[GetCodeViewController alloc]init];
-//    [self.navigationController pushViewController:code animated:YES];
     self.getCodeButtonClicked(1);
     
 //  

@@ -13,6 +13,7 @@
 		2C0912C01B4E668F00BEE2FF /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0912BF1B4E668F00BEE2FF /* CoreTelephony.framework */; };
 		2C0EBE321AF0C13000F2D2F7 /* user3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C0EBE311AF0C13000F2D2F7 /* user3.wav */; };
 		2C1247AD1B7E2B59009C78EA /* sina.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C1247AC1B7E2B59009C78EA /* sina.png */; };
+		2C1247B21B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1247B11B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m */; };
 		2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E6751AF1FF3F00142F36 /* GetHeartSleepDataAPI.m */; };
 		2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E6781AF1FF5600142F36 /* GetBreathSleepDataAPI.m */; };
 		2C15E67C1AF1FF6F00142F36 /* GetLeaveBedSleepAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C15E67B1AF1FF6F00142F36 /* GetLeaveBedSleepAPI.m */; };
@@ -604,6 +605,8 @@
 		2C0912BF1B4E668F00BEE2FF /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		2C0EBE311AF0C13000F2D2F7 /* user3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = user3.wav; sourceTree = "<group>"; };
 		2C1247AC1B7E2B59009C78EA /* sina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sina.png; sourceTree = "<group>"; };
+		2C1247B01B7F0150009C78EA /* NSString+OAURLEncodingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OAURLEncodingAdditions.h"; sourceTree = "<group>"; };
+		2C1247B11B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OAURLEncodingAdditions.m"; sourceTree = "<group>"; };
 		2C15E6741AF1FF3F00142F36 /* GetHeartSleepDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetHeartSleepDataAPI.h; path = API/GetHeartSleepDataAPI.h; sourceTree = "<group>"; };
 		2C15E6751AF1FF3F00142F36 /* GetHeartSleepDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetHeartSleepDataAPI.m; path = API/GetHeartSleepDataAPI.m; sourceTree = "<group>"; };
 		2C15E6771AF1FF5600142F36 /* GetBreathSleepDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetBreathSleepDataAPI.h; path = API/GetBreathSleepDataAPI.h; sourceTree = "<group>"; };
@@ -2684,6 +2687,8 @@
 				5770860A1ABBB239004A2C07 /* HaviAnimationView.m */,
 				2C8CB3F81B4A51B5007E97E5 /* UIViewController+TopBarMessage.h */,
 				2C8CB3F91B4A51B5007E97E5 /* UIViewController+TopBarMessage.m */,
+				2C1247B01B7F0150009C78EA /* NSString+OAURLEncodingAdditions.h */,
+				2C1247B11B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m */,
 				57747DCD1AA57FAD002B5A49 /* Sources */,
 			);
 			name = ThirdLib;
@@ -3354,6 +3359,7 @@
 				5793D1C11AA9A1BA00BC24CA /* XLScrollViewer.m in Sources */,
 				2C7319EF1B76EE49005A3EE4 /* PNBarNew.m in Sources */,
 				2C77D50B1AEB3702004123D2 /* ReNameDeviceNameViewController.m in Sources */,
+				2C1247B21B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m in Sources */,
 				2C7319E81B75E598005A3EE4 /* TagObject.m in Sources */,
 				2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */,
 				57802E2B1AE7398200823E39 /* SHPutClient.m in Sources */,
