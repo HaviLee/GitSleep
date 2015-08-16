@@ -24,7 +24,7 @@
 //
 #import "LoginContainerViewController.h"//架构重构
 #import "CenterViewController.h"//架构重构
-@interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate>
+@interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate,TencentSessionDelegate>
 @property (nonatomic,strong) LoginContainerViewController *loginView;
 @property (nonatomic,strong) NSDictionary *ThirdPlatformInfoDic;
 @property (nonatomic,strong) NSString *thirdPlatform;
@@ -35,6 +35,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"1104815310" andDelegate:self];
     //微博注册
     [WeiboSDK registerApp:WBAPPKey];
     [WeiboSDK enableDebugMode:YES];
@@ -319,13 +320,15 @@
 {
     //从第三方回来
     isThirdLogin = NO;
+    HaviLog(@"tengxunis %@,%@",url,sourceApplication);
     if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
         return  [WXApi handleOpenURL:url delegate:self];
     }else if ([sourceApplication isEqualToString:@"com.sina.weibo"]){
         return [WeiboSDK handleOpenURL:url delegate:self];
-    }else{
-        return YES;
+    }else if ([sourceApplication isEqualToString:@"com.tencent.mqq"]){
+        return [TencentOAuth HandleOpenURL:url];
     }
+    return YES;
 }
 
 #pragma mark 微信回调函数
@@ -483,6 +486,53 @@
     }
 }
 
+#pragma mark qq回调
+
+- (void)tencentDidLogin
+{
+    HaviLog(@"qq登录成功");
+    if (_tencentOAuth.accessToken && 0 != [_tencentOAuth.accessToken length])
+    {
+        //  记录登录用户的OpenID、Token以及过期时间
+        if ([self.tencentOAuth getUserInfo]) {
+            //检测帐号
+            HaviLog(@"用户的信息是%@",self.tencentOAuth.passData);
+            
+        }
+    }
+    else
+    {
+    }
+
+    
+    
+}
+
+- (void)tencentDidNotLogin:(BOOL)cancelled
+{
+    if (cancelled)
+    {
+        [self.window makeToast:@"登录取消" duration:2 position:@"center"];
+    }
+    else
+    {
+        [self.window makeToast:@"登录失败" duration:2 position:@"center"];
+    }
+
+}
+
+- (void)tencentDidNotNetWork
+{
+    HaviLog(@"网络出错");
+    [self.window makeToast:@"网络错误" duration:2 position:@"center"];
+}
+
+- (void)getUserInfoResponse:(APIResponse *)response
+{
+    HaviLog(@"用户回调%@",response.jsonResponse);
+    self.ThirdPlatformInfoDic = response.jsonResponse;
+    [self checkUseridIsRegister:response.jsonResponse andPlatform:TXPlatform];
+}
 
 #pragma mark 自身帐号注册检查
 
@@ -494,7 +544,7 @@
     }else if ([platfrom isEqualToString:SinaPlatform]){
         thirdName = [infoDic objectForKey:@"name"];
     }else{
-        
+        thirdName = [infoDic objectForKey:@"nickname"];
     }
 //    if ([platfrom isEqualToString:WXPlatform]) {
 //        thirdName = [infoDic objectForKey:@"unionid"];
@@ -523,6 +573,7 @@
             }else if ([platfrom isEqualToString:SinaPlatform]){
                 thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"profile_image_url"];
             }else {
+                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"figureurl_qq_2"];
             }
             thirdPartyLoginToken = @"";
             [UserManager setGlobalOauth];
@@ -559,7 +610,7 @@
     }else if ([platform isEqualToString:SinaPlatform]){
         thirdName = [infoDic objectForKey:@"name"];
     }else{
-        
+        thirdName = [infoDic objectForKey:@"nickname"];
     }
 //    if ([platform isEqualToString:WXPlatform]) {
 //        thirdName = [infoDic objectForKey:@"unionid"];
@@ -575,7 +626,6 @@
                           @"Password": @"" ,//传递明文，服务器端做加密存储
                           @"UserValidationServer" : platform,
                           @"UserIdOriginal":thirdName
-//                              [thirdName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                           };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -592,6 +642,7 @@
             }else if ([platform isEqualToString:SinaPlatform]){
                 thirdPartyLoginIcon = [NSString stringWithFormat:@"%@",[self.ThirdPlatformInfoDic objectForKey:@"avatar_hd"]];
             }else {
+                thirdPartyLoginIcon = [NSString stringWithFormat:@"%@",[self.ThirdPlatformInfoDic objectForKey:@"figureurl_qq_2"]];
             }
             
             thirdPartyLoginToken = @"";

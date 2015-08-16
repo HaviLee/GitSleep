@@ -46,6 +46,16 @@
 				<string>wb2199355574</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.tencent</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tencent1104815310</string>
+			</array>
+		</dict>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

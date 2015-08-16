@@ -183,12 +183,18 @@
     
     //微博登出
     AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    [WeiBoLogoutAPI weiBoLogoutWithTocken:app.wbtoken parameters:nil finished:^(NSURLResponse *response, NSData *data) {
-        NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"微博登出结果%@",obj);
-    } failed:^(NSURLResponse *response, NSError *error) {
-        
-    }];
+    if ([thirdPartyLoginPlatform isEqualToString:SinaPlatform]) {
+        [WeiBoLogoutAPI weiBoLogoutWithTocken:app.wbtoken parameters:nil finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"微博登出结果%@",obj);
+        } failed:^(NSURLResponse *response, NSError *error) {
+            
+        }];
+    }
+//    else if ([thirdPartyLoginPlatform isEqualToString:TXPlatform]){
+//        [app.tencentOAuth logout:nil];
+//    }
+    
     [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:app.centerViewController] animated:YES];
     [self.sideMenuViewController hideMenuViewController];
     [UserManager resetUserInfo];

@@ -11,6 +11,7 @@
 #import "RESideMenu.h"
 #import "CenterViewController.h"
 #import "WXApi.h"
+#import <TencentOpenAPI/TencentOAuth.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -21,6 +22,7 @@
 //
 @property (strong, nonatomic) NSString *wbtoken;
 @property (strong, nonatomic) NSString *wbCurrentUserID;
+@property (strong, nonatomic) TencentOAuth *tencentOAuth;
 
 -(void) setWifiNotification;
 
