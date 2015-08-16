@@ -82,7 +82,7 @@
     self.minteArr = [[NSMutableArray alloc]init];
     self.hourArr1 = [[NSMutableArray alloc]init];
     self.hourArr2 = [[NSMutableArray alloc]init];
-    for (int i=1; i<25; i++) {
+    for (int i=1; i<24; i++) {
         if (i<10) {
             [self.hourArr1 addObject:[NSString stringWithFormat:@"0%d:00",i]];
         }else{
@@ -469,10 +469,20 @@
 
 - (void)showEndTimePicker:(LRGlowingButton*)sender
 {
+    NSMutableArray *arr = [[NSMutableArray alloc]init];
+    NSString *start = [self.startTimeLabel.titleLabel.text substringToIndex:2];
+    for (int i = [start intValue]; i<25; i++) {
+        if (i<10) {
+            [arr addObject:[NSString stringWithFormat:@"0%d:00",i]];
+        }else{
+            [arr addObject:[NSString stringWithFormat:@"%d:00",i]];
+        }
+    }
+    _selectString1 = [arr objectAtIndex:0];
     NSString *senderString = self.endTimeLabel.titleLabel.text;
     
     [MMPickerView showPickerViewInView:self.view
-                           withStrings:_hourArr1
+                           withStrings:arr
                            withOptions:@{MMbackgroundColor: [UIColor whiteColor],
                                          MMtextColor: [UIColor blackColor],
                                          MMtoolbarColor: [UIColor whiteColor],
@@ -486,6 +496,11 @@
                                     self.endTimeLabel.titleLabel.text = senderString;
                                     HaviLog(@"button 的titile是%@",senderString);
                                 }else{
+//                                    if ([[self.startTimeLabel.titleLabel.text substringToIndex:2]intValue]>[[selectedString substringToIndex:2]intValue]) {
+//                                        self.endTimeLabel.titleLabel.text = senderString;
+//                                        [ShowAlertView showAlert:@"开始时间必须小于结束时间"];
+//                                        return ;
+//                                    }
                                     [_endTimeLabel setTitle:selectedString forState:UIControlStateNormal];
                                     isUserDefaultTime = YES;
                                     [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultEndTime];
@@ -784,20 +799,6 @@
         [[NSUserDefaults standardUserDefaults]setObject:aDate forKey:UserDefaultStartTime];
         [[NSUserDefaults standardUserDefaults]synchronize];
     }else if ([vc.pickerTitle isEqualToString:UserDefaultEndTime]){
-        /*
-        NSRange range1 = [dateString rangeOfString:@"时"];
-        NSString *sub1 = [dateString substringToIndex:range1.location];
-        NSString *sub2 = [dateString substringFromIndex:(range1.location + range1.length)];
-        NSRange range2 = [sub2 rangeOfString:@"分"];
-        NSString *sub3 = [sub2 substringToIndex:range2.location];
-        if (sub1.length==1) {
-            sub1 = [NSString stringWithFormat:@"0%@",sub1];
-        }
-        if (sub3.length ==1) {
-            sub3 = [NSString stringWithFormat:@"0%@",sub3];
-        }
-        NSString *date = [NSString stringWithFormat:@"%@:%@",sub1,sub3];
-         */
         [_endTimeLabel setTitle:aDate forState:UIControlStateNormal];
         [[NSUserDefaults standardUserDefaults]setObject:aDate forKey:UserDefaultEndTime];
         [[NSUserDefaults standardUserDefaults]synchronize];
