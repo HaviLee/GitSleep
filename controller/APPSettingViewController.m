@@ -198,6 +198,7 @@
     [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:app.centerViewController] animated:YES];
     [self.sideMenuViewController hideMenuViewController];
     [UserManager resetUserInfo];
+    HardWareUUID = thirdHardDeviceUUID;
     [[NSNotificationCenter defaultCenter]postNotificationName:ThirdUserLogoutNoti object:nil];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

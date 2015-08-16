@@ -353,6 +353,7 @@
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             HardWareUUID = UUID;
+//            thirdHardDeviceUUID = UUID;
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已成功关联您的设备,是否需要现在激活设备？" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"激活", nil];
             [alertView show];
         }else{
