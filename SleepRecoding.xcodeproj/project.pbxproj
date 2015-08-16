@@ -197,6 +197,8 @@
 		2C3AF2CE1AF470C800B66E32 /* btn_up_one.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3AF2C61AF470C800B66E32 /* btn_up_one.png */; };
 		2C3AF2CF1AF470C800B66E32 /* btn_up_three.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3AF2C71AF470C800B66E32 /* btn_up_three.png */; };
 		2C3AF2D01AF470C800B66E32 /* btn_up_two.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3AF2C81AF470C800B66E32 /* btn_up_two.png */; };
+		2C3B624F1B80688200E3842F /* NewTodayHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3B624E1B80688200E3842F /* NewTodayHeartViewController.m */; };
+		2C3B62521B80689600E3842F /* NewTodayBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3B62511B80689600E3842F /* NewTodayBreathViewController.m */; };
 		2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C435E531AD0CA05003B1604 /* ToggleBase.m */; };
 		2C435E591AD0CA05003B1604 /* ToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C435E551AD0CA05003B1604 /* ToggleButton.m */; };
 		2C435E661AD0D8FA003B1604 /* ToggleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C435E651AD0D8FA003B1604 /* ToggleView.m */; };
@@ -821,6 +823,10 @@
 		2C3AF2C61AF470C800B66E32 /* btn_up_one.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_up_one.png; path = common/btn_up_one.png; sourceTree = "<group>"; };
 		2C3AF2C71AF470C800B66E32 /* btn_up_three.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_up_three.png; path = common/btn_up_three.png; sourceTree = "<group>"; };
 		2C3AF2C81AF470C800B66E32 /* btn_up_two.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_up_two.png; path = common/btn_up_two.png; sourceTree = "<group>"; };
+		2C3B624D1B80688200E3842F /* NewTodayHeartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewTodayHeartViewController.h; path = lib/newData/NewTodayHeartViewController.h; sourceTree = "<group>"; };
+		2C3B624E1B80688200E3842F /* NewTodayHeartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewTodayHeartViewController.m; path = lib/newData/NewTodayHeartViewController.m; sourceTree = "<group>"; };
+		2C3B62501B80689600E3842F /* NewTodayBreathViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewTodayBreathViewController.h; path = lib/newData/NewTodayBreathViewController.h; sourceTree = "<group>"; };
+		2C3B62511B80689600E3842F /* NewTodayBreathViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewTodayBreathViewController.m; path = lib/newData/NewTodayBreathViewController.m; sourceTree = "<group>"; };
 		2C435E521AD0CA05003B1604 /* ToggleBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleBase.h; sourceTree = "<group>"; };
 		2C435E531AD0CA05003B1604 /* ToggleBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToggleBase.m; sourceTree = "<group>"; };
 		2C435E541AD0CA05003B1604 /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
@@ -1684,6 +1690,10 @@
 				2C3AF2BF1AF4623A00B66E32 /* TodayTurnViewController.m */,
 				2CD404161B1460F60020B89E /* DataShowChartTableViewCell.h */,
 				2CD404171B1460F60020B89E /* DataShowChartTableViewCell.m */,
+				2C3B624D1B80688200E3842F /* NewTodayHeartViewController.h */,
+				2C3B624E1B80688200E3842F /* NewTodayHeartViewController.m */,
+				2C3B62501B80689600E3842F /* NewTodayBreathViewController.h */,
+				2C3B62511B80689600E3842F /* NewTodayBreathViewController.m */,
 				2CD404191B1461090020B89E /* view */,
 			);
 			name = DataShow;
@@ -3371,6 +3381,7 @@
 				5770861B1ABC019C004A2C07 /* UserContactTableViewCell.m in Sources */,
 				577B85231AE9EE2900D876E8 /* HeartChartView.m in Sources */,
 				572AA9871AC29A5700DED1D9 /* THPinNumPadView.m in Sources */,
+				2C3B624F1B80688200E3842F /* NewTodayHeartViewController.m in Sources */,
 				2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */,
 				2CD6C06D1B7D827C00F1FF6A /* HeartGraphView.m in Sources */,
 				2C1F1FC71AD95CA600393E04 /* MonthReportTableViewCell.m in Sources */,
@@ -3383,6 +3394,7 @@
 				2C77D5231AED13EF004123D2 /* GetUserDefaultDataAPI.m in Sources */,
 				5744AB8F1ACD2AED00AAA869 /* HaviBarView.m in Sources */,
 				2C1F1FCA1AD96A5800393E04 /* MonthReportView.m in Sources */,
+				2C3B62521B80689600E3842F /* NewTodayBreathViewController.m in Sources */,
 				2C1F1FD31ADA653E00393E04 /* NSDate+NSDateLogic.m in Sources */,
 				578065C11ADBA45F00769A1D /* PNBar.m in Sources */,
 				2C77D5471AEFB68F004123D2 /* GetBreathDataAPI.m in Sources */,

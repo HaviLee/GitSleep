@@ -20,6 +20,13 @@
 #import "GetDeviceStatusAPI.h"
 #import "GetDefatultSleepAPI.h"
 #import "TodayDataViewController.h"
+//
+//#import "TodayHeartViewController.h"
+//#import "TodayBreathViewController.h"
+//#import "TodayLeaveViewController.h"
+//#import "TodayTurnViewController.h"
+#import "NewTodayHeartViewController.h"
+#import "NewTodayBreathViewController.h"
 
 @interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (nonatomic, assign) NSInteger todayHour;
@@ -31,8 +38,12 @@
 @property (nonatomic, strong) DayTimeView *dayView;
 @property (nonatomic, strong) UITapGestureRecognizer *tapDayViewGesture;
 @property (nonatomic, strong) UITapGestureRecognizer *tapNightViewGesture;
+@property (nonatomic, strong) NSArray *dataViewArr;
 //为了标签使用
 @property (nonatomic, strong) NSString *tagFromDateAndEndDate;
+//
+@property (nonatomic, strong) NewTodayHeartViewController *todayHeartView;
+@property (nonatomic, strong) NewTodayBreathViewController *todayBreathView;
 //
 
 @end
@@ -47,11 +58,13 @@
     [self createTableView];
     [self createCircleView];
     [self setNotifationList];
+    
 }
 
 - (void)initData
 {
     self.cellDataArr = @[@"0次/分",@"0次/分",@"0次/天",@"0次/天"];
+    self.dataViewArr = @[self.todayHeartView,self.todayBreathView];
 }
 #pragma mark 创建消息监听
 
@@ -151,11 +164,6 @@
         
     }];
      */
-}
-
-- (void)getActiveDeviceUUID
-{
-    
 }
 
 - (void)getTodaySleepQualityData:(NSString *)nowDateString
@@ -276,6 +284,7 @@
         self.dateComponentsBase.day = -1;
         NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:nowDate options:0];
         [self.datePicker updateCalenderSelectedDate:yestoday];
+        selectedDateToUse = yestoday;
     }
     [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",1]] forState:UIControlStateNormal];
     [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
@@ -300,6 +309,21 @@
 
 #pragma mark  setter meathod
 
+- (NewTodayBreathViewController *)todayBreathView
+{
+    if (_todayBreathView == nil) {
+        _todayBreathView = [[NewTodayBreathViewController alloc]init];
+    }
+    return _todayBreathView;
+}
+
+- (NewTodayHeartViewController *)todayHeartView
+{
+    if (_todayHeartView==nil) {
+        _todayHeartView = [[NewTodayHeartViewController alloc]init];
+    }
+    return _todayHeartView;
+}
 
 - (UITapGestureRecognizer *)tapDayViewGesture
 {
@@ -510,6 +534,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.navigationController pushViewController:[self.dataViewArr objectAtIndex:indexPath.row] animated:YES];
     NSString *selectedIndex = @"心率";
     NSInteger seledtedIndexNum = 0;
     switch (indexPath.row) {
@@ -538,9 +563,9 @@
         default:
             break;
     }
-    TodayDataViewController *today = [[TodayDataViewController alloc]init];
-    today.selectedIndex = seledtedIndexNum;
-    [self.navigationController pushViewController:today animated:YES];
+//    TodayDataViewController *today = [[TodayDataViewController alloc]init];
+//    today.selectedIndex = seledtedIndexNum;
+//    [self.navigationController pushViewController:today animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -644,9 +669,27 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.clearNaviTitleLabel.text = thirdHardDeviceName;
     if (![HardWareUUID isEqualToString:thirdHardDeviceUUID]&&![HardWareUUID isEqualToString:@""]&&![thirdHardDeviceName isEqualToString:@""]) {
         [self getAllDeviceList];
         HaviLog(@"hard UUID出现不同");
+    }
+    if (selectedDateToUse&&![HardWareUUID isEqualToString:@""]) {
+        [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
+//        NSString *selectDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+//        NSString *useDate = [NSString stringWithFormat:@"%@%@%@",[selectDateString substringToIndex:4],[selectDateString substringWithRange:NSMakeRange(5, 2)],[selectDateString substringWithRange:NSMakeRange(8, 2)]];
+        //因为这个地方会调用到日历中的请求数据
+    }else{
+        //进行请求数据
+//        NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
+//        NSString *query = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
+        //为了请求异常数据时间
+        if (isUserDefaultTime) {
+//            [self getUserDefaultDaySensorData:query toDate:query];
+        }else{
+//            self.currentDate = query;//20150425
+//            [self getUserAllDaySensorData:query toDate:query];
+        }
     }
 }
 

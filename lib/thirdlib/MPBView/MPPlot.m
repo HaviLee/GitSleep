@@ -117,18 +117,18 @@
     
     NSMutableArray *pointsArray=[[NSMutableArray alloc] init];
     
-    if(max!=min){
-        for (NSString *p in values) {
-            
-            CGFloat val=[p floatValue];
-            
-//            val=((val-min)/(max-min));
-            val = val/_horizonValue;
-            
-            [pointsArray addObject:@(val)];
-        }
+    for (NSString *p in values) {
         
-    }else [pointsArray addObject:@(1)];
+        CGFloat val=[p floatValue];
+        
+        //            val=((val-min)/(max-min));
+        val = val/_horizonValue;
+        
+        [pointsArray addObject:@(val)];
+    }
+//    if(max!=min){
+//        
+//    }else [pointsArray addObject:@(1)];
     
     return pointsArray;
 }
