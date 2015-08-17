@@ -23,7 +23,7 @@
 //
 //#import "TodayHeartViewController.h"
 //#import "TodayBreathViewController.h"
-//#import "TodayLeaveViewController.h"
+#import "TodayLeaveViewController.h"
 //#import "TodayTurnViewController.h"
 #import "NewTodayHeartViewController.h"
 #import "NewTodayBreathViewController.h"
@@ -44,6 +44,7 @@
 //
 @property (nonatomic, strong) NewTodayHeartViewController *todayHeartView;
 @property (nonatomic, strong) NewTodayBreathViewController *todayBreathView;
+@property (nonatomic, strong) TodayLeaveViewController *todayLeaveView;
 //
 
 @end
@@ -64,7 +65,7 @@
 - (void)initData
 {
     self.cellDataArr = @[@"0次/分",@"0次/分",@"0次/天",@"0次/天"];
-    self.dataViewArr = @[self.todayHeartView,self.todayBreathView];
+    self.dataViewArr = @[self.todayHeartView,self.todayBreathView,self.todayLeaveView];
 }
 #pragma mark 创建消息监听
 
@@ -308,6 +309,14 @@
 }
 
 #pragma mark  setter meathod
+
+- (TodayLeaveViewController*)todayLeaveView
+{
+    if (_todayLeaveView == nil) {
+        _todayLeaveView = [[TodayLeaveViewController alloc]init];
+    }
+    return _todayLeaveView;
+}
 
 - (NewTodayBreathViewController *)todayBreathView
 {
@@ -676,19 +685,10 @@
     }
     if (selectedDateToUse&&![HardWareUUID isEqualToString:@""]) {
         [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
-//        NSString *selectDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
-//        NSString *useDate = [NSString stringWithFormat:@"%@%@%@",[selectDateString substringToIndex:4],[selectDateString substringWithRange:NSMakeRange(5, 2)],[selectDateString substringWithRange:NSMakeRange(8, 2)]];
-        //因为这个地方会调用到日历中的请求数据
     }else{
-        //进行请求数据
-//        NSString *nowDate = [NSString stringWithFormat:@"%@",[NSDate date]];
-//        NSString *query = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
         //为了请求异常数据时间
         if (isUserDefaultTime) {
-//            [self getUserDefaultDaySensorData:query toDate:query];
         }else{
-//            self.currentDate = query;//20150425
-//            [self getUserAllDaySensorData:query toDate:query];
         }
     }
 }

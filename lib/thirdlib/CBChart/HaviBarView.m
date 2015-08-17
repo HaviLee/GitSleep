@@ -8,6 +8,7 @@
 
 #import "HaviBarView.h"
 #import "ChartViewDefine.h"
+#import "PNBar.h"
 
 @interface HaviBarView ()
 
@@ -278,7 +279,11 @@
         }
         CGRect rect = CGRectMake(pointX, yCoordinateHeight/3*2, width, yCoordinateHeight/3+5);
         HaviLog(@"第%d个柱状图位置%lf,%lf,%lf,%lf",i,rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
-        [self drawRectangle:rect context:self.context];
+        PNBar * bar = [[PNBar alloc] initWithFrame:rect];
+        //顺序决定了颜色
+        bar.barColor = [UIColor redColor];
+        [self addSubview:bar];
+//        [self drawRectangle:rect context:self.context];
     }
 }
 

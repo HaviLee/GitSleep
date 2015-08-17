@@ -159,26 +159,47 @@
         [self.view makeToast:@"请输入正确的手机号" duration:2 position:@"center"];
         return;
     }
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"发送中..."];
-    self.randomCode = [self getRandomNumber:1000 to:10000];
-    NSString *codeMessage = [NSString stringWithFormat:@"【智照护】您的验证码是%d",self.randomCode];
-    NSDictionary *dicPara = @{
-                              @"cell" : self.phoneText.text,
-                              @"codeMessage" : codeMessage,
-                              };
-    GetInavlideCodeApi *client = [GetInavlideCodeApi shareInstance];
-    [client getInvalideCode:dicPara witchBlock:^(NSData *receiveData) {
-        NSString *string = [[NSString alloc]initWithData:receiveData encoding:NSUTF8StringEncoding];
-        NSRange range = [string rangeOfString:@"<error>"];
-        if ([[string substringFromIndex:range.location +range.length]intValue]==0) {
-            [MMProgressHUD dismissWithSuccess:@"发送成功" title:nil afterDelay:2];
-            timeToShow = 60;
-            [self showTime];
-        }else{
-            [MMProgressHUD dismissWithError:string afterDelay:2];
+    
+    NSDictionary *dic = @{
+                          @"UserID": [NSString stringWithFormat:@"%@$%@",MeddoPlatform,self.phoneText.text], //手机号码
+                          };
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"] ] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"检测结果是userid 是%@：%@",[dic objectForKey:@"UserID"],resposeDic);
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [self.view makeToast:@"该手机号已经注册" duration:2 position:@"center"];
+            //发现第三方帐号没有注册过
+        }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10029){
+            [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+            [MMProgressHUD showWithStatus:@"发送中..."];
+            self.randomCode = [self getRandomNumber:1000 to:10000];
+            NSString *codeMessage = [NSString stringWithFormat:@"【智照护】您的验证码是%d",self.randomCode];
+            NSDictionary *dicPara = @{
+                                      @"cell" : self.phoneText.text,
+                                      @"codeMessage" : codeMessage,
+                                      };
+            GetInavlideCodeApi *client = [GetInavlideCodeApi shareInstance];
+            [client getInvalideCode:dicPara witchBlock:^(NSData *receiveData) {
+                NSString *string = [[NSString alloc]initWithData:receiveData encoding:NSUTF8StringEncoding];
+                NSRange range = [string rangeOfString:@"<error>"];
+                if ([[string substringFromIndex:range.location +range.length]intValue]==0) {
+                    [MMProgressHUD dismissWithSuccess:@"发送成功" title:nil afterDelay:2];
+                    timeToShow = 60;
+                    [self showTime];
+                }else{
+                    [MMProgressHUD dismissWithError:string afterDelay:2];
+                }
+            }];
         }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
     }];
+    
+    
 }
 
 - (void)textFieldChanged:(NSNotification *)noti
