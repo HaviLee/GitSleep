@@ -102,12 +102,12 @@
     NSTimeZone *tzGMT = [NSTimeZone timeZoneWithName:@"GMT"];
     [NSTimeZone setDefaultTimeZone:tzGMT];
      */
+    if (!_funcPoints) {
+        _funcPoints = [[NSMutableArray alloc]init];
+    }
+    [_funcPoints removeAllObjects];
     if (dataValues.count>0) {
         
-        if (!_funcPoints) {
-            _funcPoints = [[NSMutableArray alloc]init];
-        }
-        [_funcPoints removeAllObjects];
         for (int i = 0; i<dataValues.count; i++) {
             [_funcPoints addObject:[dataValues objectAtIndex:i]];
         }

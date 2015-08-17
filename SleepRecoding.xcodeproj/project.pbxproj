@@ -202,6 +202,7 @@
 		2C3B628C1B81921C00E3842F /* NewTodayLeaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3B628B1B81921C00E3842F /* NewTodayLeaveViewController.m */; };
 		2C3B628F1B81A4CB00E3842F /* NewTodayTurnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3B628E1B81A4CB00E3842F /* NewTodayTurnViewController.m */; };
 		2C3B62921B81AC0600E3842F /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3B62911B81AC0600E3842F /* TriangleView.m */; };
+		2C3B62941B81D3A100E3842F /* icon_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3B62931B81D3A100E3842F /* icon_wechat.png */; };
 		2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C435E531AD0CA05003B1604 /* ToggleBase.m */; };
 		2C435E591AD0CA05003B1604 /* ToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C435E551AD0CA05003B1604 /* ToggleButton.m */; };
 		2C435E661AD0D8FA003B1604 /* ToggleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C435E651AD0D8FA003B1604 /* ToggleView.m */; };
@@ -291,7 +292,6 @@
 		2C7D221E1AF1C9F70011A45C /* icon_get_up_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22121AF1C9F70011A45C /* icon_get_up_0@2x.png */; };
 		2C7D221F1AF1C9F70011A45C /* icon_heart_rate_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22131AF1C9F70011A45C /* icon_heart_rate_0@2x.png */; };
 		2C7D22211AF1C9F70011A45C /* icon_turn_over_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22151AF1C9F70011A45C /* icon_turn_over_0@2x.png */; };
-		2C7D22221AF1C9F70011A45C /* icon_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22161AF1C9F70011A45C /* icon_wechat.png */; };
 		2C7D22231AF1C9F70011A45C /* pic_1136@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22171AF1C9F70011A45C /* pic_1136@2x.png */; };
 		2C7D22241AF1C9F70011A45C /* pic_off_line_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22181AF1C9F70011A45C /* pic_off_line_0@2x.png */; };
 		2C7D22251AF1C9F70011A45C /* pic_on_line_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D22191AF1C9F70011A45C /* pic_on_line_0@2x.png */; };
@@ -836,6 +836,7 @@
 		2C3B628E1B81A4CB00E3842F /* NewTodayTurnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewTodayTurnViewController.m; path = lib/newData/NewTodayTurnViewController.m; sourceTree = "<group>"; };
 		2C3B62901B81AC0600E3842F /* TriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
 		2C3B62911B81AC0600E3842F /* TriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
+		2C3B62931B81D3A100E3842F /* icon_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_wechat.png; sourceTree = "<group>"; };
 		2C435E521AD0CA05003B1604 /* ToggleBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleBase.h; sourceTree = "<group>"; };
 		2C435E531AD0CA05003B1604 /* ToggleBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToggleBase.m; sourceTree = "<group>"; };
 		2C435E541AD0CA05003B1604 /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
@@ -981,7 +982,6 @@
 		2C7D22121AF1C9F70011A45C /* icon_get_up_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_get_up_0@2x.png"; path = "color0/icon_get_up_0@2x.png"; sourceTree = "<group>"; };
 		2C7D22131AF1C9F70011A45C /* icon_heart_rate_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_heart_rate_0@2x.png"; path = "color0/icon_heart_rate_0@2x.png"; sourceTree = "<group>"; };
 		2C7D22151AF1C9F70011A45C /* icon_turn_over_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_turn_over_0@2x.png"; path = "color0/icon_turn_over_0@2x.png"; sourceTree = "<group>"; };
-		2C7D22161AF1C9F70011A45C /* icon_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_wechat.png; path = color0/icon_wechat.png; sourceTree = "<group>"; };
 		2C7D22171AF1C9F70011A45C /* pic_1136@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pic_1136@2x.png"; path = "color0/pic_1136@2x.png"; sourceTree = "<group>"; };
 		2C7D22181AF1C9F70011A45C /* pic_off_line_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pic_off_line_0@2x.png"; path = "color0/pic_off_line_0@2x.png"; sourceTree = "<group>"; };
 		2C7D22191AF1C9F70011A45C /* pic_on_line_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pic_on_line_0@2x.png"; path = "color0/pic_on_line_0@2x.png"; sourceTree = "<group>"; };
@@ -1971,11 +1971,11 @@
 				2C7D22101AF1C9F70011A45C /* icon_breathe_0@2x.png */,
 				2C7345EB1B784324004D8AB3 /* weixin.png */,
 				2C1247AC1B7E2B59009C78EA /* sina.png */,
+				2C3B62931B81D3A100E3842F /* icon_wechat.png */,
 				2C7345E71B7841C2004D8AB3 /* qq.png */,
 				2C7D22121AF1C9F70011A45C /* icon_get_up_0@2x.png */,
 				2C7D22131AF1C9F70011A45C /* icon_heart_rate_0@2x.png */,
 				2C7D22151AF1C9F70011A45C /* icon_turn_over_0@2x.png */,
-				2C7D22161AF1C9F70011A45C /* icon_wechat.png */,
 				2C7D22171AF1C9F70011A45C /* pic_1136@2x.png */,
 				2C7D22181AF1C9F70011A45C /* pic_off_line_0@2x.png */,
 				2C7D22191AF1C9F70011A45C /* pic_on_line_0@2x.png */,
@@ -2923,11 +2923,11 @@
 				2C7D22B01AF1CA050011A45C /* icon_body_movement_0@2x.png in Resources */,
 				2C7D231B1AF1CA450011A45C /* get_up1_0@2x.png in Resources */,
 				2C7D228E1AF1CA050011A45C /* arrows_report_right_0@2x.png in Resources */,
+				2C3B62941B81D3A100E3842F /* icon_wechat.png in Resources */,
 				2C4FCB1E1A8F56E800DCEEF3 /* LaunchScreen.xib in Resources */,
 				57C723F61AF73AAB006BE7D0 /* pic_day_1@3x.png in Resources */,
 				2C7D22FD1AF1CA220011A45C /* heart_2_0.png in Resources */,
 				2C15E6FB1AF214E800142F36 /* btn_caeate_account_1@2x.png in Resources */,
-				2C7D22221AF1C9F70011A45C /* icon_wechat.png in Resources */,
 				2C15E70E1AF214E800142F36 /* gender_1@2x.png in Resources */,
 				2C15E7761AF2151500142F36 /* get_up1_1@2x.png in Resources */,
 				2C15E7031AF214E800142F36 /* btn_number_to_add_1@2x.png in Resources */,
