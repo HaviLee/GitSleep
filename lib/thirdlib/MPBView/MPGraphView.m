@@ -69,7 +69,15 @@
         
         if(i==0)
             [path moveToPoint:point];
-        
+//        if ([[self.values objectAtIndex:i] intValue]*self.horizonValue>self.maxValue) {
+//            //
+//            UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
+//            buttonImage.frame = CGRectMake(0, 0, 10, 10);
+//            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_fatal_exception_0"]] forState:UIControlStateNormal];
+//            [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
+//            buttonImage.center = point;
+//            [self addSubview:buttonImage];
+//        }
         
         MPButton *button=[MPButton buttonWithType:UIButtonTypeCustom tappableAreaOffset:UIOffsetMake(5, 5)];
         if ([[points objectAtIndex:i] intValue]==60) {
@@ -177,8 +185,15 @@
         
         
         CGPoint point=[self pointAtIndex:i];
-        
-        
+//        if ([[points objectAtIndex:i] intValue]>self.maxValue) {
+//            //
+//            UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
+//            buttonImage.frame = CGRectMake(0, 0, 10, 10);
+//            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_fatal_exception_0"]] forState:UIControlStateNormal];
+//            [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
+//            buttonImage.center = point;
+//            [self addSubview:buttonImage];
+//        }
         MPButton *button=[MPButton buttonWithType:UIButtonTypeCustom];
         if ([[points objectAtIndex:i] intValue]==60) {
             [button setBackgroundColor:[UIColor clearColor]];
@@ -188,7 +203,7 @@
         button.layer.cornerRadius=1;
         button.frame=CGRectMake(0, 0, 1, 1);
         button.center=point;
-        [button addTarget:self action:@selector(tap:) forControlEvents:UIControlEventTouchUpInside];
+//        [button addTarget:self action:@selector(tap:) forControlEvents:UIControlEventTouchUpInside];
         button.tag=i;
         button.transform=CGAffineTransformMakeScale(0,0);
         [self addSubview:button];

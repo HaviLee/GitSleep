@@ -190,7 +190,7 @@
         //设置警告值
         _heartGraphView.yValues = @[@"20", @"40", @"60", @"80", @"100",@"120",@"140"];
         _heartGraphView.chartTitle = @"xinlv";
-        _heartGraphView.alarmMaxValue = @"80";
+        _heartGraphView.heartView.maxValue = 70;
         _heartGraphView.alarmMinValue = @"60";
         _heartGraphView.horizonLine = 60;
         _heartGraphView.backMinValue = 50;
