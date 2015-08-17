@@ -224,8 +224,18 @@
     [self addSubview:rightImage];
 }
 
+- (void)reloadChartView
+{
+    [self drawFuncLine];
+}
+
 -(void)drawFuncLine
 {
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[PNBar class]]) {
+            [view removeFromSuperview];
+        }
+    }
     for (int i= 0; i<_funcPoints.count; i++) {
         NSString *time = [NSString stringWithFormat:@"%@",[[_funcPoints objectAtIndex:i]objectForKey:@"At"]];
         int durationTime = [[NSString stringWithFormat:@"%@",[[_funcPoints objectAtIndex:i]objectForKey:@"Value"]] intValue];

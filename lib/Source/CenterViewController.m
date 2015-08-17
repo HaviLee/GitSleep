@@ -23,10 +23,11 @@
 //
 //#import "TodayHeartViewController.h"
 //#import "TodayBreathViewController.h"
-#import "TodayLeaveViewController.h"
-//#import "TodayTurnViewController.h"
+#import "TodayTurnViewController.h"
 #import "NewTodayHeartViewController.h"
 #import "NewTodayBreathViewController.h"
+#import "NewTodayLeaveViewController.h"
+#import "NewTodayTurnViewController.h"
 
 @interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (nonatomic, assign) NSInteger todayHour;
@@ -44,7 +45,8 @@
 //
 @property (nonatomic, strong) NewTodayHeartViewController *todayHeartView;
 @property (nonatomic, strong) NewTodayBreathViewController *todayBreathView;
-@property (nonatomic, strong) TodayLeaveViewController *todayLeaveView;
+@property (nonatomic, strong) NewTodayLeaveViewController *todayLeaveView;
+@property (nonatomic, strong) NewTodayTurnViewController *todayTurnView;
 //
 
 @end
@@ -65,7 +67,7 @@
 - (void)initData
 {
     self.cellDataArr = @[@"0次/分",@"0次/分",@"0次/天",@"0次/天"];
-    self.dataViewArr = @[self.todayHeartView,self.todayBreathView,self.todayLeaveView];
+    self.dataViewArr = @[self.todayHeartView,self.todayBreathView,self.todayLeaveView,self.todayTurnView];
 }
 #pragma mark 创建消息监听
 
@@ -310,10 +312,19 @@
 
 #pragma mark  setter meathod
 
-- (TodayLeaveViewController*)todayLeaveView
+- (NewTodayTurnViewController*)todayTurnView
+{
+    if (_todayTurnView == nil) {
+        _todayTurnView = [[NewTodayTurnViewController alloc]init];
+        
+    }
+    return _todayTurnView;
+}
+
+- (NewTodayLeaveViewController*)todayLeaveView
 {
     if (_todayLeaveView == nil) {
-        _todayLeaveView = [[TodayLeaveViewController alloc]init];
+        _todayLeaveView = [[NewTodayLeaveViewController alloc]init];
     }
     return _todayLeaveView;
 }

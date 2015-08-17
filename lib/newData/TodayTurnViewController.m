@@ -866,13 +866,15 @@
         self.turnDic = [dic objectForKey:@"Data"];
         
     }
-    if (self.turnView) {
-        [self.turnView removeFromSuperview];
-        self.turnView = nil;
-    }
-    if (self.upTableView.frame.size.height>0) {
-        [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    }
+    self.turnView.dataValues = self.turnDic;
+    [self.turnView reloadChartView];
+//    if (self.turnView) {
+//        [self.turnView removeFromSuperview];
+//        self.turnView = nil;
+//    }
+//    if (self.upTableView.frame.size.height>0) {
+//        [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+//    }
     
 }
 

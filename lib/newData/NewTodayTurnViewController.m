@@ -1,24 +1,24 @@
 //
-//  NewTodayBreathViewController.m
+//  NewTodayTurnViewController.m
 //  SleepRecoding
 //
-//  Created by Havi on 15/8/16.
+//  Created by Havi on 15/8/17.
 //  Copyright (c) 2015年 Havi. All rights reserved.
 //
 
-#import "NewTodayBreathViewController.h"
-#import "BreathGraphView.h"
-#import "DataShowChartTableViewCell.h"
+#import "NewTodayTurnViewController.h"
+#import "TurnChartView.h"
 #import "CalenderCantainerViewController.h"
-#import "GetBreathDataAPI.h"
-#import "GetBreathSleepDataAPI.h"
-#import "GetDefatultSleepAPI.h"
+#import "DataShowChartTableViewCell.h"
+#import "GetTurnDataAPI.h"
+#import "GetTurnSleepDataAPI.h"
 #import "GetUserDefaultDataAPI.h"
+#import "GetDefatultSleepAPI.h"
 
-@interface NewTodayBreathViewController ()<SetScrollDateDelegate,SelectCalenderDate,ToggleViewDelegate>
+@interface NewTodayTurnViewController ()<SetScrollDateDelegate,SelectCalenderDate,ToggleViewDelegate>
 {
     BOOL isUp;//控制两个tableview切换
-//    ModalAnimation *_modalAnimationController;
+    //    ModalAnimation *_modalAnimationController;
     
 }
 @property (nonatomic,strong) DatePickerView *subDatePicker;
@@ -27,7 +27,7 @@
 @property (nonatomic,strong) UITableView *upTableView;
 @property (nonatomic,strong) UITableView *downTableView;
 //表哥
-@property (nonatomic,strong) BreathGraphView *breathGraphView;//havi
+@property (nonatomic,strong) TurnChartView *turnView;//havi
 
 
 //
@@ -39,13 +39,13 @@
 @property (nonatomic,strong) UILabel *diagnoseSuggestionLabel;
 //数据
 @property (nonatomic,strong) NSDictionary *suggestDic;
-@property (nonatomic,strong) NSArray *breathDic;
+@property (nonatomic,strong) NSArray *turnDic;
 //记录当前的时间进行请求异常报告
 @property (nonatomic,strong) NSString *currentDate;
 @property (nonatomic,strong) NSDictionary *currentSleepQulitity;
 @end
 
-@implementation NewTodayBreathViewController
+@implementation NewTodayTurnViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -194,20 +194,13 @@
     return _subDatePicker;
 }
 
-- (BreathGraphView *)breathGraphView
+- (TurnChartView *)turnView
 {
-    if (!_breathGraphView) {
-        _breathGraphView = [BreathGraphView breathGraphView];
-        _breathGraphView.frame = CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60);
+    if (!_turnView) {
+        _turnView = [TurnChartView turnView];
+        _turnView.frame = CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60);
         //设置警告值
-        _breathGraphView.yValues = @[@"10", @"20", @"30", @"40",];
-        _breathGraphView.alarmMaxValue = @"20";
-        _breathGraphView.alarmMinValue = @"15";
-        _breathGraphView.horizonLine = 15;
-        _breathGraphView.backMinValue = 10;
-        _breathGraphView.backMaxValue = 20;
-        _breathGraphView.chartTitle = @"huxi";
-        _breathGraphView.heartView.horizonValue = 40;
+        _turnView.horizonLine = 15;
         //设置坐标轴
         //设置坐标轴
         if (isUserDefaultTime) {
@@ -220,7 +213,7 @@
                 for (int i = startInt; i<endInt +1; i++) {
                     [arr addObject:[NSString stringWithFormat:@"%d",i]];
                 }
-                _breathGraphView.xValues = arr;
+                _turnView.xValues = arr;
             }else if ((startInt<endInt)&&(endInt - startInt)>12){
                 NSMutableArray *arr = [[NSMutableArray alloc]init];
                 for (int i = 0; i<(int)(endInt -startInt)/2+1; i++) {
@@ -228,7 +221,7 @@
                     
                 }
                 [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
-                _breathGraphView.xValues = arr;
+                _turnView.xValues = arr;
             }else if (startInt>endInt){
                 NSMutableArray *arr = [[NSMutableArray alloc]init];
                 for (int i = 0; i<(int)(endInt+ 24-startInt)/2+1; i++) {
@@ -240,9 +233,9 @@
                     
                 }
                 [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
-                _breathGraphView.xValues = arr;
+                _turnView.xValues = arr;
             }else if ((endInt - startInt)==1){
-                _breathGraphView.xValues = @[[NSString stringWithFormat:@"%d:00",startInt],[NSString stringWithFormat:@"%d:10",startInt], [NSString stringWithFormat:@"%d:20",startInt],[NSString stringWithFormat:@"%d:30",startInt],[NSString stringWithFormat:@"%d:40",startInt],[NSString stringWithFormat:@"%d:50",startInt],[NSString stringWithFormat:@"%d:00",endInt]];
+                _turnView.xValues = @[[NSString stringWithFormat:@"%d:00",startInt],[NSString stringWithFormat:@"%d:10",startInt], [NSString stringWithFormat:@"%d:20",startInt],[NSString stringWithFormat:@"%d:30",startInt],[NSString stringWithFormat:@"%d:40",startInt],[NSString stringWithFormat:@"%d:50",startInt],[NSString stringWithFormat:@"%d:00",endInt]];
             }else if ((endInt - startInt)==0){
                 NSMutableArray *arr = [[NSMutableArray alloc]init];
                 for (int i = 0; i<12+1; i++) {
@@ -253,38 +246,38 @@
                     [arr addObject:[NSString stringWithFormat:@"%d",date]];
                     
                 }
-                _breathGraphView.xValues = arr;
+                _turnView.xValues = arr;
             }
             
         }else{
-            _breathGraphView.xValues = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
+            _turnView.xValues = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
         }
         
-        if (self.breathDic.count>0) {
-            self.breathGraphView.dataValues = self.breathDic;
+        if (self.turnDic.count>0) {
+            self.turnView.dataValues = self.turnDic;
         }
-        
-        _breathGraphView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        _turnView.yValues = @[@"1", @"2", @"3", @"4",];
+        _turnView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     }
-    return _breathGraphView;
+    return _turnView;
 }
 
 #pragma mark 水平日历代理方法
 - (void)getScrollSelectedDate:(NSDate *)date
 {
     HaviLog(@"滚动日历是%@",date);
-     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-     [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
-     NSString *dateString = [formatter stringFromDate:date];
-     NSString *queryDate = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
-     self.currentDate = queryDate;
-     selectedDateToUse = date;//为另一个界面
-     //请求数据
-     if (isUserDefaultTime) {
-     [self getUserDefaultDaySensorData:queryDate toDate:queryDate];
-     }else{
-     [self getUserAllDaySensorData:queryDate toDate:queryDate];
-     }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
+    NSString *dateString = [formatter stringFromDate:date];
+    NSString *queryDate = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
+    self.currentDate = queryDate;
+    selectedDateToUse = date;//为另一个界面
+    //请求数据
+    if (isUserDefaultTime) {
+        [self getUserDefaultDaySensorData:queryDate toDate:queryDate];
+    }else{
+        [self getUserAllDaySensorData:queryDate toDate:queryDate];
+    }
 }
 
 #pragma mark 弹出日历代理
@@ -298,7 +291,6 @@
     selectedDateToUse = date;
 }
 
-
 #pragma mark 弹出整屏日历
 
 - (void)showCalender:(UIButton *)sender
@@ -307,6 +299,7 @@
     calender.calenderDelegate = self;
     [self presentViewController:calender animated:YES completion:nil];
 }
+
 
 #pragma mark tableview 代理函数
 
@@ -331,9 +324,9 @@
                 cell = [[DataShowChartTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
             }
             //timeSwitchButton
-            cell.iconTitleName = [NSString stringWithFormat:@"icon_breathe_%d",selectedThemeIndex];;
-            cell.cellTitleName = @"呼吸";
-            cell.cellData = [NSString stringWithFormat:@"%d次/分钟",[[self.currentSleepQulitity objectForKey:@"AverageRespiratoryRate"] intValue]];
+            cell.iconTitleName = [NSString stringWithFormat:@"icon_turn_over_%d",selectedThemeIndex];
+            cell.cellTitleName = @"体动";
+            cell.cellData = [NSString stringWithFormat:@"%d次/天",[[self.currentSleepQulitity objectForKey:@"BodyMovementTimes"] intValue]];
             [cell addSubview:self.timeSwitchButton];
             cell.backgroundColor = [UIColor clearColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -363,7 +356,8 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indentifier];
             }
-            [cell addSubview:self.breathGraphView];
+            [cell addSubview:self.turnView];
+            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = [UIColor clearColor];
             return cell;
@@ -406,6 +400,7 @@
         return cell;
     }
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([tableView isEqual:self.upTableView]) {
@@ -448,6 +443,18 @@
         return headerView;
     }
     return nil;
+}
+
+#pragma mark button 实现方法
+
+- (void)backToHomeView:(UIButton *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)shareApp:(UIButton *)sender
+{
+    [self.shareMenuView show];
 }
 
 #pragma mark 切换报表和总结
@@ -549,45 +556,34 @@
     }
 }
 
-#pragma mark button 实现方法
-
-- (void)backToHomeView:(UIButton *)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)shareApp:(UIButton *)sender
-{
-    [self.shareMenuView show];
-}
 
 #pragma mark 获取24小时用户数据
 
 - (void)getUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
-    //    [MMProgressHUD showWithStatus:@"请求中..."];
-    [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
     if (fromDate) {
         
+        //        [MMProgressHUD showWithStatus:@"请求中..."];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
         self.dateComponentsBase.day = -1;
         NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
         NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
         NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
+        NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
-        GetBreathDataAPI *client = [GetBreathDataAPI shareInstance];
+        GetTurnDataAPI *client = [GetTurnDataAPI shareInstance];
         if ([client isExecuting]) {
             [client stop];
         }
-        [client getBreathData:header withDetailUrl:urlString];
+        [client getTurnData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             //            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-            HaviLog(@"缓存的心率数据%@",resposeDic);
+            HaviLog(@"缓存的体动数据%@",resposeDic);
             [self reloadUserViewWithData:resposeDic];
             [self getUserSleepReportData:fromDate toDate:toDate];
         }else{
@@ -595,7 +591,7 @@
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 //                [MMProgressHUD dismiss];
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                HaviLog(@"请求的心率数据%@",resposeDic);
+                HaviLog(@"请求的体动数据%@",resposeDic);
                 [self reloadUserViewWithData:resposeDic];
                 [self getUserSleepReportData:fromDate toDate:toDate];
             } failure:^(YTKBaseRequest *request) {
@@ -603,9 +599,6 @@
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
                 //                [MMProgressHUD dismiss];
-                //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                //
-                //                }];
             }];
         }
     }
@@ -624,16 +617,16 @@
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
-        GetBreathSleepDataAPI *client = [GetBreathSleepDataAPI shareInstance];
+        GetTurnSleepDataAPI *client = [GetTurnSleepDataAPI shareInstance];
         if ([client isExecuting]) {
             [client stop];
         }
-        [client getBreathSleepData:header withDetailUrl:urlString];
+        [client getTurnSleepData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             HaviLog(@"心率是%@",resposeDic);
             //为了异常报告
-            self.currentSleepQulitity = nil;
+            self.currentSleepQulitity  = nil;
             self.currentSleepQulitity = resposeDic;
             [self reloadSleepView:resposeDic];
         }else{
@@ -641,12 +634,15 @@
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 HaviLog(@"心率是%@",resposeDic);
                 //为了异常报告
-                self.currentSleepQulitity = nil;
+                self.currentSleepQulitity  = nil;
                 self.currentSleepQulitity = resposeDic;
                 [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+                //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                //
+                //                }];
             }];
         }
     }
@@ -654,10 +650,9 @@
 
 - (void)reloadSleepView:(NSDictionary *)dic
 {
-    self.suggestDic = nil;
     self.suggestDic = (NSDictionary *)[[NSUserDefaults standardUserDefaults]objectForKey:[ NSString stringWithFormat:@"%@",[dic objectForKey:@"AssessmentCode"]]];
     [self.downTableView reloadData];
-    if (self.upTableView.frame.size.height>0) {
+    if (self.upTableView.frame.size.height) {
         [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }
@@ -665,32 +660,39 @@
 
 - (void)reloadUserViewWithData:(NSDictionary *)dataDic
 {
+//    NSArray *arr = [dataDic objectForKey:@"SensorData"];
+//    self.turnDic = nil;
+//    for (NSDictionary *dic in arr) {
+//        self.turnDic = [self changeSeverDataToChartData:[dic objectForKey:@"Data"]];
+//        
+//    }
+//    if (arr.count==0) {
+//        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+//        for (int i=0; i<288; i++) {
+//            [arr1 addObject:[NSNumber numberWithFloat:60]];
+//        }
+//    }
+//    
+//    [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     NSArray *arr = [dataDic objectForKey:@"SensorData"];
-    self.breathDic = nil;
+    self.turnDic = nil;
     for (NSDictionary *dic in arr) {
-        self.breathDic = [self changeSeverDataToChartData:[dic objectForKey:@"Data"]];
+        self.turnDic = [dic objectForKey:@"Data"];
         
     }
-    if (arr.count==0) {
-        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
-        for (int i=0; i<288; i++) {
-            [arr1 addObject:[NSNumber numberWithFloat:60]];
-        }
-        self.breathGraphView.heartView.values = arr1;
-        [self.breathGraphView.heartView animate];
-    }
-    [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    self.turnView.dataValues = self.turnDic;
+    [self.turnView reloadChartView];
+    
 }
-
-//#pragma mark 转换数据
 
 - (NSMutableArray *)changeSeverDataToChartData:(NSArray *)severDataArr
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *arr = [[NSMutableArray alloc]init];
-        for (int i=0; i<288; i++) {
-            [arr addObject:[NSNumber numberWithFloat:15]];
-        }
+//        for (int i=0; i<288; i++) {
+//            [arr addObject:[NSNumber numberWithFloat:15]];
+//        }
+        
         for (int i = 0; i<severDataArr.count; i++) {
             NSDictionary *dic = [severDataArr objectAtIndex:i];
             NSString *date = [dic objectForKey:@"At"];
@@ -698,17 +700,17 @@
             NSString *minuteDate2 = [date substringWithRange:NSMakeRange(14, 2)];
             int indexIn = 0;
             if ([hourDate1 intValue]<18) {
-                indexIn = (int)((24 -18)*60 + [hourDate1 intValue]*60 + [minuteDate2 intValue])/5;
+                indexIn = (int)((24 -18)*60 + [hourDate1 intValue]*60 + [minuteDate2 intValue])/1;
             }else {
-                indexIn = (int)(([hourDate1 intValue]-18)*60 + [minuteDate2 intValue])/5;
+                indexIn = (int)(([hourDate1 intValue]-18)*60 + [minuteDate2 intValue])/1;
             }
-            [arr replaceObjectAtIndex:indexIn withObject:[NSNumber numberWithFloat:[[dic objectForKey:@"Value"] floatValue]]];
+            [arr addObject:[severDataArr objectAtIndex:indexIn]];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.breathDic = arr;
+            self.turnDic = arr;
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.breathGraphView.heartView.values = self.breathDic;
-                [self.breathGraphView.heartView animate];
+                self.turnView.dataValues = self.turnDic;
+                [self.turnView reloadChartView];
             });
         });
     });
@@ -728,7 +730,7 @@
         
         NSString *urlString = @"";
         if (startInt<endInt) {
-            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
         }else if (startInt>endInt || startInt==endInt){
             NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
             self.dateComponentsBase.day = +1;
@@ -736,9 +738,11 @@
             NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
             //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
-            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
             
         }
+        
+        
         //        [MMProgressHUD showWithStatus:@"请求中..."];
         [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
         NSDictionary *header = @{
@@ -749,12 +753,11 @@
             [client stop];
         }
         [client getUserDefaultData:header withDetailUrl:urlString];
-        
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             //            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-            HaviLog(@"缓存的呼吸默认数据是%@",resposeDic);
+            HaviLog(@"缓存的体动默认数据是%@",resposeDic);
             [self reloadUserViewWithDefaultData:resposeDic];
             [self getUserDefatultSleepReportData:fromDate toDate:toDate];
         }else{
@@ -762,7 +765,7 @@
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 //                [MMProgressHUD dismiss];
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                HaviLog(@"请求的默认呼吸数据是%@",resposeDic);
+                HaviLog(@"请求的默认体动数据是%@",resposeDic);
                 [self reloadUserViewWithDefaultData:resposeDic];
                 [self getUserDefatultSleepReportData:fromDate toDate:toDate];
             } failure:^(YTKBaseRequest *request) {
@@ -770,6 +773,9 @@
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
                 //                [MMProgressHUD dismiss];
+                //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                //
+                //                }];
             }];
         }
     }
@@ -807,51 +813,28 @@
         [client queryDefaultSleep:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
+            HaviLog(@"缓存的睡眠质量是%@",resposeDic);
             //为了异常报告
             self.currentSleepQulitity = nil;
             self.currentSleepQulitity = resposeDic;
             [self reloadSleepView:resposeDic];
+        }else{
+            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
+                //为了异常报告
+                self.currentSleepQulitity = nil;
+                self.currentSleepQulitity = resposeDic;
+                [self reloadSleepView:resposeDic];
+            } failure:^(YTKBaseRequest *request) {
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+                //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                //                    
+                //                }];
+            }];
         }
-        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-            HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
-            //为了异常报告
-            self.currentSleepQulitity = nil;
-            self.currentSleepQulitity = resposeDic;
-            [self reloadSleepView:resposeDic];
-        } failure:^(YTKBaseRequest *request) {
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-            [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-            //            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            //
-            //            }];
-        }];
     }
-}
-
-//#pragma mark 获取完数据之后进行更新界面
-
-- (void)reloadUserViewWithDefaultData:(NSDictionary *)dataDic
-{
-    NSArray *arr = [dataDic objectForKey:@"SensorData"];
-    self.breathDic = nil;
-    for (NSDictionary *dic in arr) {
-        self.breathDic = [self changeSeverDataToDefaultChartData:[dic objectForKey:@"Data"]];
-        self.breathGraphView.heartView.values = self.breathDic;
-        [self.breathGraphView.heartView animate];
-        
-    }
-    if (arr.count==0) {
-        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
-        for (int i=0; i<288; i++) {
-            [arr1 addObject:[NSNumber numberWithFloat:60]];
-        }
-        self.breathGraphView.heartView.values = arr1;
-        [self.breathGraphView.heartView animate];
-    }
-    
-    [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (NSMutableArray *)changeSeverDataToDefaultChartData:(NSArray *)severDataArr
@@ -888,18 +871,45 @@
         }
         [arr replaceObjectAtIndex:indexIn withObject:[NSNumber numberWithFloat:[[dic objectForKey:@"Value"] floatValue]]];
     }
+    self.turnDic = arr;
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        if (self.upTableView.frame.size.height>0) {
-            [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-        }
-        
+        [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     });
     return arr;
 }
 
-#pragma mark view will
 
+- (void)reloadUserViewWithDefaultData:(NSDictionary *)dataDic
+{
+//    NSArray *arr = [dataDic objectForKey:@"SensorData"];
+//    self.turnDic = nil;
+//    for (NSDictionary *dic in arr) {
+//        self.turnDic = [self changeSeverDataToDefaultChartData:[dic objectForKey:@"Data"]];
+//        self.turnView.dataValues = self.turnDic;
+//        [self.turnView reloadChartView];
+//        
+//    }
+//    if (arr.count==0) {
+//        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+//        for (int i=0; i<288; i++) {
+//            [arr1 addObject:[NSNumber numberWithFloat:60]];
+//        }
+//        self.turnView.dataValues = arr1;
+//        [self.turnView reloadChartView];
+//    }
+//    
+//    [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    
+    NSArray *arr = [dataDic objectForKey:@"SensorData"];
+    self.turnDic = nil;
+    for (NSDictionary *dic in arr) {
+        self.turnDic = [dic objectForKey:@"Data"];
+        
+    }
+    self.turnView.dataValues = self.turnDic;
+    [self.turnView reloadChartView];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     if (animated) {
@@ -931,8 +941,6 @@
         }
     }
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

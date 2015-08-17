@@ -51,7 +51,7 @@
     self.viewHeight = self.view.frame.size.height;
     self.datePicker.dateDelegate = self;
     CGRect rect = self.datePicker.frame;
-    rect.origin.y = rect.origin.y - 64;
+    rect.origin.y = rect.origin.y;
     self.datePicker.frame = rect;
     [self.view addSubview:self.datePicker];
     [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",selectedThemeIndex]] forState:UIControlStateNormal];

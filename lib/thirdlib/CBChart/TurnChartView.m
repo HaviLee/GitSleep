@@ -8,6 +8,9 @@
 
 #import "TurnChartView.h"
 #import "ChartViewDefine.h"
+#import "TriangleView.h"
+#import "PNBar.h"
+#import "PNBarNew.h"
 
 @interface TurnChartView ()
 @property (nonatomic) CGContextRef context;
@@ -197,59 +200,83 @@
 
 -(void)drawFuncLine
 {
-    for (int i= 0; i<_funcPoints.count; i++) {
-        NSString *time = [NSString stringWithFormat:@"%@",[[_funcPoints objectAtIndex:i]objectForKey:@"At"]];
-        NSString *start = [time substringWithRange:NSMakeRange(11, 5)];
-        float lengthHour = [[start substringWithRange:NSMakeRange(0, 2)] floatValue];
-        float lenghtMitue = [[start substringWithRange:NSMakeRange(3, 2)] floatValue];
-        //24小时
-        float pointX = 0;
-        if (isUserDefaultTime) {
-            NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
-            int num1 = [[startTime substringToIndex:2]intValue];
-            NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
-            int num2 = [[endTime substringToIndex:2]intValue];
-            int longTime = 0;//区间长度
-            if (num1<num2) {
-                longTime = num2 - num1;
-            }else if (num1>num2){
-                longTime = 24 -num1 +num2;
-            }else{
-                longTime = 24;
-            }
-            
-            //            int num = num1;
-            int duration = 0;
-            if (num1<num2) {
-                duration = lengthHour - num1;
-            }else{
-                if (lengthHour>24) {
-                    duration = 24 - num1 + lengthHour;
-                }else{
-                    duration = lengthHour - num1;
-                }
-            }
-            float longTime1 = duration+lenghtMitue/60;
-            pointX = xCoordinateWidth/longTime*longTime1 +self.leftLineMargin;
-            
-        }else{
-            int num = 18;
-            int duration = 0;
-            if (lenghtMitue>0 && lengthHour>18 ) {
-                duration = 0;
-            }else if(lengthHour<18){
-                duration = 24;
-            }else if (lengthHour==18&&lenghtMitue>0){
-                duration = 0;
-            }
-            float longTime = (lengthHour + duration -num)+lenghtMitue/60;
-            pointX = xCoordinateWidth/24*longTime +self.leftLineMargin;
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[PNBar class]]) {
+            [view removeFromSuperview];
         }
-        float pointY = yCoordinateHeight/4*3;
-        CGPoint point = CGPointMake(pointX, pointY);
-        [self drawRectangle:point context:self.context];
     }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        for (int i= 0; i<_funcPoints.count; i++) {
+            NSString *time = [NSString stringWithFormat:@"%@",[[_funcPoints objectAtIndex:i]objectForKey:@"At"]];
+            NSString *start = [time substringWithRange:NSMakeRange(11, 5)];
+            float lengthHour = [[start substringWithRange:NSMakeRange(0, 2)] floatValue];
+            float lenghtMitue = [[start substringWithRange:NSMakeRange(3, 2)] floatValue];
+            float pointX = 0;
+
+            //24小时
+            if (isUserDefaultTime) {
+                NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+                int num1 = [[startTime substringToIndex:2]intValue];
+                NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+                int num2 = [[endTime substringToIndex:2]intValue];
+                int longTime = 0;//区间长度
+                if (num1<num2) {
+                    longTime = num2 - num1;
+                }else if (num1>num2){
+                    longTime = 24 -num1 +num2;
+                }else{
+                    longTime = 24;
+                }
+                
+                //            int num = num1;
+                int duration = 0;
+                if (num1<num2) {
+                    duration = lengthHour - num1;
+                }else{
+                    if (lengthHour>24) {
+                        duration = 24 - num1 + lengthHour;
+                    }else{
+                        duration = lengthHour - num1;
+                    }
+                }
+                float longTime1 = duration+lenghtMitue/60;
+                pointX = xCoordinateWidth/longTime*longTime1 +self.leftLineMargin;
+                
+            }else{
+                int num = 18;
+                int duration = 0;
+                if (lenghtMitue>0 && lengthHour>18 ) {
+                    duration = 0;
+                }else if(lengthHour<18){
+                    duration = 24;
+                }else if (lengthHour==18&&lenghtMitue>0){
+                    duration = 0;
+                }
+                float longTime = (lengthHour + duration -num)+lenghtMitue/60;
+                pointX = xCoordinateWidth/24*longTime +self.leftLineMargin;
+            }
+            
+            //        [self drawRectangle:point context:self.context];
+            [arr addObject:[NSNumber numberWithFloat:pointX]];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (int i=0; i<arr.count; i++) {
+                CGRect rect = CGRectMake([[arr objectAtIndex:i] floatValue], yCoordinateHeight/4*3+5, 2, yCoordinateHeight/4);
+                PNBar * bar = [[PNBar alloc] initWithFrame:rect];
+                //顺序决定了颜色
+                [self addSubview:bar];
+            }
+        });
+        
+    });
 }
+
+- (void)reloadChartView
+{
+    [self drawFuncLine];
+}
+
 
 - (void)drawRectangle:(CGPoint)point context:(CGContextRef)context
 {
