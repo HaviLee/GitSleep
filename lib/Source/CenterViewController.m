@@ -122,10 +122,10 @@
     } failed:^(NSURLResponse *response, NSError *error) {
         
     }];
-    GetDeviceStatusAPI *client = [GetDeviceStatusAPI shareInstance];
-    if ([client isExecuting]) {
-        [client stop];
-    }
+//    GetDeviceStatusAPI *client = [GetDeviceStatusAPI shareInstance];
+//    if ([client isExecuting]) {
+//        [client stop];
+//    }
     /*
     [client getActiveDeviceUUID:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
@@ -204,6 +204,13 @@
         [client stop];
     }
     [client queryDefaultSleep:header withDetailUrl:urlString];
+    if ([client getCacheJsonWithDate:nowDateString]) {
+        NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
+        HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
+        //为了异常报告
+        [self refreshViewWithSleepData:resposeDic];
+    }
+
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -220,6 +227,57 @@
     } failure:^(YTKBaseRequest *request) {
         
     }];
+}
+#pragma mark 默认
+- (void)getUserDefatultSleepReportData:(NSString *)fromDate toDate:(NSString *)toDate
+{
+    if (fromDate) {
+        
+        NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+        NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+        int startInt = [[startTime substringToIndex:2]intValue];
+        int endInt = [[endTime substringToIndex:2]intValue];
+        
+        NSString *urlString = @"";
+        if (startInt<endInt) {
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
+        }else if (startInt>endInt || startInt==endInt){
+            NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+            self.dateComponentsBase.day = +1;
+            NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+            NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+            //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
+            
+        }
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        GetDefatultSleepAPI *client = [GetDefatultSleepAPI shareInstance];
+        if ([client isExecuting]) {
+            [client stop];
+        }
+        [client queryDefaultSleep:header withDetailUrl:urlString];
+        if ([client getCacheJsonWithDate:fromDate]) {
+            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
+            HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
+            //为了异常报告
+            [self refreshViewWithSleepData:resposeDic];
+        }
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            [self refreshViewWithSleepData:resposeDic];
+            HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
+            //为了异常报告
+        } failure:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+            //            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+            //
+            //            }];
+        }];
+    }
 }
 
 
@@ -487,7 +545,11 @@
         NSString *dateString = [formatter stringFromDate:date];
         HaviLog(@"当前选中的日期是%@",dateString);
         NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
-        [self getTodaySleepQualityData:subString];
+        if (isUserDefaultTime) {
+            [self getUserDefatultSleepReportData:subString toDate:subString];
+        }else{
+            [self getTodaySleepQualityData:subString];
+        }
     }
 }
 
