@@ -248,9 +248,6 @@
             _heartGraphView.xValues = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
         }
         
-        if (self.heartDic.count>0) {
-            self.heartGraphView.dataValues = self.heartDic;
-        }
         
         _heartGraphView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     }
@@ -269,7 +266,7 @@
     selectedDateToUse = date;//为另一个界面
     //请求数据
     if (isUserDefaultTime) {
-//        [self getUserDefaultDaySensorData:queryDate toDate:queryDate];
+        [self getUserDefaultDaySensorData:queryDate toDate:queryDate];
     }else{
         [self getUserAllDaySensorData:queryDate toDate:queryDate];
     }
@@ -855,8 +852,6 @@
         [self.heartGraphView.heartView animate];
     }
     
-    [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    
 }
 
 //#pragma mark 转换数据
@@ -877,7 +872,7 @@
         num = 288;
     }
     for (int i=0; i<num; i++) {
-        [arr addObject:[NSNumber numberWithFloat:0]];
+        [arr addObject:[NSNumber numberWithFloat:60]];
     }
     for (int i = 0; i<severDataArr.count; i++) {
         NSDictionary *dic = [severDataArr objectAtIndex:i];
@@ -910,13 +905,7 @@
     isUserDefaultTime = NO;
     NSArray *arr = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
     [self.heartGraphView reloadGraphXValueArr:arr];
-//    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
-//        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
-//        [self.timeSwitchButton changeLeftImageWithTime:0];
-//    }else{
-//        isUserDefaultTime = NO;
-//        [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
-//    }
+    [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
 }
 
 - (void)selectRightButton
@@ -966,6 +955,7 @@
         }
         [self.heartGraphView reloadGraphXValueArr:arr];
     }
+    [self getUserDefaultDaySensorData:self.currentDate toDate:self.currentDate];
 //    self.heartGraphView reloadGraphXValueArr:ar
 //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
 //        [self.timeSwitchButton changeLeftImageWithTime:0];
@@ -984,8 +974,10 @@
 //        [self createCalenderView];
         if (isUserDefaultTime) {
             [self.timeSwitchButton changeRightImageWithTime:0];
+            [self selectRightButton];
         }else{
             [self.timeSwitchButton changeLeftImageWithTime:0];
+            [self selectLeftButton];
         }
         //和首页保持一致
         if (selectedDateToUse) {

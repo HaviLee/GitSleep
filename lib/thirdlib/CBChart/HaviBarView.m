@@ -27,6 +27,10 @@
 @property (assign, nonatomic) CGFloat leftLineMargin;
 @property (assign, nonatomic) BOOL islineDrawDone;
 
+@property (nonatomic, strong) UIImageView *leftImage;
+@property (nonatomic, strong) UIImageView *rightImage;
+
+
 @end
 
 @implementation HaviBarView
@@ -100,6 +104,29 @@
         }
     }
 }
+
+#pragma mark setter meathod
+
+- (UIImageView *)leftImage
+{
+    if (_leftImage == nil) {
+        _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin, 5, xCoordinateWidth/2+2, yCoordinateHeight)];
+        _leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night_%d",selectedThemeIndex]];
+        _leftImage.tag = 2001;
+    }
+    return _leftImage;
+}
+
+- (UIImageView *)rightImage
+{
+    if (_rightImage == nil) {
+        _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin+xCoordinateWidth/2+2, 5, xCoordinateWidth/2, yCoordinateHeight)];
+        _rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_%d",selectedThemeIndex]];
+        _rightImage.tag = 2001;
+    }
+    return _rightImage;
+}
+
 
 -(void)drawRect:(CGRect)rect
 {
@@ -216,12 +243,10 @@
 
 - (void)setBackImage
 {
-    UIImageView *leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin, 5, xCoordinateWidth/2+2, yCoordinateHeight)];
-    leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night_%d",selectedThemeIndex]];
-    [self addSubview:leftImage];
-    UIImageView *rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin+xCoordinateWidth/2+2, 5, xCoordinateWidth/2, yCoordinateHeight)];
-    rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_%d",selectedThemeIndex]];
-    [self addSubview:rightImage];
+    
+    [self addSubview:self.leftImage];
+    
+    [self addSubview:self.rightImage];
 }
 
 - (void)reloadChartView
@@ -426,11 +451,16 @@
 -(void)setUpXcoorWithValues:(NSArray *)values
 {
     for (UIView *view in self.subviews) {
-        if (view.tag ==1000 || view.tag == 1009) {
+        if (view.tag ==1000 || view.tag == 1009|| view.tag == 2001) {
             [view removeFromSuperview];
         }
     }
     
+    if (isUserDefaultTime) {
+        
+    }else{
+        [self setBackImage];
+    }
     if (values.count){
         [self.xPoints removeAllObjects];
         NSUInteger count = values.count;
@@ -473,8 +503,6 @@
         
     }
 }
-
-
 
 -(void)setUpYcoorWithValues:(NSArray *)values
 {

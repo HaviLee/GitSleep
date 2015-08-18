@@ -240,6 +240,7 @@
         
         if (self.leaveDic.count>0) {
             self.leaveView.dataValues = self.leaveDic;
+            [self.leaveView reloadChartView];
         }
         _leaveView.yValues = @[@"10", @"20", @"30", @"40",];
         _leaveView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
@@ -672,6 +673,7 @@
         
     }
     self.leaveView.dataValues = self.leaveDic;
+    [self.leaveView reloadChartView];
 }
 
 #pragma mark 自定义和24进行切换
@@ -681,6 +683,7 @@
     isUserDefaultTime = NO;
     NSArray *arr = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
     [self.leaveView reloadGraphXValueArr:arr];
+    [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
     //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
     //        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
     //        [self.timeSwitchButton changeLeftImageWithTime:0];
@@ -737,6 +740,7 @@
         }
         [self.leaveView reloadGraphXValueArr:arr];
     }
+    [self getUserDefaultDaySensorData:self.currentDate toDate:self.currentDate];
     HaviLog(@"右侧");
 }
 
@@ -870,6 +874,7 @@
         
     }
     self.leaveView.dataValues = self.leaveDic;
+    [self.leaveView reloadChartView];
     
 }
 
@@ -878,11 +883,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     if (animated) {
-        //        [self createCalenderView];
         if (isUserDefaultTime) {
             [self.timeSwitchButton changeRightImageWithTime:0];
+            [self selectRightButton];
         }else{
             [self.timeSwitchButton changeLeftImageWithTime:0];
+            [self selectLeftButton];
         }
         //和首页保持一致
         if (selectedDateToUse) {

@@ -729,6 +729,7 @@
             self.turnDic = arr;
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.turnView.dataValues = self.turnDic;
+                [self.turnView reloadChartView];
             });
         });
     });
@@ -743,13 +744,7 @@
     isUserDefaultTime = NO;
     NSArray *arr = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
     [self.turnView reloadGraphXValueArr:arr];
-    //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
-    //        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
-    //        [self.timeSwitchButton changeLeftImageWithTime:0];
-    //    }else{
-    //        isUserDefaultTime = NO;
-    //        [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
-    //    }
+    [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
 }
 
 - (void)selectRightButton
@@ -799,6 +794,7 @@
         }
         [self.turnView reloadGraphXValueArr:arr];
     }
+    [self getUserDefaultDaySensorData:self.currentDate toDate:self.currentDate];
     HaviLog(@"右侧");
 }
 
@@ -994,14 +990,17 @@
     self.turnView.dataValues = self.turnDic;
     [self.turnView reloadChartView];
 }
+
+#pragma mark view
 - (void)viewWillAppear:(BOOL)animated
 {
     if (animated) {
-        //        [self createCalenderView];
         if (isUserDefaultTime) {
             [self.timeSwitchButton changeRightImageWithTime:0];
+            [self selectRightButton];
         }else{
             [self.timeSwitchButton changeLeftImageWithTime:0];
+            [self selectLeftButton];
         }
         //和首页保持一致
         if (selectedDateToUse) {

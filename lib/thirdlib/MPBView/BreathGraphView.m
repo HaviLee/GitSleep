@@ -67,6 +67,7 @@
     if (_leftImage == nil) {
         _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin, 5, xCoordinateWidth/2+2, yCoordinateHeight)];
         _leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night_%d",selectedThemeIndex]];
+        _leftImage.tag = 2001;
     }
     return _leftImage;
 }
@@ -76,6 +77,7 @@
     if (_rightImage == nil) {
         _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin+xCoordinateWidth/2+2, 5, xCoordinateWidth/2, yCoordinateHeight)];
         _rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_%d",selectedThemeIndex]];
+        _rightImage.tag = 2001;
     }
     return _rightImage;
 }
@@ -241,7 +243,7 @@
     
     backView.frame = CGRectMake(x, y1, width, y2-y1);
     backView.backgroundColor = [UIColor lightGrayColor];
-    backView.alpha = 0.3;
+    backView.alpha = 0.2;
     [self addSubview:backView];
 }
 /*旧的方法不再使用
@@ -277,6 +279,8 @@
     
     [self addSubview:self.rightImage];
 }
+
+
 
 //睡眠指数label
 
@@ -353,11 +357,15 @@
 -(void)setUpXcoorWithValues:(NSArray *)values
 {
     for (UIView *view in self.subviews) {
-        if (view.tag ==1000 || view.tag == 1009) {
+        if (view.tag ==1000 || view.tag == 1009|| view.tag == 2001) {
             [view removeFromSuperview];
         }
     }
-    
+    if (isUserDefaultTime) {
+        
+    }else{
+        [self setBackImage];
+    }
     if (values.count){
         [self.xPoints removeAllObjects];
         NSUInteger count = values.count;

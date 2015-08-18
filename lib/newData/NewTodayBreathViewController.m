@@ -264,9 +264,6 @@
             _breathGraphView.xValues = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
         }
         
-        if (self.breathDic.count>0) {
-            self.breathGraphView.dataValues = self.breathDic;
-        }
         
         _breathGraphView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     }
@@ -285,9 +282,9 @@
      selectedDateToUse = date;//为另一个界面
      //请求数据
      if (isUserDefaultTime) {
-     [self getUserDefaultDaySensorData:queryDate toDate:queryDate];
+         [self getUserDefaultDaySensorData:queryDate toDate:queryDate];
      }else{
-     [self getUserAllDaySensorData:queryDate toDate:queryDate];
+         [self getUserAllDaySensorData:queryDate toDate:queryDate];
      }
 }
 
@@ -892,7 +889,7 @@
         num = 288;
     }
     for (int i=0; i<num; i++) {
-        [arr addObject:[NSNumber numberWithFloat:0]];
+        [arr addObject:[NSNumber numberWithFloat:15]];
     }
     for (int i = 0; i<severDataArr.count; i++) {
         NSDictionary *dic = [severDataArr objectAtIndex:i];
@@ -927,13 +924,8 @@
     isUserDefaultTime = NO;
     NSArray *arr = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
     [self.breathGraphView reloadGraphXValueArr:arr];
-    //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
-    //        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
-    //        [self.timeSwitchButton changeLeftImageWithTime:0];
-    //    }else{
-    //        isUserDefaultTime = NO;
-    //        [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
-    //    }
+    [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
+
 }
 
 - (void)selectRightButton
@@ -983,6 +975,8 @@
         }
         [self.breathGraphView reloadGraphXValueArr:arr];
     }
+    [self getUserDefaultDaySensorData:self.currentDate toDate:self.currentDate];
+
     HaviLog(@"右侧");
 }
 #pragma mark view will
@@ -990,11 +984,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     if (animated) {
-        //        [self createCalenderView];
         if (isUserDefaultTime) {
             [self.timeSwitchButton changeRightImageWithTime:0];
+            [self selectRightButton];
         }else{
             [self.timeSwitchButton changeLeftImageWithTime:0];
+            [self selectLeftButton];
         }
         //和首页保持一致
         if (selectedDateToUse) {

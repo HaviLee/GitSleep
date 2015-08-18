@@ -35,5 +35,6 @@
 @property (strong, nonatomic) UIColor *chartColor;
 - (void)reloadGraphXValueArr:(NSArray *)arr;
 -(void)drawFuncLine;
+- (void)reloadChartView;
 
 @end
