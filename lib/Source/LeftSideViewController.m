@@ -355,7 +355,7 @@
     if ([self.changeNowDate intValue]>7 && [self.changeNowDate intValue]<18) {
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_day"];
     }else {
-        self.bgImageView.image = [UIImage imageNamed:@"pic_bg_night"];
+        self.bgImageView.image = [UIImage imageNamed:@"pic_bg_night_0"];
     }
 }
 

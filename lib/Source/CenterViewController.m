@@ -19,11 +19,7 @@
 //
 #import "GetDeviceStatusAPI.h"
 #import "GetDefatultSleepAPI.h"
-#import "TodayDataViewController.h"
 //
-//#import "TodayHeartViewController.h"
-//#import "TodayBreathViewController.h"
-#import "TodayTurnViewController.h"
 #import "NewTodayHeartViewController.h"
 #import "NewTodayBreathViewController.h"
 #import "NewTodayLeaveViewController.h"
@@ -288,7 +284,10 @@
         NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:nowDate options:0];
         [self.datePicker updateCalenderSelectedDate:yestoday];
         selectedDateToUse = yestoday;
+    }else{
+        selectedDateToUse = nowDate;
     }
+    
     [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",1]] forState:UIControlStateNormal];
     [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
     self.datePicker.dateDelegate = self;
@@ -555,37 +554,6 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.navigationController pushViewController:[self.dataViewArr objectAtIndex:indexPath.row] animated:YES];
-    NSString *selectedIndex = @"心率";
-    NSInteger seledtedIndexNum = 0;
-    switch (indexPath.row) {
-        case 0:{
-            selectedIndex = @"心率";
-            seledtedIndexNum = 0;
-            break;
-        }
-        case 1:{
-            selectedIndex = @"呼吸";
-            seledtedIndexNum = 1;
-            break;
-        }
-        case 2:{
-            selectedIndex = @"离床";
-            seledtedIndexNum = 2;
-            break;
-        }
-        case 3:{
-            selectedIndex = @"体动";
-            seledtedIndexNum = 3;
-            break;
-        }
-            
-            
-        default:
-            break;
-    }
-//    TodayDataViewController *today = [[TodayDataViewController alloc]init];
-//    today.selectedIndex = seledtedIndexNum;
-//    [self.navigationController pushViewController:today animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
