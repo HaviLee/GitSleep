@@ -889,15 +889,26 @@
 - (void)selectLeftButton
 {
     HaviLog(@"左侧");
-    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
-        [self.timeSwitchButton changeLeftImageWithTime:0];
-        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
-    }else{
-        isUserDefaultTime = NO;
-        [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
-    }
+//    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
+//        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
+//        [self.timeSwitchButton changeLeftImageWithTime:0];
+//    }else{
+//        isUserDefaultTime = NO;
+//        [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
+//    }
 }
 
+- (void)selectRightButton
+{
+//    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
+//        [self.timeSwitchButton changeLeftImageWithTime:0];
+//        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
+//    }else{
+//        isUserDefaultTime = YES;
+//        [self getUserDefaultDaySensorData:self.currentDate toDate:self.currentDate];
+//    }
+    HaviLog(@"右侧");
+}
 #pragma mark view will
 
 - (void)viewWillAppear:(BOOL)animated
@@ -989,14 +1000,21 @@
         [MMProgressHUD dismiss];
         NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
         //为了异常报告
-        [self showExceptionView:resposeDic withTitle:@"心率"];
-        HaviLog(@"缓存异常数据%@",resposeDic);
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [self showExceptionView:resposeDic withTitle:@"心率"];
+        }else{
+            [self.view makeToast:[resposeDic objectForKey:@"ErrorMessage"] duration:2 position:@"center"];
+        }
+
     }else{
         [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
             [MMProgressHUD dismiss];
             NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-            [self showExceptionView:resposeDic withTitle:@"心率"];
-            HaviLog(@"获取异常数据%@",resposeDic);
+            if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+                [self showExceptionView:resposeDic withTitle:@"心率"];
+            }else{
+                [self.view makeToast:[resposeDic objectForKey:@"ErrorMessage"] duration:2 position:@"center"];
+            }
         } failure:^(YTKBaseRequest *request) {
             
         }];

@@ -718,6 +718,31 @@
     //    return arr;
 }
 
+#pragma mark 自定义和24进行切换
+- (void)selectLeftButton
+{
+    HaviLog(@"左侧");
+    //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
+    //        [self.timeSwitchButton changeLeftImageWithTime:0];
+    //        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
+    //    }else{
+    //        isUserDefaultTime = NO;
+    //        [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
+    //    }
+}
+
+- (void)selectRightButton
+{
+    //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
+    //        [self.timeSwitchButton changeLeftImageWithTime:0];
+    //        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
+    //    }else{
+    //        isUserDefaultTime = YES;
+    //        [self getUserDefaultDaySensorData:self.currentDate toDate:self.currentDate];
+    //    }
+    HaviLog(@"右侧");
+}
+
 #pragma mark 获取自定义数据
 - (void)getUserDefaultDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
