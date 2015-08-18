@@ -61,8 +61,8 @@
 		2C15E7151AF214E800142F36 /* icon_data_analysis_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C15E6B21AF214E800142F36 /* icon_data_analysis_1@2x.png */; };
 		2C15E7161AF214E800142F36 /* icon_diagnostic_message_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C15E6B31AF214E800142F36 /* icon_diagnostic_message_1@2x.png */; };
 		2C15E7171AF214E800142F36 /* icon_equipment_management_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C15E6B41AF214E800142F36 /* icon_equipment_management_1@2x.png */; };
-		2C15E7181AF214E800142F36 /* icon_fatal exception_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C15E6B51AF214E800142F36 /* icon_fatal exception_1@2x.png */; };
-		2C15E7191AF214E800142F36 /* icon_general exception_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C15E6B61AF214E800142F36 /* icon_general exception_1@2x.png */; };
+		2C15E7181AF214E800142F36 /* icon_fatal_exception_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C15E6B51AF214E800142F36 /* icon_fatal_exception_1@2x.png */; };
+		2C15E7191AF214E800142F36 /* icon_general_exception_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C15E6B61AF214E800142F36 /* icon_general_exception_1@2x.png */; };
 		2C15E71A1AF214E800142F36 /* icon_get_up_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C15E6B71AF214E800142F36 /* icon_get_up_1@2x.png */; };
 		2C15E71B1AF214E800142F36 /* icon_heart_rate_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C15E6B81AF214E800142F36 /* icon_heart_rate_1@2x.png */; };
 		2C15E71C1AF214E800142F36 /* icon_password_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C15E6B91AF214E800142F36 /* icon_password_1@2x.png */; };
@@ -663,8 +663,8 @@
 		2C15E6B21AF214E800142F36 /* icon_data_analysis_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_data_analysis_1@2x.png"; path = "color1/icon_data_analysis_1@2x.png"; sourceTree = "<group>"; };
 		2C15E6B31AF214E800142F36 /* icon_diagnostic_message_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_diagnostic_message_1@2x.png"; path = "color1/icon_diagnostic_message_1@2x.png"; sourceTree = "<group>"; };
 		2C15E6B41AF214E800142F36 /* icon_equipment_management_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_equipment_management_1@2x.png"; path = "color1/icon_equipment_management_1@2x.png"; sourceTree = "<group>"; };
-		2C15E6B51AF214E800142F36 /* icon_fatal exception_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_fatal exception_1@2x.png"; path = "color1/icon_fatal exception_1@2x.png"; sourceTree = "<group>"; };
-		2C15E6B61AF214E800142F36 /* icon_general exception_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_general exception_1@2x.png"; path = "color1/icon_general exception_1@2x.png"; sourceTree = "<group>"; };
+		2C15E6B51AF214E800142F36 /* icon_fatal_exception_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_fatal_exception_1@2x.png"; path = "color1/icon_fatal_exception_1@2x.png"; sourceTree = "<group>"; };
+		2C15E6B61AF214E800142F36 /* icon_general_exception_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_general_exception_1@2x.png"; path = "color1/icon_general_exception_1@2x.png"; sourceTree = "<group>"; };
 		2C15E6B71AF214E800142F36 /* icon_get_up_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_get_up_1@2x.png"; path = "color1/icon_get_up_1@2x.png"; sourceTree = "<group>"; };
 		2C15E6B81AF214E800142F36 /* icon_heart_rate_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_heart_rate_1@2x.png"; path = "color1/icon_heart_rate_1@2x.png"; sourceTree = "<group>"; };
 		2C15E6B91AF214E800142F36 /* icon_password_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_password_1@2x.png"; path = "color1/icon_password_1@2x.png"; sourceTree = "<group>"; };
@@ -1571,8 +1571,8 @@
 				2C15E6B21AF214E800142F36 /* icon_data_analysis_1@2x.png */,
 				2C15E6B31AF214E800142F36 /* icon_diagnostic_message_1@2x.png */,
 				2C15E6B41AF214E800142F36 /* icon_equipment_management_1@2x.png */,
-				2C15E6B51AF214E800142F36 /* icon_fatal exception_1@2x.png */,
-				2C15E6B61AF214E800142F36 /* icon_general exception_1@2x.png */,
+				2C15E6B51AF214E800142F36 /* icon_fatal_exception_1@2x.png */,
+				2C15E6B61AF214E800142F36 /* icon_general_exception_1@2x.png */,
 				2C15E6B71AF214E800142F36 /* icon_get_up_1@2x.png */,
 				2C15E6B81AF214E800142F36 /* icon_heart_rate_1@2x.png */,
 				2C15E6B91AF214E800142F36 /* icon_password_1@2x.png */,
@@ -3003,7 +3003,7 @@
 				2C15E7971AF2180500142F36 /* pic_bad_2@2x.png in Resources */,
 				2C7D22C61AF1CA050011A45C /* line_side_face_0@2x.png in Resources */,
 				2C15E7111AF214E800142F36 /* home_1@2x.png in Resources */,
-				2C15E7181AF214E800142F36 /* icon_fatal exception_1@2x.png in Resources */,
+				2C15E7181AF214E800142F36 /* icon_fatal_exception_1@2x.png in Resources */,
 				2C7D22D11AF1CA050011A45C /* pic_bg_night_0@2x.png in Resources */,
 				2C3AF2CD1AF470C800B66E32 /* btn_down_two.png in Resources */,
 				2C8C62931AB5B8A200CF4C19 /* papasscode_failed_bg.png in Resources */,
@@ -3113,7 +3113,7 @@
 				2C8C628F1AB5B8A200CF4C19 /* digitCell.psd in Resources */,
 				2C7D22A01AF1CA050011A45C /* btn_over_0@2x.png in Resources */,
 				2C7D22FC1AF1CA220011A45C /* heart_1_0.png in Resources */,
-				2C15E7191AF214E800142F36 /* icon_general exception_1@2x.png in Resources */,
+				2C15E7191AF214E800142F36 /* icon_general_exception_1@2x.png in Resources */,
 				2C15E78D1AF2152100142F36 /* heart_7_1.png in Resources */,
 				2CD6C0501B7B852700F1FF6A /* res1thumb.png in Resources */,
 				2C7D22A51AF1CA050011A45C /* btn_up_0@2x.png in Resources */,
@@ -3595,7 +3595,7 @@
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3622,7 +3622,7 @@
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

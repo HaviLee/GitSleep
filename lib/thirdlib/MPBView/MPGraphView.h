@@ -19,4 +19,5 @@
 @property (nonatomic,retain) NSArray *fillColors; // array of colors or CGColor
 @property (nonatomic,assign) int maxValue;
 @property (nonatomic,assign) int minValue;
+@property (nonatomic,strong) NSString *graphTitle;
 @end

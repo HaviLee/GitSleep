@@ -14,11 +14,14 @@
 #import "GetHeartSleepDataAPI.h"
 #import "GetDefatultSleepAPI.h"
 #import "GetUserDefaultDataAPI.h"
+#import "GetExceptionAPI.h"
+#import "DiagnoseReportViewController.h"
+#import "ModalAnimation.h"
 
-@interface NewTodayHeartViewController ()<SetScrollDateDelegate,SelectCalenderDate,ToggleViewDelegate>
+@interface NewTodayHeartViewController ()<SetScrollDateDelegate,SelectCalenderDate,ToggleViewDelegate,UIViewControllerTransitioningDelegate>
 {
     BOOL isUp;//控制两个tableview切换
-//    ModalAnimation *_modalAnimationController;
+    ModalAnimation *_modalAnimationController;
 }
 
 @property (nonatomic,assign) CGFloat viewHeight;
@@ -60,6 +63,7 @@
 {
     isUp = YES;
     self.viewHeight = self.view.frame.size.height;
+    _modalAnimationController = [[ModalAnimation alloc] init];
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
@@ -78,8 +82,6 @@
 
 - (void)createCalenderView
 {
-//    self.subDatePicker.dateDelegate = self;
-//    [self.view addSubview:self.subDatePicker];
     self.datePicker.dateDelegate = self;
     CGRect rect = self.datePicker.frame;
     rect.origin.y = rect.origin.y;
@@ -189,9 +191,9 @@
         _heartGraphView = [[HeartGraphView alloc]initWithFrame:CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60)];
         //设置警告值
         _heartGraphView.yValues = @[@"20", @"40", @"60", @"80", @"100",@"120",@"140"];
-        _heartGraphView.chartTitle = @"xinlv";
-        _heartGraphView.heartView.maxValue = 70;
-        _heartGraphView.alarmMinValue = @"60";
+        _heartGraphView.heartView.graphTitle = @"xinlv";
+        _heartGraphView.heartView.maxValue = 80;
+        _heartGraphView.heartView.minValue = 30;
         _heartGraphView.horizonLine = 60;
         _heartGraphView.backMinValue = 50;
         _heartGraphView.backMaxValue = 70;
@@ -254,15 +256,6 @@
         _heartGraphView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     }
     return _heartGraphView;
-}
-
-- (DatePickerView *)subDatePicker
-{
-    if (!_subDatePicker) {
-        int datePickerHeight = self.view.frame.size.height*0.202623;
-        _subDatePicker = [[DatePickerView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - datePickerHeight, self.view.frame.size.width,datePickerHeight)];
-    }
-    return _subDatePicker;
 }
 
 #pragma mark 水平日历代理方法
@@ -938,6 +931,94 @@
         }
     }
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showHeartEmercenyView:) name:PostHeartEmergencyNoti object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:PostHeartEmergencyNoti object:nil];
+}
+
+#pragma mark 异常报告
+
+- (void)showHeartEmercenyView:(NSNotification *)noti
+{
+    [self showDiagnoseReportHeart];
+}
+
+- (void)showDiagnoseReportHeart
+{
+    NSString *urlString = @"";
+    if (isUserDefaultTime) {
+        NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+        NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+        int startInt = [[startTime substringToIndex:2]intValue];
+        int endInt = [[endTime substringToIndex:2]intValue];
+        if (startInt<endInt) {
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,self.currentDate,self.currentDate,startTime,endTime];
+        }else if (startInt>endInt || startInt==endInt){
+            NSDate *newDate = [self.dateFormmatterBase dateFromString:self.currentDate];
+            self.dateComponentsBase.day = +1;
+            NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+            NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+            //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,self.currentDate,newString,startTime,endTime];
+            
+        }
+    }else{
+        NSDate *newDate = [self.dateFormmatterBase dateFromString:self.currentDate];
+        self.dateComponentsBase.day = -1;
+        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+        urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,self.currentDate];
+    }
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [MMProgressHUD showWithStatus:@"异常数据请求中..."];
+    GetExceptionAPI *client = [GetExceptionAPI shareInstance];
+    [client getException:header withDetailUrl:urlString];
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        [MMProgressHUD dismiss];
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [self showExceptionView:resposeDic withTitle:@"心率"];
+        HaviLog(@"获取异常数据%@",resposeDic);
+    } failure:^(YTKBaseRequest *request) {
+        
+    }];
+    
+}
+
+- (void)showExceptionView:(NSDictionary *)dic withTitle:(NSString *)exceptionTitle
+{
+    DiagnoseReportViewController *modal = [[DiagnoseReportViewController alloc] init];
+    modal.transitioningDelegate = self;
+    modal.dateTime = self.currentDate;
+    modal.reportTitleString = exceptionTitle;
+    modal.modalPresentationStyle = UIModalPresentationCustom;
+    modal.exceptionDic = dic;
+    modal.sleepDic = self.currentSleepQulitity;
+    [self presentViewController:modal animated:YES completion:nil];
+}
+
+#pragma mark - Transitioning Delegate (Modal)
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    _modalAnimationController.type = AnimationTypePresent;
+    return _modalAnimationController;
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    _modalAnimationController.type = AnimationTypeDismiss;
+    return _modalAnimationController;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

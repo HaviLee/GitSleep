@@ -58,6 +58,11 @@
     for (UIButton* button in buttons) {
         [button removeFromSuperview];
     }
+    for (UIView *subView in self.subviews) {
+        if (subView.tag == 1001) {
+            [subView removeFromSuperview];
+        }
+    }
     
     buttons=[[NSMutableArray alloc] init];
     
@@ -69,15 +74,7 @@
         
         if(i==0)
             [path moveToPoint:point];
-//        if ([[self.values objectAtIndex:i] intValue]*self.horizonValue>self.maxValue) {
-//            //
-//            UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
-//            buttonImage.frame = CGRectMake(0, 0, 10, 10);
-//            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_fatal_exception_0"]] forState:UIControlStateNormal];
-//            [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
-//            buttonImage.center = point;
-//            [self addSubview:buttonImage];
-//        }
+        
         
         MPButton *button=[MPButton buttonWithType:UIButtonTypeCustom tappableAreaOffset:UIOffsetMake(5, 5)];
         if ([[points objectAtIndex:i] intValue]==60) {
@@ -88,16 +85,33 @@
         button.layer.cornerRadius=1;
         button.frame=CGRectMake(0, 0, 1, 1);
         button.center=point;
-        [button addTarget:self action:@selector(tap:) forControlEvents:UIControlEventTouchUpInside];
+//        [button addTarget:self action:@selector(tap:) forControlEvents:UIControlEventTouchUpInside];
         button.tag=i;
         [self addSubview:button];
-        
+        if ([[self.values objectAtIndex:i] intValue]>self.maxValue) {
+            //
+            UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
+            buttonImage.frame = CGRectMake(0, 0, 10, 10);
+            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_fatal_exception_0"]] forState:UIControlStateNormal];
+            buttonImage.tag = 1001;
+            buttonImage.userInteractionEnabled = YES;
+            [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
+            buttonImage.center = point;
+            [self addSubview:buttonImage];
+        }else if ([[self.values objectAtIndex:i] intValue]<self.minValue){
+            UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
+            buttonImage.frame = CGRectMake(0, 0, 10, 10);
+            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_abnormal_0"]] forState:UIControlStateNormal];
+            buttonImage.tag = 1001;
+            buttonImage.userInteractionEnabled = YES;
+            [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
+            buttonImage.center = point;
+            [self addSubview:buttonImage];
+        }
         [buttons addObject:button];
         
         [path addLineToPoint:point];
-        
-        
-        
+                
     }
     
     
@@ -185,15 +199,7 @@
         
         
         CGPoint point=[self pointAtIndex:i];
-//        if ([[points objectAtIndex:i] intValue]>self.maxValue) {
-//            //
-//            UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
-//            buttonImage.frame = CGRectMake(0, 0, 10, 10);
-//            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_fatal_exception_0"]] forState:UIControlStateNormal];
-//            [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
-//            buttonImage.center = point;
-//            [self addSubview:buttonImage];
-//        }
+        
         MPButton *button=[MPButton buttonWithType:UIButtonTypeCustom];
         if ([[points objectAtIndex:i] intValue]==60) {
             [button setBackgroundColor:[UIColor clearColor]];
@@ -208,7 +214,28 @@
         button.transform=CGAffineTransformMakeScale(0,0);
         [self addSubview:button];
         
-        [self performSelector:@selector(displayPoint:) withObject:button afterDelay:delay*i];
+        
+        
+        if ([[self.values objectAtIndex:i] intValue]>self.maxValue) {
+            //
+            UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
+            buttonImage.frame = CGRectMake(0, 0, 10, 10);
+            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_fatal_exception_0"]] forState:UIControlStateNormal];
+            buttonImage.tag = 1001;
+            buttonImage.userInteractionEnabled = YES;
+            [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
+            buttonImage.center = point;
+            [self addSubview:buttonImage];
+        }else if ([[self.values objectAtIndex:i] intValue]<self.minValue){
+            UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
+            buttonImage.frame = CGRectMake(0, 0, 10, 10);
+            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_abnormal_0"]] forState:UIControlStateNormal];
+            buttonImage.tag = 1001;
+            buttonImage.userInteractionEnabled = YES;
+            [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
+            buttonImage.center = point;
+            [self addSubview:buttonImage];
+        }[self performSelector:@selector(displayPoint:) withObject:button afterDelay:delay*i];
         
         [buttons addObject:button];
         
@@ -275,6 +302,14 @@
     [self setNeedsDisplay];
 }
 
-
+- (void)showAlarm:(UIButton *)button
+{
+    if ([self.graphTitle isEqualToString:@"xinlv"]) {
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:PostHeartEmergencyNoti object:nil];
+    }else if([self.graphTitle isEqualToString:@"huxi"]){
+        [[NSNotificationCenter defaultCenter]postNotificationName:PostBreatheEmergencyNoti object:nil];
+    }
+}
 
 @end

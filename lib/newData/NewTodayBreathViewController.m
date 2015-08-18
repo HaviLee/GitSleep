@@ -14,11 +14,14 @@
 #import "GetBreathSleepDataAPI.h"
 #import "GetDefatultSleepAPI.h"
 #import "GetUserDefaultDataAPI.h"
+#import "ModalAnimation.h"
+#import "GetExceptionAPI.h"
+#import "DiagnoseReportViewController.h"
 
-@interface NewTodayBreathViewController ()<SetScrollDateDelegate,SelectCalenderDate,ToggleViewDelegate>
+@interface NewTodayBreathViewController ()<SetScrollDateDelegate,SelectCalenderDate,ToggleViewDelegate,UIViewControllerTransitioningDelegate>
 {
     BOOL isUp;//控制两个tableview切换
-//    ModalAnimation *_modalAnimationController;
+    ModalAnimation *_modalAnimationController;
     
 }
 @property (nonatomic,strong) DatePickerView *subDatePicker;
@@ -60,6 +63,7 @@
 {
     isUp = YES;
     self.viewHeight = self.view.frame.size.height;
+    _modalAnimationController = [[ModalAnimation alloc] init];
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
@@ -201,12 +205,12 @@
         _breathGraphView.frame = CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60);
         //设置警告值
         _breathGraphView.yValues = @[@"10", @"20", @"30", @"40",];
-        _breathGraphView.alarmMaxValue = @"20";
-        _breathGraphView.alarmMinValue = @"15";
+        _breathGraphView.heartView.maxValue = 25;
+        _breathGraphView.heartView.minValue = 5;
         _breathGraphView.horizonLine = 15;
         _breathGraphView.backMinValue = 10;
         _breathGraphView.backMaxValue = 20;
-        _breathGraphView.chartTitle = @"huxi";
+        _breathGraphView.heartView.graphTitle = @"huxi";
         _breathGraphView.heartView.horizonValue = 40;
         //设置坐标轴
         //设置坐标轴
@@ -930,6 +934,89 @@
             }
         }
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showBreatheEmercenyView:) name:PostBreatheEmergencyNoti object:nil];
+    
+}
+
+
+#pragma mark - Transitioning Delegate (Modal)
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    _modalAnimationController.type = AnimationTypePresent;
+    return _modalAnimationController;
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    _modalAnimationController.type = AnimationTypeDismiss;
+    return _modalAnimationController;
+}
+
+
+#pragma mark 异常数据
+- (void)showBreatheEmercenyView:(NSNotification*)noti
+{
+    [self showDiagnoseReportBreath];
+}
+
+- (void)showDiagnoseReportBreath
+{
+    NSString *urlString = @"";
+    if (isUserDefaultTime) {
+        NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+        NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+        int startInt = [[startTime substringToIndex:2]intValue];
+        int endInt = [[endTime substringToIndex:2]intValue];
+        
+        if (startInt<endInt) {
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,self.currentDate,self.currentDate,startTime,endTime];
+        }else if (startInt>endInt || startInt==endInt){
+            NSDate *newDate = [self.dateFormmatterBase dateFromString:self.currentDate];
+            self.dateComponentsBase.day = +1;
+            NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+            NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+            //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,self.currentDate,newString,startTime,endTime];
+            
+        }
+    }else{
+        NSDate *newDate = [self.dateFormmatterBase dateFromString:self.currentDate];
+        self.dateComponentsBase.day = -1;
+        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+        urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,self.currentDate];
+    }
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [MMProgressHUD showWithStatus:@"异常数据请求中..."];
+    GetExceptionAPI *client = [GetExceptionAPI shareInstance];
+    [client getException:header withDetailUrl:urlString];
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        [MMProgressHUD dismiss];
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [self showExceptionView:resposeDic withTitle:@"呼吸"];
+        HaviLog(@"获取异常数据%@",resposeDic);
+    } failure:^(YTKBaseRequest *request) {
+        
+    }];
+}
+
+- (void)showExceptionView:(NSDictionary *)dic withTitle:(NSString *)exceptionTitle
+{
+    DiagnoseReportViewController *modal = [[DiagnoseReportViewController alloc] init];
+    modal.transitioningDelegate = self;
+    modal.dateTime = self.currentDate;
+    modal.reportTitleString = exceptionTitle;
+    modal.modalPresentationStyle = UIModalPresentationCustom;
+    modal.exceptionDic = dic;
+    modal.sleepDic = self.currentSleepQulitity;
+    [self presentViewController:modal animated:YES completion:nil];
 }
 
 

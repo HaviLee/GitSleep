@@ -1015,6 +1015,12 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showHeartEmercenyView:) name:PostHeartEmergencyNoti object:nil];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:PostHeartEmergencyNoti object:nil];
+}
+
 
 #pragma mark 异常报告
 
@@ -1081,11 +1087,6 @@
 }
 
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:PostHeartEmergencyNoti object:nil];
-}
 
 #pragma mark - Transitioning Delegate (Modal)
 -(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
