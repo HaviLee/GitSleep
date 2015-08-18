@@ -44,7 +44,7 @@
 /** 颜色 */
 @property (strong, nonatomic) UIColor *chartColor;
 
-- (void)reloadChartView;
+- (void)reloadGraphXValueArr:(NSArray *)arr;
 -(void)drawRect:(CGRect)rect;
 - (void)drawHorironLineWithColorView;
 @end

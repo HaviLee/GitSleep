@@ -360,23 +360,23 @@
         CGContextSetLineDash(ctx, 0, alilengths, 2);
         
         // 画竖虚线
-        NSMutableArray *localXpoints = [self.xPoints mutableCopy];
-        if ([self.xValues[0] isEqualToString:@"0"]){
-            [localXpoints removeObjectAtIndex:0];
-        }
-        for (NSValue *xP in localXpoints) {
-            CGPoint xPoint = [xP CGPointValue];
-            CGMutablePathRef path = CGPathCreateMutable();
-            
-            CGPathMoveToPoint(path, nil, xPoint.x, yCoordinateHeight+5);
-            CGPathAddLineToPoint(path, nil, xPoint.x,yCoordinateHeight);
-            
-            //            CGPathMoveToPoint(path, nil, xPoint.x, xPoint.y);
-            //            CGPathAddLineToPoint(path, nil, xPoint.x, minYPoint.y);
-            CGContextAddPath(ctx, path);
-            CGContextDrawPath(ctx, kCGPathFillStroke);
-            CGPathRelease(path);
-        }
+//        NSMutableArray *localXpoints = [self.xPoints mutableCopy];
+//        if ([self.xValues[0] isEqualToString:@"0"]){
+//            [localXpoints removeObjectAtIndex:0];
+//        }
+//        for (NSValue *xP in localXpoints) {
+//            CGPoint xPoint = [xP CGPointValue];
+//            CGMutablePathRef path = CGPathCreateMutable();
+//            
+//            CGPathMoveToPoint(path, nil, xPoint.x, yCoordinateHeight+5);
+//            CGPathAddLineToPoint(path, nil, xPoint.x,yCoordinateHeight);
+//            
+//            //            CGPathMoveToPoint(path, nil, xPoint.x, xPoint.y);
+//            //            CGPathAddLineToPoint(path, nil, xPoint.x, minYPoint.y);
+//            CGContextAddPath(ctx, path);
+//            CGContextDrawPath(ctx, kCGPathFillStroke);
+//            CGPathRelease(path);
+//        }
         // 画横虚线
         for (NSValue *yP in self.yPoints) {
             CGPoint yPoint = [yP CGPointValue];
@@ -422,15 +422,22 @@
     
 }
 
+//刷新x轴
+- (void)reloadGraphXValueArr:(NSArray *)arr
+{
+    [self setUpXcoorWithValues:arr];
+}
 #pragma mark - 添加坐标轴的值
 -(void)setUpXcoorWithValues:(NSArray *)values
 {
     for (UIView *view in self.subviews) {
-        if (view.tag ==1000) {
+        if (view.tag ==1000 || view.tag == 1009) {
             [view removeFromSuperview];
         }
     }
+    
     if (values.count){
+        [self.xPoints removeAllObjects];
         NSUInteger count = values.count;
         for (int i = 0; i < count; i++) {
             NSString *xValue = values[i];
@@ -439,7 +446,7 @@
             if ([values[0] isEqualToString:@"0"]) { // 第一个坐标值是0
                 cX = (xCoordinateWidth / (count - 1)) * i + self.leftLineMargin;
             }else{ // 第一个坐标值不是0
-                cX = (xCoordinateWidth / (count-1)) * (i) + self.leftLineMargin + 2;
+                cX = (xCoordinateWidth / (count-1)) * (i) + self.leftLineMargin +1;
             }
             CGFloat cY = self.frame.size.height - bottomLineMargin;
             // 收集坐标点
@@ -455,6 +462,20 @@
             [self addSubview:label];
             //            [xValue drawAtPoint:CGPointMake(cX - size.width * 0.7 - ((xCoordinateWidth-15)/(count-1))/2, cY + 5) withAttributes:self.textStyleDict];
         }
+        NSMutableArray *localXpoints = [self.xPoints mutableCopy];
+        if ([self.xValues[0] isEqualToString:@"0"]){
+            [localXpoints removeObjectAtIndex:0];
+        }
+        for (NSValue *xP in localXpoints) {
+            
+            CGPoint xPoint = [xP CGPointValue];
+            UIView *lineView = [[UIView alloc]init];
+            lineView.frame = CGRectMake(xPoint.x, yCoordinateHeight+2, 1, 3);
+            lineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+            lineView.tag = 1009;
+            [self addSubview:lineView];
+        }
+        
     }
 }
 

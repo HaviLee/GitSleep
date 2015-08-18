@@ -36,7 +36,6 @@
 @property (nonatomic,strong) UILabel *diagnoseDescriptionLabel;
 @property (nonatomic,strong) UILabel *diagnoseSuggestionLabel;
 //表哥
-//@property (nonatomic,strong) HeartChartView *heartChartView;//old
 @property (nonatomic,strong) HeartGraphView *heartGraphView;//havi
 
 //数据
@@ -738,16 +737,16 @@
         NSString *urlString = @"";
         if (startInt<endInt) {
             urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
-        }else if (startInt>endInt || startInt==endInt){
-            NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
-            self.dateComponentsBase.day = +1;
-            NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-            NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-            //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
-            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
-            
         }
+//        else if (startInt>endInt || startInt==endInt){
+//            NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+//            self.dateComponentsBase.day = +1;
+//            NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+//            NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+//            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+//            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
+//            
+//        }
         
         //        [MMProgressHUD showWithStatus:@"请求中..."];
         [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
@@ -908,6 +907,9 @@
 - (void)selectLeftButton
 {
     HaviLog(@"左侧");
+    isUserDefaultTime = NO;
+    NSArray *arr = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
+    [self.heartGraphView reloadGraphXValueArr:arr];
 //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
 //        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
 //        [self.timeSwitchButton changeLeftImageWithTime:0];
@@ -919,6 +921,52 @@
 
 - (void)selectRightButton
 {
+    isUserDefaultTime = YES;
+    NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+    NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+    int startInt = [[startTime substringToIndex:2]intValue];
+    int endInt = [[endTime substringToIndex:2]intValue];
+    if ((startInt<endInt)&&(endInt-startInt>1)&&((endInt - startInt)<12||(endInt - startInt)==12)) {
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        for (int i = startInt; i<endInt +1; i++) {
+            [arr addObject:[NSString stringWithFormat:@"%d",i]];
+        }
+        [self.heartGraphView reloadGraphXValueArr:arr];
+    }else if ((startInt<endInt)&&(endInt - startInt)>12){
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        for (int i = 0; i<(int)(endInt -startInt)/2+1; i++) {
+            [arr addObject:[NSString stringWithFormat:@"%d",startInt +2*i]];
+            
+        }
+        [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
+        [self.heartGraphView reloadGraphXValueArr:arr];
+    }else if (startInt>endInt){
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        for (int i = 0; i<(int)(endInt+ 24-startInt)/2+1; i++) {
+            int date = startInt +2*i;
+            if (date>24) {
+                date = date - 24;
+            }
+            [arr addObject:[NSString stringWithFormat:@"%d",date]];
+            
+        }
+        [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
+        [self.heartGraphView reloadGraphXValueArr:arr];
+    }else if ((endInt - startInt)==1){
+        [self.heartGraphView reloadGraphXValueArr:@[[NSString stringWithFormat:@"%d:00",startInt],[NSString stringWithFormat:@"%d:10",startInt], [NSString stringWithFormat:@"%d:20",startInt],[NSString stringWithFormat:@"%d:30",startInt],[NSString stringWithFormat:@"%d:40",startInt],[NSString stringWithFormat:@"%d:50",startInt],[NSString stringWithFormat:@"%d:00",endInt]]];
+    }else if ((endInt - startInt)==0){
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        for (int i = 0; i<12+1; i++) {
+            int date = startInt +2*i;
+            if (date>24) {
+                date = date - 24;
+            }
+            [arr addObject:[NSString stringWithFormat:@"%d",date]];
+            
+        }
+        [self.heartGraphView reloadGraphXValueArr:arr];
+    }
+//    self.heartGraphView reloadGraphXValueArr:ar
 //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
 //        [self.timeSwitchButton changeLeftImageWithTime:0];
 //        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];

@@ -32,6 +32,6 @@
 @property (assign, nonatomic) CGFloat chartWidth;
 /** 颜色 */
 @property (strong, nonatomic) UIColor *chartColor;
+- (void)reloadGraphXValueArr:(NSArray *)arr;
 - (void)reloadChartView;
-
 @end

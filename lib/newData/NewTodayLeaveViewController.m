@@ -672,16 +672,18 @@
         
     }
     self.leaveView.dataValues = self.leaveDic;
-    [self.leaveView reloadChartView];
 }
 
 #pragma mark 自定义和24进行切换
 - (void)selectLeftButton
 {
     HaviLog(@"左侧");
+    isUserDefaultTime = NO;
+    NSArray *arr = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
+    [self.leaveView reloadGraphXValueArr:arr];
     //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
-    //        [self.timeSwitchButton changeLeftImageWithTime:0];
     //        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
+    //        [self.timeSwitchButton changeLeftImageWithTime:0];
     //    }else{
     //        isUserDefaultTime = NO;
     //        [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
@@ -690,13 +692,51 @@
 
 - (void)selectRightButton
 {
-    //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
-    //        [self.timeSwitchButton changeLeftImageWithTime:0];
-    //        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
-    //    }else{
-    //        isUserDefaultTime = YES;
-    //        [self getUserDefaultDaySensorData:self.currentDate toDate:self.currentDate];
-    //    }
+    isUserDefaultTime = YES;
+    NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+    NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+    int startInt = [[startTime substringToIndex:2]intValue];
+    int endInt = [[endTime substringToIndex:2]intValue];
+    if ((startInt<endInt)&&(endInt-startInt>1)&&((endInt - startInt)<12||(endInt - startInt)==12)) {
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        for (int i = startInt; i<endInt +1; i++) {
+            [arr addObject:[NSString stringWithFormat:@"%d",i]];
+        }
+        [self.leaveView reloadGraphXValueArr:arr];
+    }else if ((startInt<endInt)&&(endInt - startInt)>12){
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        for (int i = 0; i<(int)(endInt -startInt)/2+1; i++) {
+            [arr addObject:[NSString stringWithFormat:@"%d",startInt +2*i]];
+            
+        }
+        [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
+        [self.leaveView reloadGraphXValueArr:arr];
+    }else if (startInt>endInt){
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        for (int i = 0; i<(int)(endInt+ 24-startInt)/2+1; i++) {
+            int date = startInt +2*i;
+            if (date>24) {
+                date = date - 24;
+            }
+            [arr addObject:[NSString stringWithFormat:@"%d",date]];
+            
+        }
+        [arr replaceObjectAtIndex:arr.count-1 withObject:[NSString stringWithFormat:@"%d",endInt]];
+        [self.leaveView reloadGraphXValueArr:arr];
+    }else if ((endInt - startInt)==1){
+        [self.leaveView reloadGraphXValueArr:@[[NSString stringWithFormat:@"%d:00",startInt],[NSString stringWithFormat:@"%d:10",startInt], [NSString stringWithFormat:@"%d:20",startInt],[NSString stringWithFormat:@"%d:30",startInt],[NSString stringWithFormat:@"%d:40",startInt],[NSString stringWithFormat:@"%d:50",startInt],[NSString stringWithFormat:@"%d:00",endInt]]];
+    }else if ((endInt - startInt)==0){
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        for (int i = 0; i<12+1; i++) {
+            int date = startInt +2*i;
+            if (date>24) {
+                date = date - 24;
+            }
+            [arr addObject:[NSString stringWithFormat:@"%d",date]];
+            
+        }
+        [self.leaveView reloadGraphXValueArr:arr];
+    }
     HaviLog(@"右侧");
 }
 
@@ -830,7 +870,6 @@
         
     }
     self.leaveView.dataValues = self.leaveDic;
-    [self.leaveView reloadChartView];
     
 }
 
