@@ -23,6 +23,7 @@ BOOL isThirdLogin = NO;
 BOOL isUserDefaultTime = NO;
 
 int selectedThemeIndex = 0;
+int isTodayHourEqualSixteen = 0;
 
 NSString *thirdPartyLoginUserId = @"";
 NSString *thirdPartyLoginToken = @"";

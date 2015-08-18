@@ -26,6 +26,7 @@ extern NSDate *selectedDateToUse;
 extern BOOL isUserDefaultTime;
 //
 extern int selectedThemeIndex;
+extern int isTodayHourEqualSixteen;
 //userInfo
 extern NSString *thirdPartyLoginUserId;
 extern NSString *thirdPartyLoginToken;

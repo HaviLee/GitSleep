@@ -574,11 +574,20 @@
     if (fromDate) {
         
         NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
-        self.dateComponentsBase.day = -1;
-        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
+        NSString *urlString = @"";
+        if (isTodayHourEqualSixteen<18) {
+            self.dateComponentsBase.day = -1;
+            NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+            NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
+        }else{
+            self.dateComponentsBase.day = 1;
+            NSDate *nextDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+            NSString *nextDayString = [NSString stringWithFormat:@"%@",nextDay];
+            NSString *newNextDayString = [NSString stringWithFormat:@"%@%@%@",[nextDayString substringWithRange:NSMakeRange(0, 4)],[nextDayString substringWithRange:NSMakeRange(5, 2)],[nextDayString substringWithRange:NSMakeRange(8, 2)]];
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,fromDate,newNextDayString];
+        }
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
@@ -591,7 +600,7 @@
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             //            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-            HaviLog(@"缓存的心率数据%@",resposeDic);
+            HaviLog(@"缓存的呼吸数据%@和url:%@",resposeDic,urlString);
             [self reloadUserViewWithData:resposeDic];
             [self getUserSleepReportData:fromDate toDate:toDate];
         }else{
@@ -599,8 +608,7 @@
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 //                [MMProgressHUD dismiss];
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                HaviLog(@"请求的心率数据%@",resposeDic);
-                [self reloadUserViewWithData:resposeDic];
+                HaviLog(@"请求的呼吸数据%@和url:%@",resposeDic,urlString);                [self reloadUserViewWithData:resposeDic];
                 [self getUserSleepReportData:fromDate toDate:toDate];
             } failure:^(YTKBaseRequest *request) {
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
@@ -620,11 +628,21 @@
     if (fromDate) {
         
         NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
-        self.dateComponentsBase.day = -1;
-        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
+        NSString *urlString = @"";
+        if (isTodayHourEqualSixteen<18) {
+            self.dateComponentsBase.day = -1;
+            NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+            NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,fromDate];
+        }else {
+            self.dateComponentsBase.day = 1;
+            NSDate *nextDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+            NSString *nextDayString = [NSString stringWithFormat:@"%@",nextDay];
+            NSString *newNextDayString = [NSString stringWithFormat:@"%@%@%@",[nextDayString substringWithRange:NSMakeRange(0, 4)],[nextDayString substringWithRange:NSMakeRange(5, 2)],[nextDayString substringWithRange:NSMakeRange(8, 2)]];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,fromDate,newNextDayString];
+            
+        }
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };

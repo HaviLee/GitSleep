@@ -26,7 +26,6 @@
 #import "NewTodayTurnViewController.h"
 
 @interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
-@property (nonatomic, assign) NSInteger todayHour;
 @property (nonatomic, strong) UITableView *cellTableView;
 @property (nonatomic, strong) UILabel *sleepTimeLabel;
 @property (nonatomic, strong) CHCircleGaugeView *circleView;
@@ -179,7 +178,7 @@
     }
     NSDate *newDate = [self.dateFormmatterBase dateFromString:nowDateString];
     NSString *urlString = @"";
-    if (self.todayHour<18) {
+    if (isTodayHourEqualSixteen<18) {
         self.dateComponentsBase.day = -1;
         NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
         NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
@@ -278,8 +277,8 @@
     [self.view addSubview:self.datePicker];
     NSDate *nowDate = [self getNowDate];
     NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
-    self.todayHour = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
-    if (self.todayHour<18) {
+    isTodayHourEqualSixteen = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
+    if (isTodayHourEqualSixteen<18) {
         self.dateComponentsBase.day = -1;
         NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:nowDate options:0];
         [self.datePicker updateCalenderSelectedDate:yestoday];
@@ -477,7 +476,7 @@
     //更新日历
 }
 
-#pragma mark 滚动日历
+#pragma mark 水平滚动日历
 
 - (void)getScrollSelectedDate:(NSDate *)date
 {
@@ -601,7 +600,7 @@
     //每次都判断一下当前的时间是不是18：00；
     NSDate *nowDate = [self getNowDate];
     NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
-    self.todayHour = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
+    isTodayHourEqualSixteen = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
 }
 
 #pragma mark alertview 代理
