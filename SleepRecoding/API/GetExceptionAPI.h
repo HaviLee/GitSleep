@@ -6,9 +6,11 @@
 //  Copyright (c) 2015年 Havi. All rights reserved.
 //
 
-#import "YTKRequest.h"
+//#import "YTKRequest.h"
+#import "QueryDataCacheAPI.h"
 
-@interface GetExceptionAPI : YTKRequest
+
+@interface GetExceptionAPI : QueryDataCacheAPI
 {
     NSString *_detailUrl;
     NSDictionary *_urlHeaderDic;

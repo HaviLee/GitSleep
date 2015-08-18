@@ -997,14 +997,23 @@
     [MMProgressHUD showWithStatus:@"异常数据请求中..."];
     GetExceptionAPI *client = [GetExceptionAPI shareInstance];
     [client getException:header withDetailUrl:urlString];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+    if ([client getCacheJsonWithDate:self.currentDate]) {
         [MMProgressHUD dismiss];
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
+        //为了异常报告
         [self showExceptionView:resposeDic withTitle:@"呼吸"];
-        HaviLog(@"获取异常数据%@",resposeDic);
-    } failure:^(YTKBaseRequest *request) {
-        
-    }];
+        HaviLog(@"缓存呼吸异常数据%@",resposeDic);
+    }else{
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            [MMProgressHUD dismiss];
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            [self showExceptionView:resposeDic withTitle:@"呼吸"];
+            HaviLog(@"获取异常数据%@",resposeDic);
+        } failure:^(YTKBaseRequest *request) {
+            
+        }];
+    }
+
 }
 
 - (void)showExceptionView:(NSDictionary *)dic withTitle:(NSString *)exceptionTitle
