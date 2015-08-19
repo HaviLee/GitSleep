@@ -219,16 +219,19 @@
     cell.userCellTitle = [[self.titleArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
     //    [cell layoutSubviews];
     cell.iconTitle = [[self.iconArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            cell.cellDataString = [NSString stringWithFormat:@"%@CM",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
-        }else if (indexPath.row == 1){
-            cell.cellDataString = [NSString stringWithFormat:@"%@KG",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+    if (self.userInfoDic.count>0) {
+        
+        if (indexPath.section == 1) {
+            if (indexPath.row == 0) {
+                cell.cellDataString = [NSString stringWithFormat:@"%@CM",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+            }else if (indexPath.row == 1){
+                cell.cellDataString = [NSString stringWithFormat:@"%@KG",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+            }else{
+                cell.cellDataString = [NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+            }
         }else{
             cell.cellDataString = [NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
         }
-    }else{
-        cell.cellDataString = [NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
     }
     cell.backgroundColor = [UIColor whiteColor];
     if ((indexPath.section == 0&& indexPath.row == 0)||(indexPath.section == 1&& indexPath.row == 0)) {
