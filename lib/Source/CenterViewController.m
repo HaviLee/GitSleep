@@ -264,19 +264,20 @@
             HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
             //为了异常报告
             [self refreshViewWithSleepData:resposeDic];
+        }else{
+            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                [self refreshViewWithSleepData:resposeDic];
+                HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
+                //为了异常报告
+            } failure:^(YTKBaseRequest *request) {
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+                //            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                //
+                //            }];
+            }];
         }
-        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-            [self refreshViewWithSleepData:resposeDic];
-            HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
-            //为了异常报告
-        } failure:^(YTKBaseRequest *request) {
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-            [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-            //            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            //
-            //            }];
-        }];
     }
 }
 
