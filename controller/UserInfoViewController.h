@@ -12,7 +12,7 @@
 @interface UserInfoViewController : BaseViewController
 
 @property (nonatomic,strong) UILabel *userTitleLabel;
-@property (nonatomic,strong) GBPathImageView *iconImageView1;
+@property (nonatomic,strong) UIImageView *iconImageButton;
 @property (nonatomic,strong) UIButton *editButton;
 @property (nonatomic,strong) UIButton *backButton;
 

@@ -130,28 +130,6 @@
         
     }
     return _iconImageButton;
-    /*
-    if (!_iconImageButton) {
-        UIImage *iconImage;
-        NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentIconImage"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:fullPath]) {
-            NSData *imageData = [NSData dataWithContentsOfFile:fullPath];
-            iconImage = [[UIImage alloc] initWithData:imageData];
-        }else{
-            iconImage = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
-        }
-        _iconImageButton = [[BTRippleButtton alloc] initWithImage:iconImage
-                                                         andFrame:CGRectMake(20, 59, 60, 60)
-                                                     onCompletion:^(BOOL success) {
-                                                         [self showUserInfo];
-                                                    
-                                                     }];
-        [_iconImageButton setRippleEffectWithColor:[UIColor whiteColor]];
-        
-    }
-     */
-    return _iconImageButton;
 }
 
 - (UILabel *)userName
@@ -374,24 +352,21 @@
     }
     
     
-    /*
-    UIImage *iconImage;
-    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentIconImage"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:fullPath]) {
-        NSData *imageData = [NSData dataWithContentsOfFile:fullPath];
-        iconImage = [[UIImage alloc] initWithData:imageData];
-    }else{
-        iconImage = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
-
-    }
-     */
     if (thirdPartyLoginIcon.length>0) {
         [self.iconImageButton setImageWithURL:[NSURL URLWithString:thirdPartyLoginIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
     }else{
+        [[NSUserDefaults standardUserDefaults]registerDefaults:@{[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]:@""}];
+        [[NSUserDefaults standardUserDefaults]synchronize];
         self.iconImageButton.image = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
+        if ([[[NSUserDefaults standardUserDefaults]objectForKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]]isEqual:@""]) {
+            self.iconImageButton.image = [UIImage imageWithData:[self downloadWithImage:self.iconImageButton]];
+            
+        }else{
+            self.iconImageButton.image = [UIImage imageWithData:[[NSUserDefaults standardUserDefaults]dataForKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]]];
+        }
     }
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

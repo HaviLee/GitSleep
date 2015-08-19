@@ -90,4 +90,6 @@
 - (NSDate*)getNowDate;
 - (void)keyboardWillShow:(NSNotification *)notification;
 - (UIImage *) captureScreen;
+//下载头像
+- (NSData *)downloadWithImage:(UIImageView *)imageview;
 @end

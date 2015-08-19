@@ -22,6 +22,7 @@
 @property (nonatomic,strong) UITextField *nameText;
 @property (nonatomic,strong) UITextField *passWordText;
 @property (nonatomic,strong) BTRippleButtton *iconButton;
+@property (nonatomic,strong) NSData *iconData;
 @end
 
 @implementation RegisterViewController
@@ -211,6 +212,11 @@
             [MMProgressHUD dismissWithError:@"该手机号已注册" afterDelay:2];
         }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
             [MMProgressHUD dismissWithSuccess:@"注册成功" title:nil afterDelay:2];
+            //上传头像
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self uploadWithImageData:self.iconData];
+            });
             self.registerSuccessed(1);
             thirdPartyLoginPlatform = MeddoPlatform;
             thirdPartyLoginUserId = [responseDic objectForKey:@"UserID"];
@@ -374,13 +380,11 @@
      * UIImagePickerControllerMediaMetadata    // an NSDictionary containing metadata from a captured photo
      */
     // 保存图片至本地，方法见下文
-    [self saveImage:image withName:@"currentIconImage.png"];
+    NSData *imageData = [self calculateIconImage:image];
+    self.iconData = imageData;
     [HaviAnimationView animationFlipFromLeft:self.iconButton];
     //    [self uploadImage:image andTitle:@"上传icon"];
-    NSString *url = @"http://webservice.meddo99.com:9000/v1/file/UploadFile/13122785292";
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self postRequestWithURL:url postParems:@{@"AccessToken":@"123456789"} picFilePath:@"li" picFileName:@"iconImage" withHeader:nil andData:[self calculateIconImage:image]];
-    });
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self setNeedsStatusBarAppearanceUpdate];
 }
@@ -413,149 +417,47 @@
 
 
 
-/*
- 上传图片
- */
-static NSString * const FORM_FLE_INPUT = @"file";
-- (NSDictionary *)postRequestWithURL: (NSString *)url  // IN
-                          postParems: (NSDictionary *)postParems // IN
-                         picFilePath: (NSString *)picFilePath  // IN
-                         picFileName: (NSString *)picFileName
-                          withHeader: (NSDictionary *)headers
-                             andData: (NSData *)data1;  // IN
+#pragma mark 上传头像
+- (void)uploadWithImageData:(NSData*)imageData
 {
-    
-    
-    
-    NSString *TWITTERFON_FORM_BOUNDARY = @"0xKhTmLbOuNdArY";
-    //根据url初始化request
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
-                                                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                       timeoutInterval:10];
-    //
-    NSArray *headerkeys;
-    int     headercount;
-    id      key,value;
-    headerkeys=[postParems allKeys];
-    headercount= (int)[headerkeys count];
-    for (int i=0; i<headercount; i++) {
-        key=[headerkeys objectAtIndex:i];
-        value=[postParems objectForKey:key];
-        [request setValue:value forHTTPHeaderField:key];
-    }
-    
-    //分界线 --AaB03x
-    NSString *MPboundary=[NSString stringWithFormat:@"--%@",TWITTERFON_FORM_BOUNDARY];
-    //结束符 AaB03x--
-    NSString *endMPboundary=[NSString stringWithFormat:@"%@--",MPboundary];
-    //得到图片的data
-    NSData* data = nil;
-    if(picFilePath){
-        data = data1;
-    }
-    //http body的字符串
-    NSMutableString *body=[[NSMutableString alloc]init];
-    //参数的集合的所有key的集合
-    NSArray *keys= [postParems allKeys];
-    
-    //遍历keys
-    for(int i=0;i<[keys count];i++)
-    {
-        //得到当前key
-        NSString *key=[keys objectAtIndex:i];
-        
-        //添加分界线，换行
-        [body appendFormat:@"%@\r\n",MPboundary];
-        //添加字段名称，换2行
-        [body appendFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n",key];
-        //添加字段的值
-        [body appendFormat:@"%@\r\n",[postParems objectForKey:key]];
-        
-        HaviLog(@"添加字段的值==%@",[postParems objectForKey:key]);
-    }
-    
-    [request setValue:@"user" forHTTPHeaderField:@"platform"];
-    
-    if(picFilePath){
-        ////添加分界线，换行
-        [body appendFormat:@"%@\r\n",MPboundary];
-        
-        //声明pic字段，文件名为boris.png
-        [body appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n",FORM_FLE_INPUT,picFileName];
-        //声明上传文件的格式
-        [body appendFormat:@"Content-Type: image/png,image/jpge,image/gif, image/jpeg, image/pjpeg, image/pjpeg\r\n\r\n"];
-    }
-    
-    //声明结束符：--AaB03x--
-    NSString *end=[NSString stringWithFormat:@"\r\n%@",endMPboundary];
-    //声明myRequestData，用来放入http body
-    NSMutableData *myRequestData=[NSMutableData data];
-    
-    //将body字符串转化为UTF8格式的二进制
-    [myRequestData appendData:[body dataUsingEncoding:NSUTF8StringEncoding]];
-    if(picFilePath){
-        //将image的data加入
-        [myRequestData appendData:data];
-    }
-    //加入结束符--AaB03x--
-    [myRequestData appendData:[end dataUsingEncoding:NSUTF8StringEncoding]];
-    //设置HTTPHeader中Content-Type的值
-    NSString *content=[NSString stringWithFormat:@"multipart/form-data; boundary=%@",TWITTERFON_FORM_BOUNDARY];
-    //设置HTTPHeader
-    [request setValue:content forHTTPHeaderField:@"Content-Type"];
-    //设置Content-Length
-    [request setValue:[NSString stringWithFormat:@"%d", (int)[myRequestData length]] forHTTPHeaderField:@"Content-Length"];
-    //设置http body
-    [request setHTTPBody:myRequestData];
-    //http method
-    [request setHTTPMethod:@"POST"];
-    
-    
-    NSHTTPURLResponse *urlResponese = nil;
-    NSError *error = [[NSError alloc]init];
-    NSData* resultData = [NSURLConnection sendSynchronousRequest:request   returningResponse:&urlResponese error:&error];
-    NSDictionary *dic = [self dataToDictionary:resultData];
-    if (dic) {
-        HaviLog(@"%@",dic);
-        if ([[dic objectForKey:@"ReturnCode"]intValue]==200) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
-                [overlay postImmediateFinishMessage:@"上传头像成功" duration:2 animated:YES];
-            });
+    NSDictionary *dicHeader = @{
+                                @"AccessToken": @"123456789",
+                                };
+    NSString *urlStr = [NSString stringWithFormat:@"%@/v1/file/UploadFile/%@",BaseUrl,thirdPartyLoginUserId];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:0 timeoutInterval:5.0f];
+    [request setValue:[dicHeader objectForKey:@"AccessToken"] forHTTPHeaderField:@"AccessToken"];
+    [self setRequest:request withImageData:imageData];
+    NSLog(@"开始上传...");
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if ([[dic objectForKey:@"ReturnCode"] intValue]==200) {
+            [[NSUserDefaults standardUserDefaults]setObject:imageData forKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
         }
-        return dic;
-    }
-    return nil;
-}
-
-- (void)uploadImage:(UIImage *)iconImage andTitle:(NSString *)title
-{
-    UploadImageApi *api= [[UploadImageApi alloc]initWithImage:iconImage andUserId:@"13122785292"];
-    [api startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
-        [overlay postImmediateFinishMessage:@"上传成功" duration:2 animated:YES];
-        HaviLog(@"完成%@",request.responseJSONObject);
-        NSString *string = [NSString stringWithFormat:@"%@:%@",title,request.responseJSONObject];
-        HaviLog(@"%@",string);
-    } failure:^(YTKBaseRequest *request) {
-        MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
-        [overlay postImmediateFinishMessage:@"上传成功" duration:2 animated:YES];
-        NSString *string = [NSString stringWithFormat:@"%@:%@",title,request.responseJSONObject];
-        HaviLog(@"失败%@,%@",request.responseJSONObject,string);
+        NSLog(@"8.18测试结果Result--%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        
     }];
 }
-//NSData * UIImageJPEGRepresentation (UIImage *image, CGFloat compressionQuality)
-//
-#pragma mark - 保存图片至沙盒
-- (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName
+
+- (void)setRequest:(NSMutableURLRequest *)request withImageData:(NSData*)imageData
 {
-    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
-    // 获取沙盒目录
+    NSMutableData *body = [NSMutableData data];
+    // 表单数据
     
-    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
-    // 将图片写入文件
-    
-    [imageData writeToFile:fullPath atomically:NO];
+    /// 图片数据部分
+    NSMutableString *topStr = [NSMutableString string];
+    [body appendData:[topStr dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:imageData];
+    [body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    // 设置请求类型为post请求
+    request.HTTPMethod = @"post";
+    // 设置request的请求体
+    request.HTTPBody = body;
+    // 设置头部数据，标明上传数据总大小，用于服务器接收校验
+    [request setValue:[NSString stringWithFormat:@"%ld", body.length] forHTTPHeaderField:@"Content-Length"];
+    // 设置头部数据，指定了http post请求的编码方式为multipart/form-data（上传文件必须用这个）。
+    [request setValue:[NSString stringWithFormat:@"multipart/form-data; image/png"] forHTTPHeaderField:@"Content-Type"];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

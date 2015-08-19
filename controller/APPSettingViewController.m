@@ -222,10 +222,6 @@
             
         }];
     }
-//    else if ([thirdPartyLoginPlatform isEqualToString:TXPlatform]){
-//        [app.tencentOAuth logout:nil];
-//    }
-    
     [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:app.centerViewController] animated:YES];
     [self.sideMenuViewController hideMenuViewController];
     [UserManager resetUserInfo];

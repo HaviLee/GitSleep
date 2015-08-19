@@ -1084,6 +1084,51 @@
     return img;
 }
 
+#pragma mark 下载头像
+
+- (NSData *)downloadWithImage:(UIImageView *)imageview
+{
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    NSString *url = [NSString stringWithFormat:@"%@/v1/file/DownloadFile/%@",BaseUrl,thirdPartyLoginUserId];
+    NSData *imageData = [self downLoadImageWithUrl:url andHeader:header];
+//    imageview.image = [UIImage imageWithData:imageData];
+    return imageData;
+    
+}
+- (NSData *)downLoadImageWithUrl:(NSString *)url andHeader:(NSDictionary *)postParems
+{
+    
+    //根据url初始化request
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                           cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                                       timeoutInterval:10];
+    //
+    NSArray *headerkeys;
+    int     headercount;
+    id      key,value;
+    headerkeys=[postParems allKeys];
+    headercount = (int)[headerkeys count];
+    for (int i=0; i<headercount; i++) {
+        key=[headerkeys objectAtIndex:i];
+        value=[postParems objectForKey:key];
+        [request setValue:value forHTTPHeaderField:key];
+    }
+    
+    //http method
+    [request setHTTPMethod:@"GET"];
+    
+    
+    NSHTTPURLResponse *urlResponese = nil;
+    NSError *error = nil;
+    NSData* resultData = [NSURLConnection sendSynchronousRequest:request   returningResponse:&urlResponese error:&error];
+    if (resultData) {
+        [[NSUserDefaults standardUserDefaults]setObject:resultData forKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }
+    return resultData;
+}
 
 
 /*

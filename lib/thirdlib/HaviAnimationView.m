@@ -174,7 +174,7 @@
 + (void)animationRevealFromTop:(UIView *)view
 {
     CATransition *animation = [CATransition animation];
-    [animation setDuration:0.35f];
+    [animation setDuration:1.0f];
     [animation setType:kCATransitionReveal];
     [animation setSubtype:kCATransitionFromTop];
     [animation setFillMode:kCAFillModeForwards];

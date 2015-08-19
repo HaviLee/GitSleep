@@ -81,7 +81,7 @@
         return nil;
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [HaviAnimationView animationFlipFromLeft:self.iconImageView1];
+        [HaviAnimationView animationRevealFromTop:self.iconImageButton];
     });
     [self queryUserInfo];
     //获取用户头像
@@ -114,35 +114,6 @@
     NSError *error = nil;
     NSData* resultData = [NSURLConnection sendSynchronousRequest:request   returningResponse:&urlResponese error:&error];
     return resultData;
-}
-
-- (void)getUserIcon
-{
-    SHGetClient *client = [SHGetClient shareInstance];
-    NSDictionary *header = @{
-                             @"AccessToken":@"123456789"
-                             };
-    [client downloadImage:header andImageId:thirdPartyLoginUserId];
-    if ([client cacheJson]) {
-        NSDictionary *json = [client cacheJson];
-        HaviLog(@"json = %@", json);
-        self.userInfoDic = json;
-        [self.userInfoTableView.tableView reloadData];
-        // show cached data
-    }
-
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSData *dic = (NSData *)request.responseJSONObject;
-        self.iconImageView1.image = [UIImage imageWithData:dic];
-        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-        }];
-        HaviLog(@"%@",self.userInfoDic);
-    } failure:^(YTKBaseRequest *request) {
-        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-        }];
-    }];
-
-
 }
 
 //获取用户基本信息
@@ -305,37 +276,11 @@
     if (section == 0) {
         UIView *sectionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 75)];
         sectionView.backgroundColor = [UIColor colorWithRed:0.949f green:0.941f blue:0.945f alpha:1.00f];
-        UIImage *iconImage;
-        NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentIconImage"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:fullPath]) {
-            NSData *imageData = [NSData dataWithContentsOfFile:fullPath];
-            iconImage = [[UIImage alloc] initWithData:imageData];
-        }else{
-            iconImage = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
-        }
-        /*
-        NSDictionary *header = @{
-                                 @"AccessToken":@"123456789"
-                                 };
-        NSData *imageData = [self UpLoadFile:nil andUrl:@"http://webservice.meddo99.com:9000/v1/file/DownloadFile/13122785292" andHeader:header];
-        NSError *error = nil;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:imageData options:NSJSONReadingMutableContainers error:&error];
-        HaviLog(@"ksdfjasdkfjasd;fdskfsd%@",error);
-        HaviLog(@"dddddddddddddddddd%@",dic);
-        iconImage = [UIImage imageWithData:imageData];
-         */
-        self.iconImageView1 = [[GBPathImageView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width-100)/2, -50, 100, 100) image:iconImage pathType:GBPathImageViewTypeCircle pathColor:[UIColor whiteColor] borderColor:[UIColor whiteColor] pathWidth:0.0];
-        [sectionView addSubview:_iconImageView1];
-        _iconImageView1.userInteractionEnabled = YES;
-        [_iconImageView1 setImageWithURL:[NSURL URLWithString:thirdPartyLoginIcon] placeholderImage:iconImage];
-        _iconImageView1.layer.cornerRadius = 50;
-        _iconImageView1.layer.masksToBounds = YES;
-        
+        [sectionView addSubview:self.iconImageButton];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapIconImage:)];
-        [_iconImageView1 addGestureRecognizer:tap];
+        [_iconImageButton addGestureRecognizer:tap];
         
-        self.originalFrame = self.iconImageView1.frame;
+        self.originalFrame = self.iconImageButton.frame;
         self.userTitleLabel = [[UILabel alloc]init];
         [sectionView addSubview:_userTitleLabel];
         _userTitleLabel.textColor = [UIColor colorWithRed:0.149f green:0.702f blue:0.678f alpha:1.00f];
@@ -393,11 +338,12 @@
 
 - (void)animationToOriginalPostion
 {
-    [UIView beginAnimations:@"PositionAnition" context:NULL];
+    [UIView beginAnimations:@"old" context:NULL];
     [UIView setAnimationDuration:0.55f];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     [UIView setAnimationDelegate:self];
-    self.iconImageView1.frame = self.originalFrame;
+    self.iconImageButton.frame = CGRectMake((self.view.bounds.size.width-100)/2, -50, 100, 100);
+    
     self.userTitleLabel.frame = self.titleFrame;
     [UIView commitAnimations];
 }
@@ -405,36 +351,61 @@
 - (void)animationToNewPositionAnimation //位移动画
 {
     
-    [UIView beginAnimations:@"PositionAnition" context:NULL];
+    [UIView beginAnimations:@"new" context:NULL];
     [UIView setAnimationDuration:0.55f];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     [UIView setAnimationDelegate:self];
-    self.iconImageView1.frame = CGRectMake(20, 5, 65, 65);
+    self.iconImageButton.frame = CGRectMake(20, 5, 65, 65);
     self.userTitleLabel.frame = CGRectMake(100, 20, 120, 30);
     [UIView commitAnimations];
 }
 
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    if (finished) {
+        if ([animationID isEqualToString:@"old"]) {
+            self.iconImageButton.layer.cornerRadius = 50;
+            self.iconImageButton.layer.masksToBounds = YES;
+
+        }else{
+            self.iconImageButton.layer.cornerRadius = 32.5;
+            self.iconImageButton.layer.masksToBounds = YES;
+
+        }
+    }
+}
+
 - (void)tapIconImage:(UITapGestureRecognizer *)gesture
 {
-    [HaviAnimationView animationFlipFromLeft:self.iconImageView1];
+    [HaviAnimationView animationRevealFromTop:self.iconImageButton ];
 }
+
+- (UIImageView *)iconImageButton
+{
+    if (_iconImageButton == nil) {
+        _iconImageButton = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.bounds.size.width-100)/2, -50, 100, 100)];
+        _iconImageButton.layer.borderWidth = 1.5;
+        _iconImageButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        _iconImageButton.layer.cornerRadius = 50;
+        _iconImageButton.layer.masksToBounds = YES;
+        _iconImageButton.userInteractionEnabled = YES;
+        
+    }
+    return _iconImageButton;
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
     if (thirdPartyLoginIcon.length>0) {
-        [_iconImageView1 setImageWithURL:[NSURL URLWithString:thirdPartyLoginIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
+        [self.iconImageButton setImageWithURL:[NSURL URLWithString:thirdPartyLoginIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
     }else{
-        UIImage *iconImage;
-        NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentIconImage"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:fullPath]) {
-            NSData *imageData = [NSData dataWithContentsOfFile:fullPath];
-            iconImage = [[UIImage alloc] initWithData:imageData];
+        if ([[[NSUserDefaults standardUserDefaults]objectForKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]]isEqual:@""]) {
+            self.iconImageButton.image = [UIImage imageWithData:[self downloadWithImage:self.iconImageButton]];
+            
         }else{
-            iconImage = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
+            self.iconImageButton.image = [UIImage imageWithData:[[NSUserDefaults standardUserDefaults]dataForKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]]];
         }
-        self.iconImageView1.originalImage = iconImage;
-        [self.iconImageView1 draw];
+
     }
     
     [super viewWillAppear:animated];
