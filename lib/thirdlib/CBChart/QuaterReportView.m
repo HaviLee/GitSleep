@@ -221,7 +221,8 @@
     for (int i=0; i<_funcPoints.count; i++) {
         int gradePercent = [[_funcPoints objectAtIndex:i]intValue];
         CGPoint xPoint = [[self.xPoints objectAtIndex:i]CGPointValue];
-        PNBar * bar = [[PNBar alloc] initWithFrame:CGRectMake(xPoint.x+10, 20+(yCoordinateHeight-15)/5*(5-gradePercent), (xCoordinateWidth-15-6)/_funcPoints.count-20, (yCoordinateHeight-15)/5*gradePercent)];
+//        PNBar * bar = [[PNBar alloc] initWithFrame:CGRectMake(xPoint.x+10, 20+(yCoordinateHeight-15)/5*(5-gradePercent), (xCoordinateWidth-15-6)/_funcPoints.count-20, (yCoordinateHeight-15)/5*gradePercent)];
+        PNBar * bar = [[PNBar alloc] initWithFrame:CGRectMake(xPoint.x+(xCoordinateWidth - 56)/6, 20+(yCoordinateHeight-15)/5*(5-gradePercent), 8, (yCoordinateHeight-15)/5*gradePercent)];
         //顺序决定了颜色
         bar.barColor = [self returnColorWithSleepLevel:gradePercent];
         bar.grade = gradePercent;
