@@ -175,12 +175,16 @@ const CGFloat kDIDatepickerSpaceBetweenItems = 10.;
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     NSUInteger daysInYear = [self numberOfDaysInThisYear];
-    for (NSInteger day = 1; day <= daysInYear; day++) {
+    for (NSInteger day = 2; day <= daysInYear; day++) {
         [todayComponents setDay:day];
         NSString *dateString = [NSString stringWithFormat:@"%@",[calendar dateFromComponents:todayComponents]];
         NSString *nnn = [dateString substringToIndex:10];
         NSDate *newDate = [dateFormatter dateFromString:nnn];
         [dates addObject:newDate];
+//        if ([newDate earlierDate:currentDate]) {
+////            [dates removeObject:newDate];
+//            break;
+//        }
     }
     self.dates = dates;
     //是不是在这里更新时间
@@ -320,7 +324,6 @@ const CGFloat kDIDatepickerSpaceBetweenItems = 10.;
 //            [self fillCurrentYear:[[NSCalendar currentCalendar] dateByAddingComponents:comp toDate:self.selectedDate options:0]];
 //        }
     }
-    
 }
 
 

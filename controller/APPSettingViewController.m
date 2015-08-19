@@ -46,7 +46,11 @@
     self.sideTableView.backgroundColor = [UIColor clearColor];
     self.sideTableView.delegate = self;
     self.sideTableView.dataSource = self;
-    self.sideArray = @[@[@"个人资料",@"登录密码修改",@"皮肤设置",@"App密码设定"],@[@"用户协议",@"关于迈动"],@[@"退出登录"]];
+    if ([thirdPartyLoginPlatform isEqualToString:MeddoPlatform]) {
+        self.sideArray = @[@[@"个人资料",@"登录密码修改",@"皮肤设置",@"App密码设定"],@[@"用户协议",@"关于迈动"],@[@"退出登录"]];
+    }else {
+        self.sideArray = @[@[@"个人资料",@"皮肤设置",@"App密码设定"],@[@"用户协议",@"关于迈动"],@[@"退出登录"]];
+    }
 }
 
 #pragma mark setter
@@ -118,33 +122,60 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
+            
         case 0:{
-            switch (indexPath.row) {
-                case 0:
-                {
-                    UserInfoViewController *user = [[UserInfoViewController alloc]init];
-                    [self.navigationController pushViewController:user animated:YES];
-                    break;
+            if ([thirdPartyLoginPlatform isEqualToString:MeddoPlatform]) {
+                
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        UserInfoViewController *user = [[UserInfoViewController alloc]init];
+                        [self.navigationController pushViewController:user animated:YES];
+                        break;
+                    }
+                    case 1:{
+                        ModifyPassWordViewController *passWord = [[ModifyPassWordViewController alloc]init];
+                        [self.navigationController pushViewController:passWord animated:YES];
+                        break;
+                    }
+                    case 2:{
+                        SelectThemeViewController *selectTheme = [[SelectThemeViewController alloc]init];
+                        [self.navigationController pushViewController:selectTheme animated:YES];
+                        break;
+                    }
+                    case 3:{
+                        PassCodeSettingViewController *passCode = [[PassCodeSettingViewController alloc]init];
+                        [self.navigationController pushViewController:passCode animated:YES];
+                        
+                        break;
+                    }
+                        
+                    default:
+                        break;
                 }
-                case 1:{
-                    ModifyPassWordViewController *passWord = [[ModifyPassWordViewController alloc]init];
-                    [self.navigationController pushViewController:passWord animated:YES];
-                    break;
+            }else{
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        UserInfoViewController *user = [[UserInfoViewController alloc]init];
+                        [self.navigationController pushViewController:user animated:YES];
+                        break;
+                    }
+                    case 1:{
+                        SelectThemeViewController *selectTheme = [[SelectThemeViewController alloc]init];
+                        [self.navigationController pushViewController:selectTheme animated:YES];
+                        break;
+                    }
+                    case 2:{
+                        PassCodeSettingViewController *passCode = [[PassCodeSettingViewController alloc]init];
+                        [self.navigationController pushViewController:passCode animated:YES];
+                        
+                        break;
+                    }
+                        
+                    default:
+                        break;
                 }
-                case 2:{
-                    SelectThemeViewController *selectTheme = [[SelectThemeViewController alloc]init];
-                    [self.navigationController pushViewController:selectTheme animated:YES];
-                    break;
-                }
-                case 3:{
-                    PassCodeSettingViewController *passCode = [[PassCodeSettingViewController alloc]init];
-                    [self.navigationController pushViewController:passCode animated:YES];
-                    
-                    break;
-                }
-                    
-                default:
-                    break;
             }
             break;
         }
