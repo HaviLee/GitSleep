@@ -8,7 +8,6 @@
 
 #import "CenterSideViewController.h"
 #import "GifView.h"
-#import "DataShowViewController.h"
 #import "LoginViewController.h"
 #import "AMBlurView.h"
 #import "DeviceManagerViewController.h"

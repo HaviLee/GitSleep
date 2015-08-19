@@ -13,11 +13,6 @@
 #import "TodayLeaveViewController.h"
 #import "TodayTurnViewController.h"
 //
-#import "HeartViewViewController.h"
-#import "BreathViewController.h"
-#import "LeaveBedViewController.h"
-#import "TurnRoundViewController.h"
-
 
 @interface TodayDataViewController ()<NKJPagerViewDataSource, NKJPagerViewDelegate>
 @property (nonatomic,strong) NSArray *controllerArr;
