@@ -531,17 +531,19 @@
         UIView *sectionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 75)];
         sectionView.backgroundColor = [UIColor colorWithRed:0.949f green:0.941f blue:0.945f alpha:1.00f];
         [sectionView addSubview:self.iconImageButton];
-        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapIconImage:)];
-        [self.iconImageButton addGestureRecognizer:gesture];
-        self.originalFrame = self.iconImageButton.frame;
-        self.userTitleLabel = [[UILabel alloc]init];
-        [sectionView addSubview:self.userTitleLabel];
-        self.userTitleLabel.textColor = [UIColor colorWithRed:0.149f green:0.702f blue:0.678f alpha:1.00f];
-        self.userTitleLabel.textAlignment = NSTextAlignmentCenter;
-        self.userTitleLabel.font = DefaultWordFont;
-        self.userTitleLabel.frame = CGRectMake((self.view.bounds.size.width-120)/2, 45, 120, 25);
-        self.titleFrame = self.userTitleLabel.frame;
-        self.userTitleLabel.text = @"点击修改头像";
+        if ([thirdPartyLoginPlatform isEqualToString:MeddoPlatform]) {
+            UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapIconImage:)];
+            [self.iconImageButton addGestureRecognizer:gesture];
+            self.originalFrame = self.iconImageButton.frame;
+            self.userTitleLabel = [[UILabel alloc]init];
+            [sectionView addSubview:self.userTitleLabel];
+            self.userTitleLabel.textColor = [UIColor colorWithRed:0.149f green:0.702f blue:0.678f alpha:1.00f];
+            self.userTitleLabel.textAlignment = NSTextAlignmentCenter;
+            self.userTitleLabel.font = DefaultWordFont;
+            self.userTitleLabel.frame = CGRectMake((self.view.bounds.size.width-120)/2, 45, 120, 25);
+            self.titleFrame = self.userTitleLabel.frame;
+            self.userTitleLabel.text = @"点击修改头像";
+        }
         return sectionView;
     }
     
