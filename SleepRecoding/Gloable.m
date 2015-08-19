@@ -27,6 +27,7 @@ int isTodayHourEqualSixteen = 0;
 
 NSString *thirdPartyLoginUserId = @"";
 NSString *thirdPartyLoginToken = @"";
+NSString *thirdPartyLoginOriginalId = @"";
 NSString *thirdPartyLoginIcon = @"";
 NSString *thirdPartyLoginPlatform = @"";
 NSString *thirdPartyLoginNickName = @"";

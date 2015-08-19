@@ -31,6 +31,7 @@ extern int isTodayHourEqualSixteen;
 extern NSString *thirdPartyLoginUserId;
 extern NSString *thirdPartyLoginToken;
 extern NSString *thirdPartyLoginIcon;
+extern NSString *thirdPartyLoginOriginalId;
 extern NSString *thirdPartyLoginPlatform;
 extern NSString *thirdPartyLoginNickName;
 extern NSString *thirdHardDeviceUUID;

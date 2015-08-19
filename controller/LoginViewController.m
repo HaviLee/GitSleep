@@ -483,12 +483,11 @@
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,url] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            NSString *userId = [resposeDic objectForKey:@"UserID"];
-            thirdPartyLoginUserId = userId;
             thirdPartyLoginPlatform = MeddoPlatform;
             thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
             NSRange range = [thirdPartyLoginUserId rangeOfString:@"$"];
             thirdPartyLoginNickName = [[resposeDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];
+            thirdPartyLoginOriginalId = [[resposeDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];
             thirdPartyLoginIcon = @"";
             thirdPartyLoginToken = @"";
             thirdMeddoPhone = self.nameText.text;

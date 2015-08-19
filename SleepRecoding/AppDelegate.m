@@ -28,6 +28,7 @@
 @property (nonatomic,strong) LoginContainerViewController *loginView;
 @property (nonatomic,strong) NSDictionary *ThirdPlatformInfoDic;
 @property (nonatomic,strong) NSString *thirdPlatform;
+@property (nonatomic,strong) NSString *tencentID;
 @end
 
 @implementation AppDelegate
@@ -496,6 +497,7 @@
         //  记录登录用户的OpenID、Token以及过期时间
         if ([self.tencentOAuth getUserInfo]) {
             //检测帐号
+            self.tencentID = self.tencentOAuth.openId;
             HaviLog(@"用户的信息是%@",self.tencentOAuth.passData);
             
         }
@@ -538,6 +540,7 @@
 
 - (void)checkUseridIsRegister:(NSDictionary *)infoDic andPlatform:(NSString *)platfrom
 {
+    NSString *thirdID;
     NSString *thirdName;
     if ([platfrom isEqualToString:WXPlatform]) {
         thirdName = [infoDic objectForKey:@"nickname"];
@@ -546,16 +549,16 @@
     }else{
         thirdName = [infoDic objectForKey:@"nickname"];
     }
-//    if ([platfrom isEqualToString:WXPlatform]) {
-//        thirdName = [infoDic objectForKey:@"unionid"];
-//    }else if ([platfrom isEqualToString:SinaPlatform]){
-//        thirdName = [infoDic objectForKey:@"id"];
-//    }else{
-//        
-//    }
+    if ([platfrom isEqualToString:WXPlatform]) {
+        thirdID = [infoDic objectForKey:@"unionid"];
+    }else if ([platfrom isEqualToString:SinaPlatform]){
+        thirdID = [infoDic objectForKey:@"id"];
+    }else{
+        thirdID = self.tencentID;
+    }
 
     NSDictionary *dic = @{
-                          @"UserID": [NSString stringWithFormat:@"%@$%@",platfrom,thirdName], //手机号码
+                          @"UserID": [NSString stringWithFormat:@"%@$%@",platfrom,thirdID], //手机号码
                           };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -567,7 +570,7 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             thirdPartyLoginPlatform = platfrom;
             thirdPartyLoginUserId = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserID"];
-            thirdPartyLoginNickName = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserIdOriginal"];
+            thirdPartyLoginNickName = thirdName;
             if ([platfrom isEqualToString:WXPlatform]) {
                 thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"headimgurl"];
             }else if ([platfrom isEqualToString:SinaPlatform]){
@@ -604,6 +607,7 @@
 #pragma mark 向我们自己的后台完成注册
 - (void)thirdUserRegister:(NSDictionary *)infoDic andPhoneDic:(NSDictionary *)phoneDic andPlatform:(NSString*)platform
 {
+    NSString *thirdID;
     NSString *thirdName;
     if ([platform isEqualToString:WXPlatform]) {
         thirdName = [infoDic objectForKey:@"nickname"];
@@ -612,20 +616,20 @@
     }else{
         thirdName = [infoDic objectForKey:@"nickname"];
     }
-//    if ([platform isEqualToString:WXPlatform]) {
-//        thirdName = [infoDic objectForKey:@"unionid"];
-//    }else if ([platform isEqualToString:SinaPlatform]){
-//        thirdName = [infoDic objectForKey:@"id"];
-//    }else{
-//        
-//    }
+    if ([platform isEqualToString:WXPlatform]) {
+        thirdID = [infoDic objectForKey:@"unionid"];
+    }else if ([platform isEqualToString:SinaPlatform]){
+        thirdID = [infoDic objectForKey:@"id"];
+    }else{
+        thirdID = self.tencentID;
+    }
 //    ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": [phoneDic objectForKey:@"phone"], //手机号码
                           @"Email": @"", //邮箱地址，可留空，扩展注册用
                           @"Password": @"" ,//传递明文，服务器端做加密存储
                           @"UserValidationServer" : platform,
-                          @"UserIdOriginal":thirdName
+                          @"UserIdOriginal":thirdID
                           };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -635,6 +639,7 @@
         NSLog(@"注册成功%@",resposeDic);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             thirdPartyLoginPlatform = platform;
+            thirdPartyLoginOriginalId = thirdID;//
             thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
             thirdPartyLoginNickName = thirdName;
             if ([platform isEqualToString:WXPlatform]) {

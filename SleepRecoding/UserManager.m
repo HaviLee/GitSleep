@@ -10,6 +10,7 @@
 
 static NSString* CUR_USERINFO = @"CURRENT_USER_INFO";
 static NSString* CUR_USERID = @"CURRENT_USER_ID";
+static NSString* CUR_OriginalUSERID = @"CUR_OriginalUSERID";
 static NSString* CUR_USERTOKEN = @"CURRENT_USER_TOKEN";
 static NSString* CUR_USERICON = @"CURRENT_USER_ICON";
 static NSString* CUR_USERPLATFORM= @"CURRENT_USER_PLATFORM";
@@ -36,6 +37,7 @@ static NSString* CUR_MeddoPassWord = @"CUR_MeddoPassWord";
     userinfo[CUR_HardWareUUID] = thirdHardDeviceUUID;
     userinfo[CUR_HardWareName] = thirdHardDeviceName;
     userinfo[CUR_MeddoPhone] = thirdMeddoPhone;
+    userinfo[CUR_OriginalUSERID] = thirdPartyLoginOriginalId;
     userinfo[CUR_MeddoPassWord] = thirdMeddoPassWord;
     [global setObject:userinfo forKey:CUR_USERINFO];
 }
@@ -54,6 +56,7 @@ static NSString* CUR_MeddoPassWord = @"CUR_MeddoPassWord";
     thirdHardDeviceName = @"";
     thirdMeddoPassWord = @"";
     thirdMeddoPhone = @"";
+    thirdPartyLoginOriginalId = @"";
     
 }
 
@@ -84,6 +87,7 @@ static NSString* CUR_MeddoPassWord = @"CUR_MeddoPassWord";
         thirdHardDeviceName = [userinfo objectForKey:CUR_HardWareName];
         thirdMeddoPhone = [userinfo objectForKey:CUR_MeddoPhone];
         thirdMeddoPassWord = [userinfo objectForKey:CUR_MeddoPassWord];
+        thirdPartyLoginOriginalId = [userinfo objectForKey:CUR_OriginalUSERID];
         return TRUE;
         
     } else {
