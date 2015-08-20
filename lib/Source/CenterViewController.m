@@ -109,8 +109,8 @@
             }
         }
         if (![HardWareUUID isEqualToString:@""]) {
-            NSDate *nowDate = [self getNowDate];
-            NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+//            NSDate *nowDate = [self getNowDate];
+            NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
             [self getTodaySleepQualityData:newString];
         }else{
@@ -508,8 +508,8 @@
         [self.circleView changeSleepQualityValue:0];
         [self.circleView changeSleepTimeValue:0];
         [self setClockRoationValue];
-        NSDate *nowDate = [self getNowDate];
-        NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+//        NSDate *nowDate = [self getNowDate];
+        NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
         NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
         [self getTodaySleepQualityData:newString];
     }
