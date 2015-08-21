@@ -674,7 +674,7 @@
 - (void)reloadSleepView:(NSDictionary *)dic
 {
     self.suggestDic = nil;
-    self.suggestDic = (NSDictionary *)[[NSUserDefaults standardUserDefaults]objectForKey:[ NSString stringWithFormat:@"%@",[dic objectForKey:@"AssessmentCode"]]];
+    self.suggestDic = (NSDictionary *)[[NSUserDefaults standardUserDefaults]objectForKey:[ NSString stringWithFormat:@"%d",[[dic objectForKey:@"AssessmentCode"]intValue]]];
     [self.downTableView reloadData];
     if (self.upTableView.frame.size.height>0) {
         [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
