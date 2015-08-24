@@ -144,7 +144,8 @@
         UIFont *font = [UIFont systemFontOfSize:13];
         NSMutableParagraphStyle *style=[[NSMutableParagraphStyle alloc]init]; // 段落样式
         style.alignment = NSTextAlignmentCenter;
-        _textStyleDict = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor],};
+        _textStyleDict = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:style,NSForegroundColorAttributeName:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor],
+                           };
     }
     return _textStyleDict;
 }
