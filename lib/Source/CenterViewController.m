@@ -274,9 +274,6 @@
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                //            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                //
-                //            }];
             }];
         }
     }
@@ -622,6 +619,8 @@
             make.bottom.equalTo(cell.bottom).offset(-1);
             make.height.equalTo(0.5);
         }];
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.145f green:0.733f blue:0.957f alpha:0.10f];
     }
     cell.backgroundColor = [UIColor clearColor];
     
