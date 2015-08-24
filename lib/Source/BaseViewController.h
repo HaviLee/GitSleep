@@ -96,4 +96,5 @@
 - (UIImage *) captureScreen;
 //下载头像
 - (NSData *)downloadWithImage:(UIImageView *)imageview;
+- (BOOL)isThirdAppAllInstalled;
 @end

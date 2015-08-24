@@ -223,19 +223,24 @@
     if (!_shareMenuView) {
         _shareMenuView = [[CHTumblrMenuView alloc] init];
         __block typeof(self) weakSelf = self;
-        [_shareMenuView addMenuItemWithTitle:@"朋友圈" andIcon:[UIImage imageNamed:@"icon_wechat"] andSelectedBlock:^{
-            HaviLog(@"Text selected");
-            [weakSelf sendImageContent];
-        }];
-        [_shareMenuView addMenuItemWithTitle:@"新浪微博" andIcon:[UIImage imageNamed:@"sina"] andSelectedBlock:^{
-            HaviLog(@"Photo selected");
-            [weakSelf shareButtonPressed];
-        }];
-        [_shareMenuView addMenuItemWithTitle:@"微信好友" andIcon:[UIImage imageNamed:@"weixin"] andSelectedBlock:^{
-            HaviLog(@"Quote selected");
-            [weakSelf sendImageToFriend];
-            
-        }];
+        if ([WXApi isWXAppInstalled]) {
+            [_shareMenuView addMenuItemWithTitle:@"朋友圈" andIcon:[UIImage imageNamed:@"icon_wechat"] andSelectedBlock:^{
+                HaviLog(@"Text selected");
+                [weakSelf sendImageContent];
+            }];
+            [_shareMenuView addMenuItemWithTitle:@"微信好友" andIcon:[UIImage imageNamed:@"weixin"] andSelectedBlock:^{
+                HaviLog(@"Quote selected");
+                [weakSelf sendImageToFriend];
+                
+            }];
+        }
+        if ([WeiboSDK isWeiboAppInstalled]) {
+            [_shareMenuView addMenuItemWithTitle:@"新浪微博" andIcon:[UIImage imageNamed:@"sina"] andSelectedBlock:^{
+                HaviLog(@"Photo selected");
+                [weakSelf shareButtonPressed];
+            }];
+        }
+        
     }
     return _shareMenuView;
 }
@@ -642,7 +647,10 @@
         _chvc = [[CalendarHomeViewController alloc]init];
         
         _chvc.calendartitle = @"日历";
-        [_chvc setAirPlaneToDay:2*365 ToDateforString:[NSString stringWithFormat:@"2015-01-01"]];//飞机初始化方法
+        NSDate *date = [[NSDate date]dateByAddingHours:8];
+        NSDate *oldDate = [self.dateFormmatterBase dateFromString:@"20150101"];
+        int day = (int)[date daysFrom:oldDate]+2;
+        [_chvc setAirPlaneToDay:day ToDateforString:[NSString stringWithFormat:@"2015-01-01"]];//飞机初始化方法
     }
     return _chvc;
 }
@@ -1139,6 +1147,11 @@
         [[NSUserDefaults standardUserDefaults]synchronize];
     }
     return resultData;
+}
+
+- (BOOL)isThirdAppAllInstalled
+{
+    return [WeiboSDK isWeiboAppInstalled]&&[WXApi isWXAppInstalled];
 }
 
 
