@@ -295,9 +295,19 @@
 
 - (void)showCalender:(UIButton *)sender
 {
-    CalenderCantainerViewController *calender = [[CalenderCantainerViewController alloc]init];
-    calender.calenderDelegate = self;
-    [self presentViewController:calender animated:YES completion:nil];
+    self.chvc.calendarblock = ^(CalendarDayModel *model){
+        
+        NSLog(@"1星期 %@",[model date]);
+        
+    };
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.barTintColor= selectedThemeIndex==0?[UIColor colorWithRed:0.020f green:0.118f blue:0.247f alpha:1.00f]:[UIColor colorWithRed:0.408f green:0.643f blue:0.784f alpha:1.00f];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [self.navigationController pushViewController:self.chvc animated:YES];
+    
+    //    CalenderCantainerViewController *calender = [[CalenderCantainerViewController alloc]init];
+    //    calender.calenderDelegate = self;
+    //    [self presentViewController:self.chvc animated:YES completion:nil];
 }
 
 

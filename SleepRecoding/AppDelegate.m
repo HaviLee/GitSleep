@@ -73,12 +73,6 @@
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"background1.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     //
-    /*
-    LoginViewController *login = [[LoginViewController alloc]init];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
-    navi.navigationBarHidden = YES;
-    self.window.rootViewController = navi;
-     */
     [self getSuggestionList];
     [self setThirdLoginNoti];
     

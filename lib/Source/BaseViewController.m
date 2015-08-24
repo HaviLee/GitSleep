@@ -635,6 +635,17 @@
  *
  *  @return
  */
+#pragma mark setter
+- (CalendarHomeViewController *)chvc
+{
+    if (_chvc == nil) {
+        _chvc = [[CalendarHomeViewController alloc]init];
+        
+        _chvc.calendartitle = @"日历";
+        [_chvc setAirPlaneToDay:2*365 ToDateforString:[NSString stringWithFormat:@"2015-01-01"]];//飞机初始化方法
+    }
+    return _chvc;
+}
 
 - (UIButton *)menuButton
 {

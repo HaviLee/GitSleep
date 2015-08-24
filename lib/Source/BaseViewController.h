@@ -11,6 +11,8 @@
 #import "GifView.h"
 #import "OTCover.h"
 #import "CHTumblrMenuView.h"
+#import "CalendarHomeViewController.h"
+
 //
 #import "CalenderView.h"
 #import "ToggleView.h"
@@ -22,6 +24,8 @@
 @property (nonatomic,strong) CHTumblrMenuView *shareMenuView;
 //背景颜色
 @property (nonatomic,strong) UIImageView *bgImageView;
+@property (nonatomic, strong) CalendarHomeViewController *chvc;
+
 
 //创建带有背景图片的导航栏
 @property (nonatomic, strong) UIImageView *statusBarView;//状态栏
