@@ -288,12 +288,11 @@
 
 - (void)showCalender:(UIButton *)sender
 {
+    __block typeof(self) weakSelf = self;
     self.chvc.calendarblock = ^(CalendarDayModel *model){
-        
-        NSLog(@"\n---------------------------");
-        NSLog(@"1星期 %@",[model getWeek]);
-        NSLog(@"2字符串 %@",[model toString]);
-        NSLog(@"3节日  %@",model.holiday);
+        NSDate *selectedDate = [model date];
+        NSDate *newSelect = [selectedDate dateByAddingDays:1];
+        [weakSelf.datePicker updateCalenderSelectedDate:newSelect];
         
     };
     self.navigationController.navigationBarHidden = NO;

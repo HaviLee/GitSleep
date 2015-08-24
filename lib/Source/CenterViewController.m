@@ -525,9 +525,11 @@
 #pragma mark 日历展示和代理
 - (void)showCalender:(UIButton *)sender
 {
+    __block typeof(self) weakSelf = self;
     self.chvc.calendarblock = ^(CalendarDayModel *model){
-        
-       NSLog(@"center星期 %@",[model date]);
+        NSDate *selectedDate = [model date];
+        NSDate *newSelect = [selectedDate dateByAddingDays:1];
+        [weakSelf.datePicker updateCalenderSelectedDate:newSelect];
         
     };
     self.navigationController.navigationBarHidden = NO;

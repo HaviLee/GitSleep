@@ -181,10 +181,6 @@ const CGFloat kDIDatepickerSpaceBetweenItems = 10.;
         NSString *nnn = [dateString substringToIndex:10];
         NSDate *newDate = [dateFormatter dateFromString:nnn];
         [dates addObject:newDate];
-//        if ([newDate earlierDate:currentDate]) {
-////            [dates removeObject:newDate];
-//            break;
-//        }
     }
     self.dates = dates;
     //是不是在这里更新时间

@@ -282,12 +282,11 @@
 
 - (void)showCalender:(UIButton *)sender
 {
+    __block typeof(self) weakSelf = self;
     self.chvc.calendarblock = ^(CalendarDayModel *model){
-        
-        NSLog(@"\n---------------------------");
-        NSLog(@"1星期 %@",[model getWeek]);
-        NSLog(@"2字符串 %@",[model toString]);
-        NSLog(@"3节日  %@",model.holiday);
+        NSDate *selectedDate = [model date];
+        NSDate *newSelect = [selectedDate dateByAddingDays:1];
+        [weakSelf.datePicker updateCalenderSelectedDate:newSelect];
         
     };
     self.navigationController.navigationBarHidden = NO;
@@ -295,9 +294,6 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [self.navigationController pushViewController:self.chvc animated:YES];
     
-    //    CalenderCantainerViewController *calender = [[CalenderCantainerViewController alloc]init];
-    //    calender.calenderDelegate = self;
-    //    [self presentViewController:self.chvc animated:YES completion:nil];
 }
 
 #pragma mark tableview 代理函数

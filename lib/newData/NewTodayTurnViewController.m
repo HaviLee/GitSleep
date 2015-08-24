@@ -295,9 +295,11 @@
 
 - (void)showCalender:(UIButton *)sender
 {
+    __block typeof(self) weakSelf = self;
     self.chvc.calendarblock = ^(CalendarDayModel *model){
-        
-        NSLog(@"1星期 %@",[model date]);
+        NSDate *selectedDate = [model date];
+        NSDate *newSelect = [selectedDate dateByAddingDays:1];
+        [weakSelf.datePicker updateCalenderSelectedDate:newSelect];
         
     };
     self.navigationController.navigationBarHidden = NO;
@@ -305,9 +307,6 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [self.navigationController pushViewController:self.chvc animated:YES];
     
-    //    CalenderCantainerViewController *calender = [[CalenderCantainerViewController alloc]init];
-    //    calender.calenderDelegate = self;
-    //    [self presentViewController:self.chvc animated:YES completion:nil];
 }
 
 
@@ -669,9 +668,6 @@
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                //
-                //                }];
             }];
         }
     }
@@ -689,20 +685,6 @@
 
 - (void)reloadUserViewWithData:(NSDictionary *)dataDic
 {
-//    NSArray *arr = [dataDic objectForKey:@"SensorData"];
-//    self.turnDic = nil;
-//    for (NSDictionary *dic in arr) {
-//        self.turnDic = [self changeSeverDataToChartData:[dic objectForKey:@"Data"]];
-//        
-//    }
-//    if (arr.count==0) {
-//        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
-//        for (int i=0; i<288; i++) {
-//            [arr1 addObject:[NSNumber numberWithFloat:60]];
-//        }
-//    }
-//    
-//    [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     NSArray *arr = [dataDic objectForKey:@"SensorData"];
     self.turnDic = nil;
     for (NSDictionary *dic in arr) {

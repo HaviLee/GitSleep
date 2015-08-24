@@ -113,9 +113,8 @@
 {
     
 //    day天数，就是几年
-    NSDate *date = [NSDate date];
-    
-    NSDate *selectdate  = [NSDate date];
+    NSDate *date = [[NSDate date]dateByAddingHours:8];
+    NSDate *selectdate  = [[NSDate date]dateByAddingHours:8];
     //today就是日历的开始时间
     if (todate) {
         

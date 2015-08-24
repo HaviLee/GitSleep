@@ -183,7 +183,7 @@ static NSString *DayCell = @"DayCell";
     [timer invalidate];//定时器无效
     
     timer = nil;
-    
+    self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
