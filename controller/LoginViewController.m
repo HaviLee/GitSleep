@@ -135,6 +135,7 @@
 //txtbox_no_add_0@2x
     UIButton *registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"txtbox_no_add_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    registerButton.tag = 10001;
     [registerButton setTitle:@"还没有帐号" forState:UIControlStateNormal];
     registerButton.titleLabel.font = DefaultWordFont;
     [registerButton setTitleColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -613,9 +614,62 @@
     return YES;
 }
 
+#define kKeyboardHeight 216
+
+int prewTag;
+float prewMoveY;
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     HaviLog(@"进行");
+    UIButton *button = (UIButton *)[self.view viewWithTag:10001];
+    CGRect textFrame = button.frame;
+    float textY = textFrame.origin.y + textFrame.size.height;
+    float bottomY = self.view.frame.size.height - textY;
+    if (bottomY >= kKeyboardHeight){
+        prewTag = -1;
+        return;
+    }
+    prewTag = (int)textField.tag;
+    float moveY = kKeyboardHeight - bottomY+20;
+    prewMoveY = moveY;
+    
+    NSTimeInterval animationDuration = 1.0f;
+    CGRect frame = self.view.frame;
+    frame.origin.y -=moveY;//view的Y轴上移
+    frame.size.height +=moveY; //View的高度增加
+    self.view.frame = frame;
+    [UIView beginAnimations:@"ResizeView" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    self.view.frame = frame;
+    [UIView commitAnimations];//设置调整界面的动画效果
+
+}
+
+-(void) textFieldDidEndEditing:(UITextField *)textField
+{
+    //    查看回复头像
+    if(prewTag == -1) //当编辑的View不是需要移动的View
+    {
+        return;
+    }
+    float moveY ;
+    NSTimeInterval animationDuration = 0.80f;
+    CGRect frame = self.view.frame;
+    if(prewTag == textField.tag) //当结束编辑的View的TAG是上次的就移动
+    {   //还原界面
+        moveY =  prewMoveY;
+        frame.origin.y +=moveY;
+        frame.size. height -=moveY;
+        self.view.frame = frame;
+    }
+    //self.view移回原位置
+    [UIView beginAnimations:@"ResizeView" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    self.view.frame = frame;
+    [UIView commitAnimations];
+    [textField resignFirstResponder];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
