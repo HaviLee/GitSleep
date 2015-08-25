@@ -701,6 +701,7 @@
 {
     [super viewDidAppear:animated];
     if ([UserManager IsUserLogged]) {
+        [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
         [MMProgressHUD showWithStatus:@"登录中..."];
         [MMProgressHUD dismissAfterDelay:1];
         [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{

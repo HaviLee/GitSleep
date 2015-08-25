@@ -141,6 +141,7 @@
                            @"UUID": [NSString stringWithFormat:@"%@",[self.deviceInfo  objectForKey:@"UUID"]],
                            @"Description":self.nameTextField.text,
                            };
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"修改设备名称中..."];
     BindingDeviceUUIDAPI *client = [BindingDeviceUUIDAPI shareInstance];
     [client bindingDeviceUUID:header andWithPara:para];

@@ -247,6 +247,7 @@
         [self.view makeToast:@"请输入紧急联系人电话" duration:2 position:@"center"];
         return;
     }
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"提交中..."];
     NSString *height;
     if ([self.heightTextField.text isEqualToString:@"***"]) {

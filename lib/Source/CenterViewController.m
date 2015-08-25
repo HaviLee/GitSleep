@@ -9,7 +9,7 @@
 #import "CenterViewController.h"
 #import "CalenderCantainerViewController.h"
 #import "CenterViewTableViewCell.h"
-#import "UITableView+Wave.h"
+//#import "UITableView+Wave.h"
 #import "CHCircleGaugeView.h"
 #import "NightTimeView.h"
 #import "DayTimeView.h"
@@ -291,7 +291,7 @@
                          ];
     [self.cellTableView reloadData];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.cellTableView reloadDataAnimateWithWave:RightToLeftWaveAnimation];
+//        [self.cellTableView reloadDataAnimateWithWave:RightToLeftWaveAnimation];
     });
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

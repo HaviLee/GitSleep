@@ -1067,6 +1067,7 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"异常数据请求中..."];
     GetExceptionAPI *client = [GetExceptionAPI shareInstance];
     [client getException:header withDetailUrl:urlString];

@@ -110,6 +110,7 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"获取设备列表..."];
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -266,6 +267,7 @@
 #pragma mark 切换uuid
 - (void)changeUUID:(NSString *)UUID
 {
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"切换设备中..."];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -309,6 +311,7 @@
 
 - (void)deleteDeviceWithUUID:(NSString *)UUID with:(NSString *)isDefault
 {
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"删除设备中..."];
     NSString *urlString = [NSString stringWithFormat:@"%@v1/user/DeleteUserDevice",BaseUrl];
     NSDictionary *header = @{

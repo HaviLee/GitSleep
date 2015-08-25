@@ -211,6 +211,7 @@
         return;
     }
     self.noReceiveData = YES;
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"正在激活设备,请稍候..."];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(120 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self.noReceiveData) {

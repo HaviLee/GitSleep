@@ -94,6 +94,7 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"加载中..."];
     HaviGetNewClient *client = [HaviGetNewClient shareInstance];
     if ([client isExecuting]) {

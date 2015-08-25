@@ -119,6 +119,7 @@
 //获取用户基本信息
 - (void)queryUserInfo
 {
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"加载中..."];
     SHGetClient *client = [SHGetClient shareInstance];
     if ([client isExecuting]) {

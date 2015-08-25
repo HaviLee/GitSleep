@@ -299,6 +299,7 @@
 
 - (void)getTagLists
 {
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"请求中..."];
     NSDictionary *dic = @{
                           @"url" : _timeDate,
@@ -362,6 +363,7 @@
             return;
         }
         HaviLog(@"提交标签标签是%@",self.sendTagListArr);
+        [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
         [MMProgressHUD showWithStatus:@"保存中..."];
         NSDictionary *dic = @{
                               @"UUID" : HardWareUUID,
