@@ -33,7 +33,7 @@
          }
          return nil;
      }];
-    self.bgImageView.image = nil;
+    self.bgImageView.image = [UIImage imageNamed:@""];
     // Do any additional setup after loading the view.
     self.sideTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.view addSubview:self.sideTableView];
@@ -237,7 +237,7 @@
     [super reloadThemeImage];
     UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
     [self.menuButton setImage:i forState:UIControlStateNormal];
-    self.bgImageView.image = nil;
+    self.bgImageView.image = [UIImage imageNamed:@""];
 }
 
 - (void)didReceiveMemoryWarning {

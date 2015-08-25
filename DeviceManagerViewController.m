@@ -53,7 +53,7 @@
      }];
     // Do any additional setup after loading the view.
     //
-    self.bgImageView.image = nil;
+    self.bgImageView.image = [UIImage imageNamed:@""];
     self.sideTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.view addSubview:self.sideTableView];
     [self.sideTableView makeConstraints:^(MASConstraintMaker *make) {
@@ -402,7 +402,7 @@
 - (void)reloadThemeImage
 {
     [super reloadThemeImage];
-    self.bgImageView.image = nil;
+    self.bgImageView.image = [UIImage imageNamed:@""];
 }
 
 

@@ -550,7 +550,8 @@
     }else{
         thirdID = self.tencentID;
     }
-
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+    [MMProgressHUD showWithStatus:@"获取信息..."];
     NSDictionary *dic = @{
                           @"UserID": [NSString stringWithFormat:@"%@$%@",platfrom,thirdID], //手机号码
                           };
@@ -561,6 +562,7 @@
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"] ] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         HaviLog(@"检测结果是userid 是%@：%@",[dic objectForKey:@"UserID"],resposeDic);
+        [MMProgressHUD dismiss];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             thirdPartyLoginPlatform = platfrom;
             thirdPartyLoginUserId = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserID"];
@@ -617,7 +619,6 @@
     }else{
         thirdID = self.tencentID;
     }
-//    ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": [phoneDic objectForKey:@"phone"], //手机号码
                           @"Email": @"", //邮箱地址，可留空，扩展注册用
@@ -628,10 +629,13 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+    [MMProgressHUD showWithStatus:@"注册中..."];
     [WTRequestCenter postWithURL:[NSString stringWithFormat:@"%@v1/user/UserRegister",BaseUrl] header:header parameters:dic finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"注册成功%@",resposeDic);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [MMProgressHUD dismiss];
             thirdPartyLoginPlatform = platform;
             thirdPartyLoginOriginalId = thirdID;//
             thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
@@ -649,7 +653,11 @@
             [UserManager setGlobalOauth];
             [self hideLoginView];
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10005){
+            [MMProgressHUD dismiss];
             [self.window makeToast:@"该帐号已注册" duration:2 position:@"center"];
+        }else {
+            [MMProgressHUD dismiss];
+            [self.window makeToast:[resposeDic objectForKey:@"ErrorMessage"] duration:2 position:@"center"];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
         

@@ -51,8 +51,8 @@
 
 - (void)initData
 {
-    _arData = @[@[@"默认", @"", @"skinpeeler_dark_color_bg.jpg"],
-                @[@"浅蓝", @"com.skin.1110", @"skinpeeler_tint_bg.jpg"],
+    _arData = @[@[@"默认", @"", @"skinpeeler_tint_bg"],
+                @[@"浅蓝", @"com.skin.1110", @"skinpeeler_dark_color_bg"],
                 ];
 }
 

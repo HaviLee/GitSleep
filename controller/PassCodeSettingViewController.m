@@ -31,7 +31,7 @@
          }
          return nil;
      }];
-    self.bgImageView.image = nil;
+    self.bgImageView.image = [UIImage imageNamed:@""];
     [self setSubView];
 }
 

@@ -47,10 +47,9 @@
     udpController = app.udpController;
     udpController.delegate = self;
     //
-    self.keybordView = self.view;
     self.noReceiveData = YES;
     // Do any additional setup after loading the view.
-    self.bgImageView.image = nil;
+    self.bgImageView.image = [UIImage imageNamed:@""];
     self.view.backgroundColor = [UIColor colorWithRed:0.188f green:0.184f blue:0.239f alpha:1.00f];
     UILabel *titleLabel = [[UILabel alloc]init];
     [self.view addSubview:titleLabel];

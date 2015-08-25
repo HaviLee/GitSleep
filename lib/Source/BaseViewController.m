@@ -21,12 +21,9 @@
 
 @interface BaseViewController ()<THPinViewControllerDelegate>
 {
-    BOOL mIsShowKeyboard;
-    CGRect mRectkeybordview;
     float _nSpaceNavY;
 }
 @property (nonatomic, copy) NSString *correctPin;//验证密码
-@property (nonatomic,strong) UIButton *btn;
 @property (nonatomic, assign) int remainingPinEntries;//验证次数
 @end
 
@@ -192,12 +189,19 @@
     return _tmZoneBase;
 }
 
+- (UIImageView*)bgImageView
+{
+    if (_bgImageView == nil) {
+        _bgImageView = [[UIImageView alloc]initWithFrame:self.view.frame];
+        int picIndex = [QHConfiguredObj defaultConfigure].nThemeIndex;
+        NSString *imageName = [NSString stringWithFormat:@"pic_bg_%d",picIndex];
+        _bgImageView.image = [UIImage imageNamed:imageName];
+    }
+    return _bgImageView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.bgImageView = [[UIImageView alloc]initWithFrame:self.view.frame];
-    int picIndex = [QHConfiguredObj defaultConfigure].nThemeIndex;
-    NSString *imageName = [NSString stringWithFormat:@"pic_bg_%d",picIndex];
-    self.bgImageView.image = [UIImage imageNamed:imageName];
     [self.view addSubview:self.bgImageView];
     // Do any additional setup after loading the view
     self.view.backgroundColor = RGBA(236.f, 236.f, 236.f, 1);
@@ -599,18 +603,11 @@
     selectedThemeIndex = picIndex;
     NSString *imageName = [NSString stringWithFormat:@"navigation_bar_bg_%d",picIndex];
     [navIV setImage:[UIImage imageNamed:imageName]];
-    HaviLog(@"导航栏reloadd");
-    UILabel *label1 = (UILabel *)[self.view viewWithTag:3001];
+    UILabel *label1 = (UILabel *)[_navView viewWithTag:3001];
     label1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-    UILabel *label2 = (UILabel *)[self.view viewWithTag:2001];
+    UILabel *label2 = (UILabel *)[_navView viewWithTag:2001];
     label2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self.leftButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-    [self.gifbreath startAnimating];
-    [self.gifLeave startAnimating];
-    [self.gifHeart startAnimating];
-    [self.gifTurn startAnimating];
-
-//    [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]] forState:UIControlStateNormal];
      self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_%d",picIndex]];
 }
 

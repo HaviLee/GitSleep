@@ -41,7 +41,6 @@
 - (void)creatSubView
 {
     //防止出现键盘
-    self.keybordView = self.view;
     self.phoneText = [[UITextField alloc]init];
     [self.view addSubview:self.phoneText];
     self.phoneText.delegate = self;

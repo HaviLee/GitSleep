@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.bgImageView.image = nil;
+    self.bgImageView.image = [UIImage imageNamed:@""];
     [self createNavWithTitle:@"重命名设备" createMenuItem:^UIView *(int nIndex)
      {
          if (nIndex == 1)

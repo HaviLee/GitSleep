@@ -43,7 +43,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.keybordView = self.view;
     //接受消息，弹出输入电话号码
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showPhoneInputView) name:ShowPhoneInputViewNoti object:nil];
     // Do any additional setup after loading the view.
@@ -381,11 +380,9 @@
 //userbutton taped
 - (void)weixinButtonTaped:(UIButton *)sender
 {
-    NSLog(@"weixinbuttoned");
-    //防止设备锁
     isThirdLogin = YES;
     SendAuthReq* req = [[SendAuthReq alloc] init];
-    req.scope = @"snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact"; // @"post_timeline,sns"
+    req.scope = @"snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact";
     req.state = @"xxx";
     req.openID = @"0c806938e2413ce73eef92cc3";
     
@@ -394,7 +391,6 @@
 
 - (void)qqButtonTaped:(UIButton *)sender
 {
-    NSLog(@"qqbutton");
     isThirdLogin = YES;
     NSArray* permissions = [NSArray arrayWithObjects:
                             kOPEN_PERMISSION_GET_USER_INFO,
@@ -426,7 +422,6 @@
 
 - (void)sinaButtonTaped: (UIButton *)sender
 {
-    NSLog(@"sinaButton");
     isThirdLogin = YES;
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     request.redirectURI = WBRedirectURL;
@@ -449,8 +444,6 @@
     self.introductionView.didSelectedEnter = ^() {
         [weakSelf.introductionView.view removeFromSuperview];
         weakSelf.introductionView = nil;
-        HaviLog(@"引导ok");
-        // enter main view , write your code ...
         [[NSUserDefaults standardUserDefaults]setObject:@"NO" forKey:@"firstInApp"];
         [[NSUserDefaults standardUserDefaults]synchronize];
         
@@ -470,12 +463,6 @@
     //获取设备状态
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"登录中..."];
-//    SHGetClient *client = [SHGetClient shareInstance];
-//    NSDictionary *dic = @{
-//                          @"CellPhone": self.nameText.text, //手机号码
-//                          @"Email": @"", //邮箱地址，可留空，扩展注册用
-//                          @"Password": self.passWordText.text //传递明文，服务器端做加密存储
-//                          };
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -505,59 +492,17 @@
     } failed:^(NSURLResponse *response, NSError *error) {
         
     }];
-    /*
-    NSDictionary *dic1 = @{@"url":url};
-    [client loginUserWithHeaderNewApi:dic1 andWithPara:dic];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            NSString *userId = [resposeDic objectForKey:@"UserID"];
-            thirdPartyLoginUserId = userId;
-            thirdPartyLoginPlatform = MeddoPlatform;
-            thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
-            NSRange range = [thirdPartyLoginUserId rangeOfString:@"$"];
-            thirdPartyLoginNickName = [[resposeDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];
-            thirdPartyLoginIcon = @"";
-            thirdPartyLoginToken = @"";
-            thirdMeddoPhone = self.nameText.text;
-            thirdMeddoPassWord = self.passWordText.text;
-            [UserManager setGlobalOauth];
-            
-            self.loginButtonClicked(1);
-            [MMProgressHUD dismissAfterDelay:0.3];
-        }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10012) {
-            
-            [MMProgressHUD dismissWithError:@"密码或者帐号错误,请重试。" afterDelay:2];
-        }else{
-            [MMProgressHUD dismissWithError:@"登录失败,请稍后重试。" afterDelay:2];
-        }
-       
-    } failure:^(YTKBaseRequest *request) {
-        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",@"网络出错啦"] afterDelay:3];
-    }];
-    */
+    
 }
 
-#pragma mark 登录
-
-- (void)loginView
-{
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    window.rootViewController = app.sideMenuController;
-}
 
 - (void)registerButton:(UIButton *)sender
 {
-    HaviLog(@"register");
     self.getCodeButtonClicked(1);
-    
-//  
 }
 
 - (void)forgetPassWord:(UITapGestureRecognizer *)gesture
 {
-    HaviLog(@"忘记密码");
     self.stAlertView = [[STAlertView alloc] initWithTitle:@"提示"
                                                   message:@"请输入手机号码,我们会将密码以短信的方式发到您的手机上。"
                                             textFieldHint:@"请输入手机号"
@@ -572,7 +517,6 @@
                                             [self getPassWordSelf:result];
                                         }];
     
-    //You can make any customization to the native UIAlertView
     self.stAlertView.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [[self.stAlertView.alertView textFieldAtIndex:0] setKeyboardType:UIKeyboardTypePhonePad];
     
@@ -641,37 +585,14 @@
         
     }];
     
-    /*
-     SHPutClient *client = [SHPutClient shareInstance];
-    [client modifyUserInfo:header andWithPara:dic];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [MMProgressHUD dismissWithSuccess:@"新的密码已发送到您手机,请查收" title:@"注意" afterDelay:3];
-            [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
-                self.passWordText.text = @"";
-            }];
-        }else{
-            [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:3];
-            self.passWordText.text = @"";
-        }
-    }failure:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:3];
-    }];
-     */
 }
 
 #pragma mark textfeild delegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if ([textField isEqual:self.nameText]) {
-        int height = self.view.bounds.size.height/2 + 108;
-        self.keybordheight = height;
         [textField setReturnKeyType:UIReturnKeyNext];
         return YES;
     }else if([textField isEqual:self.passWordText]){
-        int height = self.view.bounds.size.height/2 + 108;
-        self.keybordheight = height;
         [textField setReturnKeyType:UIReturnKeyDone];
         return YES;
     }
