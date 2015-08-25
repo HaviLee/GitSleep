@@ -90,19 +90,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:defaultCellIndentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:defaultCellIndentifier];
-//        UIImageView *imageLine = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"line"]];
-//        [cell addSubview:imageLine];
-//        imageLine.alpha = 0.3;
-//        [imageLine makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(cell.left).offset(5);
-//            make.right.equalTo(cell).offset(-5);
-//            make.bottom.equalTo(cell).offset(-1);
-//            make.height.equalTo(1);
-//        }];
-//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [button setImage:[UIImage imageNamed:@"btn_back_right"] forState:UIControlStateNormal];
-//        button.frame = CGRectMake(0, 0, 20, 20);
-//        cell.accessoryView = button;
     }
     if (indexPath.section == 2) {
         cell.accessoryType = UITableViewCellAccessoryNone;

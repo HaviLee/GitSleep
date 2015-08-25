@@ -451,6 +451,8 @@
 		2C94FA181B8AEF9200F1A4DB /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94FA0D1B8AEF9200F1A4DB /* CalendarViewController.m */; };
 		2C94FA191B8AEF9200F1A4DB /* chack.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA0E1B8AEF9200F1A4DB /* chack.png */; };
 		2C94FA1A1B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94FA111B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m */; };
+		2C94FA1C1B8C399900F1A4DB /* skinpeeler_dark_color_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA1B1B8C399900F1A4DB /* skinpeeler_dark_color_bg.jpg */; };
+		2C94FA1E1B8C39A500F1A4DB /* skinpeeler_tint_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA1D1B8C39A500F1A4DB /* skinpeeler_tint_bg.jpg */; };
 		2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */; };
 		2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2841B74430C00C626D9 /* CirlcleView.m */; };
 		2C95C2891B74430C00C626D9 /* UILabel+FlickerNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2861B74430C00C626D9 /* UILabel+FlickerNumber.m */; };
@@ -1171,6 +1173,8 @@
 		2C94FA0F1B8AEF9200F1A4DB /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		2C94FA101B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+WQCalendarLogic.h"; sourceTree = "<group>"; };
 		2C94FA111B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+WQCalendarLogic.m"; sourceTree = "<group>"; };
+		2C94FA1B1B8C399900F1A4DB /* skinpeeler_dark_color_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = skinpeeler_dark_color_bg.jpg; sourceTree = "<group>"; };
+		2C94FA1D1B8C39A500F1A4DB /* skinpeeler_tint_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = skinpeeler_tint_bg.jpg; sourceTree = "<group>"; };
 		2C95C2801B74430C00C626D9 /* CHCircleGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeView.h; sourceTree = "<group>"; };
 		2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCircleGaugeView.m; sourceTree = "<group>"; };
 		2C95C2821B74430C00C626D9 /* CHCircleGaugeViewDebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeViewDebugMacros.h; sourceTree = "<group>"; };
@@ -1769,6 +1773,8 @@
 				2C7319D61B759911005A3EE4 /* night_icon@2x.png */,
 				2C7319D81B75991A005A3EE4 /* day_icon@2x.png */,
 				2C7345ED1B78531D004D8AB3 /* bg_pic_tag@2x.png */,
+				2C94FA1B1B8C399900F1A4DB /* skinpeeler_dark_color_bg.jpg */,
+				2C94FA1D1B8C39A500F1A4DB /* skinpeeler_tint_bg.jpg */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -3146,9 +3152,11 @@
 				2C3AF2CE1AF470C800B66E32 /* btn_up_one.png in Resources */,
 				2C15E73E1AF214E800142F36 /* pic_night_1@2x.png in Resources */,
 				2C7D22E11AF1CA050011A45C /* re_order_0@2x.png in Resources */,
+				2C94FA1C1B8C399900F1A4DB /* skinpeeler_dark_color_bg.jpg in Resources */,
 				2C15E71F1AF214E800142F36 /* icon_setting_1@2x.png in Resources */,
 				2C7D22211AF1C9F70011A45C /* icon_turn_over_0@2x.png in Resources */,
 				2C15E73C1AF214E800142F36 /* pic_head_portrait_1@2x.png in Resources */,
+				2C94FA1E1B8C39A500F1A4DB /* skinpeeler_tint_bg.jpg in Resources */,
 				2C15E70F1AF214E800142F36 /* head_portrait_1@2x.png in Resources */,
 				2C94FA191B8AEF9200F1A4DB /* chack.png in Resources */,
 				2C15E7461AF214E800142F36 /* textbox_add equipments_1@2x.png in Resources */,
@@ -3612,7 +3620,7 @@
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3639,7 +3647,7 @@
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

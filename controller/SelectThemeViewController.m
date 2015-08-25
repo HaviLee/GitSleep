@@ -37,9 +37,9 @@
 - (void)setSubView
 {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake((self.view.frame.size.width-30)/2, (self.view.frame.size.height - 79 - 15 - 10)/2);
-    flowLayout.minimumInteritemSpacing = 10;//列距
-    _collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(10, 79, self.view.frame.size.width-20, self.view.frame.size.height - self.navView.frame.size.height - 10) collectionViewLayout:flowLayout];
+    flowLayout.itemSize = CGSizeMake((self.view.frame.size.width-60)/2, (self.view.frame.size.height - 79 - 15 - 10)/2);
+    flowLayout.minimumInteritemSpacing = 20;//列距
+    _collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(20, 79, self.view.frame.size.width-40, self.view.frame.size.height - self.navView.frame.size.height - 10) collectionViewLayout:flowLayout];
     [_collectionV registerClass:[SelectThemeCollectionViewCell class] forCellWithReuseIdentifier:@"colletionCell"];
     _collectionV.backgroundColor = [UIColor clearColor];
     _collectionV.dataSource = self;
@@ -51,8 +51,8 @@
 
 - (void)initData
 {
-    _arData = @[@[@"默认", @"", @"skinpeeler_dark_color_bg"],
-                @[@"浅蓝", @"com.skin.1110", @"skinpeeler_tint_bg"],
+    _arData = @[@[@"默认", @"", @"skinpeeler_dark_color_bg.jpg"],
+                @[@"浅蓝", @"com.skin.1110", @"skinpeeler_tint_bg.jpg"],
                 ];
 }
 

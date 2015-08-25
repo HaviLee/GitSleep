@@ -34,7 +34,7 @@
     self.contentView.layer.borderColor = [UIColor grayColor].CGColor;
     
     float w = self.frame.size.height/5;
-    float wIV = w*4.3;
+    float wIV = w*4.6;
     
     UIImageView *titleIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, wIV)];
     [titleIV setBackgroundColor:[UIColor clearColor]];
@@ -45,6 +45,7 @@
     
     UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(0, titleIV.frame.size.height, self.contentView.frame.size.width, self.contentView.frame.size.height - titleIV.frame.size.height)];
     titleL.tag = 12;
+    titleL.font = [UIFont systemFontOfSize:12];
     [titleL setTextColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor]];
     [self.contentView addSubview:titleL];
     
