@@ -711,9 +711,9 @@
 
 #pragma mark 换肤
 
-- (void)reloadImage
+- (void)reloadThemeImage
 {
-    [super reloadImage];
+    [super reloadThemeImage];
     if (selectedThemeIndex == 0) {
         self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
     }else{

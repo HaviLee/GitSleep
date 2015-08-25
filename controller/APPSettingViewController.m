@@ -232,9 +232,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)reloadImage
+- (void)reloadThemeImage
 {
-    [super reloadImage];
+    [super reloadThemeImage];
     UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
     [self.menuButton setImage:i forState:UIControlStateNormal];
     self.bgImageView.image = nil;

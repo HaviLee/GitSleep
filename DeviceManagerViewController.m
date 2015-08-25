@@ -399,9 +399,9 @@
     [super viewDidDisappear:animated];
 }
 
-- (void)reloadImage
+- (void)reloadThemeImage
 {
-    [super reloadImage];
+    [super reloadThemeImage];
     self.bgImageView.image = nil;
 }
 

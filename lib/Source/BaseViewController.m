@@ -373,7 +373,6 @@
     NSString *imageName = [NSString stringWithFormat:@"navigation_bar_bg_%d",picIndex];
     [navIV setImage:[UIImage imageNamed:imageName]];
     [self.view addSubview:navIV];
-//    [self reloadImage];
     
     /* { 导航条 } */
     _navView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, StatusbarSize, self.view.frame.size.width, 44.f)];
@@ -488,7 +487,7 @@
 
 - (void)addObserver
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadImage) name:RELOADIMAGE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadThemeImage) name:RELOADIMAGE object:nil];
     //检测设置APP密码
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(isShowAppSettingPassWord) name:AppPassWorkSetOkNoti object:nil];
     //移除检测
@@ -593,7 +592,7 @@
 /**
  *  子类重写此方法，进行切换主题
  */
-- (void)reloadImage
+- (void)reloadThemeImage
 {
     UIImageView *navIV = (UIImageView *)[self.view viewWithTag:3000];
     int picIndex = [QHConfiguredObj defaultConfigure].nThemeIndex;
@@ -850,18 +849,8 @@
 
 #pragma mark 处理键盘事件
 - (void)viewWillAppear:(BOOL)animated{
-    [self setKeyNotification];
     [[self navigationController] setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
-}
-
-- (void)setKeyNotification
-{
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-    //登出
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginView:) name:POSTLOGOUTNOTI object:nil];
 }
 
 //登出时进行此操作
@@ -889,80 +878,6 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [super viewWillDisappear:animated];
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification {
-    
-    /*
-     Reduce the size of the text view so that it's not obscured by the keyboard.
-     Animate the resize so that it's in sync with the appearance of the keyboard.
-     */
-    
-    NSDictionary *userInfo = [notification userInfo];
-//    [self adjustTextViewByKeyboardState:YES keyboardInfo:userInfo];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification {
-    
-    /*
-     Restore the size of the text view (fill self's view).
-     Animate the resize so that it's in sync with the disappearance of the keyboard.
-     */
-//    if(!_keybordView){
-//        return;
-//    }
-//    //一个bool值判断这个
-//    mIsShowKeyboard = NO;
-//    [UIView beginAnimations:nil context:nil];
-//    //设定动画持续时间
-//    [UIView setAnimationDuration:0.3];
-//    _keybordView.frame = mRectkeybordview;
-//    //参数设置完成之后，才开始进行动画效果，
-//    [UIView commitAnimations];
-    
-}
-
-#pragma mark - Responding to keyboard events
-
-- (void)adjustTextViewByKeyboardState:(BOOL)showKeyboard keyboardInfo:(NSDictionary *)info {
-    
-    /*
-     Reduce the size of the text view so that it's not obscured by the keyboard.
-     Animate the resize so that it's in sync with the appearance of the keyboard.
-     */
-    
-    // transform the UIViewAnimationCurve to a UIViewAnimationOptions mask
-    if(!_keybordView){
-        return;
-    }
-    if(!mIsShowKeyboard){
-        mRectkeybordview = _keybordView.frame;
-    }
-    mIsShowKeyboard = YES;
-    [UIView beginAnimations:nil context:nil];
-    //设定动画持续时间
-    [UIView setAnimationDuration:0.3];
-    //动画的内容
-    
-    //动画结束
-    
-    CGRect rect;
-    //此处的keybordView是你当前显示
-    [[info objectForKey:UIKeyboardBoundsUserInfoKey] getValue:&rect];
-    _keybordView.frame = CGRectMake(mRectkeybordview.origin.x,
-                                    mRectkeybordview.origin.y - (self.keybordheight != 0? rect.size.height-(_keybordView.frame.size.height - self.keybordheight): rect.size.height),
-                                    mRectkeybordview.size.width,
-                                    mRectkeybordview.size.height);
-    //    此处的那个view起点就是-70
-    [UIView commitAnimations];
-    
-}
-
-//这个是自己写setter方法
-- (void)setKeybordView:(UIView* )view
-{
-    _keybordView = view;
-    mRectkeybordview = _keybordView.frame;
 }
 
 #pragma mark 进行时间缓存
@@ -994,23 +909,11 @@
 - (NSString *)cacheBasePath {
     NSString *pathOfLibrary = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *path = [pathOfLibrary stringByAppendingPathComponent:@"HaviRequestCache"];
-    
-//    // filter cache base path
-//    NSArray *filters = [[YTKNetworkConfig sharedInstance] cacheDirPathFilters];
-//    if (filters.count > 0) {
-//        for (id<YTKCacheDirPathFilterProtocol> f in filters) {
-//            path = [f filterCacheDirPath:path withRequest:self];
-//        }
-//    }
-//    
     [self checkDirectory:path];
     return path;
 }
 
 - (NSString *)cacheFileNameWithType:(NSString *)type {
-//    NSString *requestUrl = [self requestUrl];
-//    NSString *baseUrl = [YTKNetworkConfig sharedInstance].baseUrl;
-//    id argument = [self cacheFileNameFilterForRequestArgument:[self requestArgument]];
     NSString *requestInfo = [NSString stringWithFormat:@"%@",@"timeCache"];
     NSString *cacheFileName = [YTKNetworkPrivate md5StringFromString:requestInfo];
     return cacheFileName;
@@ -1022,24 +925,6 @@
     path = [path stringByAppendingPathComponent:cacheFileName];
     return path;
 }
-
-//- (NSString *)cacheVersionFilePath {
-//    NSString *cacheVersionFileName = [NSString stringWithFormat:@"%@.version", [self cacheFileName]];
-//    NSString *path = [self cacheBasePath];
-//    path = [path stringByAppendingPathComponent:cacheVersionFileName];
-//    return path;
-//}
-
-//- (long long)cacheVersionFileContent {
-//    NSString *path = [self cacheVersionFilePath];
-//    NSFileManager * fileManager = [NSFileManager defaultManager];
-//    if ([fileManager fileExistsAtPath:path isDirectory:nil]) {
-//        NSNumber *version = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-//        return [version longLongValue];
-//    } else {
-//        return 0;
-//    }
-//}
 
 - (int)cacheFileDuration:(NSString *)path {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -1112,7 +997,6 @@
                              };
     NSString *url = [NSString stringWithFormat:@"%@/v1/file/DownloadFile/%@",BaseUrl,thirdPartyLoginUserId];
     NSData *imageData = [self downLoadImageWithUrl:url andHeader:header];
-//    imageview.image = [UIImage imageWithData:imageData];
     return imageData;
     
 }
@@ -1123,7 +1007,6 @@
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                                        timeoutInterval:10];
-    //
     NSArray *headerkeys;
     int     headercount;
     id      key,value;
@@ -1154,15 +1037,5 @@
     return [WeiboSDK isWeiboAppInstalled]&&[WXApi isWXAppInstalled];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

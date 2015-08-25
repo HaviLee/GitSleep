@@ -322,9 +322,9 @@
 
 }
 
-- (void)reloadImage
+- (void)reloadThemeImage
 {
-    [super reloadImage];
+    [super reloadThemeImage];
     self.imageArr = nil;
     self.imageArr = @[@[[NSString stringWithFormat:@"icon_todays_data_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_data_analysis_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_equipment_management_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_alarm_clock_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_setting_%d",selectedThemeIndex]],@[@"icon_setting"]];
     [self.sideTableView reloadData];

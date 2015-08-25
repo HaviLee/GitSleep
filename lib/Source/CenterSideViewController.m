@@ -210,25 +210,6 @@
 //    [self checkDeviceStatus];
 }
 
-////登出时进行此操作
-//- (void)showLoginView:(NSNotification *)noti
-//{
-//    LoginViewController *login = [[LoginViewController alloc]init];
-//    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:login];
-//    navi.navigationBarHidden = YES;
-//    [self presentViewController:navi animated:YES completion:^{
-////        [self tapImage:nil];
-//        [self.datePicker removeFromSuperview];
-//        self.datePicker = nil;
-//        [self.view addSubview:self.datePicker];
-//        [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-//        [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
-//        self.datePicker.dateDelegate = self;
-//        self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-////        self.view = nil;
-//    }];
-//
-//}
 #pragma mark 获取用户数据
 
 - (void)getTodayUserData:(NSString *)fromDate endDate:(NSString *)endDate withCompareDate:(NSDate *)compDate
@@ -237,10 +218,8 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     if (!fromDate) {
         
-//        [ShowAlertView showAlert:@"CenterSideViewController:214,line开始时间为空"];
         return;
     }
-//    [MMProgressHUD showWithStatus:@"请求中..."];
     NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
     NSString *urlString = @"";
     if (isUserDefaultTime) {
@@ -629,10 +608,10 @@
 
 }
 #pragma mark 更换皮肤
-- (void)reloadImage
+- (void)reloadThemeImage
 {
     //这样做可以保证父类不被覆盖
-    [super reloadImage];
+    [super reloadThemeImage];
     HaviLog(@"center更换皮肤");
     [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     [self.btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]] forState:UIControlStateNormal];
