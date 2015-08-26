@@ -12,12 +12,12 @@
 #import "HaviGetNewClient.h"
 #import "GetDeviceListAPI.h"
 #import "ChangeUUIDAPI.h"
-#import "CenterSideViewController.h"
 #import "ReNameDeviceNameViewController.h"
 #import "UDPAddProductViewController.h"
 //
 #import "MGSwipeTableCell.h"
 #import "MGSwipeButton.h"
+#import "URBAlertView.h"
 
 @interface DeviceManagerViewController ()<MGSwipeTableCellDelegate>
 
@@ -243,8 +243,15 @@
         //delete button
         NSDictionary *dic = [self.deviceArr objectAtIndex:indexPath.row];
         if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"您是否要删除默认关联设备？" message:@"如果确定删除默认关联设备,请先切换其他设备为默认设备。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"如果确定删除默认关联设备,请先切换其他设备为默认设备"];
+            alertView.blurBackground = NO;
+            [alertView addButtonWithTitle:@"确认"];
+            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
+                [alertView hide];
+                
+            }];
+            [alertView showWithAnimation:URBAlertAnimationFade];
+
         }else{
             [self deleteDeviceWithUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]];
         }

@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "LeftSideViewController.h"
 #import "RightSideViewController.h"
-#import "CenterSideViewController.h"
 #import "YTKNetworkConfig.h"
 #import "LoginViewController.h"
 #import "UIViewController+MLTransition.h"
@@ -335,12 +334,9 @@
         GetMessageFromWXReq *temp = (GetMessageFromWXReq *)req;
         
         // 微信请求App提供内容， 需要app提供内容后使用sendRsp返回
-        NSString *strTitle = [NSString stringWithFormat:@"微信请求App提供内容"];
-        NSString *strMsg = [NSString stringWithFormat:@"openID: %@", temp.openID];
+       
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        alert.tag = 1000;
-        [alert show];
+        
     }
     else if([req isKindOfClass:[ShowMessageFromWXReq class]])
     {
@@ -353,8 +349,7 @@
         NSString *strTitle = [NSString stringWithFormat:@"微信请求App显示内容"];
         NSString *strMsg = [NSString stringWithFormat:@"openID: %@, 标题：%@ \n内容：%@ \n附带信息：%@ \n缩略图:%lu bytes\n附加消息:%@\n", temp.openID, msg.title, msg.description, obj.extInfo, (unsigned long)msg.thumbData.length, msg.messageExt];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+       
     }
     else if([req isKindOfClass:[LaunchFromWXReq class]])
     {
@@ -365,8 +360,7 @@
         NSString *strTitle = [NSString stringWithFormat:@"从微信启动"];
         NSString *strMsg = [NSString stringWithFormat:@"openID: %@, messageExt:%@", temp.openID, msg.messageExt];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+       
     }
 }
 
@@ -375,8 +369,7 @@
     if([resp isKindOfClass:[SendMessageToWXResp class]])
     {
         if (resp.errCode == 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"分享成功" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
-            [alert show];
+            [self.window makeToast:@"分享成功" duration:2 position:@"center"];
         }else{
             [self.window makeToast:@"取消分享" duration:2 position:@"center"];
         }
@@ -407,8 +400,7 @@
         for (WXCardItem* cardItem in temp.cardAry) {
             [cardStr appendString:[NSString stringWithFormat:@"cardid:%@ cardext:%@ cardstate:%u\n",cardItem.cardId,cardItem.extMsg,(unsigned int)cardItem.cardState]];
         }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"add card resp" message:cardStr delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+        
     }
 }
 
@@ -423,15 +415,8 @@
 {
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
     {
-//        NSString *title = NSLocalizedString(@"发送结果", nil);
-//        NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
         if ((int)response.statusCode ==0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:@"分享成功"
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"确定", nil)
-                                                  otherButtonTitles:nil];
-            [alert show];
+            [self.window makeToast:@"分享成功" duration:2 position:@"center"];
         }else{
             [self.window makeToast:@"取消分享" duration:2 position:@"center"];
         }
@@ -472,12 +457,7 @@
     {
         NSString *title = NSLocalizedString(@"支付结果", nil);
         NSString *message = [NSString stringWithFormat:@"%@: %d\nresponse.payStatusCode: %@\nresponse.payStatusMessage: %@\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode,[(WBPaymentResponse *)response payStatusCode], [(WBPaymentResponse *)response payStatusMessage], NSLocalizedString(@"响应UserInfo数据", nil),response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil), response.requestUserInfo];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
-                                              otherButtonTitles:nil];
-        [alert show];
+        
     }
 }
 

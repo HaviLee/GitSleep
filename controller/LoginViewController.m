@@ -15,7 +15,6 @@
 #import "ZWIntroductionViewController.h"
 #import "LeftSideViewController.h"
 #import "RightSideViewController.h"
-#import "CenterSideViewController.h"
 #import "AppDelegate.h"
 //api
 #import "SHGetClient.h"

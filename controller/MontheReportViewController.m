@@ -98,7 +98,7 @@
 {
     
     if ([HardWareUUID isEqualToString:@""]) {
-        [ShowAlertView showAlert:@"您还没有绑定设备"];
+//        [ShowAlertView showAlert:@"您还没有绑定设备"];
         return;
     }
     if (!fromDate) {

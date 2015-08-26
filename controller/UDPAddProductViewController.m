@@ -205,8 +205,7 @@
 - (void)searchHardware:(UIButton *)button
 {
     if ([self.textFiledName.text isEqualToString:@""]||[self.textFiledPassWord.text isEqualToString:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请输入网络名或者密码" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
+        [self.view makeToast:@"请输入网络名或者密码" duration:2 position:@"center"];
         return;
     }
     self.noReceiveData = YES;

@@ -186,8 +186,14 @@ NSString *const RIGHT_BUTTON_IMAGE_SEL   = @"right_button_off.png";
     if (sender.state == UIGestureRecognizerStateEnded)
     {
         if (([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"])) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"请开启自定义按钮" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
-            [alert show];
+            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"请到睡眠设置里面开启睡眠自定义按钮"];
+            alertView.blurBackground = NO;
+            [alertView addButtonWithTitle:@"确认"];
+            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
+                [alertView hide];
+                
+            }];
+            [alertView showWithAnimation:URBAlertAnimationFade];
             return;
         }
 
@@ -219,8 +225,14 @@ NSString *const RIGHT_BUTTON_IMAGE_SEL   = @"right_button_off.png";
     if (sender.state == UIGestureRecognizerStateEnded)
     {
         if (([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"])) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"请开启自定义按钮" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
-            [alert show];
+            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"请到睡眠设置里面开启睡眠自定义按钮"];
+            alertView.blurBackground = NO;
+            [alertView addButtonWithTitle:@"确认"];
+            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
+                [alertView hide];
+                
+            }];
+            [alertView showWithAnimation:URBAlertAnimationFade];
             return;
         }
         if (_toggleButton.center.x == _rightEdge)

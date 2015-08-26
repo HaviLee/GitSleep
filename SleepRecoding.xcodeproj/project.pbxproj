@@ -453,6 +453,7 @@
 		2C94FA1A1B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94FA111B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m */; };
 		2C94FA211B8C55B000F1A4DB /* skinpeeler_dark_color_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA1F1B8C55B000F1A4DB /* skinpeeler_dark_color_bg.png */; };
 		2C94FA221B8C55B000F1A4DB /* skinpeeler_tint_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA201B8C55B000F1A4DB /* skinpeeler_tint_bg.png */; };
+		2C94FA251B8D853B00F1A4DB /* URBAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94FA241B8D853B00F1A4DB /* URBAlertView.m */; };
 		2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */; };
 		2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2841B74430C00C626D9 /* CirlcleView.m */; };
 		2C95C2891B74430C00C626D9 /* UILabel+FlickerNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2861B74430C00C626D9 /* UILabel+FlickerNumber.m */; };
@@ -518,7 +519,6 @@
 		576B02461A9EB22C004DB418 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 576B02451A9EB22C004DB418 /* BaseViewController.m */; };
 		576B02491A9EB24B004DB418 /* LeftSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 576B02481A9EB24B004DB418 /* LeftSideViewController.m */; };
 		576B024C1A9EB25F004DB418 /* RightSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 576B024B1A9EB25F004DB418 /* RightSideViewController.m */; };
-		576B024F1A9EB269004DB418 /* CenterSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 576B024E1A9EB269004DB418 /* CenterSideViewController.m */; };
 		576C3F021ABFAA4500815EF3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576C3F011ABFAA4500815EF3 /* AudioToolbox.framework */; };
 		576C3F041ABFAAE700815EF3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576C3F031ABFAAE700815EF3 /* MobileCoreServices.framework */; };
 		576C3F071ABFC15500815EF3 /* MTStatusBarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 576C3F061ABFC15500815EF3 /* MTStatusBarOverlay.m */; };
@@ -1173,6 +1173,8 @@
 		2C94FA111B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+WQCalendarLogic.m"; sourceTree = "<group>"; };
 		2C94FA1F1B8C55B000F1A4DB /* skinpeeler_dark_color_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skinpeeler_dark_color_bg.png; sourceTree = "<group>"; };
 		2C94FA201B8C55B000F1A4DB /* skinpeeler_tint_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skinpeeler_tint_bg.png; sourceTree = "<group>"; };
+		2C94FA231B8D853B00F1A4DB /* URBAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URBAlertView.h; sourceTree = "<group>"; };
+		2C94FA241B8D853B00F1A4DB /* URBAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URBAlertView.m; sourceTree = "<group>"; };
 		2C95C2801B74430C00C626D9 /* CHCircleGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeView.h; sourceTree = "<group>"; };
 		2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCircleGaugeView.m; sourceTree = "<group>"; };
 		2C95C2821B74430C00C626D9 /* CHCircleGaugeViewDebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeViewDebugMacros.h; sourceTree = "<group>"; };
@@ -1300,8 +1302,6 @@
 		576B02481A9EB24B004DB418 /* LeftSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftSideViewController.m; sourceTree = "<group>"; };
 		576B024A1A9EB25F004DB418 /* RightSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightSideViewController.h; sourceTree = "<group>"; };
 		576B024B1A9EB25F004DB418 /* RightSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightSideViewController.m; sourceTree = "<group>"; };
-		576B024D1A9EB269004DB418 /* CenterSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterSideViewController.h; sourceTree = "<group>"; };
-		576B024E1A9EB269004DB418 /* CenterSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterSideViewController.m; sourceTree = "<group>"; };
 		576B02501A9EDDE3004DB418 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		576C3F011ABFAA4500815EF3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		576C3F031ABFAAE700815EF3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -2383,8 +2383,6 @@
 				576B02481A9EB24B004DB418 /* LeftSideViewController.m */,
 				576B024A1A9EB25F004DB418 /* RightSideViewController.h */,
 				576B024B1A9EB25F004DB418 /* RightSideViewController.m */,
-				576B024D1A9EB269004DB418 /* CenterSideViewController.h */,
-				576B024E1A9EB269004DB418 /* CenterSideViewController.m */,
 				2C7CA01C1B67561300AA511D /* CenterViewController.h */,
 				2C7CA01D1B67561300AA511D /* CenterViewController.m */,
 			);
@@ -2428,6 +2426,8 @@
 			children = (
 				577062DB1AC285F100790F79 /* STAlertView.h */,
 				577062DC1AC285F100790F79 /* STAlertView.m */,
+				2C94FA231B8D853B00F1A4DB /* URBAlertView.h */,
+				2C94FA241B8D853B00F1A4DB /* URBAlertView.m */,
 			);
 			name = AlertView;
 			path = lib/thirdlib/AlertView;
@@ -3285,7 +3285,6 @@
 				2C94FA171B8AEF9200F1A4DB /* CalendarMonthHeaderView.m in Sources */,
 				57747DD71AA57FAD002B5A49 /* DIDatepickerDateView.m in Sources */,
 				2C94F9E51B8AED0200F1A4DB /* DTTimePeriodCollection.m in Sources */,
-				576B024F1A9EB269004DB418 /* CenterSideViewController.m in Sources */,
 				57802E2C1AE7398200823E39 /* UploadImageApi.m in Sources */,
 				2C7345CB1B772F34004D8AB3 /* SleepTimeTagView.m in Sources */,
 				577251161AC942D1003C2B46 /* JT3DScrollView.m in Sources */,
@@ -3460,6 +3459,7 @@
 				575F5AA01AAE900B0061AA11 /* SleepSettingViewController.m in Sources */,
 				578F57E71AB7D3D20090A167 /* CKTextField.m in Sources */,
 				5759ECE81AC52DD800E9BFF2 /* MLTransitionAnimation.m in Sources */,
+				2C94FA251B8D853B00F1A4DB /* URBAlertView.m in Sources */,
 				57D566731AD222D300FE7439 /* DiagnoseReportViewController.m in Sources */,
 				57490FCC1ACAA7E10057DC05 /* AboutMeViewController.m in Sources */,
 				579AC7E21AA033F70045E9A2 /* GifView.m in Sources */,

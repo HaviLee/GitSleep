@@ -13,6 +13,7 @@
 #import "DeviceManagerViewController.h"
 #import "BindingDeviceUUIDAPI.h"
 #import "ActiveDeviceAPI.h"
+#import "URBAlertView.h"
 
 @interface ScanBarcodeViewController ()<UITextFieldDelegate,UIAlertViewDelegate>
 @property (nonatomic,strong) UITextField *barTextfield;
@@ -185,8 +186,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     if (SIMULATOR==1) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"不能在模拟器使用" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
+        [self.view makeToast:@"不能在模拟器中使用" duration:2 position:@"center"];
     }else{
         [self setupCameraWith];
         if (![timer isValid]) {
@@ -347,10 +347,6 @@ float prewMoveY;
 #pragma mark user action
 - (void)addProduct:(UIButton *)sender
 {
-//    UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
-//    udp.productName = self.deviceName;
-//    udp.productUUID = self.barTextfield.text;
-//    [self.navigationController pushViewController:udp animated:YES];
     if (self.barTextfield.text.length == 0) {
         [ShowAlertView showAlert:@"请输入或者扫描设备二维码"];
         return;
@@ -407,10 +403,36 @@ float prewMoveY;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             HardWareUUID = UUID;
 //            thirdHardDeviceUUID = UUID;
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已成功关联您的设备,是否需要现在激活设备？" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"激活", nil];
-            [alertView show];
+            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"提示" subtitle:@"已成功关联您的设备,是否需要现在激活设备"];
+            alertView.blurBackground = NO;
+            [alertView addButtonWithTitle:@"不需要"];
+            [alertView addButtonWithTitle:@"激活"];
+            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
+                [alertView hideWithAnimation:URBAlertAnimationFade completionBlock:^{
+                    if (buttonIndex == 1) {
+                        UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
+                        udp.productName = self.deviceName;
+                        HardWareUUID = self.barTextfield.text;
+                        udp.productUUID = self.barTextfield.text;
+                        [self.navigationController pushViewController:udp animated:YES];
+                    }else if (buttonIndex ==0){
+                        for (UIViewController *controller in self.navigationController.viewControllers) {
+                            if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
+                                
+                                [self.navigationController popToViewController:controller animated:YES];
+                                //泡个消息，让首界面更新数据
+                                HardWareUUID = self.barTextfield.text;
+                                break;
+                            }
+                        }
+
+                    }
+                }];
+                
+            }];
+            [alertView showWithAnimation:URBAlertAnimationFade];
         }else{
-            [ShowAlertView showAlert:@"无法设置该设备为您的默认设备"];
+            [self.view makeToast:@"无法设置该设备为您的默认设备" duration:2 position:@"center"];
         }
     } failure:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
@@ -440,33 +462,6 @@ float prewMoveY;
     self.view.frame = rect;
 }
 
-#pragma mark alert delegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if ([alertView.title isEqualToString:@"提示"]) {
-        if (buttonIndex == 0) {
-            for (UIViewController *controller in self.navigationController.viewControllers) {
-                if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
-                    
-                    [self.navigationController popToViewController:controller animated:YES];
-                    //泡个消息，让首界面更新数据
-                    HardWareUUID = self.barTextfield.text;
-//                    [[NSNotificationCenter defaultCenter]postNotificationName:POSTDEVICEUUIDCHANGENOTI object:nil];
-                    break;
-                }
-            }
-
-        }else if (buttonIndex == 1){
-            UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
-            udp.productName = self.deviceName;
-            HardWareUUID = self.barTextfield.text;
-            udp.productUUID = self.barTextfield.text;
-            [self.navigationController pushViewController:udp animated:YES];
-
-        }
-    }
-}
 
 - (void)didReceiveMemoryWarning
 {

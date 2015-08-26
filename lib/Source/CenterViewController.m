@@ -25,6 +25,7 @@
 #import "NewTodayLeaveViewController.h"
 #import "NewTodayTurnViewController.h"
 #import "CalendarHomeViewController.h"
+#import "URBAlertView.h"
 
 @interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *cellTableView;
@@ -110,66 +111,44 @@
             }
         }
         if (![HardWareUUID isEqualToString:@""]) {
-//            NSDate *nowDate = [self getNowDate];
             NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
             [self getTodaySleepQualityData:newString];
         }else{
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            alert.tag = 900;
-            [alert show];
+            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"您还没有绑定设备,是否现在去绑定？"];
+            alertView.blurBackground = NO;
+            [alertView addButtonWithTitle:@"取消"];
+            [alertView addButtonWithTitle:@"确认"];
+            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
+                [alertView hideWithAnimation:URBAlertAnimationFade completionBlock:^{
+                    if (buttonIndex == 1) {
+                        DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
+                        [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+                    }
+                }];
+                
+            }];
+            [alertView showWithAnimation:URBAlertAnimationFade];
         }
         
     } failed:^(NSURLResponse *response, NSError *error) {
         
     }];
-//    GetDeviceStatusAPI *client = [GetDeviceStatusAPI shareInstance];
-//    if ([client isExecuting]) {
-//        [client stop];
-//    }
-    /*
-    [client getActiveDeviceUUID:header withDetailUrl:urlString];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        HaviLog(@"用户%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
-        [MMProgressHUD dismiss];
-        NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
-        if (arr.count == 0) {
-            self.clearNaviTitleLabel.text = thirdHardDeviceName;
-        }else{
-            for (NSDictionary *dic in arr) {
-                if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
-                    HardWareUUID = [dic objectForKey:@"UUID"];
-                    thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
-                    thirdHardDeviceName = [dic objectForKey:@"Description"];
-                    self.clearNaviTitleLabel.text = thirdHardDeviceName;
-                    [UserManager setGlobalOauth];
-                    HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,HardWareUUID);
-                    break;
-                }
-            }
-        }
-        if (![HardWareUUID isEqualToString:@""]) {
-            NSDate *nowDate = [self getNowDate];
-            NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
-            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
-            [self getTodaySleepQualityData:newString];
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有绑定默认设备，是否现在绑定默认设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            alert.tag = 900;
-            [alert show];
-        }
-    } failure:^(YTKBaseRequest *request) {
-        
-    }];
-     */
 }
 
 - (void)getTodaySleepQualityData:(NSString *)nowDateString
 {
     //fromdate 是当天的日期
     if ([HardWareUUID isEqualToString:@""]) {
-        [ShowAlertView showAlert:@"您还没有绑定设备"];
+        URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"您还没有绑定设备"];
+        alertView.blurBackground = NO;
+        [alertView addButtonWithTitle:@"确认"];
+        [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
+            [alertView hide];
+            
+        }];
+        [alertView showWithAnimation:URBAlertAnimationFade];
+
         return;
     }
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -217,9 +196,14 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"不存在当前设备，请检查您的设备？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-            alert.tag = 901;
-            [alert show];
+            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"不存在当前设备，请检查您的设备UUID"];
+            alertView.blurBackground = NO;
+            [alertView addButtonWithTitle:@"确认"];
+            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
+                [alertView hide];
+                
+            }];
+            [alertView showWithAnimation:URBAlertAnimationFade];
         }else{
             
         }
@@ -248,7 +232,6 @@
             NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
             NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-            //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
             urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
             
         }
@@ -273,7 +256,7 @@
                 //为了异常报告
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];
         }
     }
@@ -291,7 +274,6 @@
                          ];
     [self.cellTableView reloadData];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self.cellTableView reloadDataAnimateWithWave:RightToLeftWaveAnimation];
     });
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -509,7 +491,6 @@
         [self.circleView changeSleepQualityValue:0];
         [self.circleView changeSleepTimeValue:0];
         [self setClockRoationValue];
-//        NSDate *nowDate = [self getNowDate];
         NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
         NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
         [self getTodaySleepQualityData:newString];
@@ -537,9 +518,6 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [self.navigationController pushViewController:self.chvc animated:YES];
 
-//    CalenderCantainerViewController *calender = [[CalenderCantainerViewController alloc]init];
-//    calender.calenderDelegate = self;
-//    [self presentViewController:self.chvc animated:YES completion:nil];
 }
 
 - (void)selectedCalenderDate:(NSDate *)date
@@ -635,14 +613,6 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    if (indexPath.row == 3) {
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [tableView reloadDataAnimateWithWave:LeftToRightWaveAnimation];
-//        });
-//    }
-}
 
 - (NSString *)changeNumToWord:(int)level
 {
@@ -683,31 +653,31 @@
     isTodayHourEqualSixteen = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
 }
 
-#pragma mark alertview 代理
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex ==0) {
-        DeviceStatus = YES;
-    }
-    if (alertView.tag == 900) {
-        if (buttonIndex == 1) {
-            DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
-            [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
-        }
-    }else if (alertView.tag == 901){
-        if (buttonIndex == 1) {
-            DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
-            [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
-        }
-    }else if (alertView.tag == 902){
-        if (buttonIndex == 1) {
-            UDPAddProductViewController *user = [[UDPAddProductViewController alloc]init];
-            [self.navigationController pushViewController:user animated:YES];
-        }
-    }
-    
-}
+//#pragma mark alertview 代理
+//
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (buttonIndex ==0) {
+//        DeviceStatus = YES;
+//    }
+//    if (alertView.tag == 900) {
+//        if (buttonIndex == 1) {
+//            DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
+//            [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+//        }
+//    }else if (alertView.tag == 901){
+//        if (buttonIndex == 1) {
+//            DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
+//            [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+//        }
+//    }else if (alertView.tag == 902){
+//        if (buttonIndex == 1) {
+//            UDPAddProductViewController *user = [[UDPAddProductViewController alloc]init];
+//            [self.navigationController pushViewController:user animated:YES];
+//        }
+//    }
+//    
+//}
 
 #pragma mark 换肤
 
@@ -719,6 +689,7 @@
     }else{
         self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
     }
+    self.clearNaviTitleLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
     [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     [self.menuButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     _circleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
