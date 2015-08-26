@@ -65,6 +65,9 @@
     cellNameLabel.text = self.cellTitle;
     cellImage.image = [UIImage imageNamed:self.cellImageName];
     cellDataLabel.text = self.cellData;
+    cellDataLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    cellNameLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    
 }
 
 - (void)awakeFromNib {

@@ -134,8 +134,8 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
         self.dateTitleLabel.textColor = [UIColor whiteColor];
         self.dateLabel.textColor = [UIColor whiteColor];
     }else{
-        self.dateTitleLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
-        self.dateLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
+        self.dateTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        self.dateLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     }
 }
 

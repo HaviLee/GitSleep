@@ -61,7 +61,6 @@ static NSString * const CHKeyDefaultNoAnswersText = @"%";
 @property (nonatomic, assign) CGRect viewRect;
 
 @property (nonatomic, strong) UILabel *valueTextLabel;
-@property (nonatomic, strong) UILabel *valueTitleLabel;//havi
 @property (nonatomic, strong) UILabel *resposeTextLabel;
 @property (nonatomic, strong) NSMutableArray *arrCircle;
 @property (nonatomic, strong) NSArray *arrColor;

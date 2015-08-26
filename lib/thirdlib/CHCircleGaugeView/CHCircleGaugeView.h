@@ -79,6 +79,8 @@ typedef NS_ENUM(NSInteger, CHCircleGaugeStyle) {
 
 
 @property (nonatomic, strong) CirlcleView *cView;
+@property (nonatomic, strong) UILabel *valueTitleLabel;//havi
+
 
 /** @name Managing the gauge */
 

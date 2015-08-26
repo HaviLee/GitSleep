@@ -329,7 +329,8 @@
     [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",1]] forState:UIControlStateNormal];
     [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
     self.datePicker.dateDelegate = self;
-    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
+    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.datePicker.backLine.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     //自定义导航栏
     [self createClearBgNavWithTitle:thirdHardDeviceName createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
@@ -444,7 +445,7 @@
         _sleepTimeLabel = [[UILabel alloc]init];
         _sleepTimeLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 30);
         _sleepTimeLabel.textAlignment = NSTextAlignmentCenter;
-        _sleepTimeLabel.textColor = [UIColor whiteColor];
+        _sleepTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         _sleepTimeLabel.backgroundColor = [UIColor clearColor];
         _sleepTimeLabel.font = [UIFont systemFontOfSize:17];
         _sleepTimeLabel.text = @"睡眠时长:7小时36分";
@@ -462,7 +463,8 @@
         _circleView.gaugeStyle = CHCircleGaugeStyleOutside;
         _circleView.gaugeTintColor = [UIColor blackColor];
         _circleView.gaugeWidth = 15;
-        _circleView.textColor = [UIColor whiteColor];
+        _circleView.valueTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        _circleView.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         _circleView.responseColor = [UIColor greenColor];
         _circleView.font = [UIFont systemFontOfSize:38];
         _circleView.rotationValue = 100;
@@ -689,16 +691,19 @@
     }else{
         self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
     }
-    self.clearNaviTitleLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
+    self.clearNaviTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     [self.menuButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     _circleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
-    self.datePicker.backLine.backgroundColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
-    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?[UIColor whiteColor]:[UIColor whiteColor];
+    _circleView.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.datePicker.backLine.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",1]] forState:UIControlStateNormal];
     [self.cellTableView reloadData];
+    _circleView.valueTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [_circleView.cView.gradientLayer1 setColors:selectedThemeIndex ==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x356E8B alpha:1]CGColor],[[self colorWithHex:0x3e608d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1C7A59 alpha:1]CGColor],[[self colorWithHex:0x0F705C alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
     [_circleView.cView.gradientLayer2 setColors:selectedThemeIndex==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1cd98d alpha:1]CGColor],(id)[[self colorWithHex:0x21c88d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x8DEC45 alpha:1]CGColor],(id)[[self colorWithHex:0x85E445 alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
+    self.sleepTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     
     _todayHeartView = nil;
     _todayBreathView = nil;
