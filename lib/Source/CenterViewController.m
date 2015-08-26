@@ -330,6 +330,11 @@
     [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
     self.datePicker.dateDelegate = self;
     self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    
+    UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCalender:)];
+    self.datePicker.monthLabel.userInteractionEnabled = YES;
+    [self.datePicker.monthLabel addGestureRecognizer:tap];
+    
     self.datePicker.backLine.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     //自定义导航栏
     [self createClearBgNavWithTitle:thirdHardDeviceName createMenuItem:^UIView *(int nIndex) {

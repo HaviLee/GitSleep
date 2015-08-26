@@ -102,6 +102,9 @@
     self.indicatorView = [[UIView alloc]init];
     self.indicatorView.frame = CGRectMake(0, self.view.frame.size.height-self.datePicker.frame.size.height-20, self.view.frame.size.width, 20);
     self.indicatorView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCalender:)];
+    self.datePicker.monthLabel.userInteractionEnabled = YES;
+    [self.datePicker.monthLabel addGestureRecognizer:tap];
     self.indicatorView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapBack = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeTwoTableView:)];
     [self.indicatorView addGestureRecognizer:tapBack];

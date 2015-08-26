@@ -91,6 +91,9 @@
     [self.view addSubview:self.datePicker];
     [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",1]] forState:UIControlStateNormal];
     [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
+    UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCalender:)];
+    self.datePicker.monthLabel.userInteractionEnabled = YES;
+    [self.datePicker.monthLabel addGestureRecognizer:tap];
     self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
 }
 
