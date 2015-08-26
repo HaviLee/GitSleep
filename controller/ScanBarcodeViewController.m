@@ -340,7 +340,16 @@ float prewMoveY;
     {
         AVMetadataMachineReadableCodeObject * metadataObject = [metadataObjects objectAtIndex:0];
         stringValue = metadataObject.stringValue;
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Button29" ofType:@"wav"];
+        NSURL *url = [NSURL fileURLWithPath:path];
+        SystemSoundID soundId;
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundId);
+        AudioServicesPlaySystemSound(soundId);
         self.barTextfield.text = stringValue;
+        [self.session stopRunning];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.session startRunning];
+        });
     }
 }
 

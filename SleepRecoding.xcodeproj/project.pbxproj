@@ -454,6 +454,7 @@
 		2C94FA211B8C55B000F1A4DB /* skinpeeler_dark_color_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA1F1B8C55B000F1A4DB /* skinpeeler_dark_color_bg.png */; };
 		2C94FA221B8C55B000F1A4DB /* skinpeeler_tint_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA201B8C55B000F1A4DB /* skinpeeler_tint_bg.png */; };
 		2C94FA251B8D853B00F1A4DB /* URBAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94FA241B8D853B00F1A4DB /* URBAlertView.m */; };
+		2C94FA271B8DB42100F1A4DB /* Button29.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA261B8DB42100F1A4DB /* Button29.wav */; };
 		2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */; };
 		2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2841B74430C00C626D9 /* CirlcleView.m */; };
 		2C95C2891B74430C00C626D9 /* UILabel+FlickerNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2861B74430C00C626D9 /* UILabel+FlickerNumber.m */; };
@@ -1175,6 +1176,7 @@
 		2C94FA201B8C55B000F1A4DB /* skinpeeler_tint_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skinpeeler_tint_bg.png; sourceTree = "<group>"; };
 		2C94FA231B8D853B00F1A4DB /* URBAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URBAlertView.h; sourceTree = "<group>"; };
 		2C94FA241B8D853B00F1A4DB /* URBAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URBAlertView.m; sourceTree = "<group>"; };
+		2C94FA261B8DB42100F1A4DB /* Button29.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Button29.wav; sourceTree = "<group>"; };
 		2C95C2801B74430C00C626D9 /* CHCircleGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeView.h; sourceTree = "<group>"; };
 		2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCircleGaugeView.m; sourceTree = "<group>"; };
 		2C95C2821B74430C00C626D9 /* CHCircleGaugeViewDebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeViewDebugMacros.h; sourceTree = "<group>"; };
@@ -1842,6 +1844,7 @@
 				576B02501A9EDDE3004DB418 /* PrefixHeader.pch */,
 				57D7A18A1AB972FA00797059 /* Definetions.h */,
 				2C0EBE311AF0C13000F2D2F7 /* user3.wav */,
+				2C94FA261B8DB42100F1A4DB /* Button29.wav */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -3068,6 +3071,7 @@
 				2C15E7871AF2152100142F36 /* heart_1_1.png in Resources */,
 				2C15E71D1AF214E800142F36 /* icon_phone_1@2x.png in Resources */,
 				2C3AF2CF1AF470C800B66E32 /* btn_up_three.png in Resources */,
+				2C94FA271B8DB42100F1A4DB /* Button29.wav in Resources */,
 				2C7D22BD1AF1CA050011A45C /* icon_todays_data_0@2x.png in Resources */,
 				2CD6C04F1B7B852700F1FF6A /* res1.jpg in Resources */,
 				2C15E7411AF214E800142F36 /* qr_code_1@2x.png in Resources */,
