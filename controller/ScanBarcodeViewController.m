@@ -350,6 +350,7 @@ float prewMoveY;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.session startRunning];
         });
+        [self bindingDeviceWithUUID:self.barTextfield.text];
     }
 }
 
@@ -411,7 +412,12 @@ float prewMoveY;
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             HardWareUUID = UUID;
-//            thirdHardDeviceUUID = UUID;
+            UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
+            udp.productName = self.deviceName;
+            HardWareUUID = self.barTextfield.text;
+            udp.productUUID = self.barTextfield.text;
+            [self.navigationController pushViewController:udp animated:YES];
+            /*
             URBAlertView *alertView = [URBAlertView dialogWithTitle:@"提示" subtitle:@"已成功关联您的设备,是否需要现在激活设备"];
             alertView.blurBackground = NO;
             [alertView addButtonWithTitle:@"不需要"];
@@ -437,9 +443,9 @@ float prewMoveY;
 
                     }
                 }];
-                
             }];
             [alertView showWithAnimation:URBAlertAnimationFade];
+             */
         }else{
             [self.view makeToast:@"无法设置该设备为您的默认设备" duration:2 position:@"center"];
         }
