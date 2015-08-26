@@ -34,7 +34,7 @@
 {
     //如果为空就从当天的日期开始
     if(date == nil){
-        date = [[NSDate date]dateByAddingHours:8];
+        date = [NSDate date];
     }
     
     //默认选择中的时间
@@ -46,7 +46,7 @@
     
     before = [date dayInTheFollowingDay:days_number];//计算它days天以后的时间
     
-    select = [[NSDate date]dateByAddingHours:8];//选择的日期
+    select = [NSDate date];//选择的日期
     
     NSDateComponents *todayDC= [date YMDComponents];
     
@@ -203,7 +203,7 @@
     //===================================
     //这里来判断节日
         //今天
-    NSDate *nowDate = [[NSDate date]dateByAddingHours:8];
+    NSDate *nowDate = [NSDate date];
     NSDateComponents *newCalendarToDay  = [nowDate YMDComponents];
     if (newCalendarToDay.year == calendarDay.year &&
         newCalendarToDay.month == calendarDay.month &&
