@@ -617,8 +617,7 @@
             } failure:^(YTKBaseRequest *request) {
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                //                [MMProgressHUD dismissWithError:@"请求失败,稍后重试"];
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];
         }
     }
@@ -667,8 +666,7 @@
                 [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                //                [MMProgressHUD dismissWithError:@"请求失败,稍后重试"];
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];
         }
     }
@@ -788,7 +786,7 @@
             } failure:^(YTKBaseRequest *request) {
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];
         }
     }
@@ -840,8 +838,7 @@
                 [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                //                [MMProgressHUD dismissWithError:@"请求失败,稍后重试"];
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];
         }
     }
@@ -971,15 +968,6 @@
         [self.heartGraphView reloadGraphXValueArr:arr];
     }
     [self getUserDefaultDaySensorData:self.currentDate toDate:self.currentDate];
-//    self.heartGraphView reloadGraphXValueArr:ar
-//    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
-//        [self.timeSwitchButton changeLeftImageWithTime:0];
-//        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
-//    }else{
-//        isUserDefaultTime = YES;
-//        [self getUserDefaultDaySensorData:self.currentDate toDate:self.currentDate];
-//    }
-    HaviLog(@"右侧");
 }
 #pragma mark view will
 

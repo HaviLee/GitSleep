@@ -193,7 +193,7 @@
 {
     HaviLog(@"saomaio");
     if (_productNameTextField.text.length == 0) {
-        [ShowAlertView showAlert:@"请输入设备名称"];
+        [self.view makeToast:@"请输入设备名称" duration:2 position:@"center"];
         return;
     }
     ScanBarcodeViewController *barCode = [[ScanBarcodeViewController alloc]init];

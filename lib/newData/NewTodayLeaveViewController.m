@@ -601,11 +601,7 @@
             } failure:^(YTKBaseRequest *request) {
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                //                [MMProgressHUD dismiss];
-                //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                //
-                //                }];
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];
         }
     }
@@ -656,10 +652,7 @@
                 [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                //
-                //                }];
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];
         }
     }
@@ -695,13 +688,7 @@
     NSArray *arr = @[@"18",@"20", @"22", @"24", @"2", @"4", @"6", @"8", @"10", @"12",@"14",@"16",@"18"];
     [self.leaveView reloadGraphXValueArr:arr];
     [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
-    //    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
-    //        [ShowAlertView showAlert:@"请到设置中开启睡眠时间设定"];
-    //        [self.timeSwitchButton changeLeftImageWithTime:0];
-    //    }else{
-    //        isUserDefaultTime = NO;
-    //        [self getUserAllDaySensorData:self.currentDate toDate:self.currentDate];
-    //    }
+    
 }
 
 - (void)selectRightButton
@@ -808,12 +795,7 @@
                 [self getUserDefatultSleepReportData:fromDate toDate:toDate];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                //                [MMProgressHUD dismiss];
-                //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                //
-                //                }];
-            }];
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];            }];
         }
     }
 }
@@ -865,10 +847,7 @@
                 [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [ShowAlertView showAlert:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]]];
-                //                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                //
-                //                }];
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];
         }
     }

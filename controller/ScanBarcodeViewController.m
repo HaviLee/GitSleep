@@ -348,7 +348,7 @@ float prewMoveY;
 - (void)addProduct:(UIButton *)sender
 {
     if (self.barTextfield.text.length == 0) {
-        [ShowAlertView showAlert:@"请输入或者扫描设备二维码"];
+        [self.view makeToast:@"请输入或者扫描设备二维码" duration:2 position:@"center"];
         return;
     }
     [self bindingDeviceWithUUID:self.barTextfield.text];
