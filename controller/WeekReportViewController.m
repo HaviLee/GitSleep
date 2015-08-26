@@ -123,17 +123,6 @@
 {
     HaviLog(@"周报数据是%@",dic);
     self.reportData = dic;
-//    int sleepLevel = [[dic objectForKey:@"SleepQuality"]intValue];
-//    int averageHeart = [[dic objectForKey:@"AverageHeartRate"]intValue];
-//    int heartBad = [[dic objectForKey:@"FastHeartRateTimes"]intValue] + [[dic objectForKey:@"SlowHeartRateTimes"]intValue];
-//    int averageBreath = [[dic objectForKey:@"AverageRespiratoryRate"]intValue];
-//    int breathBad = [[dic objectForKey:@"FastRespiratoryRateTimes"]intValue] + [[dic objectForKey:@"SlowRespiratoryRateTimes"]intValue];
-//    self.arr2 = @[[NSString stringWithFormat:@"%@",[self changeNumToWord:sleepLevel]],[NSString stringWithFormat:@"%d次/分钟",averageHeart],[NSString stringWithFormat:@"%d次",heartBad],[NSString stringWithFormat:@"%d次/分钟",averageBreath],[NSString stringWithFormat:@"%d次",breathBad]];
-//    //
-//    [self.tableView1 reloadData];
-//    //
-//    self.suggestDic = (NSDictionary *)[[NSUserDefaults standardUserDefaults]objectForKey:[ NSString stringWithFormat:@"%@",[dic objectForKey:@"AssessmentCode"]]];
-//    [self.tableView2 reloadData];
     //
     [self.reportTableView reloadData];
     [self reloadReportChart:[self.reportData objectForKey:@"Data"]];

@@ -39,7 +39,7 @@
         _backView = [[AMBlurView alloc]init];
         _backView.layer.cornerRadius = 1;
         _backView.layer.masksToBounds = YES;
-        _backView.blurTintColor = [UIColor colorWithRed:0.012f green:0.090f blue:0.196f alpha:1.00f];
+        _backView.blurTintColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.012f green:0.090f blue:0.196f alpha:1.00f]: [UIColor colorWithRed:0.276f green:0.551f blue:0.780f alpha:1.00f];
     }
     return _backView;
 }
@@ -48,7 +48,7 @@
 {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.textColor = [UIColor colorWithRed:0.404f green:0.639f blue:0.784f alpha:1.00f];
+        _titleLabel.textColor = selectedThemeIndex == 0?[UIColor colorWithRed:0.404f green:0.639f blue:0.784f alpha:1.00f]:[UIColor whiteColor];
         _titleLabel.font = [UIFont systemFontOfSize:17];
         NSString *currentDate = [NSString stringWithFormat:@"%@",[NSDate date]];
         _titleLabel.text = [currentDate substringToIndex:4];
@@ -60,7 +60,7 @@
 {
     if (!_leftCalButton) {
         _leftCalButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_leftCalButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",0]] forState:UIControlStateNormal];
+        [_leftCalButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]] forState:UIControlStateNormal];
         [_leftCalButton addTarget:self action:@selector(reduceOneYear:) forControlEvents:UIControlEventTouchUpInside];
         _leftCalButton.tag = 102;
         [_leftCalButton setTintColor:[UIColor grayColor]];
@@ -72,7 +72,7 @@
 {
     if (!_rightCalButton) {
         _rightCalButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_rightCalButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_right_%d",0]] forState:UIControlStateNormal];
+        [_rightCalButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_right_%d",selectedThemeIndex]] forState:UIControlStateNormal];
         [_rightCalButton addTarget:self action:@selector(addOneYear:) forControlEvents:UIControlEventTouchUpInside];
         _rightCalButton.tag = 101;
         [_rightCalButton setTintColor:[UIColor grayColor]];
@@ -172,7 +172,7 @@
             if (self.currentMonthNum == monthNum) {
                 [button setBackgroundImage:[UIImage imageNamed:@"caleder_bg"] forState:UIControlStateNormal];
             }
-            [button setTitleColor:[UIColor colorWithRed:0.404f green:0.639f blue:0.784f alpha:1.00f] forState:UIControlStateNormal];
+            [button setTitleColor:selectedThemeIndex == 0?[UIColor colorWithRed:0.404f green:0.639f blue:0.784f alpha:1.00f]:[UIColor whiteColor] forState:UIControlStateNormal];
             button.frame = CGRectMake(padding + j*(buttonWidth+padding), i*(height+20) + 55, buttonWidth, 40);
             [self.backView addSubview:button];
             
