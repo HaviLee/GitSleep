@@ -247,6 +247,15 @@
         [self.view makeToast:@"请输入紧急联系人电话" duration:2 position:@"center"];
         return;
     }
+    if ([self.heightTextField.text isEqualToString:@"***"]) {
+        [self.view makeToast:@"请输入身高" duration:2 position:@"center"];
+        return;
+    }
+    
+    if ([self.weightTextField.text isEqualToString:@"***"]) {
+        [self.view makeToast:@"请输入体重" duration:2 position:@"center"];
+        return;
+    }
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"提交中..."];
     NSString *height;
