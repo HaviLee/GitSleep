@@ -455,7 +455,8 @@
 		2C94FA221B8C55B000F1A4DB /* skinpeeler_tint_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA201B8C55B000F1A4DB /* skinpeeler_tint_bg.png */; };
 		2C94FA251B8D853B00F1A4DB /* URBAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94FA241B8D853B00F1A4DB /* URBAlertView.m */; };
 		2C94FA271B8DB42100F1A4DB /* Button29.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA261B8DB42100F1A4DB /* Button29.wav */; };
-		2C94FA331B8EC72B00F1A4DB /* tragle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA321B8EC72B00F1A4DB /* tragle@2x.png */; };
+		2C94FA331B8EC72B00F1A4DB /* tragle_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA321B8EC72B00F1A4DB /* tragle_1@2x.png */; };
+		2C94FA391B8EDADB00F1A4DB /* tragle_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94FA381B8EDADB00F1A4DB /* tragle_0@2x.png */; };
 		2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */; };
 		2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2841B74430C00C626D9 /* CirlcleView.m */; };
 		2C95C2891B74430C00C626D9 /* UILabel+FlickerNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2861B74430C00C626D9 /* UILabel+FlickerNumber.m */; };
@@ -1178,7 +1179,8 @@
 		2C94FA231B8D853B00F1A4DB /* URBAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URBAlertView.h; sourceTree = "<group>"; };
 		2C94FA241B8D853B00F1A4DB /* URBAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URBAlertView.m; sourceTree = "<group>"; };
 		2C94FA261B8DB42100F1A4DB /* Button29.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Button29.wav; sourceTree = "<group>"; };
-		2C94FA321B8EC72B00F1A4DB /* tragle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tragle@2x.png"; sourceTree = "<group>"; };
+		2C94FA321B8EC72B00F1A4DB /* tragle_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tragle_1@2x.png"; sourceTree = "<group>"; };
+		2C94FA381B8EDADB00F1A4DB /* tragle_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tragle_0@2x.png"; sourceTree = "<group>"; };
 		2C95C2801B74430C00C626D9 /* CHCircleGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeView.h; sourceTree = "<group>"; };
 		2C95C2811B74430C00C626D9 /* CHCircleGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCircleGaugeView.m; sourceTree = "<group>"; };
 		2C95C2821B74430C00C626D9 /* CHCircleGaugeViewDebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeViewDebugMacros.h; sourceTree = "<group>"; };
@@ -1726,7 +1728,8 @@
 		2C3E87191AF1BD510086C0CF /* common */ = {
 			isa = PBXGroup;
 			children = (
-				2C94FA321B8EC72B00F1A4DB /* tragle@2x.png */,
+				2C94FA381B8EDADB00F1A4DB /* tragle_0@2x.png */,
+				2C94FA321B8EC72B00F1A4DB /* tragle_1@2x.png */,
 				2C7D21ED1AF1C3C30011A45C /* pic_bg_day1@2x.png */,
 				2C5E5C251B12C26D00123CC4 /* Stars@2x.png */,
 				2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */,
@@ -3039,7 +3042,7 @@
 				2C7D221A1AF1C9F70011A45C /* btn_add_0@2x.png in Resources */,
 				2C7D22F01AF1CA050011A45C /* txtbox_quit_0@2x.png in Resources */,
 				2C15E78C1AF2152100142F36 /* heart_6_1.png in Resources */,
-				2C94FA331B8EC72B00F1A4DB /* tragle@2x.png in Resources */,
+				2C94FA331B8EC72B00F1A4DB /* tragle_1@2x.png in Resources */,
 				2C5E5C261B12C26D00123CC4 /* Stars@2x.png in Resources */,
 				2C15E7271AF214E800142F36 /* line_diagnostic_message_1@2x.png in Resources */,
 				2C7D22071AF1C6550011A45C /* name@2x.png in Resources */,
@@ -3097,6 +3100,7 @@
 				2C7D22E61AF1CA050011A45C /* textbox_explain_0@2x.png in Resources */,
 				2C7D229B1AF1CA050011A45C /* btn_gain_0@2x.png in Resources */,
 				2C1A8CBF1AF5C9CD00B0B553 /* icon_logo_login_1@2x.png in Resources */,
+				2C94FA391B8EDADB00F1A4DB /* tragle_0@2x.png in Resources */,
 				2C3B629A1B81DD1400E3842F /* pic_about@3x.png in Resources */,
 				2C94FA221B8C55B000F1A4DB /* skinpeeler_tint_bg.png in Resources */,
 				2C7D22BA1AF1CA050011A45C /* icon_phone_0@2x.png in Resources */,

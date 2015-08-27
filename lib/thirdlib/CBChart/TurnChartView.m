@@ -285,9 +285,6 @@
                 float longTime = (lengthHour + duration -num)+lenghtMitue/60;
                 pointX = xCoordinateWidth/24*longTime +self.leftLineMargin;
             }
-//            CGPoint point = CGPointMake(pointX, yCoordinateHeight/4*3);
-//            [self drawRectangle:point context:UIGraphicsGetCurrentContext()];
-            
             [arr addObject:[NSNumber numberWithFloat:pointX]];
         }
        
@@ -296,7 +293,7 @@
                 CGRect rect = CGRectMake([[arr objectAtIndex:i] floatValue], yCoordinateHeight/4*3+5, 3, yCoordinateHeight/4);
                 UIImageView *subImage = [[UIImageView alloc]initWithFrame:rect];
                 subImage.tag = 1010;
-                subImage.image = [UIImage imageNamed:@"tragle"];
+                subImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"tragle_%d",selectedThemeIndex]];
                 [self addSubview:subImage];
 //                PNBar * bar = [[PNBar alloc] initWithFrame:rect];
 //                //顺序决定了颜色
@@ -323,9 +320,6 @@
     CGContextClosePath(context);//路径结束标志，不写默认封闭
     CGContextSetLineWidth(context, 0.5);
     [[UIColor whiteColor] setFill];
-    //设置填充色
-//    [[UIColor whiteColor] setStroke];
-    //设置边框颜色
     CGContextDrawPath(context,kCGPathStroke);//绘制路径path
 }
 - (void)showAlarm:(UIButton *)button
@@ -393,26 +387,7 @@
         CGContextSetAlpha(ctx, 1);
         CGFloat alilengths[2] = {1, 0};
         CGContextSetLineDash(ctx, 0, alilengths, 2);
-        
-        // 画竖虚线
-//        NSMutableArray *localXpoints = [self.xPoints mutableCopy];
-//        if ([self.xValues[0] isEqualToString:@"0"]){
-//            [localXpoints removeObjectAtIndex:0];
-//        }
-//        for (NSValue *xP in localXpoints) {
-//            CGPoint xPoint = [xP CGPointValue];
-//            CGMutablePathRef path = CGPathCreateMutable();
-//            
-//            CGPathMoveToPoint(path, nil, xPoint.x, yCoordinateHeight+5);
-//            CGPathAddLineToPoint(path, nil, xPoint.x,yCoordinateHeight);
-//            
-//            //            CGPathMoveToPoint(path, nil, xPoint.x, xPoint.y);
-//            //            CGPathAddLineToPoint(path, nil, xPoint.x, minYPoint.y);
-//            CGContextAddPath(ctx, path);
-//            CGContextDrawPath(ctx, kCGPathFillStroke);
-//            CGPathRelease(path);
-//        }
-        // 画横虚线
+              // 画横虚线
         for (NSValue *yP in self.yPoints) {
             CGPoint yPoint = [yP CGPointValue];
             CGMutablePathRef path = CGPathCreateMutable();

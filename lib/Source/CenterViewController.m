@@ -500,7 +500,9 @@
         [self setClockRoationValue];
         NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
         NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
-        [self getTodaySleepQualityData:newString];
+        [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
+
+//        [self getTodaySleepQualityData:newString];
     }
 }
 
