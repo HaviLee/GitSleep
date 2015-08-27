@@ -482,8 +482,15 @@
 
 - (void)showTagView:(UITapGestureRecognizer *)gesture
 {
+    NSInteger index = 0;
+    if ([gesture isEqual:self.tapNightViewGesture]) {
+        index = 0;
+    }else{
+        index = 1;
+    }
     TagShowViewController *tag = [[TagShowViewController alloc]init];
     tag.timeDate = self.tagFromDateAndEndDate;
+    tag.tagIndex = index;
     [self presentViewController:tag animated:YES completion:nil];
 }
 

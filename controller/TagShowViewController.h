@@ -10,4 +10,5 @@
 
 @interface TagShowViewController : BaseViewController
 @property (nonatomic, strong) NSString *timeDate;
+@property (assign ,nonatomic) NSInteger tagIndex;
 @end

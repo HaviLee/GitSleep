@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self createClearBgNavWithTitle:@"睡眠报告" andTitleColor:[UIColor whiteColor] createMenuItem:^UIView *(int nIndex)
+    [self createClearBgNavWithTitle:self.tagIndex==0?@"睡前标签":@"睡后标签" andTitleColor:[UIColor whiteColor] createMenuItem:^UIView *(int nIndex)
      {
          if (nIndex == 1)
          {
@@ -143,7 +143,7 @@
 {
     if (_beforeSleepImage==nil) {
         _beforeSleepImage = [[UIImageView alloc]init];
-        _beforeSleepImage.image = [UIImage imageNamed:@"night_icon"];
+        _beforeSleepImage.image = [UIImage imageNamed:self.tagIndex ==0 ? @"night_icon":@"day_icon"];
     }
     return _beforeSleepImage;
 }
@@ -161,8 +161,8 @@
 {
     if (_beforeSleepLabel==nil) {
         _beforeSleepLabel = [[UILabel alloc]init];
-        _beforeSleepLabel.text = @"睡前报告";
-        _beforeSleepLabel.textColor = [UIColor colorWithRed:0.247f green:0.369f blue:0.553f alpha:1.00f];
+        _beforeSleepLabel.text = self.tagIndex==0?@"睡前报告标签":@"睡后报告标签";
+        _beforeSleepLabel.textColor = self.tagIndex==0?[UIColor colorWithRed:0.247f green:0.369f blue:0.553f alpha:1.00f]:[UIColor colorWithRed:0.106f green:0.851f blue:0.557f alpha:1.00f];
     }
     return _beforeSleepLabel;
 }
@@ -182,14 +182,14 @@
 {
     [self.view addSubview:self.beforeSleepImage];
     [self.view addSubview:self.beforeSleepLabel];
-    [self.view addSubview:self.afterSleepImage];
-    [self.view addSubview:self.afterSleepLabel];
+//    [self.view addSubview:self.afterSleepImage];
+//    [self.view addSubview:self.afterSleepLabel];
     [self.view addSubview:self.beforeSleepTag];
-    [self.view addSubview:self.afterSleepTag];
+//    [self.view addSubview:self.afterSleepTag];
     [self.beforeSleepTag reloadTagSubviews];
-    [self.afterSleepTag reloadTagSubviews];
+//    [self.afterSleepTag reloadTagSubviews];
     [self.beforeSleepTag setTapDelegate:self];
-    [self.afterSleepTag setTapDelegate:self];
+//    [self.afterSleepTag setTapDelegate:self];
     
 }
 
@@ -207,17 +207,17 @@
         make.left.equalTo(self.beforeSleepImage.right).offset(15);
     }];
     
-    [self.afterSleepImage makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.view.centerY).offset(40);
-        make.left.equalTo(self.view.left).offset(20);
-        make.height.equalTo(self.beforeSleepImage.width);
-        make.height.equalTo(25);
-    }];
-    
-    [self.afterSleepLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.afterSleepImage);
-        make.left.equalTo(self.afterSleepImage.right).offset(15);
-    }];
+//    [self.afterSleepImage makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.view.centerY).offset(40);
+//        make.left.equalTo(self.view.left).offset(20);
+//        make.height.equalTo(self.beforeSleepImage.width);
+//        make.height.equalTo(25);
+//    }];
+//    
+//    [self.afterSleepLabel makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.afterSleepImage);
+//        make.left.equalTo(self.afterSleepImage.right).offset(15);
+//    }];
     
     [self.beforeSleepTag makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.beforeSleepImage.bottom).offset(20);
@@ -226,12 +226,12 @@
         make.height.equalTo(30);
     }];
     
-    [self.afterSleepTag makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.afterSleepImage.bottom).offset(20);
-        make.left.equalTo(self.view.left).offset(5);
-        make.right.equalTo(self.view.right).offset(-15);
-        make.height.equalTo(30);
-    }];
+//    [self.afterSleepTag makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.afterSleepImage.bottom).offset(20);
+//        make.left.equalTo(self.view.left).offset(5);
+//        make.right.equalTo(self.view.right).offset(-15);
+//        make.height.equalTo(30);
+//    }];
 }
 
 - (void)backToView:(UIButton *)sender
@@ -396,6 +396,7 @@
         [self.view makeToast:@"请先绑定设备ID" duration:2 position:@"center"];
     }
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
