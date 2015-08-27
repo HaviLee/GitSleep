@@ -498,11 +498,9 @@
         [self.circleView changeSleepQualityValue:0];
         [self.circleView changeSleepTimeValue:0];
         [self setClockRoationValue];
-        NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+//        NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+//        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
         [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
-
-//        [self getTodaySleepQualityData:newString];
     }
 }
 
@@ -540,16 +538,29 @@
 - (void)getScrollSelectedDate:(NSDate *)date
 {
     if (date) {
-        selectedDateToUse = date;
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
-        NSString *dateString = [formatter stringFromDate:date];
-        HaviLog(@"当前选中的日期是%@",dateString);
-        NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
-        if (isUserDefaultTime) {
-            [self getUserDefatultSleepReportData:subString toDate:subString];
+        if ([[[NSDate date] dateByAddingHours:8]isEarlierThan:date]) {
+            [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
+            URBAlertView *alertView = [URBAlertView dialogWithTitle:nil subtitle:@"不要着急,明天才会有数据！"];
+            alertView.blurBackground = NO;
+//            [alertView addButtonWithTitle:@"确认"];
+//            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
+//                [alertView hide];
+//                
+//            }];
+            [alertView showWithAnimation:URBAlertAnimationFade];
+//            [self.view makeToast:@"将来时间不可以选择" duration:2.3 position:@"center"];
         }else{
-            [self getTodaySleepQualityData:subString];
+            selectedDateToUse = date;
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
+            NSString *dateString = [formatter stringFromDate:date];
+            HaviLog(@"当前选中的日期是%@",dateString);
+            NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
+            if (isUserDefaultTime) {
+                [self getUserDefatultSleepReportData:subString toDate:subString];
+            }else{
+                [self getTodaySleepQualityData:subString];
+            }
         }
     }
 }

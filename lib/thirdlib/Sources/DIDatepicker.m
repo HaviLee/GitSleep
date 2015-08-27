@@ -63,18 +63,21 @@ const CGFloat kDIDatepickerSpaceBetweenItems = 10.;
 
 - (void)setSelectedDate:(NSDate *)selectedDate
 {
+    
     _selectedDate = selectedDate;
-
+    
     for (id subview in self.datesScrollView.subviews) {
         if ([subview isKindOfClass:[DIDatepickerDateView class]]) {
             DIDatepickerDateView *dateView = (DIDatepickerDateView *)subview;
             dateView.isSelected = [dateView.date isEqualToDate:selectedDate];
         }
     }
-
+    
     [self updateSelectedDatePosition];
-
+    
     [self sendActionsForControlEvents:UIControlEventValueChanged];
+//    if ([[[NSDate date] dateByAddingHours:0] isEarlierThan:selectedDate]) {
+//    }
 }
 
 - (UIScrollView *)datesScrollView
@@ -283,6 +286,7 @@ const CGFloat kDIDatepickerSpaceBetweenItems = 10.;
 
 #pragma mark scrollview
 
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     //离手之后防止滚动
@@ -306,20 +310,12 @@ const CGFloat kDIDatepickerSpaceBetweenItems = 10.;
     if (new/dateWidth>0.55) {
         NSUInteger itemIndex = pi + 4;
         self.selectedDate = self.dates[itemIndex];
-//        NSDateComponents *comp = [[NSDateComponents alloc]init];
-//        comp.year = 1;
-//        if (itemIndex>self.dates.count-6) {
-//            [self fillCurrentYear:[[NSCalendar currentCalendar] dateByAddingComponents:comp toDate:self.selectedDate options:0]];
-//        }
     }else{
         NSUInteger itemIndex = pi + 3;
         self.selectedDate = self.dates[itemIndex];
-//        NSDateComponents *comp = [[NSDateComponents alloc]init];
-//        comp.year = 1;
-//        if (itemIndex>self.dates.count-6) {
-//            [self fillCurrentYear:[[NSCalendar currentCalendar] dateByAddingComponents:comp toDate:self.selectedDate options:0]];
-//        }
     }
+    
+    
 }
 
 
