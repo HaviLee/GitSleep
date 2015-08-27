@@ -1031,7 +1031,7 @@
 
 - (BOOL)isThirdAppAllInstalled
 {
-    return [WeiboSDK isWeiboAppInstalled]&&[WXApi isWXAppInstalled];
+    return [WeiboSDK isWeiboAppInstalled]||[WXApi isWXAppInstalled];
 }
 
 
