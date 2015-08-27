@@ -230,16 +230,19 @@
         if ([view isKindOfClass:[PNBar class]]) {
             [view removeFromSuperview];
         }
+        if (view.tag == 1010) {
+            [view removeFromSuperview];
+        }
     }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *arr = [[NSMutableArray alloc]init];
+         NSMutableArray *arr = [[NSMutableArray alloc]init];
         for (int i= 0; i<_funcPoints.count; i++) {
             NSString *time = [NSString stringWithFormat:@"%@",[[_funcPoints objectAtIndex:i]objectForKey:@"At"]];
             NSString *start = [time substringWithRange:NSMakeRange(11, 5)];
             float lengthHour = [[start substringWithRange:NSMakeRange(0, 2)] floatValue];
             float lenghtMitue = [[start substringWithRange:NSMakeRange(3, 2)] floatValue];
             float pointX = 0;
-
+            
             //24小时
             if (isUserDefaultTime) {
                 NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
@@ -282,16 +285,22 @@
                 float longTime = (lengthHour + duration -num)+lenghtMitue/60;
                 pointX = xCoordinateWidth/24*longTime +self.leftLineMargin;
             }
+//            CGPoint point = CGPointMake(pointX, yCoordinateHeight/4*3);
+//            [self drawRectangle:point context:UIGraphicsGetCurrentContext()];
             
-            //        [self drawRectangle:point context:self.context];
             [arr addObject:[NSNumber numberWithFloat:pointX]];
         }
+       
         dispatch_async(dispatch_get_main_queue(), ^{
             for (int i=0; i<arr.count; i++) {
-                CGRect rect = CGRectMake([[arr objectAtIndex:i] floatValue], yCoordinateHeight/4*3+5, 2, yCoordinateHeight/4);
-                PNBar * bar = [[PNBar alloc] initWithFrame:rect];
-                //顺序决定了颜色
-                [self addSubview:bar];
+                CGRect rect = CGRectMake([[arr objectAtIndex:i] floatValue], yCoordinateHeight/4*3+5, 3, yCoordinateHeight/4);
+                UIImageView *subImage = [[UIImageView alloc]initWithFrame:rect];
+                subImage.tag = 1010;
+                subImage.image = [UIImage imageNamed:@"tragle"];
+                [self addSubview:subImage];
+//                PNBar * bar = [[PNBar alloc] initWithFrame:rect];
+//                //顺序决定了颜色
+//                [self addSubview:bar];
             }
         });
         
@@ -307,13 +316,13 @@
 - (void)drawRectangle:(CGPoint)point context:(CGContextRef)context
 {
     //利用path进行绘制三角形
-    CGContextBeginPath(self.context);//标记
+    CGContextBeginPath(context);//标记
     CGContextMoveToPoint(context,point.x-2, yCoordinateHeight+5);//设置起点
     CGContextAddLineToPoint(context,point.x, point.y);
     CGContextAddLineToPoint(context,point.x+2 , yCoordinateHeight+5);
     CGContextClosePath(context);//路径结束标志，不写默认封闭
     CGContextSetLineWidth(context, 0.5);
-//    [[UIColor whiteColor] setFill];
+    [[UIColor whiteColor] setFill];
     //设置填充色
 //    [[UIColor whiteColor] setStroke];
     //设置边框颜色
