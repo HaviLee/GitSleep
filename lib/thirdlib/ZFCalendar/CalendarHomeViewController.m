@@ -74,13 +74,7 @@
     super.calendarMonth = [self getMonthArrayOfDayNumber:daynumber ToDateforString:todate];
     [super.collectionView reloadData];//刷新
     
-    NSDate *startDate = [[NSDate date]dateFromString:todate];
-    NSDate *nowDate = [NSDate date];
-    NSInteger num = [nowDate monthsLaterThan:startDate];
     
-    
-    NSIndexPath *index = [NSIndexPath indexPathForItem:0 inSection:num];
-    [super.collectionView scrollToItemAtIndexPath:index atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
 }
 
 //酒店初始化方法
@@ -149,6 +143,15 @@
     [super viewWillAppear:animated];
     title.textColor = selectedThemeIndex == 0?DefaultColor:[UIColor whiteColor];
     [leftButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    NSDate *startDate = [[NSDate date]dateFromString:@"2015-01-01"];
+//    NSDate *nowDate = [NSDate date];
+    NSInteger num = [selectedDateToUse monthsLaterThan:startDate];
+    
+    
+    NSIndexPath *index = [NSIndexPath indexPathForItem:0 inSection:num];
+    super.calendarMonth = [self getMonthArrayOfDayNumber:daynumber ToDateforString:@"2015-01-01"];
+    [super.collectionView reloadData];//刷新
+    [super.collectionView scrollToItemAtIndexPath:index atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
 }
 
 

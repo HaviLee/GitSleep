@@ -280,18 +280,25 @@
 - (void)getScrollSelectedDate:(NSDate *)date
 {
     HaviLog(@"滚动日历是%@",date);
-     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-     [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
-     NSString *dateString = [formatter stringFromDate:date];
-     NSString *queryDate = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
-     self.currentDate = queryDate;
-     selectedDateToUse = date;//为另一个界面
-     //请求数据
-     if (isUserDefaultTime) {
-         [self getUserDefaultDaySensorData:queryDate toDate:queryDate];
-     }else{
-         [self getUserAllDaySensorData:queryDate toDate:queryDate];
-     }
+    if (date) {
+        if ([[[NSDate date] dateByAddingHours:8]isEarlierThan:date]) {
+            [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
+            [self.view makeToast:@"不要着急呦，明天睡后就会有数据啦！" duration:2.3 position:@"center"];
+        }else{
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
+            NSString *dateString = [formatter stringFromDate:date];
+            NSString *queryDate = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
+            self.currentDate = queryDate;
+            selectedDateToUse = date;//为另一个界面
+            //请求数据
+            if (isUserDefaultTime) {
+                [self getUserDefaultDaySensorData:queryDate toDate:queryDate];
+            }else{
+                [self getUserAllDaySensorData:queryDate toDate:queryDate];
+            }
+        }
+    }
 }
 
 #pragma mark 弹出日历代理

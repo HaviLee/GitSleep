@@ -540,15 +540,7 @@
     if (date) {
         if ([[[NSDate date] dateByAddingHours:8]isEarlierThan:date]) {
             [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
-            URBAlertView *alertView = [URBAlertView dialogWithTitle:nil subtitle:@"不要着急,明天才会有数据！"];
-            alertView.blurBackground = NO;
-//            [alertView addButtonWithTitle:@"确认"];
-//            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
-//                [alertView hide];
-//                
-//            }];
-            [alertView showWithAnimation:URBAlertAnimationFade];
-//            [self.view makeToast:@"将来时间不可以选择" duration:2.3 position:@"center"];
+            [self.view makeToast:@"不要着急呦，明天睡后就会有数据啦！" duration:2.3 position:@"center"];
         }else{
             selectedDateToUse = date;
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

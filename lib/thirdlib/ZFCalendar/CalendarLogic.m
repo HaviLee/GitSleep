@@ -154,7 +154,7 @@
     
     NSDateComponents *calendarToDay  = [today YMDComponents];//今天
     NSDateComponents *calendarbefore = [before YMDComponents];//最后一天
-    NSDateComponents *calendarSelect = [select YMDComponents];//默认选择的那一天
+    NSDateComponents *calendarSelect = [selectedDateToUse YMDComponents];//默认选择的那一天
     
     
     //被点击选中
