@@ -28,6 +28,7 @@
 #import "URBAlertView.h"
 
 @interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+
 @property (nonatomic, strong) UITableView *cellTableView;
 @property (nonatomic, strong) UILabel *sleepTimeLabel;
 @property (nonatomic, strong) CHCircleGaugeView *circleView;
@@ -273,25 +274,118 @@
                          [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
                          ];
     [self.cellTableView reloadData];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    });
+    NSDictionary *dataDic = [[sleepDic objectForKey:@"Data"] lastObject];
+    NSString *sleepStartTime = [dataDic objectForKey:@"SleepStartTime"];
+    NSString *sleepEndTime = [dataDic objectForKey:@"SleepEndTime"];
+    NSString *sleepDuration = [dataDic objectForKey:@"SleepDuration"];
+    int sleepLevel = [[sleepDic objectForKey:@"SleepQuality"]intValue];
+    [self.circleView changeSleepQualityValue:sleepLevel*20];//睡眠指数
+    [self.circleView changeSleepTimeValue:[sleepDuration floatValue]/24*100];//睡眠时长
+    [self.circleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
+    [self setClockRoationValueWithStartTime:sleepStartTime];
+    int hour = [sleepDuration intValue];
+    NSString *sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长是%d小时%d分",hour,(int)(([sleepDuration floatValue]-hour)*60)];
+    self.sleepTimeLabel.text= sleepTimeDuration;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        int sleepLevel = [[sleepDic objectForKey:@"SleepQuality"]intValue];
-        [self.circleView changeSleepQualityValue:sleepLevel*20];
-        [self.circleView changeSleepTimeValue:sleepLevel*20];
-        [self.circleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
-        [self setClockRoationValue];
-    });
-    
-    //
-    [self.circleView addSubview:self.nightView];
-    self.nightView.nightTime = @"23:01PM";
-    
-    [self.circleView addSubview:self.dayView];
-    self.dayView.dayTime = @"08:01AM";
+    //修改时间标签内容
+    if(sleepStartTime.length>0) {
+        NSString *hour = [sleepStartTime substringWithRange:NSMakeRange(11, 2)];
+        if ([hour intValue]>12||[hour intValue]==12) {
+            self.nightView.nightTime = [NSString stringWithFormat:@"%@PM",[sleepStartTime substringWithRange:NSMakeRange(11, 5)]];
+        }else{
+            self.nightView.nightTime = [NSString stringWithFormat:@"%@AM",[sleepStartTime substringWithRange:NSMakeRange(11, 5)]];
+        }
+        [self resetNightTagFrame:[hour intValue] andView:self.nightView];
+        
+    }else{
+        self.nightView.nightTime = @"睡眠时间";
+        [self resetNightTagFrame:10 andView:self.nightView];
+    }
+    if(sleepEndTime.length>0) {
+        NSString *hour = [sleepEndTime substringWithRange:NSMakeRange(11, 2)];
+        if ([hour intValue]>12||[hour intValue]==12) {
+            self.dayView.dayTime = [NSString stringWithFormat:@"%@PM",[sleepEndTime substringWithRange:NSMakeRange(11, 5)]];
+        }else{
+            self.dayView.dayTime = [NSString stringWithFormat:@"%@AM",[sleepEndTime substringWithRange:NSMakeRange(11, 5)]];
+        }
+        NSString *hourNight = [sleepStartTime substringWithRange:NSMakeRange(11, 2)];
+        if ([hourNight intValue]==[hour intValue]) {
+            [self resetNightTagFrame:[hour intValue] andView:self.dayView];
+        }else{
+            [self resetNightTagFrame:[hour intValue]+1 andView:self.dayView];
+
+        }
+    }else{
+        self.dayView.dayTime = @"起床时间";
+        [self resetNightTagFrame:8 andView:self.dayView];
+    }
 
 }
+
+- (void)resetNightTagFrame:(int)sleepHour andView:(UIView *)tagView;
+{
+//    sleepTime = @"2015-08-28 23:23:29";
+    int hourInt = sleepHour;
+    if (hourInt>12||hourInt==12) {
+        hourInt = hourInt-12;
+    }
+    switch (hourInt) {
+        case 0:{
+            tagView.center = CGPointMake(self.view.frame.size.width-60, 5);
+            break;
+        }
+        case 1:{
+            tagView.center = CGPointMake(self.view.frame.size.width-60, 5);
+            break;
+        }
+        case 2:{
+            tagView.center = CGPointMake(self.view.frame.size.width-50, 40);
+            break;
+        }
+        case 3:{
+            tagView.center = CGPointMake(self.view.frame.size.width-40, 80);
+            break;
+        }
+        case 4:{
+            tagView.center = CGPointMake(self.view.frame.size.width-50, 120);
+            break;
+        }
+        case 5:{
+            tagView.center = CGPointMake(self.view.frame.size.width-60, 155);
+            break;
+        }
+        case 6:{
+            tagView.center = CGPointMake(self.view.frame.size.width-60, 155);
+            break;
+        }
+            
+        case 7:{
+            tagView.center = CGPointMake(60, 155);
+            break;
+        }
+        case 8:{
+            tagView.center = CGPointMake(50, 120);
+            break;
+        }
+        case 9:{
+            tagView.center = CGPointMake(40, 80);
+            break;
+        }
+        case 10:{
+            tagView.center = CGPointMake(50, 40);
+            break;
+        }
+        case 11:{
+            tagView.center = CGPointMake(60, 5);
+            break;
+        }
+
+            
+        default:
+            break;
+    }
+}
+
 
 #pragma mark 创建图表
 - (void)createTableView
@@ -309,6 +403,12 @@
     [self.view addSubview:self.circleView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeValueAnimation:)];
     [self.circleView.cView addGestureRecognizer:tap];
+    
+    [self.circleView addSubview:self.nightView];
+    self.nightView.nightTime = @"睡眠时间";
+    
+    [self.circleView addSubview:self.dayView];
+    self.dayView.dayTime = @"起床时间";
 }
 
 - (void)setCalenderAndMenu
@@ -502,20 +602,32 @@
     CGPoint point = [gesture locationInView:self.circleView];
     if (point.x>(self.circleView.frame.size.width- self.circleView.frame.size.height)/2 && point.x <self.circleView.frame.size.height+(self.circleView.frame.size.width- self.circleView.frame.size.height)/2) {
         //changevalue是睡眠时长。
-        [self.circleView changeSleepQualityValue:0];
-        [self.circleView changeSleepTimeValue:0];
-        [self setClockRoationValue];
+//        [self.circleView changeSleepQualityValue:0];
+//        [self.circleView changeSleepTimeValue:0];
+//        [self setClockRoationValue];
 //        NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
 //        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
         [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
     }
 }
 
-- (void)setClockRoationValue
+- (void)setClockRoationValueWithStartTime:(NSString *)startTime
 {
     //这里value是从左侧边缘算起
-    self.circleView.rotationValue = 1;
+    if (startTime.length>0) {
+        NSString *hour = [startTime substringWithRange:NSMakeRange(11, 2)];
+        NSString *minute = [startTime substringWithRange:NSMakeRange(14, 2)];
+        int hourInt = [hour intValue];
+        int minuteInt = [minute intValue];
+        if (hourInt>12) {
+            hourInt = hourInt-12;
+        }
+        float rotation = (float)((hourInt+(float)minuteInt/60)*30 +3*29);
+        self.circleView.rotationValue = rotation;
+    }
+    
 }
+
 
 #pragma mark 日历展示和代理
 - (void)showCalender:(UIButton *)sender
