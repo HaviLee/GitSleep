@@ -280,7 +280,7 @@
     NSString *sleepDuration = [dataDic objectForKey:@"SleepDuration"];
     int sleepLevel = [[sleepDic objectForKey:@"SleepQuality"]intValue];
     [self.circleView changeSleepQualityValue:sleepLevel*20];//睡眠指数
-    [self.circleView changeSleepTimeValue:[sleepDuration floatValue]/24*100];//睡眠时长
+    [self.circleView changeSleepTimeValue:[sleepDuration floatValue]/12*100];//睡眠时长
     [self.circleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
     [self setClockRoationValueWithStartTime:sleepStartTime];
     int hour = [sleepDuration intValue];
@@ -310,9 +310,9 @@
         }
         NSString *hourNight = [sleepStartTime substringWithRange:NSMakeRange(11, 2)];
         if ([hourNight intValue]==[hour intValue]) {
-            [self resetNightTagFrame:[hour intValue] andView:self.dayView];
-        }else{
             [self resetNightTagFrame:[hour intValue]+1 andView:self.dayView];
+        }else{
+            [self resetNightTagFrame:[hour intValue] andView:self.dayView];
 
         }
     }else{
