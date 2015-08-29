@@ -218,7 +218,7 @@
     if (_sleepLongTimeLabel == nil) {
         _sleepLongTimeLabel = [[UILabel alloc]init];
         _sleepLongTimeLabel.frame = CGRectMake(0, 25, self.view.frame.size.width, 30);
-        _sleepLongTimeLabel.text = @"7时50分";
+        _sleepLongTimeLabel.text = @"7小时50分";
         _sleepLongTimeLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
         _sleepLongTimeLabel.font = [UIFont systemFontOfSize:20];
         _sleepLongTimeLabel.textAlignment = NSTextAlignmentCenter;
@@ -616,12 +616,25 @@
     [self.shortSleepView.sleepTagLabel reloadTagSubviews];
     self.longSleepView.grade = [[longDic objectForKey:@"SleepDuration"]floatValue]/24;
     self.shortSleepView.grade = [[shortDic objectForKey:@"SleepDuration"]floatValue]/24;
-    self.longSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[longDic objectForKey:@"Date"]];
+    if ([[NSString stringWithFormat:@"%@",[longDic objectForKey:@"Date"]]isEqualToString:@"(null)"]) {
+        self.longSleepView.sleepYearMonthDayString = @"";
+    }else{
+        self.longSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[longDic objectForKey:@"Date"]];
+    }
     float duration = [[longDic objectForKey:@"SleepDuration"]floatValue];
-    self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)((duration-(int)duration)*60)];
-    self.shortSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[shortDic objectForKey:@"Date"]];
+    double second = 0.0;
+    double subsecond = modf(duration, &second);
+    self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)(subsecond*60)];
+    if ([[NSString stringWithFormat:@"%@",[shortDic objectForKey:@"Date"]]isEqualToString:@"(null)"]) {
+        self.shortSleepView.sleepYearMonthDayString = @"";
+    }else{
+        self.shortSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[shortDic objectForKey:@"Date"]];
+    }
+    
     float duration1 = [[shortDic objectForKey:@"SleepDuration"]floatValue];
-    self.shortSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration1,(int)((duration1-(int)duration)*60)];
+    double second1 = 0.0;
+    double subsecond1 = modf(duration1, &second);
+    self.shortSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration1,(int)(subsecond1*60)];
     float weekLong = [[dic objectForKey:@"AverageSleepDuration"]floatValue];
     self.sleepLongTimeLabel.text = [NSString stringWithFormat:@"%d小时%d分",(int)weekLong,(int)((weekLong-(int)weekLong)*60)];
     
