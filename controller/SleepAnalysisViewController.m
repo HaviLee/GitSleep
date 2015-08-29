@@ -81,22 +81,22 @@
     //
     
     //测试数据
-    TagObject *tag1 = [[TagObject alloc]init];
-    tag1.tagName = @"噩梦过多";
-    tag1.isSelect = NO;
-    
-    TagObject *tag2 = [[TagObject alloc]init];
-    tag2.tagName = @"离床过频";
-    tag2.isSelect = NO;
-    self.longSleepView.sleepTitleLabel.tags = [@[tag1]mutableCopy];
-    [self.longSleepView.sleepTitleLabel reloadTagSubviews];
-    self.longSleepView.sleepTagLabel.tags = [@[tag2]mutableCopy];
-    [self.longSleepView.sleepTagLabel reloadTagSubviews];
-    self.shortSleepView.sleepTitleLabel.tags = [@[tag1,tag2]mutableCopy];
-    [self.shortSleepView.sleepTitleLabel reloadTagSubviews];
-    
-    self.longSleepView.grade = 0.75;
-    self.shortSleepView.grade = 0.4;
+//    TagObject *tag1 = [[TagObject alloc]init];
+//    tag1.tagName = @"噩梦过多";
+//    tag1.isSelect = NO;
+//    
+//    TagObject *tag2 = [[TagObject alloc]init];
+//    tag2.tagName = @"离床过频";
+//    tag2.isSelect = NO;
+//    self.longSleepView.sleepTitleLabel.tags = [@[tag1]mutableCopy];
+//    [self.longSleepView.sleepTitleLabel reloadTagSubviews];
+//    self.longSleepView.sleepTagLabel.tags = [@[tag2]mutableCopy];
+//    [self.longSleepView.sleepTagLabel reloadTagSubviews];
+//    self.shortSleepView.sleepTitleLabel.tags = [@[tag1,tag2]mutableCopy];
+//    [self.shortSleepView.sleepTitleLabel reloadTagSubviews];
+//    
+//    self.longSleepView.grade = 0.75;
+//    self.shortSleepView.grade = 0.4;
 }
 
 - (void)createCalenderView
@@ -542,6 +542,7 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [self reloadUserUI:(NSDictionary *)resposeDic];
+                [self reloadSubView:(NSDictionary *)resposeDic];
             }];
             [MMProgressHUD dismissAfterDelay:0.3];
         }else{
@@ -555,12 +556,82 @@
 
 #pragma mark 更新界面
 
+- (void)reloadSubView:(NSDictionary *)dic{
+    
+    NSArray *sleepArr = [self.reportData objectForKey:@"Data"];
+    NSDictionary *longDic = nil;
+    NSDictionary *shortDic = nil;
+    for (NSDictionary *dic in sleepArr) {
+        if ([[dic objectForKey:@"TagFlag"]intValue]==1) {
+            longDic = dic;
+        }else if ([[dic objectForKey:@"TagFlag"]intValue]==-1){
+            shortDic = dic;
+        }
+    }
+    
+    NSString *longBeforeTag = [longDic objectForKey:@"TagsBeforeSleep"];
+    NSString *longAfterTag = [longDic objectForKey:@"TagsAfterSleep"];
+    NSArray *longBeforeTagArr = [longBeforeTag componentsSeparatedByString:@","];
+    NSArray *longAfterTagArr = [longAfterTag componentsSeparatedByString:@","];
+    NSMutableArray *beforeTags = [[NSMutableArray alloc]init];
+    NSMutableArray *afterTags = [[NSMutableArray alloc]init];
+    for (NSString *tag in longBeforeTagArr) {
+        TagObject *tag1 = [[TagObject alloc]init];
+        tag1.tagName = tag;
+        tag1.isSelect = NO;
+        [beforeTags addObject:tag1];
+    }
+    for (NSString *tag in longAfterTagArr) {
+        TagObject *tag1 = [[TagObject alloc]init];
+        tag1.tagName = tag;
+        tag1.isSelect = NO;
+        [afterTags addObject:tag1];
+    }
+    self.longSleepView.sleepTitleLabel.tags = afterTags;
+    [self.longSleepView.sleepTitleLabel reloadTagSubviews];
+    self.longSleepView.sleepTagLabel.tags = beforeTags;
+    [self.longSleepView.sleepTagLabel reloadTagSubviews];
+    //最短的夜晚
+    NSString *shortBeforeTag = [shortDic objectForKey:@"TagsBeforeSleep"];
+    NSString *shortAfterTag = [shortDic objectForKey:@"TagsAfterSleep"];
+    NSArray *shortBeforeTagArr = [shortBeforeTag componentsSeparatedByString:@","];
+    NSArray *shortAfterTagArr = [shortAfterTag componentsSeparatedByString:@","];
+    NSMutableArray *beforeShortTags = [[NSMutableArray alloc]init];
+    NSMutableArray *afterShortTags = [[NSMutableArray alloc]init];
+    for (NSString *tag in shortBeforeTagArr) {
+        TagObject *tag1 = [[TagObject alloc]init];
+        tag1.tagName = tag;
+        tag1.isSelect = NO;
+        [beforeShortTags addObject:tag1];
+    }
+    for (NSString *tag in shortAfterTagArr) {
+        TagObject *tag1 = [[TagObject alloc]init];
+        tag1.tagName = tag;
+        tag1.isSelect = NO;
+        [afterShortTags addObject:tag1];
+    }
+    self.shortSleepView.sleepTitleLabel.tags = afterShortTags;
+    [self.shortSleepView.sleepTitleLabel reloadTagSubviews];
+    self.shortSleepView.sleepTagLabel.tags = beforeShortTags;
+    [self.shortSleepView.sleepTagLabel reloadTagSubviews];
+    self.longSleepView.grade = [[longDic objectForKey:@"SleepDuration"]floatValue]/24;
+    self.shortSleepView.grade = [[shortDic objectForKey:@"SleepDuration"]floatValue]/24;
+    self.longSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[longDic objectForKey:@"Date"]];
+    float duration = [[longDic objectForKey:@"SleepDuration"]floatValue];
+    self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)((duration-(int)duration)*60)];
+    self.shortSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[shortDic objectForKey:@"Date"]];
+    float duration1 = [[shortDic objectForKey:@"SleepDuration"]floatValue];
+    self.shortSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration1,(int)((duration1-(int)duration)*60)];
+    float weekLong = [[dic objectForKey:@"AverageSleepDuration"]floatValue];
+    self.sleepLongTimeLabel.text = [NSString stringWithFormat:@"%d小时%d分",(int)weekLong,(int)((weekLong-(int)weekLong)*60)];
+    
+}
+
 - (void)reloadUserUI:(NSDictionary *)dic
 {
     HaviLog(@"周报数据是%@",dic);
     self.reportData = dic;
     //
-//    [self.reportTableView reloadData];
     [self reloadReportChart:[self.reportData objectForKey:@"Data"]];
     
 }
@@ -595,9 +666,6 @@
     }];
     int maxY = [[newArr lastObject] intValue]+1;
     int middle = (int)maxY/3;
-//    self.sleepAnalysisView.yValues = @[@"2h", @"6h", @"1h",@"11h"];
-//    self.sleepAnalysisView.dataValues = self.mutableArr;
-//    [self.sleepAnalysisView reloadChartView];
     self.sleepAnalysisView.yValues = @[[NSString stringWithFormat:@"%dh",middle],[NSString stringWithFormat:@"%dh",middle*2],[NSString stringWithFormat:@"%dh",middle*3]];
     self.sleepAnalysisView.dataValues = self.mutableArr;
     [self.sleepAnalysisView reloadChartView];

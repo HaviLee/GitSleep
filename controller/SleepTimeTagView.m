@@ -15,6 +15,7 @@
     UILabel *sleepYearMonthDayLabel;
     UILabel *sleepTimeLongLabel;
     UILabel *sleepNameLabel;
+    UILabel *afterNameLabel;
     PNLineView *sleepLineView;
 
 }
@@ -60,6 +61,12 @@
     sleepNameLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self addSubview:sleepNameLabel];
     
+    afterNameLabel = [[UILabel alloc]init];
+    afterNameLabel.font = [UIFont systemFontOfSize:11];
+    afterNameLabel.text = @"睡后:";
+    afterNameLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [self addSubview:afterNameLabel];
+    
     sleepTimeImageView = [[UIImageView alloc]init];
     sleepTimeImageView.backgroundColor = [UIColor colorWithRed:0.157f green:0.255f blue:0.357f alpha:0.50f];
     sleepTimeImageView.layer.cornerRadius = 2;
@@ -72,8 +79,13 @@
 
 - (void)setContraints
 {
+    [afterNameLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(20);
+        make.centerY.equalTo(self.sleepTitleLabel.centerY);
+        make.height.equalTo(25);
+    }];
     [self.sleepTitleLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(0);
+        make.left.equalTo(afterNameLabel.right).offset(-10);
         make.right.equalTo(self).offset(0);
         make.top.equalTo(self).offset(0);
         make.height.equalTo(17);
@@ -112,8 +124,8 @@
     }];
     
     [self.sleepTagLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(sleepNameLabel.right).offset(0);
-        make.right.equalTo(self.right).offset(-10);
+        make.left.equalTo(sleepNameLabel.right).offset(-10);
+        make.right.equalTo(self.right).offset(0);
         make.centerY.equalTo(sleepNameLabel.centerY);
         make.height.equalTo(17);
     }];
@@ -123,7 +135,7 @@
 - (TLTagsControl *)sleepTitleLabel
 {
     if (_sleepTitleLabel==nil) {
-        _sleepTitleLabel = [[TLTagsControl alloc]initWithFrame:CGRectMake(0, 100, 250, 17) andTags:nil withTagsControlMode:TLTagsControlModeList];
+        _sleepTitleLabel = [[TLTagsControl alloc]initWithFrame:CGRectMake(0, 100, 10, 17) andTags:nil withTagsControlMode:TLTagsControlModeList];
         _sleepTitleLabel.tagsBackgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.157f green:0.251f blue:0.357f alpha:1.00f]:[UIColor whiteColor];
         _sleepTitleLabel.tagFont = [UIFont systemFontOfSize:11];
         _sleepTitleLabel.tagsTextColor = [UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f];
