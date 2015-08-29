@@ -10,6 +10,7 @@
 #import "WeekCalenderView.h"
 #import "SleepAnalisis.h"
 #import "SleepTimeTagView.h"
+#import "HaviGetNewClient.h"
 
 @interface SleepAnalysisViewController ()<SelectedWeek>
 @property (nonatomic,strong) UIButton *leftCalButton;
@@ -26,6 +27,8 @@
 //
 @property (nonatomic,strong) SleepTimeTagView *longSleepView;
 @property (nonatomic,strong) SleepTimeTagView *shortSleepView;
+@property (nonatomic,strong) NSDictionary *reportData;
+
 
 @property (nonatomic,strong) UILabel *sleepLongTimeLabel;
 @property (nonatomic,strong) UIView *backView;
@@ -47,6 +50,10 @@
     [self createCalenderView];
     [self createChartView];
     [self creatSubView];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getUserData];
+    });
 }
 
 - (void)creatSubView
@@ -156,10 +163,10 @@
     
     self.sleepAnalysisView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self.view addSubview:self.sleepAnalysisView];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(changeImage) userInfo:nil repeats:NO];
-        
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(changeImage) userInfo:nil repeats:NO];
+//        
+//    });
 }
 #pragma mark 测试使用
 - (void)changeImage
@@ -377,6 +384,7 @@
     self.monthTitleLabel.text = [NSString stringWithFormat:@"%@年第%ld周",[nextString substringToIndex:4],(long)weekNum];
     //改变小标题
     //刷新数据
+    [self getUserData];
 }
 
 - (void)nextQuater:(UIButton *)sender
@@ -409,6 +417,7 @@
     self.monthTitleLabel.text = [NSString stringWithFormat:@"%@年第%ld周",[nextString substringToIndex:4],(long)weekNum];
     //改变小标题
     //刷新数据
+    [self getUserData];
 }
 
 - (void)showMonthCalender:(UITapGestureRecognizer *)gesture
@@ -492,7 +501,108 @@
     self.monthTitleLabel.text = [NSString stringWithFormat:@"%@年第%ld周",[nextString substringToIndex:4],(long)weekNum];
     self.monthTitleLabel.text = monthString;
     //刷新数据
+    [self getUserData];
 }
+
+#pragma mark 获取用户数据
+
+- (void)getUserData
+{
+    NSString *year = [self.monthTitleLabel.text substringWithRange:NSMakeRange(0, 4)];
+    NSString *fromMonth = [self.monthLabel.text substringWithRange:NSMakeRange(0, 2)];
+    NSString *fromDay = [self.monthLabel.text substringWithRange:NSMakeRange(3, 2)];
+    NSString *toMonth = [self.monthLabel.text substringWithRange:NSMakeRange(7, 2)];
+    NSString *toDay = [self.monthLabel.text substringWithRange:NSMakeRange(10, 2)];
+    NSString *fromDate = [NSString stringWithFormat:@"%@%@%@",year,fromMonth,fromDay];
+    NSString *toDate = [NSString stringWithFormat:@"%@%@%@",year,toMonth,toDay];
+    [self getTodayUserData:fromDate endDate:toDate withCompareDate:nil];
+}
+- (void)getTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
+{
+    if ([HardWareUUID isEqualToString:@""]) {
+        //        [ShowAlertView showAlert:@"您还没有绑定设备"];
+        return;
+    }
+    if (!fromDate) {
+        return;
+    }
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",HardWareUUID,fromDate,endTime];
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+    [MMProgressHUD showWithStatus:@"加载中..."];
+    HaviGetNewClient *client = [HaviGetNewClient shareInstance];
+    if ([client isExecuting]) {
+        [client stop];
+    }
+    [client querySensorDataOld:header withDetailUrl:urlString];
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                [self reloadUserUI:(NSDictionary *)resposeDic];
+            }];
+            [MMProgressHUD dismissAfterDelay:0.3];
+        }else{
+            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
+        }
+    } failure:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
+    }];
+}
+
+#pragma mark 更新界面
+
+- (void)reloadUserUI:(NSDictionary *)dic
+{
+    HaviLog(@"周报数据是%@",dic);
+    self.reportData = dic;
+    //
+//    [self.reportTableView reloadData];
+    [self reloadReportChart:[self.reportData objectForKey:@"Data"]];
+    
+}
+
+#pragma mark 更新表格
+
+- (void)reloadReportChart:(NSArray *)dataArr
+{
+    if (self.mutableArr.count>0) {
+        [self.mutableArr removeAllObjects];
+    }
+    for (int i=0; i<7; i++) {
+        [self.mutableArr addObject:[NSString stringWithFormat:@"0"]];
+    }
+    NSString *year = [self.monthTitleLabel.text substringWithRange:NSMakeRange(0, 4)];
+    NSString *month = [self.monthLabel.text substringWithRange:NSMakeRange(0, 5)];
+    NSString *fromDateString = [NSString stringWithFormat:@"%@年%@",year,month];
+    NSDate *fromDate = [self.dateFormmatter dateFromString:fromDateString];
+    for (int i=0; i<dataArr.count; i++) {
+        NSDictionary *dic = [dataArr objectAtIndex:i];
+        NSString *dateString = [dic objectForKey:@"Date"];
+        NSString *toDateString = [NSString stringWithFormat:@"%@年%@月%@日",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
+        NSDate *toDate = [self.dateFormmatter dateFromString:toDateString];
+        NSDateComponents *dayComponents = [self.calender components:NSDayCalendarUnit fromDate:fromDate toDate:toDate options:0];
+        [self.mutableArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepDuration"]]];
+        
+    }
+    NSMutableArray *newArr = [NSMutableArray arrayWithArray:self.mutableArr];
+    
+    [newArr sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2];
+    }];
+    int maxY = [[newArr lastObject] intValue]+1;
+    int middle = (int)maxY/3;
+//    self.sleepAnalysisView.yValues = @[@"2h", @"6h", @"1h",@"11h"];
+//    self.sleepAnalysisView.dataValues = self.mutableArr;
+//    [self.sleepAnalysisView reloadChartView];
+    self.sleepAnalysisView.yValues = @[[NSString stringWithFormat:@"%dh",middle],[NSString stringWithFormat:@"%dh",middle*2],[NSString stringWithFormat:@"%dh",middle*3]];
+    self.sleepAnalysisView.dataValues = self.mutableArr;
+    [self.sleepAnalysisView reloadChartView];
+}
+
 
 
 - (void)didReceiveMemoryWarning {

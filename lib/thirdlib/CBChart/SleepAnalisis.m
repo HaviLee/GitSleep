@@ -76,8 +76,11 @@
             maxStrWidth = size.width;
         }
     }
+    if (maxStrWidth<22) {
+        maxStrWidth = 22.308;
+    }
     
-    self.leftLineMargin = maxStrWidth + 6;
+    self.leftLineMargin = maxStrWidth+6;
     if (self.xValues.count != 0) {
         if (!self.shutDefaultAnimation) {
             [self setUpCoordinateSystem];
@@ -154,6 +157,13 @@
 {
     UIView *xCoordinate = [self getLineCoor];
     UIView *yCoordinate = [self getLineCoor];
+    xCoordinate.tag = 11111;
+    yCoordinate.tag = 22222;
+    for (UIView *view in self.subviews) {
+        if (view.tag ==11111 || view.tag==22222) {
+            [view removeFromSuperview];
+        }
+    }
     [self addSubview:xCoordinate];
     [self addSubview:yCoordinate];
     [UIView animateWithDuration:0.0 animations:^{
@@ -239,18 +249,32 @@
         if ([view isKindOfClass:[PNBarNew class]]) {
             [view removeFromSuperview];
         }
+        if (view.tag ==999) {
+            [view removeFromSuperview];
+        }
     }
     
+    NSMutableArray *newArr = [NSMutableArray arrayWithArray:self.funcPoints];
+    
+    [newArr sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2];
+    }];
+    int maxY = [[newArr lastObject] intValue]+1;
     
     for (int i=0; i<_funcPoints.count; i++) {
-        int gradePercent = [[_funcPoints objectAtIndex:i]intValue];
+        float gradePercent = [[_funcPoints objectAtIndex:i] floatValue];
         CGPoint xPoint = [[self.xPoints objectAtIndex:i]CGPointValue];
-        __block PNBarNew *bar = [[PNBarNew alloc] initWithFrame:CGRectMake(xPoint.x+15, 20+(yCoordinateHeight-15)/5*(5-gradePercent), (xCoordinateWidth-15-6)/_funcPoints.count-30,(yCoordinateHeight-15)/5*gradePercent)];
+        CGFloat height = (yCoordinateHeight-15)/maxY*gradePercent;
+        __block PNBarNew *bar = [[PNBarNew alloc] initWithFrame:CGRectMake(xPoint.x+15, 20+(yCoordinateHeight-15)-height, (xCoordinateWidth-15-6)/_funcPoints.count-30,height)];
         bar.alpha = 0;
         [UIView animateWithDuration:1.0 animations:^{
             bar.alpha = 1;
         } completion:^(BOOL finished) {
-            
+            if (gradePercent!=0) {
+                UILabel *label = [self getTopLabelWithLevel:gradePercent andColor:[self returnColorWithSleepLevel:gradePercent] andFrame:CGRectMake(xPoint.x, 20+(yCoordinateHeight-15)-height- 20, (xCoordinateWidth-15-6)/_funcPoints.count, 20)];
+                label.tag = 999;
+                [self addSubview:label];
+            }
         }];
         
         /*
@@ -269,12 +293,12 @@
     
 }
 
-- (UILabel *)getTopLabelWithLevel:(int)level andColor:(UIColor*)scolor andFrame:(CGRect )frame
+- (UILabel *)getTopLabelWithLevel:(float)level andColor:(UIColor*)scolor andFrame:(CGRect )frame
 {
     UILabel *label = [[UILabel alloc]initWithFrame:frame];
-    label.text = [self changeNumToWord:level];
+    label.text = [NSString stringWithFormat:@"%.1fh",level];
     label.font = [UIFont systemFontOfSize:10];
-    label.textColor = scolor;
+    label.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
     return label;
 }
@@ -450,20 +474,6 @@
             CGContextDrawPath(ctx, kCGPathFillStroke);
             CGPathRelease(path);
         }
-        //        for (NSValue *xP in localXpoints) {
-        //            CGPoint xPoint = [xP CGPointValue];
-        //
-        //        }
-        //        // 画横虚线
-        //        for (NSValue *yP in self.yPoints) {
-        //            CGPoint yPoint = [yP CGPointValue];
-        //            CGMutablePathRef path = CGPathCreateMutable();
-        //            CGPathMoveToPoint(path, nil, yPoint.x, yPoint.y );
-        //            CGPathAddLineToPoint(path, nil, xCoordinateWidth, yPoint.y );
-        //            CGContextAddPath(ctx, path);
-        //            CGContextDrawPath(ctx, kCGPathFillStroke);
-        //            CGPathRelease(path);
-        //        }
     }
 }
 
