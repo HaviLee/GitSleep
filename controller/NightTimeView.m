@@ -37,7 +37,7 @@
     nightTimeLabel = [[UILabel alloc]init];
     nightTimeLabel.frame = CGRectMake(25, 0, 55, 40);
     nightTimeLabel.font = [UIFont systemFontOfSize:11];
-    nightTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
+    nightTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     nightTimeLabel.text = @"20:09PM";
     [self addSubview:nightTimeLabel];
 }
@@ -45,6 +45,7 @@
 - (void)setNightTime:(NSString *)nightTime
 {
     nightTimeLabel.text = nightTime;
+    nightTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
 }
 
 /*

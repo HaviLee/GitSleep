@@ -36,7 +36,7 @@
     dayTimeLabel = [[UILabel alloc]init];
     dayTimeLabel.frame = CGRectMake(25, 0, 55, 40);
     dayTimeLabel.font = [UIFont systemFontOfSize:11];
-    dayTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
+    dayTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     dayTimeLabel.text = @"08:09AM";
     [self addSubview:dayTimeLabel];
 }
@@ -44,6 +44,7 @@
 - (void)setDayTime:(NSString *)dayTime
 {
     dayTimeLabel.text = dayTime;
+    dayTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
 }
 
 /*
