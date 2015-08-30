@@ -223,7 +223,7 @@
         CGRect labelFrame = tagLabel.frame;
         tagLabel.font = _tagFont ? _tagFont : tagInputField_.font;
         
-        labelFrame.size.width = width + 16;
+        labelFrame.size.width = width +self.padding;
         labelFrame.size.height = tagInputField_.frame.size.height;
         tagLabel.text = tag;
         if (tagO.isSelect) {
@@ -253,7 +253,7 @@
             [tagView addSubview:deleteTagButton];
             labelFrame.origin.x = 0;
         } else {
-            tagFrame.size.width = labelFrame.size.width + 5;
+            tagFrame.size.width = labelFrame.size.width;
             labelFrame.origin.x = (tagFrame.size.width - labelFrame.size.width) * 0.5;
         }
         

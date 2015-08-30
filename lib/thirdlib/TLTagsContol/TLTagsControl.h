@@ -32,6 +32,7 @@ typedef NS_ENUM(NSUInteger, TLTagsControlMode) {
 @property (nonatomic, strong) NSString *tagPlaceholder;
 @property (nonatomic, strong) UIFont *tagFont;
 @property (nonatomic) TLTagsControlMode mode;
+@property (nonatomic, assign) CGFloat padding;
 
 @property (assign, nonatomic) id<TLTagsControlDelegate> tapDelegate;
 

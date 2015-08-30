@@ -178,6 +178,7 @@
         }else{
             _beforeSleepTag = [[TLTagsControl alloc]initWithFrame:CGRectMake(0, 100, 300, 30) andTags:self.afterListArr withTagsControlMode:TLTagsControlModeList];
         }
+        _beforeSleepTag.padding = 21;
         _beforeSleepTag.tagsBackgroundColor = [UIColor colorWithRed:0.212f green:0.498f blue:0.553f alpha:1.00f];
         _beforeSleepTag.tagsTextColor = [UIColor lightGrayColor];
         

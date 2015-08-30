@@ -632,7 +632,6 @@
     }
     
     float duration1 = [[shortDic objectForKey:@"SleepDuration"]floatValue];
-    double second1 = 0.0;
     double subsecond1 = modf(duration1, &second);
     self.shortSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration1,(int)(subsecond1*60)];
     float weekLong = [[dic objectForKey:@"AverageSleepDuration"]floatValue];
