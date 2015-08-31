@@ -274,7 +274,7 @@
                          [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
                          ];
     [self.cellTableView reloadData];
-    NSDictionary *dataDic = [[sleepDic objectForKey:@"Data"] lastObject];
+    NSDictionary *dataDic = [[sleepDic objectForKey:@"Data"] firstObject];
     NSString *sleepStartTime = [dataDic objectForKey:@"SleepStartTime"];
     NSString *sleepEndTime = [dataDic objectForKey:@"SleepEndTime"];
     NSString *sleepDuration = [dataDic objectForKey:@"SleepDuration"];
@@ -308,7 +308,7 @@
         }else{
             self.dayView.dayTime = [NSString stringWithFormat:@"%@AM",[sleepEndTime substringWithRange:NSMakeRange(11, 5)]];
         }
-        NSString *hourNight = [sleepStartTime substringWithRange:NSMakeRange(11, 2)];
+        NSString *hourNight = [sleepEndTime substringWithRange:NSMakeRange(11, 2)];
         if ([hourNight intValue]==[hour intValue]) {
             [self resetNightTagFrame:[hour intValue]+1 andView:self.dayView];
         }else{
@@ -360,7 +360,7 @@
         }
             
         case 7:{
-            tagView.center = CGPointMake(60, 155);
+            tagView.center = CGPointMake(65, 155);
             break;
         }
         case 8:{
