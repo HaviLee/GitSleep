@@ -285,7 +285,7 @@
     //设置警告值
     self.weekReport.horizonLine = 15;
     //设置坐标轴
-    self.weekReport.xValues = @[@"0",@"一",@"二",@"三",@"四",@"五",@"六",@"七"];
+    self.weekReport.xValues = @[@"0",@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"];
     self.weekReport.yValues = @[@"20", @"40", @"60", @"80", @"100",];
 
     self.weekReport.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
@@ -707,8 +707,8 @@
             cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
         }else if (indexPath.row == 6){
             cell.cellFont = [UIFont systemFontOfSize:19];
-            cell.leftDataString = @"5%用户";
-            cell.rightDataString = @"10%用户";
+            cell.leftDataString = [NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"];
+            cell.rightDataString = [NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"];
             cell.cellColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.847f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
         }
         

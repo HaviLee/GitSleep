@@ -450,6 +450,9 @@
         HaviLog(@"提交标签标签是%@日式是%@",self.sendTagListArr,self.dayIndex);
         [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
         [MMProgressHUD showWithStatus:@"保存中..."];
+        for (NSMutableDictionary *dic in self.sendTagListArr) {
+            [dic setObject:self.dayIndex forKey:@"UserTagDate"];
+        }
         NSDictionary *dic = @{
                               @"UUID" : HardWareUUID,
                               @"UserID" : thirdPartyLoginUserId,
@@ -463,9 +466,7 @@
             [client stop];
         }
         [MMProgressHUD dismiss];
-        for (NSMutableDictionary *dic in self.sendTagListArr) {
-            [dic setObject:self.dayIndex forKey:@"UserTagDate"];
-        }
+        
         NSLog(@"所有的标签是%@",self.sendTagListArr);
         [client uploadTagWithHeader:header andWithPara:dic];
         [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
@@ -536,7 +537,7 @@
 //返回指定列，行的高度，就是自定义行的高度
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
     
-    NSLog(@"调用%s ,%d",__FUNCTION__,__LINE__);
+//    NSLog(@"调用%s ,%d",__FUNCTION__,__LINE__);
     
     
     return  50;
@@ -545,7 +546,7 @@
 // 自定义指定列的每行的视图，即指定列的每行的视图行为一致
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     
-    NSLog(@"调用%s ,%d",__FUNCTION__,__LINE__);
+//    NSLog(@"调用%s ,%d",__FUNCTION__,__LINE__);
     
     
     //取得指定列的宽度

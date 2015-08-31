@@ -158,7 +158,7 @@
     //设置警告值
     self.sleepAnalysisView.horizonLine = 15;
     //设置坐标轴
-    self.sleepAnalysisView.xValues = @[@"0",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六",@"周日"];
+    self.sleepAnalysisView.xValues = @[@"0",@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"];
     self.sleepAnalysisView.yValues = @[@"2h", @"4h", @"6h", @"8h", @"10h",@"12h"];
     
     self.sleepAnalysisView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
@@ -621,7 +621,7 @@
     }else{
         self.longSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[longDic objectForKey:@"Date"]];
     }
-    float duration = [[longDic objectForKey:@"SleepDuration"]floatValue];
+    float duration = [[longDic objectForKey:@"SleepDuration"]floatValue]<0?-[[longDic objectForKey:@"SleepDuration"]floatValue]:[[longDic objectForKey:@"SleepDuration"]floatValue];
     double second = 0.0;
     double subsecond = modf(duration, &second);
     self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)(subsecond*60)];
@@ -631,11 +631,13 @@
         self.shortSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[shortDic objectForKey:@"Date"]];
     }
     
-    float duration1 = [[shortDic objectForKey:@"SleepDuration"]floatValue];
+    float duration1 = [[shortDic objectForKey:@"SleepDuration"]floatValue]<0?-[[shortDic objectForKey:@"SleepDuration"]floatValue]:[[shortDic objectForKey:@"SleepDuration"]floatValue];
     double subsecond1 = modf(duration1, &second);
     self.shortSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration1,(int)(subsecond1*60)];
-    float weekLong = [[dic objectForKey:@"AverageSleepDuration"]floatValue];
-    self.sleepLongTimeLabel.text = [NSString stringWithFormat:@"%d小时%d分",(int)weekLong,(int)((weekLong-(int)weekLong)*60)];
+    float weekLong = [[dic objectForKey:@"AverageSleepDuration"]floatValue]<0?-[[dic objectForKey:@"AverageSleepDuration"]floatValue]:[[dic objectForKey:@"AverageSleepDuration"]floatValue];
+    double second2 = 0.0;
+    double subsecond2 = modf(weekLong, &second2);
+    self.sleepLongTimeLabel.text = [NSString stringWithFormat:@"%d小时%d分",(int)weekLong,(int)(subsecond2*60)];
     
 }
 
@@ -668,7 +670,7 @@
         NSString *toDateString = [NSString stringWithFormat:@"%@年%@月%@日",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
         NSDate *toDate = [self.dateFormmatter dateFromString:toDateString];
         NSDateComponents *dayComponents = [self.calender components:NSDayCalendarUnit fromDate:fromDate toDate:toDate options:0];
-        [self.mutableArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepDuration"]]];
+        [self.mutableArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%f",[[dic objectForKey:@"SleepDuration"] floatValue]<0?-[[dic objectForKey:@"SleepDuration"] floatValue]:[[dic objectForKey:@"SleepDuration"] floatValue]]];
         
     }
     NSMutableArray *newArr = [NSMutableArray arrayWithArray:self.mutableArr];
@@ -678,7 +680,7 @@
     }];
     int maxY = [[newArr lastObject] intValue]+1;
     int middle = (int)maxY/3;
-    self.sleepAnalysisView.yValues = @[[NSString stringWithFormat:@"%dh",middle],[NSString stringWithFormat:@"%dh",middle*2],[NSString stringWithFormat:@"%dh",middle*3]];
+    self.sleepAnalysisView.yValues = @[[NSString stringWithFormat:@"%dh",middle],[NSString stringWithFormat:@"%dh",middle*2],[NSString stringWithFormat:@"%dh",maxY]];
     self.sleepAnalysisView.dataValues = self.mutableArr;
     [self.sleepAnalysisView reloadChartView];
 }

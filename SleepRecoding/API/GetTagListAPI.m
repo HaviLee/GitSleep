@@ -49,6 +49,7 @@
     NSRange range = [[parameter objectForKey:@"url"] rangeOfString:@"?"];
     _detailUrl = [NSString stringWithFormat:@"v1/user/UserTags?%@",[[parameter objectForKey:@"url"] substringFromIndex:range.length+range.location]];
     _urlParaDic = parameter;
+    HaviLog(@"请求url%@",_detailUrl);
     _urlHeaderDic = header;
 }
 @end
