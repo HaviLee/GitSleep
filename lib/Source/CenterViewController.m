@@ -589,6 +589,11 @@
 
 - (void)showTagView:(UITapGestureRecognizer *)gesture
 {
+    NSDate *nowDate = [NSDate date];
+    if ([nowDate daysFrom:selectedDateToUse]>1) {
+        [self.view makeToast:@"打标签时间已过！" duration:3 position:@"center"];
+        return;
+    }
     NSInteger index = 0;
     if ([gesture isEqual:self.tapNightViewGesture]) {
         index = 0;
