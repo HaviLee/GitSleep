@@ -274,7 +274,14 @@
                          [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
                          ];
     [self.cellTableView reloadData];
-    NSDictionary *dataDic = [[sleepDic objectForKey:@"Data"] firstObject];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[sleepDic objectForKey:@"Data"]];
+    NSDateFormatter *dateFormmatterBase = [[NSDateFormatter alloc]init];
+    [dateFormmatterBase setDateFormat:@"yyyy-MM-dd"];
+    [arr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[dateFormmatterBase dateFromString:[obj1 objectForKey:@"Date"]] compare:[ dateFormmatterBase dateFromString:[obj2 objectForKey:@"Date"]]];
+    }];
+    
+    NSDictionary *dataDic = [[sleepDic objectForKey:@"Data"] lastObject];
     NSString *sleepStartTime = [dataDic objectForKey:@"SleepStartTime"];
     NSString *sleepEndTime = [dataDic objectForKey:@"SleepEndTime"];
     NSString *sleepDuration = [dataDic objectForKey:@"SleepDuration"];

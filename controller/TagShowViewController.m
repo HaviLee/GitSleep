@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSArray *proTitleList;
 @property (nonatomic, strong) NSArray *proDay;
 @property (nonatomic, strong) NSString *dayIndex;
+@property (nonatomic, strong) NSString *dayCompare;
 
 @end
 
@@ -447,6 +448,17 @@
             }
         }
         
+        if ([[NSUserDefaults standardUserDefaults]stringForKey:@"sleepTagTime"].length==0) {
+            [self.view makeToast:@"请先返回输入睡前标签时间" duration:2 position:@"center"];
+            return;
+        }
+        if (self.tagIndex==1) {
+            if([sleepBeforeTagTime longLongValue]>[self.dayCompare longLongValue]){
+                [self.view makeToast:@"起床时间早于睡眠时间,请重新选择" duration:3 position:@"center"];
+                return;
+            }
+        }
+        
         HaviLog(@"提交标签标签是%@日式是%@",self.sendTagListArr,self.dayIndex);
         [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
         [MMProgressHUD showWithStatus:@"保存中..."];
@@ -522,13 +534,19 @@
     int rowHour = (int)[pickerView selectedRowInComponent:1];
     int rowMinute = (int)[pickerView selectedRowInComponent:2];
     NSLog(@"时间是%@：%@",[_proDay objectAtIndex:rowDay],[_proTitleList objectAtIndex:rowHour]);
-    if(self.tagIndex==0){
-        self.sleepLabel.text = [NSString stringWithFormat:@"您的睡觉时间是%@日%@点%@分",[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
-    }else{
-        self.sleepLabel.text = [NSString stringWithFormat:@"您的起床时间是%@日%@点%@分",[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
-    }
     NSRange range = [self.timeDate rangeOfString:@"FromDate="];
     NSString *day = [self.timeDate substringWithRange:NSMakeRange(range.location+range.length, 6)];
+    if(self.tagIndex==0){
+        self.sleepLabel.text = [NSString stringWithFormat:@"您的睡觉时间是%@日%@点%@分",[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
+        NSString *dayString = [NSString stringWithFormat:@"%@%@%@%@%@00",[day substringToIndex:4],[day substringFromIndex:4],[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
+        sleepBeforeTagTime = dayString;
+        
+    }else{
+        self.sleepLabel.text = [NSString stringWithFormat:@"您的起床时间是%@日%@点%@分",[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
+        NSString *dayString = [NSString stringWithFormat:@"%@%@%@%@%@00",[day substringToIndex:4],[day substringFromIndex:4],[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
+        self.dayCompare= dayString;
+    }
+    
     self.dayIndex = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:00",[day substringToIndex:4],[day substringFromIndex:4],[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
     
     

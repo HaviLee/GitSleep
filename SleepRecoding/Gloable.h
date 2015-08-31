@@ -27,6 +27,7 @@ extern BOOL isUserDefaultTime;
 //
 extern int selectedThemeIndex;
 extern int isTodayHourEqualSixteen;
+extern NSString *sleepBeforeTagTime;
 //userInfo
 extern NSString *thirdPartyLoginUserId;
 extern NSString *thirdPartyLoginToken;

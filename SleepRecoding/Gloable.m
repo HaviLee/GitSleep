@@ -24,6 +24,7 @@ BOOL isUserDefaultTime = NO;
 
 int selectedThemeIndex = 0;
 int isTodayHourEqualSixteen = 0;
+NSString *sleepBeforeTagTime= @"";
 
 NSString *thirdPartyLoginUserId = @"";
 NSString *thirdPartyLoginToken = @"";
