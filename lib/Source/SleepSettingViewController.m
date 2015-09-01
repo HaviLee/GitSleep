@@ -458,13 +458,13 @@
                                     NSString *end = [_endTimeLabel.titleLabel.text substringToIndex:2];
                                     if ([start intValue]>[end intValue]) {
                                         NSString *end = @"";
-                                        if ([start intValue]+1<10) {
-                                            [_endTimeLabel setTitle:[NSString stringWithFormat:@"0%d:00",[start intValue]+1] forState:UIControlStateNormal];
-                                            end = [NSString stringWithFormat:@"0%d:00",[start intValue]+1];
-                                        }else{
-                                            [_endTimeLabel setTitle:[NSString stringWithFormat:@"%d:00",[start intValue]+1] forState:UIControlStateNormal];
-                                            end = [NSString stringWithFormat:@"%d:00",[start intValue]+1];
-                                        }
+//                                        if ([start intValue]+1<10) {
+//                                            [_endTimeLabel setTitle:[NSString stringWithFormat:@"0%d:00",[start intValue]+1] forState:UIControlStateNormal];
+//                                            end = [NSString stringWithFormat:@"0%d:00",[start intValue]+1];
+//                                        }else{
+//                                            [_endTimeLabel setTitle:[NSString stringWithFormat:@"%d:00",[start intValue]+1] forState:UIControlStateNormal];
+//                                            end = [NSString stringWithFormat:@"%d:00",[start intValue]+1];
+//                                        }
                                         isUserDefaultTime = YES;
                                         [[NSUserDefaults standardUserDefaults]setObject:end forKey:UserDefaultEndTime];
                                         [[NSUserDefaults standardUserDefaults]synchronize];
@@ -486,7 +486,7 @@
 {
     NSMutableArray *arr = [[NSMutableArray alloc]init];
     NSString *start = [self.startTimeLabel.titleLabel.text substringToIndex:2];
-    for (int i = [start intValue]+1; i<25; i++) {
+    for (int i = 1; i<25; i++) {
         if (i<10) {
             [arr addObject:[NSString stringWithFormat:@"0%d:00",i]];
         }else{

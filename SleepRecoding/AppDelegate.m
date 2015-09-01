@@ -78,7 +78,7 @@
     //默认注册一个不开启睡眠时间设置
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{SleepSettingSwitchKey:@"NO"}];
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:@"18:00"}];
-    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:@"18:00"}];
+    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:@"06:00"}];
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
         isUserDefaultTime = NO;
     }else{

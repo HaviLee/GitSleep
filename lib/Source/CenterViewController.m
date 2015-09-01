@@ -185,12 +185,12 @@
         [client stop];
     }
     [client queryDefaultSleep:header withDetailUrl:urlString];
-    if ([client getCacheJsonWithDate:nowDateString]) {
-        NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-        HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
-        //为了异常报告
-        [self refreshViewWithSleepData:resposeDic];
-    }
+//    if ([client getCacheJsonWithDate:nowDateString]) {
+//        NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
+//        HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
+//        //为了异常报告
+//        [self refreshViewWithSleepData:resposeDic];
+//    }
 
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
@@ -244,22 +244,22 @@
             [client stop];
         }
         [client queryDefaultSleep:header withDetailUrl:urlString];
-        if ([client getCacheJsonWithDate:fromDate]) {
-            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
+//        if ([client getCacheJsonWithDate:fromDate]) {
+//            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
+//            HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
+//            //为了异常报告
+//            [self refreshViewWithSleepData:resposeDic];
+//        }else{
+//        }
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            [self refreshViewWithSleepData:resposeDic];
             HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
             //为了异常报告
-            [self refreshViewWithSleepData:resposeDic];
-        }else{
-            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [self refreshViewWithSleepData:resposeDic];
-                HaviLog(@"心率，呼吸，离床，体动界面的睡眠质量是%@",resposeDic);
-                //为了异常报告
-            } failure:^(YTKBaseRequest *request) {
-                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
-            }];
-        }
+        } failure:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
+        }];
     }
 }
 
