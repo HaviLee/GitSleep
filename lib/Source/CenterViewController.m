@@ -591,7 +591,7 @@
 {
     NSDate *nowDate = [NSDate date];
     if ([nowDate daysFrom:selectedDateToUse]>1) {
-        [self.view makeToast:@"打标签时间已过！" duration:3 position:@"center"];
+        [self.view makeToast:@"打标签时间已过，记得准时打标签哦！" duration:3 position:@"center"];
         return;
     }
     NSInteger index = 0;

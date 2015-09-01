@@ -60,7 +60,9 @@
     _proTitleList = [[NSArray alloc]initWithObjects:@"00",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"24",nil];
     NSRange range = [self.timeDate rangeOfString:@"FromDate="];
     NSString *day = [self.timeDate substringWithRange:NSMakeRange(range.location+range.length+6, 2)];
-    _proDay = @[day,[NSString stringWithFormat:@"%d",[day intValue]+1]];
+    NSRange range1 = [self.timeDate rangeOfString:@"EndDate="];
+    NSString *day1 = [self.timeDate substringWithRange:NSMakeRange(range1.location+range1.length+6, 2)];
+    _proDay = @[day,day1];
     [self setSleepTag];
     [self setSleepTagContraints];
     [self getTagLists];
@@ -533,7 +535,7 @@
     //取得选择的是第1列的哪一行
     int rowHour = (int)[pickerView selectedRowInComponent:1];
     int rowMinute = (int)[pickerView selectedRowInComponent:2];
-    NSLog(@"时间是%@：%@",[_proDay objectAtIndex:rowDay],[_proTitleList objectAtIndex:rowHour]);
+    NSLog(@"时间是%@：%@",[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]);
     NSRange range = [self.timeDate rangeOfString:@"FromDate="];
     NSString *day = [self.timeDate substringWithRange:NSMakeRange(range.location+range.length, 6)];
     if(self.tagIndex==0){
