@@ -498,6 +498,11 @@
 
 - (void)registerButton:(UIButton *)sender
 {
+    if (self.view.frame.origin.y!=0) {
+        CGRect rect = self.view.frame;
+        rect.origin.y = 0;
+        self.view.frame = rect;
+    }
     self.getCodeButtonClicked(1);
 }
 
@@ -612,7 +617,7 @@
     }
     return YES;
 }
-
+/*
 #define kKeyboardHeight 216
 
 int prewTag;
@@ -670,7 +675,7 @@ float prewMoveY;
     [textField resignFirstResponder];
     
 }
-
+*/
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
