@@ -314,10 +314,25 @@
 #pragma mark - TLTagsControlDelegate
 - (void)tagsControl:(TLTagsControl *)tagsControl tappedAtIndex:(NSInteger)index {
     TagObject *tag = (TagObject *)tagsControl.tags[index];
-    if (!tag.isEnabled) {
-        
         if (self.tagIndex==0) {
             tag.isSelect = !tag.isSelect;
+            if ([self.sendTagListArr containsObject:[NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                                    @"Tag" : tag.tagName,
+                                                                                                    @"TagType" : @"-1",
+                                                                                                    }]]) {
+                [self.sendTagListArr removeObject:[NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                                  @"Tag" : tag.tagName,
+                                                                                                  @"TagType" : @"-1",
+                                                                                                  }]];
+                
+            }else{
+                [self.sendTagListArr addObject:[NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                               @"Tag" : tag.tagName,
+                                                                                               @"TagType" : @"-1",
+                                                                                               }]];
+            }
+
+            /*
             if (tag.isSelect) {
                 [self.sendTagListArr addObject:[NSMutableDictionary dictionaryWithDictionary:@{
                                                  @"Tag" : tag.tagName,
@@ -335,6 +350,7 @@
                     
                 }
             }
+             */
             [self.beforeListArr replaceObjectAtIndex:index withObject:tag];
             self.beforeSleepTag.tags = self.beforeListArr;
             [self.beforeSleepTag reloadTagSubviews];
@@ -343,6 +359,22 @@
         }else{
             NSLog(@"afterTag \"%@\" was tapped", tagsControl.tags[index]);
             tag.isSelect = !tag.isSelect;
+            if ([self.sendTagListArr containsObject:[NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                                    @"Tag" : tag.tagName,
+                                                                                                    @"TagType" : @"1",
+                                                                                                    }]]) {
+                [self.sendTagListArr removeObject:[NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                                  @"Tag" : tag.tagName,
+                                                                                                  @"TagType" : @"1",
+                                                                                                  }]];
+                
+            }else{
+                [self.sendTagListArr addObject:[NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                               @"Tag" : tag.tagName,
+                                                                                               @"TagType" : @"1",
+                                                                                               }]];
+            }
+            /*
             if (tag.isSelect) {
                 [self.sendTagListArr addObject:[NSMutableDictionary dictionaryWithDictionary:@{
                                                  @"Tag" : tag.tagName,
@@ -360,11 +392,11 @@
                     
                 }
             }
+             */
             [self.afterListArr replaceObjectAtIndex:index withObject:tag];
             self.beforeSleepTag.tags = self.afterListArr;
             [self.beforeSleepTag reloadTagSubviews];
         }
-    }
 }
 
 #pragma mark 提交标签
@@ -410,14 +442,14 @@
                 for (TagObject *tag in self.afterListArr) {
                     if ([tag.tagName isEqualToString:[dic objectForKey:@"Tag"]]) {
                         tag.isSelect = !tag.isSelect;
-                        tag.isEnabled = YES;
+                        tag.isEnabled = NO;
                     }
                 }
             }else{
                 for (TagObject *tag in self.beforeListArr) {
                     if ([tag.tagName isEqualToString:[dic objectForKey:@"Tag"]]) {
                         tag.isSelect = !tag.isSelect;
-                        tag.isEnabled = YES;
+                        tag.isEnabled = NO;
                     }
                 }
             }
@@ -460,13 +492,13 @@
                 return;
             }
         }
-        
-        HaviLog(@"提交标签标签是%@日式是%@",self.sendTagListArr,self.dayIndex);
-        [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-        [MMProgressHUD showWithStatus:@"保存中..."];
         for (NSMutableDictionary *dic in self.sendTagListArr) {
             [dic setObject:self.dayIndex forKey:@"UserTagDate"];
         }
+        HaviLog(@"提交标签标签是%@日式是%@",self.sendTagListArr,self.dayIndex);
+        [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+        [MMProgressHUD showWithStatus:@"保存中..."];
+        
         NSDictionary *dic = @{
                               @"UUID" : HardWareUUID,
                               @"UserID" : thirdPartyLoginUserId,
