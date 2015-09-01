@@ -59,10 +59,12 @@
     _proTimeList = [[NSArray alloc]initWithObjects:@"00",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"24",nil];
     _proTitleList = [[NSArray alloc]initWithObjects:@"00",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"24",nil];
     NSRange range = [self.timeDate rangeOfString:@"FromDate="];
-    NSString *day = [self.timeDate substringWithRange:NSMakeRange(range.location+range.length+6, 2)];
+    NSString *day = [self.timeDate substringWithRange:NSMakeRange(range.location+range.length+4, 4)];
+    NSString *newDay = [NSString stringWithFormat:@"%@月%@",[day substringToIndex:2],[day substringFromIndex:2]];
     NSRange range1 = [self.timeDate rangeOfString:@"EndDate="];
-    NSString *day1 = [self.timeDate substringWithRange:NSMakeRange(range1.location+range1.length+6, 2)];
-    _proDay = @[day,day1];
+    NSString *day1 = [self.timeDate substringWithRange:NSMakeRange(range1.location+range1.length+4, 4)];
+    NSString *newDay1 = [NSString stringWithFormat:@"%@月%@",[day1 substringToIndex:2],[day1 substringFromIndex:2]];
+    _proDay = @[newDay,newDay1];
     [self setSleepTag];
     [self setSleepTagContraints];
     [self getTagLists];
@@ -94,12 +96,12 @@
         _tagDatePicker.delegate = self;
         _tagDatePicker.dataSource = self;
         _tagDatePicker.tintColor = [UIColor whiteColor];
-        UILabel *mao = [[UILabel alloc]initWithFrame:CGRectMake((self.view.frame.size.width)/3*2, 52, 10, 50)];
+        UILabel *mao = [[UILabel alloc]initWithFrame:CGRectMake((self.view.frame.size.width-140)/2+140, 52, 10, 50)];
         mao.textColor = [UIColor whiteColor];
         mao.text = @":";
         mao.font = [UIFont systemFontOfSize:27];
         [_tagDatePicker addSubview:mao];
-        UILabel *mao1 = [[UILabel alloc]initWithFrame:CGRectMake((self.view.frame.size.width)/3-20, 53, 20, 53)];
+        UILabel *mao1 = [[UILabel alloc]initWithFrame:CGRectMake(135, 53, 20, 53)];
         mao1.textColor = [UIColor whiteColor];
         mao1.text = @"日";
         mao1.font = [UIFont systemFontOfSize:20];
@@ -439,6 +441,10 @@
         for (NSDictionary *dic in tagArr) {
             //1睡后
             if ([[dic objectForKey:@"TagType"]intValue]==1) {
+                [self.sendTagListArr containsObject:[NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                                    @"Tag" : [dic objectForKey:@"Tag"],
+                                                                                                    @"TagType" : @"1",
+                                                                                                    }]];
                 for (TagObject *tag in self.afterListArr) {
                     if ([tag.tagName isEqualToString:[dic objectForKey:@"Tag"]]) {
                         tag.isSelect = !tag.isSelect;
@@ -446,6 +452,10 @@
                     }
                 }
             }else{
+                [self.sendTagListArr containsObject:[NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                                    @"Tag" : [dic objectForKey:@"Tag"],
+                                                                                                    @"TagType" : @"-1",
+                                                                                                    }]];
                 for (TagObject *tag in self.beforeListArr) {
                     if ([tag.tagName isEqualToString:[dic objectForKey:@"Tag"]]) {
                         tag.isSelect = !tag.isSelect;
@@ -482,7 +492,7 @@
             }
         }
         
-        if ([[NSUserDefaults standardUserDefaults]stringForKey:@"sleepTagTime"].length==0) {
+        if ([sleepBeforeTagTime longLongValue]==0) {
             [self.view makeToast:@"请先返回输入睡前标签时间" duration:2 position:@"center"];
             return;
         }
@@ -554,10 +564,11 @@
 // 每列宽度
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     
-    return self.view.frame.size.width/3;
-//    if (component == 1||component==0) {
-//        return 40;
-//    }
+    if (component==0) {
+        return 140;
+    }else{
+        return (self.view.frame.size.width-140)/2;
+    }
 //    return 100;
 }
 // 返回选中的行
@@ -570,18 +581,19 @@
     NSLog(@"时间是%@：%@",[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]);
     NSRange range = [self.timeDate rangeOfString:@"FromDate="];
     NSString *day = [self.timeDate substringWithRange:NSMakeRange(range.location+range.length, 6)];
+    NSString *selectDay = [_proDay objectAtIndex:rowDay];
     if(self.tagIndex==0){
         self.sleepLabel.text = [NSString stringWithFormat:@"您的睡觉时间是%@日%@点%@分",[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
-        NSString *dayString = [NSString stringWithFormat:@"%@%@%@%@%@00",[day substringToIndex:4],[day substringFromIndex:4],[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
+        NSString *dayString = [NSString stringWithFormat:@"%@%@%@%@%@00",[day substringToIndex:4],[selectDay substringToIndex:2],[selectDay substringFromIndex:3],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
         sleepBeforeTagTime = dayString;
         
     }else{
         self.sleepLabel.text = [NSString stringWithFormat:@"您的起床时间是%@日%@点%@分",[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
-        NSString *dayString = [NSString stringWithFormat:@"%@%@%@%@%@00",[day substringToIndex:4],[day substringFromIndex:4],[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
+        NSString *dayString = [NSString stringWithFormat:@"%@%@%@%@%@00",[day substringToIndex:4],[selectDay substringToIndex:2],[selectDay substringFromIndex:3],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
         self.dayCompare= dayString;
     }
     
-    self.dayIndex = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:00",[day substringToIndex:4],[day substringFromIndex:4],[_proDay objectAtIndex:rowDay],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
+    self.dayIndex = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:00",[day substringToIndex:4],[selectDay substringToIndex:2],[selectDay substringFromIndex:3],[_proTimeList objectAtIndex:rowHour],[_proTitleList objectAtIndex:rowMinute]];
     
     
 }

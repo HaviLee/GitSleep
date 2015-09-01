@@ -35,4 +35,5 @@
 
 - (void)reloadChartView;
 -(void)drawRect:(CGRect)rect;
+- (void)reloadChartViewXCoor;
 @end

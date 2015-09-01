@@ -66,10 +66,10 @@
     self.arr2 = @[@"还没有数据哦",@"75次/分钟",@"3次",@"25次/分钟",@"0"];
     _views = @[self.tableView1,self.tableView2];
 
+    [self.view addSubview:self.reportTableView];
     [self createCalenderView];
     //创建表哥
     [self createChartView];
-    [self.view addSubview:self.reportTableView];
     //
 //    [self.view addSubview:self.jScrollView];
 //    //
@@ -170,6 +170,7 @@
         [self.mutableArr replaceObjectAtIndex:path withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepQuality"]]];
         
     }
+    
     self.quaterView.dataValues = self.mutableArr;
     [self.quaterView reloadChartView];
 }
@@ -237,7 +238,18 @@
     //设置警告值
     self.quaterView.horizonLine = 15;
     //设置坐标轴
-    self.quaterView.xValues = @[@"0",@"一",@"二",@"三"];
+    NSString *currentDate = [[NSString stringWithFormat:@"%@",[NSDate date]]substringToIndex:7];
+    NSString *month = [currentDate substringWithRange:NSMakeRange(5, 2)];
+    NSString *quater = [self changeMonthToQuater:month];
+    if ([quater intValue]==1) {
+        self.quaterView.xValues = @[@"0",@"一月",@"二月",@"三月"];
+    }else if ([quater intValue]==2){
+        self.quaterView.xValues = @[@"0",@"四月",@"五月",@"六月"];
+    }else if ([quater intValue]==3){
+        self.quaterView.xValues = @[@"0",@"七月",@"八月",@"九月"];
+    }else if ([quater intValue]==4){
+        self.quaterView.xValues = @[@"0",@"十月",@"十一月",@"十二月"];
+    }
     self.quaterView.yValues = @[@"20", @"40", @"60", @"80", @"100",];
 //    NSArray *arr = @[@"0",@"0",@"0"
 //                     ];
@@ -412,6 +424,19 @@
     //改变小标题
     NSString *subMonth = [self changeQuaterToMonth:nowQuater];
     self.monthLabel.text = subMonth;
+    if (nowQuater==1) {
+        self.quaterView.xValues = @[@"0",@"一月",@"二月",@"三月"];
+        [self.quaterView reloadChartViewXCoor];
+    }else if (nowQuater==2){
+        self.quaterView.xValues = @[@"0",@"四月",@"五月",@"六月"];
+        [self.quaterView reloadChartViewXCoor];
+    }else if (nowQuater==3){
+        self.quaterView.xValues = @[@"0",@"七月",@"八月",@"九月"];
+        [self.quaterView reloadChartViewXCoor];
+    }else if (nowQuater==4){
+        self.quaterView.xValues = @[@"0",@"十月",@"十一月",@"十二月"];
+        [self.quaterView reloadChartViewXCoor];
+    }
     //改变
     [self getUserData];
 
@@ -430,6 +455,19 @@
     }
     self.monthTitleLabel.text = [NSString stringWithFormat:@"%d年第%d季度",nowYear,nowQuater];
     //改变小标题
+    if (nowQuater==1) {
+        self.quaterView.xValues = @[@"0",@"一月",@"二月",@"三月"];
+        [self.quaterView reloadChartViewXCoor];
+    }else if (nowQuater==2){
+        self.quaterView.xValues = @[@"0",@"四月",@"五月",@"六月"];
+        [self.quaterView reloadChartViewXCoor];
+    }else if (nowQuater==3){
+        self.quaterView.xValues = @[@"0",@"七月",@"八月",@"九月"];
+        [self.quaterView reloadChartViewXCoor];
+    }else if (nowQuater==4){
+        self.quaterView.xValues = @[@"0",@"十月",@"十一月",@"十二月"];
+        [self.quaterView reloadChartViewXCoor];
+    }
     NSString *subMonth = [self changeQuaterToMonth:nowQuater];
     self.monthLabel.text = subMonth;
     //
@@ -650,6 +688,20 @@
     NSRange range = [monthString rangeOfString:@"年第"];
     NSString *quater = [monthString substringWithRange:NSMakeRange(range.location + range.length, 1)];
     NSString *selectedMonth = [self changeQuaterToMonth:[quater intValue]];
+    if ([quater intValue]==1) {
+        self.quaterView.xValues = @[@"0",@"一月",@"二月",@"三月"];
+        [self.quaterView reloadChartViewXCoor];
+    }else if ([quater intValue]==2){
+        self.quaterView.xValues = @[@"0",@"四月",@"五月",@"六月"];
+        [self.quaterView reloadChartViewXCoor];
+    }else if ([quater intValue]==3){
+        self.quaterView.xValues = @[@"0",@"七月",@"八月",@"九月"];
+        [self.quaterView reloadChartViewXCoor];
+    }else if ([quater intValue]==4){
+        self.quaterView.xValues = @[@"0",@"十月",@"十一月",@"十二月"];
+        [self.quaterView reloadChartViewXCoor];
+    }
+    
     self.monthLabel.text = selectedMonth;
     //更新数据
     [self getUserData];

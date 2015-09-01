@@ -222,7 +222,7 @@
         int gradePercent = [[_funcPoints objectAtIndex:i]intValue];
         CGPoint xPoint = [[self.xPoints objectAtIndex:i]CGPointValue];
 //        PNBar * bar = [[PNBar alloc] initWithFrame:CGRectMake(xPoint.x+10, 20+(yCoordinateHeight-15)/5*(5-gradePercent), (xCoordinateWidth-15-6)/_funcPoints.count-20, (yCoordinateHeight-15)/5*gradePercent)];
-        PNBar * bar = [[PNBar alloc] initWithFrame:CGRectMake(xPoint.x+(xCoordinateWidth - 56)/6, 20+(yCoordinateHeight-15)/5*(5-gradePercent), 8, (yCoordinateHeight-15)/5*gradePercent)];
+        PNBar * bar = [[PNBar alloc] initWithFrame:CGRectMake(xPoint.x+(xCoordinateWidth - 45)/6, 20+(yCoordinateHeight-15)/5*(5-gradePercent), 8, (yCoordinateHeight-15)/5*gradePercent)];
         //顺序决定了颜色
         bar.barColor = [self returnColorWithSleepLevel:gradePercent];
         bar.grade = gradePercent;
@@ -494,8 +494,50 @@
                             blue:((float)(hexValue & 0xFF))/255.0 alpha:alphaValue];
 }
 
+- (void)reloadChartViewXCoor
+{
+    [self setUpXcoorWithValues:self.xValues];
+}
 
 #pragma mark - 添加坐标轴的值
+-(void)setUpXcoorWithValues:(NSArray *)values
+{
+    for (UIView *view in self.subviews) {
+        if (view.tag ==1000) {
+            [view removeFromSuperview];
+        }
+    }
+    if (values.count){
+        NSUInteger count = values.count;
+        for (int i = 0; i < count; i++) {
+            NSString *xValue = values[i];
+            
+            CGFloat cX = 0;
+            if ([values[0] isEqualToString:@"0"]) { // 第一个坐标值是0
+                cX = ((xCoordinateWidth-15) / (count - 1)) * i + self.leftLineMargin;
+                if(i==0){
+                    cX = cX+1;
+                }
+            }else{ // 第一个坐标值不是0
+                cX = ((xCoordinateWidth-15) / (count)) * (i+1) + self.leftLineMargin+2 ;
+            }
+            CGFloat cY = self.frame.size.height - bottomLineMargin;
+            // 收集坐标点
+            [self.xPoints addObject:[NSValue valueWithCGPoint:CGPointMake(cX, cY)]];
+            CGSize size = [xValue boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:self.textStyleDict context:nil].size;
+            if (i == 0 && [values[0] isEqualToString:@"0"]) continue;
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(cX - size.width -((xCoordinateWidth-15) / (count))/2, cY + 5, ((xCoordinateWidth-15)/(count)), 10)];
+            label.text = xValue;
+            label.tag = 1000;
+            label.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+            label.font = [UIFont systemFontOfSize:13];
+            label.textAlignment = NSTextAlignmentLeft;
+            [self addSubview:label];
+            //            [xValue drawAtPoint:CGPointMake(cX - size.width * 0.7 - ((xCoordinateWidth-15)/(count-1))/2, cY + 5) withAttributes:self.textStyleDict];
+        }
+    }
+}
+/*
 -(void)setUpXcoorWithValues:(NSArray *)values
 {
     if (values.count){
@@ -521,7 +563,7 @@
         }
     }
 }
-
+*/
 -(void)setUpYcoorWithValues:(NSArray *)values
 {
     if (values.count) {

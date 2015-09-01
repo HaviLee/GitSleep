@@ -287,11 +287,13 @@
     NSString *sleepDuration = [dataDic objectForKey:@"SleepDuration"];
     int sleepLevel = [[sleepDic objectForKey:@"SleepQuality"]intValue];
     [self.circleView changeSleepQualityValue:sleepLevel*20];//睡眠指数
-    [self.circleView changeSleepTimeValue:[sleepDuration floatValue]/12*100];//睡眠时长
+    [self.circleView changeSleepTimeValue:([sleepDuration floatValue]>0?[sleepDuration floatValue]:-[sleepDuration floatValue])/12*100];//睡眠时长
     [self.circleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
     [self setClockRoationValueWithStartTime:sleepStartTime];
     int hour = [sleepDuration intValue];
-    NSString *sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长是%d小时%d分",hour,(int)(([sleepDuration floatValue]-hour)*60)];
+    double second2 = 0.0;
+    double subsecond2 = modf([sleepDuration floatValue], &second2);
+    NSString *sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长是%d小时%d分",hour>0?hour:-hour,(int)(subsecond2*60)];
     self.sleepTimeLabel.text= sleepTimeDuration;
     
     //修改时间标签内容
