@@ -53,7 +53,7 @@
     // Do any additional setup after loading the view.
     [self createNavigationView];
     [self createSubView];
-    [self createCalenderView];
+//    [self createCalenderView];
     
 }
 
@@ -100,9 +100,10 @@
 - (void)createSubView
 {
     [self.view addSubview:self.upTableView];
-    [self.view addSubview:self.downTableView];
+//    [self.view addSubview:self.downTableView];
     self.timeSwitchButton.toggleDelegate = self;
     //
+    /*
     self.indicatorView = [[UIView alloc]init];
     self.indicatorView.frame = CGRectMake(0, self.view.frame.size.height-self.datePicker.frame.size.height-20, self.view.frame.size.width, 20);
     self.indicatorView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
@@ -111,6 +112,7 @@
     [self.indicatorView addGestureRecognizer:tapBack];
     [self.indicatorView addSubview:self.gifImageUp];
     [self.view addSubview:self.indicatorView];
+     */
 }
 
 #pragma mark setter meathod
@@ -323,7 +325,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([tableView isEqual:self.upTableView]) {
-        return 3;
+        return 2;
     }else{
         return 3;
     }
@@ -465,7 +467,7 @@
     }
     return nil;
 }
-
+/*
 #pragma mark 切换报表和总结
 
 - (void)changeTwoTableView:(UITapGestureRecognizer *)gesture
@@ -564,7 +566,7 @@
         }
     }
 }
-
+*/
 #pragma mark button 实现方法
 
 - (void)backToHomeView:(UIButton *)sender
@@ -666,14 +668,14 @@
             HaviLog(@"心率是%@和url%@",resposeDic,urlString);
             //为了异常报告,和更新
             self.currentSleepQulitity = resposeDic;
-            [self reloadSleepView:resposeDic];
+//            [self reloadSleepView:resposeDic];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 HaviLog(@"心率是%@和url%@",resposeDic,urlString);
                 //为了异常报告,和更新
                 self.currentSleepQulitity = resposeDic;
-                [self reloadSleepView:resposeDic];
+//                [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
@@ -837,7 +839,7 @@
             //为了异常报告
             self.currentSleepQulitity = nil;
             self.currentSleepQulitity = resposeDic;
-            [self reloadSleepView:resposeDic];
+//            [self reloadSleepView:resposeDic];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
@@ -845,7 +847,7 @@
                 //为了异常报告
                 self.currentSleepQulitity = nil;
                 self.currentSleepQulitity = resposeDic;
-                [self reloadSleepView:resposeDic];
+//                [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];

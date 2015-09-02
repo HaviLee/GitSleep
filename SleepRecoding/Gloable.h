@@ -19,6 +19,7 @@ extern NSString *HardWareUUID;
 extern BOOL isThirdLogin;
 
 extern BOOL DeviceStatus;
+extern BOOL isSixteenTime;
 //
 extern NSString *dayTimeToUse;
 extern NSDate *selectedDateToUse;

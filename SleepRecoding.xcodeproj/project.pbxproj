@@ -463,6 +463,7 @@
 		2C9C01621AD0215F006362E9 /* TurnChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C01611AD0215F006362E9 /* TurnChartView.m */; };
 		2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */; };
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
+		2CC8E7ED1B96AEEF00F69ABE /* SecondHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EC1B96AEEF00F69ABE /* SecondHeartViewController.m */; };
 		2CCDE2C31AF8A7FC00CAE9CB /* QueryDataCacheAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */; };
 		2CCF41D51AF867E0008BEFD3 /* libSniffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCF41D41AF867E0008BEFD3 /* libSniffer.a */; };
 		2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD386C51B65F33C00A3AF04 /* LoginContainerViewController.m */; };
@@ -1194,6 +1195,8 @@
 		2CAF5E8E1AE7F49300E7E3AA /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
 		2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
 		2CAF5E911AE7F55700E7E3AA /* protocol.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = protocol.html; sourceTree = "<group>"; };
+		2CC8E7EB1B96AEEF00F69ABE /* SecondHeartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SecondHeartViewController.h; path = controller/SecondHeartViewController.h; sourceTree = "<group>"; };
+		2CC8E7EC1B96AEEF00F69ABE /* SecondHeartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SecondHeartViewController.m; path = controller/SecondHeartViewController.m; sourceTree = "<group>"; };
 		2CCDE2C11AF8A7FC00CAE9CB /* QueryDataCacheAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryDataCacheAPI.h; path = API/QueryDataCacheAPI.h; sourceTree = "<group>"; };
 		2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryDataCacheAPI.m; path = API/QueryDataCacheAPI.m; sourceTree = "<group>"; };
 		2CCF41D41AF867E0008BEFD3 /* libSniffer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSniffer.a; sourceTree = "<group>"; };
@@ -1721,6 +1724,8 @@
 				2C3B624E1B80688200E3842F /* NewTodayHeartViewController.m */,
 				2C3B62501B80689600E3842F /* NewTodayBreathViewController.h */,
 				2C3B62511B80689600E3842F /* NewTodayBreathViewController.m */,
+				2CC8E7EB1B96AEEF00F69ABE /* SecondHeartViewController.h */,
+				2CC8E7EC1B96AEEF00F69ABE /* SecondHeartViewController.m */,
 			);
 			name = DataShow;
 			sourceTree = "<group>";
@@ -3361,6 +3366,7 @@
 				2C3AF2BA1AF4621600B66E32 /* TodayBreathViewController.m in Sources */,
 				2C94FA121B8AEF9200F1A4DB /* CalendarDayCell.m in Sources */,
 				5764518F1AC69701008E3526 /* ScanBarcodeViewController.m in Sources */,
+				2CC8E7ED1B96AEEF00F69ABE /* SecondHeartViewController.m in Sources */,
 				5759ECE91AC52DD800E9BFF2 /* UIViewController+MLTransition.m in Sources */,
 				2C6117021ABD6F6C00261A1E /* RMDateSelectionViewController.m in Sources */,
 				2C7345F41B789859004D8AB3 /* ReportTableViewCell.m in Sources */,

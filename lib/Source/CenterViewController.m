@@ -26,6 +26,8 @@
 #import "NewTodayTurnViewController.h"
 #import "CalendarHomeViewController.h"
 #import "URBAlertView.h"
+//
+#import "SecondHeartViewController.h"
 
 @interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
@@ -46,6 +48,7 @@
 @property (nonatomic, strong) NewTodayLeaveViewController *todayLeaveView;
 @property (nonatomic, strong) NewTodayTurnViewController *todayTurnView;
 //
+@property (nonatomic, strong) SecondHeartViewController *sendHeardView;
 
 @end
 
@@ -65,7 +68,7 @@
 - (void)initData
 {
     self.cellDataArr = @[@"0次/分",@"0次/分",@"0次/天",@"0次/天"];
-    self.dataViewArr = @[self.todayHeartView,self.todayBreathView,self.todayLeaveView,self.todayTurnView];
+    self.dataViewArr = @[self.sendHeardView,self.todayBreathView,self.todayLeaveView,self.todayTurnView];
 }
 #pragma mark 创建消息监听
 
@@ -159,7 +162,7 @@
     }
     NSDate *newDate = [self.dateFormmatterBase dateFromString:nowDateString];
     NSString *urlString = @"";
-    if (isTodayHourEqualSixteen<18) {
+    if (isTodayHourEqualSixteen<18 || !isSixteenTime) {
         self.dateComponentsBase.day = -1;
         NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
         NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
@@ -467,6 +470,13 @@
 
 #pragma mark  setter meathod
 
+- (SecondHeartViewController*)sendHeardView
+{
+    if (_sendHeardView == nil) {
+        _sendHeardView = [[SecondHeartViewController alloc]init];
+    }
+    return _sendHeardView;
+}
 
 - (NewTodayTurnViewController*)todayTurnView
 {
@@ -794,6 +804,11 @@
     [super viewDidAppear:animated];
     //每次都判断一下当前的时间是不是18：00；
     NSDate *nowDate = [self getNowDate];
+    if ([selectedDateToUse isEarlierThan:nowDate]) {
+        isSixteenTime = NO;
+    }else{
+        isSixteenTime = YES;
+    }
     NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
     isTodayHourEqualSixteen = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
 }
@@ -853,7 +868,7 @@
     _todayLeaveView = nil;
     _todayTurnView = nil;
     _dataViewArr = nil;
-    self.dataViewArr = @[self.todayHeartView,self.todayBreathView,self.todayLeaveView,self.todayTurnView];
+    self.dataViewArr = @[self.sendHeardView,self.todayBreathView,self.todayLeaveView,self.todayTurnView];
 }
 
 - (void)shareApp:(UIButton *)sender
