@@ -98,7 +98,7 @@
 - (UITableView *)reportTableView
 {
     if (_reportTableView == nil) {
-        _reportTableView = [[UITableView alloc]initWithFrame:CGRectMake(20, self.view.frame.size.height-64-194, self.view.frame.size.width-40, 214) style:UITableViewStylePlain];
+        _reportTableView = [[UITableView alloc]initWithFrame:CGRectMake(10, self.view.frame.size.height-204, self.view.frame.size.width-20, 194) style:UITableViewStylePlain];
         _reportTableView.backgroundColor = [UIColor clearColor];
         _reportTableView.delegate = self;
         _reportTableView.dataSource = self;
@@ -194,11 +194,12 @@
 - (UITableView *)upTableView
 {
     if (!_upTableView) {
-        _upTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.viewHeight-64-214)];
-        _upTableView.backgroundColor = [UIColor redColor];
+        _upTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.viewHeight-64-234)];
+        _upTableView.backgroundColor = [UIColor clearColor];
         _upTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _upTableView.delegate = self;
         _upTableView.dataSource = self;
+        _upTableView.scrollEnabled = NO;
     }
     return _upTableView;
 }
@@ -319,13 +320,13 @@
             NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
             NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
-            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,fromDate];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,newString,fromDate];
         }else {
             self.dateComponentsBase.day = 1;
             NSDate *nextDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
             NSString *nextDayString = [NSString stringWithFormat:@"%@",nextDay];
             NSString *newNextDayString = [NSString stringWithFormat:@"%@%@%@",[nextDayString substringWithRange:NSMakeRange(0, 4)],[nextDayString substringWithRange:NSMakeRange(5, 2)],[nextDayString substringWithRange:NSMakeRange(8, 2)]];
-            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,fromDate,newNextDayString];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,fromDate,newNextDayString];
             
         }
         NSDictionary *header = @{
@@ -340,14 +341,16 @@
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             HaviLog(@"心率是%@和url%@",resposeDic,urlString);
             //为了异常报告,和更新
-            self.currentSleepQulitity = resposeDic;
+            self.reportData = resposeDic;
+            [self.reportTableView reloadData];
             //            [self reloadSleepView:resposeDic];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 HaviLog(@"心率是%@和url%@",resposeDic,urlString);
                 //为了异常报告,和更新
-                self.currentSleepQulitity = resposeDic;
+                self.reportData = resposeDic;
+                [self.reportTableView reloadData];
                 //                [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
@@ -464,7 +467,7 @@
             return self.upTableView.frame.size.height-60;
         }
     }else{
-        return 100;
+        return (self.reportTableView.frame.size.height-40)/6;
     }
     return 10;
 }

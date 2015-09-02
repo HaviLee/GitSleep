@@ -27,6 +27,7 @@
     if (self) {
         titleLabel = [[UILabel alloc]init];
         [self addSubview:titleLabel];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         titleLabel.font = _cellFont?_cellFont:[UIFont systemFontOfSize:14];
         [titleLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -36,13 +37,13 @@
         }];
         //
         dataLabel = [[UILabel alloc]init];
+        dataLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:dataLabel];
         dataLabel.font = _cellFont?_cellFont:[UIFont systemFontOfSize:14];
         dataLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-        dataLabel.textAlignment = NSTextAlignmentLeft;
         [dataLabel makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
-            make.left.equalTo(titleLabel.right).offset(0);
+            make.left.equalTo(titleLabel.right).offset(20);
             make.height.equalTo(self);
             make.right.equalTo(self).offset(-10);
             make.width.equalTo(titleLabel.width);
