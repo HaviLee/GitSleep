@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 Havi. All rights reserved.
 //
 
-#import "SecondHeartViewController.h"
+#import "SencondHeartViewController.h"
 #import "HeartGraphView.h"
 #import "DataShowChartTableViewCell.h"
 #import "GetHeartDataAPI.h"
@@ -18,7 +18,7 @@
 #import "ModalAnimation.h"
 #import "ReportTableViewCell.h"
 
-@interface SecondHeartViewController ()<UIViewControllerTransitioningDelegate>
+@interface SencondHeartViewController ()<UIViewControllerTransitioningDelegate>
 {
     BOOL isUp;//控制两个tableview切换
     ModalAnimation *_modalAnimationController;
@@ -40,7 +40,7 @@
 
 @end
 
-@implementation SecondHeartViewController
+@implementation SencondHeartViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

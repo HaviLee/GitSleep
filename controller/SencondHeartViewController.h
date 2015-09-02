@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface SecondHeartViewController : BaseViewController
+@interface SencondHeartViewController : BaseViewController
 
 @end

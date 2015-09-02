@@ -27,7 +27,7 @@
 #import "CalendarHomeViewController.h"
 #import "URBAlertView.h"
 //
-#import "SecondHeartViewController.h"
+#import "SencondHeartViewController.h"
 
 @interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
@@ -48,7 +48,7 @@
 @property (nonatomic, strong) NewTodayLeaveViewController *todayLeaveView;
 @property (nonatomic, strong) NewTodayTurnViewController *todayTurnView;
 //
-@property (nonatomic, strong) SecondHeartViewController *sendHeardView;
+@property (nonatomic, strong) SencondHeartViewController *sendHeardView;
 
 @end
 
@@ -470,10 +470,10 @@
 
 #pragma mark  setter meathod
 
-- (SecondHeartViewController*)sendHeardView
+- (SencondHeartViewController*)sendHeardView
 {
     if (_sendHeardView == nil) {
-        _sendHeardView = [[SecondHeartViewController alloc]init];
+        _sendHeardView = [[SencondHeartViewController alloc]init];
     }
     return _sendHeardView;
 }
