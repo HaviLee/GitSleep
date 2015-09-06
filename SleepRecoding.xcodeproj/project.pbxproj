@@ -465,6 +465,8 @@
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
 		2CC8E7ED1B96AEEF00F69ABE /* SencondHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */; };
 		2CC8E7F01B97272100F69ABE /* SencondBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EF1B97272100F69ABE /* SencondBreathViewController.m */; };
+		2CC8E7F31B972DE600F69ABE /* SencondLeaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */; };
+		2CC8E7F61B972DFB00F69ABE /* SencondTurnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */; };
 		2CCDE2C31AF8A7FC00CAE9CB /* QueryDataCacheAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */; };
 		2CCF41D51AF867E0008BEFD3 /* libSniffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCF41D41AF867E0008BEFD3 /* libSniffer.a */; };
 		2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD386C51B65F33C00A3AF04 /* LoginContainerViewController.m */; };
@@ -1200,6 +1202,10 @@
 		2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondHeartViewController.m; path = controller/SencondHeartViewController.m; sourceTree = "<group>"; };
 		2CC8E7EE1B97272100F69ABE /* SencondBreathViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondBreathViewController.h; path = controller/SencondBreathViewController.h; sourceTree = "<group>"; };
 		2CC8E7EF1B97272100F69ABE /* SencondBreathViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondBreathViewController.m; path = controller/SencondBreathViewController.m; sourceTree = "<group>"; };
+		2CC8E7F11B972DE600F69ABE /* SencondLeaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondLeaveViewController.h; path = controller/SencondLeaveViewController.h; sourceTree = "<group>"; };
+		2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondLeaveViewController.m; path = controller/SencondLeaveViewController.m; sourceTree = "<group>"; };
+		2CC8E7F41B972DFB00F69ABE /* SencondTurnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondTurnViewController.h; path = controller/SencondTurnViewController.h; sourceTree = "<group>"; };
+		2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondTurnViewController.m; path = controller/SencondTurnViewController.m; sourceTree = "<group>"; };
 		2CCDE2C11AF8A7FC00CAE9CB /* QueryDataCacheAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryDataCacheAPI.h; path = API/QueryDataCacheAPI.h; sourceTree = "<group>"; };
 		2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryDataCacheAPI.m; path = API/QueryDataCacheAPI.m; sourceTree = "<group>"; };
 		2CCF41D41AF867E0008BEFD3 /* libSniffer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSniffer.a; sourceTree = "<group>"; };
@@ -1731,6 +1737,10 @@
 				2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */,
 				2CC8E7EE1B97272100F69ABE /* SencondBreathViewController.h */,
 				2CC8E7EF1B97272100F69ABE /* SencondBreathViewController.m */,
+				2CC8E7F11B972DE600F69ABE /* SencondLeaveViewController.h */,
+				2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */,
+				2CC8E7F41B972DFB00F69ABE /* SencondTurnViewController.h */,
+				2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */,
 			);
 			name = DataShow;
 			sourceTree = "<group>";
@@ -3278,6 +3288,7 @@
 			files = (
 				572AA98A1AC29A5700DED1D9 /* THPinViewController.m in Sources */,
 				5772BE441AAFFF1B00E108BB /* HaviSwitch.m in Sources */,
+				2CC8E7F31B972DE600F69ABE /* SencondLeaveViewController.m in Sources */,
 				57747DD51AA57FAD002B5A49 /* DatePickerView.m in Sources */,
 				2C8F7BB91AF3747700E56513 /* JTCalendarDayView.m in Sources */,
 				2C7CA0221B67656300AA511D /* UITableView+Wave.m in Sources */,
@@ -3399,6 +3410,7 @@
 				5770860B1ABBB239004A2C07 /* HaviAnimationView.m in Sources */,
 				57802E261AE7398200823E39 /* GetSuggestionList.m in Sources */,
 				57802E291AE7398200823E39 /* SHGetClient.m in Sources */,
+				2CC8E7F61B972DFB00F69ABE /* SencondTurnViewController.m in Sources */,
 				2CD6C0481B7B342B00F1FF6A /* GetTagListAPI.m in Sources */,
 				576451781AC63C24008E3526 /* SelectThemeViewController.m in Sources */,
 				57802E271AE7398200823E39 /* HaviGetNewClient.m in Sources */,

@@ -28,6 +28,9 @@
 #import "URBAlertView.h"
 //
 #import "SencondHeartViewController.h"
+#import "SencondBreathViewController.h"
+#import "SencondLeaveViewController.h"
+#import "SencondTurnViewController.h"
 
 @interface CenterViewController ()<SetScrollDateDelegate,SelectCalenderDate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
@@ -49,6 +52,9 @@
 @property (nonatomic, strong) NewTodayTurnViewController *todayTurnView;
 //
 @property (nonatomic, strong) SencondHeartViewController *sendHeardView;
+@property (nonatomic, strong) SencondBreathViewController *sendBreathView;
+@property (nonatomic, strong) SencondLeaveViewController *sendLeaveView;
+@property (nonatomic, strong) SencondTurnViewController *sendTurnView;
 
 @end
 
@@ -68,7 +74,7 @@
 - (void)initData
 {
     self.cellDataArr = @[@"0次/分",@"0次/分",@"0次/天",@"0次/天"];
-    self.dataViewArr = @[self.sendHeardView,self.todayBreathView,self.todayLeaveView,self.todayTurnView];
+    self.dataViewArr = @[self.sendHeardView,self.sendBreathView,self.sendLeaveView,self.sendTurnView];
 }
 #pragma mark 创建消息监听
 
@@ -478,6 +484,30 @@
     return _sendHeardView;
 }
 
+- (SencondBreathViewController*)sendBreathView
+{
+    if (_sendBreathView == nil) {
+        _sendBreathView = [[SencondBreathViewController alloc]init];
+    }
+    return _sendBreathView;
+}
+
+- (SencondLeaveViewController*)sendLeaveView
+{
+    if (_sendLeaveView == nil) {
+        _sendLeaveView = [[SencondLeaveViewController alloc]init];
+    }
+    return _sendLeaveView;
+}
+
+- (SencondTurnViewController*)sendTurnView
+{
+    if (_sendTurnView == nil) {
+        _sendTurnView = [[SencondTurnViewController alloc]init];
+    }
+    return _sendTurnView;
+}
+
 - (NewTodayTurnViewController*)todayTurnView
 {
     if (_todayTurnView == nil) {
@@ -868,7 +898,7 @@
     _todayLeaveView = nil;
     _todayTurnView = nil;
     _dataViewArr = nil;
-    self.dataViewArr = @[self.sendHeardView,self.todayBreathView,self.todayLeaveView,self.todayTurnView];
+    self.dataViewArr = @[self.sendHeardView,self.sendBreathView,self.sendLeaveView,self.sendTurnView];
 }
 
 - (void)shareApp:(UIButton *)sender

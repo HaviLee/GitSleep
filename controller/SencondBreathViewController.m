@@ -259,7 +259,7 @@
 {
     if (!_breathGraphView) {
         _breathGraphView = [BreathGraphView breathGraphView];
-        _breathGraphView.frame = CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-140-60);
+        _breathGraphView.frame = CGRectMake(5, 0, self.view.frame.size.width-15, self.upTableView.frame.size.height-60);
         //设置警告值
         _breathGraphView.yValues = @[@"10", @"20", @"30", @"40",];
         _breathGraphView.heartView.maxValue = 25;
@@ -327,6 +327,17 @@
     return _breathGraphView;
 }
 
+- (UITableView *)upTableView
+{
+    if (!_upTableView) {
+        _upTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.viewHeight-64-234)];
+        _upTableView.backgroundColor = [UIColor clearColor];
+        _upTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _upTableView.delegate = self;
+        _upTableView.dataSource = self;
+        _upTableView.scrollEnabled = NO;
+    }
+    return _upTableView;}
 
 - (UITableView *)reportTableView
 {
@@ -377,7 +388,7 @@
             cell.iconTitleName = [NSString stringWithFormat:@"icon_breathe_%d",selectedThemeIndex];;
             cell.cellTitleName = @"呼吸";
             cell.cellData = [NSString stringWithFormat:@"%d次/分钟",[[self.currentSleepQulitity objectForKey:@"AverageRespiratoryRate"] intValue]];
-            [cell addSubview:self.timeSwitchButton];
+//            [cell addSubview:self.timeSwitchButton];
             cell.backgroundColor = [UIColor clearColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
