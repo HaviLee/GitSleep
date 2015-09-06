@@ -467,6 +467,11 @@
 		2CC8E7F01B97272100F69ABE /* SencondBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EF1B97272100F69ABE /* SencondBreathViewController.m */; };
 		2CC8E7F31B972DE600F69ABE /* SencondLeaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */; };
 		2CC8E7F61B972DFB00F69ABE /* SencondTurnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */; };
+		2CC8E7FB1B9BE59900F69ABE /* ic_body_movement_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F71B9BE59900F69ABE /* ic_body_movement_0.png */; };
+		2CC8E7FC1B9BE59900F69ABE /* ic_dot_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F81B9BE59900F69ABE /* ic_dot_0.png */; };
+		2CC8E7FD1B9BE59900F69ABE /* ic_getup_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F91B9BE59900F69ABE /* ic_getup_0.png */; };
+		2CC8E7FE1B9BE59900F69ABE /* ic_line_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E7FA1B9BE59900F69ABE /* ic_line_0.png */; };
+		2CC8E8011B9BF61B00F69ABE /* DataTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E8001B9BF61B00F69ABE /* DataTableViewCell.m */; };
 		2CCDE2C31AF8A7FC00CAE9CB /* QueryDataCacheAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */; };
 		2CCF41D51AF867E0008BEFD3 /* libSniffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCF41D41AF867E0008BEFD3 /* libSniffer.a */; };
 		2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD386C51B65F33C00A3AF04 /* LoginContainerViewController.m */; };
@@ -1206,6 +1211,12 @@
 		2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondLeaveViewController.m; path = controller/SencondLeaveViewController.m; sourceTree = "<group>"; };
 		2CC8E7F41B972DFB00F69ABE /* SencondTurnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondTurnViewController.h; path = controller/SencondTurnViewController.h; sourceTree = "<group>"; };
 		2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondTurnViewController.m; path = controller/SencondTurnViewController.m; sourceTree = "<group>"; };
+		2CC8E7F71B9BE59900F69ABE /* ic_body_movement_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_body_movement_0.png; sourceTree = "<group>"; };
+		2CC8E7F81B9BE59900F69ABE /* ic_dot_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_dot_0.png; sourceTree = "<group>"; };
+		2CC8E7F91B9BE59900F69ABE /* ic_getup_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_getup_0.png; sourceTree = "<group>"; };
+		2CC8E7FA1B9BE59900F69ABE /* ic_line_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_line_0.png; sourceTree = "<group>"; };
+		2CC8E7FF1B9BF61B00F69ABE /* DataTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataTableViewCell.h; path = controller/DataTableViewCell.h; sourceTree = "<group>"; };
+		2CC8E8001B9BF61B00F69ABE /* DataTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataTableViewCell.m; path = controller/DataTableViewCell.m; sourceTree = "<group>"; };
 		2CCDE2C11AF8A7FC00CAE9CB /* QueryDataCacheAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryDataCacheAPI.h; path = API/QueryDataCacheAPI.h; sourceTree = "<group>"; };
 		2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryDataCacheAPI.m; path = API/QueryDataCacheAPI.m; sourceTree = "<group>"; };
 		2CCF41D41AF867E0008BEFD3 /* libSniffer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSniffer.a; sourceTree = "<group>"; };
@@ -1741,6 +1752,8 @@
 				2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */,
 				2CC8E7F41B972DFB00F69ABE /* SencondTurnViewController.h */,
 				2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */,
+				2CC8E7FF1B9BF61B00F69ABE /* DataTableViewCell.h */,
+				2CC8E8001B9BF61B00F69ABE /* DataTableViewCell.m */,
 			);
 			name = DataShow;
 			sourceTree = "<group>";
@@ -1797,6 +1810,10 @@
 				2C7345ED1B78531D004D8AB3 /* bg_pic_tag@2x.png */,
 				2C94FA1F1B8C55B000F1A4DB /* skinpeeler_dark_color_bg.png */,
 				2C94FA201B8C55B000F1A4DB /* skinpeeler_tint_bg.png */,
+				2CC8E7F71B9BE59900F69ABE /* ic_body_movement_0.png */,
+				2CC8E7F81B9BE59900F69ABE /* ic_dot_0.png */,
+				2CC8E7F91B9BE59900F69ABE /* ic_getup_0.png */,
+				2CC8E7FA1B9BE59900F69ABE /* ic_line_0.png */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -2981,6 +2998,8 @@
 				2C7D22031AF1C6550011A45C /* head_portrait_BG@2x.png in Resources */,
 				2C7D22B41AF1CA050011A45C /* icon_fatal_exception_0@2x.png in Resources */,
 				2C15E7091AF214E800142F36 /* btn_up_1@2x.png in Resources */,
+				2CC8E7FC1B9BE59900F69ABE /* ic_dot_0.png in Resources */,
+				2CC8E7FD1B9BE59900F69ABE /* ic_getup_0.png in Resources */,
 				2C15E7011AF214E800142F36 /* btn_login_bg_1@2x.png in Resources */,
 				2C15E6811AF20DF800142F36 /* pic_scan_mirror@2x.png in Resources */,
 				2C15E72D1AF214E800142F36 /* name_1@2x.png in Resources */,
@@ -3015,6 +3034,7 @@
 				2C7D22011AF1C6550011A45C /* emergency_Contact@2x.png in Resources */,
 				2C15E74E1AF214E800142F36 /* txtbox_no_number_add_1@2x.png in Resources */,
 				2C15E7361AF214E800142F36 /* pic_bg_night_1@2x.png in Resources */,
+				2CC8E7FB1B9BE59900F69ABE /* ic_body_movement_0.png in Resources */,
 				2C7D22A21AF1CA050011A45C /* btn_right_0@2x.png in Resources */,
 				2C7D22A71AF1CA050011A45C /* btn_x_0@2x.png in Resources */,
 				57C723EF1AF71417006BE7D0 /* line_640_1@3x.png in Resources */,
@@ -3158,6 +3178,7 @@
 				2C15E71C1AF214E800142F36 /* icon_password_1@2x.png in Resources */,
 				2C15E78A1AF2152100142F36 /* heart_4_1.png in Resources */,
 				2C8C628F1AB5B8A200CF4C19 /* digitCell.psd in Resources */,
+				2CC8E7FE1B9BE59900F69ABE /* ic_line_0.png in Resources */,
 				2C7D22A01AF1CA050011A45C /* btn_over_0@2x.png in Resources */,
 				2C7D22FC1AF1CA220011A45C /* heart_1_0.png in Resources */,
 				2C15E7191AF214E800142F36 /* icon_general_exception_1@2x.png in Resources */,
@@ -3383,6 +3404,7 @@
 				2C3AF2BA1AF4621600B66E32 /* TodayBreathViewController.m in Sources */,
 				2C94FA121B8AEF9200F1A4DB /* CalendarDayCell.m in Sources */,
 				5764518F1AC69701008E3526 /* ScanBarcodeViewController.m in Sources */,
+				2CC8E8011B9BF61B00F69ABE /* DataTableViewCell.m in Sources */,
 				2CC8E7ED1B96AEEF00F69ABE /* SencondHeartViewController.m in Sources */,
 				5759ECE91AC52DD800E9BFF2 /* UIViewController+MLTransition.m in Sources */,
 				2C6117021ABD6F6C00261A1E /* RMDateSelectionViewController.m in Sources */,
