@@ -26,6 +26,7 @@
 #import "NewTodayTurnViewController.h"
 #import "CalendarHomeViewController.h"
 #import "URBAlertView.h"
+#import "UploadTagAPI.h"
 //
 #import "SencondHeartViewController.h"
 #import "SencondBreathViewController.h"
@@ -45,6 +46,7 @@
 @property (nonatomic, strong) NSArray *dataViewArr;
 //为了标签使用
 @property (nonatomic, strong) NSString *tagFromDateAndEndDate;
+@property (nonatomic, strong) UILabel *iWantSleepLabel;
 //
 @property (nonatomic, strong) NewTodayHeartViewController *todayHeartView;
 @property (nonatomic, strong) NewTodayBreathViewController *todayBreathView;
@@ -296,9 +298,12 @@
     NSString *sleepDuration = [dataDic objectForKey:@"SleepDuration"];
     int sleepLevel = [[sleepDic objectForKey:@"SleepQuality"]intValue];
     [self.circleView changeSleepQualityValue:sleepLevel*20];//睡眠指数
-    [self.circleView changeSleepTimeValue:([sleepDuration floatValue]>0?[sleepDuration floatValue]:-[sleepDuration floatValue])/12*100];//睡眠时长
+    [self.circleView changeSleepTimeValue:sleepLevel*20];
+//    [self.circleView changeSleepTimeValue:([sleepDuration floatValue]>0?[sleepDuration floatValue]:-[sleepDuration floatValue])/12*100];//睡眠时长
     [self.circleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
-    [self setClockRoationValueWithStartTime:sleepStartTime];
+    self.circleView.rotationValue = 88;
+
+//    [self setClockRoationValueWithStartTime:sleepStartTime];
     int hour = [sleepDuration intValue];
     double second2 = 0.0;
     double subsecond2 = modf([sleepDuration floatValue], &second2);
@@ -421,12 +426,15 @@
     [self.view addSubview:self.circleView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeValueAnimation:)];
     [self.circleView.cView addGestureRecognizer:tap];
-    
-    [self.circleView addSubview:self.nightView];
-    self.nightView.nightTime = @"睡眠时间";
-    
-    [self.circleView addSubview:self.dayView];
-    self.dayView.dayTime = @"起床时间";
+    [self.circleView addSubview:self.iWantSleepLabel];
+    self.iWantSleepLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(sendSleepTime)];
+    [self.iWantSleepLabel addGestureRecognizer:gesture];
+//    [self.circleView addSubview:self.nightView];
+//    self.nightView.nightTime = @"睡眠时间";
+//    
+//    [self.circleView addSubview:self.dayView];
+//    self.dayView.dayTime = @"起床时间";
 }
 
 - (void)setCalenderAndMenu
@@ -475,6 +483,16 @@
 }
 
 #pragma mark  setter meathod
+
+- (UILabel *)iWantSleepLabel
+{
+    if (_iWantSleepLabel==nil) {
+        _iWantSleepLabel = [[UILabel alloc]init];
+        _iWantSleepLabel.frame = CGRectMake(10, 30, 50,40);
+        _iWantSleepLabel.text = @"我要睡觉";
+    }
+    return _iWantSleepLabel;
+}
 
 - (SencondHeartViewController*)sendHeardView
 {
@@ -923,6 +941,54 @@
         if (isUserDefaultTime) {
         }else{
         }
+    }
+}
+
+#pragma mark 提交用户睡眠时间
+
+- (void)sendSleepTime
+{
+    if (HardWareUUID.length>0) {
+        
+        [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+        [MMProgressHUD showWithStatus:@"保存中..."];
+        NSDate *date = [[NSDate date]dateByAddingHours:8];
+        NSString *dateString = [NSString stringWithFormat:@"%@",date];
+        NSDictionary *dic = @{
+                              @"UUID" : HardWareUUID,
+                              @"UserID" : thirdPartyLoginUserId,
+                              @"Tags" : @{
+                                       @"Tag": @"<%睡眠时间记录%>",
+                                       @"TagType": @"-1",
+                                       @"UserTagDate": [dateString substringToIndex:19],
+                                      },
+                              };
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        UploadTagAPI *client = [UploadTagAPI shareInstance];
+        if ([client isExecuting]) {
+            [client stop];
+        }
+        [MMProgressHUD dismiss];
+        
+        [client uploadTagWithHeader:header andWithPara:dic];
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+                [MMProgressHUD dismiss];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    [self.view makeToast:@"ok" duration:2 position:@"center"];
+                }];
+            }else{
+                HaviLog(@"%@",resposeDic);
+                [MMProgressHUD dismissWithError:@"出错啦" afterDelay:1];
+            }
+        } failure:^(YTKBaseRequest *request) {
+            
+        }];
+    }else{
+        [self.view makeToast:@"请先绑定设备ID" duration:2 position:@"center"];
     }
 }
 
