@@ -128,13 +128,13 @@
             NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
             NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
-            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,fromDate];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,newString,fromDate];
         }else {
             self.dateComponentsBase.day = 1;
             NSDate *nextDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
             NSString *nextDayString = [NSString stringWithFormat:@"%@",nextDay];
             NSString *newNextDayString = [NSString stringWithFormat:@"%@%@%@",[nextDayString substringWithRange:NSMakeRange(0, 4)],[nextDayString substringWithRange:NSMakeRange(5, 2)],[nextDayString substringWithRange:NSMakeRange(8, 2)]];
-            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,fromDate,newNextDayString];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,fromDate,newNextDayString];
             
         }
         NSDictionary *header = @{
@@ -276,7 +276,7 @@
         //设置警告值
         _breathGraphView.yValues = @[@"10", @"20", @"30", @"40",];
         _breathGraphView.heartView.maxValue = 25;
-        _breathGraphView.heartView.minValue = 5;
+        _breathGraphView.heartView.minValue = 8;
         _breathGraphView.horizonLine = 15;
         _breathGraphView.backMinValue = 10;
         _breathGraphView.backMaxValue = 20;
