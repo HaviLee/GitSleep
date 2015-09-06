@@ -75,32 +75,24 @@
             [client stop];
         }
         [client getLeaveData:header withDetailUrl:urlString];
-        if ([client getCacheJsonWithDate:fromDate]) {
-            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            //            [MMProgressHUD dismiss];
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            //                [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-            HaviLog(@"缓存的离床数据%@和%@",resposeDic,urlString);
+            HaviLog(@"请求的离床数据%@和%@",resposeDic,urlString);
             [self reloadUserViewWithData:resposeDic];
             [self getUserSleepReportData:fromDate toDate:toDate];
-        }else{
-            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                //                [MMProgressHUD dismiss];
-                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                HaviLog(@"请求的离床数据%@和%@",resposeDic,urlString);
-                [self reloadUserViewWithData:resposeDic];
-                [self getUserSleepReportData:fromDate toDate:toDate];
-            } failure:^(YTKBaseRequest *request) {
-                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
-            }];
-        }
+        } failure:^(YTKBaseRequest *request) {
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
+        }];
     }
 }
 
 - (void)reloadUserViewWithData:(NSDictionary *)dataDic
 {
+    self.leaveDic = nil;
     NSArray *arr = [dataDic objectForKey:@"SensorData"];
     NSMutableArray *arrSub = [[NSMutableArray alloc]init];
     for (NSDictionary *dic in arr) {

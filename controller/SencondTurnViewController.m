@@ -128,22 +128,22 @@
             [client stop];
         }
         [client getTurnSleepData:header withDetailUrl:urlString];
-        if ([client getCacheJsonWithDate:fromDate]) {
-            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
+//        if ([client getCacheJsonWithDate:fromDate]) {
+//            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
+//            HaviLog(@"心率是%@",resposeDic);
+//            //为了异常报告
+//            [self reloadSleepView:resposeDic];
+//        }else{
+//        }
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
             HaviLog(@"心率是%@",resposeDic);
             //为了异常报告
             [self reloadSleepView:resposeDic];
-        }else{
-            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                HaviLog(@"心率是%@",resposeDic);
-                //为了异常报告
-                [self reloadSleepView:resposeDic];
-            } failure:^(YTKBaseRequest *request) {
-                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
-            }];
-        }
+        } failure:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
+        }];
     }
 }
 
@@ -160,6 +160,7 @@
 
 - (void)reloadUserViewWithData:(NSDictionary *)dataDic
 {
+    self.turnDic = nil;
     NSArray *arr = [dataDic objectForKey:@"SensorData"];
     for (NSDictionary *dic in arr) {
         self.turnDic = [dic objectForKey:@"Data"];

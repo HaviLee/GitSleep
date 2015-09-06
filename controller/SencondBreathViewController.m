@@ -38,6 +38,8 @@
 @property (nonatomic,strong) NSString *currentDate;
 @property (nonatomic,strong) NSDictionary *currentSleepQulitity;
 @property (nonatomic,strong) UIImageView *backImage;
+@property (nonatomic,strong) NSArray *titleArr;
+
 @end
 
 @implementation SencondBreathViewController
@@ -251,8 +253,17 @@
 
 - (void)createSubView
 {
+    self.titleArr = @[@"心率平均数",@"心率异常数",@"心率异常数高于"];
+
     [self.view addSubview:self.upTableView];
     [self.view addSubview:self.reportTableView];
+    UILabel *titleLabel = [[UILabel alloc]init];
+    [self.view addSubview:titleLabel];
+    titleLabel.text = @"呼吸分析";
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:20];
+    titleLabel.textColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
+    titleLabel.frame = CGRectMake(20, self.view.frame.size.height-204, self.view.frame.size.width-40, 44);
     //    [self.view addSubview:self.downTableView];
 }
 #pragma mark setter
@@ -344,7 +355,7 @@
 - (UITableView *)reportTableView
 {
     if (_reportTableView == nil) {
-        _reportTableView = [[UITableView alloc]initWithFrame:CGRectMake(10, self.view.frame.size.height-204, self.view.frame.size.width-20, 194) style:UITableViewStylePlain];
+        _reportTableView = [[UITableView alloc]initWithFrame:CGRectMake(20, self.view.frame.size.height-164, self.view.frame.size.width-40, 144) style:UITableViewStylePlain];
         _reportTableView.backgroundColor = [UIColor clearColor];
         _reportTableView.delegate = self;
         _reportTableView.dataSource = self;
@@ -366,12 +377,13 @@
 
 #pragma mark tableview 代理函数
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([tableView isEqual:self.upTableView]) {
         return 2;
     }else{
-        return 7;
+        return 3;
     }
     
 }
@@ -407,48 +419,60 @@
             return cell;
         }
     }else{
+       
         static NSString *cellIndentifier = @"cell2";
         ReportTableViewCell *cell = (ReportTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
         if (!cell) {
             cell = [[ReportTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
             
         }
-        if (indexPath.row == 0) {
-            cell.cellFont = [UIFont systemFontOfSize:18];
-            cell.leftDataString = @"心率分析";
-            cell.rightDataString = @"呼吸分析";
-            cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
-        }else if(indexPath.row == 1){
-            cell.cellFont = [UIFont systemFontOfSize:13];
-            cell.leftDataString = @"心率平均值";
-            cell.rightDataString = @"呼吸平均值";
-            cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
-        }else if (indexPath.row == 2){
-            cell.cellFont = [UIFont systemFontOfSize:13];
-            cell.leftDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]];
+        cell.cellFont = [UIFont systemFontOfSize:17];
+        cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
+        cell.leftDataString = [self.titleArr objectAtIndex:indexPath.row];
+        if (indexPath.row==0) {
             cell.rightDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageRespiratoryRate"] intValue]];
-            cell.cellColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.847f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
-        }else if (indexPath.row == 3){
-            cell.cellFont = [UIFont systemFontOfSize:13];
-            cell.leftDataString = @"心率异常数";
-            cell.rightDataString = @"呼吸异常数";
-            cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
-        }else if (indexPath.row == 4){
-            cell.cellFont = [UIFont systemFontOfSize:13];
-            cell.leftDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]];
-            cell.rightDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]];
-            cell.cellColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.847f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
-        }else if (indexPath.row == 5){
-            cell.cellFont = [UIFont systemFontOfSize:13];
-            cell.leftDataString = @"心率异常数高于";
-            cell.rightDataString = @"呼吸异常数高于";
-            cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
-        }else if (indexPath.row == 6){
-            cell.cellFont = [UIFont systemFontOfSize:19];
-            cell.leftDataString = [NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"];
+        }else if (indexPath.row==1){
+            cell.rightDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"FastRespiratoryRateTimes"] intValue]];
+            
+        }else if (indexPath.row==2){
             cell.rightDataString = [NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"];
-            cell.cellColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.847f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
         }
+//        if (indexPath.row == 0) {
+//            cell.cellFont = [UIFont systemFontOfSize:18];
+//            cell.leftDataString = @"心率分析";
+//            cell.rightDataString = @"呼吸分析";
+//            cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
+//        }else if(indexPath.row == 1){
+//            cell.cellFont = [UIFont systemFontOfSize:13];
+//            cell.leftDataString = @"心率平均值";
+//            cell.rightDataString = @"呼吸平均值";
+//            cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
+//        }else if (indexPath.row == 2){
+//            cell.cellFont = [UIFont systemFontOfSize:13];
+//            cell.leftDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]];
+//            cell.rightDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageRespiratoryRate"] intValue]];
+//            cell.cellColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.847f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
+//        }else if (indexPath.row == 3){
+//            cell.cellFont = [UIFont systemFontOfSize:13];
+//            cell.leftDataString = @"心率异常数";
+//            cell.rightDataString = @"呼吸异常数";
+//            cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
+//        }else if (indexPath.row == 4){
+//            cell.cellFont = [UIFont systemFontOfSize:13];
+//            cell.leftDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]];
+//            cell.rightDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]];
+//            cell.cellColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.847f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
+//        }else if (indexPath.row == 5){
+//            cell.cellFont = [UIFont systemFontOfSize:13];
+//            cell.leftDataString = @"心率异常数高于";
+//            cell.rightDataString = @"呼吸异常数高于";
+//            cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
+//        }else if (indexPath.row == 6){
+//            cell.cellFont = [UIFont systemFontOfSize:19];
+//            cell.leftDataString = [NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"];
+//            cell.rightDataString = [NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"];
+//            cell.cellColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.847f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
+//        }
         
         cell.backgroundColor = [UIColor clearColor];
         
@@ -468,10 +492,11 @@
             return self.upTableView.frame.size.height-60;
         }
     }else{
-        return (self.reportTableView.frame.size.height-40)/6;
+        return (self.reportTableView.frame.size.height)/3;
     }
     return 10;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
