@@ -147,19 +147,21 @@
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             HaviLog(@"心率是%@",resposeDic);
             //为了异常报告
-            self.currentSleepQulitity = nil;
-            self.currentSleepQulitity = resposeDic;
             self.reportData = resposeDic;
             [self.reportTableView reloadData];
+            self.currentSleepQulitity = resposeDic;
+            
+            [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 HaviLog(@"心率是%@",resposeDic);
                 //为了异常报告
-                self.currentSleepQulitity = nil;
-                self.currentSleepQulitity = resposeDic;
                 self.reportData = resposeDic;
                 [self.reportTableView reloadData];
+                self.currentSleepQulitity = resposeDic;
+                
+                [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
@@ -592,6 +594,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showBreatheEmercenyView:) name:PostHeartEmergencyNoti object:nil];
+    [self getData];
 }
 
 /*

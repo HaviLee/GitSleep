@@ -343,7 +343,10 @@
             //为了异常报告,和更新
             self.reportData = resposeDic;
             [self.reportTableView reloadData];
-            //            [self reloadSleepView:resposeDic];
+            self.currentSleepQulitity = resposeDic;
+
+            [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+//            [self reloadSleepView:resposeDic];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
@@ -351,7 +354,10 @@
                 //为了异常报告,和更新
                 self.reportData = resposeDic;
                 [self.reportTableView reloadData];
-                //                [self reloadSleepView:resposeDic];
+                self.currentSleepQulitity = resposeDic;
+
+                [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+//                [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
@@ -586,6 +592,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showHeartEmercenyView:) name:PostHeartEmergencyNoti object:nil];
+    [self getData];
 }
 
 /*
