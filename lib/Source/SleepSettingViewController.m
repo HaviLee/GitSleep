@@ -75,7 +75,7 @@
     self.sideTableView.backgroundColor = [UIColor clearColor];
     self.sideTableView.delegate = self;
     self.sideTableView.dataSource = self;
-    self.arrTitle = @[@"睡眠时间设置",@"睡觉提醒",@"久睡超时警告",@"离床时间警告"];
+    self.arrTitle = @[@"习惯睡觉时间",@"习惯起床时间",@"睡觉提醒",@"久睡超时警告",@"离床时间警告"];
 //
     self.hourArr = [[NSMutableArray alloc]init];
     self.minteArr = [[NSMutableArray alloc]init];
@@ -120,13 +120,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 2;
+        return 1;
     }
     return 1;
 }
@@ -142,25 +142,31 @@
     switch (indexPath.section) {
         case 0:
         {
-            if (indexPath.row==0) {
-                [self configSleepTimeTitleCell:cell];
-            }else{
-                [self configSleepTimeCell:cell];
-            }
+//            if (indexPath.row==0) {
+//                [self configSleepTimeTitleCell:cell];
+//            }else{
+//                [self configSleepTimeCell:cell];
+//            }
+            [self configNewStartTime:cell];
             return cell;
             break;
         }
         case 1:{
-            [self configSleepAlarmCell:cell];
+            [self configNewEndTime:cell];
             return cell;
             break;
         }
         case 2:{
-            [self configSleepTimeoutCell:cell];
+            [self configSleepAlarmCell:cell];
             return cell;
             break;
         }
         case 3:{
+            [self configSleepTimeoutCell:cell];
+            return cell;
+            break;
+        }
+        case 4:{
             [self configLeaveBedAlarmCell:cell];
             return cell;
             break;
@@ -237,6 +243,43 @@
     }else{
         [sleepSwitch setOn:YES animated:YES];
     }
+}
+
+//
+- (void)configNewStartTime:(UITableViewCell*)cell
+{
+    self.startTimeLabel = [LRGlowingButton buttonWithType:UIButtonTypeCustom];
+    [cell addSubview:_startTimeLabel];
+    NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
+    [self.startTimeLabel setTitle:startTime forState:UIControlStateNormal];
+    [self.startTimeLabel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _startTimeLabel.glowsWhenHighlighted = YES;
+    _startTimeLabel.highlightedGlowColor = [UIColor greenColor];
+    _startTimeLabel.tag = 1001;
+    [self.startTimeLabel addTarget:self action:@selector(showStartTimePicker:) forControlEvents:UIControlEventTouchUpInside];
+    [_startTimeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell.left).offset(10);
+        make.centerY.equalTo(cell.centerY);
+        make.width.equalTo(60);
+    }];
+}
+
+- (void)configNewEndTime:(UITableViewCell*)cell
+{
+    self.endTimeLabel = [LRGlowingButton buttonWithType:UIButtonTypeCustom];
+    [cell addSubview:self.endTimeLabel];
+    NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
+    [self.endTimeLabel setTitle:endTime forState:UIControlStateNormal];
+    [self.endTimeLabel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _endTimeLabel.glowsWhenHighlighted = YES;
+    _endTimeLabel.tag = 1002;
+    _endTimeLabel.highlightedGlowColor = [UIColor greenColor];
+    [self.endTimeLabel addTarget:self action:@selector(showEndTimePicker:) forControlEvents:UIControlEventTouchUpInside];
+    [_endTimeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell.left).offset(10);
+        make.centerY.equalTo(cell.centerY);
+        make.width.equalTo(60);
+    }];
 }
 
 - (void)configSleepTimeCell:(UITableViewCell *)cell
@@ -454,26 +497,12 @@
                                     self.startTimeLabel.titleLabel.text = senderString;
                                     HaviLog(@"button 的titile是%@",senderString);
                                 }else{
-                                    NSString *start = [selectedString substringToIndex:2];
-                                    NSString *end = [_endTimeLabel.titleLabel.text substringToIndex:2];
-                                    if ([start intValue]>[end intValue]) {
-                                        NSString *end = @"";
-//                                        if ([start intValue]+1<10) {
-//                                            [_endTimeLabel setTitle:[NSString stringWithFormat:@"0%d:00",[start intValue]+1] forState:UIControlStateNormal];
-//                                            end = [NSString stringWithFormat:@"0%d:00",[start intValue]+1];
-//                                        }else{
-//                                            [_endTimeLabel setTitle:[NSString stringWithFormat:@"%d:00",[start intValue]+1] forState:UIControlStateNormal];
-//                                            end = [NSString stringWithFormat:@"%d:00",[start intValue]+1];
-//                                        }
-                                        isUserDefaultTime = YES;
-                                        [[NSUserDefaults standardUserDefaults]setObject:end forKey:UserDefaultEndTime];
-                                        [[NSUserDefaults standardUserDefaults]synchronize];
-                                        _selectString2 = end;
-                                    }
+                                    
                                     [_startTimeLabel setTitle:selectedString forState:UIControlStateNormal];
                                     isUserDefaultTime = YES;
-                                    [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultStartTime];
-                                    [[NSUserDefaults standardUserDefaults]synchronize];
+//                                    [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultStartTime];
+//                                    [[NSUserDefaults standardUserDefaults]synchronize];
+                                    [self sendUserDefaultSleepTime];
                                     sender.titleLabel.text = selectedString;
                                     _selectString1 = selectedString;
                                 }
@@ -481,6 +510,55 @@
 
 
 }
+#pragma mark 发送用户习惯睡眠
+
+- (void)sendUserDefaultSleepTime
+{
+    SHPutClient *client = [SHPutClient shareInstance];
+    NSDictionary *dic = @{
+                          @"UserID": thirdPartyLoginUserId, //关键字，必须传递
+                          @"SleepStartTime":_startTimeLabel.titleLabel.text,
+                          };
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [client modifyUserInfo:header andWithPara:dic];
+    
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        HaviLog(@"保存%@",resposeDic);
+        MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [overlay postImmediateFinishMessage:@"睡觉时间修改成功" duration:2 animated:YES];
+        }
+    } failure:^(YTKBaseRequest *request) {
+        
+    }];
+}
+- (void)sendUserDefaultEndSleepTime
+{
+    SHPutClient *client = [SHPutClient shareInstance];
+    NSDictionary *dic = @{
+                          @"UserID": thirdPartyLoginUserId, //关键字，必须传递
+                          @"SleepEndTime":_endTimeLabel.titleLabel.text,
+                          };
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [client modifyUserInfo:header andWithPara:dic];
+    
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        HaviLog(@"保存%@",resposeDic);
+        MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [overlay postImmediateFinishMessage:@"起床时间修改成功" duration:2 animated:YES];
+        }
+    } failure:^(YTKBaseRequest *request) {
+        
+    }];
+}
+
 
 - (void)showEndTimePicker:(LRGlowingButton*)sender
 {
@@ -517,9 +595,10 @@
 //                                        return ;
 //                                    }
                                     [_endTimeLabel setTitle:selectedString forState:UIControlStateNormal];
-                                    isUserDefaultTime = YES;
-                                    [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultEndTime];
-                                    [[NSUserDefaults standardUserDefaults]synchronize];
+                                    [self sendUserDefaultEndSleepTime];
+//                                    isUserDefaultTime = YES;
+//                                    [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultEndTime];
+//                                    [[NSUserDefaults standardUserDefaults]synchronize];
                                     _selectString2 = selectedString;
                                 }
                             }];
