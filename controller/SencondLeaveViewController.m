@@ -32,6 +32,7 @@
     [self createNavigationView];
     [self createSubView];
     [self.view addSubview:self.bottomTableView];
+//    self.bgImageView.image = [UIImage imageNamed:@"ic_pic_bg.png"];
     [self getData];
 
 }
@@ -167,8 +168,8 @@
     NSString *sting = [NSString stringWithFormat:@"睡眠时长为: %0.1f小时",[[[[dic objectForKey:@"Data"] firstObject] objectForKey:@"SleepDuration"] floatValue]];
     NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc]initWithString:sting];
     [attribute addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, [sting length])];
-    [attribute addAttribute:NSForegroundColorAttributeName value:DefaultColor range:[sting rangeOfString:@"睡眠时长为:"]];
-    [attribute addAttribute:NSForegroundColorAttributeName value:DefaultColor range:[sting rangeOfString:@"小时"]];
+    [attribute addAttribute:NSForegroundColorAttributeName value:selectedThemeIndex==0? DefaultColor:[UIColor whiteColor] range:[sting rangeOfString:@"睡眠时长为:"]];
+    [attribute addAttribute:NSForegroundColorAttributeName value:selectedThemeIndex==0? DefaultColor:[UIColor whiteColor] range:[sting rangeOfString:@"小时"]];
     _sleepTimeLabel.attributedText = attribute;
     self.timesLabel.text = [NSString stringWithFormat:@"%d",[[dic objectForKey:@"OutOfBedTimes"] intValue]];
 }
@@ -285,7 +286,7 @@
 //                           WithFrame:CGRectMake(151, 2, 100, 30)];
         _sleepTimeLabel.text = @"睡眠时长为:0小时";
         _sleepTimeLabel.font = [UIFont systemFontOfSize:17];
-        _sleepTimeLabel.textColor = selectedThemeIndex == 0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
+        _sleepTimeLabel.textColor = [UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f];
        
     }
     return _sleepTimeLabel;
@@ -309,7 +310,7 @@
         _timesLabel.text = @"5";
         _timesLabel.font = [UIFont systemFontOfSize:25];
         _timesLabel.textAlignment = NSTextAlignmentCenter;
-        _timesLabel.textColor = selectedThemeIndex == 0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
+        _timesLabel.textColor = [UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f];
     }
     return _timesLabel;
 }
@@ -405,6 +406,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)reloadThemeImage
+{
+    [super reloadThemeImage];
+    _leaveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_getup_%d",selectedThemeIndex]];
+    _circleSleepView.backgroundColor = selectedThemeIndex==0?[self colorWithHex:0x0e254c alpha:1]:[self colorWithHex:0x5e8abe alpha:1];
+    _circleTitle.textColor = selectedThemeIndex == 0?DefaultColor:[UIColor whiteColor];
+    _circleSubTitle.textColor = selectedThemeIndex == 0?DefaultColor:[UIColor whiteColor];
+    [self.bottomTableView reloadData];
 }
 
 /*

@@ -107,6 +107,12 @@
 
 - (void)layoutSubviews
 {
+    cellImage.image = [UIImage imageNamed:[NSString stringWithFormat: @"ic_line_%d",selectedThemeIndex]];
+    cellImage1.image = [UIImage imageNamed:[NSString stringWithFormat: @"ic_dot_%d",selectedThemeIndex]];
+    leftTitleLabel.textColor = selectedThemeIndex == 0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
+    leftSubTitleLabel.textColor = selectedThemeIndex == 0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
+    rightTitleLabel.textColor = selectedThemeIndex == 0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
+    righSubtTitleLabel.textColor = selectedThemeIndex == 0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
     leftTitleLabel.text = self.leftTitleName;
     leftSubTitleLabel.text = self.leftSubTitleName;
     rightTitleLabel.text = self.rightTitleName;
