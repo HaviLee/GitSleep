@@ -170,20 +170,20 @@
     }
     NSDate *newDate = [self.dateFormmatterBase dateFromString:nowDateString];
     NSString *urlString = @"";
-    if (isTodayHourEqualSixteen<18 || !isSixteenTime) {
-        self.dateComponentsBase.day = -1;
-        NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-        NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
-        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,newString,nowDateString];
-    }else {
-        self.dateComponentsBase.day = 1;
-        NSDate *nextDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-        NSString *nextDayString = [NSString stringWithFormat:@"%@",nextDay];
-        NSString *newNextDayString = [NSString stringWithFormat:@"%@%@%@",[nextDayString substringWithRange:NSMakeRange(0, 4)],[nextDayString substringWithRange:NSMakeRange(5, 2)],[nextDayString substringWithRange:NSMakeRange(8, 2)]];
-        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,nowDateString,newNextDayString];
-        
-    }
+    self.dateComponentsBase.day = -1;
+    NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+    NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
+    NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
+    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,newString,nowDateString];
+//    if (isTodayHourEqualSixteen<18 || !isSixteenTime) {
+//    }else {
+//        
+//    }
+//    self.dateComponentsBase.day = 1;
+//    NSDate *nextDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+//    NSString *nextDayString = [NSString stringWithFormat:@"%@",nextDay];
+//    NSString *newNextDayString = [NSString stringWithFormat:@"%@%@%@",[nextDayString substringWithRange:NSMakeRange(0, 4)],[nextDayString substringWithRange:NSMakeRange(5, 2)],[nextDayString substringWithRange:NSMakeRange(8, 2)]];
+//    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,nowDateString,newNextDayString];
     self.tagFromDateAndEndDate = urlString;
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -441,16 +441,16 @@
 {
     [self.view addSubview:self.datePicker];
     NSDate *nowDate = [self getNowDate];
-    NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
-    isTodayHourEqualSixteen = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
-    if (isTodayHourEqualSixteen<18) {
-        self.dateComponentsBase.day = -1;
-        NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:nowDate options:0];
-        [self.datePicker updateCalenderSelectedDate:yestoday];
-        selectedDateToUse = yestoday;
-    }else{
-        selectedDateToUse = nowDate;
-    }
+//    NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+//    isTodayHourEqualSixteen = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
+//    if (isTodayHourEqualSixteen<18) {
+//        self.dateComponentsBase.day = -1;
+//        NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:nowDate options:0];
+//        [self.datePicker updateCalenderSelectedDate:yestoday];
+//        selectedDateToUse = yestoday;
+//    }else{
+//    }
+    selectedDateToUse = nowDate;
     
     [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",1]] forState:UIControlStateNormal];
     [self.datePicker.calenderButton addTarget:self action:@selector(showCalender:) forControlEvents:UIControlEventTouchUpInside];
@@ -739,11 +739,11 @@
             NSString *dateString = [formatter stringFromDate:date];
             HaviLog(@"当前选中的日期是%@",dateString);
             NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
-            if (isUserDefaultTime) {
-                [self getUserDefatultSleepReportData:subString toDate:subString];
-            }else{
-                [self getTodaySleepQualityData:subString];
-            }
+//            if (isUserDefaultTime) {
+//                [self getUserDefatultSleepReportData:subString toDate:subString];
+//            }else{
+//            }
+            [self getTodaySleepQualityData:subString];
         }
     }
 }
@@ -851,14 +851,14 @@
 {
     [super viewDidAppear:animated];
     //每次都判断一下当前的时间是不是18：00；
-    NSDate *nowDate = [self getNowDate];
-    if ([selectedDateToUse isEarlierThan:nowDate]) {
-        isSixteenTime = NO;
-    }else{
-        isSixteenTime = YES;
-    }
-    NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
-    isTodayHourEqualSixteen = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
+//    NSDate *nowDate = [self getNowDate];
+//    if ([selectedDateToUse isEarlierThan:nowDate]) {
+//        isSixteenTime = NO;
+//    }else{
+//        isSixteenTime = YES;
+//    }
+//    NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
+//    isTodayHourEqualSixteen = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
 }
 
 //#pragma mark alertview 代理
