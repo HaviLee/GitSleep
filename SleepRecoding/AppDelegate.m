@@ -78,8 +78,8 @@
     
     //默认注册一个不开启睡眠时间设置
 //    [[NSUserDefaults standardUserDefaults]registerDefaults:@{SleepSettingSwitchKey:@"NO"}];
-//    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:@"18:00"}];
-//    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:@"06:00"}];
+    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:@"18:00"}];
+    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:@"06:00"}];
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
         isUserDefaultTime = NO;
     }else{
@@ -135,6 +135,7 @@
         [weakSelf hideLoginView];
         //监听网络
         [weakSelf setWifiNotification];
+//        [weakSelf getDefaultTime];
         //发送登录成noti
         [[NSNotificationCenter defaultCenter]postNotificationName:LoginSuccessedNoti object:nil userInfo:nil];
     };
@@ -170,8 +171,13 @@
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"] ] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:[[resposeDic objectForKey:@"UserInfo"] objectForKey:@"SleepStartTime"]}];
-            [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:[[resposeDic objectForKey:@"UserInfo"] objectForKey:@"SleepEndTime"]}];
+            NSDictionary *dic = [resposeDic objectForKey:@"UserInfo"];
+            NSString *startString = [dic objectForKey:@"SleepStartTime"];
+            NSString *endString = [dic objectForKey:@"SleepStartTime"];
+            if (startString.length!=0&&endString.length!=0) {
+                [[NSUserDefaults standardUserDefaults]setObject:[[resposeDic objectForKey:@"UserInfo"] objectForKey:@"SleepStartTime"] forKey:UserDefaultStartTime ];
+                [[NSUserDefaults standardUserDefaults]setObject:[[resposeDic objectForKey:@"UserInfo"] objectForKey:@"SleepEndTime"] forKey:UserDefaultEndTime ];
+            }
             
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10029){
             [[NSNotificationCenter defaultCenter]postNotificationName:ShowPhoneInputViewNoti object:nil userInfo:nil];
@@ -570,8 +576,13 @@
         HaviLog(@"检测结果是userid 是%@：%@",[dic objectForKey:@"UserID"],resposeDic);
         [MMProgressHUD dismiss];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:[resposeDic objectForKey:@"SleepStartTime"]}];
-            [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:[resposeDic objectForKey:@"SleepEndTime"]}];
+            NSDictionary *dic = [resposeDic objectForKey:@"UserInfo"];
+            NSString *startString = [dic objectForKey:@"SleepStartTime"];
+            NSString *endString = [dic objectForKey:@"SleepStartTime"];
+            if (startString.length!=0&&endString.length!=0) {
+                [[NSUserDefaults standardUserDefaults]setObject:[[resposeDic objectForKey:@"UserInfo"] objectForKey:@"SleepStartTime"] forKey:UserDefaultStartTime ];
+                [[NSUserDefaults standardUserDefaults]setObject:[[resposeDic objectForKey:@"UserInfo"] objectForKey:@"SleepEndTime"] forKey:UserDefaultEndTime ];
+            }
 
             thirdPartyLoginPlatform = platfrom;
             thirdPartyLoginUserId = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserID"];

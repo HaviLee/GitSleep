@@ -209,6 +209,8 @@
             
         }];
     }
+    [[NSUserDefaults standardUserDefaults]setObject:@"18:00" forKey:UserDefaultStartTime ];
+    [[NSUserDefaults standardUserDefaults]setObject:@"06:00" forKey:UserDefaultEndTime ];
     [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:app.centerViewController] animated:YES];
     [self.sideMenuViewController hideMenuViewController];
     [UserManager resetUserInfo];

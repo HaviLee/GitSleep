@@ -54,7 +54,7 @@
         titleLabel_ = [UILabel new];
         titleLabel_.textAlignment = NSTextAlignmentCenter;
         titleLabel_.backgroundColor = [UIColor clearColor];
-        titleLabel_.textColor = [UIColor whiteColor];
+        titleLabel_.textColor = DefaultColor;
         titleLabel_.text = title;
         titleLabel_.font = [UIFont systemFontOfSize:15];
         _selectedBlock = block;
