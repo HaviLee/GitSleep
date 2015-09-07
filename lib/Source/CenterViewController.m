@@ -290,13 +290,16 @@
                          ];
     [self.cellTableView reloadData];
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[sleepDic objectForKey:@"Data"]];
-    NSDateFormatter *dateFormmatterBase = [[NSDateFormatter alloc]init];
-    [dateFormmatterBase setDateFormat:@"yyyy-MM-dd"];
-    [arr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [[dateFormmatterBase dateFromString:[obj1 objectForKey:@"Date"]] compare:[ dateFormmatterBase dateFromString:[obj2 objectForKey:@"Date"]]];
-    }];
+    NSString *selectString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+    NSString *subString = [selectString substringToIndex:10];
+    NSDictionary *dataDic=nil;
+    for (NSDictionary *dic in arr) {
+        if ([[dic objectForKey:@"Date"]isEqualToString:subString]) {
+            dataDic = dic;
+        }
+    }
     
-    NSDictionary *dataDic = [[sleepDic objectForKey:@"Data"] lastObject];
+//    NSDictionary *dataDic = [[sleepDic objectForKey:@"Data"] lastObject];
     NSString *sleepStartTime = [dataDic objectForKey:@"SleepStartTime"];
     NSString *sleepEndTime = [dataDic objectForKey:@"SleepEndTime"];
     NSString *sleepDuration = [dataDic objectForKey:@"SleepDuration"];
@@ -313,39 +316,54 @@
     double subsecond2 = modf([sleepDuration floatValue], &second2);
     NSString *sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长是%d小时%d分",hour>0?hour:-hour,(int)(subsecond2*60)];
     self.sleepTimeLabel.text= sleepTimeDuration;
-    
-    //修改时间标签内容
-    if(sleepStartTime.length>0) {
-        NSString *hour = [sleepStartTime substringWithRange:NSMakeRange(11, 2)];
-        if ([hour intValue]>12||[hour intValue]==12) {
-            self.nightView.nightTime = [NSString stringWithFormat:@"%@PM",[sleepStartTime substringWithRange:NSMakeRange(11, 5)]];
-        }else{
-            self.nightView.nightTime = [NSString stringWithFormat:@"%@AM",[sleepStartTime substringWithRange:NSMakeRange(11, 5)]];
-        }
-        [self resetNightTagFrame:[hour intValue] andView:self.nightView];
+    if (sleepStartTime) {
         
+        [self.circleView addSubview:self.startView];
+        self.startView.startTime = [sleepStartTime substringWithRange:NSMakeRange(11, 5)];
+        self.startView.center = CGPointMake(90, 5);
     }else{
-        self.nightView.nightTime = @"睡眠时间";
-        [self resetNightTagFrame:10 andView:self.nightView];
+        [self.startView removeFromSuperview];
     }
-    if(sleepEndTime.length>0) {
-        NSString *hour = [sleepEndTime substringWithRange:NSMakeRange(11, 2)];
-        if ([hour intValue]>12||[hour intValue]==12) {
-            self.dayView.dayTime = [NSString stringWithFormat:@"%@PM",[sleepEndTime substringWithRange:NSMakeRange(11, 5)]];
-        }else{
-            self.dayView.dayTime = [NSString stringWithFormat:@"%@AM",[sleepEndTime substringWithRange:NSMakeRange(11, 5)]];
-        }
-        NSString *hourNight = [sleepEndTime substringWithRange:NSMakeRange(11, 2)];
-        if ([hourNight intValue]==[hour intValue]) {
-            [self resetNightTagFrame:[hour intValue]+1 andView:self.dayView];
-        }else{
-            [self resetNightTagFrame:[hour intValue] andView:self.dayView];
-
-        }
-    }else{
-        self.dayView.dayTime = @"起床时间";
-        [self resetNightTagFrame:8 andView:self.dayView];
+    if (sleepEndTime) {
+        [self.circleView addSubview:self.endView];
+        self.endView.endTime = [sleepEndTime substringWithRange:NSMakeRange(11, 5)];
+        self.endView.center = CGPointMake(self.view.frame.size.width-60, 5);
+    }else
+    {
+        [self.endView removeFromSuperview];
     }
+    //修改时间标签内容
+//    if(sleepStartTime.length>0) {
+//        NSString *hour = [sleepStartTime substringWithRange:NSMakeRange(11, 2)];
+//        if ([hour intValue]>12||[hour intValue]==12) {
+//            self.nightView.nightTime = [NSString stringWithFormat:@"%@PM",[sleepStartTime substringWithRange:NSMakeRange(11, 5)]];
+//        }else{
+//            self.nightView.nightTime = [NSString stringWithFormat:@"%@AM",[sleepStartTime substringWithRange:NSMakeRange(11, 5)]];
+//        }
+//        [self resetNightTagFrame:[hour intValue] andView:self.nightView];
+//        
+//    }else{
+//        self.nightView.nightTime = @"睡眠时间";
+//        [self resetNightTagFrame:10 andView:self.nightView];
+//    }
+//    if(sleepEndTime.length>0) {
+//        NSString *hour = [sleepEndTime substringWithRange:NSMakeRange(11, 2)];
+//        if ([hour intValue]>12||[hour intValue]==12) {
+//            self.dayView.dayTime = [NSString stringWithFormat:@"%@PM",[sleepEndTime substringWithRange:NSMakeRange(11, 5)]];
+//        }else{
+//            self.dayView.dayTime = [NSString stringWithFormat:@"%@AM",[sleepEndTime substringWithRange:NSMakeRange(11, 5)]];
+//        }
+//        NSString *hourNight = [sleepEndTime substringWithRange:NSMakeRange(11, 2)];
+//        if ([hourNight intValue]==[hour intValue]) {
+//            [self resetNightTagFrame:[hour intValue]+1 andView:self.dayView];
+//        }else{
+//            [self resetNightTagFrame:[hour intValue] andView:self.dayView];
+//
+//        }
+//    }else{
+//        self.dayView.dayTime = @"起床时间";
+//        [self resetNightTagFrame:8 andView:self.dayView];
+//    }
 
 }
 
@@ -434,12 +452,7 @@
 //    self.iWantSleepLabel.userInteractionEnabled = YES;
 //    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(sendSleepTime)];
 //    [self.iWantSleepLabel addGestureRecognizer:gesture];
-    [self.circleView addSubview:self.startView];
-    self.startView.startTime = @"22:22";
-    self.startView.center = CGPointMake(90, 5);
-    [self.circleView addSubview:self.endView];
-    self.endView.endTime = @"23:21";
-    self.endView.center = CGPointMake(self.view.frame.size.width-60, 5);
+    
 //    [self.circleView addSubview:self.nightView];
 //    self.nightView.nightTime = @"睡眠时间";
 //    
