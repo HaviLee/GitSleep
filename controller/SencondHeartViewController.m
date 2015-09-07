@@ -90,7 +90,9 @@
 
 - (void)createSubView
 {
-    [self.view addSubview:self.upTableView];
+//    [self.view addSubview:self.upTableView];
+    [self createScrollView];
+    
     [self.view addSubview:self.reportTableView];
     UILabel *titleLabel = [[UILabel alloc]init];
     [self.view addSubview:titleLabel];
@@ -99,6 +101,32 @@
     titleLabel.font = [UIFont systemFontOfSize:20];
     titleLabel.textColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
     titleLabel.frame = CGRectMake(20, self.view.frame.size.height-204, self.view.frame.size.width-40, 44);
+}
+
+- (void)createScrollView
+{
+    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(5, 64, self.view.frame.size.width-10, self.viewHeight-64-234)];
+    scrollView.contentSize = CGSizeMake((self.view.frame.size.width-10)*4+10, self.viewHeight-64-234);
+    _heartGraphView = [[HeartGraphView alloc]initWithFrame:CGRectMake(0, 64, (self.view.frame.size.width-10)*4, self.upTableView.frame.size.height-60)];
+    //设置警告值
+    _heartGraphView.yValues = @[@"20", @"40", @"60", @"80", @"100",@"120",@"140"];
+    _heartGraphView.heartView.graphTitle = @"xinlv";
+    _heartGraphView.heartView.maxValue = 80;
+    _heartGraphView.heartView.minValue = 30;
+    _heartGraphView.horizonLine = 60;
+    _heartGraphView.backMinValue = 50;
+    _heartGraphView.backMaxValue = 70;
+    _heartGraphView.heartView.horizonValue = 140;
+    //设置坐标轴
+    
+    _heartGraphView.xValues = @[@"18",@"19",@"20",@"21",@"22",@"23", @"24", @"1",@"2",@"3", @"4",@"5", @"6",@"7", @"8",@"9", @"10",@"11", @"12",@"13",@"14",@"15",@"16",@"17",@"18"];
+    
+    
+    _heartGraphView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [scrollView addSubview:_heartGraphView];
+    scrollView.backgroundColor = [UIColor clearColor];
+    scrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:scrollView];
 }
 
 #pragma mark setter
