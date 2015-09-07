@@ -195,9 +195,13 @@
         
         if (indexPath.section == 1) {
             if (indexPath.row == 0) {
-                cell.cellDataString = [NSString stringWithFormat:@"%@CM",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+                if ([NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]].length!=0) {
+                    cell.cellDataString = [NSString stringWithFormat:@"%@CM",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+                }
             }else if (indexPath.row == 1){
-                cell.cellDataString = [NSString stringWithFormat:@"%@KG",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+                if ([NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]].length!=0) {
+                    cell.cellDataString = [NSString stringWithFormat:@"%@KG",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+                }
             }else{
                 cell.cellDataString = [NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.keyDic objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
             }

@@ -799,8 +799,8 @@
     __block typeof(self) weakSelf = self;
     self.chvc.calendarblock = ^(CalendarDayModel *model){
         NSDate *selectedDate = [model date];
-        NSDate *newSelect = [selectedDate dateByAddingDays:1];
-        [weakSelf.datePicker updateCalenderSelectedDate:newSelect];
+//        NSDate *newSelect = [selectedDate dateByAddingDays:1];
+        [weakSelf.datePicker updateCalenderSelectedDate:selectedDate];
         
     };
     self.navigationController.navigationBarHidden = NO;
