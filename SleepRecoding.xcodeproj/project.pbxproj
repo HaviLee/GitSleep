@@ -433,6 +433,10 @@
 		2C8F7BBE1AF3747700E56513 /* JTCalendarWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F7BB31AF3747700E56513 /* JTCalendarWeekView.m */; };
 		2C8F7BBF1AF3747700E56513 /* JTCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F7BB51AF3747700E56513 /* JTCircleView.m */; };
 		2C8F7BC21AF374A500E56513 /* CalenderCantainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F7BC11AF374A500E56513 /* CalenderCantainerViewController.m */; };
+		2C91A67A1B9C4C890039EEAB /* StartTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91A6791B9C4C890039EEAB /* StartTimeView.m */; };
+		2C91A67D1B9C4C940039EEAB /* EndTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91A67C1B9C4C940039EEAB /* EndTimeView.m */; };
+		2C91A6821B9D23910039EEAB /* ic_compile_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C91A6811B9D23910039EEAB /* ic_compile_0.png */; };
+		2C91A6841B9D239A0039EEAB /* btn_textbox_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C91A6831B9D239A0039EEAB /* btn_textbox_0.png */; };
 		2C94F99B1B8716BD00F1A4DB /* pic_bg_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94F99A1B8716BD00F1A4DB /* pic_bg_0@2x.png */; };
 		2C94F99D1B8719C700F1A4DB /* pic_bg_day.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C94F99C1B8719C700F1A4DB /* pic_bg_day.png */; };
 		2C94F9E11B8AED0200F1A4DB /* DateTools.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C94F9D21B8AED0200F1A4DB /* DateTools.bundle */; };
@@ -1153,6 +1157,12 @@
 		2C8F7BB51AF3747700E56513 /* JTCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTCircleView.m; path = JTCalendar/JTCircleView.m; sourceTree = "<group>"; };
 		2C8F7BC01AF374A500E56513 /* CalenderCantainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalenderCantainerViewController.h; path = controller/CalenderCantainerViewController.h; sourceTree = "<group>"; };
 		2C8F7BC11AF374A500E56513 /* CalenderCantainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalenderCantainerViewController.m; path = controller/CalenderCantainerViewController.m; sourceTree = "<group>"; };
+		2C91A6781B9C4C890039EEAB /* StartTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartTimeView.h; sourceTree = "<group>"; };
+		2C91A6791B9C4C890039EEAB /* StartTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartTimeView.m; sourceTree = "<group>"; };
+		2C91A67B1B9C4C940039EEAB /* EndTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndTimeView.h; sourceTree = "<group>"; };
+		2C91A67C1B9C4C940039EEAB /* EndTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndTimeView.m; sourceTree = "<group>"; };
+		2C91A6811B9D23910039EEAB /* ic_compile_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_compile_0.png; sourceTree = "<group>"; };
+		2C91A6831B9D239A0039EEAB /* btn_textbox_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_textbox_0.png; sourceTree = "<group>"; };
 		2C94F99A1B8716BD00F1A4DB /* pic_bg_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pic_bg_0@2x.png"; path = "color0/切图/pic_bg_0@2x.png"; sourceTree = "<group>"; };
 		2C94F99C1B8719C700F1A4DB /* pic_bg_day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic_bg_day.png; sourceTree = "<group>"; };
 		2C94F9D21B8AED0200F1A4DB /* DateTools.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DateTools.bundle; sourceTree = "<group>"; };
@@ -1829,6 +1839,8 @@
 				2CC8E80C1B9C19AE00F69ABE /* ic_getup_1.png */,
 				2CC8E8051B9C120700F69ABE /* ic_line_1.png */,
 				2CC8E80A1B9C12F300F69ABE /* ic_pic_bg.png */,
+				2C91A6811B9D23910039EEAB /* ic_compile_0.png */,
+				2C91A6831B9D239A0039EEAB /* btn_textbox_0.png */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -2688,6 +2700,10 @@
 				2C7319CE1B74859A005A3EE4 /* SleepAnalysisViewController.m */,
 				2C7345C91B772F34004D8AB3 /* SleepTimeTagView.h */,
 				2C7345CA1B772F34004D8AB3 /* SleepTimeTagView.m */,
+				2C91A6781B9C4C890039EEAB /* StartTimeView.h */,
+				2C91A6791B9C4C890039EEAB /* StartTimeView.m */,
+				2C91A67B1B9C4C940039EEAB /* EndTimeView.h */,
+				2C91A67C1B9C4C940039EEAB /* EndTimeView.m */,
 				2C7319D01B759237005A3EE4 /* DayTimeView.h */,
 				2C7319D11B759237005A3EE4 /* DayTimeView.m */,
 				2C7319D31B759248005A3EE4 /* NightTimeView.h */,
@@ -3011,6 +3027,7 @@
 				2C7D22A61AF1CA050011A45C /* btn_wireframe_0@2x.png in Resources */,
 				2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */,
 				2C7D22031AF1C6550011A45C /* head_portrait_BG@2x.png in Resources */,
+				2C91A6821B9D23910039EEAB /* ic_compile_0.png in Resources */,
 				2C7D22B41AF1CA050011A45C /* icon_fatal_exception_0@2x.png in Resources */,
 				2C15E7091AF214E800142F36 /* btn_up_1@2x.png in Resources */,
 				2CC8E7FC1B9BE59900F69ABE /* ic_dot_0.png in Resources */,
@@ -3142,6 +3159,7 @@
 				2C15E7691AF2150900142F36 /* breathe5_1@2x.png in Resources */,
 				2C94F99B1B8716BD00F1A4DB /* pic_bg_0@2x.png in Resources */,
 				2C4FCB1B1A8F56E800DCEEF3 /* Images.xcassets in Resources */,
+				2C91A6841B9D239A0039EEAB /* btn_textbox_0.png in Resources */,
 				2C7D22FF1AF1CA220011A45C /* heart_4_0.png in Resources */,
 				2C7345EC1B784324004D8AB3 /* weixin.png in Resources */,
 				2C15E7071AF214E800142F36 /* btn_share_1@2x.png in Resources */,
@@ -3484,6 +3502,7 @@
 				2C7319E81B75E598005A3EE4 /* TagObject.m in Sources */,
 				2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */,
 				57802E2B1AE7398200823E39 /* SHPutClient.m in Sources */,
+				2C91A67D1B9C4C940039EEAB /* EndTimeView.m in Sources */,
 				57711FF31AD4CFF400508C5C /* WeekReportViewController.m in Sources */,
 				2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */,
 				2CD404181B1460F60020B89E /* DataShowChartTableViewCell.m in Sources */,
@@ -3501,6 +3520,7 @@
 				2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */,
 				572AA9861AC29A5700DED1D9 /* THPinNumButton.m in Sources */,
 				576A76751AC1337600BE8206 /* ShowAlertView.m in Sources */,
+				2C91A67A1B9C4C890039EEAB /* StartTimeView.m in Sources */,
 				2C8F7BBF1AF3747700E56513 /* JTCircleView.m in Sources */,
 				2CD6C0671B7D812300F1FF6A /* MPPlot.m in Sources */,
 				2C77D5231AED13EF004123D2 /* GetUserDefaultDataAPI.m in Sources */,

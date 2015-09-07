@@ -116,6 +116,8 @@
 //    self.rightButton.frame = CGRectMake(0, 0, 60, 40);
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightButton];
 }
+
+
 #pragma mark tableView 代理
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -481,32 +483,45 @@
 - (void)showStartTimePicker:(LRGlowingButton*)sender
 {
     NSString *senderString = self.startTimeLabel.titleLabel.text;
+    NSMutableArray *hour1 = [[NSMutableArray alloc]init];
+    NSMutableArray *minute1 = [[NSMutableArray alloc]init];
+    for (int i=0; i<60; i++) {
+        if (i<10) {
+            [minute1 addObject:[NSString stringWithFormat:@"0%d分",i]];
+        }else{
+            [minute1 addObject:[NSString stringWithFormat:@"%d分",i]];
+        }
+    }
+    for (int i=13; i<24; i++) {
+        [hour1 addObject:[NSString stringWithFormat:@"%d点",i]];
+    }
     
-    [MMPickerView showPickerViewInView:self.view
-                           withStrings:_hourArr1
-                           withOptions:@{MMbackgroundColor: [UIColor whiteColor],
-                                         MMtextColor: [UIColor blackColor],
-                                         MMtoolbarColor: [UIColor whiteColor],
-                                         MMbuttonColor: [UIColor blueColor],
-                                         MMfont: [UIFont systemFontOfSize:35],
-                                         MMvalueY: @0,
-                                         MMselectedObject:_selectString1,
-                                         MMtextAlignment:@1}
-                            completion:^(NSString *selectedString) {
-                                if ([selectedString isEqualToString:@"cancel"]) {
-                                    self.startTimeLabel.titleLabel.text = senderString;
-                                    HaviLog(@"button 的titile是%@",senderString);
-                                }else{
-                                    
-                                    [_startTimeLabel setTitle:selectedString forState:UIControlStateNormal];
-                                    isUserDefaultTime = YES;
-//                                    [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultStartTime];
-//                                    [[NSUserDefaults standardUserDefaults]synchronize];
-                                    [self sendUserDefaultSleepTime];
-                                    sender.titleLabel.text = selectedString;
-                                    _selectString1 = selectedString;
-                                }
-                            }];
+    [MMTwoListPickerView showPickerViewInView:self.view
+                                  withStrings:@[hour1,minute1]
+                                  withOptions:@{MMbackgroundColor: [UIColor whiteColor],
+                                                MMtextColor: [UIColor blackColor],
+                                                MMtoolbarColor: [UIColor whiteColor],
+                                                MMbuttonColor: [UIColor blueColor],
+                                                MMfont: [UIFont systemFontOfSize:35],
+                                                MMvalueY: @3,
+                                                MMselectedObject:@"li",
+                                                MMtextAlignment:@1}
+                                   completion:^(NSString *selectedString) {
+                                       if ([selectedString isEqualToString:@"cancel"]) {
+                                           self.startTimeLabel.titleLabel.text = senderString;
+                                           HaviLog(@"button 的titile是%@",senderString);
+                                       }else{
+                                           NSString *titleString = [NSString stringWithFormat:@"%@:%@",[selectedString substringWithRange:NSMakeRange(0, 2)],[selectedString substringWithRange:NSMakeRange(3, 2)]];
+                                           [_startTimeLabel setTitle:titleString forState:UIControlStateNormal];
+                                           isUserDefaultTime = YES;
+                                           //                                    [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultStartTime];
+                                           //                                    [[NSUserDefaults standardUserDefaults]synchronize];
+                                           [self sendUserDefaultSleepTime];
+                                           sender.titleLabel.text = selectedString;
+                                           _selectString1 = selectedString;
+                                       }
+                                   }];
+    
 
 
 }
@@ -562,46 +577,50 @@
 
 - (void)showEndTimePicker:(LRGlowingButton*)sender
 {
-    NSMutableArray *arr = [[NSMutableArray alloc]init];
-    NSString *start = [self.startTimeLabel.titleLabel.text substringToIndex:2];
-    for (int i = 1; i<25; i++) {
+    NSString *senderString = self.startTimeLabel.titleLabel.text;
+    NSMutableArray *hour1 = [[NSMutableArray alloc]init];
+    NSMutableArray *minute1 = [[NSMutableArray alloc]init];
+    for (int i=0; i<60; i++) {
         if (i<10) {
-            [arr addObject:[NSString stringWithFormat:@"0%d:00",i]];
+            [minute1 addObject:[NSString stringWithFormat:@"0%d分",i]];
         }else{
-            [arr addObject:[NSString stringWithFormat:@"%d:00",i]];
+            [minute1 addObject:[NSString stringWithFormat:@"%d分",i]];
         }
     }
-    _selectString1 = [arr objectAtIndex:0];
-    NSString *senderString = self.endTimeLabel.titleLabel.text;
+    for (int i=0; i<24; i++) {
+        if (i<10) {
+            [hour1 addObject:[NSString stringWithFormat:@"0%d点",i]];
+        }else{
+            [hour1 addObject:[NSString stringWithFormat:@"%d点",i]];
+        }
+    }
     
-    [MMPickerView showPickerViewInView:self.view
-                           withStrings:arr
-                           withOptions:@{MMbackgroundColor: [UIColor whiteColor],
-                                         MMtextColor: [UIColor blackColor],
-                                         MMtoolbarColor: [UIColor whiteColor],
-                                         MMbuttonColor: [UIColor blueColor],
-                                         MMfont: [UIFont systemFontOfSize:35],
-                                         MMvalueY: @0,
-                                         MMselectedObject:_selectString1,
-                                         MMtextAlignment:@1}
-                            completion:^(NSString *selectedString) {
-                                if ([selectedString isEqualToString:@"cancel"]) {
-                                    self.endTimeLabel.titleLabel.text = senderString;
-                                    HaviLog(@"button 的titile是%@",senderString);
-                                }else{
-//                                    if ([[self.startTimeLabel.titleLabel.text substringToIndex:2]intValue]>[[selectedString substringToIndex:2]intValue]) {
-//                                        self.endTimeLabel.titleLabel.text = senderString;
-//                                        [ShowAlertView showAlert:@"开始时间必须小于结束时间"];
-//                                        return ;
-//                                    }
-                                    [_endTimeLabel setTitle:selectedString forState:UIControlStateNormal];
-                                    [self sendUserDefaultEndSleepTime];
-//                                    isUserDefaultTime = YES;
-//                                    [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultEndTime];
-//                                    [[NSUserDefaults standardUserDefaults]synchronize];
-                                    _selectString2 = selectedString;
-                                }
-                            }];
+    [MMTwoListPickerView showPickerViewInView:self.view
+                                  withStrings:@[hour1,minute1]
+                                  withOptions:@{MMbackgroundColor: [UIColor whiteColor],
+                                                MMtextColor: [UIColor blackColor],
+                                                MMtoolbarColor: [UIColor whiteColor],
+                                                MMbuttonColor: [UIColor blueColor],
+                                                MMfont: [UIFont systemFontOfSize:35],
+                                                MMvalueY: @3,
+                                                MMselectedObject:@"li",
+                                                MMtextAlignment:@1}
+                                   completion:^(NSString *selectedString) {
+                                       if ([selectedString isEqualToString:@"cancel"]) {
+                                           self.startTimeLabel.titleLabel.text = senderString;
+                                           HaviLog(@"button 的titile是%@",senderString);
+                                       }else{
+                                           NSString *titleString = [NSString stringWithFormat:@"%@:%@",[selectedString substringWithRange:NSMakeRange(0, 2)],[selectedString substringWithRange:NSMakeRange(3, 2)]];
+                                           [_endTimeLabel setTitle:titleString forState:UIControlStateNormal];
+                                           isUserDefaultTime = YES;
+                                           //                                    [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultStartTime];
+                                           //                                    [[NSUserDefaults standardUserDefaults]synchronize];
+                                           [self sendUserDefaultEndSleepTime];
+                                           sender.titleLabel.text = selectedString;
+                                           _selectString1 = selectedString;
+                                       }
+                                   }];
+
 }
 
 - (void)showSleepAlart:(LRGlowingButton*)sender

@@ -20,6 +20,7 @@
 #import "ThirdRegisterAPI.h"
 #import "CheckUserIsRegister.h"
 #import "WeiBoAPI.h"
+#import "SHGetClient.h"
 //
 #import "LoginContainerViewController.h"//架构重构
 #import "CenterViewController.h"//架构重构
@@ -76,9 +77,9 @@
     [self setThirdLoginNoti];
     
     //默认注册一个不开启睡眠时间设置
-    [[NSUserDefaults standardUserDefaults]registerDefaults:@{SleepSettingSwitchKey:@"NO"}];
-    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:@"18:00"}];
-    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:@"06:00"}];
+//    [[NSUserDefaults standardUserDefaults]registerDefaults:@{SleepSettingSwitchKey:@"NO"}];
+//    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:@"18:00"}];
+//    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:@"06:00"}];
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
         isUserDefaultTime = NO;
     }else{
@@ -154,6 +155,30 @@
     theAnimation.fromValue = [NSNumber numberWithFloat:0];
     theAnimation.toValue = [NSNumber numberWithFloat:-[UIScreen mainScreen].bounds.size.height];
     [self.loginView.view.layer addAnimation:theAnimation forKey:@"animateLayer"];
+    [self getDefaultTime];
+}
+
+- (void)getDefaultTime
+{
+    NSDictionary *dic = @{
+                          @"UserID": thirdPartyLoginUserId, //手机号码
+                          };
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@v1/user/UserInfo?UserID=%@",BaseUrl,[dic objectForKey:@"UserID"] ] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:[[resposeDic objectForKey:@"UserInfo"] objectForKey:@"SleepStartTime"]}];
+            [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:[[resposeDic objectForKey:@"UserInfo"] objectForKey:@"SleepEndTime"]}];
+            
+        }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10029){
+            [[NSNotificationCenter defaultCenter]postNotificationName:ShowPhoneInputViewNoti object:nil userInfo:nil];
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
 }
 //
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
@@ -292,6 +317,7 @@
             
         }];
     }
+    //
     
 }
 
@@ -544,6 +570,9 @@
         HaviLog(@"检测结果是userid 是%@：%@",[dic objectForKey:@"UserID"],resposeDic);
         [MMProgressHUD dismiss];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:[resposeDic objectForKey:@"SleepStartTime"]}];
+            [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:[resposeDic objectForKey:@"SleepEndTime"]}];
+
             thirdPartyLoginPlatform = platfrom;
             thirdPartyLoginUserId = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"UserID"];
             thirdPartyLoginNickName = thirdName;

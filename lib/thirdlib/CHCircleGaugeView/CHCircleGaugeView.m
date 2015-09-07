@@ -230,7 +230,7 @@ static NSString * const CHKeyDefaultNoAnswersText = @"%";
 {
     NSDictionary *stringAttributes = @{
                                        NSForegroundColorAttributeName : [UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f],
-                                       NSFontAttributeName : [UIFont systemFontOfSize:17]
+                                       NSFontAttributeName : [UIFont systemFontOfSize:14]
                                        };
     self.resposeTextLabel.attributedText = [[NSAttributedString alloc] initWithString:valueString attributes:stringAttributes];
 }
@@ -258,12 +258,12 @@ static NSString * const CHKeyDefaultNoAnswersText = @"%";
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[titleLabel]-0-|" options:0 metrics:nil views:@{@"titleLabel" : self.valueTitleLabel}]];
     
     // align layer from the top and bottom
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[titleLabel]-80-|" options:0 metrics:nil views:@{@"titleLabel" : self.valueTitleLabel}]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[titleLabel]-60-|" options:0 metrics:nil views:@{@"titleLabel" : self.valueTitleLabel}]];
     
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[responseLabel]-0-|" options:0 metrics:nil views:@{@"responseLabel" : self.resposeTextLabel}]];
     // align layer from the top and bottom
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-80-[responseLabel]-0-|" options:0 metrics:nil views:@{@"responseLabel" : self.resposeTextLabel}]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-60-[responseLabel]-0-|" options:0 metrics:nil views:@{@"responseLabel" : self.resposeTextLabel}]];
 }
 
 #pragma mark - Property Setters
@@ -589,7 +589,7 @@ static NSString * const CHKeyDefaultNoAnswersText = @"%";
         case CHCircleGaugeViewStateTitle: {
             stringAttributes = @{
                                  NSForegroundColorAttributeName : self.textColor,
-                                 NSFontAttributeName : [UIFont systemFontOfSize:17]
+                                 NSFontAttributeName : [UIFont systemFontOfSize:14]
                                  };
             valueString = [[NSAttributedString alloc] initWithString:@"睡眠指数" attributes:stringAttributes];
             
@@ -598,7 +598,7 @@ static NSString * const CHKeyDefaultNoAnswersText = @"%";
         case CHCircleGaugeViewStateStatus: {
             stringAttributes = @{
                                  NSForegroundColorAttributeName : self.textColor,
-                                 NSFontAttributeName : [UIFont systemFontOfSize:17]
+                                 NSFontAttributeName : [UIFont systemFontOfSize:14]
                                  };
             valueString = [[NSAttributedString alloc] initWithString:@"非常好" attributes:stringAttributes];
             

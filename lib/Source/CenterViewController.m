@@ -13,6 +13,8 @@
 #import "CHCircleGaugeView.h"
 #import "NightTimeView.h"
 #import "DayTimeView.h"
+#import "StartTimeView.h"
+#import "EndTimeView.h"
 #import "TagShowViewController.h"
 #import "DeviceManagerViewController.h"
 #import "UDPAddProductViewController.h"
@@ -41,12 +43,14 @@
 @property (nonatomic, strong) NSArray *cellDataArr;
 @property (nonatomic, strong) NightTimeView *nightView;
 @property (nonatomic, strong) DayTimeView *dayView;
+@property (nonatomic, strong) StartTimeView *startView;
+@property (nonatomic, strong) EndTimeView *endView;
 @property (nonatomic, strong) UITapGestureRecognizer *tapDayViewGesture;
 @property (nonatomic, strong) UITapGestureRecognizer *tapNightViewGesture;
 @property (nonatomic, strong) NSArray *dataViewArr;
 //为了标签使用
 @property (nonatomic, strong) NSString *tagFromDateAndEndDate;
-@property (nonatomic, strong) UILabel *iWantSleepLabel;
+@property (nonatomic, strong) UIButton *iWantSleepLabel;
 //
 @property (nonatomic, strong) NewTodayHeartViewController *todayHeartView;
 @property (nonatomic, strong) NewTodayBreathViewController *todayBreathView;
@@ -426,10 +430,16 @@
     [self.view addSubview:self.circleView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeValueAnimation:)];
     [self.circleView.cView addGestureRecognizer:tap];
-    [self.circleView addSubview:self.iWantSleepLabel];
-    self.iWantSleepLabel.userInteractionEnabled = YES;
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(sendSleepTime)];
-    [self.iWantSleepLabel addGestureRecognizer:gesture];
+    [self.view addSubview:self.iWantSleepLabel];
+//    self.iWantSleepLabel.userInteractionEnabled = YES;
+//    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(sendSleepTime)];
+//    [self.iWantSleepLabel addGestureRecognizer:gesture];
+    [self.circleView addSubview:self.startView];
+    self.startView.startTime = @"22:22";
+    self.startView.center = CGPointMake(90, 5);
+    [self.circleView addSubview:self.endView];
+    self.endView.endTime = @"23:21";
+    self.endView.center = CGPointMake(self.view.frame.size.width-60, 5);
 //    [self.circleView addSubview:self.nightView];
 //    self.nightView.nightTime = @"睡眠时间";
 //    
@@ -484,12 +494,35 @@
 
 #pragma mark  setter meathod
 
-- (UILabel *)iWantSleepLabel
+- (StartTimeView *)startView
+{
+    if (_startView==nil) {
+        _startView = [[StartTimeView alloc]init];
+        
+    }
+    return _startView;
+}
+
+- (EndTimeView *)endView
+{
+    if (_endView == nil) {
+        _endView = [[EndTimeView alloc]init];
+    }
+    return _endView;
+}
+
+- (UIButton *)iWantSleepLabel
 {
     if (_iWantSleepLabel==nil) {
-        _iWantSleepLabel = [[UILabel alloc]init];
-        _iWantSleepLabel.frame = CGRectMake(10, 30, 50,40);
-        _iWantSleepLabel.text = @"我要睡觉";
+        _iWantSleepLabel = [[UIButton alloc]init];
+        int datePickerHeight = self.view.frame.size.height*0.202623;
+
+        _iWantSleepLabel.frame = CGRectMake((self.view.frame.size.width-90)/2, self.view.frame.size.height -datePickerHeight-30, 90,25);
+        [_iWantSleepLabel setTitle:@"我要睡觉" forState:UIControlStateNormal];
+        [_iWantSleepLabel setBackgroundImage:[UIImage imageNamed:@"btn_textbox_0"] forState:UIControlStateNormal];
+        [_iWantSleepLabel setTitleColor:selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_iWantSleepLabel.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_iWantSleepLabel addTarget:self action:@selector(sendSleepTime) forControlEvents:UIControlEventTouchUpInside];
     }
     return _iWantSleepLabel;
 }
@@ -629,7 +662,7 @@
 {
     if (_circleView == nil) {
         int datePickerHeight = self.view.frame.size.height*0.202623;
-        _circleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 64 + 4*44 +30 + 10, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10)];
+        _circleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 64 + 4*44 +30 + 10, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35)];
         _circleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
         _circleView.trackWidth = 1;
         _circleView.gaugeStyle = CHCircleGaugeStyleOutside;
@@ -638,7 +671,7 @@
         _circleView.valueTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         _circleView.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         _circleView.responseColor = [UIColor greenColor];
-        _circleView.font = [UIFont systemFontOfSize:38];
+        _circleView.font = [UIFont systemFontOfSize:30];
         _circleView.rotationValue = 100;
         _circleView.value = 0.0;
     }
@@ -911,10 +944,10 @@
     [_circleView.cView.gradientLayer2 setColors:selectedThemeIndex==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1cd98d alpha:1]CGColor],(id)[[self colorWithHex:0x21c88d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x8DEC45 alpha:1]CGColor],(id)[[self colorWithHex:0x85E445 alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
     self.sleepTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     
-    _todayHeartView = nil;
-    _todayBreathView = nil;
-    _todayLeaveView = nil;
-    _todayTurnView = nil;
+    _sendBreathView = nil;
+    _sendHeardView = nil;
+    _sendLeaveView = nil;
+    _sendTurnView = nil;
     _dataViewArr = nil;
     self.dataViewArr = @[self.sendHeardView,self.sendBreathView,self.sendLeaveView,self.sendTurnView];
 }
