@@ -262,7 +262,7 @@
     [_startTimeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.left).offset(10);
         make.centerY.equalTo(cell.centerY);
-        make.width.equalTo(60);
+        make.width.equalTo(80);
     }];
 }
 
@@ -280,7 +280,7 @@
     [_endTimeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.left).offset(10);
         make.centerY.equalTo(cell.centerY);
-        make.width.equalTo(60);
+        make.width.equalTo(80);
     }];
 }
 
@@ -517,7 +517,6 @@
                                                                                [[NSUserDefaults standardUserDefaults]setObject:titleString forKey:UserDefaultStartTime];
                                                                                [[NSUserDefaults standardUserDefaults]synchronize];
                                            [self sendUserDefaultSleepTime];
-                                           sender.titleLabel.text = selectedString;
                                            _selectString1 = selectedString;
                                        }
                                    }];
@@ -616,7 +615,6 @@
                                                                                [[NSUserDefaults standardUserDefaults]setObject:titleString forKey:UserDefaultStartTime];
                                                                                [[NSUserDefaults standardUserDefaults]synchronize];
                                            [self sendUserDefaultEndSleepTime];
-                                           sender.titleLabel.text = selectedString;
                                            _selectString1 = selectedString;
                                        }
                                    }];
