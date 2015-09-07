@@ -514,8 +514,8 @@
                                            NSString *titleString = [NSString stringWithFormat:@"%@:%@",[selectedString substringWithRange:NSMakeRange(0, 2)],[selectedString substringWithRange:NSMakeRange(3, 2)]];
                                            [_startTimeLabel setTitle:titleString forState:UIControlStateNormal];
                                            isUserDefaultTime = YES;
-                                           //                                    [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultStartTime];
-                                           //                                    [[NSUserDefaults standardUserDefaults]synchronize];
+                                                                               [[NSUserDefaults standardUserDefaults]setObject:titleString forKey:UserDefaultStartTime];
+                                                                               [[NSUserDefaults standardUserDefaults]synchronize];
                                            [self sendUserDefaultSleepTime];
                                            sender.titleLabel.text = selectedString;
                                            _selectString1 = selectedString;
@@ -613,8 +613,8 @@
                                            NSString *titleString = [NSString stringWithFormat:@"%@:%@",[selectedString substringWithRange:NSMakeRange(0, 2)],[selectedString substringWithRange:NSMakeRange(3, 2)]];
                                            [_endTimeLabel setTitle:titleString forState:UIControlStateNormal];
                                            isUserDefaultTime = YES;
-                                           //                                    [[NSUserDefaults standardUserDefaults]setObject:selectedString forKey:UserDefaultStartTime];
-                                           //                                    [[NSUserDefaults standardUserDefaults]synchronize];
+                                                                               [[NSUserDefaults standardUserDefaults]setObject:titleString forKey:UserDefaultStartTime];
+                                                                               [[NSUserDefaults standardUserDefaults]synchronize];
                                            [self sendUserDefaultEndSleepTime];
                                            sender.titleLabel.text = selectedString;
                                            _selectString1 = selectedString;

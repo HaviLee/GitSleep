@@ -46,6 +46,7 @@
 - (void)setStartTime:(NSString *)startTime
 {
     statrtDataLabel.text = startTime;
+    startTitleLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
     statrtDataLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
 }
 

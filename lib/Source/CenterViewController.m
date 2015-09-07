@@ -10,6 +10,8 @@
 #import "CalenderCantainerViewController.h"
 #import "CenterViewTableViewCell.h"
 //#import "UITableView+Wave.h"
+#import "MMTwoListPickerView.h"
+#import "MMPickerView.h"
 #import "CHCircleGaugeView.h"
 #import "NightTimeView.h"
 #import "DayTimeView.h"
@@ -328,6 +330,9 @@
         [self.circleView addSubview:self.endView];
         self.endView.endTime = [sleepEndTime substringWithRange:NSMakeRange(11, 5)];
         self.endView.center = CGPointMake(self.view.frame.size.width-60, 5);
+        self.endView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showEndTimePicker)];
+        [self.endView addGestureRecognizer:tap];
     }else
     {
         [self.endView removeFromSuperview];
@@ -532,7 +537,7 @@
 
         _iWantSleepLabel.frame = CGRectMake((self.view.frame.size.width-90)/2, self.view.frame.size.height -datePickerHeight-30, 90,25);
         [_iWantSleepLabel setTitle:@"我要睡觉" forState:UIControlStateNormal];
-        [_iWantSleepLabel setBackgroundImage:[UIImage imageNamed:@"btn_textbox_0"] forState:UIControlStateNormal];
+        [_iWantSleepLabel setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_textbox_%d",selectedThemeIndex]] forState:UIControlStateNormal];
         [_iWantSleepLabel setTitleColor:selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor] forState:UIControlStateNormal];
         [_iWantSleepLabel.titleLabel setFont:[UIFont systemFontOfSize:15]];
         [_iWantSleepLabel addTarget:self action:@selector(sendSleepTime) forControlEvents:UIControlEventTouchUpInside];
@@ -693,6 +698,47 @@
 
 #pragma mark 其他方法
 
+- (void)showEndTimePicker
+{
+    NSMutableArray *hour1 = [[NSMutableArray alloc]init];
+    NSMutableArray *minute1 = [[NSMutableArray alloc]init];
+    for (int i=0; i<60; i++) {
+        if (i<10) {
+            [minute1 addObject:[NSString stringWithFormat:@"0%d分",i]];
+        }else{
+            [minute1 addObject:[NSString stringWithFormat:@"%d分",i]];
+        }
+    }
+    for (int i=0; i<24; i++) {
+        if (i<10) {
+            [hour1 addObject:[NSString stringWithFormat:@"0%d点",i]];
+        }else{
+            [hour1 addObject:[NSString stringWithFormat:@"%d点",i]];
+        }
+    }
+    
+    [MMTwoListPickerView showPickerViewInView:self.view
+                                  withStrings:@[hour1,minute1]
+                                  withOptions:@{MMbackgroundColor: [UIColor whiteColor],
+                                                MMtextColor: [UIColor blackColor],
+                                                MMtoolbarColor: [UIColor whiteColor],
+                                                MMbuttonColor: [UIColor blueColor],
+                                                MMfont: [UIFont systemFontOfSize:35],
+                                                MMvalueY: @3,
+                                                MMselectedObject:@"li",
+                                                MMtextAlignment:@1}
+                                   completion:^(NSString *selectedString) {
+                                       if ([selectedString isEqualToString:@"cancel"]) {
+                                       }else{
+                                           NSString *titleString = [NSString stringWithFormat:@"%@:%@",[selectedString substringWithRange:NSMakeRange(0, 2)],[selectedString substringWithRange:NSMakeRange(3, 2)]];
+                                           self.endView.endTime = titleString;
+                                           [self sendSleepEndTime:titleString];
+                                       }
+                                   }];
+    
+}
+
+
 - (void)showTagView:(UITapGestureRecognizer *)gesture
 {
     NSDate *nowDate = [NSDate date];
@@ -774,6 +820,16 @@
 
 - (void)getScrollSelectedDate:(NSDate *)date
 {
+    NSString *dateString =[NSString stringWithFormat:@"%@",[[NSDate date] dateByAddingHours:8]];
+    NSString *slectDateString = [NSString stringWithFormat:@"%@",date];
+    if (![[dateString substringWithRange:NSMakeRange(5, 5)]isEqualToString:[slectDateString substringWithRange:NSMakeRange(5, 5)]]) {
+        [self.iWantSleepLabel removeFromSuperview];
+//        self.circleView = nil;
+//        self.circleView.frame = CGRectMake(0, 64 + 4*44 +30 + 10, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10);
+    }else {
+//        self.circleView.frame = CGRectMake(0, 64 + 4*44 +30 + 10, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35);
+        [self.view addSubview:self.iWantSleepLabel];
+    }
     if (date) {
         if ([[[NSDate date] dateByAddingHours:8]isEarlierThan:date]) {
             [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
@@ -785,10 +841,6 @@
             NSString *dateString = [formatter stringFromDate:date];
             HaviLog(@"当前选中的日期是%@",dateString);
             NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
-//            if (isUserDefaultTime) {
-//                [self getUserDefatultSleepReportData:subString toDate:subString];
-//            }else{
-//            }
             [self getTodaySleepQualityData:subString];
         }
     }
@@ -956,6 +1008,8 @@
     [_circleView.cView.gradientLayer1 setColors:selectedThemeIndex ==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x356E8B alpha:1]CGColor],[[self colorWithHex:0x3e608d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1C7A59 alpha:1]CGColor],[[self colorWithHex:0x0F705C alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
     [_circleView.cView.gradientLayer2 setColors:selectedThemeIndex==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1cd98d alpha:1]CGColor],(id)[[self colorWithHex:0x21c88d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x8DEC45 alpha:1]CGColor],(id)[[self colorWithHex:0x85E445 alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
     self.sleepTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [_iWantSleepLabel setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_textbox_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [_iWantSleepLabel setTitleColor:selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor] forState:UIControlStateNormal];
     
     _sendBreathView = nil;
     _sendHeardView = nil;
@@ -1024,7 +1078,7 @@
             if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
                 [MMProgressHUD dismiss];
                 [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                    [self.view makeToast:@"ok" duration:2 position:@"center"];
+                    [self.view makeToast:@"做个好梦喽" duration:3 position:@"center"];
                 }];
             }else{
                 HaviLog(@"%@",resposeDic);
@@ -1036,6 +1090,55 @@
     }else{
         [self.view makeToast:@"请先绑定设备ID" duration:2 position:@"center"];
     }
+}
+
+- (void)sendSleepEndTime:(NSString *)endString
+{
+    if (HardWareUUID.length>0) {
+        
+        [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
+        [MMProgressHUD showWithStatus:@"保存中..."];
+        NSString *dateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+        NSString *date = [NSString stringWithFormat:@"%@ %@:00",[dateString substringToIndex:11],endString];
+        NSDictionary *dic = @{
+                              @"UUID" : HardWareUUID,
+                              @"UserID" : thirdPartyLoginUserId,
+                              @"Tags" : @{
+                                      @"Tag": @"<%睡眠时间记录%>",
+                                      @"TagType": @"1",
+                                      @"UserTagDate": date,
+                                      },
+                              };
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        UploadTagAPI *client = [UploadTagAPI shareInstance];
+        if ([client isExecuting]) {
+            [client stop];
+        }
+        [MMProgressHUD dismiss];
+        
+        [client uploadTagWithHeader:header andWithPara:dic];
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+                [MMProgressHUD dismiss];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+//                    [self.view makeToast:@"做个好梦喽" duration:3 position:@"center"];
+                    NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
+                    [self getTodaySleepQualityData:subString];
+                }];
+            }else{
+                HaviLog(@"%@",resposeDic);
+                [MMProgressHUD dismissWithError:@"出错啦" afterDelay:1];
+            }
+        } failure:^(YTKBaseRequest *request) {
+            
+        }];
+    }else{
+        [self.view makeToast:@"请先绑定设备ID" duration:2 position:@"center"];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {

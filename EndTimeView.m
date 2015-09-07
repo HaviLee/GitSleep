@@ -60,7 +60,9 @@
 - (void)setEndTime:(NSString *)endTime
 {
     endDataLabel.text = endTime;
+    endTitleLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
     endDataLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
+    imageView.image = [UIImage imageNamed:[NSString stringWithFormat: @"ic_compile_%d",selectedThemeIndex]];
 }
 
 /*
