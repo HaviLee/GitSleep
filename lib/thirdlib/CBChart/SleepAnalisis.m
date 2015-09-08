@@ -253,13 +253,12 @@
             [view removeFromSuperview];
         }
     }
-    
-    NSMutableArray *newArr = [NSMutableArray arrayWithArray:self.funcPoints];
-    
-    [newArr sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [obj1 compare:obj2];
-    }];
-    int maxY = [[newArr lastObject] intValue]+1;
+    int maxY = [[self.funcPoints lastObject] intValue]+1;
+    for (int i=0; i<self.funcPoints.count; i++) {
+        if ([[self.funcPoints objectAtIndex:i]intValue]+1>maxY) {
+            maxY = [[self.funcPoints objectAtIndex:i]intValue]+1;
+        }
+    }
     
     for (int i=0; i<_funcPoints.count; i++) {
         float gradePercent = [[_funcPoints objectAtIndex:i] floatValue];

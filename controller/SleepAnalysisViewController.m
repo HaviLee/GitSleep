@@ -587,10 +587,12 @@
         tag1.isSelect = NO;
         [afterTags addObject:tag1];
     }
+    /*不再显示睡眠标签
     self.longSleepView.sleepTitleLabel.tags = afterTags;
     [self.longSleepView.sleepTitleLabel reloadTagSubviews];
     self.longSleepView.sleepTagLabel.tags = beforeTags;
     [self.longSleepView.sleepTagLabel reloadTagSubviews];
+     */
     //最短的夜晚
     NSString *shortBeforeTag = [shortDic objectForKey:@"TagsBeforeSleep"];
     NSString *shortAfterTag = [shortDic objectForKey:@"TagsAfterSleep"];
@@ -673,12 +675,12 @@
         [self.mutableArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%f",[[dic objectForKey:@"SleepDuration"] floatValue]<0?-[[dic objectForKey:@"SleepDuration"] floatValue]:[[dic objectForKey:@"SleepDuration"] floatValue]]];
         
     }
-    NSMutableArray *newArr = [NSMutableArray arrayWithArray:self.mutableArr];
-    
-    [newArr sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [obj1 compare:obj2];
-    }];
-    int maxY = [[newArr lastObject] intValue]+1;
+    int maxY = [[self.mutableArr lastObject] intValue]+1;
+    for (int i=0; i<self.mutableArr.count; i++) {
+        if ([[self.mutableArr objectAtIndex:i]intValue]+1>maxY) {
+            maxY = [[self.mutableArr objectAtIndex:i]intValue]+1;
+        }
+    }
     int middle = (int)maxY/3;
     self.sleepAnalysisView.yValues = @[[NSString stringWithFormat:@"%dh",middle],[NSString stringWithFormat:@"%dh",middle*2],[NSString stringWithFormat:@"%dh",maxY]];
     self.sleepAnalysisView.dataValues = self.mutableArr;

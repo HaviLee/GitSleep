@@ -1057,11 +1057,11 @@
         NSDictionary *dic = @{
                               @"UUID" : HardWareUUID,
                               @"UserID" : thirdPartyLoginUserId,
-                              @"Tags" : @{
+                              @"Tags" : @[@{
                                        @"Tag": @"<%睡眠时间记录%>",
                                        @"TagType": @"-1",
                                        @"UserTagDate": [dateString substringToIndex:19],
-                                      },
+                                      }],
                               };
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
@@ -1098,16 +1098,17 @@
         
         [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
         [MMProgressHUD showWithStatus:@"保存中..."];
-        NSString *dateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
-        NSString *date = [NSString stringWithFormat:@"%@ %@:00",[dateString substringToIndex:11],endString];
+        NSDate *date1 = [selectedDateToUse dateByAddingDays:1];
+        NSString *dateString = [NSString stringWithFormat:@"%@",date1];
+        NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],endString];
         NSDictionary *dic = @{
                               @"UUID" : HardWareUUID,
                               @"UserID" : thirdPartyLoginUserId,
-                              @"Tags" : @{
+                              @"Tags" :@[ @{
                                       @"Tag": @"<%睡眠时间记录%>",
                                       @"TagType": @"1",
                                       @"UserTagDate": date,
-                                      },
+                                      }],
                               };
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
@@ -1125,7 +1126,8 @@
                 [MMProgressHUD dismiss];
                 [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
 //                    [self.view makeToast:@"做个好梦喽" duration:3 position:@"center"];
-                    NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
+                    NSString *selctString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+                    NSString *subString = [NSString stringWithFormat:@"%@%@%@",[selctString substringWithRange:NSMakeRange(0, 4)],[selctString substringWithRange:NSMakeRange(5, 2)],[selctString substringWithRange:NSMakeRange(8, 2)]];
                     [self getTodaySleepQualityData:subString];
                 }];
             }else{

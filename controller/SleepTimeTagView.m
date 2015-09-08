@@ -57,13 +57,13 @@
     
     sleepNameLabel = [[UILabel alloc]init];
     sleepNameLabel.font = [UIFont systemFontOfSize:11];
-    sleepNameLabel.text = @"睡前:";
+    sleepNameLabel.text = @"";
     sleepNameLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self addSubview:sleepNameLabel];
     
     afterNameLabel = [[UILabel alloc]init];
     afterNameLabel.font = [UIFont systemFontOfSize:11];
-    afterNameLabel.text = @"睡后:";
+    afterNameLabel.text = @"";
     afterNameLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     [self addSubview:afterNameLabel];
     
@@ -83,12 +83,14 @@
         make.left.equalTo(self).offset(20);
         make.centerY.equalTo(self.sleepTitleLabel.centerY);
         make.height.equalTo(25);
+        make.width.equalTo(0);
     }];
     [self.sleepTitleLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(afterNameLabel.right).offset(-10);
         make.right.equalTo(self).offset(0);
         make.top.equalTo(self).offset(0);
         make.height.equalTo(17);
+        make.width.equalTo(0);
         
     }];
     
