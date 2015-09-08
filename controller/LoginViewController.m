@@ -681,14 +681,14 @@ float prewMoveY;
     [super viewDidAppear:animated];
     if ([UserManager IsUserLogged]) {
         [YXSpritesLoadingView showWithText:nil andShimmering:YES andBlurEffect:NO];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [YXSpritesLoadingView dismiss];
-            self.loginButtonClicked(1);
-            //监听网络
-            AppDelegate *app = [UIApplication sharedApplication].delegate;
-            [app setWifiNotification];
-            
-        });
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [YXSpritesLoadingView dismiss];
+//            self.loginButtonClicked(1);
+//            //监听网络
+//            AppDelegate *app = [UIApplication sharedApplication].delegate;
+//            [app setWifiNotification];
+//            
+//        });
 //        [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
 //        [MMProgressHUD showWithStatus:@"登录中..."];
 //        [MMProgressHUD dismissAfterDelay:1];
