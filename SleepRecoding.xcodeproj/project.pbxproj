@@ -475,6 +475,9 @@
 		2CC006C71B9DDF1B007DE798 /* slice3_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC006C41B9DDF1B007DE798 /* slice3_0.png */; };
 		2CC006C81B9DDF1B007DE798 /* slice3_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC006C51B9DDF1B007DE798 /* slice3_1.png */; };
 		2CC006C91B9DDF1B007DE798 /* slice3_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC006C61B9DDF1B007DE798 /* slice3_2.png */; };
+		2CC006CB1B9E9E05007DE798 /* havi_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC006CA1B9E9E05007DE798 /* havi_0.png */; };
+		2CC006CD1B9E9E0C007DE798 /* havi_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC006CC1B9E9E0C007DE798 /* havi_1.png */; };
+		2CC006CF1B9E9E15007DE798 /* havi_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC006CE1B9E9E15007DE798 /* havi_2.png */; };
 		2CC8E7ED1B96AEEF00F69ABE /* SencondHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */; };
 		2CC8E7F01B97272100F69ABE /* SencondBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EF1B97272100F69ABE /* SencondBreathViewController.m */; };
 		2CC8E7F31B972DE600F69ABE /* SencondLeaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */; };
@@ -1239,6 +1242,9 @@
 		2CC006C41B9DDF1B007DE798 /* slice3_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slice3_0.png; sourceTree = "<group>"; };
 		2CC006C51B9DDF1B007DE798 /* slice3_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slice3_1.png; sourceTree = "<group>"; };
 		2CC006C61B9DDF1B007DE798 /* slice3_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slice3_2.png; sourceTree = "<group>"; };
+		2CC006CA1B9E9E05007DE798 /* havi_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = havi_0.png; sourceTree = "<group>"; };
+		2CC006CC1B9E9E0C007DE798 /* havi_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = havi_1.png; sourceTree = "<group>"; };
+		2CC006CE1B9E9E15007DE798 /* havi_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = havi_2.png; sourceTree = "<group>"; };
 		2CC8E7EB1B96AEEF00F69ABE /* SencondHeartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondHeartViewController.h; path = controller/SencondHeartViewController.h; sourceTree = "<group>"; };
 		2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondHeartViewController.m; path = controller/SencondHeartViewController.m; sourceTree = "<group>"; };
 		2CC8E7EE1B97272100F69ABE /* SencondBreathViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondBreathViewController.h; path = controller/SencondBreathViewController.h; sourceTree = "<group>"; };
@@ -2369,6 +2375,9 @@
 		2CC006C31B9DDF1B007DE798 /* Sprite_3 */ = {
 			isa = PBXGroup;
 			children = (
+				2CC006CA1B9E9E05007DE798 /* havi_0.png */,
+				2CC006CC1B9E9E0C007DE798 /* havi_1.png */,
+				2CC006CE1B9E9E15007DE798 /* havi_2.png */,
 				2CC006C41B9DDF1B007DE798 /* slice3_0.png */,
 				2CC006C51B9DDF1B007DE798 /* slice3_1.png */,
 				2CC006C61B9DDF1B007DE798 /* slice3_2.png */,
@@ -3208,6 +3217,7 @@
 				2C15E7341AF214E800142F36 /* pic_bg_1@2x.png in Resources */,
 				2C7319D71B759911005A3EE4 /* night_icon@2x.png in Resources */,
 				2C7D221F1AF1C9F70011A45C /* icon_heart_rate_0@2x.png in Resources */,
+				2CC006CD1B9E9E0C007DE798 /* havi_1.png in Resources */,
 				2C15E7781AF2151500142F36 /* get_up3_1@2x.png in Resources */,
 				2C7D22D81AF1CA050011A45C /* pic_head_portrait_0@2x.png in Resources */,
 				2C15E7891AF2152100142F36 /* heart_3_1.png in Resources */,
@@ -3252,6 +3262,7 @@
 				2C91A68F1B9D78A70039EEAB /* skinpeeler_dark_color_bg.png in Resources */,
 				2C15E7881AF2152100142F36 /* heart_2_1.png in Resources */,
 				2C15E7321AF214E800142F36 /* pic_1334_1.png in Resources */,
+				2CC006CB1B9E9E05007DE798 /* havi_0.png in Resources */,
 				2C15E7401AF214E800142F36 /* pic_sleep_1@2x.png in Resources */,
 				2C15E7681AF2150900142F36 /* breathe4_1@2x.png in Resources */,
 				57711FFF1AD4DB5800508C5C /* papasscode_background2@2x.png in Resources */,
@@ -3327,6 +3338,7 @@
 				2C7D229A1AF1CA050011A45C /* btn_fatal_exception_0@2x.png in Resources */,
 				2C7D229E1AF1CA050011A45C /* btn_next_t_0@2x.png in Resources */,
 				2C15E7331AF214E800142F36 /* pic_2208_1.png in Resources */,
+				2CC006CF1B9E9E15007DE798 /* havi_2.png in Resources */,
 				2C7D231F1AF1CA450011A45C /* get_up5_0@2x.png in Resources */,
 				2C15E6FC1AF214E800142F36 /* btn_compose_1@2x.png in Resources */,
 				2C15E7371AF214E800142F36 /* pic_breathe_1@2x.png in Resources */,
