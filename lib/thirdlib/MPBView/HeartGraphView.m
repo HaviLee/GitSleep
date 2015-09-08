@@ -191,7 +191,7 @@
 - (void)drawHorironLineView
 {
     UIView *horironLine = [[UIView alloc]init];
-    horironLine.frame = CGRectMake(-30, yCoordinateHeight - (yCoordinateHeight / self.maxYValue)*self.horizonLine-0.5, self.heartView.frame.size.width+30+15, 1);
+    horironLine.frame = CGRectMake(-15, yCoordinateHeight - (yCoordinateHeight / self.maxYValue)*self.horizonLine-0.5, self.heartView.frame.size.width+30, 1);
     horironLine.backgroundColor = RGBA(251, 82, 106, 0.5) ;
     [self.heartView addSubview:horironLine];
 }
@@ -247,7 +247,7 @@
 - (UIImageView *)leftImage
 {
     if (_leftImage == nil) {
-        _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 5, xCoordinateWidth/2+2, yCoordinateHeight)];
+        _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(-100, 5, xCoordinateWidth/2+2+100, yCoordinateHeight)];
         _leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night_%d",selectedThemeIndex]];
         _leftImage.tag = 2001;
     }
@@ -257,7 +257,7 @@
 - (UIImageView *)rightImage
 {
     if (_rightImage == nil) {
-        _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(0+xCoordinateWidth/2+2, 5, xCoordinateWidth/2+30, yCoordinateHeight)];
+        _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(0+xCoordinateWidth/2+2, 5, xCoordinateWidth/2+30+100, yCoordinateHeight)];
         _rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_%d",selectedThemeIndex]];
         _rightImage.tag = 2001;
     }

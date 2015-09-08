@@ -478,6 +478,7 @@
 		2CC006DD1B9EAEF6007DE798 /* havi1_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC006DC1B9EAEF6007DE798 /* havi1_0@2x.png */; };
 		2CC006DF1B9EAEFD007DE798 /* havi1_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC006DE1B9EAEFD007DE798 /* havi1_1@2x.png */; };
 		2CC006E11B9EAF03007DE798 /* havi1_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC006E01B9EAF03007DE798 /* havi1_2@2x.png */; };
+		2CC006E41B9EE32C007DE798 /* TitleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC006E31B9EE32C007DE798 /* TitleViewCell.m */; };
 		2CC8E7ED1B96AEEF00F69ABE /* SencondHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */; };
 		2CC8E7F01B97272100F69ABE /* SencondBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EF1B97272100F69ABE /* SencondBreathViewController.m */; };
 		2CC8E7F31B972DE600F69ABE /* SencondLeaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */; };
@@ -1245,6 +1246,8 @@
 		2CC006DC1B9EAEF6007DE798 /* havi1_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "havi1_0@2x.png"; sourceTree = "<group>"; };
 		2CC006DE1B9EAEFD007DE798 /* havi1_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "havi1_1@2x.png"; sourceTree = "<group>"; };
 		2CC006E01B9EAF03007DE798 /* havi1_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "havi1_2@2x.png"; sourceTree = "<group>"; };
+		2CC006E21B9EE32C007DE798 /* TitleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleViewCell.h; path = controller/TitleViewCell.h; sourceTree = "<group>"; };
+		2CC006E31B9EE32C007DE798 /* TitleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleViewCell.m; path = controller/TitleViewCell.m; sourceTree = "<group>"; };
 		2CC8E7EB1B96AEEF00F69ABE /* SencondHeartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondHeartViewController.h; path = controller/SencondHeartViewController.h; sourceTree = "<group>"; };
 		2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondHeartViewController.m; path = controller/SencondHeartViewController.m; sourceTree = "<group>"; };
 		2CC8E7EE1B97272100F69ABE /* SencondBreathViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondBreathViewController.h; path = controller/SencondBreathViewController.h; sourceTree = "<group>"; };
@@ -1801,6 +1804,8 @@
 				2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */,
 				2CC8E7FF1B9BF61B00F69ABE /* DataTableViewCell.h */,
 				2CC8E8001B9BF61B00F69ABE /* DataTableViewCell.m */,
+				2CC006E21B9EE32C007DE798 /* TitleViewCell.h */,
+				2CC006E31B9EE32C007DE798 /* TitleViewCell.m */,
 			);
 			name = DataShow;
 			sourceTree = "<group>";
@@ -3507,6 +3512,7 @@
 				2C1F1FEC1ADBF38F00393E04 /* WQCalendarView.m in Sources */,
 				2C3B628F1B81A4CB00E3842F /* NewTodayTurnViewController.m in Sources */,
 				2C3AF2BD1AF4622A00B66E32 /* TodayLeaveViewController.m in Sources */,
+				2CC006E41B9EE32C007DE798 /* TitleViewCell.m in Sources */,
 				2C1AD71A1AAAE74A00655A5B /* ShuffleAnimation.m in Sources */,
 				2C8F7BBB1AF3747700E56513 /* JTCalendarMenuView.m in Sources */,
 				2C4FCB101A8F56E800DCEEF3 /* main.m in Sources */,

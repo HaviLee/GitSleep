@@ -17,6 +17,7 @@
 #import "DiagnoseReportViewController.h"
 #import "ModalAnimation.h"
 #import "ReportTableViewCell.h"
+#import "TitleViewCell.h"
 
 @interface SencondHeartViewController ()<UIViewControllerTransitioningDelegate>
 {
@@ -38,6 +39,7 @@
 @property (nonatomic,strong) NSDictionary *currentSleepQulitity;
 @property (nonatomic,strong) UIImageView *backImage;
 @property (nonatomic,strong) NSArray *titleArr;
+@property (nonatomic,strong) TitleViewCell *titleCell;
 
 @end
 
@@ -92,7 +94,7 @@
 {
 //    [self.view addSubview:self.upTableView];
     [self createScrollView];
-    
+    [self.view addSubview:self.titleCell];
     [self.view addSubview:self.reportTableView];
     UILabel *titleLabel = [[UILabel alloc]init];
     [self.view addSubview:titleLabel];
@@ -105,7 +107,7 @@
 
 - (void)createScrollView
 {
-    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(30, 64, self.view.frame.size.width-10, self.upTableView.frame.size.height-60)];
+    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(30, 64+64, self.view.frame.size.width-10, self.upTableView.frame.size.height-60)];
     scrollView.contentSize = CGSizeMake((self.view.frame.size.width-10)*4+25, self.upTableView.frame.size.height-60);
     _heartGraphView = [[HeartGraphView alloc]initWithFrame:CGRectMake(0, 0, (self.view.frame.size.width-10)*4, self.upTableView.frame.size.height-60)];
     //设置警告值
@@ -136,7 +138,7 @@
 
 - (UIView *)creatYCoorLabel
 {
-    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, 30, self.upTableView.frame.size.height-60)];
+    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 64*2, 30, self.upTableView.frame.size.height-60)];
     backView.backgroundColor = [UIColor clearColor];
     [self setUpYcoorWithValues:@[@"20", @"40", @"60", @"80", @"100",@"120",@"140"]withView:backView];
     return backView;
@@ -172,6 +174,16 @@
 }
 
 #pragma mark setter
+
+- (TitleViewCell *)titleCell
+{
+    if (_titleCell==nil) {
+        _titleCell = [[TitleViewCell alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 60)];
+        _titleCell.iconTitleName = [NSString stringWithFormat:@"icon_heart_rate_%d",selectedThemeIndex];
+        _titleCell.cellTitleName = @"心率";
+    }
+    return _titleCell;
+}
 
 - (UITableView *)reportTableView
 {
@@ -421,8 +433,8 @@
             self.reportData = resposeDic;
             [self.reportTableView reloadData];
             self.currentSleepQulitity = resposeDic;
-
-            [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            self.titleCell.cellData = [NSString stringWithFormat:@"%d次/分钟",[[self.currentSleepQulitity objectForKey:@"AverageHeartRate"] intValue]];
+//            [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 //            [self reloadSleepView:resposeDic];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
@@ -432,8 +444,8 @@
                 self.reportData = resposeDic;
                 [self.reportTableView reloadData];
                 self.currentSleepQulitity = resposeDic;
-
-                [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                self.titleCell.cellData = [NSString stringWithFormat:@"%d次/分钟",[[self.currentSleepQulitity objectForKey:@"AverageHeartRate"] intValue]];
+//                [self.upTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 //                [self reloadSleepView:resposeDic];
             } failure:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
