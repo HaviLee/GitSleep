@@ -46,11 +46,11 @@ General Information Here:
 
 ***************************************************************/
 
-#define cycleAnimationDuration 1
+#define cycleAnimationDuration 2
 #define animationImageWidth 100
 #define animationImageHeight 100
 #define numberOfFramesInAnimation 3
-#define spriteNameString @"havi_"
+#define spriteNameString @"havi1_"
 
 /***************************************************************
 
