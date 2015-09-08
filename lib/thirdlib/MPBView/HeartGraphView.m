@@ -86,12 +86,8 @@
         }
     }
     
-    self.leftLineMargin = maxStrWidth + 6;
-//    if (self.xValues.count != 0) {
-//        if (!self.shutDefaultAnimation) {
-//            [self setUpCoordinateSystem];
-//        }
-//    }
+    self.leftLineMargin = 15;
+//    self.leftLineMargin = 20;
 }
 
 - (CGContextRef)context
@@ -155,16 +151,16 @@
 -(void)setUpCoordinateSystem // 利用UIView作为坐标轴动态画出坐标系
 {
     UIView *xCoordinate = [self getLineCoor];
-    UIView *yCoordinate = [self getLineCoor];
+//    UIView *yCoordinate = [self getLineCoor];
     [self addSubview:xCoordinate];
-    [self addSubview:yCoordinate];
+//    [self addSubview:yCoordinate];
     [UIView animateWithDuration:0.0 animations:^{
         CGRect rect1 = xCoordinate.frame;
-        rect1.size.width = xCoordinateWidth + 2;
+        rect1.size.width = xCoordinateWidth + 2+30;
         xCoordinate.frame = rect1;
-        CGRect rect2 = yCoordinate.frame;
-        rect2.size.height = - yCoordinateHeight - 2;
-        yCoordinate.frame = rect2;
+//        CGRect rect2 = yCoordinate.frame;
+//        rect2.size.height = - yCoordinateHeight - 2;
+//        yCoordinate.frame = rect2;
     } completion:^(BOOL finished) {
         //画箭头
         self.islineDrawDone = YES;
@@ -183,11 +179,8 @@
         // 绘制网格竖线
         [self drawDashLine];
     }
-    if (isUserDefaultTime) {
-        
-    }else{
-        [self setBackImage];
-    }
+    
+    [self setBackImage];
     self.heartView.graphColor= selectedThemeIndex == 0?DefaultColor:[UIColor whiteColor];
     self.heartView.curved=YES;
     [self addSubview:self.heartView];
@@ -198,7 +191,7 @@
 - (void)drawHorironLineView
 {
     UIView *horironLine = [[UIView alloc]init];
-    horironLine.frame = CGRectMake(0, yCoordinateHeight - (yCoordinateHeight / self.maxYValue)*self.horizonLine-0.5, self.heartView.frame.size.width, 1);
+    horironLine.frame = CGRectMake(-30, yCoordinateHeight - (yCoordinateHeight / self.maxYValue)*self.horizonLine-0.5, self.heartView.frame.size.width+30+15, 1);
     horironLine.backgroundColor = RGBA(251, 82, 106, 0.5) ;
     [self.heartView addSubview:horironLine];
 }
@@ -207,12 +200,12 @@
 {
     UIView *backView = [[UIView alloc]init];
     CGPoint maxXPoint = [[self.xPoints lastObject] CGPointValue];
-    float width = maxXPoint.x - self.leftLineMargin;
-    float x = self.leftLineMargin;
+    float width = maxXPoint.x;
+    float x = 0;
     float y1 = yCoordinateHeight - (yCoordinateHeight / self.maxYValue)*self.backMinValue + 5;
     float y2 = yCoordinateHeight - (yCoordinateHeight / self.maxYValue)*self.backMaxValue + 5;
     
-    backView.frame = CGRectMake(x, y1, width, y2-y1);
+    backView.frame = CGRectMake(x, y1, width+15, y2-y1);
     backView.backgroundColor = [UIColor lightGrayColor];
     backView.alpha = 0.2;
     [self addSubview:backView];
@@ -233,7 +226,7 @@
     CGContextSetLineDash(ctx, 0, alilengths, 2);
     
     float yValue = yCoordinateHeight - (yCoordinateHeight / self.maxYValue)*60 + 5;
-    CGPoint yPoint = CGPointMake(self.leftLineMargin, yValue);
+    CGPoint yPoint = CGPointMake(0, yValue);
     //    CGPoint yPoint = [yP CGPointValue];
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, nil, yPoint.x, yPoint.y );
@@ -254,7 +247,7 @@
 - (UIImageView *)leftImage
 {
     if (_leftImage == nil) {
-        _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin, 5, xCoordinateWidth/2+2, yCoordinateHeight)];
+        _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 5, xCoordinateWidth/2+2, yCoordinateHeight)];
         _leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night_%d",selectedThemeIndex]];
         _leftImage.tag = 2001;
     }
@@ -264,7 +257,7 @@
 - (UIImageView *)rightImage
 {
     if (_rightImage == nil) {
-        _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin+xCoordinateWidth/2+2, 5, xCoordinateWidth/2, yCoordinateHeight)];
+        _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(0+xCoordinateWidth/2+2, 5, xCoordinateWidth/2+30, yCoordinateHeight)];
         _rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_%d",selectedThemeIndex]];
         _rightImage.tag = 2001;
     }
@@ -278,7 +271,7 @@
         _heartView.waitToUpdate=NO;
         _heartView.lineWidth = 0.5;
         _heartView.backgroundColor = [UIColor clearColor];
-//        _heartView.values=@[@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@60,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,@56,@57,@55,@59,@60,@64,@78,@65,@78,@56,];
+
     }
     return _heartView;
 }
@@ -351,7 +344,7 @@
         UIView *horironLine = [[UIView alloc]init];
         horironLine.backgroundColor = [UIColor colorWithRed:0.569f green:0.765f blue:0.867f alpha:1.00f] ;
         CGPoint yPoint = [[self.yPoints objectAtIndex:i] CGPointValue];
-        horironLine.frame = CGRectMake(self.leftLineMargin, yPoint.y, 2, 1);
+        horironLine.frame = CGRectMake(0, yPoint.y, 2, 1);
         [self addSubview:horironLine];
         [self.viewArr addObject:horironLine];
         
@@ -419,7 +412,7 @@
     UIView *lineView = [[UIView alloc] init];
     lineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     lineView.alpha = 0.3;
-    lineView.frame = CGRectMake(self.leftLineMargin, self.frame.size.height - bottomLineMargin, coorLineWidth, coorLineWidth);
+    lineView.frame = CGRectMake(0, self.frame.size.height - bottomLineMargin, coorLineWidth, coorLineWidth);
     return lineView;
 }
 
@@ -460,11 +453,8 @@
         }
     }
     
-    if (isUserDefaultTime) {
-        
-    }else{
-        [self setBackImage];
-    }
+
+    [self setBackImage];
     if (values.count){
         [self.xPoints removeAllObjects];
         NSUInteger count = values.count;
@@ -523,16 +513,16 @@
             }
         }
         self.maxYValue = [maxValue floatValue];
-        CGFloat scale = [maxValue floatValue] / count;
-        for (int i = 0; i < count; i++) {
-            NSString *yValue = [NSString stringWithFormat:@"%.0f", [maxValue floatValue] - (i * scale)];
-            CGFloat cX = self.leftLineMargin;
-            CGFloat cY = i * (yCoordinateHeight / count) + 5;
-            CGSize size = [yValue boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:self.textStyleDict context:nil].size;
-            [yValue drawAtPoint:CGPointMake(cX - size.width - 5, cY - size.height * 0.5 + 1) withAttributes:self.textStyleDict];
-            // 收集坐标点
-            [self.yPoints addObject:[NSValue valueWithCGPoint:CGPointMake(cX, cY)]];
-        }
+//        CGFloat scale = [maxValue floatValue] / count;
+//        for (int i = 0; i < count; i++) {
+//            NSString *yValue = [NSString stringWithFormat:@"%.0f", [maxValue floatValue] - (i * scale)];
+//            CGFloat cX = self.leftLineMargin;
+//            CGFloat cY = i * (yCoordinateHeight / count) + 5;
+//            CGSize size = [yValue boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:self.textStyleDict context:nil].size;
+//            [yValue drawAtPoint:CGPointMake(cX - size.width - 5, cY - size.height * 0.5 + 1) withAttributes:self.textStyleDict];
+//            // 收集坐标点
+//            [self.yPoints addObject:[NSValue valueWithCGPoint:CGPointMake(cX, cY)]];
+//        }
     }
 }
 

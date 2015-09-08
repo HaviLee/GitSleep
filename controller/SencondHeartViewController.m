@@ -105,9 +105,9 @@
 
 - (void)createScrollView
 {
-    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(5, 64, self.view.frame.size.width-10, self.viewHeight-64-234)];
-    scrollView.contentSize = CGSizeMake((self.view.frame.size.width-10)*4+10, self.viewHeight-64-234);
-    _heartGraphView = [[HeartGraphView alloc]initWithFrame:CGRectMake(0, 64, (self.view.frame.size.width-10)*4, self.upTableView.frame.size.height-60)];
+    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(30, 64, self.view.frame.size.width-10, self.upTableView.frame.size.height-60)];
+    scrollView.contentSize = CGSizeMake((self.view.frame.size.width-10)*4+25, self.upTableView.frame.size.height-60);
+    _heartGraphView = [[HeartGraphView alloc]initWithFrame:CGRectMake(0, 0, (self.view.frame.size.width-10)*4, self.upTableView.frame.size.height-60)];
     //设置警告值
     _heartGraphView.yValues = @[@"20", @"40", @"60", @"80", @"100",@"120",@"140"];
     _heartGraphView.heartView.graphTitle = @"xinlv";
@@ -119,7 +119,7 @@
     _heartGraphView.heartView.horizonValue = 140;
     //设置坐标轴
     
-    _heartGraphView.xValues = @[@"18",@"19",@"20",@"21",@"22",@"23", @"24", @"1",@"2",@"3", @"4",@"5", @"6",@"7", @"8",@"9", @"10",@"11", @"12",@"13",@"14",@"15",@"16",@"17",@"18"];
+    _heartGraphView.xValues = @[@"18:00",@"19:00",@"20:00",@"21:00",@"22:00",@"23:00", @"00:00", @"01:00",@"02:00",@"03:00", @"04:00",@"05:00", @"06:00",@"07:00", @"08:00",@"09:00", @"10:00",@"11:00", @"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"17:00",@"18:00"];
     
     
     _heartGraphView.chartColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
@@ -127,6 +127,48 @@
     scrollView.backgroundColor = [UIColor clearColor];
     scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:scrollView];
+    [self.view addSubview:[self creatYCoorLabel]];
+    UIView *lineView = [[UIView alloc]init];
+    lineView.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    lineView.frame = CGRectMake(0, scrollView.frame.size.height + scrollView.frame.origin.y -19.5, self.view.frame.size.width, 1);
+    [self.view addSubview:lineView];
+}
+
+- (UIView *)creatYCoorLabel
+{
+    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, 30, self.upTableView.frame.size.height-60)];
+    backView.backgroundColor = [UIColor clearColor];
+    [self setUpYcoorWithValues:@[@"20", @"40", @"60", @"80", @"100",@"120",@"140"]withView:backView];
+    return backView;
+}
+
+-(void)setUpYcoorWithValues:(NSArray *)values withView:(UIView*)backView
+{
+    if (values.count) {
+        NSUInteger count = values.count;
+        NSString *maxValue = values[0];
+        for (int i = 1; i < count; i++) {
+            if ([maxValue floatValue] < [values[i] floatValue]) {
+                maxValue = values[i];
+            }
+        }
+        CGFloat height = self.upTableView.frame.size.height-60;
+        CGFloat scale = [maxValue floatValue] / count;
+        for (int i = 0; i < count; i++) {
+            NSString *yValue = [NSString stringWithFormat:@"%.0f", [maxValue floatValue] - (i * scale)];
+            
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, (height-35)/count*i, 30, 20)];
+            label.font = [UIFont systemFontOfSize:13];
+            label.backgroundColor = [UIColor clearColor];
+            label.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+            label.textAlignment = NSTextAlignmentCenter;
+            label.text = yValue;
+            [backView addSubview:label];
+//            [yValue drawAtPoint:CGPointMake(cX - size.width - 5, cY - size.height * 0.5 + 1) withAttributes:_textStyleDict];
+            // 收集坐标点
+//            [self.yPoints addObject:[NSValue valueWithCGPoint:CGPointMake(cX, cY)]];
+        }
+    }
 }
 
 #pragma mark setter

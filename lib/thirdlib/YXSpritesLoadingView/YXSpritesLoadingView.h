@@ -28,7 +28,7 @@ General Information Here:
 ***************************************************************/
 
 #define loaderBlurViewShow NO
-#define loaderBackgroundColor [UIColor clearColor]
+#define loaderBackgroundColor [UIColor colorWithRed:((float)((0x1cda8d & 0xFF0000) >> 16))/255.0 green:((float)((0x1cda8d & 0xFF00) >> 8))/255.0 blue:((float)(0x1cda8d & 0xFF))/255.0 alpha:1.0]
 //[UIColor colorWithWhite:1.0 alpha:0.85]
 #define loaderCornerRadius 5
 #define loaderBackgroundWidth 80
