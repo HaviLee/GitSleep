@@ -183,11 +183,8 @@
         // 绘制网格竖线
         [self drawDashLine];
     }
-    if (isUserDefaultTime) {
-        
-    }else{
-        [self setBackImage];
-    }
+    
+    [self setBackImage];
     self.heartView.graphColor= selectedThemeIndex == 0?DefaultColor:[UIColor whiteColor];
     self.heartView.curved=YES;
     [self addSubview:self.heartView];

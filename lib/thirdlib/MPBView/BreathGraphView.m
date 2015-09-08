@@ -361,11 +361,8 @@
             [view removeFromSuperview];
         }
     }
-    if (isUserDefaultTime) {
-        
-    }else{
-        [self setBackImage];
-    }
+    
+    [self setBackImage];
     if (values.count){
         [self.xPoints removeAllObjects];
         NSUInteger count = values.count;
