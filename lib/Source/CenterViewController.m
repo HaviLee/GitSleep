@@ -651,7 +651,11 @@
 - (UITableView *)cellTableView
 {
     if (_cellTableView == nil) {
-        _cellTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44*4+30) style:UITableViewStylePlain];
+        if (ISIPHON4) {
+            _cellTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 34*4+30) style:UITableViewStylePlain];
+        }else{
+            _cellTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44*4+30) style:UITableViewStylePlain];
+        }
         _cellTableView.backgroundColor = [UIColor clearColor];
         _cellTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _cellTableView.scrollEnabled = NO;
@@ -680,7 +684,11 @@
 {
     if (_circleView == nil) {
         int datePickerHeight = self.view.frame.size.height*0.202623;
-        _circleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 64 + 4*44 +30 + 10, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35)];
+        if (ISIPHON4) {
+            _circleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 64 + 4*34 +30, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35+60)];
+        }else{
+            _circleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 64 + 4*44 +30 + 10, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35)];
+        }
         _circleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
         _circleView.trackWidth = 1;
         _circleView.gaugeStyle = CHCircleGaugeStyleOutside;
@@ -863,7 +871,12 @@
     if (indexPath.row==4) {
         return 30;
     }else{
-        return 44;
+        if (ISIPHON4) {
+            return 34;
+        }else
+        {
+            return 44;
+        }
     }
 }
 
