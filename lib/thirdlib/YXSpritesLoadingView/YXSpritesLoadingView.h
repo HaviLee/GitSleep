@@ -28,7 +28,7 @@ General Information Here:
 ***************************************************************/
 
 #define loaderBlurViewShow NO
-#define loaderBackgroundColor [UIColor colorWithRed:((float)((0x1cda8d & 0xFF0000) >> 16))/255.0 green:((float)((0x1cda8d & 0xFF00) >> 8))/255.0 blue:((float)(0x1cda8d & 0xFF))/255.0 alpha:1.0]
+#define loaderBackgroundColor [UIColor clearColor]
 //[UIColor colorWithWhite:1.0 alpha:0.85]
 #define loaderCornerRadius 5
 #define loaderBackgroundWidth 80
@@ -46,10 +46,10 @@ General Information Here:
 
 ***************************************************************/
 
-#define cycleAnimationDuration 2
+#define cycleAnimationDuration 3
 #define animationImageWidth 100
 #define animationImageHeight 100
-#define numberOfFramesInAnimation 3
+#define numberOfFramesInAnimation 9
 #define spriteNameString @"havi1_"
 
 /***************************************************************
