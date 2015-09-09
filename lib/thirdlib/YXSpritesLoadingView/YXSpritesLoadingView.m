@@ -12,6 +12,7 @@
 @implementation YXSpritesLoadingView
 {
     UIView *loaderView;
+    UIView *backView;
     UIImageView *loadingImageView;
     FBShimmeringView *shimmeringView;
     UILabel *loadingLabel;
@@ -69,6 +70,9 @@
 #pragma mark - Helper Methods
 - (void)loadingViewSetupWithText:(NSString *)text andShimmering:(BOOL)shimmering andBlur:(BOOL)blur
 {
+    backView = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    backView.backgroundColor = [UIColor clearColor];
+    [window addSubview:backView];
     if (!loadingImageView)
     {
         loaderView = [[UIView alloc]init];
@@ -185,6 +189,8 @@
         
             [loaderView removeFromSuperview];
             loaderView = nil;
+            [backView removeFromSuperview];
+            backView = nil;
             
             self.alpha = 0;
         }];
