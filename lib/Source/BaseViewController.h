@@ -15,11 +15,13 @@
 #import "CalenderView.h"
 #import "ToggleView.h"
 #import "LabelLine.h"
+#import "LXActivity.h"
 
 
 @interface BaseViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) CHTumblrMenuView *shareMenuView;//第三方分享
+@property (nonatomic, strong) LXActivity *shareNewMenuView;
 @property (nonatomic, strong) UIImageView *bgImageView;//背景图片
 @property (nonatomic, strong) CalendarHomeViewController *chvc;//日历包括农历
 @property (nonatomic, strong) UIImageView *statusBarView;//状态栏

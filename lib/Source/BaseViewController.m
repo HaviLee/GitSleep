@@ -16,10 +16,11 @@
 #import "WXApi.h"
 #import "WeiboSDK.h"
 #import "AppDelegate.h"
+#import "LXActivity.h"
 
 //
 
-@interface BaseViewController ()<THPinViewControllerDelegate>
+@interface BaseViewController ()<THPinViewControllerDelegate,LXActivityDelegate>
 {
     float _nSpaceNavY;
 }
@@ -216,7 +217,7 @@
 
 //reachablility changed
 
-
+#pragma mark 分享
 /**
  *  分享
  *
@@ -248,6 +249,39 @@
     }
     return _shareMenuView;
 }
+
+- (LXActivity*)shareNewMenuView
+{
+    NSArray *shareButtonTitleArray = [[NSArray alloc] init];
+    NSArray *shareButtonImageNameArray = [[NSArray alloc] init];
+    shareButtonTitleArray = @[@"朋友圈",@"微信好友",@"新浪微博"];
+    shareButtonImageNameArray = @[@"icon_wechat",@"weixin",@"sina"];
+    
+    _shareNewMenuView = [[LXActivity alloc] initWithTitle:@"分享到社交平台" delegate:self cancelButtonTitle:nil ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonImageNameArray];
+    return _shareNewMenuView;
+}
+
+- (void)didClickOnImageIndex:(NSInteger *)imageIndex
+{
+    NSLog(@"%d",(int)imageIndex);
+    if ((int)imageIndex ==0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self sendImageContent];
+        });
+        
+    }else if ((int)imageIndex==1){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self sendImageToFriend];
+        });
+    }else if ((int)imageIndex == 2){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self shareButtonPressed];
+        });
+    }
+}
+
 #pragma mark 分享到微博
 - (void)shareButtonPressed
 {

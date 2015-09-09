@@ -469,6 +469,7 @@
 		2C9C01621AD0215F006362E9 /* TurnChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C01611AD0215F006362E9 /* TurnChartView.m */; };
 		2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */; };
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
+		2CC006FA1B9FC6DB007DE798 /* LXActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC006F91B9FC6DB007DE798 /* LXActivity.m */; };
 		2CC8E7ED1B96AEEF00F69ABE /* SencondHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */; };
 		2CC8E7F01B97272100F69ABE /* SencondBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EF1B97272100F69ABE /* SencondBreathViewController.m */; };
 		2CC8E7F31B972DE600F69ABE /* SencondLeaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */; };
@@ -1222,6 +1223,8 @@
 		2CAF5E8E1AE7F49300E7E3AA /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
 		2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
 		2CAF5E911AE7F55700E7E3AA /* protocol.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = protocol.html; sourceTree = "<group>"; };
+		2CC006F81B9FC6DB007DE798 /* LXActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXActivity.h; sourceTree = "<group>"; };
+		2CC006F91B9FC6DB007DE798 /* LXActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXActivity.m; sourceTree = "<group>"; };
 		2CC8E7EB1B96AEEF00F69ABE /* SencondHeartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondHeartViewController.h; path = controller/SencondHeartViewController.h; sourceTree = "<group>"; };
 		2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondHeartViewController.m; path = controller/SencondHeartViewController.m; sourceTree = "<group>"; };
 		2CC8E7EE1B97272100F69ABE /* SencondBreathViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondBreathViewController.h; path = controller/SencondBreathViewController.h; sourceTree = "<group>"; };
@@ -2324,6 +2327,16 @@
 			path = lib/thirdlib/CHCircleGaugeView;
 			sourceTree = "<group>";
 		};
+		2CC006F71B9FC6DB007DE798 /* LXActivity */ = {
+			isa = PBXGroup;
+			children = (
+				2CC006F81B9FC6DB007DE798 /* LXActivity.h */,
+				2CC006F91B9FC6DB007DE798 /* LXActivity.m */,
+			);
+			name = LXActivity;
+			path = lib/thirdlib/LXActivity;
+			sourceTree = "<group>";
+		};
 		2CD6C0201B7ADEAB00F1FF6A /* libWeiboSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2760,6 +2773,7 @@
 		579AC7DF1AA033BC0045E9A2 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				2CC006F71B9FC6DB007DE798 /* LXActivity */,
 				2C94F9FF1B8AEF9200F1A4DB /* ZFCalendar */,
 				2C94F9D11B8AED0200F1A4DB /* DateTools */,
 				2CD6C0591B7D812300F1FF6A /* MPBView */,
@@ -3497,6 +3511,7 @@
 				2C77D5291AEE7095004123D2 /* MMPickerView.m in Sources */,
 				2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */,
 				2C94F9E71B8AED0200F1A4DB /* NSDate+DateTools.m in Sources */,
+				2CC006FA1B9FC6DB007DE798 /* LXActivity.m in Sources */,
 				2CD6C0691B7D812300F1FF6A /* UIBezierPath+curved.m in Sources */,
 				2C1F1FD01ADA57AB00393E04 /* WeekCalenderView.m in Sources */,
 				2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */,
@@ -3718,7 +3733,7 @@
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3745,7 +3760,7 @@
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

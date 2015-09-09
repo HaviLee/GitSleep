@@ -604,7 +604,8 @@
 
 - (void)shareApp:(UIButton *)sender
 {
-    [self.shareMenuView show];
+//    [self.shareMenuView show];
+    [self.shareNewMenuView showInView:self.view];
 }
 
 - (void)didReceiveMemoryWarning {
