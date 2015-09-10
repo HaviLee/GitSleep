@@ -296,7 +296,7 @@
 - (void)didClickOnImageIndex:(UIButton *)button
 {
     if (self.delegate) {
-        if (button.tag != self.postionIndexNumber-1) {
+        if (button.tag != self.postionIndexNumber) {
             if ([self.delegate respondsToSelector:@selector(didClickOnImageIndex:)] == YES) {
                 [self.delegate didClickOnImageIndex:(NSInteger *)button.tag];
             }

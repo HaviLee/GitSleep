@@ -252,10 +252,9 @@
 
 - (LXActivity*)shareNewMenuView
 {
-    NSArray *shareButtonTitleArray = [[NSArray alloc] init];
-    NSArray *shareButtonImageNameArray = [[NSArray alloc] init];
-    shareButtonTitleArray = @[@"朋友圈",@"微信好友",@"新浪微博"];
-    shareButtonImageNameArray = @[@"icon_wechat",@"weixin",@"sina"];
+    
+    NSArray *shareButtonTitleArray = @[@"朋友圈",@"微信好友",@"新浪微博"];
+    NSArray *shareButtonImageNameArray = @[@"icon_wechat",@"weixin",@"sina"];
     
     _shareNewMenuView = [[LXActivity alloc] initWithTitle:@"分享到社交平台" delegate:self cancelButtonTitle:nil ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonImageNameArray];
     return _shareNewMenuView;
