@@ -316,7 +316,7 @@
     int hour = [sleepDuration intValue];
     double second2 = 0.0;
     double subsecond2 = modf([sleepDuration floatValue], &second2);
-    NSString *sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长是%d小时%d分",hour>0?hour:-hour,(int)(subsecond2*60)];
+    NSString *sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长:%d小时%d分",hour>0?hour:-hour,(int)(subsecond2*60)];
     self.sleepTimeLabel.text= sleepTimeDuration;
     if (sleepStartTime) {
         
