@@ -149,10 +149,10 @@
 
 - (void)reloadSleepView:(NSDictionary *)dic
 {
-    NSString *sting = [NSString stringWithFormat:@"睡眠时长为: %0.1f小时",[[[[dic objectForKey:@"Data"] firstObject] objectForKey:@"SleepDuration"] floatValue]];
+    NSString *sting = [NSString stringWithFormat:@"睡眠时长: %0.1f小时",[[[[dic objectForKey:@"Data"] firstObject] objectForKey:@"SleepDuration"] floatValue]];
     NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc]initWithString:sting];
     [attribute addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, [sting length])];
-    [attribute addAttribute:NSForegroundColorAttributeName value:selectedThemeIndex==0? DefaultColor:[UIColor whiteColor] range:[sting rangeOfString:@"睡眠时长为:"]];
+    [attribute addAttribute:NSForegroundColorAttributeName value:selectedThemeIndex==0? DefaultColor:[UIColor whiteColor] range:[sting rangeOfString:@"睡眠时长:"]];
     [attribute addAttribute:NSForegroundColorAttributeName value:selectedThemeIndex==0? DefaultColor:[UIColor whiteColor] range:[sting rangeOfString:@"小时"]];
     _sleepTimeLabel.attributedText = attribute;
     self.timesLabel.text = [NSString stringWithFormat:@"%d",[[dic objectForKey:@"BodyMovementTimes"] intValue]];
@@ -288,7 +288,7 @@
     if (_sleepTimeLabel==nil) {
         _sleepTimeLabel = [[UILabel alloc]init];
         //                           WithFrame:CGRectMake(151, 2, 100, 30)];
-        _sleepTimeLabel.text = @"睡眠时长为:0小时";
+        _sleepTimeLabel.text = @"睡眠时长:0小时";
         _sleepTimeLabel.font = [UIFont systemFontOfSize:17];
         _sleepTimeLabel.textColor = [UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f];
         
