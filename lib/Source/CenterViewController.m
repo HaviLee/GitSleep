@@ -675,7 +675,7 @@
         _sleepTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         _sleepTimeLabel.backgroundColor = [UIColor clearColor];
         _sleepTimeLabel.font = [UIFont systemFontOfSize:17];
-        _sleepTimeLabel.text = @"睡眠时长:7小时36分";
+        _sleepTimeLabel.text = @"睡眠时长:0小时0分";
     }
     return _sleepTimeLabel;
 }
