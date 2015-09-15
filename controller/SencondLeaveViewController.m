@@ -299,7 +299,7 @@
 {
     if (_timesLabel == nil) {
         _timesLabel = [[UILabel alloc]init];
-        _timesLabel.text = @"5";
+        _timesLabel.text = @"0";
         _timesLabel.font = [UIFont systemFontOfSize:25];
         _timesLabel.textAlignment = NSTextAlignmentCenter;
         _timesLabel.textColor = [UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f];

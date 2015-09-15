@@ -430,9 +430,9 @@
         cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
         cell.leftDataString = [self.titleArr objectAtIndex:indexPath.row];
         if (indexPath.row==0) {
-            cell.rightDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageRespiratoryRate"] intValue]];
+            cell.rightDataString = [NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"AverageRespiratoryRate"] intValue]];
         }else if (indexPath.row==1){
-            cell.rightDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"FastRespiratoryRateTimes"] intValue]];
+            cell.rightDataString = [NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"FastRespiratoryRateTimes"] intValue]];
             
         }else if (indexPath.row==2){
             cell.rightDataString = [NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"];
