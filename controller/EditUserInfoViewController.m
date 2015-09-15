@@ -20,6 +20,7 @@
 #import "MMPickerView.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <AVFoundation/AVFoundation.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface EditUserInfoViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate,RMDateSelectionViewControllerDelegate>
 
@@ -642,18 +643,24 @@
                     
                 case 1:{
                     // 相册
-                    sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-                    imagePickerController.mediaTypes = @[(NSString*) kUTTypeImage];
-                    imagePickerController.delegate = self;
-                    
-                    imagePickerController.allowsEditing = YES;
-                    
-                    imagePickerController.sourceType = sourceType;
-                    
-                    [self presentViewController:imagePickerController animated:YES completion:^{
-//                        self.navigationController.navigationBarHidden = YES;
-                    }];
+                    ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+                    if (author == ALAuthorizationStatusRestricted || author ==ALAuthorizationStatusDenied){
+                        //无权限
+                        [self.view makeToast:@"请在设置中打开照片库权限" duration:3 position:@"center"];
+                    }else{
+                        sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                        imagePickerController.mediaTypes = @[(NSString*) kUTTypeImage];
+                        imagePickerController.delegate = self;
+                        
+                        imagePickerController.allowsEditing = YES;
+                        
+                        imagePickerController.sourceType = sourceType;
+                        
+                        [self presentViewController:imagePickerController animated:YES completion:^{
+                            //                        self.navigationController.navigationBarHidden = YES;
+                        }];
+                    }
                     break;
                 }
             }

@@ -17,6 +17,8 @@
 #import "UploadImageApi.h"
 #import "SHPostClient.h"
 #import "ThirdRegisterAPI.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface RegisterViewController ()<UITextFieldDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate>
 @property (nonatomic,strong) UITextField *nameText;
@@ -308,34 +310,47 @@
                     return;
                 case 0:{
                     // 相机
-                    sourceType = UIImagePickerControllerSourceTypeCamera;
-                    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-                    imagePickerController.mediaTypes = @[(NSString*) kUTTypeImage];
-                    imagePickerController.delegate = self;
-                    
-                    imagePickerController.allowsEditing = YES;
-                    
-                    imagePickerController.sourceType = sourceType;
-                    
-                    [self presentViewController:imagePickerController animated:YES completion:^{}];
+                    NSString *mediaType = AVMediaTypeVideo;
+                    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+                    if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
+                        [self.view makeToast:@"请在设置中打开照相机权限" duration:3 position:@"center"];
+                        NSLog(@"相机权限受限");
+                    }else{
+                        sourceType = UIImagePickerControllerSourceTypeCamera;
+                        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                        imagePickerController.mediaTypes = @[(NSString*) kUTTypeImage];
+                        imagePickerController.delegate = self;
+                        
+                        imagePickerController.allowsEditing = YES;
+                        
+                        imagePickerController.sourceType = sourceType;
+                        
+                        [self presentViewController:imagePickerController animated:YES completion:^{}];
+                    }
                     
                     break;
                 }
                     
                 case 1:{
                     // 相册
-                    sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-                    imagePickerController.mediaTypes = @[(NSString*) kUTTypeImage];
-                    imagePickerController.delegate = self;
-                    
-                    imagePickerController.allowsEditing = YES;
-                    
-                    imagePickerController.sourceType = sourceType;
-                    
-                    [self presentViewController:imagePickerController animated:YES completion:^{
-                        self.navigationController.navigationBarHidden = YES;
-                    }];
+                    ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+                    if (author == ALAuthorizationStatusRestricted || author ==ALAuthorizationStatusDenied){
+                        //无权限
+                        [self.view makeToast:@"请在设置中打开照片库权限" duration:3 position:@"center"];
+                    }else{
+                        sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                        imagePickerController.mediaTypes = @[(NSString*) kUTTypeImage];
+                        imagePickerController.delegate = self;
+                        
+                        imagePickerController.allowsEditing = YES;
+                        
+                        imagePickerController.sourceType = sourceType;
+                        
+                        [self presentViewController:imagePickerController animated:YES completion:^{
+                            self.navigationController.navigationBarHidden = YES;
+                        }];
+                    }
                     break;
                 }
             }
