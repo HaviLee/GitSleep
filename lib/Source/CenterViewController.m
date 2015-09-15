@@ -1112,7 +1112,7 @@
         
         [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
         [MMProgressHUD showWithStatus:@"保存中..."];
-        NSDate *date1 = [selectedDateToUse dateByAddingDays:1];
+        NSDate *date1 = [selectedDateToUse dateByAddingDays:0];
         NSString *dateString = [NSString stringWithFormat:@"%@",date1];
         NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],endString];
         NSDictionary *dic = @{
