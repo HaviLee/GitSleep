@@ -787,8 +787,8 @@
             cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
         }else if (indexPath.row == 4){
             cell.cellFont = [UIFont systemFontOfSize:13];
-            cell.leftDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]];
-            cell.rightDataString = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]];
+            cell.leftDataString = [NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]];
+            cell.rightDataString = [NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]];
             cell.cellColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.847f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
         }else if (indexPath.row == 5){
             cell.cellFont = [UIFont systemFontOfSize:13];
