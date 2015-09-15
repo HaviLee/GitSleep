@@ -250,6 +250,7 @@
 //
 - (void)configNewStartTime:(UITableViewCell*)cell
 {
+    [self.startTimeLabel removeFromSuperview];
     self.startTimeLabel = [LRGlowingButton buttonWithType:UIButtonTypeCustom];
     [cell addSubview:_startTimeLabel];
     NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
@@ -268,6 +269,7 @@
 
 - (void)configNewEndTime:(UITableViewCell*)cell
 {
+    [self.endTimeLabel removeFromSuperview];
     self.endTimeLabel = [LRGlowingButton buttonWithType:UIButtonTypeCustom];
     [cell addSubview:self.endTimeLabel];
     NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
@@ -286,6 +288,7 @@
 
 - (void)configSleepTimeCell:(UITableViewCell *)cell
 {
+    [self.startTimeLabel removeFromSuperview];
     self.startTimeLabel = [LRGlowingButton buttonWithType:UIButtonTypeCustom];
     [cell addSubview:_startTimeLabel];
     NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
@@ -344,6 +347,7 @@
 
 - (void)configSleepAlarmCell:(UITableViewCell *)cell
 {
+    [self.sleepAlarmLabel removeFromSuperview];
     self.sleepAlarmLabel = [LRGlowingButton buttonWithType:UIButtonTypeCustom];
     [cell addSubview:_sleepAlarmLabel];
     NSString *alarmTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultAlarmTime];
@@ -372,6 +376,11 @@
         self.editImage3.alpha = 0;
     }
 //
+    for (UIView*view in cell.subviews) {
+        if ([view isKindOfClass:[UISwitch class]]) {
+            [view removeFromSuperview];
+        }
+    }
     UISwitch *sleepAlarmSwitch = [[UISwitch alloc]init];
     [cell addSubview:sleepAlarmSwitch];
     [sleepAlarmSwitch addTarget:self action:@selector(sleepAlarmSwitchTaped:) forControlEvents:UIControlEventTouchUpInside];
@@ -389,6 +398,7 @@
 
 - (void)configSleepTimeoutCell:(UITableViewCell *)cell
 {
+    [self.sleepTimeoutLabel removeFromSuperview];
     self.sleepTimeoutLabel = [LRGlowingButton buttonWithType:UIButtonTypeCustom];
     [cell addSubview:_sleepTimeoutLabel];
     NSString *Timeout = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultTimeoutTime];
@@ -418,6 +428,11 @@
     
     //
     UISwitch *sleepAlarmSwitch = [[UISwitch alloc]init];
+    for (UIView*view in cell.subviews) {
+        if ([view isKindOfClass:[UISwitch class]]) {
+            [view removeFromSuperview];
+        }
+    }
     [cell addSubview:sleepAlarmSwitch];
     [sleepAlarmSwitch addTarget:self action:@selector(sleepTimeoutAlarmSwitchTaped:) forControlEvents:UIControlEventTouchUpInside];
     [sleepAlarmSwitch makeConstraints:^(MASConstraintMaker *make) {
@@ -435,6 +450,7 @@
 
 - (void)configLeaveBedAlarmCell:(UITableViewCell *)cell
 {
+    [self.leaveBedAlarmLabel removeFromSuperview];
     self.leaveBedAlarmLabel = [LRGlowingButton buttonWithType:UIButtonTypeCustom];
     [cell addSubview:_leaveBedAlarmLabel];
     NSString *Timeout = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultLeaveTime];
@@ -463,6 +479,11 @@
         self.editImage5.alpha = 0;
     }
     //
+    for (UIView*view in cell.subviews) {
+        if ([view isKindOfClass:[UISwitch class]]) {
+            [view removeFromSuperview];
+        }
+    }
     UISwitch *sleepAlarmSwitch = [[UISwitch alloc]init];
     [cell addSubview:sleepAlarmSwitch];
     [sleepAlarmSwitch addTarget:self action:@selector(leaveBedAlarmSwitchTaped:) forControlEvents:UIControlEventTouchUpInside];

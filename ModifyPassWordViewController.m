@@ -38,25 +38,34 @@
 - (void)setSubView
 {
     self.oldTextFieldPass = [[UITextField alloc]init];
-    _oldTextFieldPass.borderStyle = UITextBorderStyleRoundedRect;
+    _oldTextFieldPass.borderStyle = UITextBorderStyleNone;
     _oldTextFieldPass.placeholder = @"请输入旧密码";
     _oldTextFieldPass.secureTextEntry = YES;
     _oldTextFieldPass.delegate = self;
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 44)];
+    self.oldTextFieldPass.leftView = leftView;
+    self.oldTextFieldPass.leftViewMode = UITextFieldViewModeAlways;
     _oldTextFieldPass.layer.borderColor = [UIColor whiteColor].CGColor;
     [self.view addSubview:_oldTextFieldPass];
     
     self.changeTextFieldPass = [[UITextField alloc]init];
-    _changeTextFieldPass.borderStyle = UITextBorderStyleRoundedRect;
+    _changeTextFieldPass.borderStyle = UITextBorderStyleNone;
     _changeTextFieldPass.placeholder = @"请输入新密码";
     _changeTextFieldPass.secureTextEntry = YES;
     _changeTextFieldPass.delegate = self;
+    UIView *leftView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 44)];
+    self.changeTextFieldPass.leftView = leftView1;
+    self.changeTextFieldPass.leftViewMode = UITextFieldViewModeAlways;
     [self.view addSubview:_changeTextFieldPass];
     
     self.confirmTextFieldPass = [[UITextField alloc]init];
-    _confirmTextFieldPass.borderStyle = UITextBorderStyleRoundedRect;
+    _confirmTextFieldPass.borderStyle = UITextBorderStyleNone;
     _confirmTextFieldPass.placeholder = @"请确认新密码";
     _confirmTextFieldPass.secureTextEntry = YES;
     _confirmTextFieldPass.delegate = self;
+    UIView *leftView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 44)];
+    self.confirmTextFieldPass.leftView = leftView2;
+    self.confirmTextFieldPass.leftViewMode = UITextFieldViewModeAlways;
     [self.view addSubview:_confirmTextFieldPass];
     
     
@@ -67,6 +76,9 @@
         make.height.height.equalTo(44);
     }];
     
+    _oldTextFieldPass.layer.borderColor = selectedThemeIndex == 1?DefaultColor.CGColor:[UIColor lightGrayColor].CGColor;
+    _oldTextFieldPass.layer.borderWidth = 1;
+    _oldTextFieldPass.layer.cornerRadius = 0;
     
     [_changeTextFieldPass makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.left).offset(20);
