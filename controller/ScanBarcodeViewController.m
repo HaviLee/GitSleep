@@ -188,17 +188,32 @@
     if (SIMULATOR==1) {
         [self.view makeToast:@"不能在模拟器中使用" duration:2 position:@"center"];
     }else{
-        [self setupCameraWith];
-        if (![timer isValid]) {
-            num = 0;
-            upOrdown = NO;
-            [_imageView addSubview:_line];
-            [_line makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(_imageView).insets(UIEdgeInsetsMake(10, 10, 20, 20));
+        NSString *mediaType = AVMediaTypeVideo;
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+        if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
+            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"提示" subtitle:@"请在设置中打开照相机权限或者手动输入设备序列号"];
+            alertView.blurBackground = NO;
+            [alertView addButtonWithTitle:@"确认"];
+            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
+                [alertView hideWithAnimation:URBAlertAnimationFade completionBlock:^{
+                    
+                }];
             }];
-            timer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(animation1) userInfo:nil repeats:YES];
-            
+            [alertView showWithAnimation:URBAlertAnimationFade];
+        }else{
+            [self setupCameraWith];
+            if (![timer isValid]) {
+                num = 0;
+                upOrdown = NO;
+                [_imageView addSubview:_line];
+                [_line makeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(_imageView).insets(UIEdgeInsetsMake(10, 10, 20, 20));
+                }];
+                timer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(animation1) userInfo:nil repeats:YES];
+                
+            }
         }
+       
     }
     [super viewDidAppear:animated];
 }

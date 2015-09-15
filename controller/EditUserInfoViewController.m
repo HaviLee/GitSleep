@@ -19,6 +19,7 @@
 #import "SHPutClient.h"
 #import "MMPickerView.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface EditUserInfoViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate,RMDateSelectionViewControllerDelegate>
 
@@ -618,16 +619,23 @@
                     return;
                 case 0:{
                     // 相机
-                    sourceType = UIImagePickerControllerSourceTypeCamera;
-                    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-                    imagePickerController.mediaTypes = @[(NSString*) kUTTypeImage];
-                    imagePickerController.delegate = self;
-                    
-                    imagePickerController.allowsEditing = YES;
-                    
-                    imagePickerController.sourceType = sourceType;
-                    
-                    [self presentViewController:imagePickerController animated:YES completion:^{}];
+                    NSString *mediaType = AVMediaTypeVideo;
+                    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+                    if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
+                        [self.view makeToast:@"请在设置中打开照相机权限" duration:3 position:@"center"];
+                        NSLog(@"相机权限受限");
+                    }else{
+                        sourceType = UIImagePickerControllerSourceTypeCamera;
+                        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                        imagePickerController.mediaTypes = @[(NSString*) kUTTypeImage];
+                        imagePickerController.delegate = self;
+                        
+                        imagePickerController.allowsEditing = YES;
+                        
+                        imagePickerController.sourceType = sourceType;
+                        
+                        [self presentViewController:imagePickerController animated:YES completion:^{}];
+                    }
 
                     break;
                 }

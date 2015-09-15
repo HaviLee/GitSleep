@@ -175,7 +175,7 @@
 	CGFloat subtitleHeight = 0;
 	minY = CGRectGetMaxY(layout.titleRect);
 	if (self.subtitle.length > 0) {
-		subtitleHeight = [self.subtitle sizeWithFont:self.subtitleFont constrainedToSize:CGSizeMake(layoutWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping].height;
+		subtitleHeight = [self.subtitle sizeWithFont:self.subtitleFont constrainedToSize:CGSizeMake(layoutWidth, MAXFLOAT) lineBreakMode:NSLineBreakByCharWrapping].height*2;
 		minY += kURBAlertPadding;
 	}
 	layout.subtitleRect = CGRectMake(CGRectGetMinX(layoutFrame), minY, layoutWidth, subtitleHeight);
@@ -326,7 +326,7 @@
 		CGContextSaveGState(context);
 		CGContextSetShadowWithColor(context, CGSizeMake(0.0, -1.0), 0.0, [UIColor blackColor].CGColor);
 		[[UIColor whiteColor] set];
-		[self.subtitle drawInRect:layout.subtitleRect withFont:self.subtitleFont lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+		[self.subtitle drawInRect:layout.subtitleRect withFont:self.subtitleFont lineBreakMode:NSLineBreakByCharWrapping alignment:NSTextAlignmentCenter];
 		CGContextRestoreGState(context);
 	}	
 }
