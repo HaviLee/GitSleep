@@ -335,7 +335,7 @@
         [self.circleView addSubview:self.endView];
         self.endView.endTime = [sleepEndTime substringWithRange:NSMakeRange(11, 5)];
         self.endView.center = CGPointMake(self.view.frame.size.width-60, 5);
-        self.endView.userInteractionEnabled = YES;
+//        self.endView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showEndTimePicker)];
         [self.endView addGestureRecognizer:tap];
     }else
@@ -837,12 +837,17 @@
     NSString *slectDateString = [NSString stringWithFormat:@"%@",date];
     if (![[dateString substringWithRange:NSMakeRange(5, 5)]isEqualToString:[slectDateString substringWithRange:NSMakeRange(5, 5)]]) {
         [self.iWantSleepLabel removeFromSuperview];
-//        self.circleView = nil;
-//        self.circleView.frame = CGRectMake(0, 64 + 4*44 +30 + 10, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10);
     }else {
-//        self.circleView.frame = CGRectMake(0, 64 + 4*44 +30 + 10, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35);
         [self.view addSubview:self.iWantSleepLabel];
     }
+    if ([[[NSDate date] dateByAddingHours:8]daysFrom:date]>7) {
+        self.endView.endImageString = @"";
+        self.endView.userInteractionEnabled = NO;
+    }else{
+        self.endView.endImageString = [NSString stringWithFormat: @"ic_compile_%d",selectedThemeIndex];
+        self.endView.userInteractionEnabled = YES;
+    }
+    
     if (date) {
         if ([[[NSDate date] dateByAddingHours:8]isEarlierThan:date]) {
             [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
@@ -1073,13 +1078,16 @@
         [MMProgressHUD showWithStatus:@"保存中..."];
         NSDate *date = [[NSDate date]dateByAddingHours:8];
         NSString *dateString = [NSString stringWithFormat:@"%@",date];
+//        NSDate *date1 = [selectedDateToUse dateByAddingDays:0];
+//        NSString *dateString = [NSString stringWithFormat:@"%@",date1];
+//        NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],@"22:07"];
         NSDictionary *dic = @{
                               @"UUID" : HardWareUUID,
                               @"UserID" : thirdPartyLoginUserId,
                               @"Tags" : @[@{
                                        @"Tag": @"<%睡眠时间记录%>",
                                        @"TagType": @"-1",
-                                       @"UserTagDate": [dateString substringToIndex:19],
+                                       @"UserTagDate": dateString,
                                       }],
                               };
         NSDictionary *header = @{

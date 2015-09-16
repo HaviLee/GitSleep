@@ -10,4 +10,5 @@
 
 @interface EndTimeView : UIView
 @property (nonatomic, strong) NSString *endTime;
+@property (nonatomic, strong) NSString *endImageString;
 @end
