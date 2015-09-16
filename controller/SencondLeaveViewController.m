@@ -157,7 +157,16 @@
 
 - (void)reloadSleepView:(NSDictionary *)dic
 {
-    NSString *sting = [NSString stringWithFormat:@"睡眠时长: %0.1f小时",[[[[dic objectForKey:@"Data"] firstObject] objectForKey:@"SleepDuration"] floatValue]];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[dic objectForKey:@"Data"]];
+    NSString *selectString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+    NSString *subString = [selectString substringToIndex:10];
+    NSDictionary *dataDic=nil;
+    for (NSDictionary *dic in arr) {
+        if ([[dic objectForKey:@"Date"]isEqualToString:subString]) {
+            dataDic = dic;
+        }
+    }
+    NSString *sting = [NSString stringWithFormat:@"睡眠时长: %0.2f小时",[[dataDic objectForKey:@"SleepDuration"] floatValue]];
     NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc]initWithString:sting];
     [attribute addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, [sting length])];
     [attribute addAttribute:NSForegroundColorAttributeName value:selectedThemeIndex==0? DefaultColor:[UIColor whiteColor] range:[sting rangeOfString:@"睡眠时长:"]];

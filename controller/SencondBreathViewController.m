@@ -253,7 +253,7 @@
 
 - (void)createSubView
 {
-    self.titleArr = @[@"心率平均数",@"心率异常数",@"心率异常数高于"];
+    self.titleArr = @[@"呼吸平均数",@"呼吸异常数",@"呼吸异常数高于"];
 
     [self.view addSubview:self.upTableView];
     [self.view addSubview:self.reportTableView];
