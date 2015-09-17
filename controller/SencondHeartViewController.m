@@ -512,31 +512,12 @@
 - (void)showDiagnoseReportHeart
 {
     NSString *urlString = @"";
-    if (isUserDefaultTime) {
-        NSString *startTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultStartTime];
-        NSString *endTime = [[NSUserDefaults standardUserDefaults]objectForKey:UserDefaultEndTime];
-        int startInt = [[startTime substringToIndex:2]intValue];
-        int endInt = [[endTime substringToIndex:2]intValue];
-        if (startInt<endInt) {
-            urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,self.currentDate,self.currentDate,startTime,endTime];
-        }else if (startInt>endInt || startInt==endInt){
-            NSDate *newDate = [self.dateFormmatterBase dateFromString:self.currentDate];
-            self.dateComponentsBase.day = +1;
-            NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-            NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-            //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
-            urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,self.currentDate,newString,startTime,endTime];
-            
-        }
-    }else{
-        NSDate *newDate = [self.dateFormmatterBase dateFromString:self.currentDate];
-        self.dateComponentsBase.day = -1;
-        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,self.currentDate];
-    }
+    NSDate *newDate = [self.dateFormmatterBase dateFromString:self.currentDate];
+    self.dateComponentsBase.day = -1;
+    NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+    NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+    NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+    urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,self.currentDate];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -544,30 +525,19 @@
     [MMProgressHUD showWithStatus:@"异常数据请求中..."];
     GetExceptionAPI *client = [GetExceptionAPI shareInstance];
     [client getException:header withDetailUrl:urlString];
-    if ([client getCacheJsonWithDate:self.currentDate]) {
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         [MMProgressHUD dismiss];
-        NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-        //为了异常报告
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [self showExceptionView:resposeDic withTitle:@"心率"];
         }else{
             [self.view makeToast:[resposeDic objectForKey:@"ErrorMessage"] duration:2 position:@"center"];
         }
-        
-    }else{
-        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-            [MMProgressHUD dismiss];
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-            if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-                [self showExceptionView:resposeDic withTitle:@"心率"];
-            }else{
-                [self.view makeToast:[resposeDic objectForKey:@"ErrorMessage"] duration:2 position:@"center"];
-            }
-        } failure:^(YTKBaseRequest *request) {
-            
-        }];
-    }
-    
+    } failure:^(YTKBaseRequest *request) {
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络问题" duration:2 position:@"center"];
+    }];
+
 }
 
 - (void)showExceptionView:(NSDictionary *)dic withTitle:(NSString *)exceptionTitle
