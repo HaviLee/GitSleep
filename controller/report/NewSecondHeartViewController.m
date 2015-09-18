@@ -268,7 +268,7 @@
 {
     if (!_yCoorBackView) {
         _yCoorBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 160)];
-        _yCoorBackView.backgroundColor = [UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:.50f];
+        _yCoorBackView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
         UILabel *sixLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 70, 20, 20)];
         sixLabel.text = @"60";
         sixLabel.textAlignment = NSTextAlignmentLeft;
@@ -276,27 +276,27 @@
         sixLabel.font = [UIFont systemFontOfSize:14];
         [_yCoorBackView addSubview:sixLabel];
         UIView *sixLine = [[UIView alloc]initWithFrame:CGRectMake(17, 79.5, self.view.frame.size.width-17, 1)];
-        sixLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.133f green:0.698f blue:0.914f alpha:.30f]:[UIColor whiteColor];
+        sixLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.133f green:0.698f blue:0.914f alpha:.30f]:[UIColor colorWithWhite:1 alpha:0.3];
         [_yCoorBackView addSubview:sixLine];
         
         UILabel *fiveLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 104, 20, 20)];
         fiveLabel.text = @"50";
         fiveLabel.textAlignment = NSTextAlignmentLeft;
-        fiveLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        fiveLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor colorWithWhite:1 alpha:1];
         fiveLabel.font = [UIFont systemFontOfSize:14];
         [_yCoorBackView addSubview:fiveLabel];
         UIView *fiveLine = [[UIView alloc]initWithFrame:CGRectMake(17, 114, self.view.frame.size.width-17, 1)];
-        fiveLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.133f green:0.698f blue:0.914f alpha:.30f]:[UIColor whiteColor];
+        fiveLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.133f green:0.698f blue:0.914f alpha:.30f]:[UIColor colorWithWhite:1 alpha:0.3];
         [_yCoorBackView addSubview:fiveLine];
         
         UILabel *sevenLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 33, 20, 20)];
         sevenLabel.text = @"70";
         sevenLabel.textAlignment = NSTextAlignmentLeft;
-        sevenLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        sevenLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor colorWithWhite:1 alpha:1];
         sevenLabel.font = [UIFont systemFontOfSize:14];
         [_yCoorBackView addSubview:sevenLabel];
         UIView *sevenLine = [[UIView alloc]initWithFrame:CGRectMake(17, 43, self.view.frame.size.width-17, 1)];
-        sevenLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.133f green:0.698f blue:0.914f alpha:.30f]:[UIColor whiteColor];
+        sevenLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.133f green:0.698f blue:0.914f alpha:.30f]:[UIColor colorWithWhite:1 alpha:0.3];
         [_yCoorBackView addSubview:sevenLine];
     }
     return _yCoorBackView;
@@ -338,7 +338,7 @@
         _heartGraphView.heartView.maxValue = 100;
         _heartGraphView.heartView.minValue = 50;
         _heartGraphView.heartView.horizonValue = 140;
-        _heartGraphView.heartView.graphColor = selectedThemeIndex==0?[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f]:[UIColor whiteColor];
+        _heartGraphView.heartView.graphColor = selectedThemeIndex==0?[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f]:[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f];
         _heartGraphView.heartView.graphTitle = @"xinlv";
         [_heartGraphView addSubview:self.layerFloatView];
 
@@ -362,7 +362,7 @@
 {
     if (_reportTableView == nil) {
         _reportTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStylePlain];
-        _reportTableView.backgroundColor = [UIColor colorWithRed:0.012f green:0.082f blue:0.184f alpha:1.00f] ;
+        _reportTableView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.012f green:0.082f blue:0.184f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
         _reportTableView.delegate = self;
         _reportTableView.dataSource = self;
         _reportTableView.showsVerticalScrollIndicator = NO;
@@ -375,7 +375,7 @@
 {
     if (!_sleepNightBottomLine) {
         _sleepNightBottomLine = [[UIView alloc]initWithFrame:CGRectMake(0, 59, self.view.frame.size.width, 0.5)];
-        _sleepNightBottomLine.backgroundColor = [UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f];
+        _sleepNightBottomLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
     
     }
     return _sleepNightBottomLine;
@@ -384,7 +384,7 @@
 {
     if (!_sleepNightBottomLine1) {
         _sleepNightBottomLine1 = [[UIView alloc]initWithFrame:CGRectMake(0, 59, self.view.frame.size.width, 0.5)];
-        _sleepNightBottomLine1.backgroundColor = [UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f];
+        _sleepNightBottomLine1.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
     }
     return _sleepNightBottomLine1;
 }
@@ -468,7 +468,7 @@
             }
             cell.textLabel.text = @"心率分析";
             cell.textLabel.font = [UIFont systemFontOfSize:18];
-            cell.backgroundColor = [UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f];
+            cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             cell.textLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -482,7 +482,7 @@
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
                 
             }
-            cell.backgroundColor = [UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f];
+            cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell addSubview:self.longSleepView];
             [self.sleepNightBottomLine removeFromSuperview];
@@ -495,7 +495,7 @@
                 cell = [[ReportTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
                 
             }
-            cell.backgroundColor = [UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f];
+            cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             cell.cellFont = [UIFont systemFontOfSize:16];
             cell.leftDataString = [self.sleepQualityTitleArr objectAtIndex:indexPath.row-2];
             cell.rightDataString = [self.sleepQualityDataArr objectAtIndex:indexPath.row-2];
@@ -550,7 +550,7 @@
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    view.backgroundColor = [UIColor colorWithRed:0.012f green:0.082f blue:0.176f alpha:1.00f];
+    view.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.012f green:0.082f blue:0.184f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
     return view;
     
 }
@@ -558,7 +558,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    view.backgroundColor = [UIColor colorWithRed:0.012f green:0.082f blue:0.176f alpha:1.00f];
+    view.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.012f green:0.082f blue:0.184f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
     return view;
 }
 //防止scrollview向下拉

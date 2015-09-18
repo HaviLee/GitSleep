@@ -37,7 +37,7 @@
             make.height.equalTo(self);
         }];
         UIView *lineView = [[UIView alloc]init];
-        lineView.backgroundColor = [UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f];
+        lineView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
         [self addSubview:lineView];
         [lineView makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
@@ -58,7 +58,7 @@
             make.width.equalTo(titleLabel.width);
         }];
         lineViewBottom = [[UIView alloc]init];
-        lineViewBottom.backgroundColor = [UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f];
+        lineViewBottom.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
         [self addSubview:lineViewBottom];
         [lineViewBottom makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.bottom).offset(-0.5);
