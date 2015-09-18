@@ -540,6 +540,7 @@
 		2CDB86B91BABE66800551192 /* slice3_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86A91BABE66800551192 /* slice3_1.png */; };
 		2CDB86BA1BABE66800551192 /* slice3_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86AA1BABE66800551192 /* slice3_2.png */; };
 		2CDB86BB1BABE66800551192 /* YXSpritesLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB86AC1BABE66800551192 /* YXSpritesLoadingView.m */; };
+		2CDB86BD1BAC1A2900551192 /* pic_night1_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86BC1BAC1A2900551192 /* pic_night1_0@2x.png */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
 		57063D2C1ABFDE7B00A61267 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 57063D2B1ABFDE7B00A61267 /* ImageUtil.m */; };
@@ -1361,6 +1362,7 @@
 		2CDB86AA1BABE66800551192 /* slice3_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slice3_2.png; sourceTree = "<group>"; };
 		2CDB86AB1BABE66800551192 /* YXSpritesLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXSpritesLoadingView.h; sourceTree = "<group>"; };
 		2CDB86AC1BABE66800551192 /* YXSpritesLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXSpritesLoadingView.m; sourceTree = "<group>"; };
+		2CDB86BC1BAC1A2900551192 /* pic_night1_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_night1_0@2x.png"; sourceTree = "<group>"; };
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
 		2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -2449,6 +2451,7 @@
 				2CDB86721BABCD4F00551192 /* ReportTableViewCell.m */,
 				2CDB86731BABCD4F00551192 /* ReportViewDefine.h */,
 				2CDB86741BABCD4F00551192 /* sad-75.png */,
+				2CDB86BC1BAC1A2900551192 /* pic_night1_0@2x.png */,
 				2CDB86751BABCD4F00551192 /* SleepQualityBar.h */,
 				2CDB86761BABCD4F00551192 /* SleepQualityBar.m */,
 				2CDB86771BABCD4F00551192 /* SleepTimeLongBar.h */,
@@ -3136,6 +3139,7 @@
 				2C15E73B1AF214E800142F36 /* pic_diagnostic_tint_1@2x.png in Resources */,
 				2C15E6F81AF214E800142F36 /* btn_analysis_report_1@2x.png in Resources */,
 				2C7D22D91AF1CA050011A45C /* pic_head_take_portrait_0@2x.png in Resources */,
+				2CDB86BD1BAC1A2900551192 /* pic_night1_0@2x.png in Resources */,
 				2C7D22091AF1C6550011A45C /* weight@2x.png in Resources */,
 				2C7D22B01AF1CA050011A45C /* icon_body_movement_0@2x.png in Resources */,
 				2C7D231B1AF1CA450011A45C /* get_up1_0@2x.png in Resources */,

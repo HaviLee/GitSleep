@@ -13,6 +13,9 @@
 @property (strong, nonatomic) NSDictionary   *textStyleDict;
 @property (strong, nonatomic) NSMutableArray *xPoints;
 @property (strong, nonatomic) NSMutableArray *funcPoints;
+@property (nonatomic, strong) UIImageView *leftImage;
+@property (nonatomic, strong) UIImageView *rightImage;
+
 
 @end
 
@@ -23,10 +26,20 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
         [self setUpCoordinateSystem];
+        [self setBackImage];
         [self addSubview:self.heartView];
     }
     return self;
 }
+
+- (void)setBackImage
+{
+    
+    [self addSubview:self.leftImage];
+    
+    [self addSubview:self.rightImage];
+}
+#pragma mark setter meathod
 
 
 
@@ -52,6 +65,8 @@
     lineView.frame = CGRectMake(0, self.frame.size.height - bottomLineMargin, self.frame.size.width, 1);
     return lineView;
 }
+
+
 
 #pragma mark - 添加坐标轴的值
 
@@ -118,6 +133,26 @@
 }
 
 #pragma mark setter
+
+- (UIImageView *)leftImage
+{
+    if (_leftImage == nil) {
+        _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, xCoordinateWidth/2, yCoordinateHeight)];
+        _leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night1_%d",selectedThemeIndex]];
+        _leftImage.tag = 2001;
+    }
+    return _leftImage;
+}
+
+- (UIImageView *)rightImage
+{
+    if (_rightImage == nil) {
+//        _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin+xCoordinateWidth/2+2, 5, xCoordinateWidth/2, yCoordinateHeight)];
+//        _rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_%d",selectedThemeIndex]];
+//        _rightImage.tag = 2001;
+    }
+    return _rightImage;
+}
 - (MPGraphView *)heartView
 {
     if (_heartView==nil) {
