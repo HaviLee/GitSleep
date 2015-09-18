@@ -541,6 +541,10 @@
 		2CDB86BA1BABE66800551192 /* slice3_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86AA1BABE66800551192 /* slice3_2.png */; };
 		2CDB86BB1BABE66800551192 /* YXSpritesLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB86AC1BABE66800551192 /* YXSpritesLoadingView.m */; };
 		2CDB86BD1BAC1A2900551192 /* pic_night1_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86BC1BAC1A2900551192 /* pic_night1_0@2x.png */; };
+		2CDB86BF1BAC26B300551192 /* pic_day_bac_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86BE1BAC26B300551192 /* pic_day_bac_1@2x.png */; };
+		2CDB86C11BAC26BB00551192 /* pic_day_bac_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86C01BAC26BB00551192 /* pic_day_bac_0@2x.png */; };
+		2CDB86C31BAC26C400551192 /* pic_night_bac_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86C21BAC26C400551192 /* pic_night_bac_1@2x.png */; };
+		2CDB86C51BAC26CB00551192 /* pic_night_bac_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86C41BAC26CB00551192 /* pic_night_bac_0@2x.png */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
 		57063D2C1ABFDE7B00A61267 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 57063D2B1ABFDE7B00A61267 /* ImageUtil.m */; };
@@ -1363,6 +1367,10 @@
 		2CDB86AB1BABE66800551192 /* YXSpritesLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXSpritesLoadingView.h; sourceTree = "<group>"; };
 		2CDB86AC1BABE66800551192 /* YXSpritesLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXSpritesLoadingView.m; sourceTree = "<group>"; };
 		2CDB86BC1BAC1A2900551192 /* pic_night1_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_night1_0@2x.png"; sourceTree = "<group>"; };
+		2CDB86BE1BAC26B300551192 /* pic_day_bac_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_day_bac_1@2x.png"; sourceTree = "<group>"; };
+		2CDB86C01BAC26BB00551192 /* pic_day_bac_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_day_bac_0@2x.png"; sourceTree = "<group>"; };
+		2CDB86C21BAC26C400551192 /* pic_night_bac_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_night_bac_1@2x.png"; sourceTree = "<group>"; };
+		2CDB86C41BAC26CB00551192 /* pic_night_bac_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_night_bac_0@2x.png"; sourceTree = "<group>"; };
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
 		2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1899,6 +1907,10 @@
 				2CDB86901BABDD2900551192 /* pic_introduce_2@3x.png */,
 				2CDB86921BABDD3000551192 /* pic_introduce_3@3x.png */,
 				2CDB86941BABDD3500551192 /* pic_introduce_1@3x.png */,
+				2CDB86BE1BAC26B300551192 /* pic_day_bac_1@2x.png */,
+				2CDB86C01BAC26BB00551192 /* pic_day_bac_0@2x.png */,
+				2CDB86C21BAC26C400551192 /* pic_night_bac_1@2x.png */,
+				2CDB86C41BAC26CB00551192 /* pic_night_bac_0@2x.png */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -3186,6 +3198,7 @@
 				2C15E7131AF214E800142F36 /* icon_alarm_clock_1@2x.png in Resources */,
 				2C7D22D41AF1CA050011A45C /* pic_day_0@3x.png in Resources */,
 				57C723F71AF73AAB006BE7D0 /* pic_night_1@3x.png in Resources */,
+				2CDB86C11BAC26BB00551192 /* pic_day_bac_0@2x.png in Resources */,
 				2C15E74B1AF214E800142F36 /* textbox_verification code_1@2x.png in Resources */,
 				2C3AF2CA1AF470C800B66E32 /* btn_back_left_calender@2x.png in Resources */,
 				2C15E7211AF214E800142F36 /* icon_turn_over_1@2x.png in Resources */,
@@ -3195,6 +3208,7 @@
 				2C3AF2CB1AF470C800B66E32 /* btn_down_one.png in Resources */,
 				2C1A8CC21AF5E8E400B0B553 /* pic_on_line_1@2x.png in Resources */,
 				2C7D22061AF1C6550011A45C /* icon_phone1@2x.png in Resources */,
+				2CDB86C51BAC26CB00551192 /* pic_night_bac_0@2x.png in Resources */,
 				2C15E7991AF2180500142F36 /* pic_bad_4@2x.png in Resources */,
 				2C7D22AF1AF1CA050011A45C /* icon_alarm_clock_0@2x.png in Resources */,
 				2C7D22011AF1C6550011A45C /* emergency_Contact@2x.png in Resources */,
@@ -3235,6 +3249,7 @@
 				2C7D22C61AF1CA050011A45C /* line_side_face_0@2x.png in Resources */,
 				2C15E7111AF214E800142F36 /* home_1@2x.png in Resources */,
 				2C15E7181AF214E800142F36 /* icon_fatal_exception_1@2x.png in Resources */,
+				2CDB86C31BAC26C400551192 /* pic_night_bac_1@2x.png in Resources */,
 				2C7D22D11AF1CA050011A45C /* pic_bg_night_0@2x.png in Resources */,
 				2C91A68B1B9D76E20039EEAB /* btn_textbox_1.png in Resources */,
 				2C3AF2CD1AF470C800B66E32 /* btn_down_two.png in Resources */,
@@ -3340,6 +3355,7 @@
 				2C15E75A1AF214F800142F36 /* leave4_1.png in Resources */,
 				572AA9891AC29A5700DED1D9 /* THPinViewController.bundle in Resources */,
 				2C15E7481AF214E800142F36 /* textbox_hollow_1@2x.png in Resources */,
+				2CDB86BF1BAC26B300551192 /* pic_day_bac_1@2x.png in Resources */,
 				2C15E72B1AF214E800142F36 /* menology_1@2x.png in Resources */,
 				2C15E7291AF214E800142F36 /* line_side_face_1@2x.png in Resources */,
 				2C7D230F1AF1CA300011A45C /* breathe4_0@2x.png in Resources */,
@@ -3863,7 +3879,7 @@
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
 			};
 			name = Debug;
 		};
@@ -3890,7 +3906,7 @@
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b90077e3-e194-4b02-b3eb-e352deeed882";
 			};
 			name = Release;
 		};

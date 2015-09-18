@@ -138,7 +138,7 @@
 {
     if (_leftImage == nil) {
         _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, xCoordinateWidth/2, yCoordinateHeight)];
-        _leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night1_%d",selectedThemeIndex]];
+        _leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night_bac_%d",selectedThemeIndex]];
         _leftImage.tag = 2001;
     }
     return _leftImage;
@@ -147,9 +147,9 @@
 - (UIImageView *)rightImage
 {
     if (_rightImage == nil) {
-//        _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.leftLineMargin+xCoordinateWidth/2+2, 5, xCoordinateWidth/2, yCoordinateHeight)];
-//        _rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_%d",selectedThemeIndex]];
-//        _rightImage.tag = 2001;
+        _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(xCoordinateWidth/2, 0, xCoordinateWidth/2, yCoordinateHeight)];
+        _rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_bac_%d",selectedThemeIndex]];
+        _rightImage.tag = 2001;
     }
     return _rightImage;
 }
