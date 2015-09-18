@@ -12,6 +12,7 @@
 {
     UILabel *titleLabel;
     UILabel *dataLabel;
+    UIView *lineViewBottom;
 }
 @end
 
@@ -35,6 +36,14 @@
             make.left.equalTo(self).offset(10);
             make.height.equalTo(self);
         }];
+        UIView *lineView = [[UIView alloc]init];
+        lineView.backgroundColor = [UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f];
+        [self addSubview:lineView];
+        [lineView makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self);
+            make.height.equalTo(self.height);
+            make.width.equalTo(0.5);
+        }];
         //
         dataLabel = [[UILabel alloc]init];
         dataLabel.textAlignment = NSTextAlignmentCenter;
@@ -48,6 +57,14 @@
             make.right.equalTo(self).offset(-10);
             make.width.equalTo(titleLabel.width);
         }];
+        lineViewBottom = [[UIView alloc]init];
+        lineViewBottom.backgroundColor = [UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f];
+        [self addSubview:lineViewBottom];
+        [lineViewBottom makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.bottom).offset(-0.5);
+            make.height.equalTo(0.5);
+            make.width.equalTo(self);
+        }];
     }
     return self;
 }
@@ -59,7 +76,7 @@
     titleLabel.font = _cellFont;
     dataLabel.font = _cellFont;
     titleLabel.textColor = _cellColor;
-    dataLabel.textColor = _cellColor;
+    dataLabel.textColor = _cellDataColor;
 }
 
 - (void)setCellFont:(UIFont *)cellFont
@@ -70,6 +87,16 @@
 - (void)setCellColor:(UIColor *)cellColor
 {
     _cellColor = cellColor;
+}
+
+- (void)setCellDataColor:(UIColor *)cellDataColor
+{
+    _cellDataColor = cellDataColor;
+}
+
+- (void)setBottomColor:(UIColor *)bottomColor
+{
+    lineViewBottom.backgroundColor = bottomColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

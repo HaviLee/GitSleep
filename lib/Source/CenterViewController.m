@@ -24,16 +24,12 @@
 #import "GetDeviceStatusAPI.h"
 #import "GetDefatultSleepAPI.h"
 //
-#import "NewTodayHeartViewController.h"
-#import "NewTodayBreathViewController.h"
-#import "NewTodayLeaveViewController.h"
-#import "NewTodayTurnViewController.h"
 #import "CalendarHomeViewController.h"
 #import "URBAlertView.h"
 #import "UploadTagAPI.h"
 //
-#import "SencondHeartViewController.h"
-#import "SencondBreathViewController.h"
+#import "NewSecondHeartViewController.h"
+#import "NewSecondBreathViewController.h"
 #import "SencondLeaveViewController.h"
 #import "SencondTurnViewController.h"
 
@@ -54,15 +50,10 @@
 @property (nonatomic, strong) NSString *tagFromDateAndEndDate;
 @property (nonatomic, strong) UIButton *iWantSleepLabel;
 //
-@property (nonatomic, strong) NewTodayHeartViewController *todayHeartView;
-@property (nonatomic, strong) NewTodayBreathViewController *todayBreathView;
-@property (nonatomic, strong) NewTodayLeaveViewController *todayLeaveView;
-@property (nonatomic, strong) NewTodayTurnViewController *todayTurnView;
-//
-@property (nonatomic, strong) SencondHeartViewController *sendHeardView;
-@property (nonatomic, strong) SencondBreathViewController *sendBreathView;
 @property (nonatomic, strong) SencondLeaveViewController *sendLeaveView;
 @property (nonatomic, strong) SencondTurnViewController *sendTurnView;
+@property (nonatomic, strong) NewSecondBreathViewController *secondBreathView;
+@property (nonatomic, strong) NewSecondHeartViewController *secondHeartView;
 
 @end
 
@@ -82,7 +73,7 @@
 - (void)initData
 {
     self.cellDataArr = @[@"0次/分",@"0次/分",@"0次/天",@"0次/天"];
-    self.dataViewArr = @[self.sendHeardView,self.sendBreathView,self.sendLeaveView,self.sendTurnView];
+    self.dataViewArr = @[self.secondHeartView,self.secondBreathView,self.sendLeaveView,self.sendTurnView];
 }
 #pragma mark 创建消息监听
 
@@ -550,20 +541,20 @@
     return _iWantSleepLabel;
 }
 
-- (SencondHeartViewController*)sendHeardView
+- (NewSecondHeartViewController*)secondHeartView
 {
-    if (_sendHeardView == nil) {
-        _sendHeardView = [[SencondHeartViewController alloc]init];
+    if (!_secondHeartView) {
+        _secondHeartView = [[NewSecondHeartViewController alloc]init];
     }
-    return _sendHeardView;
+    return _secondHeartView;
 }
 
-- (SencondBreathViewController*)sendBreathView
+- (NewSecondBreathViewController*)secondBreathView
 {
-    if (_sendBreathView == nil) {
-        _sendBreathView = [[SencondBreathViewController alloc]init];
+    if (!_secondBreathView) {
+        _secondBreathView = [[NewSecondBreathViewController alloc]init];
     }
-    return _sendBreathView;
+    return _secondBreathView;
 }
 
 - (SencondLeaveViewController*)sendLeaveView
@@ -580,39 +571,6 @@
         _sendTurnView = [[SencondTurnViewController alloc]init];
     }
     return _sendTurnView;
-}
-
-- (NewTodayTurnViewController*)todayTurnView
-{
-    if (_todayTurnView == nil) {
-        _todayTurnView = [[NewTodayTurnViewController alloc]init];
-        
-    }
-    return _todayTurnView;
-}
-
-- (NewTodayLeaveViewController*)todayLeaveView
-{
-    if (_todayLeaveView == nil) {
-        _todayLeaveView = [[NewTodayLeaveViewController alloc]init];
-    }
-    return _todayLeaveView;
-}
-
-- (NewTodayBreathViewController *)todayBreathView
-{
-    if (_todayBreathView == nil) {
-        _todayBreathView = [[NewTodayBreathViewController alloc]init];
-    }
-    return _todayBreathView;
-}
-
-- (NewTodayHeartViewController *)todayHeartView
-{
-    if (_todayHeartView==nil) {
-        _todayHeartView = [[NewTodayHeartViewController alloc]init];
-    }
-    return _todayHeartView;
 }
 
 - (UITapGestureRecognizer *)tapDayViewGesture
@@ -1034,12 +992,12 @@
     [_iWantSleepLabel setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_textbox_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     [_iWantSleepLabel setTitleColor:selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    _sendBreathView = nil;
-    _sendHeardView = nil;
     _sendLeaveView = nil;
     _sendTurnView = nil;
+    _secondBreathView = nil;
+    _secondHeartView = nil;
     _dataViewArr = nil;
-    self.dataViewArr = @[self.sendHeardView,self.sendBreathView,self.sendLeaveView,self.sendTurnView];
+    self.dataViewArr = @[self.secondHeartView,self.secondBreathView,self.sendLeaveView,self.sendTurnView];
 }
 
 - (void)shareApp:(UIButton *)sender

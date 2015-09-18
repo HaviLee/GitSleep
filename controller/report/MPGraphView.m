@@ -91,21 +91,33 @@
         if ([[self.values objectAtIndex:i] intValue]>self.maxValue) {
             //
             UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
-            buttonImage.frame = CGRectMake(0, 0, 10, 10);
-            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_fatal_exception_0"]] forState:UIControlStateNormal];
+            buttonImage.frame = CGRectMake(0, 0, 15, 15);
+            if ([self.graphTitle isEqualToString:@"xinlv"]) {
+                [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_fatal_exception_0"]] forState:UIControlStateNormal];
+            }else{
+                [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_fatal_exception_0"]] forState:UIControlStateNormal];
+            }
+            
             buttonImage.tag = 1001;
             buttonImage.userInteractionEnabled = YES;
             [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
-            buttonImage.center = point;
+            CGPoint newPoint = CGPointMake(point.x, point.y-7);
+            buttonImage.center = newPoint;
             [self addSubview:buttonImage];
         }else if ([[self.values objectAtIndex:i] intValue]<self.minValue){
             UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
-            buttonImage.frame = CGRectMake(0, 0, 10, 10);
-            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_abnormal_0"]] forState:UIControlStateNormal];
+            buttonImage.frame = CGRectMake(0, 0, 15, 15);
+            if ([self.graphTitle isEqualToString:@"xinlv"]) {
+                [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_abnormal_0"]] forState:UIControlStateNormal];
+            }else{
+                [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_abnormal_0"]] forState:UIControlStateNormal];
+            }
+            
             buttonImage.tag = 1001;
             buttonImage.userInteractionEnabled = YES;
             [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
-            buttonImage.center = point;
+            CGPoint newPoint = CGPointMake(point.x, point.y+7);
+            buttonImage.center = newPoint;
             [self addSubview:buttonImage];
         }
         [buttons addObject:button];
@@ -153,10 +165,10 @@
 
 - (CGPoint)pointAtIndex:(NSInteger)index{
 
-    CGFloat space=(self.frame.size.width)/(points.count+1);
+    CGFloat space=(self.frame.size.width-40)/(points.count+1);
 
     
-    return CGPointMake(space+(space)*index,self.frame.size.height-((self.frame.size.height)*([[points objectAtIndex:index] floatValue])));
+    return CGPointMake(space+(space)*index+20,[[points objectAtIndex:index] floatValue]);
 }
 
 
@@ -219,8 +231,13 @@
         if ([[self.values objectAtIndex:i] intValue]>self.maxValue) {
             //
             UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
-            buttonImage.frame = CGRectMake(0, 0, 10, 10);
-            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_fatal_exception_0"]] forState:UIControlStateNormal];
+            buttonImage.frame = CGRectMake(0, 0, 15, 15);
+            if ([self.graphTitle isEqualToString:@"xinlv"]) {
+                [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_fatal_exception_0"]] forState:UIControlStateNormal];
+            }else{
+                [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_fatal_exception_0"]] forState:UIControlStateNormal];
+            }
+            
             buttonImage.tag = 1001;
             buttonImage.userInteractionEnabled = YES;
             [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
@@ -228,14 +245,21 @@
             [self addSubview:buttonImage];
         }else if ([[self.values objectAtIndex:i] intValue]<self.minValue){
             UIButton *buttonImage = [UIButton buttonWithType:UIButtonTypeCustom];
-            buttonImage.frame = CGRectMake(0, 0, 10, 10);
-            [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_abnormal_0"]] forState:UIControlStateNormal];
+            buttonImage.frame = CGRectMake(0, 0, 15, 15);
+            if ([self.graphTitle isEqualToString:@"xinlv"]) {
+                [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_abnormal_0"]] forState:UIControlStateNormal];
+            }else{
+                [buttonImage setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_abnormal_0"]] forState:UIControlStateNormal];
+            }
+            
             buttonImage.tag = 1001;
             buttonImage.userInteractionEnabled = YES;
             [buttonImage addTarget:self action:@selector(showAlarm:) forControlEvents:UIControlEventTouchUpInside];
-            buttonImage.center = point;
+            CGPoint newPoint = CGPointMake(point.x, point.y+7);
+            buttonImage.center = newPoint;
             [self addSubview:buttonImage];
-        }[self performSelector:@selector(displayPoint:) withObject:button afterDelay:delay*i];
+        }
+        [self performSelector:@selector(displayPoint:) withObject:button afterDelay:delay*i];
         
         [buttons addObject:button];
         

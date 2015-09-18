@@ -15,5 +15,8 @@
 
 @property (nonatomic,strong) UIFont *cellFont;
 @property (nonatomic,strong) UIColor *cellColor;
+@property (nonatomic,strong) UIColor *cellDataColor;
+
+@property (nonatomic,strong) UIColor *bottomColor;
 
 @end

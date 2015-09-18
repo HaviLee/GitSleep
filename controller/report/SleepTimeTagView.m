@@ -45,13 +45,14 @@
     
     sleepYearMonthDayLabel = [[UILabel alloc]init];
     sleepYearMonthDayLabel.font = [UIFont systemFontOfSize:11];
-    sleepYearMonthDayLabel.text = @"15-08-09";
+    sleepYearMonthDayLabel.text = @"00-00-00";
     sleepYearMonthDayLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
     [self addSubview:sleepYearMonthDayLabel];
     
     sleepTimeLongLabel = [[UILabel alloc]init];
     sleepTimeLongLabel.font = [UIFont systemFontOfSize:11];
-    sleepTimeLongLabel.text = @"10小时35分";
+    sleepTimeLongLabel.text = @"00小时00分";
+    sleepTimeLongLabel.textAlignment = NSTextAlignmentRight;
     sleepTimeLongLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
     [self addSubview:sleepTimeLongLabel];
     
@@ -83,14 +84,12 @@
         make.left.equalTo(self).offset(20);
         make.centerY.equalTo(self.sleepTitleLabel.centerY);
         make.height.equalTo(25);
-        make.width.equalTo(0);
     }];
     [self.sleepTitleLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(afterNameLabel.right).offset(-10);
         make.right.equalTo(self).offset(0);
         make.top.equalTo(self).offset(0);
         make.height.equalTo(17);
-        make.width.equalTo(0);
         
     }];
     
@@ -110,6 +109,7 @@
         make.right.equalTo(self.right).offset(-20);
         make.centerY.equalTo(sleepNightCategoryLabel.centerY);
         make.height.equalTo(25);
+        make.width.equalTo(80);
     }];
     
     [sleepTimeImageView makeConstraints:^(MASConstraintMaker *make) {
@@ -178,6 +178,11 @@
 - (void)setSleepNameLabelString:(NSString *)sleepNameLabelString
 {
     sleepNameLabel.text = sleepNameLabelString;
+}
+
+- (void)setSleepNightCategoryColor:(UIColor *)sleepNightCategoryColor
+{
+    sleepNightCategoryLabel.textColor = sleepNightCategoryColor;
 }
 
 - (void)setGrade:(CGFloat)grade

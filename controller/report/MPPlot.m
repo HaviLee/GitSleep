@@ -121,8 +121,12 @@
         
         CGFloat val=[p floatValue];
         
-        //            val=((val-min)/(max-min));
-        val = val/_horizonValue;
+//        val = val/_horizonValue;
+        if ([self.graphTitle isEqualToString:@"xinlv"]) {
+            val = [self changeXinLvValueToViewValue:val];
+        }else{
+            val = [self changeHuXiValueToViewValue:val];
+        }
         
         [pointsArray addObject:@(val)];
     }
@@ -133,7 +137,45 @@
     return pointsArray;
 }
 
+- (CGFloat)changeHuXiValueToViewValue:(CGFloat)value
+{
+    CGFloat yHeight = self.frame.size.height-20;
+    if (value>0&&value<10) {
+        CGFloat height = (CGFloat)(yHeight/4*3 + yHeight/4-(float)value*yHeight/4/10);
+        return height+5;
+    }else if(value==10||(value>10&&value<15)){
+        CGFloat height = (CGFloat)(yHeight/4*2 + yHeight/4-(float)(value-10)*yHeight/4/5);
+        return height+5;
+    }else if (value==15||(value>15&&value<20)){
+        CGFloat height = (CGFloat)(yHeight/4 + yHeight/4-(float)(value-15)*yHeight/4/5);
+        return height+5;
+    }else if (value==20||(value>20&&value<40)){
+        CGFloat height = (CGFloat)(yHeight/4-(float)(value-20)*yHeight/4/20);
+        return height+5;
+    }else{
+        return 0;
+    }
+}
 
+- (CGFloat)changeXinLvValueToViewValue:(CGFloat)value
+{
+    CGFloat yHeight = self.frame.size.height-20;
+    if (value>0&&value<50) {
+        CGFloat height = (CGFloat)(yHeight/4*3 + yHeight/4-(float)value*yHeight/4/50);
+        return height+5;
+    }else if(value==50||(value>50&&value<60)){
+        CGFloat height = (CGFloat)(yHeight/4*2 + yHeight/4-(float)(value-50)*yHeight/4/10);
+        return height+5;
+    }else if (value==60||(value>60&&value<70)){
+        CGFloat height = (CGFloat)(yHeight/4 + yHeight/4-(float)(value-60)*yHeight/4/10);
+        return height+5;
+    }else if (value==70||(value>70&&value<140)){
+        CGFloat height = (CGFloat)(yHeight/4-(float)(value-70)*yHeight/4/70);
+        return height+5;
+    }else{
+        return 0;
+    }
+}
 
 #pragma mark setters
 

@@ -7,9 +7,9 @@
 //
 
 #import "DataStaticViewController.h"
-#import "WeekReportViewController.h"
-#import "MontheReportViewController.h"
-#import "QuarterReportViewController.h"
+#import "NewWeekReportViewController.h"
+#import "NewMonthReportViewController.h"
+#import "NewQuaterReportViewController.h"
 #import "HaviButton.h"
 #import "KxMenu.h"
 
@@ -132,7 +132,7 @@
 
 - (void)changeToWeekReportView
 {
-    WeekReportViewController *weekView = [[WeekReportViewController alloc]init];
+    NewWeekReportViewController *weekView = [[NewWeekReportViewController alloc]init];
     self.viewController = weekView;
     if (self.currentView != self.viewController.view) {
         self.viewController.view.frame = self.currentView.frame;
@@ -146,7 +146,7 @@
 
 - (void)changeToMontheReportView
 {
-    MontheReportViewController *montheView = [[MontheReportViewController alloc]init];
+    NewMonthReportViewController *montheView = [[NewMonthReportViewController alloc]init];
     self.viewController = montheView;
     if (self.currentView != self.viewController.view) {
         self.viewController.view.frame = self.currentView.frame;
@@ -159,7 +159,7 @@
 
 - (void)changeToQuarterReportView
 {
-    QuarterReportViewController *quarterView = [[QuarterReportViewController alloc]init];
+    NewQuaterReportViewController *quarterView = [[NewQuaterReportViewController alloc]init];
     self.viewController = quarterView;
     if (self.currentView != self.viewController.view) {
         self.viewController.view.frame = self.currentView.frame;

@@ -87,6 +87,8 @@ NS_INLINE MPGraphValuesRange MPGetBiggestRange(MPGraphValuesRange r1,MPGraphValu
 
 @property (nonatomic,copy) NSArray *values; // array of NSNumber or NSString
 @property (nonatomic,retain) UIColor *graphColor; // color of the line
+@property (nonatomic,strong) NSString *graphTitle;
+
 @property (nonatomic,assign) CGFloat lineWidth;
 @property (nonatomic,assign) BOOL waitToUpdate;
 @property (nonatomic,assign) CGFloat animationDuration;
@@ -95,6 +97,8 @@ NS_INLINE MPGraphValuesRange MPGetBiggestRange(MPGraphValuesRange r1,MPGraphValu
 
 // detail View customization
 @property (nonatomic,assign) int horizonValue;
+@property (nonatomic,assign) int maxValue;
+@property (nonatomic,assign) int minValue;
 @property (nonatomic,readwrite) UIView<MPDetailView> *detailView;
 @property (nonatomic,retain) UIColor *detailBackgroundColor;
 @property (nonatomic,retain) UIColor *detailTextColor;
