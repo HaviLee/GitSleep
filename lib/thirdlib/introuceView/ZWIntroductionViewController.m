@@ -64,7 +64,6 @@
         self.enterButton.layer.borderWidth = 0.5;
         self.enterButton.layer.borderColor = [UIColor colorWithRed:0.478f green:0.675f blue:0.278f alpha:1.00f].CGColor;
         [self.enterButton setTitleColor:[UIColor colorWithRed:0.478f green:0.675f blue:0.278f alpha:1.00f] forState:UIControlStateNormal];
-//        [self.enterButtonTitleColor:[UIColor colorWithRed:0.478f green:0.675f blue:0.278f alpha:1.00f]];
     }
     
     [self.enterButton addTarget:self action:@selector(enter:) forControlEvents:UIControlEventTouchUpInside];
