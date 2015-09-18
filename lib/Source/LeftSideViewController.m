@@ -205,7 +205,7 @@
 {
     switch (indexPath.row) {
         case 1:{
-            return 150;
+            return 110;
             break;
         }
         default:

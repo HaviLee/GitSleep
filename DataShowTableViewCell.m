@@ -99,16 +99,6 @@
         [buttonType3 setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"quarter_%d",selectedThemeIndex]] forState:UIControlStateNormal];
         buttonType3.tag = 103;
         /*
-        UILabel *label3 = [[UILabel alloc]init];
-        [self addSubview:label3];
-        [label3 makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(buttonType3.centerX);
-            make.top.equalTo(buttonType3.bottom).offset(5);
-        }];
-        label3.text = @"季度";
-        label3.textColor = [UIColor whiteColor];
-        */
-        
         buttonType4 = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:buttonType4];
         [buttonType4 makeConstraints:^(MASConstraintMaker *make) {
@@ -122,7 +112,11 @@
         buttonType4.titleLabel.font = [UIFont systemFontOfSize:15];
         buttonType4.tag = 104;
         [buttonType4 setTitleColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        buttonArray = @[buttonType1,buttonType2,buttonType3,buttonType4];
+         
+         
+         */
+
+        buttonArray = @[buttonType1,buttonType2,buttonType3];
         
         UIImageView *imageLine = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"line_640_%d",selectedThemeIndex]]];
         [self addSubview:imageLine];
