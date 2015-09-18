@@ -212,7 +212,7 @@
     if (arr.count==0) {
         NSMutableArray *arr1 = [[NSMutableArray alloc]init];
         for (int i=0; i<288; i++) {
-            [arr1 addObject:[NSNumber numberWithFloat:60]];
+            [arr1 addObject:[NSNumber numberWithFloat:15]];
         }
         self.breathGraphView.heartView.values = arr1;
         [self.breathGraphView.heartView animate];

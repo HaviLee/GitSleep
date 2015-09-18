@@ -85,14 +85,23 @@
 {
     
     if ([HardWareUUID isEqualToString:@""]) {
-        //        [ShowAlertView showAlert:@"您还没有绑定设备"];
         return;
     }
     if (!fromDate) {
         return;
     }
+    /*
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"加载中..."];
+     */
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",HardWareUUID,thirdPartyLoginUserId,fromDate,endTime];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -215,6 +224,13 @@
         
     }
     
+    if (dataArr.count>0) {
+        [self.noDataImageView removeFromSuperview];
+    }else{
+        [self.dataScrollView addSubview:self.noDataImageView];
+        self.noDataImageView.center = self.dataScrollView.center;
+    }
+    
     self.secondWeekReport.sleepQulityDataValues = self.mutableArr;
     self.secondWeekReport.sleepTimeDataValues = self.mutableTimeArr;
     
@@ -230,6 +246,7 @@
         _dataScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 216)];
         _dataScrollView.contentSize = CGSizeMake(4*self.view.frame.size.width+self.view.frame.size.width/7*3, 216);
         _dataScrollView.backgroundColor = [UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f];
+        _dataScrollView.delegate = self;
         [_dataScrollView addSubview:self.secondWeekReport];
         _dataScrollView.showsHorizontalScrollIndicator = NO;
     }
@@ -734,20 +751,36 @@
 }
 //防止scrollview向下拉
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < 0) {
-        scrollView.contentOffset = CGPointMake(0, 0);
-        return;
-    }
-    
-    if (scrollView.contentSize.height>scrollView.frame.size.height&&scrollView.contentOffset.y>0) {
-        if (scrollView.contentSize.height-scrollView.contentOffset.y < scrollView.frame.size.height) {
-            scrollView.contentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.frame.size.height);
+    if ([scrollView isEqual:self.reportTableView]) {
+        
+        if (scrollView.contentOffset.y < 0) {
+            scrollView.contentOffset = CGPointMake(0, 0);
             return;
         }
-    }
-    if (scrollView.contentSize.height<scrollView.frame.size.height) {
-        scrollView.contentOffset = CGPointMake(0, 0);
-        return;
+        
+        if (scrollView.contentSize.height>scrollView.frame.size.height&&scrollView.contentOffset.y>0) {
+            if (scrollView.contentSize.height-scrollView.contentOffset.y < scrollView.frame.size.height) {
+                scrollView.contentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.frame.size.height);
+                return;
+            }
+        }
+        if (scrollView.contentSize.height<scrollView.frame.size.height) {
+            scrollView.contentOffset = CGPointMake(0, 0);
+            return;
+        }
+    }else if ([scrollView isEqual:self.dataScrollView]){
+        if (scrollView.contentOffset.x < 0) {
+            scrollView.contentOffset = CGPointMake(0, 0);
+            return;
+        }
+        if (scrollView.contentSize.width>scrollView.frame.size.width&&scrollView.contentOffset.x>0) {
+            if (scrollView.contentSize.width-scrollView.contentOffset.x < scrollView.frame.size.width) {
+                scrollView.contentOffset = CGPointMake(scrollView.contentSize.width - scrollView.frame.size.width,0 );
+                return;
+            }
+        }
+        CGPoint centerPoint = CGPointMake(scrollView.contentOffset.x + self.view.frame.size.width/2, scrollView.center.y);
+        self.noDataImageView.center = centerPoint;
     }
 
 }

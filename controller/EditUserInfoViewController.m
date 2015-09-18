@@ -258,8 +258,18 @@
         [self.view makeToast:@"请输入体重" duration:2 position:@"center"];
         return;
     }
+    /*old
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"提交中..."];
+     */
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     NSString *height;
     if ([self.heightTextField.text isEqualToString:@"***"]) {
         height = @"";
@@ -301,7 +311,7 @@
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"保存%@",resposeDic);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [MMProgressHUD dismissWithSuccess:@"提交成功" title:nil afterDelay:2];
+            [MMProgressHUD dismiss];
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadUserInfo" object:nil];
                 [self backToHome:nil];

@@ -263,7 +263,7 @@
     [_startTimeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.left).offset(10);
         make.centerY.equalTo(cell.centerY);
-        make.width.equalTo(80);
+        make.width.equalTo(60);
     }];
 }
 
@@ -282,7 +282,7 @@
     [_endTimeLabel makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.left).offset(10);
         make.centerY.equalTo(cell.centerY);
-        make.width.equalTo(80);
+        make.width.equalTo(60);
     }];
 }
 

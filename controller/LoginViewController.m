@@ -680,24 +680,24 @@ float prewMoveY;
 {
     [super viewDidAppear:animated];
     if ([UserManager IsUserLogged]) {
-        [YXSpritesLoadingView showWithText:nil andShimmering:YES andBlurEffect:NO];
+        
+//        [YXSpritesLoadingView showWithText:nil andShimmering:YES andBlurEffect:NO];
+        NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                            [UIImage imageNamed:@"havi1_1"],
+                            [UIImage imageNamed:@"havi1_2"],
+                            [UIImage imageNamed:@"havi1_3"],
+                            [UIImage imageNamed:@"havi1_4"],
+                            [UIImage imageNamed:@"havi1_5"]];
+        [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+        [MMProgressHUD showWithTitle:nil status:nil images:images];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [YXSpritesLoadingView dismiss];
             self.loginButtonClicked(1);
+            [MMProgressHUD dismiss];
             //监听网络
             AppDelegate *app = [UIApplication sharedApplication].delegate;
             [app setWifiNotification];
             
         });
-        //        [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-        //        [MMProgressHUD showWithStatus:@"登录中..."];
-        //        [MMProgressHUD dismissAfterDelay:1];
-        //        [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
-        //            self.loginButtonClicked(1);
-        //            //监听网络
-        //            AppDelegate *app = [UIApplication sharedApplication].delegate;
-        //            [app setWifiNotification];
-        //        }];
     }
 
 }

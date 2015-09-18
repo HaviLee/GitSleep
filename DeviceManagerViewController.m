@@ -110,8 +110,18 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    /*
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"获取设备列表..."];
+     */
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         HaviLog(@"请求的设备列表是%@",resposeDic);
@@ -274,8 +284,18 @@
 #pragma mark 切换uuid
 - (void)changeUUID:(NSString *)UUID
 {
+    /*
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"切换设备中..."];
+     */
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -291,7 +311,7 @@
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [self getUserDeviceList];
             }];
-            [MMProgressHUD dismissWithSuccess:@"设备切换成功" title:nil afterDelay:1];
+            [MMProgressHUD dismiss];
         }else{
             [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
         }
@@ -318,8 +338,18 @@
 
 - (void)deleteDeviceWithUUID:(NSString *)UUID with:(NSString *)isDefault
 {
+    /*
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"删除设备中..."];
+     */
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     NSString *urlString = [NSString stringWithFormat:@"%@v1/user/DeleteUserDevice",BaseUrl];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -332,7 +362,7 @@
         NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         HaviLog(@"数据是%@",obj);
         if ([[obj objectForKey:@"ReturnCode"]intValue]==200) {
-            [MMProgressHUD dismissWithSuccess:@"删除成功" title:nil afterDelay:2];
+            [MMProgressHUD dismiss];
             if ([isDefault isEqualToString:@"False"]) {
                 [self getUserDeviceList];
             }else{
@@ -365,7 +395,7 @@
         HaviLog(@"数据是%@",obj);
         if ([[obj objectForKey:@"ReturnCode"]intValue]==200) {
             
-            [MMProgressHUD dismissWithSuccess:@"删除成功" title:nil afterDelay:2];
+            [MMProgressHUD dismiss];
             [self getUserDeviceList];
             //使用logout接口
         }else{

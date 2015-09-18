@@ -80,6 +80,7 @@
                                    160,120)];
     blurView_.layer.cornerRadius = 10;
     blurView_.layer.masksToBounds = YES;
+    blurView_.blurTintColor = [UIColor colorWithWhite:1 alpha:0.5];
     [window addSubview:blurView_];
     if (!loadingImageView)
     {
