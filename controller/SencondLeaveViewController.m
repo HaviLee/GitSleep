@@ -237,7 +237,7 @@
 //    isUp = YES;
 //    self.viewHeight = self.view.frame.size.height;
 //    _modalAnimationController = [[ModalAnimation alloc] init];
-    [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
+    [self createClearBgNavWithTitle:@"离床" andTitleColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
             [self.leftButton addTarget:self action:@selector(backToHomeView:) forControlEvents:UIControlEventTouchUpInside];

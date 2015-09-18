@@ -8,11 +8,12 @@
 
 #import "YXSpritesLoadingView.h"
 #import "FBShimmering/FBShimmeringView.h"
-
+#import "AMBlurView.h"
 @implementation YXSpritesLoadingView
 {
     UIView *loaderView;
     UIView *backView;
+    AMBlurView *blurView_;
     UIImageView *loadingImageView;
     FBShimmeringView *shimmeringView;
     UILabel *loadingLabel;
@@ -73,6 +74,13 @@
     backView = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     backView.backgroundColor = [UIColor clearColor];
     [window addSubview:backView];
+    blurView_ = [AMBlurView new];
+    [blurView_ setFrame:CGRectMake((self.frame.size.width - loaderBackgroundWidth-80) / 2,
+                                   (self.frame.size.height - loaderBackgroundHeight - 40) / 2 ,
+                                   160,120)];
+    blurView_.layer.cornerRadius = 10;
+    blurView_.layer.masksToBounds = YES;
+    [window addSubview:blurView_];
     if (!loadingImageView)
     {
         loaderView = [[UIView alloc]init];
@@ -83,7 +91,6 @@
                                               (self.frame.size.height - loaderBackgroundHeight - height) / 2 - adjustHeightForLoader,
                                               loaderBackgroundWidth,
                                               loaderBackgroundHeight + height + loadingTextLabelBottomMargin);
-            
             
             if (shimmering) {
                 shimmeringView = [[FBShimmeringView alloc] init];
@@ -191,6 +198,8 @@
             loaderView = nil;
             [backView removeFromSuperview];
             backView = nil;
+            [blurView_ removeFromSuperview];
+            blurView_ = nil;
             
             self.alpha = 0;
         }];
