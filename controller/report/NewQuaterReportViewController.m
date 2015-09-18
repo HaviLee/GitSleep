@@ -251,7 +251,7 @@
 {
     if (!_sleepNightBottomLine) {
         _sleepNightBottomLine = [[UIView alloc]initWithFrame:CGRectMake(0, 59.5, self.view.frame.size.width, 0.5)];
-        _sleepNightBottomLine.backgroundColor = [UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f];
+        _sleepNightBottomLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
     }
     return _sleepNightBottomLine;
 }
@@ -331,7 +331,7 @@
 {
     if (!_calenderBackView) {
         _calenderBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 69)];
-        _calenderBackView.backgroundColor = [UIColor colorWithRed:0.012f green:0.082f blue:0.176f alpha:1.00f];
+        _calenderBackView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.012f green:0.082f blue:0.184f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
         //
         [_calenderBackView addSubview:self.monthTitleLabel];
         [self.monthTitleLabel makeConstraints:^(MASConstraintMaker *make) {
@@ -674,7 +674,7 @@
                 cell = [[ReportTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
                 
             }
-            cell.backgroundColor = [UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f];
+            cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             cell.cellFont = [UIFont systemFontOfSize:18];
             cell.leftDataString = @"心率分析";
             cell.rightDataString = @"呼吸分析";
@@ -693,7 +693,7 @@
             if (indexPath.row==3) {
                 cell.bottomColor = [UIColor clearColor];
             }
-            cell.backgroundColor = [UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f];
+            cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.cellFont = [UIFont systemFontOfSize:14];
             cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
@@ -714,7 +714,7 @@
                 cell = [[ReportTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
                 
             }
-            cell.backgroundColor = [UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f];
+            cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.cellFont = [UIFont systemFontOfSize:18];
             cell.cellDataColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.855f blue:0.576f alpha:1.00f]:[UIColor whiteColor];
@@ -748,7 +748,7 @@
 
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = [UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f];
+            cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             return cell;
         }
         
