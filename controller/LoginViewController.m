@@ -437,7 +437,7 @@
 - (void)setIntroduceView
 {
     NSArray *coverImageNames = @[@"", @"", @""];
-    NSArray *backgroundImageNames = @[@"pic_breathe_0", @"icon_heart_rate1_0", @"pic_sleep_0"];
+    NSArray *backgroundImageNames = @[@"pic_introduce_1", @"pic_introduce_2", @"pic_introduce_3"];
     self.introductionView = [[ZWIntroductionViewController alloc] initWithCoverImageNames:coverImageNames backgroundImageNames:backgroundImageNames];
     __weak LoginViewController *weakSelf = self;
     [self.view addSubview:self.introductionView.view];

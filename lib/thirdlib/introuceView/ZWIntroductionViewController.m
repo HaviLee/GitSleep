@@ -55,14 +55,16 @@
     [self.view addSubview:self.pagingScrollView];
     
     self.pageControl = [[UIPageControl alloc] initWithFrame:[self frameOfPageControl]];
-    self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
+    self.pageControl.pageIndicatorTintColor = [UIColor colorWithRed:0.478f green:0.675f blue:0.278f alpha:1.00f];
     [self.view addSubview:self.pageControl];
     
     if (!self.enterButton) {
         self.enterButton = [UIButton new];
         [self.enterButton setTitle:NSLocalizedString(@"进入", nil) forState:UIControlStateNormal];
         self.enterButton.layer.borderWidth = 0.5;
-        self.enterButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.enterButton.layer.borderColor = [UIColor colorWithRed:0.478f green:0.675f blue:0.278f alpha:1.00f].CGColor;
+        [self.enterButton setTitleColor:[UIColor colorWithRed:0.478f green:0.675f blue:0.278f alpha:1.00f] forState:UIControlStateNormal];
+//        [self.enterButtonTitleColor:[UIColor colorWithRed:0.478f green:0.675f blue:0.278f alpha:1.00f]];
     }
     
     [self.enterButton addTarget:self action:@selector(enter:) forControlEvents:UIControlEventTouchUpInside];
@@ -104,7 +106,7 @@
 
 - (CGRect)frameOfPageControl
 {
-    return CGRectMake(0, self.view.bounds.size.height - 30, self.view.bounds.size.width, 30);
+    return CGRectMake(0, self.view.bounds.size.height - 60, self.view.bounds.size.width, 30);
 }
 
 - (CGRect)frameOfEnterButton
