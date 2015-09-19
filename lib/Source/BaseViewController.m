@@ -17,7 +17,7 @@
 #import "WeiboSDK.h"
 #import "AppDelegate.h"
 #import "LXActivity.h"
-
+#import <TencentOpenAPI/QQApiInterface.h>
 //
 
 @interface BaseViewController ()<THPinViewControllerDelegate,LXActivityDelegate>
@@ -253,8 +253,8 @@
 - (LXActivity*)shareNewMenuView
 {
     
-    NSArray *shareButtonTitleArray = @[@"朋友圈",@"微信好友",@"新浪微博"];
-    NSArray *shareButtonImageNameArray = @[@"icon_wechat",@"weixin",@"sina"];
+    NSArray *shareButtonTitleArray = @[@"朋友圈",@"微信好友",@"新浪微博",@"QQ好友",@"QQ空间"];
+    NSArray *shareButtonImageNameArray = @[@"icon_wechat",@"weixin",@"sina",@"qq",@"qq"];
     
     _shareNewMenuView = [[LXActivity alloc] initWithTitle:@"分享到社交平台" delegate:self cancelButtonTitle:nil ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonImageNameArray];
     return _shareNewMenuView;
@@ -278,7 +278,67 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self shareButtonPressed];
         });
+    }else if ((int)imageIndex == 3){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self shareButtonQQ];
+        });
+    }else if ((int)imageIndex == 4){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self shareButtonQQZone];
+        });
     }
+}
+
+
+#pragma mark 分享到qq
+
+- (void)shareButtonQQZone
+{
+    NSString *utf8String = @"http://www.meddo.com.cn";
+    NSString *title = @"智照护";
+    NSString *description = @"我正在使用智照护App";
+    NSString *previewImageUrl = @"http://www.meddo.com.cn/images/logo.jpg";
+    QQApiNewsObject *newsObj = [QQApiNewsObject
+                                objectWithURL:[NSURL URLWithString:utf8String]
+                                title:title
+                                description:description
+                                previewImageURL:[NSURL URLWithString:previewImageUrl]];
+    SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+    //将内容分享到qzone
+    QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
+    if (sent ==0) {
+        HaviLog(@"分享成功");
+    }else{
+        [self.view makeToast:@"分享出错啦" duration:2 position:@"center"];
+    }
+}
+
+- (void)shareButtonQQ
+{
+    NSData *data;
+    UIImage *image1 = [self captureScreen];
+    
+    if (UIImagePNGRepresentation(image1) == nil) {
+        
+        data = UIImageJPEGRepresentation(image1, 1);
+        
+    } else {
+        
+        data = UIImagePNGRepresentation(image1);
+    }    //
+    QQApiImageObject *imgObj = [QQApiImageObject objectWithData:data
+                                               previewImageData:data
+                                                          title:@"智照护"
+                                                    description:@"我正在使用智照护app"];
+    SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:imgObj];
+    //将内容分享到qq
+    QQApiSendResultCode sent = [QQApiInterface sendReq:req];
+    if (sent ==0) {
+        HaviLog(@"分享成功");
+    }else{
+        [self.view makeToast:@"分享出错啦" duration:2 position:@"center"];
+    }
+
 }
 
 #pragma mark 分享到微博
@@ -302,7 +362,7 @@
 - (WBMessageObject *)messageToShare
 {
     WBMessageObject *message = [WBMessageObject message];
-    
+    message.text = NSLocalizedString(@"我正在使用智照护App,快来使用啦!", nil);
     WBImageObject *image = [WBImageObject object];
     NSData *data;
     UIImage *image1 = [self captureScreen];
@@ -323,6 +383,8 @@
 - (void)sendImageToFriend
 {
     WXMediaMessage *message = [WXMediaMessage message];
+    message.title = @"专访张小龙：产品之上的世界观";
+    message.description = @"微信的平台化发展方向是否真的会让这个原本简洁的产品变得臃肿？在国际化发展方向上，微信面临的问题真的是文化差异壁垒吗？腾讯高级副总裁、微信产品负责人张小龙给出了自己的回复。";
     UIImage *image = [self captureScreen];
     [message setThumbImage:image];
     

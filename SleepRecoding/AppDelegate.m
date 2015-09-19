@@ -363,8 +363,9 @@
 {
     if([req isKindOfClass:[GetMessageFromWXReq class]])
     {
+        /*
         GetMessageFromWXReq *temp = (GetMessageFromWXReq *)req;
-        
+        */
         // 微信请求App提供内容， 需要app提供内容后使用sendRsp返回
        
         
@@ -372,6 +373,7 @@
     }
     else if([req isKindOfClass:[ShowMessageFromWXReq class]])
     {
+        /*
         ShowMessageFromWXReq* temp = (ShowMessageFromWXReq*)req;
         WXMediaMessage *msg = temp.message;
         
@@ -380,18 +382,19 @@
         
         NSString *strTitle = [NSString stringWithFormat:@"微信请求App显示内容"];
         NSString *strMsg = [NSString stringWithFormat:@"openID: %@, 标题：%@ \n内容：%@ \n附带信息：%@ \n缩略图:%lu bytes\n附加消息:%@\n", temp.openID, msg.title, msg.description, obj.extInfo, (unsigned long)msg.thumbData.length, msg.messageExt];
-        
+        */
        
     }
     else if([req isKindOfClass:[LaunchFromWXReq class]])
     {
+        /*
+
         LaunchFromWXReq *temp = (LaunchFromWXReq *)req;
         WXMediaMessage *msg = temp.message;
-        
         //从微信启动App
         NSString *strTitle = [NSString stringWithFormat:@"从微信启动"];
         NSString *strMsg = [NSString stringWithFormat:@"openID: %@, messageExt:%@", temp.openID, msg.messageExt];
-        
+        */
        
     }
 }
@@ -487,13 +490,29 @@
     }
     else if ([response isKindOfClass:WBPaymentResponse.class])
     {
+        /*
         NSString *title = NSLocalizedString(@"支付结果", nil);
         NSString *message = [NSString stringWithFormat:@"%@: %d\nresponse.payStatusCode: %@\nresponse.payStatusMessage: %@\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode,[(WBPaymentResponse *)response payStatusCode], [(WBPaymentResponse *)response payStatusMessage], NSLocalizedString(@"响应UserInfo数据", nil),response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil), response.requestUserInfo];
-        
+        */
     }
 }
 
 #pragma mark qq回调
+
+///**
+// 处理来至QQ的请求
+// */
+//- (void)onReq:(QQBaseReq *)req
+//{
+//}
+//
+///**
+// 处理来至QQ的响应
+// */
+//- (void)onResp:(QQBaseResp *)resp
+//{
+//}
+
 
 - (void)tencentDidLogin
 {
