@@ -634,8 +634,29 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    /*
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"异常数据请求中..."];
+     */
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
+    
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [self showExceptionView:resposeDic withTitle:@"心率"];
+        }else{
+            [self.view makeToast:[resposeDic objectForKey:@"ErrorMessage"] duration:2 position:@"center"];
+        }    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismissWithError:@"网络出错啦" afterDelay:1];
+    }];
+    /*
     GetExceptionAPI *client = [GetExceptionAPI shareInstance];
     [client getException:header withDetailUrl:urlString];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
@@ -647,9 +668,9 @@
             [self.view makeToast:[resposeDic objectForKey:@"ErrorMessage"] duration:2 position:@"center"];
         }
     } failure:^(YTKBaseRequest *request) {
-        
+        [MMProgressHUD dismissWithError:@"网络出错啦" afterDelay:1];
     }];
-    
+    */
 }
 
 - (void)showExceptionView:(NSDictionary *)dic withTitle:(NSString *)exceptionTitle
