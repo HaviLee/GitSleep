@@ -174,8 +174,18 @@
             [self.view makeToast:@"该手机号已经注册" duration:2 position:@"center"];
             //发现第三方帐号没有注册过
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10029){
+            /*
             [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
             [MMProgressHUD showWithStatus:@"发送中..."];
+             */
+            NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                                [UIImage imageNamed:@"havi1_1"],
+                                [UIImage imageNamed:@"havi1_2"],
+                                [UIImage imageNamed:@"havi1_3"],
+                                [UIImage imageNamed:@"havi1_4"],
+                                [UIImage imageNamed:@"havi1_5"]];
+            [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+            [MMProgressHUD showWithTitle:nil status:nil images:images];
             self.randomCode = [self getRandomNumber:1000 to:10000];
             NSString *codeMessage = [NSString stringWithFormat:@"【智照护】您的验证码是%d",self.randomCode];
             NSDictionary *dicPara = @{
