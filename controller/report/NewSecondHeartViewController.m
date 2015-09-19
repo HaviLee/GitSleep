@@ -648,6 +648,7 @@
     [MMProgressHUD showWithTitle:nil status:nil images:images];
     
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        [MMProgressHUD dismiss];
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [self showExceptionView:resposeDic withTitle:@"心率"];
