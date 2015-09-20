@@ -18,6 +18,7 @@
 #import "MGSwipeTableCell.h"
 #import "MGSwipeButton.h"
 #import "URBAlertView.h"
+#import "MMPopupItem.h"
 
 @interface DeviceManagerViewController ()<MGSwipeTableCellDelegate>
 
@@ -253,6 +254,18 @@
         //delete button
         NSDictionary *dic = [self.deviceArr objectAtIndex:indexPath.row];
         if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+            MMPopupItemHandler block = ^(NSInteger index){
+                HaviLog(@"clickd %@ button",@(index));
+            };
+            NSArray *items =
+            @[MMItemMake(@"确定", MMItemTypeNormal, block)];
+            
+            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                                 detail:@"如果确定删除默认关联设备,请先切换其他设备为默认设备" items:items];
+            alertView.attachedView = self.view;
+            
+            [alertView show];
+            /*
             URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"如果确定删除默认关联设备,请先切换其他设备为默认设备"];
             alertView.blurBackground = NO;
             [alertView addButtonWithTitle:@"确认"];
@@ -261,6 +274,7 @@
                 
             }];
             [alertView showWithAnimation:URBAlertAnimationFade];
+             */
 
         }else{
             [self deleteDeviceWithUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]];

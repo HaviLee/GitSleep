@@ -28,6 +28,6 @@
 #import "UserManager.h"
 #import "DateTools.h"
 #import "URBAlertView.h"
-#import "YXSpritesLoadingView.h"
+#import "MMAlertView.h"
 
 #endif

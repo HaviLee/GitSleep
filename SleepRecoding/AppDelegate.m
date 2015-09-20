@@ -21,6 +21,10 @@
 #import "CheckUserIsRegister.h"
 #import "WeiBoAPI.h"
 #import "SHGetClient.h"
+#import "MMPopupWindow.h"
+#import "MMAlertView.h"
+#import "MMSheetView.h"
+
 //
 #import "LoginContainerViewController.h"//架构重构
 #import "CenterViewController.h"//架构重构
@@ -115,8 +119,30 @@
 //    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
     [self.window makeKeyAndVisible];
     [self setLoginView];
-    
+    [self configAlertView];
     return YES;
+}
+
+- (void)configAlertView
+{
+    [[MMPopupWindow sharedWindow] cacheWindow];
+    [MMPopupWindow sharedWindow].touchWildToHide = YES;
+    
+    MMAlertViewConfig *alertConfig = [MMAlertViewConfig globalConfig];
+    MMSheetViewConfig *sheetConfig = [MMSheetViewConfig globalConfig];
+    
+    alertConfig.defaultTextOK = @"确认";
+    alertConfig.backgroundColor = [UIColor colorWithRed:0.000f green:0.024f blue:0.047f alpha:1.00f];
+    alertConfig.titleColor = [UIColor whiteColor];
+    alertConfig.detailColor = [UIColor whiteColor];
+    alertConfig.itemNormalColor = [UIColor whiteColor];
+    alertConfig.itemHighlightColor = [UIColor whiteColor];
+    alertConfig.splitColor = [UIColor whiteColor];
+    
+    alertConfig.defaultTextCancel = @"取消";
+    alertConfig.defaultTextConfirm = @"确认";
+    
+    sheetConfig.defaultTextCancel = @"Cancel";
 }
 
 - (void)setThirdLoginNoti

@@ -26,6 +26,7 @@
 #import "WXApi.h"
 #import "WeiboSDK.h"
 #import <TencentOpenAPI/TencentOAuth.h>
+#import "MMPopupView.h"
 
 @interface LoginViewController ()<UITextFieldDelegate,WXApiDelegate>
 @property (nonatomic,strong) CKTextField *nameText;
@@ -508,6 +509,17 @@
 
 - (void)forgetPassWord:(UITapGestureRecognizer *)gesture
 {
+    MMPopupBlock completeBlock = ^(MMPopupView *popupView){
+        NSLog(@"animation complete");
+//        self.cellPhone = result;
+//        [self getPassWordSelf:result];
+    };
+    [[[MMAlertView alloc] initWithInputTitle:@"提示" detail:@"请输入手机号码,我们会将密码以短信的方式发到您的手机上。" placeholder:@"请输入手机号" handler:^(NSString *text) {
+        NSLog(@"input:%@",text);
+        self.cellPhone = text;
+        [self getPassWordSelf:text];
+    }] showWithBlock:completeBlock];
+    /*
     self.stAlertView = [[STAlertView alloc] initWithTitle:@"提示"
                                                   message:@"请输入手机号码,我们会将密码以短信的方式发到您的手机上。"
                                             textFieldHint:@"请输入手机号"
@@ -526,6 +538,7 @@
     [[self.stAlertView.alertView textFieldAtIndex:0] setKeyboardType:UIKeyboardTypePhonePad];
     
     [self.stAlertView show];
+     */
 }
 #pragma mark 获取验证码
 - (void)getPassWordSelf:(NSString *)cellPhone
@@ -538,8 +551,18 @@
         [self.view makeToast:@"请输入正确的手机号" duration:2 position:@"center"];
         return;
     }
+    /*
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"发送中..."];
+     */
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     self.forgetPassWord = [self getRandomNumber:100000 to:1000000];
     NSString *codeMessage = [NSString stringWithFormat:@"您的密码已经重置，新密码是%d,请及时修改您的密码。",self.forgetPassWord];
     NSDictionary *dicPara = @{

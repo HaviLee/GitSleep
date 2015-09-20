@@ -27,6 +27,8 @@
 #import "CalendarHomeViewController.h"
 #import "URBAlertView.h"
 #import "UploadTagAPI.h"
+#import "MMPopupItem.h"
+
 //
 #import "NewSecondHeartViewController.h"
 #import "NewSecondBreathViewController.h"
@@ -124,6 +126,23 @@
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
             [self getTodaySleepQualityData:newString];
         }else{
+            MMPopupItemHandler block = ^(NSInteger index){
+                HaviLog(@"clickd %@ button",@(index));
+                if(index==1){
+                    DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
+                    [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+                }
+            };
+            NSArray *items =
+            @[MMItemMake(@"暂不绑定", MMItemTypeNormal, block),
+              MMItemMake(@"确定", MMItemTypeNormal, block)];
+            
+            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                                 detail:@"您还没有绑定设备,是否现在去绑定？" items:items];
+            alertView.attachedView = self.view;
+            
+            [alertView show];
+            /*
             URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"您还没有绑定设备,是否现在去绑定？"];
             alertView.blurBackground = NO;
             [alertView addButtonWithTitle:@"取消"];
@@ -138,6 +157,7 @@
                 
             }];
             [alertView showWithAnimation:URBAlertAnimationFade];
+             */
         }
         
     } failed:^(NSURLResponse *response, NSError *error) {
@@ -149,6 +169,23 @@
 {
     //fromdate 是当天的日期
     if ([HardWareUUID isEqualToString:@""]) {
+        MMPopupItemHandler block = ^(NSInteger index){
+            HaviLog(@"clickd %@ button",@(index));
+            if(index==1){
+                DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
+                [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+            }
+        };
+        NSArray *items =
+        @[MMItemMake(@"暂不绑定", MMItemTypeNormal, block),
+          MMItemMake(@"确定", MMItemTypeNormal, block)];
+        
+        MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                             detail:@"您还没有绑定设备,是否现在去绑定？" items:items];
+        alertView.attachedView = self.view;
+        
+        [alertView show];
+        /*
         URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"您还没有绑定设备"];
         alertView.blurBackground = NO;
         [alertView addButtonWithTitle:@"确认"];
@@ -157,7 +194,7 @@
             
         }];
         [alertView showWithAnimation:URBAlertAnimationFade];
-
+         */
         return;
     }
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -205,6 +242,18 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
+            MMPopupItemHandler block = ^(NSInteger index){
+                HaviLog(@"clickd %@ button",@(index));
+            };
+            NSArray *items =
+            @[MMItemMake(@"确定", MMItemTypeNormal, block)];
+            
+            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                                 detail:@"不存在当前设备，请检查您的设备UUID" items:items];
+            alertView.attachedView = self.view;
+            
+            [alertView show];
+            /*
             URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"不存在当前设备，请检查您的设备UUID"];
             alertView.blurBackground = NO;
             [alertView addButtonWithTitle:@"确认"];
@@ -213,6 +262,7 @@
                 
             }];
             [alertView showWithAnimation:URBAlertAnimationFade];
+             */
         }else{
             
         }

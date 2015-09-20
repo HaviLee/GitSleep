@@ -545,6 +545,12 @@
 		2CDB86C11BAC26BB00551192 /* pic_day_bac_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86C01BAC26BB00551192 /* pic_day_bac_0@2x.png */; };
 		2CDB86C31BAC26C400551192 /* pic_night_bac_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86C21BAC26C400551192 /* pic_night_bac_1@2x.png */; };
 		2CDB86C51BAC26CB00551192 /* pic_night_bac_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86C41BAC26CB00551192 /* pic_night_bac_0@2x.png */; };
+		2CDE55371BAE486D0017C5DE /* MMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE552B1BAE486D0017C5DE /* MMAlertView.m */; };
+		2CDE55381BAE486D0017C5DE /* MMPopupCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE552D1BAE486D0017C5DE /* MMPopupCategory.m */; };
+		2CDE55391BAE486D0017C5DE /* MMPopupitem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE55301BAE486D0017C5DE /* MMPopupitem.m */; };
+		2CDE553A1BAE486D0017C5DE /* MMPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE55321BAE486D0017C5DE /* MMPopupView.m */; };
+		2CDE553B1BAE486D0017C5DE /* MMPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE55341BAE486D0017C5DE /* MMPopupWindow.m */; };
+		2CDE553C1BAE486D0017C5DE /* MMSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE55361BAE486D0017C5DE /* MMSheetView.m */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
 		57063D2C1ABFDE7B00A61267 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 57063D2B1ABFDE7B00A61267 /* ImageUtil.m */; };
@@ -1371,6 +1377,19 @@
 		2CDB86C01BAC26BB00551192 /* pic_day_bac_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_day_bac_0@2x.png"; sourceTree = "<group>"; };
 		2CDB86C21BAC26C400551192 /* pic_night_bac_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_night_bac_1@2x.png"; sourceTree = "<group>"; };
 		2CDB86C41BAC26CB00551192 /* pic_night_bac_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_night_bac_0@2x.png"; sourceTree = "<group>"; };
+		2CDE552A1BAE486D0017C5DE /* MMAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAlertView.h; sourceTree = "<group>"; };
+		2CDE552B1BAE486D0017C5DE /* MMAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAlertView.m; sourceTree = "<group>"; };
+		2CDE552C1BAE486D0017C5DE /* MMPopupCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupCategory.h; sourceTree = "<group>"; };
+		2CDE552D1BAE486D0017C5DE /* MMPopupCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPopupCategory.m; sourceTree = "<group>"; };
+		2CDE552E1BAE486D0017C5DE /* MMPopupDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupDefine.h; sourceTree = "<group>"; };
+		2CDE552F1BAE486D0017C5DE /* MMPopupItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupItem.h; sourceTree = "<group>"; };
+		2CDE55301BAE486D0017C5DE /* MMPopupitem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPopupitem.m; sourceTree = "<group>"; };
+		2CDE55311BAE486D0017C5DE /* MMPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupView.h; sourceTree = "<group>"; };
+		2CDE55321BAE486D0017C5DE /* MMPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPopupView.m; sourceTree = "<group>"; };
+		2CDE55331BAE486D0017C5DE /* MMPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupWindow.h; sourceTree = "<group>"; };
+		2CDE55341BAE486D0017C5DE /* MMPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPopupWindow.m; sourceTree = "<group>"; };
+		2CDE55351BAE486D0017C5DE /* MMSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSheetView.h; sourceTree = "<group>"; };
+		2CDE55361BAE486D0017C5DE /* MMSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSheetView.m; sourceTree = "<group>"; };
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
 		2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -2519,6 +2538,27 @@
 			path = Sprite_3;
 			sourceTree = "<group>";
 		};
+		2CDE55291BAE486D0017C5DE /* Alert_Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2CDE552A1BAE486D0017C5DE /* MMAlertView.h */,
+				2CDE552B1BAE486D0017C5DE /* MMAlertView.m */,
+				2CDE552C1BAE486D0017C5DE /* MMPopupCategory.h */,
+				2CDE552D1BAE486D0017C5DE /* MMPopupCategory.m */,
+				2CDE552E1BAE486D0017C5DE /* MMPopupDefine.h */,
+				2CDE552F1BAE486D0017C5DE /* MMPopupItem.h */,
+				2CDE55301BAE486D0017C5DE /* MMPopupitem.m */,
+				2CDE55311BAE486D0017C5DE /* MMPopupView.h */,
+				2CDE55321BAE486D0017C5DE /* MMPopupView.m */,
+				2CDE55331BAE486D0017C5DE /* MMPopupWindow.h */,
+				2CDE55341BAE486D0017C5DE /* MMPopupWindow.m */,
+				2CDE55351BAE486D0017C5DE /* MMSheetView.h */,
+				2CDE55361BAE486D0017C5DE /* MMSheetView.m */,
+			);
+			name = Alert_Classes;
+			path = lib/thirdlib/Alert_Classes;
+			sourceTree = "<group>";
+		};
 		572AA9731AC29A5700DED1D9 /* THPinViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2892,6 +2932,7 @@
 		579AC7DF1AA033BC0045E9A2 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				2CDE55291BAE486D0017C5DE /* Alert_Classes */,
 				2CDB86961BABE66800551192 /* DefineLoading */,
 				2CC006F71B9FC6DB007DE798 /* LXActivity */,
 				2C94F9FF1B8AEF9200F1A4DB /* ZFCalendar */,
@@ -3547,6 +3588,7 @@
 				2C1F1FED1ADBF38F00393E04 /* WQDraggableCalendarView.m in Sources */,
 				576F09C91AC3A4D90083395C /* UDPController.m in Sources */,
 				2C94FA1A1B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m in Sources */,
+				2CDE553C1BAE486D0017C5DE /* MMSheetView.m in Sources */,
 				2C8F7BC21AF374A500E56513 /* CalenderCantainerViewController.m in Sources */,
 				578681531ADCEE1200E881A2 /* WTURLRequestSerialization.m in Sources */,
 				576C3F071ABFC15500815EF3 /* MTStatusBarOverlay.m in Sources */,
@@ -3556,6 +3598,7 @@
 				2C9C01621AD0215F006362E9 /* TurnChartView.m in Sources */,
 				5759E35C1ABA67A700E51690 /* GetCodeViewController.m in Sources */,
 				5764CB141AB6B2C2002A0B85 /* LoginViewController.m in Sources */,
+				2CDE553A1BAE486D0017C5DE /* MMPopupView.m in Sources */,
 				5772BE5E1AB0432400E108BB /* AMBlurView.m in Sources */,
 				2C94F9E31B8AED0200F1A4DB /* DTTimePeriod.m in Sources */,
 				2C1F1FE91ADBF38F00393E04 /* WQCalendarGridView.m in Sources */,
@@ -3601,6 +3644,7 @@
 				2C3AF2BD1AF4622A00B66E32 /* TodayLeaveViewController.m in Sources */,
 				2C1AD71A1AAAE74A00655A5B /* ShuffleAnimation.m in Sources */,
 				2C8F7BBB1AF3747700E56513 /* JTCalendarMenuView.m in Sources */,
+				2CDE55381BAE486D0017C5DE /* MMPopupCategory.m in Sources */,
 				2C4FCB101A8F56E800DCEEF3 /* main.m in Sources */,
 				2C3B62921B81AC0600E3842F /* TriangleView.m in Sources */,
 				2C94FA141B8AEF9200F1A4DB /* CalendarHomeViewController.m in Sources */,
@@ -3652,6 +3696,7 @@
 				2C94FA161B8AEF9200F1A4DB /* CalendarMonthCollectionViewLayout.m in Sources */,
 				2C94F9E21B8AED0200F1A4DB /* DTError.m in Sources */,
 				2C1F1FEF1ADBF38F00393E04 /* WQScrollCalendarWrapperView.m in Sources */,
+				2CDE55371BAE486D0017C5DE /* MMAlertView.m in Sources */,
 				2C1F1FEE1ADBF38F00393E04 /* WQScrollCalendarView.m in Sources */,
 				2C77D5291AEE7095004123D2 /* MMPickerView.m in Sources */,
 				2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */,
@@ -3679,6 +3724,7 @@
 				572AA9871AC29A5700DED1D9 /* THPinNumPadView.m in Sources */,
 				2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */,
 				2CD6C06D1B7D827C00F1FF6A /* HeartGraphView.m in Sources */,
+				2CDE55391BAE486D0017C5DE /* MMPopupitem.m in Sources */,
 				2C1F1FC71AD95CA600393E04 /* MonthReportTableViewCell.m in Sources */,
 				2C7345E41B7835DA004D8AB3 /* WeiXinAPI.m in Sources */,
 				2C94F9E61B8AED0200F1A4DB /* DTTimePeriodGroup.m in Sources */,
@@ -3740,6 +3786,7 @@
 				577120091AD5088700508C5C /* KxMenu.m in Sources */,
 				572AA98B1AC29A5700DED1D9 /* UIImage+ImageEffects.m in Sources */,
 				2C77D54A1AEFC127004123D2 /* GetLeaveDataAPI.m in Sources */,
+				2CDE553B1BAE486D0017C5DE /* MMPopupWindow.m in Sources */,
 				2C8C627F1AB590CC00CF4C19 /* APPSettingViewController.m in Sources */,
 				57802E2F1AE7A51A00823E39 /* GetDeviceListAPI.m in Sources */,
 				2CDB867E1BABCD4F00551192 /* MPPlot.m in Sources */,

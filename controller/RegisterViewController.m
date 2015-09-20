@@ -241,7 +241,7 @@
             [MMProgressHUD dismiss];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        
+        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",error] afterDelay:2];
     }];
     /*
     [client loginThirdUserWithHeader:header andWithPara:dic];

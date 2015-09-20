@@ -14,6 +14,7 @@
 #import "BindingDeviceUUIDAPI.h"
 #import "ActiveDeviceAPI.h"
 #import "URBAlertView.h"
+#import "MMPopupItem.h"
 
 @interface ScanBarcodeViewController ()<UITextFieldDelegate,UIAlertViewDelegate>
 @property (nonatomic,strong) UITextField *barTextfield;
@@ -191,6 +192,18 @@
         NSString *mediaType = AVMediaTypeVideo;
         AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
         if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
+            MMPopupItemHandler block = ^(NSInteger index){
+                HaviLog(@"clickd %@ button",@(index));
+            };
+            NSArray *items =
+            @[MMItemMake(@"确定", MMItemTypeNormal, block)];
+            
+            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                                 detail:@"请在设置中打开照相机权限或者手动输入设备序列号" items:items];
+            alertView.attachedView = self.view;
+            
+            [alertView show];
+            /*
             URBAlertView *alertView = [URBAlertView dialogWithTitle:@"提示" subtitle:@"请在设置中打开照相机权限或者手动输入设备序列号"];
             alertView.blurBackground = NO;
             [alertView addButtonWithTitle:@"确认"];
@@ -200,6 +213,7 @@
                 }];
             }];
             [alertView showWithAnimation:URBAlertAnimationFade];
+             */
         }else{
             [self setupCameraWith];
             if (![timer isValid]) {
@@ -442,6 +456,37 @@ float prewMoveY;
 //            HardWareUUID = self.barTextfield.text;
 //            udp.productUUID = self.barTextfield.text;
 //            [self.navigationController pushViewController:udp animated:YES];
+            MMPopupItemHandler block = ^(NSInteger index){
+                HaviLog(@"clickd %@ button",@(index));
+                if (index == 1) {
+                    UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
+                    udp.productName = self.deviceName;
+                    HardWareUUID = self.barTextfield.text;
+                    udp.productUUID = self.barTextfield.text;
+                    [self.navigationController pushViewController:udp animated:YES];
+                }else if (index ==0){
+                    for (UIViewController *controller in self.navigationController.viewControllers) {
+                        if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
+                            
+                            [self.navigationController popToViewController:controller animated:YES];
+                            //泡个消息，让首界面更新数据
+                            HardWareUUID = self.barTextfield.text;
+                            break;
+                        }
+                    }
+                    
+                }
+            };
+            NSArray *items =
+            @[MMItemMake(@"暂不激活", MMItemTypeNormal, block),
+              MMItemMake(@"激活", MMItemTypeNormal, block)];
+            
+            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                                 detail:@"已成功关联您的设备,是否需要现在激活设备" items:items];
+            alertView.attachedView = self.view;
+            
+            [alertView show];
+            /*
             URBAlertView *alertView = [URBAlertView dialogWithTitle:@"提示" subtitle:@"已成功关联您的设备,是否需要现在激活设备"];
             alertView.blurBackground = NO;
             [alertView addButtonWithTitle:@"不需要"];
@@ -469,6 +514,7 @@ float prewMoveY;
                 }];
             }];
             [alertView showWithAnimation:URBAlertAnimationFade];
+             */
         }else{
             [self.view makeToast:@"无法设置该设备为您的默认设备" duration:2 position:@"center"];
         }
