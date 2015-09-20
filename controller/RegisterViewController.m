@@ -224,11 +224,6 @@
             [MMProgressHUD dismissWithError:@"该手机号已注册" afterDelay:2];
         }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
             [MMProgressHUD dismissWithSuccess:@"注册成功" title:nil afterDelay:2];
-            //上传头像
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
-                [self uploadWithImageData:self.iconData];
-            });
             self.registerSuccessed(1);
             thirdPartyLoginPlatform = MeddoPlatform;
             thirdPartyLoginUserId = [responseDic objectForKey:@"UserID"];
@@ -409,7 +404,10 @@
     self.iconData = imageData;
     [HaviAnimationView animationFlipFromLeft:self.iconButton];
     //    [self uploadImage:image andTitle:@"上传icon"];
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [self uploadWithImageData:self.iconData];
+    });
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self setNeedsStatusBarAppearanceUpdate];
 }
