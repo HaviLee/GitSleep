@@ -23,7 +23,7 @@
         // Initialization code
         backImage = [[UIImageView alloc]initWithFrame:frame];
         backImage.backgroundColor = [UIColor clearColor];
-        backImage.image = [UIImage imageNamed:@"floatView"];
+        backImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"floatView_%d",selectedThemeIndex]];
         [self addSubview:backImage];
         dataLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 20, 10)];
         dataLabel.text = @"0";

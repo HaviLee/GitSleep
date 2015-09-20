@@ -235,7 +235,7 @@
     if (!_noDataImageView) {
         _noDataImageView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 150, 105)];
         UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(59, 16, 32.5, 32.5)];
-        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"sad-75"]];
+        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"sad-75_%d",selectedThemeIndex]];
         [_noDataImageView addSubview:image];
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 49, 150, 30)];
         label.text= @"没有数据哦!";
