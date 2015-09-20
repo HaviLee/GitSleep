@@ -111,10 +111,6 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    /*
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"获取设备列表..."];
-     */
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -265,21 +261,10 @@
             alertView.attachedView = self.view;
             
             [alertView show];
-            /*
-            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"如果确定删除默认关联设备,请先切换其他设备为默认设备"];
-            alertView.blurBackground = NO;
-            [alertView addButtonWithTitle:@"确认"];
-            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
-                [alertView hide];
-                
-            }];
-            [alertView showWithAnimation:URBAlertAnimationFade];
-             */
 
         }else{
             [self deleteDeviceWithUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]];
         }
-        //        [self deleteDeviceWithUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"] with:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]];
     }else if (direction == MGSwipeDirectionLeftToRight && index == 0){
         [self showRenameViewWithDic:[self.deviceArr objectAtIndex:indexPath.row]];
     }else if(direction == MGSwipeDirectionLeftToRight && index == 1){

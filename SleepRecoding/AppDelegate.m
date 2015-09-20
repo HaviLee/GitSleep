@@ -607,8 +607,14 @@
     }else{
         thirdID = self.tencentID;
     }
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"获取信息..."];
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     NSDictionary *dic = @{
                           @"UserID": [NSString stringWithFormat:@"%@$%@",platfrom,thirdID], //手机号码
                           };
@@ -694,8 +700,18 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
+    /*
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"注册中..."];
+     */
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     [WTRequestCenter postWithURL:[NSString stringWithFormat:@"%@v1/user/UserRegister",BaseUrl] header:header parameters:dic finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"注册成功%@",resposeDic);

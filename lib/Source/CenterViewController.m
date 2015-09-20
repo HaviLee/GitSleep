@@ -1081,9 +1081,18 @@
 - (void)sendSleepTime
 {
     if (HardWareUUID.length>0) {
-        
+        /*
         [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
         [MMProgressHUD showWithStatus:@"保存中..."];
+         */
+        NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                            [UIImage imageNamed:@"havi1_1"],
+                            [UIImage imageNamed:@"havi1_2"],
+                            [UIImage imageNamed:@"havi1_3"],
+                            [UIImage imageNamed:@"havi1_4"],
+                            [UIImage imageNamed:@"havi1_5"]];
+        [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+        [MMProgressHUD showWithTitle:nil status:nil images:images];
         NSDate *date = [[NSDate date]dateByAddingHours:8];
         NSString *dateString = [NSString stringWithFormat:@"%@",date];
 //        NSDate *date1 = [selectedDateToUse dateByAddingDays:0];
@@ -1130,9 +1139,18 @@
 - (void)sendSleepEndTime:(NSString *)endString
 {
     if (HardWareUUID.length>0) {
-        
+        /*
         [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
         [MMProgressHUD showWithStatus:@"保存中..."];
+         */
+        NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                            [UIImage imageNamed:@"havi1_1"],
+                            [UIImage imageNamed:@"havi1_2"],
+                            [UIImage imageNamed:@"havi1_3"],
+                            [UIImage imageNamed:@"havi1_4"],
+                            [UIImage imageNamed:@"havi1_5"]];
+        [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+        [MMProgressHUD showWithTitle:nil status:nil images:images];
         NSDate *date1 = [selectedDateToUse dateByAddingDays:0];
         NSString *dateString = [NSString stringWithFormat:@"%@",date1];
         NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],endString];
