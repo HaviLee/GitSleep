@@ -598,10 +598,11 @@
         self.yCoorBackView.frame = yRect;
         //浮标数据
         CGFloat xLeft = self.view.frame.size.width*4/25/2;
-        CGFloat xWidth = ([[UIScreen mainScreen] applicationFrame].size.width*4-2*10)/288;
-        
-        //浮标的位置
+        CGFloat xWidth = ([[UIScreen mainScreen] applicationFrame].size.width*4-2*20)/287;
         CGFloat xScaleValue = scrollView.contentOffset.x+(scrollView.contentOffset.x)*(self.view.frame.size.width-2*xLeft)/(self.view.frame.size.width*3)+xLeft;
+        CGPoint point = CGPointMake(xScaleValue, 180-20-7.5);
+        self.layerFloatView.center = point;
+        //浮标的位置
         int xIndex = (int)(xScaleValue/xWidth)-5;
         if (xIndex<288) {
             int xValue = [[self.breathDic objectAtIndex:xIndex] intValue];
@@ -612,8 +613,6 @@
             self.layerFloatView.dataString = [NSString stringWithFormat:@"%d",xValue];
         }
         
-        CGPoint point = CGPointMake(xScaleValue, 180-20-7.5);
-        self.layerFloatView.center = point;
     }
 }
 
