@@ -78,6 +78,14 @@
 - (void)getUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
     //    [MMProgressHUD showWithStatus:@"请求中..."];
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
     if (fromDate) {
         
@@ -113,6 +121,7 @@
             [self reloadUserViewWithData:resposeDic];
             [self getUserSleepReportData:fromDate toDate:toDate];
         } failure:^(YTKBaseRequest *request) {
+            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
             NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
             [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
@@ -197,6 +206,7 @@
         }
         [client getHeartSleepData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
+            [MMProgressHUD dismiss];
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             HaviLog(@"心率是%@和url%@",resposeDic,urlString);
             //为了异常报告,和更新
@@ -226,6 +236,7 @@
             
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+                [MMProgressHUD dismiss];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 HaviLog(@"心率是%@和url%@",resposeDic,urlString);
                 //为了异常报告,和更新
@@ -254,6 +265,7 @@
 //                self.currentSleepQulitity = resposeDic;
                 
             } failure:^(YTKBaseRequest *request) {
+                [MMProgressHUD dismiss];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];

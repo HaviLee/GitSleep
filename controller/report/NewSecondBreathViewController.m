@@ -77,6 +77,14 @@
 - (void)getUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
     //    [MMProgressHUD showWithStatus:@"请求中..."];
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
     if (fromDate) {
         
@@ -97,7 +105,7 @@
         [client getBreathData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            //            [MMProgressHUD dismiss];
+            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
             HaviLog(@"缓存的呼吸数据%@和url:%@",resposeDic,urlString);
             [self reloadUserViewWithData:resposeDic];
@@ -105,11 +113,12 @@
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                //                [MMProgressHUD dismiss];
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                HaviLog(@"请求的呼吸数据%@和url:%@",resposeDic,urlString);                [self reloadUserViewWithData:resposeDic];
+                HaviLog(@"请求的呼吸数据%@和url:%@",resposeDic,urlString);
+                [self reloadUserViewWithData:resposeDic];
                 [self getUserSleepReportData:fromDate toDate:toDate];
             } failure:^(YTKBaseRequest *request) {
+                [MMProgressHUD dismiss];
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
@@ -141,6 +150,7 @@
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             HaviLog(@"心率是%@",resposeDic);
             //为了异常报告
+            [MMProgressHUD dismiss];
             self.reportData = resposeDic;
             self.currentSleepQulitity = resposeDic;
             NSString *selectString = [NSString stringWithFormat:@"%@",selectedDateToUse];
@@ -166,6 +176,7 @@
             [self.reportTableView reloadData];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+                [MMProgressHUD dismiss];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 HaviLog(@"呼吸是%@",resposeDic);
                 //为了异常报告
@@ -193,6 +204,7 @@
                 self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%d次/分",[[resposeDic objectForKey:@"AverageHeartRate"]intValue]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"]];
                 [self.reportTableView reloadData];
             } failure:^(YTKBaseRequest *request) {
+                [MMProgressHUD dismiss];
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];
