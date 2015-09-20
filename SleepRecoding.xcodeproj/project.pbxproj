@@ -522,7 +522,6 @@
 		2CDB868A1BABCD4F00551192 /* SleepQualityBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB86761BABCD4F00551192 /* SleepQualityBar.m */; };
 		2CDB868B1BABCD4F00551192 /* SleepTimeLongBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB86781BABCD4F00551192 /* SleepTimeLongBar.m */; };
 		2CDB868F1BABCDCD00551192 /* SleepTimeTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB868E1BABCDCD00551192 /* SleepTimeTagView.m */; };
-		2CDB86911BABDD2900551192 /* pic_introduce_2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86901BABDD2900551192 /* pic_introduce_2@3x.png */; };
 		2CDB86931BABDD3000551192 /* pic_introduce_3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86921BABDD3000551192 /* pic_introduce_3@3x.png */; };
 		2CDB86951BABDD3500551192 /* pic_introduce_1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDB86941BABDD3500551192 /* pic_introduce_1@3x.png */; };
 		2CDB86AD1BABE66800551192 /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB869B1BABE66800551192 /* FBShimmeringLayer.m */; };
@@ -556,6 +555,7 @@
 		2CDE55761BAE8B150017C5DE /* btn_left_75_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDE55721BAE8B150017C5DE /* btn_left_75_0@2x.png */; };
 		2CDE55771BAE8B150017C5DE /* btn_right_75_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDE55731BAE8B150017C5DE /* btn_right_75_1@2x.png */; };
 		2CDE55781BAE8B150017C5DE /* btn_left_75_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDE55741BAE8B150017C5DE /* btn_left_75_1@2x.png */; };
+		2CDE557A1BAE9BF00017C5DE /* pic_introduce_2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDE55791BAE9BF00017C5DE /* pic_introduce_2@3x.png */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
 		57063D2C1ABFDE7B00A61267 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 57063D2B1ABFDE7B00A61267 /* ImageUtil.m */; };
@@ -1354,7 +1354,6 @@
 		2CDB86781BABCD4F00551192 /* SleepTimeLongBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleepTimeLongBar.m; sourceTree = "<group>"; };
 		2CDB868D1BABCDCD00551192 /* SleepTimeTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleepTimeTagView.h; sourceTree = "<group>"; };
 		2CDB868E1BABCDCD00551192 /* SleepTimeTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleepTimeTagView.m; sourceTree = "<group>"; };
-		2CDB86901BABDD2900551192 /* pic_introduce_2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_introduce_2@3x.png"; sourceTree = "<group>"; };
 		2CDB86921BABDD3000551192 /* pic_introduce_3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_introduce_3@3x.png"; sourceTree = "<group>"; };
 		2CDB86941BABDD3500551192 /* pic_introduce_1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_introduce_1@3x.png"; sourceTree = "<group>"; };
 		2CDB86981BABE66800551192 /* FBShimmering-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBShimmering-Prefix.pch"; sourceTree = "<group>"; };
@@ -1400,6 +1399,7 @@
 		2CDE55721BAE8B150017C5DE /* btn_left_75_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_left_75_0@2x.png"; sourceTree = "<group>"; };
 		2CDE55731BAE8B150017C5DE /* btn_right_75_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_right_75_1@2x.png"; sourceTree = "<group>"; };
 		2CDE55741BAE8B150017C5DE /* btn_left_75_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_left_75_1@2x.png"; sourceTree = "<group>"; };
+		2CDE55791BAE9BF00017C5DE /* pic_introduce_2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_introduce_2@3x.png"; sourceTree = "<group>"; };
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
 		2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1934,8 +1934,8 @@
 				2C91A6881B9D76D20039EEAB /* ic_compile_1.png */,
 				2C91A6831B9D239A0039EEAB /* btn_textbox_0.png */,
 				2C91A68A1B9D76E20039EEAB /* btn_textbox_1.png */,
-				2CDB86901BABDD2900551192 /* pic_introduce_2@3x.png */,
 				2CDB86921BABDD3000551192 /* pic_introduce_3@3x.png */,
+				2CDE55791BAE9BF00017C5DE /* pic_introduce_2@3x.png */,
 				2CDB86941BABDD3500551192 /* pic_introduce_1@3x.png */,
 				2CDE556D1BAE7FE20017C5DE /* pic_sun@2x.png */,
 				2CDE556F1BAE7FE80017C5DE /* pic_moon@2x.png */,
@@ -3141,7 +3141,6 @@
 				2C7D22241AF1C9F70011A45C /* pic_off_line_0@2x.png in Resources */,
 				2C7D22B81AF1CA050011A45C /* icon_logo_login_0@2x.png in Resources */,
 				2C7D22A81AF1CA050011A45C /* btn_x_share_0@2x.png in Resources */,
-				2CDB86911BABDD2900551192 /* pic_introduce_2@3x.png in Resources */,
 				2CD6C0521B7B894100F1FF6A /* image_1.jpg in Resources */,
 				2C15E68A1AF2137100142F36 /* icon_diagnostic_message_0@2x.png in Resources */,
 				2C7D22B31AF1CA050011A45C /* icon_equipment_management_0@2x.png in Resources */,
@@ -3411,6 +3410,7 @@
 				2C3AF2C91AF470C800B66E32 /* btn_back_calender@2x.png in Resources */,
 				2C7D22F11AF1CA050011A45C /* txtbox_report_0@2x.png in Resources */,
 				2C15E75A1AF214F800142F36 /* leave4_1.png in Resources */,
+				2CDE557A1BAE9BF00017C5DE /* pic_introduce_2@3x.png in Resources */,
 				572AA9891AC29A5700DED1D9 /* THPinViewController.bundle in Resources */,
 				2C15E7481AF214E800142F36 /* textbox_hollow_1@2x.png in Resources */,
 				2C15E72B1AF214E800142F36 /* menology_1@2x.png in Resources */,
