@@ -344,22 +344,24 @@
         [_calenderBackView addSubview:self.calenderImage];
         [self.calenderImage makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.monthTitleLabel.right).offset(10);
-            make.width.height.equalTo(15);
+            make.width.height.equalTo(20);
             make.centerY.equalTo(self.monthTitleLabel.centerY);
         }];
         //
         [_calenderBackView addSubview:self.leftCalButton];
         [self.leftCalButton makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.monthTitleLabel.left).offset(-30);
+            make.right.equalTo(self.monthTitleLabel.left).offset(-15);
             make.centerY.equalTo(self.monthTitleLabel.centerY);
-            make.width.height.equalTo(15);
+            make.height.equalTo(20);
+            make.width.equalTo(15);
         }];
         //
         [_calenderBackView addSubview:self.rightCalButton];
         [self.rightCalButton makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.calenderImage.right).offset(30);
+            make.left.equalTo(self.calenderImage.right).offset(15);
             make.centerY.equalTo(self.monthTitleLabel.centerY);
-            make.height.width.equalTo(15);
+            make.height.equalTo(20);
+            make.width.equalTo(15);
         }];
         //
         [_calenderBackView addSubview:self.monthLabel];
@@ -403,7 +405,7 @@
 {
     if (!_leftCalButton) {
         _leftCalButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_leftCalButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+        [_leftCalButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_left_75_%d",selectedThemeIndex]] forState:UIControlStateNormal];
         [_leftCalButton addTarget:self action:@selector(lastQuater:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _leftCalButton;
@@ -413,7 +415,7 @@
 {
     if (!_rightCalButton) {
         _rightCalButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_rightCalButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_right_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+        [_rightCalButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_right_75_%d",selectedThemeIndex]] forState:UIControlStateNormal];
         [_rightCalButton addTarget:self action:@selector(nextQuater:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightCalButton;
@@ -609,7 +611,7 @@
 {
     if (!_monthTitleLabel) {
         _monthTitleLabel = [[UILabel alloc]init];
-        _monthTitleLabel.font = [UIFont systemFontOfSize:18];
+        _monthTitleLabel.font = [UIFont systemFontOfSize:19];
         _monthTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         _monthTitleLabel.textAlignment = NSTextAlignmentCenter;
         NSString *currentDate = [[NSString stringWithFormat:@"%@",[NSDate date]]substringToIndex:7];
