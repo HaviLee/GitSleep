@@ -268,7 +268,7 @@
 {
     if (!_yCoorBackView) {
         _yCoorBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 160)];
-        _yCoorBackView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
+        _yCoorBackView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.075f green:0.149f blue:0.290f alpha:1.00f]:[UIColor colorWithRed:0.408f green:0.616f blue:0.757f alpha:1.00f];
         UILabel *sixLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 70, 20, 20)];
         sixLabel.text = @"60";
         sixLabel.textAlignment = NSTextAlignmentLeft;

@@ -35,6 +35,20 @@
 - (void)setBackImage
 {
     
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.frame = CGRectMake(0, 0, self.bounds.size.width, yCoordinateHeight);
+    
+    //设置渐变颜色方向
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(1, 0);
+    
+    //设定颜色组
+    gradientLayer.colors = selectedThemeIndex==0? @[(__bridge id)[UIColor colorWithRed:0.122f green:0.180f blue:0.478f alpha:0.250f].CGColor,(__bridge id)[UIColor colorWithRed:0.796f green:0.816f blue:0.565f alpha:0.250f].CGColor]:@[(__bridge id)[UIColor colorWithRed:0.216f green:0.400f blue:0.580f alpha:0.250f].CGColor,(__bridge id)[UIColor colorWithRed:0.780f green:0.808f blue:0.455f alpha:0.2500f].CGColor];
+    
+    //设定颜色分割点
+    gradientLayer.locations = @[@(0.5f) ,@(1.0f)];
+    gradientLayer.cornerRadius = 0;
+    [self.layer addSublayer:gradientLayer];
     [self addSubview:self.leftImage];
     
     [self addSubview:self.rightImage];
@@ -137,8 +151,8 @@
 - (UIImageView *)leftImage
 {
     if (_leftImage == nil) {
-        _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, xCoordinateWidth/2, yCoordinateHeight)];
-        _leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_night_bac_%d",selectedThemeIndex]];
+        _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, xCoordinateWidth/2+0.5, yCoordinateHeight)];
+        _leftImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_moon"]];
         _leftImage.tag = 2001;
     }
     return _leftImage;
@@ -148,7 +162,7 @@
 {
     if (_rightImage == nil) {
         _rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(xCoordinateWidth/2, 0, xCoordinateWidth/2, yCoordinateHeight)];
-        _rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_day_bac_%d",selectedThemeIndex]];
+        _rightImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_sun"]];
         _rightImage.tag = 2001;
     }
     return _rightImage;

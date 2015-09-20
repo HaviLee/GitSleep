@@ -306,7 +306,7 @@
     SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
     //将内容分享到qzone
     QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
-    if (sent ==0) {
+    if (sent ==0 || sent==7) {
         HaviLog(@"分享成功");
     }else{
         [self.view makeToast:@"分享出错啦" duration:2 position:@"center"];
