@@ -28,7 +28,6 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor redColor];
     self.containerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    NSLog(@"the height is %f",self.view.frame.size.height);
     self.containerView.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:self.containerView];
     self.currentView = self.containerView;
@@ -69,10 +68,6 @@
 
 - (void)changeLoginViewIn:(BOOL)isIn
 {
-//    __block typeof(self) weakSelf = self;
-//    self.loginView.getCodeButtonClicked = ^(NSUInteger index) {
-//        [weakSelf changeGetCodeViewIn:YES];
-//    };
     UIViewAnimationOptions animation = isIn ? UIViewAnimationOptionTransitionCurlUp : UIViewAnimationOptionTransitionCurlDown;
     self.viewController = self.loginView;
     if (self.currentView != self.viewController.view) {
@@ -86,7 +81,6 @@
 
 - (void)changeGetCodeViewIn:(BOOL)isIn
 {
-    NSLog(@"getcode");
     self.viewController = self.getCodeView;
     __block typeof(self) weakSelf = self;
     self.getCodeView.backToLoginButtonClicked = ^(NSUInteger index) {
@@ -106,7 +100,6 @@
 
 - (void)registerViewWith:(NSString *)phone andIn:(BOOL)isIn
 {
-//    RegisterViewController *registerView = [[RegisterViewController alloc]init];
     self.registerView.cellPhoneNum = phone;
     __block typeof(self) weakSelf = self;
     self.registerView.backToCodeButtonClicked = ^(NSUInteger index) {

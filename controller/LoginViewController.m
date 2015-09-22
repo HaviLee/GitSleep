@@ -8,19 +8,13 @@
 
 #import "LoginViewController.h"
 #import "CKTextField.h"
-#import "RegisterViewController.h"
 #import "LabelLine.h"
 #import "GetCodeViewController.h"
 #import "STAlertView.h"
 #import "ZWIntroductionViewController.h"
-#import "LeftSideViewController.h"
-#import "RightSideViewController.h"
 #import "AppDelegate.h"
 //api
-#import "SHGetClient.h"
 #import "GetInavlideCodeApi.h"
-#import "SHPutClient.h"
-#import "GetDeviceStatusAPI.h"
 #import "RegisterPhoneViewController.h"
 //
 #import "WXApi.h"
@@ -31,7 +25,6 @@
 @interface LoginViewController ()<UITextFieldDelegate,WXApiDelegate>
 @property (nonatomic,strong) CKTextField *nameText;
 @property (nonatomic,strong) UITextField *passWordText;
-@property (nonatomic, strong) STAlertView *stAlertView;
 @property (nonatomic, strong) ZWIntroductionViewController *introductionView;
 
 @property (nonatomic,strong)  NSString *cellPhone;
@@ -467,10 +460,6 @@
     }
     //获取设备状态
     
-    /*
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"登录中..."];
-     */
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -531,35 +520,11 @@
 - (void)forgetPassWord:(UITapGestureRecognizer *)gesture
 {
     MMPopupBlock completeBlock = ^(MMPopupView *popupView){
-        NSLog(@"animation complete");
-//        self.cellPhone = result;
-//        [self getPassWordSelf:result];
     };
     [[[MMAlertView alloc] initWithInputTitle:@"提示" detail:@"请输入手机号码,我们会将密码以短信的方式发到您的手机上。" placeholder:@"请输入手机号" handler:^(NSString *text) {
-        NSLog(@"input:%@",text);
         self.cellPhone = text;
         [self getPassWordSelf:text];
     }] showWithBlock:completeBlock];
-    /*
-    self.stAlertView = [[STAlertView alloc] initWithTitle:@"提示"
-                                                  message:@"请输入手机号码,我们会将密码以短信的方式发到您的手机上。"
-                                            textFieldHint:@"请输入手机号"
-                                           textFieldValue:nil
-                                        cancelButtonTitle:@"取消"
-                                         otherButtonTitle:@"确定"
-                        
-                                        cancelButtonBlock:^{
-                                            
-                                        } otherButtonBlock:^(NSString * result){
-                                            self.cellPhone = result;
-                                            [self getPassWordSelf:result];
-                                        }];
-    
-    self.stAlertView.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [[self.stAlertView.alertView textFieldAtIndex:0] setKeyboardType:UIKeyboardTypePhonePad];
-    
-    [self.stAlertView show];
-     */
 }
 #pragma mark 获取验证码
 - (void)getPassWordSelf:(NSString *)cellPhone
@@ -577,10 +542,6 @@
         [self.view makeToast:@"请输入正确的手机号" duration:2 position:@"center"];
         return;
     }
-    /*
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"发送中..."];
-     */
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -668,65 +629,7 @@
     }
     return YES;
 }
-/*
-#define kKeyboardHeight 216
 
-int prewTag;
-float prewMoveY;
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    HaviLog(@"进行");
-    UIButton *button = (UIButton *)[self.view viewWithTag:10001];
-    CGRect textFrame = button.frame;
-    float textY = textFrame.origin.y + textFrame.size.height;
-    float bottomY = self.view.frame.size.height - textY;
-    if (bottomY >= kKeyboardHeight){
-        prewTag = -1;
-        return;
-    }
-    prewTag = (int)textField.tag;
-    float moveY = kKeyboardHeight - bottomY+20;
-    prewMoveY = moveY;
-    
-    NSTimeInterval animationDuration = 1.0f;
-    CGRect frame = self.view.frame;
-    frame.origin.y -=moveY;//view的Y轴上移
-    frame.size.height +=moveY; //View的高度增加
-    self.view.frame = frame;
-    [UIView beginAnimations:@"ResizeView" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    self.view.frame = frame;
-    [UIView commitAnimations];//设置调整界面的动画效果
-
-}
-
--(void) textFieldDidEndEditing:(UITextField *)textField
-{
-    //    查看回复头像
-    if(prewTag == -1) //当编辑的View不是需要移动的View
-    {
-        return;
-    }
-    float moveY ;
-    NSTimeInterval animationDuration = 0.80f;
-    CGRect frame = self.view.frame;
-    if(prewTag == textField.tag) //当结束编辑的View的TAG是上次的就移动
-    {   //还原界面
-        moveY =  prewMoveY;
-        frame.origin.y +=moveY;
-        frame.size. height -=moveY;
-        self.view.frame = frame;
-    }
-    //self.view移回原位置
-    [UIView beginAnimations:@"ResizeView" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    self.view.frame = frame;
-    [UIView commitAnimations];
-    [textField resignFirstResponder];
-    
-}
-*/
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -737,7 +640,6 @@ float prewMoveY;
     }
     if ([UserManager IsUserLogged]) {
         
-//        [YXSpritesLoadingView showWithText:nil andShimmering:YES andBlurEffect:NO];
         NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                             [UIImage imageNamed:@"havi1_1"],
                             [UIImage imageNamed:@"havi1_2"],

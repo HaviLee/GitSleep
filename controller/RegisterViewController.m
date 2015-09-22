@@ -14,9 +14,6 @@
 #import "UserProtocolViewController.h"
 #import "HaviAnimationView.h"
 #import "ImageUtil.h"
-#import "UploadImageApi.h"
-#import "SHPostClient.h"
-#import "ThirdRegisterAPI.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -199,10 +196,7 @@
         [self.view makeToast:@"请输入密码" duration:2 position:@"center"];
         return;
     }
-    /*
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"注册中..."];
-     */
+    
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -211,7 +205,6 @@
                         [UIImage imageNamed:@"havi1_5"]];
     [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
-//    ThirdRegisterAPI *client = [ThirdRegisterAPI shareInstance];
     NSDictionary *dic = @{
                           @"CellPhone": self.cellPhoneNum, //手机号码
                           @"Email": @"", //邮箱地址，可留空，扩展注册用
@@ -250,31 +243,7 @@
         [MMProgressHUD dismiss];
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
-    /*
-    [client loginThirdUserWithHeader:header andWithPara:dic];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
-        
-        if ([[responseDic objectForKey:@"ReturnCode"]intValue]==10005) {
-            [MMProgressHUD dismissWithError:@"该手机号已注册" afterDelay:2];
-        }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
-            [MMProgressHUD dismissWithSuccess:@"注册成功" title:nil afterDelay:2];
-            self.registerSuccessed(1);
-            thirdPartyLoginPlatform = MeddoPlatform;
-            thirdPartyLoginUserId = [responseDic objectForKey:@"UserID"];
-            NSRange range = [thirdPartyLoginUserId rangeOfString:@"$"];
-            thirdPartyLoginNickName = [[responseDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];
-            thirdPartyLoginIcon = @"";
-            thirdPartyLoginToken = @"";
-            [UserManager setGlobalOauth];
-        }else{
-            [MMProgressHUD dismiss];
-        }
-    } failure:^(YTKBaseRequest *request) {
-        NSDictionary *responseDic = (NSDictionary *)request.responseJSONObject;
-        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",responseDic] afterDelay:2];
-    }];
-     */
+    
 }
 
 #pragma mark 拍照
@@ -458,7 +427,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:0 timeoutInterval:5.0f];
     [request setValue:[dicHeader objectForKey:@"AccessToken"] forHTTPHeaderField:@"AccessToken"];
     [self setRequest:request withImageData:imageData];
-    NSLog(@"开始上传...");
+    HaviLog(@"开始上传...");
     [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if ([[dic objectForKey:@"ReturnCode"] intValue]==200) {
@@ -466,7 +435,7 @@
             [[NSUserDefaults standardUserDefaults]synchronize];
             
         }
-        NSLog(@"8.18测试结果Result--%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        HaviLog(@"头像上传结果Result--%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         
     }];
 }
@@ -516,8 +485,6 @@
 
 - (void)backToHomeView:(UIButton*)button
 {
-//    self.navigationController.navigationBarHidden = YES;
-//    [self.navigationController popViewControllerAnimated:YES];
     self.backToCodeButtonClicked(1);
 }
 

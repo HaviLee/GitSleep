@@ -28,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.bgImageView.image = [UIImage imageNamed:@"pic_login_bg"];
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {

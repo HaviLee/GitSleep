@@ -145,10 +145,6 @@
         [self.view makeToast:@"请输入正确的手机号" duration:2 position:@"center"];
         return;
     }
-    /*
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"发送中..."];
-     */
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -258,9 +254,6 @@
 {
     HaviLog(@"touched view");
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
-    //    RegisterViewController *registerController = [[RegisterViewController alloc]init];
-    //    registerController.cellPhoneNum = self.phoneText.text;
-    //    [self.navigationController pushViewController:registerController animated:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -272,7 +265,6 @@
 
 - (void)textFieldChanged:(NSNotification *)noti
 {
-    HaviLog(@"changed");
     UITextField *textField = (UITextField *)noti.object;
     if ([textField isEqual:self.phoneText]) {
         if (self.phoneText.text.length>11) {
@@ -319,7 +311,6 @@
     theAnimation.delegate = self;
     theAnimation.toValue = [NSNumber numberWithFloat:[UIScreen mainScreen].bounds.size.width];
     [self.view.layer addAnimation:theAnimation forKey:@"animateLayer"];
-//    self.backToLoginButton(1);
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
