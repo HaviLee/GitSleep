@@ -99,9 +99,9 @@
     reportLabel.numberOfLines = 0;
     NSString *timeNum = @"";
     if ([titleString isEqualToString:@"心率"]) {
-        timeNum = @"60-100次/分钟";
+        timeNum = @"50-100次/分钟";
     }else{
-        timeNum = @"16-20次/分钟";
+        timeNum = @"10-20次/分钟";
     }
     reportLabel.text = [NSString stringWithFormat:@"系统检测到您在此时间段内%@出现异常，超出%@正常范围:%@",titleString,titleString,timeNum];
     [backView addSubview:reportLabel];

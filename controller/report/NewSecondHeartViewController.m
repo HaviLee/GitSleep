@@ -615,7 +615,7 @@
             if (xValue==60) {
                 xValue = xValue-60;
             }
-            HaviLog(@"index是%d值是%d",xIndex,xValue);
+//            HaviLog(@"index是%d值是%d",xIndex,xValue);
             self.layerFloatView.dataString = [NSString stringWithFormat:@"%d",xValue];
         }
 
