@@ -93,8 +93,7 @@
         } failure:^(YTKBaseRequest *request) {
             [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-            [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
+            [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
         }];
     }
 }
@@ -160,8 +159,7 @@
             [self reloadSleepView:resposeDic];
         } failure:^(YTKBaseRequest *request) {
             [MMProgressHUD dismiss];
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-            [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
+            [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
         }];
     }
 }

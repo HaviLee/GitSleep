@@ -229,6 +229,10 @@
 #pragma mark 更新信息
 - (void)saveUserInfo:(UIButton *)sender
 {
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
     if ([self.nameTextField.text isEqualToString:@"***"]) {
         [self.view makeToast:@"请输入姓名" duration:2 position:@"center"];
         return;
@@ -320,9 +324,8 @@
             [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
         }
     } failure:^(YTKBaseRequest *request) {
-        [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-            
-        }];
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
 }
 

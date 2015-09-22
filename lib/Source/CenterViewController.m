@@ -867,7 +867,11 @@
             NSString *dateString = [formatter stringFromDate:date];
             HaviLog(@"当前选中的日期是%@",dateString);
             NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
-            [self getTodaySleepQualityData:subString];
+            if ([self isNetworkExist]) {
+                [self getTodaySleepQualityData:subString];
+            }else{
+                [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+            }
         }
     }
 }

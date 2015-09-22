@@ -453,6 +453,10 @@
 
 - (void)login:(UIButton *)sender
 {
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
     if ([self.nameText.text isEqualToString:@""]) {
         [self.view makeToast:@"请输入电话号码" duration:1.5 position:@"center"];
         return;
@@ -502,7 +506,8 @@
             [MMProgressHUD dismissWithError:@"登录失败,请稍后重试。" afterDelay:2];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
     
 }
@@ -554,6 +559,11 @@
 #pragma mark 获取验证码
 - (void)getPassWordSelf:(NSString *)cellPhone
 {
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
+    
     if (cellPhone.length == 0) {
         [self.view makeToast:@"请输入手机号" duration:2 position:@"center"];
         return;
@@ -713,6 +723,11 @@ float prewMoveY;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
     if ([UserManager IsUserLogged]) {
         
 //        [YXSpritesLoadingView showWithText:nil andShimmering:YES andBlurEffect:NO];
@@ -724,6 +739,7 @@ float prewMoveY;
                             [UIImage imageNamed:@"havi1_5"]];
         [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
         [MMProgressHUD showWithTitle:nil status:nil images:images];
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.loginButtonClicked(1);
             [MMProgressHUD dismiss];

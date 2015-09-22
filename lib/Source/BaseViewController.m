@@ -1057,13 +1057,13 @@
 }
 
 #pragma mark 检测网络
-+ (NSInteger)networkStatus
+- (NSInteger)networkStatus
 {
     Reachability *reachability = [Reachability reachabilityWithHostName:@"www.oschina.net"];
     return reachability.currentReachabilityStatus;
 }
 
-+ (BOOL)isNetworkExist
+- (BOOL)isNetworkExist
 {
     return [self networkStatus] > 0;
 }

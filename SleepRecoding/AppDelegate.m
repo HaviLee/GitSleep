@@ -161,7 +161,6 @@
         [weakSelf hideLoginView];
         //监听网络
         [weakSelf setWifiNotification];
-//        [weakSelf getDefaultTime];
         //发送登录成noti
         [[NSNotificationCenter defaultCenter]postNotificationName:LoginSuccessedNoti object:nil userInfo:nil];
     };
@@ -741,7 +740,7 @@
             [self.window makeToast:[resposeDic objectForKey:@"ErrorMessage"] duration:2 position:@"center"];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        
+        [MMProgressHUD dismiss];
     }];
     /*
     [client loginThirdUserWithHeader:header andWithPara:dic];

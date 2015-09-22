@@ -187,6 +187,10 @@
 
 - (void)registerUser:(UIButton *)sender
 {
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
     if (![self.nameText.text isEqualToString:self.passWordText.text]) {
         [self.view makeToast:@"密码不一致" duration:2 position:@"center"];
         return;
@@ -227,6 +231,8 @@
             self.registerSuccessed(1);
             thirdPartyLoginPlatform = MeddoPlatform;
             thirdPartyLoginUserId = [responseDic objectForKey:@"UserID"];
+            [self uploadWithImageData:self.iconData withUserId:thirdPartyLoginUserId];
+
             NSRange range = [thirdPartyLoginUserId rangeOfString:@"$"];
             thirdPartyLoginNickName = [[responseDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];
             thirdPartyLoginIcon = @"";
@@ -236,7 +242,8 @@
             [MMProgressHUD dismiss];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",error] afterDelay:2];
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
     /*
     [client loginThirdUserWithHeader:header andWithPara:dic];
@@ -402,12 +409,8 @@
     // 保存图片至本地，方法见下文
     NSData *imageData = [self calculateIconImage:image];
     self.iconData = imageData;
+    user_Register_Data = imageData;
     [HaviAnimationView animationFlipFromLeft:self.iconButton];
-    //    [self uploadImage:image andTitle:@"上传icon"];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        [self uploadWithImageData:self.iconData];
-    });
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self setNeedsStatusBarAppearanceUpdate];
 }
@@ -441,12 +444,12 @@
 
 
 #pragma mark 上传头像
-- (void)uploadWithImageData:(NSData*)imageData
+- (void)uploadWithImageData:(NSData*)imageData withUserId:(NSString *)userId
 {
     NSDictionary *dicHeader = @{
                                 @"AccessToken": @"123456789",
                                 };
-    NSString *urlStr = [NSString stringWithFormat:@"%@/v1/file/UploadFile/%@",BaseUrl,thirdPartyLoginUserId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/v1/file/UploadFile/%@",BaseUrl,userId];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:0 timeoutInterval:5.0f];
     [request setValue:[dicHeader objectForKey:@"AccessToken"] forHTTPHeaderField:@"AccessToken"];
     [self setRequest:request withImageData:imageData];

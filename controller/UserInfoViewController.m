@@ -155,8 +155,8 @@
             [self.userInfoTableView.tableView reloadData];
         }];
     } failure:^(YTKBaseRequest *request) {
-        NSDictionary *dic = (NSDictionary *)request.responseJSONObject;
-        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",dic] afterDelay:2];
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
 
 }

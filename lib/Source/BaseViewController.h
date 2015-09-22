@@ -122,13 +122,13 @@
  *
  *  @return 返回网络状况
  */
-+ (NSInteger)networkStatus;
+- (NSInteger)networkStatus;
 /**
  *  检查网络是否存在
  *
  *  @return bool
  */
-+ (BOOL)isNetworkExist;
+- (BOOL)isNetworkExist;
 /**
  *  获取当前时间
  *

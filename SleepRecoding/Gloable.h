@@ -27,6 +27,7 @@ extern NSDate *selectedDateToUse;
 extern BOOL isUserDefaultTime;
 //
 extern int selectedThemeIndex;
+extern NSData *user_Register_Data;
 extern int isTodayHourEqualSixteen;
 extern NSString *sleepBeforeTagTime;
 //userInfo

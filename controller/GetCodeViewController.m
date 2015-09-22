@@ -174,10 +174,6 @@
             [self.view makeToast:@"该手机号已经注册" duration:2 position:@"center"];
             //发现第三方帐号没有注册过
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10029){
-            /*
-            [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-            [MMProgressHUD showWithStatus:@"发送中..."];
-             */
             NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                                 [UIImage imageNamed:@"havi1_1"],
                                 [UIImage imageNamed:@"havi1_2"],
@@ -188,6 +184,7 @@
             [MMProgressHUD showWithTitle:nil status:nil images:images];
             self.randomCode = [self getRandomNumber:1000 to:10000];
             NSString *codeMessage = [NSString stringWithFormat:@"【智照护】您的验证码是%d",self.randomCode];
+            HaviLog(@"生产的验证码是%d",self.randomCode);
             NSDictionary *dicPara = @{
                                       @"cell" : self.phoneText.text,
                                       @"codeMessage" : codeMessage,
@@ -206,7 +203,8 @@
             }];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
     
     
@@ -284,12 +282,7 @@
         [self.view makeToast:@"验证码错误" duration:2 position:@"center"];
         return;
     }
-//    [[NSNotificationCenter defaultCenter]removeObserver:self name:UITextFieldTextDidChangeNotification object:self.codeText];
-//    [[NSNotificationCenter defaultCenter]removeObserver:self name:UITextFieldTextDidChangeNotification object:self.phoneText];
     self.registerButtonClicked(self.phoneText.text);
-//    RegisterViewController *registerController = [[RegisterViewController alloc]init];
-//    registerController.cellPhoneNum = self.phoneText.text;
-//    [self.navigationController pushViewController:registerController animated:YES];
 }
 
 #pragma mark textfeild delegate
@@ -327,9 +320,6 @@
 {
     HaviLog(@"touched view");
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
-//    RegisterViewController *registerController = [[RegisterViewController alloc]init];
-//    registerController.cellPhoneNum = self.phoneText.text;
-//    [self.navigationController pushViewController:registerController animated:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -342,7 +332,6 @@
 - (void)backToHomeView:(UIButton*)button
 {
     self.backToLoginButtonClicked(1);
-//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
