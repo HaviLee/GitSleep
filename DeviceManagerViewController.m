@@ -321,6 +321,7 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [self getUserDeviceList];
+                HardWareUUID = UUID;
             }];
             [MMProgressHUD dismiss];
         }else{

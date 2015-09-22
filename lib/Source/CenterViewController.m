@@ -1070,14 +1070,6 @@
         [self getAllDeviceList];
         HaviLog(@"hard UUID出现不同");
     }
-    if (selectedDateToUse&&![HardWareUUID isEqualToString:@""]) {
-        [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
-    }else{
-        //为了请求异常数据时间
-        if (isUserDefaultTime) {
-        }else{
-        }
-    }
 }
 
 #pragma mark 提交用户睡眠时间

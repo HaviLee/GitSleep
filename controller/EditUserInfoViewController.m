@@ -578,6 +578,12 @@
 #pragma mark 拍照
 - (void)tapIconImage:(UIGestureRecognizer *)gesture
 {
+    if (![self isNetworkExist]) {
+        
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
+    
     UIActionSheet *sheet;
     
     // 判断是否支持相机
@@ -724,6 +730,7 @@
         NSData *imageData = [self calculateIconImage:image];
         [self uploadWithImageData:imageData];
     });
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self setNeedsStatusBarAppearanceUpdate];
 }
