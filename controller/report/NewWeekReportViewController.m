@@ -77,6 +77,7 @@
         return;
     }
     if ([HardWareUUID isEqualToString:@""]) {
+        [self.view makeToast:@"您还没有绑定设备,无法查看数据" duration:2 position:@"center"];
         return;
     }
     if (!fromDate) {

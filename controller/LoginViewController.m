@@ -500,10 +500,15 @@
             self.loginButtonClicked(1);
             [MMProgressHUD dismissAfterDelay:0.3];
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10012) {
-            
-            [MMProgressHUD dismissWithError:@"密码或者帐号错误,请重试。" afterDelay:2];
+            [MMProgressHUD dismiss];
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                [self.view makeToast:@"密码或者帐号错误,请重试。" duration:2 position:@"center"];
+            }];
         }else{
-            [MMProgressHUD dismissWithError:@"登录失败,请稍后重试。" afterDelay:2];
+            [MMProgressHUD dismiss];
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                [self.view makeToast:@"密码或者帐号错误,请重试。" duration:2 position:@"center"];
+            }];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
         [MMProgressHUD dismiss];
@@ -622,16 +627,18 @@
          NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         HaviLog(@"新的密码是%d",self.forgetPassWord);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [MMProgressHUD dismissWithSuccess:@"新的密码已发送到您手机,请查收" title:@"注意" afterDelay:3];
+            [MMProgressHUD dismiss];
             [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
                 self.passWordText.text = @"";
+                [self.view makeToast:@"新的密码已发送到您手机,请查收" duration:3 position:@"center"];
             }];
         }else{
             [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:3];
             self.passWordText.text = @"";
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
     
 }

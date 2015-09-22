@@ -234,7 +234,9 @@
             self.registerSuccessed(1);
             thirdPartyLoginPlatform = MeddoPlatform;
             thirdPartyLoginUserId = [responseDic objectForKey:@"UserID"];
-            [self uploadWithImageData:self.iconData withUserId:thirdPartyLoginUserId];
+            if (self.iconData) {
+                [self uploadWithImageData:self.iconData withUserId:thirdPartyLoginUserId];
+            }
 
             NSRange range = [thirdPartyLoginUserId rangeOfString:@"$"];
             thirdPartyLoginNickName = [[responseDic objectForKey:@"UserID"] substringFromIndex:range.location+range.length];

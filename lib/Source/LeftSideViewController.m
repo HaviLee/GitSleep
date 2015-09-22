@@ -126,6 +126,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showUserInfo)];
         [_iconImageButton addGestureRecognizer:tap];
         _iconImageButton.userInteractionEnabled = YES;
+        _iconImageButton.image = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
         
     }
     return _iconImageButton;
@@ -360,7 +361,10 @@
             self.iconImageButton.image = [UIImage imageWithData:[self downloadWithImage:self.iconImageButton]];
             
         }else{
-            self.iconImageButton.image = [UIImage imageWithData:[[NSUserDefaults standardUserDefaults]dataForKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]]];
+            if ([UIImage imageWithData:[[NSUserDefaults standardUserDefaults]dataForKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]]]) {
+                
+                self.iconImageButton.image = [UIImage imageWithData:[[NSUserDefaults standardUserDefaults]dataForKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]]];
+            }
         }
     }
 }
