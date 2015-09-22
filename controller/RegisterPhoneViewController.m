@@ -158,7 +158,7 @@
     [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
     self.randomCode = [self getRandomNumber:1000 to:10000];
-    NSString *codeMessage = [NSString stringWithFormat:@"【智照护】您的验证码是%d",self.randomCode];
+    NSString *codeMessage = [NSString stringWithFormat:@"您的验证码是%d",self.randomCode];
     NSDictionary *dicPara = @{
                               @"cell" : self.phoneText.text,
                               @"codeMessage" : codeMessage,
@@ -168,11 +168,17 @@
         NSString *string = [[NSString alloc]initWithData:receiveData encoding:NSUTF8StringEncoding];
         NSRange range = [string rangeOfString:@"<error>"];
         if ([[string substringFromIndex:range.location +range.length]intValue]==0) {
-            [MMProgressHUD dismissWithSuccess:@"发送成功" title:nil afterDelay:2];
+            [MMProgressHUD dismiss];
+            [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
+                [self.view makeToast:@"验证码发送成功" duration:2 position:@"center"];
+            }];
             timeToShow = 60;
             [self showTime];
         }else{
-            [MMProgressHUD dismissWithError:string afterDelay:2];
+            [MMProgressHUD dismiss];
+            [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
+                [self.view makeToast:@"验证码发送失败,请稍候重试" duration:2 position:@"center"];
+            }];
         }
     }];
 }

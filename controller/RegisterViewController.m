@@ -227,7 +227,10 @@
         if ([[responseDic objectForKey:@"ReturnCode"]intValue]==10005) {
             [MMProgressHUD dismissWithError:@"该手机号已注册" afterDelay:2];
         }else if([[responseDic objectForKey:@"ReturnCode"]intValue]==200){
-            [MMProgressHUD dismissWithSuccess:@"注册成功" title:nil afterDelay:2];
+            [MMProgressHUD dismiss];
+            [[MMProgressHUD sharedHUD] setDismissAnimationCompletion:^{
+                [self.view makeToast:@"注册成功" duration:2 position:@"center"];
+            }];
             self.registerSuccessed(1);
             thirdPartyLoginPlatform = MeddoPlatform;
             thirdPartyLoginUserId = [responseDic objectForKey:@"UserID"];

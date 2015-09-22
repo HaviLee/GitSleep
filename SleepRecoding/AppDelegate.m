@@ -654,7 +654,8 @@
             [[NSNotificationCenter defaultCenter]postNotificationName:ShowPhoneInputViewNoti object:nil userInfo:nil];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        
+        [MMProgressHUD dismiss];
+        [self.window makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
     
 }
@@ -741,32 +742,9 @@
         }
     } failed:^(NSURLResponse *response, NSError *error) {
         [MMProgressHUD dismiss];
+        [self.window makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
-    /*
-    [client loginThirdUserWithHeader:header andWithPara:dic];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        NSLog(@"注册成功%@",resposeDic);
-        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            thirdPartyLoginPlatform = platform;
-            thirdPartyLoginUserId = [resposeDic objectForKey:@"UserID"];
-            thirdPartyLoginNickName = thirdName;
-            if ([platform isEqualToString:WXPlatform]) {
-                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"headimgurl"];
-            }else if ([platform isEqualToString:SinaPlatform]){
-                thirdPartyLoginIcon = [self.ThirdPlatformInfoDic objectForKey:@"profile_image_url"];
-            }else {
-            }
-            
-            thirdPartyLoginToken = @"";
-            [[NSNotificationCenter defaultCenter]postNotificationName:LoginSuccessedNoti object:nil userInfo:nil];
-            [UserManager setGlobalOauth];
-            [self hideLoginView];
-        }
-    } failure:^(YTKBaseRequest *request) {
-        
-    }];
-     */
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
