@@ -128,6 +128,10 @@
 #pragma mark 提交
 - (void)bindingDeviceWithUUID:(UIButton *)button
 {
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
     
     if (self.nameTextField.text.length == 0) {
         [self.view makeToast:@"请输入设备名称" duration:2 position:@"center"];
@@ -162,7 +166,8 @@
             [MMProgressHUD dismiss];
         }
     } failure:^(YTKBaseRequest *request) {
-        
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
 }
 

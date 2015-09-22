@@ -72,8 +72,11 @@
 
 - (void)getTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
 {
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
     if ([HardWareUUID isEqualToString:@""]) {
-        //        [ShowAlertView showAlert:@"您还没有绑定设备"];
         return;
     }
     if (!fromDate) {
@@ -111,8 +114,8 @@
             [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
         }
     } failure:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
 }
 

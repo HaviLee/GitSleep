@@ -107,6 +107,11 @@
 #pragma mark 请求数据
 - (void)getUserDeviceList
 {
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
+
     NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",thirdPartyLoginUserId];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -124,7 +129,10 @@
         HaviLog(@"请求的设备列表是%@",resposeDic);
         self.deviceArr = [resposeDic objectForKey:@"DeviceList"];
         if (self.deviceArr.count == 0) {
-            [MMProgressHUD dismissWithSuccess:@"您还没有绑定硬件设备" title:nil afterDelay:2];
+            [MMProgressHUD dismiss];
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                [self.view makeToast:@"您还没有绑定设备" duration:2 position:@"center"];
+            }];
         }
         if (self.deviceArr.count>0) {
             BOOL noActive = YES;
@@ -134,7 +142,10 @@
                 }
             }
             if (noActive) {
-                [MMProgressHUD dismissWithSuccess:@"点击您需要绑定的设备进行绑定" title:nil afterDelay:2];
+                [MMProgressHUD dismiss];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    [self.view makeToast:@"点击您需要绑定的设备进行绑定" duration:2 position:@"center"];
+                }];
             }else{
                 [MMProgressHUD dismiss];
             }
@@ -142,7 +153,8 @@
         [self.sideTableView reloadData];
         
     } failed:^(NSURLResponse *response, NSError *error) {
-        
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
     /*
     GetDeviceListAPI *client = [GetDeviceListAPI shareInstance];
@@ -315,8 +327,8 @@
             [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
         }
     } failure:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
     
     
@@ -337,10 +349,12 @@
 
 - (void)deleteDeviceWithUUID:(NSString *)UUID with:(NSString *)isDefault
 {
-    /*
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"删除设备中..."];
-     */
+    
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
+
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -374,7 +388,8 @@
             [MMProgressHUD dismissWithError:[obj objectForKey:@"ErrorMessage"] afterDelay:2];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",error] afterDelay:2];
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
     
 }
@@ -401,7 +416,8 @@
             [MMProgressHUD dismissWithError:[obj objectForKey:@"ErrorMessage"] afterDelay:2];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",error] afterDelay:2];
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
     
 }

@@ -431,8 +431,8 @@ float prewMoveY;
             [MMProgressHUD dismissWithSuccess:[resposeDic objectForKey:@"ErrorMessage"] title:nil afterDelay:2];
         }
     } failure:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [MMProgressHUD dismissWithSuccess:[NSString stringWithFormat:@"%@",resposeDic] title:nil afterDelay:2];
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
 }
 //激活
@@ -519,8 +519,8 @@ float prewMoveY;
             [self.view makeToast:@"无法设置该设备为您的默认设备" duration:2 position:@"center"];
         }
     } failure:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        [self.view makeToast:[NSString stringWithFormat:@"%@",resposeDic] duration:2 position:@"center"];
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
 }
 
