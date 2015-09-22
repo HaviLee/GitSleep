@@ -104,27 +104,25 @@
             [client stop];
         }
         [client getHeartData:header withDetailUrl:urlString];
-        //        if ([client getCacheJsonWithDate:fromDate]) {
-        //            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-        //            //            [MMProgressHUD dismiss];
-        //            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-        //            HaviLog(@"请求的心率数据%@和url%@",resposeDic,urlString);
-        //            [self reloadUserViewWithData:resposeDic];
-        //            [self getUserSleepReportData:fromDate toDate:toDate];
-        //        }else{
-        //        }
-        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-            //                [MMProgressHUD dismiss];
+        if ([client getCacheJsonWithDate:fromDate]) {
+            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-            HaviLog(@"请求的心率数据%@和url%@",resposeDic,urlString);
+            HaviLog(@"缓存请求的心率数据%@和url%@",resposeDic,urlString);
             [self reloadUserViewWithData:resposeDic];
             [self getUserSleepReportData:fromDate toDate:toDate];
-        } failure:^(YTKBaseRequest *request) {
-            [MMProgressHUD dismiss];
-            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-            [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
-        }];
+        }else{
+            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+                HaviLog(@"请求的心率数据%@和url%@",resposeDic,urlString);
+                [self reloadUserViewWithData:resposeDic];
+                [self getUserSleepReportData:fromDate toDate:toDate];
+            } failure:^(YTKBaseRequest *request) {
+                [MMProgressHUD dismiss];
+                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+                [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+            }];
+        }
     }
 }
 
@@ -207,7 +205,7 @@
         if ([client getCacheJsonWithDate:fromDate]) {
             [MMProgressHUD dismiss];
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            HaviLog(@"心率是%@和url%@",resposeDic,urlString);
+            HaviLog(@"缓存心率是%@和url%@",resposeDic,urlString);
             //为了异常报告,和更新
             self.reportData = resposeDic;
             self.currentSleepQulitity = resposeDic;
@@ -261,7 +259,6 @@
                 self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)ceilf(subsecond*60)];
                 self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%d次/分",[[resposeDic objectForKey:@"AverageHeartRate"]intValue]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"]];
                 [self.reportTableView reloadData];
-//                self.currentSleepQulitity = resposeDic;
                 
             } failure:^(YTKBaseRequest *request) {
                 [MMProgressHUD dismiss];

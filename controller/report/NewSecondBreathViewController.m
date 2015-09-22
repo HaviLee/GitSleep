@@ -105,7 +105,6 @@
         [client getBreathData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
             HaviLog(@"缓存的呼吸数据%@和url:%@",resposeDic,urlString);
             [self reloadUserViewWithData:resposeDic];
@@ -200,7 +199,7 @@
                 double subsecond = modf(duration, &second);
                 self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)ceilf(subsecond*60)];
                 
-                self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%d次/分",[[resposeDic objectForKey:@"AverageHeartRate"]intValue]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"]];
+                self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%d次/分",[[resposeDic objectForKey:@"AverageRespiratoryRate"]intValue]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"]];
                 [self.reportTableView reloadData];
             } failure:^(YTKBaseRequest *request) {
                 [MMProgressHUD dismiss];
