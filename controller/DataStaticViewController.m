@@ -27,7 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor redColor];
     // Do any additional setup after loading the view.
     //注意添加的先后顺序
     [self createClearBgNavWithTitle:nil createMenuItem:^UIView *(int nIndex) {
@@ -56,7 +55,6 @@
     self.backChangeView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
     [self.view addSubview:self.backChangeView];
     self.currentView = self.backChangeView;
-    self.backChangeView.backgroundColor = [UIColor yellowColor];
 }
 
 #pragma mark view title setter method

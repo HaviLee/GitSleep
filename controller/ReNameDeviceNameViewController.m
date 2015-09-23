@@ -145,8 +145,14 @@
                            @"UUID": [NSString stringWithFormat:@"%@",[self.deviceInfo  objectForKey:@"UUID"]],
                            @"Description":self.nameTextField.text,
                            };
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"修改设备名称中..."];
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     BindingDeviceUUIDAPI *client = [BindingDeviceUUIDAPI shareInstance];
     [client bindingDeviceUUID:header andWithPara:para];
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {

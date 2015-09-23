@@ -302,6 +302,7 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^(){
                     [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                        [self.view makeToast:@"设备激活成功" duration:2 position:@"center"];
                         [self.navigationController popToRootViewControllerAnimated:YES];
 //                        for (UIViewController *controller in self.navigationController.viewControllers) {
 //                            if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
@@ -311,7 +312,7 @@
 //                            }
 //                        }
                     }];
-                    [MMProgressHUD dismissWithSuccess:@"设备激活成功" title:nil afterDelay:2];
+                    [MMProgressHUD dismiss];
                 });
                 //havi
                 self.noReceiveData = NO;
@@ -322,7 +323,8 @@
             {
                 NSString *recString = [NSString stringWithFormat:@"recvfrom (%ld) error: %s", (long)times, strerror(errno)];
                 dispatch_async(dispatch_get_main_queue(), ^(){
-                    HaviLog(@"接收错误%@",recString);
+                    [MMProgressHUD dismiss];
+                    [self.view makeToast:recString duration:2 position:@"center"];
                 });
                 
                 //错误处理 是否再次发送find
@@ -341,10 +343,12 @@
         }
         if (times>30||times==30) {
             [self stopSniffer];
-            [MMProgressHUD dismissWithError:@"激活失败,请重试" title:nil afterDelay:2];
+            [MMProgressHUD dismiss];
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                [self.view makeToast:@"激活失败" duration:2 position:@"center"];
+            }];
             
         }
-        HaviLog(@"次数%ld",(long)times);
     }
     
     
@@ -386,7 +390,7 @@
     //接收到udp包后，将标识位改为no
     self.noReceiveData = NO;
     [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-        
+        [self.view makeToast:@"激活成功" duration:2 position:@"center"];
         for (UIViewController *controller in self.navigationController.viewControllers) {
             if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
                 
@@ -395,7 +399,7 @@
             }
         }
     }];
-    [MMProgressHUD dismissWithSuccess:@"设备激活成功" title:nil afterDelay:2];
+    [MMProgressHUD dismiss];
 }
 
 -(void)findWukoonWithIp:(NSString *)ip{

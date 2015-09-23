@@ -203,17 +203,6 @@
             alertView.attachedView = self.view;
             
             [alertView show];
-            /*
-            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"提示" subtitle:@"请在设置中打开照相机权限或者手动输入设备序列号"];
-            alertView.blurBackground = NO;
-            [alertView addButtonWithTitle:@"确认"];
-            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
-                [alertView hideWithAnimation:URBAlertAnimationFade completionBlock:^{
-                    
-                }];
-            }];
-            [alertView showWithAnimation:URBAlertAnimationFade];
-             */
         }else{
             [self setupCameraWith];
             if (![timer isValid]) {
@@ -303,7 +292,6 @@ float prewMoveY;
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    HaviLog(@"进行");
     CGRect textFrame = self.barTextfield.frame;
     float textY = textFrame.origin.y + textFrame.size.height;
     float bottomY = self.view.frame.size.height - textY;
@@ -397,10 +385,6 @@ float prewMoveY;
 
 - (void)bindingDeviceWithUUID:(NSString *)UUID
 {
-    /*
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"关联设备中..."];
-     */
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -426,7 +410,10 @@ float prewMoveY;
             [MMProgressHUD dismiss];
             [self activeUUID:self.barTextfield.text];
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
-            [MMProgressHUD dismissWithSuccess:@"不存在该硬件,请核对设备ID" title:nil afterDelay:2];
+            [MMProgressHUD dismiss];
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                [self.view makeToast:@"不存在该硬件,请核对设备ID" duration:2 position:@"center"];
+            }];
         }else{
             [MMProgressHUD dismissWithSuccess:[resposeDic objectForKey:@"ErrorMessage"] title:nil afterDelay:2];
         }
@@ -451,13 +438,7 @@ float prewMoveY;
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             HardWareUUID = UUID;
-//            UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
-//            udp.productName = self.deviceName;
-//            HardWareUUID = self.barTextfield.text;
-//            udp.productUUID = self.barTextfield.text;
-//            [self.navigationController pushViewController:udp animated:YES];
             MMPopupItemHandler block = ^(NSInteger index){
-                HaviLog(@"clickd %@ button",@(index));
                 if (index == 1) {
                     UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
                     udp.productName = self.deviceName;
@@ -486,35 +467,6 @@ float prewMoveY;
             alertView.attachedView = self.view;
             
             [alertView show];
-            /*
-            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"提示" subtitle:@"已成功关联您的设备,是否需要现在激活设备"];
-            alertView.blurBackground = NO;
-            [alertView addButtonWithTitle:@"不需要"];
-            [alertView addButtonWithTitle:@"激活"];
-            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
-                [alertView hideWithAnimation:URBAlertAnimationFade completionBlock:^{
-                    if (buttonIndex == 1) {
-                        UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
-                        udp.productName = self.deviceName;
-                        HardWareUUID = self.barTextfield.text;
-                        udp.productUUID = self.barTextfield.text;
-                        [self.navigationController pushViewController:udp animated:YES];
-                    }else if (buttonIndex ==0){
-                        for (UIViewController *controller in self.navigationController.viewControllers) {
-                            if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
-                                
-                                [self.navigationController popToViewController:controller animated:YES];
-                                //泡个消息，让首界面更新数据
-                                HardWareUUID = self.barTextfield.text;
-                                break;
-                            }
-                        }
-
-                    }
-                }];
-            }];
-            [alertView showWithAnimation:URBAlertAnimationFade];
-             */
         }else{
             [self.view makeToast:@"无法设置该设备为您的默认设备" duration:2 position:@"center"];
         }
