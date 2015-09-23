@@ -13,6 +13,7 @@
     UILabel *titleLabel;
     UILabel *dataLabel;
     UIView *lineViewBottom;
+    UIView *lineView;
 }
 @end
 
@@ -36,12 +37,12 @@
             make.left.equalTo(self).offset(10);
             make.height.equalTo(self);
         }];
-        UIView *lineView = [[UIView alloc]init];
+        lineView = [[UIView alloc]init];
         lineView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
         [self addSubview:lineView];
         [lineView makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
-            make.height.equalTo(self.height);
+            make.height.equalTo(60);
             make.width.equalTo(0.5);
         }];
         //
@@ -63,7 +64,7 @@
         [lineViewBottom makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.bottom).offset(-0.5);
             make.height.equalTo(0.5);
-            make.width.equalTo(self);
+            make.width.equalTo(self.width);
         }];
     }
     return self;
@@ -77,6 +78,9 @@
     dataLabel.font = _cellFont;
     titleLabel.textColor = _cellColor;
     dataLabel.textColor = _cellDataColor;
+    lineView.frame = CGRectMake(self.frame.size.width/2, 0, 0.5, 60);
+    lineView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
+    lineViewBottom.frame = CGRectMake(0, 59, self.frame.size.width, 0.5);
 }
 
 - (void)setCellFont:(UIFont *)cellFont

@@ -79,12 +79,12 @@
             
             CGFloat cY = self.frame.size.height - bottomLineMargin;
             // 收集坐标点
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(cX, cY+3, ((xCoordinateWidth)/(count)), 10)];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(cX, cY+5, ((xCoordinateWidth)/(count)), 10)];
             label.backgroundColor = [UIColor clearColor];
             label.text = xValue;
             label.tag = 1001;
             label.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-            label.font = [UIFont systemFontOfSize:13];
+            label.font = [UIFont systemFontOfSize:12];
             label.textAlignment = NSTextAlignmentCenter;
             [self addSubview:label];
             //
