@@ -570,9 +570,20 @@
             self.userTitleLabel.text = @"点击修改头像";
         }
         return sectionView;
+    }else{
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+        view.backgroundColor = [UIColor colorWithRed:0.949f green:0.941f blue:0.945f alpha:1.00f];
+        return view;
     }
     
     return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+    view.backgroundColor = [UIColor colorWithRed:0.949f green:0.941f blue:0.945f alpha:1.00f];
+    return view;
 }
 
 #pragma mark 拍照
@@ -889,6 +900,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -921,13 +947,14 @@
     userRect.size.height -= height;
     self.keyBoardHeight = height;
     self.userInfoTableView.tableView.frame = userRect;
+//    self.userInfoTableView.headerImageView.image = nil;
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     CGRect userRect = self.userInfoTableView.frame;
     userRect.size.height += self.keyBoardHeight;
     self.userInfoTableView.tableView.frame = self.view.bounds;
-    
+//    self.userInfoTableView.headerImageView.image = [UIImage imageNamed:@"pic_heder_portrait"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
