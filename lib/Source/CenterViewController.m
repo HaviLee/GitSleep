@@ -861,7 +861,7 @@
             [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
             [self.view makeToast:@"不要着急呦，明天睡后就会有数据啦！" duration:2.3 position:@"center"];
         }else{
-            selectedDateToUse = date;
+            
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
             NSString *dateString = [formatter stringFromDate:date];
@@ -873,6 +873,7 @@
                 [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
             }
         }
+        selectedDateToUse = date;
     }
 }
 
@@ -1025,6 +1026,7 @@
 - (void)reloadThemeImage
 {
     [super reloadThemeImage];
+    
     if (selectedThemeIndex == 0) {
         self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
     }else{
@@ -1052,6 +1054,7 @@
     _secondHeartView = nil;
     _dataViewArr = nil;
     self.dataViewArr = @[self.secondHeartView,self.secondBreathView,self.sendLeaveView,self.sendTurnView];
+    [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
 }
 
 - (void)shareApp:(UIButton *)sender
