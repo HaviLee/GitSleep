@@ -557,6 +557,14 @@
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
 		2CF34FC91BB1039E007099FC /* pic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF34FC81BB1039E007099FC /* pic_about@2x.png */; };
+		2CF350161BB299B5007099FC /* UIImage+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF350081BB299B5007099FC /* UIImage+Image.m */; };
+		2CF350171BB299B5007099FC /* XMGPersonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3500A1BB299B5007099FC /* XMGPersonTableViewController.m */; };
+		2CF350181BB299B5007099FC /* XMGPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3500C1BB299B5007099FC /* XMGPersonViewController.m */; };
+		2CF350191BB299B5007099FC /* YZPersonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3500E1BB299B5007099FC /* YZPersonTableViewController.m */; };
+		2CF3501A1BB299B5007099FC /* YZPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF350101BB299B5007099FC /* YZPersonViewController.m */; };
+		2CF3501B1BB299B5007099FC /* YZPersonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF350111BB299B5007099FC /* YZPersonViewController.xib */; };
+		2CF3501C1BB299B5007099FC /* YZTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF350131BB299B5007099FC /* YZTableView.m */; };
+		2CF3501D1BB299B5007099FC /* YZWeiBoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF350151BB299B5007099FC /* YZWeiBoTableViewController.m */; };
 		57063D2C1ABFDE7B00A61267 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 57063D2B1ABFDE7B00A61267 /* ImageUtil.m */; };
 		572AA9841AC29A5700DED1D9 /* THPinInputCirclesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 572AA9751AC29A5700DED1D9 /* THPinInputCirclesView.m */; };
 		572AA9851AC29A5700DED1D9 /* THPinInputCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 572AA9771AC29A5700DED1D9 /* THPinInputCircleView.m */; };
@@ -1401,6 +1409,21 @@
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
 		2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2CF34FC81BB1039E007099FC /* pic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_about@2x.png"; sourceTree = "<group>"; };
+		2CF350071BB299B5007099FC /* UIImage+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Image.h"; sourceTree = "<group>"; };
+		2CF350081BB299B5007099FC /* UIImage+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Image.m"; sourceTree = "<group>"; };
+		2CF350091BB299B5007099FC /* XMGPersonTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGPersonTableViewController.h; sourceTree = "<group>"; };
+		2CF3500A1BB299B5007099FC /* XMGPersonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGPersonTableViewController.m; sourceTree = "<group>"; };
+		2CF3500B1BB299B5007099FC /* XMGPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGPersonViewController.h; sourceTree = "<group>"; };
+		2CF3500C1BB299B5007099FC /* XMGPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGPersonViewController.m; sourceTree = "<group>"; };
+		2CF3500D1BB299B5007099FC /* YZPersonTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZPersonTableViewController.h; sourceTree = "<group>"; };
+		2CF3500E1BB299B5007099FC /* YZPersonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZPersonTableViewController.m; sourceTree = "<group>"; };
+		2CF3500F1BB299B5007099FC /* YZPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZPersonViewController.h; sourceTree = "<group>"; };
+		2CF350101BB299B5007099FC /* YZPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZPersonViewController.m; sourceTree = "<group>"; };
+		2CF350111BB299B5007099FC /* YZPersonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YZPersonViewController.xib; sourceTree = "<group>"; };
+		2CF350121BB299B5007099FC /* YZTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZTableView.h; sourceTree = "<group>"; };
+		2CF350131BB299B5007099FC /* YZTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZTableView.m; sourceTree = "<group>"; };
+		2CF350141BB299B5007099FC /* YZWeiBoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZWeiBoTableViewController.h; sourceTree = "<group>"; };
+		2CF350151BB299B5007099FC /* YZWeiBoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZWeiBoTableViewController.m; sourceTree = "<group>"; };
 		2E3E74CEF9F573378B879AC5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		57063D2A1ABFDE7B00A61267 /* ImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageUtil.h; path = lib/thirdlib/ImageUtil.h; sourceTree = "<group>"; };
 		57063D2B1ABFDE7B00A61267 /* ImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageUtil.m; path = lib/thirdlib/ImageUtil.m; sourceTree = "<group>"; };
@@ -1626,6 +1649,7 @@
 		2C0125351A8F5E5500382A9D /* MainController */ = {
 			isa = PBXGroup;
 			children = (
+				2CF350051BB299B5007099FC /* YZPerson */,
 				2CDB86571BABCD4F00551192 /* report */,
 				2C5E5C1B1B12B3DE00123CC4 /* ResideMenu */,
 				5764CB111AB6B2A0002A0B85 /* Login */,
@@ -2571,6 +2595,37 @@
 			path = lib/thirdlib/Alert_Classes;
 			sourceTree = "<group>";
 		};
+		2CF350051BB299B5007099FC /* YZPerson */ = {
+			isa = PBXGroup;
+			children = (
+				2CF350061BB299B5007099FC /* Category */,
+				2CF350091BB299B5007099FC /* XMGPersonTableViewController.h */,
+				2CF3500A1BB299B5007099FC /* XMGPersonTableViewController.m */,
+				2CF3500B1BB299B5007099FC /* XMGPersonViewController.h */,
+				2CF3500C1BB299B5007099FC /* XMGPersonViewController.m */,
+				2CF3500D1BB299B5007099FC /* YZPersonTableViewController.h */,
+				2CF3500E1BB299B5007099FC /* YZPersonTableViewController.m */,
+				2CF3500F1BB299B5007099FC /* YZPersonViewController.h */,
+				2CF350101BB299B5007099FC /* YZPersonViewController.m */,
+				2CF350111BB299B5007099FC /* YZPersonViewController.xib */,
+				2CF350121BB299B5007099FC /* YZTableView.h */,
+				2CF350131BB299B5007099FC /* YZTableView.m */,
+				2CF350141BB299B5007099FC /* YZWeiBoTableViewController.h */,
+				2CF350151BB299B5007099FC /* YZWeiBoTableViewController.m */,
+			);
+			name = YZPerson;
+			path = controller/YZPerson;
+			sourceTree = "<group>";
+		};
+		2CF350061BB299B5007099FC /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				2CF350071BB299B5007099FC /* UIImage+Image.h */,
+				2CF350081BB299B5007099FC /* UIImage+Image.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		572AA9731AC29A5700DED1D9 /* THPinViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3293,6 +3348,7 @@
 				2CDB86B11BABE66800551192 /* havi1_2@2x.png in Resources */,
 				2C7D22991AF1CA050011A45C /* btn_custom_0@2x.png in Resources */,
 				2C15E7221AF214E800142F36 /* icon_verification code_1@2x.png in Resources */,
+				2CF3501B1BB299B5007099FC /* YZPersonViewController.xib in Resources */,
 				2C7D22901AF1CA050011A45C /* bg_two_dimension_code_0@2x.png in Resources */,
 				2C7D22C01AF1CA050011A45C /* iocn_heart_rate_0@2x.png in Resources */,
 				2C15E7081AF214E800142F36 /* btn_sleep_advice_1@2x.png in Resources */,
@@ -3576,6 +3632,7 @@
 				2C77D52E1AEE7EB4004123D2 /* MMTwoListPickerView.m in Sources */,
 				2C1F1FCD1AD989DB00393E04 /* QuaterReportView.m in Sources */,
 				2C435E661AD0D8FA003B1604 /* ToggleView.m in Sources */,
+				2CF350161BB299B5007099FC /* UIImage+Image.m in Sources */,
 				5777E6921AD76A2F00A7C6C4 /* MonthCalenderView.m in Sources */,
 				577120061AD5022800508C5C /* HaviButton.m in Sources */,
 				2CDB86BB1BABE66800551192 /* YXSpritesLoadingView.m in Sources */,
@@ -3601,6 +3658,7 @@
 				2C94F9E51B8AED0200F1A4DB /* DTTimePeriodCollection.m in Sources */,
 				57802E2C1AE7398200823E39 /* UploadImageApi.m in Sources */,
 				2CDB86AD1BABE66800551192 /* FBShimmeringLayer.m in Sources */,
+				2CF3501A1BB299B5007099FC /* YZPersonViewController.m in Sources */,
 				2C1F1FED1ADBF38F00393E04 /* WQDraggableCalendarView.m in Sources */,
 				576F09C91AC3A4D90083395C /* UDPController.m in Sources */,
 				2C94FA1A1B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m in Sources */,
@@ -3680,6 +3738,7 @@
 				2C77D54D1AEFC8CF004123D2 /* GetTurnDataAPI.m in Sources */,
 				2C1F1FE81ADBF38F00393E04 /* WQCalendarDay.m in Sources */,
 				576A767B1AC1513400BE8206 /* GetInavlideCodeApi.m in Sources */,
+				2CF3501C1BB299B5007099FC /* YZTableView.m in Sources */,
 				575F5A9D1AAE87670061AA11 /* DeviceManagerViewController.m in Sources */,
 				2C1AD7181AAAE74A00655A5B /* ModalAnimation.m in Sources */,
 				577062E01AC2919900790F79 /* Gloable.m in Sources */,
@@ -3721,6 +3780,7 @@
 				2CD6C0691B7D812300F1FF6A /* UIBezierPath+curved.m in Sources */,
 				2C1F1FD01ADA57AB00393E04 /* WeekCalenderView.m in Sources */,
 				2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */,
+				2CF3501D1BB299B5007099FC /* YZWeiBoTableViewController.m in Sources */,
 				2CD6C0401B7B048100F1FF6A /* WeiBoLogoutAPI.m in Sources */,
 				2C5E5C221B12B3F200123CC4 /* RECommonFunctions.m in Sources */,
 				5793D1C11AA9A1BA00BC24CA /* XLScrollViewer.m in Sources */,
@@ -3768,8 +3828,10 @@
 				2CD6C0451B7B2A2B00F1FF6A /* UploadTagAPI.m in Sources */,
 				2C94FA131B8AEF9200F1A4DB /* CalendarDayModel.m in Sources */,
 				57802E231AE7398200823E39 /* GetDeviceStatusAPI.m in Sources */,
+				2CF350191BB299B5007099FC /* YZPersonTableViewController.m in Sources */,
 				2C8F7BBD1AF3747700E56513 /* JTCalendarMonthWeekDaysView.m in Sources */,
 				2C7CA01E1B67561300AA511D /* CenterViewController.m in Sources */,
+				2CF350171BB299B5007099FC /* XMGPersonTableViewController.m in Sources */,
 				2C15E67C1AF1FF6F00142F36 /* GetLeaveBedSleepAPI.m in Sources */,
 				572AA9841AC29A5700DED1D9 /* THPinInputCirclesView.m in Sources */,
 				2C435E811AD2D4C4003B1604 /* DataStaticViewController.m in Sources */,
@@ -3783,6 +3845,7 @@
 				5781D00B1AE8DB9C0092E8CD /* BindingDeviceUUIDAPI.m in Sources */,
 				575F5AA01AAE900B0061AA11 /* SleepSettingViewController.m in Sources */,
 				578F57E71AB7D3D20090A167 /* CKTextField.m in Sources */,
+				2CF350181BB299B5007099FC /* XMGPersonViewController.m in Sources */,
 				5759ECE81AC52DD800E9BFF2 /* MLTransitionAnimation.m in Sources */,
 				2CDB86851BABCD4F00551192 /* NewWeekReport.m in Sources */,
 				2C94FA251B8D853B00F1A4DB /* URBAlertView.m in Sources */,

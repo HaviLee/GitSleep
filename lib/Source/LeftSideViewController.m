@@ -20,6 +20,7 @@
 #import "SleepAnalysisViewController.h"
 #import "AppDelegate.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "XMGPersonViewController.h"
 
 @interface LeftSideViewController ()
 @property (nonatomic,strong) UIView *tableHeaderView;
@@ -284,8 +285,11 @@
 
 - (void)showUserInfo
 {
-    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[UserInfoViewController alloc] init]]
-                                                 animated:YES];
+//    XMGPersonViewController *personVc = [[XMGPersonViewController alloc] init];
+//    
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:personVc];
+//    [self.sideMenuViewController setContentViewController:nav animated:YES];
+    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[UserInfoViewController alloc] init]] animated:YES];
     [self.sideMenuViewController hideMenuViewController];
 }
 
