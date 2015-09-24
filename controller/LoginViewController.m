@@ -496,7 +496,8 @@
         }else{
             [MMProgressHUD dismiss];
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                [self.view makeToast:@"密码或者帐号错误,请重试。" duration:2 position:@"center"];
+                NSString *error = [resposeDic objectForKey:@"ErrorMessage"];
+                [self.view makeToast:error duration:2 position:@"center"];
             }];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
