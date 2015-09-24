@@ -327,8 +327,9 @@ NSString * const MMshowsSelectionIndicator = @"showsSelectionIndicator";
     
     UIButton *buttonCancel = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonCancel setTitle:@"取消" forState:UIControlStateNormal];
-    [buttonCancel setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [buttonCancel setTitleColor:[UIColor colorWithRed:0.133f green:0.537f blue:0.984f alpha:1.00f] forState:UIControlStateNormal];
     buttonCancel.frame = CGRectMake(0, 202, _pickerContainerView.frame.size.width, 41.5);
+    buttonCancel.titleLabel.font = [UIFont systemFontOfSize:18];
     buttonCancel.layer.cornerRadius = 5;
     buttonCancel.layer.masksToBounds = YES;
     [buttonCancel addTarget:self action:@selector(buttonCancelTaped:) forControlEvents:UIControlEventTouchUpInside];
@@ -337,8 +338,9 @@ NSString * const MMshowsSelectionIndicator = @"showsSelectionIndicator";
     //
     UIButton *buttonSure = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonSure setTitle:@"确定" forState:UIControlStateNormal];
-    [buttonSure setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [buttonSure setTitleColor:[UIColor colorWithRed:0.133f green:0.537f blue:0.984f alpha:1.00f] forState:UIControlStateNormal];
     buttonSure.backgroundColor = [UIColor whiteColor];
+    buttonSure.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
     buttonSure.layer.cornerRadius = 5;
     buttonSure.layer.masksToBounds= YES;
     [buttonSure addTarget:self action:@selector(buttonSureTaped:) forControlEvents:UIControlEventTouchUpInside];

@@ -296,7 +296,7 @@
 {
     NSString *utf8String = @"http://www.meddo.com.cn";
     NSString *title = @"智照护";
-    NSString *description = @"我正在使用智照护App";
+    NSString *description = @"我正在使用智照护App监控我的睡眠";
     NSString *previewImageUrl = @"http://www.meddo.com.cn/images/logo.jpg";
     QQApiNewsObject *newsObj = [QQApiNewsObject
                                 objectWithURL:[NSURL URLWithString:utf8String]
@@ -329,7 +329,7 @@
     QQApiImageObject *imgObj = [QQApiImageObject objectWithData:data
                                                previewImageData:data
                                                           title:@"智照护"
-                                                    description:@"我正在使用智照护app"];
+                                                    description:@"我正在使用智照护app监控我的睡眠"];
     SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:imgObj];
     //将内容分享到qq
     QQApiSendResultCode sent = [QQApiInterface sendReq:req];
@@ -362,7 +362,7 @@
 - (WBMessageObject *)messageToShare
 {
     WBMessageObject *message = [WBMessageObject message];
-    message.text = NSLocalizedString(@"我正在使用智照护App,快来使用啦!", nil);
+    message.text = NSLocalizedString(@"我正在使用智照护App监控我的睡眠,快来使用啦!", nil);
     WBImageObject *image = [WBImageObject object];
     NSData *data;
     UIImage *image1 = [self captureScreen];

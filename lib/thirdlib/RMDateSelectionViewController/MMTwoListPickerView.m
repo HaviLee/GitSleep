@@ -327,7 +327,7 @@
     
     UIButton *buttonCancel = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonCancel setTitle:@"取消" forState:UIControlStateNormal];
-    [buttonCancel setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [buttonCancel setTitleColor:[UIColor colorWithRed:0.133f green:0.537f blue:0.984f alpha:1.00f] forState:UIControlStateNormal];
     buttonCancel.frame = CGRectMake(0, 202, _pickerContainerView.frame.size.width, 41.5);
     buttonCancel.layer.cornerRadius = 5;
     buttonCancel.layer.masksToBounds = YES;
@@ -337,7 +337,7 @@
     //
     UIButton *buttonSure = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonSure setTitle:@"确定" forState:UIControlStateNormal];
-    [buttonSure setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [buttonSure setTitleColor:[UIColor colorWithRed:0.133f green:0.537f blue:0.984f alpha:1.00f] forState:UIControlStateNormal];
     buttonSure.backgroundColor = [UIColor whiteColor];
     buttonSure.layer.cornerRadius = 5;
     buttonSure.layer.masksToBounds= YES;
