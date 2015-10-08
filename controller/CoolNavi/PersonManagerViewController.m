@@ -17,12 +17,21 @@
 #import "MTStatusBarOverlay.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "SHGetClient.h"
+#import "PersonDetailTableViewCell.h"
+#import "RMDateSelectionViewController.h"
+#import "SHPutClient.h"
 
-@interface PersonManagerViewController ()<UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface PersonManagerViewController ()<UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,RMDateSelectionViewControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CoolNavi *headerView;
-@property (nonatomic,strong) NSDictionary *userInfoDic;
+@property (nonatomic, strong) NSDictionary *userInfoDic;
+@property (nonatomic, strong) NSArray *cellIconArr;
+@property (nonatomic, strong) NSArray *cellTitleArr;
+@property (nonatomic, strong) NSArray *cellKeyDicArr;
+
+@property (nonatomic,strong) RMDateSelectionViewController *datePickerSelectionVC;
+
 
 @end
 
@@ -30,6 +39,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.cellIconArr = @[@[@"name",@"birthday",@"gender",@"icon_phone_1",@"emergency_Contact",@"icon_phone1"],@[@"height",@"weight",@"home"]];
+    self.cellTitleArr = @[@[@"姓名:",@"生日:",@"性别:",@"紧急联系人:",@"紧急联系人电话:"],@[@"身高:",@"体重:",@"家庭住址:"]];
+    self.cellKeyDicArr = @[@[@"UserName",@"Birthday",@"Gender",@"EmergencyContact",@"Telephone"],@[@"Height",@"Weight",@"Address"]];
     [self.navigationController setNavigationBarHidden:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
@@ -44,6 +56,7 @@
     };
     [_headerView.backButton addTarget:self action:@selector(backToView) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_headerView];
+    
     //
     [self queryUserInfo];
 }
@@ -51,10 +64,6 @@
 //获取用户基本信息
 - (void)queryUserInfo
 {
-    /*old
-     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-     [MMProgressHUD showWithStatus:@"加载中..."];
-     */
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -330,7 +339,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -348,23 +357,30 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 10;
+    if (section==0) {
+        return 5;
+    }else{
+        return 3;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellReuseIdentifier  = @"cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier];
+    PersonDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellReuseIdentifier];
-        cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+        cell = [[PersonDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellReuseIdentifier andIndexPath:indexPath];
+        cell.selectionStyle  = UITableViewCellSelectionStyleGray;
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"test %ld",(long)indexPath.row];
+    cell.personInfoTitle = [[self.cellTitleArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+    cell.personInfoIconString = [[self.cellIconArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+    cell.personInfoString = [NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.cellKeyDicArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
@@ -377,7 +393,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog([NSString stringWithFormat:@"%ld",(int)(long)indexPath.row]);
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section==0) {
+        if (indexPath.row==0) {
+            
+        }else if (indexPath.row==1){
+            [self tapedBirth:nil];
+        }else if (indexPath.row==2){
+        }
+    }else{
+        
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -405,6 +431,79 @@
     }
 }
 
+#pragma mark 选择器
+- (void)tapedBirth:(UITapGestureRecognizer *)gesture
+{
+    if (!_datePickerSelectionVC) {
+        self.datePickerSelectionVC = [RMDateSelectionViewController dateSelectionControllerWith:PickerViewDateType];
+        _datePickerSelectionVC.delegate = self;
+        _datePickerSelectionVC.datePicker.datePickerMode = UIDatePickerModeDate;
+        _datePickerSelectionVC.titleLabel.hidden = YES;
+        _datePickerSelectionVC.hideNowButton = YES;
+    }
+    _datePickerSelectionVC.title = @"date";
+    [_datePickerSelectionVC show];
+}
+#pragma mark - RMDAteSelectionViewController Delegates
+- (void)dateSelectionViewController:(RMDateSelectionViewController *)vc didSelectDate:(NSString *)aDate {
+    if ([vc.title isEqualToString:@"date"]) {
+        NSString *dateString = [NSString stringWithFormat:@"%@",aDate];
+        NSString *dateSubString = [dateString substringWithRange:NSMakeRange(0, 10)];
+        [self saveUserInfoWithKey:@"Birthday" andData:dateSubString];
+//        self.birthteTextField.text = dateSubString;
+    }else if ([vc.title isEqualToString:@"gender"]){
+//        self.sexTextField.text = aDate;
+    }else if ([vc.title isEqualToString:@"height"]){
+//        self.heightTextField.text = aDate;
+    }else if ([vc.title isEqualToString:@"weight"]){
+//        self.weightTextField.text = aDate;
+    }
+    
+}
+
+- (void)dateSelectionViewControllerDidCancel:(RMDateSelectionViewController *)vc {
+    HaviLog(@"Date selection was canceled");
+}
+
+#pragma mark 更新信息
+- (void)saveUserInfoWithKey:(NSString *)key andData:(NSString *)data
+{
+    
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
+    
+    SHPutClient *client = [SHPutClient shareInstance];
+    NSDictionary *dic = @{
+                          @"UserID": thirdPartyLoginUserId, //关键字，必须传递
+                          key:data,
+                          };
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789",
+                             };
+    [client modifyUserInfo:header andWithPara:dic];
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        HaviLog(@"保存%@",resposeDic);
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [MMProgressHUD dismiss];
+            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+//                [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadUserInfo" object:nil];
+                [self queryUserInfo];
+            }];
+        }else{
+            [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
+        }
+    } failure:^(YTKBaseRequest *request) {
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

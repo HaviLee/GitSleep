@@ -461,6 +461,8 @@
 		2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */; };
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
 		2CC006FA1B9FC6DB007DE798 /* LXActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC006F91B9FC6DB007DE798 /* LXActivity.m */; };
+		2CC05F921BC6173400D27F42 /* PersonDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC05F911BC6173400D27F42 /* PersonDetailTableViewCell.m */; };
+		2CC05F951BC6266F00D27F42 /* EditCellInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC05F941BC6266F00D27F42 /* EditCellInfoViewController.m */; };
 		2CC8E7ED1B96AEEF00F69ABE /* SencondHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */; };
 		2CC8E7F01B97272100F69ABE /* SencondBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7EF1B97272100F69ABE /* SencondBreathViewController.m */; };
 		2CC8E7F31B972DE600F69ABE /* SencondLeaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */; };
@@ -1251,6 +1253,10 @@
 		2CAF5E911AE7F55700E7E3AA /* protocol.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = protocol.html; sourceTree = "<group>"; };
 		2CC006F81B9FC6DB007DE798 /* LXActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXActivity.h; sourceTree = "<group>"; };
 		2CC006F91B9FC6DB007DE798 /* LXActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXActivity.m; sourceTree = "<group>"; };
+		2CC05F901BC6173400D27F42 /* PersonDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonDetailTableViewCell.h; sourceTree = "<group>"; };
+		2CC05F911BC6173400D27F42 /* PersonDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonDetailTableViewCell.m; sourceTree = "<group>"; };
+		2CC05F931BC6266F00D27F42 /* EditCellInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCellInfoViewController.h; sourceTree = "<group>"; };
+		2CC05F941BC6266F00D27F42 /* EditCellInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCellInfoViewController.m; sourceTree = "<group>"; };
 		2CC8E7EB1B96AEEF00F69ABE /* SencondHeartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondHeartViewController.h; path = controller/SencondHeartViewController.h; sourceTree = "<group>"; };
 		2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondHeartViewController.m; path = controller/SencondHeartViewController.m; sourceTree = "<group>"; };
 		2CC8E7EE1B97272100F69ABE /* SencondBreathViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondBreathViewController.h; path = controller/SencondBreathViewController.h; sourceTree = "<group>"; };
@@ -2591,6 +2597,10 @@
 				2CF350201BB2B51F007099FC /* CoolNavi.m */,
 				2CF350221BB2B592007099FC /* PersonManagerViewController.h */,
 				2CF350231BB2B592007099FC /* PersonManagerViewController.m */,
+				2CC05F901BC6173400D27F42 /* PersonDetailTableViewCell.h */,
+				2CC05F911BC6173400D27F42 /* PersonDetailTableViewCell.m */,
+				2CC05F931BC6266F00D27F42 /* EditCellInfoViewController.h */,
+				2CC05F941BC6266F00D27F42 /* EditCellInfoViewController.m */,
 			);
 			name = CoolNavi;
 			path = controller/CoolNavi;
@@ -3121,7 +3131,7 @@
 				TargetAttributes = {
 					2C4FCB091A8F56E800DCEEF3 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = A4R9NHT83H;
+						DevelopmentTeam = CF99UB3L46;
 					};
 					2C4FCB221A8F56E800DCEEF3 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -3710,6 +3720,7 @@
 				576A767B1AC1513400BE8206 /* GetInavlideCodeApi.m in Sources */,
 				575F5A9D1AAE87670061AA11 /* DeviceManagerViewController.m in Sources */,
 				2C1AD7181AAAE74A00655A5B /* ModalAnimation.m in Sources */,
+				2CC05F921BC6173400D27F42 /* PersonDetailTableViewCell.m in Sources */,
 				577062E01AC2919900790F79 /* Gloable.m in Sources */,
 				576F09CF1AC3CDC50083395C /* PassCodeSettingViewController.m in Sources */,
 				57D566801AD255DF00FE7439 /* DiagnoseReportTableViewCell.m in Sources */,
@@ -3772,6 +3783,7 @@
 				2C1F1FC71AD95CA600393E04 /* MonthReportTableViewCell.m in Sources */,
 				2C7345E41B7835DA004D8AB3 /* WeiXinAPI.m in Sources */,
 				2C94F9E61B8AED0200F1A4DB /* DTTimePeriodGroup.m in Sources */,
+				2CC05F951BC6266F00D27F42 /* EditCellInfoViewController.m in Sources */,
 				2C15E6791AF1FF5600142F36 /* GetBreathSleepDataAPI.m in Sources */,
 				572AA9861AC29A5700DED1D9 /* THPinNumButton.m in Sources */,
 				576A76751AC1337600BE8206 /* ShowAlertView.m in Sources */,
@@ -3956,6 +3968,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/Source/WeChatSDK_1.5_OnlyIphone",
@@ -3970,8 +3983,9 @@
 					"$(PROJECT_DIR)/lib/Source/WeChatSDK_1.5_OnlyIphone",
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ihotkeys.ihotkeys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2151e554-77a1-476e-aadd-643e0cff236e";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3983,6 +3997,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/Source/WeChatSDK_1.5_OnlyIphone",
@@ -3997,8 +4012,9 @@
 					"$(PROJECT_DIR)/lib/Source/WeChatSDK_1.5_OnlyIphone",
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ihotkeys.ihotkeys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2151e554-77a1-476e-aadd-643e0cff236e";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

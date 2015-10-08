@@ -94,7 +94,6 @@
 {
     CGFloat destinaOffset = -64;
     CGFloat startChangeOffset = -self.scrollView.contentInset.top;
-    HaviLog(@"表哥%f",newOffset.y);
     newOffset = CGPointMake(newOffset.x, newOffset.y<startChangeOffset?startChangeOffset:(newOffset.y>destinaOffset?destinaOffset:newOffset.y));
     
     CGFloat subviewOffset = self.frame.size.height-40; // 子视图的偏移量
