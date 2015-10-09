@@ -939,11 +939,11 @@ static UIImage *_cancelImage;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if ([self.title isEqualToString:@"height"]) {
-        [self.pickerListView selectRow:160 inComponent:0 animated:YES];
-        _resultString = @"160CM";
+        [self.pickerListView selectRow:120 inComponent:0 animated:YES];
+        _resultString = @"170";
     }else if([self.title isEqualToString:@"weight"]){
-        [self.pickerListView selectRow:55 inComponent:0 animated:YES];
-        _resultString = @"55KG";
+        [self.pickerListView selectRow:25 inComponent:0 animated:YES];
+        _resultString = @"65";
     }else if ([self.title isEqualToString:@"gender"]){
         [self.pickerListView selectRow:0 inComponent:0 animated:YES];
         _resultString = @"男";
@@ -1267,7 +1267,7 @@ static UIImage *_cancelImage;
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
 {
-    return 80;
+    return 50;
 }
 
 #pragma mark UIPickerViewdelegate
@@ -1282,7 +1282,7 @@ static UIImage *_cancelImage;
         pickerLabel.adjustsFontSizeToFitWidth = YES;
         [pickerLabel setTextAlignment:NSTextAlignmentCenter];
         [pickerLabel setBackgroundColor:[UIColor clearColor]];
-        [pickerLabel setFont:[UIFont boldSystemFontOfSize:40]];
+        [pickerLabel setFont:[UIFont systemFontOfSize:25]];
     }
     // Fill the label text here
     pickerLabel.text=[self pickerView:pickerView titleForRow:row forComponent:component];

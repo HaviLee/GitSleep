@@ -20,6 +20,7 @@
 #import "PersonDetailTableViewCell.h"
 #import "RMDateSelectionViewController.h"
 #import "SHPutClient.h"
+#import "EditCellInfoViewController.h"
 
 @interface PersonManagerViewController ()<UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,RMDateSelectionViewControllerDelegate>
 
@@ -31,7 +32,9 @@
 @property (nonatomic, strong) NSArray *cellKeyDicArr;
 
 @property (nonatomic,strong) RMDateSelectionViewController *datePickerSelectionVC;
-
+@property (nonatomic,strong) RMDateSelectionViewController *gerderPicker;
+@property (nonatomic,strong) RMDateSelectionViewController *heightPicker;
+@property (nonatomic,strong) RMDateSelectionViewController *weightPicker;
 
 @end
 
@@ -94,6 +97,8 @@
             NSDictionary *dic = (NSDictionary *)request.responseJSONObject;
             self.userInfoDic = dic;
             [self.tableView reloadData];
+            NSString *titlePhone = [[self.userInfoDic objectForKey:@"UserInfo"] objectForKey:@"CellPhone"];
+            self.headerView.titleLabel.text = titlePhone;
         }];
     } failure:^(YTKBaseRequest *request) {
         [MMProgressHUD dismiss];
@@ -105,11 +110,6 @@
 #pragma mark 拍照
 - (void)tapIconImage:(UIGestureRecognizer *)gesture
 {
-//    if (![self isNetworkExist]) {
-//        
-//        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
-//        return;
-//    }
     
     UIActionSheet *sheet;
     
@@ -356,6 +356,11 @@
     return 0.001;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 30;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
@@ -379,7 +384,16 @@
     }
     cell.personInfoTitle = [[self.cellTitleArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
     cell.personInfoIconString = [[self.cellIconArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
-    cell.personInfoString = [NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.cellKeyDicArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+    if (self.userInfoDic.count>0) {
+        if (indexPath.section==1 && indexPath.row==0) {
+            cell.personInfoString = [NSString stringWithFormat:@"%@ CM",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.cellKeyDicArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+            
+        }else if (indexPath.section==1 && indexPath.row==1){
+            cell.personInfoString = [NSString stringWithFormat:@"%@ KG",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.cellKeyDicArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+        }else{
+            cell.personInfoString = [NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.cellKeyDicArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+        }
+    }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
@@ -395,16 +409,34 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section==0) {
-        if (indexPath.row==0) {
-            
-        }else if (indexPath.row==1){
+        if (indexPath.row==1){
             [self tapedBirth:nil];
         }else if (indexPath.row==2){
+            [self tapedGender:nil];
+        }else{
+            EditCellInfoViewController *cellInfo = [[EditCellInfoViewController alloc]init];
+            if(indexPath.row==0){
+                cellInfo.cellInfoType = @"UserName";
+            }else if (indexPath.row==3){
+                cellInfo.cellInfoType = @"EmergencyContact";
+            }else if (indexPath.row==4){
+                cellInfo.cellInfoType = @"Telephone";
+            }
+            cellInfo.saveButtonClicked = ^(NSUInteger index) {
+                [self queryUserInfo];
+            };
+            [self.navigationController pushViewController:cellInfo animated:YES];
         }
     }else{
+        if (indexPath.row==0) {
+            [self tapedHeight:nil];
+        }else if (indexPath.row==1){
+            [self tapedWeight:nil];
+        }
         
     }
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -432,6 +464,58 @@
 }
 
 #pragma mark 选择器
+
+- (void)tapedHeight:(UITapGestureRecognizer *)gesture
+{
+    if (!_heightPicker) {
+        self.heightPicker = [RMDateSelectionViewController dateSelectionControllerWith:PickerViewListType];
+        _heightPicker.delegate = self;
+        _heightPicker.titleLabel.hidden = YES;
+        _heightPicker.hideNowButton = YES;
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            for (int i=50; i<200; i++) {
+                [arr addObject:[NSString stringWithFormat:@"%d CM",i]];
+            }
+            _heightPicker.pickerDataArray = arr;
+        });
+    }
+    _heightPicker.title = @"height";
+    [_heightPicker show];
+}
+
+- (void)tapedWeight:(UITapGestureRecognizer *)gesture
+{
+    if (!_weightPicker) {
+        self.weightPicker = [RMDateSelectionViewController dateSelectionControllerWith:PickerViewListType];
+        _weightPicker.delegate = self;
+        _weightPicker.titleLabel.hidden = YES;
+        _weightPicker.hideNowButton = YES;
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            for (int i=40; i<100; i++) {
+                [arr addObject:[NSString stringWithFormat:@"%d KG",i]];
+            }
+            _weightPicker.pickerDataArray = arr;
+        });
+    }
+    _weightPicker.title = @"weight";
+    [_weightPicker show];
+}
+
+- (void)tapedGender:(UITapGestureRecognizer *)gesture
+{
+    if (!_gerderPicker) {
+        self.gerderPicker = [RMDateSelectionViewController dateSelectionControllerWith:PickerViewListType];
+        _gerderPicker.delegate = self;
+        _gerderPicker.titleLabel.hidden = YES;
+        _gerderPicker.hideNowButton = YES;
+        _gerderPicker.pickerDataArray = @[@"男",@"女"];
+    }
+    _gerderPicker.title = @"gender";
+    [_gerderPicker show];
+}
+
 - (void)tapedBirth:(UITapGestureRecognizer *)gesture
 {
     if (!_datePickerSelectionVC) {
@@ -446,17 +530,23 @@
 }
 #pragma mark - RMDAteSelectionViewController Delegates
 - (void)dateSelectionViewController:(RMDateSelectionViewController *)vc didSelectDate:(NSString *)aDate {
-    if ([vc.title isEqualToString:@"date"]) {
-        NSString *dateString = [NSString stringWithFormat:@"%@",aDate];
-        NSString *dateSubString = [dateString substringWithRange:NSMakeRange(0, 10)];
-        [self saveUserInfoWithKey:@"Birthday" andData:dateSubString];
-//        self.birthteTextField.text = dateSubString;
-    }else if ([vc.title isEqualToString:@"gender"]){
-//        self.sexTextField.text = aDate;
-    }else if ([vc.title isEqualToString:@"height"]){
-//        self.heightTextField.text = aDate;
-    }else if ([vc.title isEqualToString:@"weight"]){
-//        self.weightTextField.text = aDate;
+    if (aDate) {
+        
+        if ([vc.title isEqualToString:@"date"]) {
+            NSString *dateString = [NSString stringWithFormat:@"%@",aDate];
+            NSString *dateSubString = [dateString substringWithRange:NSMakeRange(0, 10)];
+            [self saveUserInfoWithKey:@"Birthday" andData:dateSubString];
+        }else if ([vc.title isEqualToString:@"gender"]){
+            [self saveUserInfoWithKey:@"Gender" andData:aDate];
+        }else if ([vc.title isEqualToString:@"height"]){
+            NSRange range = [aDate rangeOfString:@" CM"];
+            NSString *height = [aDate substringToIndex:range.location];
+            [self saveUserInfoWithKey:@"Height" andData:height];
+        }else if ([vc.title isEqualToString:@"weight"]){
+            NSRange range = [aDate rangeOfString:@" KG"];
+            NSString *weight = [aDate substringToIndex:range.location];
+            [self saveUserInfoWithKey:@"Weight" andData:weight];
+        }
     }
     
 }
@@ -493,7 +583,6 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [MMProgressHUD dismiss];
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-//                [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadUserInfo" object:nil];
                 [self queryUserInfo];
             }];
         }else{

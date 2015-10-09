@@ -10,4 +10,8 @@
 
 @interface EditCellInfoViewController : BaseViewController
 
+@property (nonatomic, copy) void (^saveButtonClicked)(NSUInteger index);
+
+@property (nonatomic,strong) NSString *cellInfoType;
+
 @end

@@ -29,6 +29,7 @@
         cellTitleLabel = [[UILabel alloc]init];
         [self addSubview:cellTitleLabel];
         cellTitleLabel.numberOfLines = 0;
+        cellTitleLabel.alpha = 0.6;
         //
         cellImage = [[UIImageView alloc]init];
         [self addSubview:cellImage];
@@ -54,7 +55,7 @@
             make.right.equalTo(self.right).offset(-15);
             make.centerY.equalTo(self.centerY);
         }];
-        cellData.text = @"没事";
+        cellData.text = @"";
     }
     return self;
 }

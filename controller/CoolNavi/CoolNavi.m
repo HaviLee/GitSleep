@@ -40,12 +40,12 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
         [_headerImageView addGestureRecognizer:tap];
 
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0.6*frame.size.height, frame.size.width, frame.size.height*0.2)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0.6*frame.size.height+30, frame.size.width, frame.size.height*0.2)];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.font = [UIFont systemFontOfSize:14];
+        _titleLabel.font = [UIFont systemFontOfSize:20];
         _titleLabel.text = title;
         
-        _subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0.75*frame.size.height, frame.size.width, frame.size.height*0.1)];
+        _subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0.75*frame.size.height+15, frame.size.width, frame.size.height*0.1)];
         _subTitleLabel.textAlignment = NSTextAlignmentCenter;
         _subTitleLabel.font = [UIFont systemFontOfSize:12];
         _subTitleLabel.text = subTitle;
@@ -71,7 +71,7 @@
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _backButton.frame = CGRectMake(0, 20, 44, 44);
         _backButton.contentMode = UIViewContentModeScaleAspectFill;
-        [_backButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+        [_backButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",1]] forState:UIControlStateNormal];
         [_backButton addTarget:self action:@selector(backToHome:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backButton;
@@ -114,7 +114,7 @@
     _headerImageView.transform = CGAffineTransformScale(t,
                                                         imageReduce, imageReduce);
     
-    self.titleLabel.frame = CGRectMake(0, 0.6*self.frame.size.height+(subviewOffset-0.45*self.frame.size.height)*(1-alpha), self.frame.size.width, self.frame.size.height*0.2);
+    self.titleLabel.frame = CGRectMake(0, 0.6*self.frame.size.height+(subviewOffset-0.45*self.frame.size.height)*(1-alpha)+10, self.frame.size.width, self.frame.size.height*0.2);
     self.subTitleLabel.frame = CGRectMake(0, 0.75*self.frame.size.height+(subviewOffset-0.45*self.frame.size.height)*(1-alpha), self.frame.size.width, self.frame.size.height*0.1);
 }
 
