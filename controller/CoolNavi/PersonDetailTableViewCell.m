@@ -30,11 +30,14 @@
         [self addSubview:cellTitleLabel];
         cellTitleLabel.numberOfLines = 0;
         cellTitleLabel.alpha = 0.6;
+        cellTitleLabel.font = [UIFont systemFontOfSize:17];
         //
         cellImage = [[UIImageView alloc]init];
         [self addSubview:cellImage];
         //
         cellData = [[UILabel alloc]init];
+        cellData.font = [UIFont systemFontOfSize:17];
+        cellData.numberOfLines = 0;
         [self addSubview:cellData];
         
         [cellImage makeConstraints:^(MASConstraintMaker *make) {
@@ -51,9 +54,11 @@
         }];
         //
         [cellData makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(cellTitleLabel.right).offset(20);
-            make.right.equalTo(self.right).offset(-15);
+            make.left.equalTo(cellTitleLabel.right).offset(5);
+            make.right.equalTo(self.right).offset(-25);
             make.centerY.equalTo(self.centerY);
+            make.top.equalTo(self.top).offset(5);
+            make.bottom.equalTo(self.bottom).offset(-5);
         }];
         cellData.text = @"";
     }

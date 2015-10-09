@@ -21,6 +21,7 @@
 #import "RMDateSelectionViewController.h"
 #import "SHPutClient.h"
 #import "EditCellInfoViewController.h"
+#import "EditAddressCellViewController.h"
 
 @interface PersonManagerViewController ()<UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,RMDateSelectionViewControllerDelegate>
 
@@ -54,10 +55,23 @@
     _headerView.imgActionBlock = ^(){
         [weakSelf tapIconImage:nil];
     };
-    _headerView.backBlock = ^(){
-        [weakSelf.sideMenuViewController presentLeftMenuViewController];
-    };
-    [_headerView.backButton addTarget:self action:@selector(backToView) forControlEvents:UIControlEventTouchUpInside];
+    NSArray *arr = self.navigationController.viewControllers;
+    
+    if ([self isEqual:[arr objectAtIndex:0]]) {
+
+       
+        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
+        [_headerView.backButton setImage:i forState:UIControlStateNormal];
+        _headerView.backBlock = ^(){
+            [weakSelf.sideMenuViewController presentLeftMenuViewController];
+        };
+    }else{
+        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",1]];
+        [_headerView.backButton setImage:i forState:UIControlStateNormal];
+        _headerView.backBlock = ^(){
+            [weakSelf backToView];
+        };
+    }
     [self.view addSubview:_headerView];
     
     //
@@ -290,9 +304,10 @@
             [[NSUserDefaults standardUserDefaults]setObject:imageData forKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]];
             [[NSUserDefaults standardUserDefaults]synchronize];
             dispatch_async(dispatch_get_main_queue(), ^{
-                MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
-                [overlay postImmediateFinishMessage:@"头像修改成功" duration:2 animated:YES];
+//                MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
+//                [overlay postImmediateFinishMessage:@"头像修改成功" duration:2 animated:YES];
                 self.headerView.headerImageView.image = [UIImage imageWithData:imageData];
+                [self.view makeToast:@"上传头像成功" duration:2 position:@"center"];
             });
 
             
@@ -333,7 +348,7 @@
 
 - (void)backToView
 {
-    [self.sideMenuViewController presentLeftMenuViewController];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (UITableView *)tableView
@@ -402,7 +417,15 @@
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60;
+    if (indexPath.section==1&&indexPath.row==2) {
+        if ([self heightForText:[NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.cellKeyDicArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]]]<60) {
+            return 60;
+        }else{
+            return [self heightForText:[NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.cellKeyDicArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]]];
+        }
+    }else{
+        return 60;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -432,6 +455,16 @@
             [self tapedHeight:nil];
         }else if (indexPath.row==1){
             [self tapedWeight:nil];
+        }else{
+            EditAddressCellViewController *cell = [[EditAddressCellViewController alloc]init];
+            cell.cellInfoType = @"Address";
+            if ([NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.cellKeyDicArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]].length>0) {
+                cell.cellInfoString = [NSString stringWithFormat:@"%@",[[self.userInfoDic objectForKey:@"UserInfo"]objectForKey:[[self.cellKeyDicArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]];
+            }
+            cell.saveButtonClicked = ^(NSUInteger index) {
+                [self queryUserInfo];
+            };
+            [self.navigationController pushViewController:cell animated:YES];
         }
         
     }
@@ -592,6 +625,15 @@
         [MMProgressHUD dismiss];
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
+}
+
+#pragma mark 计算高度
+- (CGFloat)heightForText:(NSString *)text
+{
+    //设置计算文本时字体的大小,以什么标准来计算
+    NSDictionary *attrbute = @{NSFontAttributeName:[UIFont systemFontOfSize:17]};
+    CGFloat width = self.view.frame.size.width-185;
+    return [text boundingRectWithSize:CGSizeMake(width, 100) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attrbute context:nil].size.height+15;
 }
 
 - (void)didReceiveMemoryWarning {

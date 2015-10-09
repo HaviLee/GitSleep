@@ -16,6 +16,7 @@
 #import "UserProtocolViewController.h"
 #import "AppDelegate.h"
 #import "WeiBoLogoutAPI.h"
+#import "PersonManagerViewController.h"
 
 @interface APPSettingViewController ()
 @property (nonatomic,strong) UIButton *logoutButton;
@@ -116,8 +117,9 @@
                 switch (indexPath.row) {
                     case 0:
                     {
-                        UserInfoViewController *user = [[UserInfoViewController alloc]init];
-                        [self.navigationController pushViewController:user animated:YES];
+                        PersonManagerViewController *person = [[PersonManagerViewController alloc]init];
+//                        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:person];
+                        [self.navigationController pushViewController:person animated:YES];
                         break;
                     }
                     case 1:{

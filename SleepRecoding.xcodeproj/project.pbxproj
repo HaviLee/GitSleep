@@ -556,6 +556,7 @@
 		2CDE55771BAE8B150017C5DE /* btn_right_75_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDE55731BAE8B150017C5DE /* btn_right_75_1@2x.png */; };
 		2CDE55781BAE8B150017C5DE /* btn_left_75_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDE55741BAE8B150017C5DE /* btn_left_75_1@2x.png */; };
 		2CDE557A1BAE9BF00017C5DE /* pic_introduce_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CDE55791BAE9BF00017C5DE /* pic_introduce_2@2x.png */; };
+		2CDF9C0F1BC7B0BE009CEB4C /* EditAddressCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDF9C0E1BC7B0BE009CEB4C /* EditAddressCellViewController.m */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
 		2CF34FC91BB1039E007099FC /* pic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF34FC81BB1039E007099FC /* pic_about@2x.png */; };
@@ -1407,6 +1408,8 @@
 		2CDE55731BAE8B150017C5DE /* btn_right_75_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_right_75_1@2x.png"; sourceTree = "<group>"; };
 		2CDE55741BAE8B150017C5DE /* btn_left_75_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_left_75_1@2x.png"; sourceTree = "<group>"; };
 		2CDE55791BAE9BF00017C5DE /* pic_introduce_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_introduce_2@2x.png"; sourceTree = "<group>"; };
+		2CDF9C0D1BC7B0BE009CEB4C /* EditAddressCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAddressCellViewController.h; sourceTree = "<group>"; };
+		2CDF9C0E1BC7B0BE009CEB4C /* EditAddressCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAddressCellViewController.m; sourceTree = "<group>"; };
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
 		2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -2601,6 +2604,8 @@
 				2CC05F911BC6173400D27F42 /* PersonDetailTableViewCell.m */,
 				2CC05F931BC6266F00D27F42 /* EditCellInfoViewController.h */,
 				2CC05F941BC6266F00D27F42 /* EditCellInfoViewController.m */,
+				2CDF9C0D1BC7B0BE009CEB4C /* EditAddressCellViewController.h */,
+				2CDF9C0E1BC7B0BE009CEB4C /* EditAddressCellViewController.m */,
 			);
 			name = CoolNavi;
 			path = controller/CoolNavi;
@@ -3689,6 +3694,7 @@
 				2CDB868A1BABCD4F00551192 /* SleepQualityBar.m in Sources */,
 				577062DD1AC285F100790F79 /* STAlertView.m in Sources */,
 				2CDB86861BABCD4F00551192 /* NewWeekReportViewController.m in Sources */,
+				2CDF9C0F1BC7B0BE009CEB4C /* EditAddressCellViewController.m in Sources */,
 				2C6D2F411AF620A2008C285B /* UserInfoTableViewCell.m in Sources */,
 				2CDB86831BABCD4F00551192 /* NewSecondBreathViewController.m in Sources */,
 				572AA9881AC29A5700DED1D9 /* THPinView.m in Sources */,
