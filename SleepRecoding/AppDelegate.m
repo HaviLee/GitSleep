@@ -132,12 +132,12 @@
     MMSheetViewConfig *sheetConfig = [MMSheetViewConfig globalConfig];
     
     alertConfig.defaultTextOK = @"确认";
-    alertConfig.backgroundColor = [UIColor colorWithRed:0.000f green:0.024f blue:0.047f alpha:1.00f];
-    alertConfig.titleColor = [UIColor whiteColor];
-    alertConfig.detailColor = [UIColor whiteColor];
-    alertConfig.itemNormalColor = [UIColor whiteColor];
-    alertConfig.itemHighlightColor = [UIColor whiteColor];
-    alertConfig.splitColor = [UIColor whiteColor];
+    alertConfig.backgroundColor = [UIColor whiteColor];
+    alertConfig.titleColor = [UIColor grayColor];
+    alertConfig.detailColor = [UIColor grayColor];
+    alertConfig.itemNormalColor = [UIColor grayColor];
+    alertConfig.itemHighlightColor = [UIColor grayColor];
+    alertConfig.splitColor = [UIColor lightGrayColor];
     
     alertConfig.defaultTextCancel = @"取消";
     alertConfig.defaultTextConfirm = @"确认";

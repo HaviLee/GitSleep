@@ -60,7 +60,7 @@
     if ([self isEqual:[arr objectAtIndex:0]]) {
 
        
-        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
+        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",1]];
         [_headerView.backButton setImage:i forState:UIControlStateNormal];
         _headerView.backBlock = ^(){
             [weakSelf.sideMenuViewController presentLeftMenuViewController];
