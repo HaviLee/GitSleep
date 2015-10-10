@@ -691,7 +691,7 @@
             
             return cell;
         }else{
-            static NSString *cellIndentifier = @"cell2";
+            NSString *cellIndentifier = [NSString stringWithFormat:@"cell2%ld",(long)indexPath.row];
             ReportDataTableViewCell *cell = (ReportDataTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
             if (!cell) {
                 cell = [[ReportDataTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
