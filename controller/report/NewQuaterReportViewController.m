@@ -148,8 +148,12 @@
     }
     float duration = [[longDic objectForKey:@"SleepDuration"]floatValue]<0?-[[longDic objectForKey:@"SleepDuration"]floatValue]:[[longDic objectForKey:@"SleepDuration"]floatValue];
     double second = 0.0;
-    double subsecond = modf(duration, &second);
-    self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)(subsecond*60)];
+    if (duration>0) {
+        double subsecond = modf(duration, &second);
+        self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)(subsecond*60)];
+    }else if (duration==0){
+        self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@""];
+    }
     if ([[NSString stringWithFormat:@"%@",[shortDic objectForKey:@"Date"]]isEqualToString:@"(null)"]) {
         self.shortSleepView.sleepYearMonthDayString = @"";
     }else{
@@ -157,8 +161,12 @@
     }
     
     float duration1 = [[shortDic objectForKey:@"SleepDuration"]floatValue]<0?-[[shortDic objectForKey:@"SleepDuration"]floatValue]:[[shortDic objectForKey:@"SleepDuration"]floatValue];
-    double subsecond1 = modf(duration1, &second);
-    self.shortSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration1,(int)(subsecond1*60)];
+    if (duration1>0) {
+        double subsecond1 = modf(duration1, &second);
+        self.shortSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration1,(int)(subsecond1*60)];
+    }else if (duration1==0){
+        self.shortSleepView.sleepTimeLongString = [NSString stringWithFormat:@""];
+    }
     [self reloadReportChart:[self.reportData objectForKey:@"Data"]];
     
 }

@@ -45,13 +45,13 @@
     
     sleepYearMonthDayLabel = [[UILabel alloc]init];
     sleepYearMonthDayLabel.font = [UIFont systemFontOfSize:11];
-    sleepYearMonthDayLabel.text = @"00-00-00";
+    sleepYearMonthDayLabel.text = @"";
     sleepYearMonthDayLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
     [self addSubview:sleepYearMonthDayLabel];
     
     sleepTimeLongLabel = [[UILabel alloc]init];
     sleepTimeLongLabel.font = [UIFont systemFontOfSize:11];
-    sleepTimeLongLabel.text = @"00小时00分";
+    sleepTimeLongLabel.text = @"";
     sleepTimeLongLabel.textAlignment = NSTextAlignmentRight;
     sleepTimeLongLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f]:[UIColor whiteColor];
     [self addSubview:sleepTimeLongLabel];
