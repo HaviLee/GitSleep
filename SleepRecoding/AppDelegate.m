@@ -24,6 +24,10 @@
 #import "MMPopupWindow.h"
 #import "MMAlertView.h"
 #import "MMSheetView.h"
+#import "SwipableViewController.h"
+#import "SleepTabViewController.h"
+
+#import "NewCenterViewController.h"
 
 //
 #import "LoginContainerViewController.h"//架构重构
@@ -74,7 +78,7 @@
      设置状态栏的字体颜色
      同时设置状态栏的字体的颜色要在info.plist文件中设置一个key: UIViewControllerBasedStatusBarAppearance 为NO
      */
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"background1.png"] forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"background1.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     //
     [self getSuggestionList];
@@ -93,11 +97,14 @@
     if ([UserManager IsUserLogged]) {
         [UserManager GetUserObj];
     }
-    self.centerViewController = [[CenterViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.centerViewController];
+    NewCenterViewController *centerViewController = [[NewCenterViewController alloc]init];
+    NewCenterViewController *cen = [[NewCenterViewController alloc]init];
+    self.nav_tweet = [RKSwipeBetweenViewControllers newSwipeBetweenViewControllers];
+    [_nav_tweet.viewControllerArray addObjectsFromArray:@[centerViewController,cen]];
+    _nav_tweet.buttonText = @[@"冒泡广场",@"我的冒泡"];
     LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
     
-    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController
+    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:_nav_tweet
                                                                     leftMenuViewController:leftMenuViewController
                                                                    rightMenuViewController:nil];
     NSString *nowDateString = [NSString stringWithFormat:@"%@",[self getNowDateFromatAnDate:[NSDate date]]];
@@ -143,6 +150,15 @@
     alertConfig.defaultTextConfirm = @"确认";
     
     sheetConfig.defaultTextCancel = @"Cancel";
+    //设置导航栏
+    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
+    [navigationBarAppearance setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"0x28303b"]] forBarMetrics:UIBarMetricsDefault];
+    [navigationBarAppearance setTintColor:[UIColor whiteColor]];//返回按钮的箭头颜色
+    NSDictionary *textAttributes = @{
+                                     NSFontAttributeName: [UIFont boldSystemFontOfSize:18],
+                                     NSForegroundColorAttributeName: [UIColor whiteColor],
+                                     };
+    [navigationBarAppearance setTitleTextAttributes:textAttributes];
 }
 
 - (void)setThirdLoginNoti

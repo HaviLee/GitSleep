@@ -21,6 +21,8 @@
 #import "AppDelegate.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "PersonManagerViewController.h"
+//
+#import "NewCenterViewController.h"
 
 @interface LeftSideViewController ()
 @property (nonatomic,strong) UIView *tableHeaderView;
@@ -227,7 +229,7 @@
     switch (indexPath.row) {
         case 0:{
             AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
-            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:app.centerViewController] animated:YES];
+            [self.sideMenuViewController setContentViewController:app.nav_tweet animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             break;
         }

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UDPController.h"
 #import "RESideMenu.h"
-#import "CenterViewController.h"
+#import "RKSwipeBetweenViewControllers.h"
 #import "WXApi.h"
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
@@ -19,11 +19,13 @@
 @property (strong, nonatomic)  UDPController* udpController;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) RESideMenu *sideMenuController;
-@property (strong, nonatomic) CenterViewController *centerViewController;
+@property (strong, nonatomic) RKSwipeBetweenViewControllers *nav_tweet;
 //
 @property (strong, nonatomic) NSString *wbtoken;
 @property (strong, nonatomic) NSString *wbCurrentUserID;
 @property (strong, nonatomic) TencentOAuth *tencentOAuth;
+@property (nonatomic, assign) BOOL inNightMode;
+
 
 -(void) setWifiNotification;
 
