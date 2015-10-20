@@ -941,7 +941,7 @@
 
 #pragma mark 处理键盘事件
 - (void)viewWillAppear:(BOOL)animated{
-    [[self navigationController] setNavigationBarHidden:NO];
+//    [[self navigationController] setNavigationBarHidden:NO];
     [super viewWillAppear:animated];
 }
 

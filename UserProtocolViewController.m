@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationController.navigationBarHidden = YES;
     self.bgImageView.image = [UIImage imageNamed:@""];
     self.view.backgroundColor = [UIColor whiteColor];
     [self createNavWithTitle:@"用户协议" createMenuItem:^UIView *(int nIndex)

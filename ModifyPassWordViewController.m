@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
     [self createNavWithTitle:@"修改密码" createMenuItem:^UIView *(int nIndex)
      {
          if (nIndex == 1)

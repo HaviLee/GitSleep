@@ -177,6 +177,8 @@
 		2C1F1FEE1ADBF38F00393E04 /* WQScrollCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FE41ADBF38F00393E04 /* WQScrollCalendarView.m */; };
 		2C1F1FEF1ADBF38F00393E04 /* WQScrollCalendarWrapperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FE61ADBF38F00393E04 /* WQScrollCalendarWrapperView.m */; };
 		2C1F1FF51ADBF42700393E04 /* CalenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FF41ADBF42700393E04 /* CalenderView.m */; };
+		2C2D283A1BD616F900E0499F /* navi_pg_night_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2D28391BD616F900E0499F /* navi_pg_night_0@2x.png */; };
+		2C2D28421BD61AE700E0499F /* navi_bg_center_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2D28411BD61AE700E0499F /* navi_bg_center_1@2x.png */; };
 		2C3AF2B11AF4611E00B66E32 /* NKJPagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AF2B01AF4611E00B66E32 /* NKJPagerViewController.m */; };
 		2C3AF2B41AF461DC00B66E32 /* TodayDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AF2B31AF461DC00B66E32 /* TodayDataViewController.m */; };
 		2C3AF2B71AF4620200B66E32 /* TodayHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AF2B61AF4620200B66E32 /* TodayHeartViewController.m */; };
@@ -886,6 +888,8 @@
 		2C1F1FE61ADBF38F00393E04 /* WQScrollCalendarWrapperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WQScrollCalendarWrapperView.m; sourceTree = "<group>"; };
 		2C1F1FF31ADBF42700393E04 /* CalenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalenderView.h; sourceTree = "<group>"; };
 		2C1F1FF41ADBF42700393E04 /* CalenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderView.m; sourceTree = "<group>"; };
+		2C2D28391BD616F900E0499F /* navi_pg_night_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_pg_night_0@2x.png"; sourceTree = "<group>"; };
+		2C2D28411BD61AE700E0499F /* navi_bg_center_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg_center_1@2x.png"; sourceTree = "<group>"; };
 		2C3AF2AF1AF4611E00B66E32 /* NKJPagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NKJPagerViewController.h; path = lib/newData/NKJPagerViewController.h; sourceTree = "<group>"; };
 		2C3AF2B01AF4611E00B66E32 /* NKJPagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NKJPagerViewController.m; path = lib/newData/NKJPagerViewController.m; sourceTree = "<group>"; };
 		2C3AF2B21AF461DC00B66E32 /* TodayDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodayDataViewController.h; path = lib/newData/TodayDataViewController.h; sourceTree = "<group>"; };
@@ -2668,6 +2672,8 @@
 				2CE9E74B1BD4B661001D8401 /* BaseNavigationController.m */,
 				2CE9E74D1BD4B6B1001D8401 /* SMPageControl.h */,
 				2CE9E74E1BD4B6B1001D8401 /* SMPageControl.m */,
+				2C2D28411BD61AE700E0499F /* navi_bg_center_1@2x.png */,
+				2C2D28391BD616F900E0499F /* navi_pg_night_0@2x.png */,
 				2CE9E7501BD4C304001D8401 /* nav_page_selected@2x.png */,
 				2CE9E7511BD4C304001D8401 /* nav_page_unselected@2x.png */,
 				2CE9E7A11BD4C9AF001D8401 /* NewCenterViewController.h */,
@@ -3360,6 +3366,7 @@
 				2C4FCB1E1A8F56E800DCEEF3 /* LaunchScreen.xib in Resources */,
 				57C723F61AF73AAB006BE7D0 /* pic_day_1@3x.png in Resources */,
 				2C7D22FD1AF1CA220011A45C /* heart_2_0.png in Resources */,
+				2C2D283A1BD616F900E0499F /* navi_pg_night_0@2x.png in Resources */,
 				2C15E6FB1AF214E800142F36 /* btn_caeate_account_1@2x.png in Resources */,
 				2C15E70E1AF214E800142F36 /* gender_1@2x.png in Resources */,
 				2C15E7761AF2151500142F36 /* get_up1_1@2x.png in Resources */,
@@ -3396,6 +3403,7 @@
 				2C15E74F1AF214E800142F36 /* txtbox_quit_1@2x.png in Resources */,
 				2C7D22001AF1C6550011A45C /* btn_edit_info@2x.png in Resources */,
 				2C15E7131AF214E800142F36 /* icon_alarm_clock_1@2x.png in Resources */,
+				2C2D28421BD61AE700E0499F /* navi_bg_center_1@2x.png in Resources */,
 				2C7D22D41AF1CA050011A45C /* pic_day_0@3x.png in Resources */,
 				57C723F71AF73AAB006BE7D0 /* pic_night_1@3x.png in Resources */,
 				2CF350281BB2E938007099FC /* background@3x.png in Resources */,

@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
     // Do any additional setup after loading the view.
     [self createNavWithTitle:@"密码锁设定" createMenuItem:^UIView *(int nIndex)
      {

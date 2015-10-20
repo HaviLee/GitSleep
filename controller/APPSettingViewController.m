@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
     [self createNavWithTitle:@"设定" createMenuItem:^UIView *(int nIndex)
      {
          if (nIndex == 1)
@@ -213,7 +214,7 @@
     }
     [[NSUserDefaults standardUserDefaults]setObject:@"18:00" forKey:UserDefaultStartTime ];
     [[NSUserDefaults standardUserDefaults]setObject:@"06:00" forKey:UserDefaultEndTime ];
-    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:app.nav_tweet] animated:YES];
+    [self.sideMenuViewController setContentViewController:app.nav_tweet animated:YES];
     [self.sideMenuViewController hideMenuViewController];
     [UserManager resetUserInfo];
     HardWareUUID = thirdHardDeviceUUID;

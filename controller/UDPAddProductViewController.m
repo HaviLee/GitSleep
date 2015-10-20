@@ -38,6 +38,7 @@
 @implementation UDPAddProductViewController
 
 - (void)viewDidLoad {
+    self.navigationController.navigationBarHidden = YES;
     [super viewDidLoad];
     //硬件的初始化
     sniffer = [[Sniffer alloc]init];

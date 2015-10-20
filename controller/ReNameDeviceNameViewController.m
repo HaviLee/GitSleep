@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
     // Do any additional setup after loading the view.
     self.bgImageView.image = [UIImage imageNamed:@""];
     [self createNavWithTitle:@"重命名设备" createMenuItem:^UIView *(int nIndex)

@@ -54,6 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
     [self createNavWithTitle:@"睡眠设置" createMenuItem:^UIView *(int nIndex)
      {
          if (nIndex == 1)

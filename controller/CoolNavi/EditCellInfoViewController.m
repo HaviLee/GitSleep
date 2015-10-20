@@ -110,7 +110,7 @@
 - (UITableView *)cellTableView
 {
     if (!_cellTableView) {
-        _cellTableView = [[UITableView alloc]initWithFrame:CGRectMake(0,64 , self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStyleGrouped];
+        _cellTableView = [[UITableView alloc]initWithFrame:CGRectMake(0,64, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStyleGrouped];
         _cellTableView.delegate = self;
         _cellTableView.dataSource = self;
         _cellTableView.scrollEnabled = NO;

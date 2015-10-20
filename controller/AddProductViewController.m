@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:0.259f green:0.259f blue:0.259f alpha:1.00f];
     UILabel *titleLabel = [[UILabel alloc]init];

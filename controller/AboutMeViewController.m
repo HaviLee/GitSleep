@@ -23,6 +23,7 @@
     
     // Do any additional setup after loading the view.
     // 使用方法
+    self.navigationController.navigationBarHidden = YES;
     self.bgImageView.image = [UIImage imageNamed:@""];
     self.view.backgroundColor = [UIColor whiteColor];
     [self createNavWithTitle:@"关于迈动" createMenuItem:^UIView *(int nIndex)

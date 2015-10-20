@@ -154,14 +154,6 @@
     
     sheetConfig.defaultTextCancel = @"Cancel";
     //设置导航栏
-    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
-    [navigationBarAppearance setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"0x28303b"]] forBarMetrics:UIBarMetricsDefault];
-    [navigationBarAppearance setTintColor:[UIColor whiteColor]];//返回按钮的箭头颜色
-    NSDictionary *textAttributes = @{
-                                     NSFontAttributeName: [UIFont boldSystemFontOfSize:18],
-                                     NSForegroundColorAttributeName: [UIColor whiteColor],
-                                     };
-    [navigationBarAppearance setTitleTextAttributes:textAttributes];
 }
 
 - (void)setThirdLoginNoti

@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
     [self createNavWithTitle:@"设备管理" createMenuItem:^UIView *(int nIndex)
      {
          if (nIndex == 1)

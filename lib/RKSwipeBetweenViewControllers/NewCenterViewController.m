@@ -6,6 +6,7 @@
 //  Copyright © 2015年 Havi. All rights reserved.
 //
 #import "UIBarButtonItem+Common.h"
+#import "UIColor+expanded.h"
 #import "NewCenterViewController.h"
 #import "CHCircleGaugeView.h"
 #import "CenterViewTableViewCell.h"
@@ -36,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     [self setNavigationbarItems];
     [self initData];
@@ -378,11 +380,7 @@
 - (void)createTableView
 {
     [self.view addSubview:self.cellTableView];
-    if (selectedThemeIndex == 0) {
-        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
-    }else{
-        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
-    }
+    
 }
 
 #pragma mark 更新clock
@@ -431,6 +429,15 @@
 
 - (void)setNavigationbarItems
 {
+    if (selectedThemeIndex == 0) {
+        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_pg_night_0"] forBarMetrics:UIBarMetricsDefault];
+    }else{
+        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bg_center_1"] forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     UIBarButtonItem *leftBarItem =[UIBarButtonItem itemWithIcon:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex] showBadge:NO target:self action:@selector(presentLeftMenuViewController:)];
     [self.parentViewController.navigationItem setLeftBarButtonItem:leftBarItem animated:NO];
     
