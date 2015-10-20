@@ -439,9 +439,11 @@
     
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     UIBarButtonItem *leftBarItem =[UIBarButtonItem itemWithIcon:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex] showBadge:NO target:self action:@selector(presentLeftMenuViewController:)];
+    leftBarItem.tag = 1000;
     [self.parentViewController.navigationItem setLeftBarButtonItem:leftBarItem animated:NO];
     
     UIBarButtonItem *rightBarItem =[UIBarButtonItem itemWithIcon:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex] showBadge:NO target:self action:@selector(shareMenuView:)];
+    rightBarItem.tag = 1001;
     [self.parentViewController.navigationItem setRightBarButtonItem:rightBarItem animated:NO];
     
 }
@@ -542,6 +544,55 @@
 - (void)shareMenuView:(UIButton *)sender
 {
     [self.shareNewMenuView showInView:self.view];
+}
+
+- (void)reloadThemeImage
+{
+    [super reloadThemeImage];
+    
+    if (selectedThemeIndex == 0) {
+        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_pg_night_0"] forBarMetrics:UIBarMetricsDefault];
+    }else{
+        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bg_center_1"] forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    UIBarButtonItem *left = (UIBarButtonItem *)[self.navigationController.navigationBar viewWithTag:1000];
+    left.customView = nil;
+    UIBarButtonItem *right = (UIBarButtonItem *)[self.navigationController.navigationBar viewWithTag:1000];
+    right.customView = nil;
+    
+    UIBarButtonItem *leftBarItem =[UIBarButtonItem itemWithIcon:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex] showBadge:NO target:self action:@selector(presentLeftMenuViewController:)];
+    leftBarItem.tag = 1000;
+    [self.parentViewController.navigationItem setLeftBarButtonItem:leftBarItem animated:NO];
+    
+    UIBarButtonItem *rightBarItem =[UIBarButtonItem itemWithIcon:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex] showBadge:NO target:self action:@selector(shareMenuView:)];
+    rightBarItem.tag = 1001;
+    [self.parentViewController.navigationItem setRightBarButtonItem:rightBarItem animated:NO];
+    self.clearNaviTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [self.menuButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    _circleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
+    _circleView.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.datePicker.backLine.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",1]] forState:UIControlStateNormal];
+    [self.cellTableView reloadData];
+    _circleView.valueTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [_circleView.cView.gradientLayer1 setColors:selectedThemeIndex ==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x356E8B alpha:1]CGColor],[[self colorWithHex:0x3e608d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1C7A59 alpha:1]CGColor],[[self colorWithHex:0x0F705C alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
+    [_circleView.cView.gradientLayer2 setColors:selectedThemeIndex==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1cd98d alpha:1]CGColor],(id)[[self colorWithHex:0x21c88d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x8DEC45 alpha:1]CGColor],(id)[[self colorWithHex:0x85E445 alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
+    self.sleepTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [_iWantSleepLabel setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_textbox_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [_iWantSleepLabel setTitleColor:selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+//    _sendLeaveView = nil;
+//    _sendTurnView = nil;
+//    _secondBreathView = nil;
+//    _secondHeartView = nil;
+    _dataViewArr = nil;
+//    self.dataViewArr = @[self.secondHeartView,self.secondBreathView,self.sendLeaveView,self.sendTurnView];
+    [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
 }
 
 #pragma mark tableview
