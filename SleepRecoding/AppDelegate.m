@@ -97,6 +97,9 @@
     if ([UserManager IsUserLogged]) {
         [UserManager GetUserObj];
     }
+    ////测试使用havi
+    thirdHardDeviceName = @"MT003";
+    [UserManager setGlobalOauth];
     NewCenterViewController *centerViewController = [[NewCenterViewController alloc]init];
     NewCenterViewController *cen = [[NewCenterViewController alloc]init];
     self.nav_tweet = [RKSwipeBetweenViewControllers newSwipeBetweenViewControllers];

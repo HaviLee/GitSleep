@@ -501,30 +501,12 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeValueAnimation:)];
     [self.circleView.cView addGestureRecognizer:tap];
     [self.view addSubview:self.iWantSleepLabel];
-//    self.iWantSleepLabel.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(sendSleepTime)];
-//    [self.iWantSleepLabel addGestureRecognizer:gesture];
-    
-//    [self.circleView addSubview:self.nightView];
-//    self.nightView.nightTime = @"睡眠时间";
-//    
-//    [self.circleView addSubview:self.dayView];
-//    self.dayView.dayTime = @"起床时间";
 }
 
 - (void)setCalenderAndMenu
 {
     [self.view addSubview:self.datePicker];
     NSDate *nowDate = [self getNowDate];
-//    NSString *nowDateString = [NSString stringWithFormat:@"%@",nowDate];
-//    isTodayHourEqualSixteen = [[nowDateString substringWithRange:NSMakeRange(11, 2)] intValue];
-//    if (isTodayHourEqualSixteen<18) {
-//        self.dateComponentsBase.day = -1;
-//        NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:nowDate options:0];
-//        [self.datePicker updateCalenderSelectedDate:yestoday];
-//        selectedDateToUse = yestoday;
-//    }else{
-//    }
     selectedDateToUse = nowDate;
     
     [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",1]] forState:UIControlStateNormal];

@@ -885,7 +885,7 @@
 {
     if (!_datePicker) {
         int datePickerHeight = self.view.frame.size.height*0.202623;
-        _datePicker = [[DatePickerView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - datePickerHeight, self.view.frame.size.width,datePickerHeight)];
+        _datePicker = [[DatePickerView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - datePickerHeight-64, self.view.frame.size.width,datePickerHeight)];
     }
     return _datePicker;
 }
