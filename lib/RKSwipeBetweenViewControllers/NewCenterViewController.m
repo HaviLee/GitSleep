@@ -7,6 +7,7 @@
 //
 #import "UIBarButtonItem+Common.h"
 #import "UIColor+expanded.h"
+#import "AppDelegate.h"
 #import "NewCenterViewController.h"
 #import "CHCircleGaugeView.h"
 #import "CenterViewTableViewCell.h"
@@ -558,6 +559,8 @@
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bg_center_1"] forBarMetrics:UIBarMetricsDefault];
     }
     
+    AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    app.nav_tweet.navigationViewColor = selectedThemeIndex ==0?DefaultColor:[UIColor whiteColor];
     UIBarButtonItem *left = (UIBarButtonItem *)[self.navigationController.navigationBar viewWithTag:1000];
     left.customView = nil;
     UIBarButtonItem *right = (UIBarButtonItem *)[self.navigationController.navigationBar viewWithTag:1000];
