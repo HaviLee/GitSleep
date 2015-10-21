@@ -750,9 +750,10 @@
 {
     if (!_menuButton) {
         _menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _menuButton.backgroundColor = [UIColor clearColor];
         UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
         [_menuButton setImage:i forState:UIControlStateNormal];
-        [_menuButton setFrame:CGRectMake(5, 0, 44, 44)];
+        [_menuButton setFrame:CGRectMake(0, 20, 44, 44)];
         [_menuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _menuButton;
@@ -885,7 +886,7 @@
 {
     if (!_datePicker) {
         int datePickerHeight = self.view.frame.size.height*0.202623;
-        _datePicker = [[DatePickerView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - datePickerHeight-64, self.view.frame.size.width,datePickerHeight)];
+        _datePicker = [[DatePickerView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - datePickerHeight, self.view.frame.size.width,datePickerHeight)];
     }
     return _datePicker;
 }
@@ -941,7 +942,7 @@
 
 #pragma mark 处理键盘事件
 - (void)viewWillAppear:(BOOL)animated{
-//    [[self navigationController] setNavigationBarHidden:NO];
+    [[self navigationController] setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
 }
 

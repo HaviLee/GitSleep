@@ -24,10 +24,10 @@
 #import "MMPopupWindow.h"
 #import "MMAlertView.h"
 #import "MMSheetView.h"
-#import "SwipableViewController.h"
-#import "SleepTabViewController.h"
 
 #import "NewCenterViewController.h"
+//
+#import "CenterContainerViewController.h"
 
 //
 #import "LoginContainerViewController.h"//架构重构
@@ -93,21 +93,26 @@
     }else{
         isUserDefaultTime = YES;
     }
-//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[CenterSideViewController alloc] init]];
     if ([UserManager IsUserLogged]) {
         [UserManager GetUserObj];
     }
     ////测试使用havi
     thirdHardDeviceName = @"MT003";
     [UserManager setGlobalOauth];
+    /*
     NewCenterViewController *centerViewController = [[NewCenterViewController alloc]init];
     NewCenterViewController *cen = [[NewCenterViewController alloc]init];
+    
+    
     self.nav_tweet = [RKSwipeBetweenViewControllers newSwipeBetweenViewControllers];
     [_nav_tweet.viewControllerArray addObjectsFromArray:@[centerViewController,cen]];
     _nav_tweet.buttonText = @[@"冒泡广场",@"我的冒泡"];
+     */
+    CenterContainerViewController *containerView = [[CenterContainerViewController alloc]init];
+    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:containerView];
     LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
     
-    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:_nav_tweet
+    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navi
                                                                     leftMenuViewController:leftMenuViewController
                                                                    rightMenuViewController:nil];
     NSString *nowDateString = [NSString stringWithFormat:@"%@",[self getNowDateFromatAnDate:[NSDate date]]];
