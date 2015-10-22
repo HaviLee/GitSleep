@@ -741,7 +741,7 @@
         NSDate *date = [[NSDate date]dateByAddingHours:8];
         NSDate *oldDate = [self.dateFormmatterBase dateFromString:@"20150101"];
         int day = (int)[date daysFrom:oldDate]+1;
-        [_chvc setAirPlaneToDay:day ToDateforString:[NSString stringWithFormat:@"2015-01-01"]];//飞机初始化方法
+        [_chvc setAirPlaneToDay:day ToDateforString:[NSString stringWithFormat:@"2015-01-01"]];//
     }
     return _chvc;
 }
