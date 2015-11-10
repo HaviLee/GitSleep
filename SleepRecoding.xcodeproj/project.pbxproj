@@ -216,6 +216,7 @@
 		2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */; };
 		2C619E2E1BF1D8D400FFB608 /* UIColor+SLAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E2B1BF1D8D400FFB608 /* UIColor+SLAddition.m */; };
 		2C619E321BF1DA4C00FFB608 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E311BF1DA4C00FFB608 /* SMPageControl.m */; };
+		2C619E371BF1E94100FFB608 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E361BF1E94100FFB608 /* ODRefreshControl.m */; };
 		2C6D2F411AF620A2008C285B /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D2F401AF620A2008C285B /* UserInfoTableViewCell.m */; };
 		2C6D2F441AF62267008C285B /* icon_phone_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */; };
 		2C6D2F451AF62267008C285B /* tel_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D2F431AF62267008C285B /* tel_1@2x.png */; };
@@ -951,6 +952,8 @@
 		2C619E2B1BF1D8D400FFB608 /* UIColor+SLAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SLAddition.m"; sourceTree = "<group>"; };
 		2C619E301BF1DA4C00FFB608 /* SMPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageControl.h; sourceTree = "<group>"; };
 		2C619E311BF1DA4C00FFB608 /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
+		2C619E351BF1E94100FFB608 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
+		2C619E361BF1E94100FFB608 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 		2C6D2F3F1AF620A2008C285B /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoTableViewCell.h; path = controller/UserInfoTableViewCell.h; sourceTree = "<group>"; };
 		2C6D2F401AF620A2008C285B /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoTableViewCell.m; path = controller/UserInfoTableViewCell.m; sourceTree = "<group>"; };
 		2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_phone_1@2x.png"; path = "common/icon_phone_1@2x.png"; sourceTree = "<group>"; };
@@ -2042,8 +2045,9 @@
 		2C4FCB011A8F56E800DCEEF3 = {
 			isa = PBXGroup;
 			children = (
+				2C619E331BF1E90D00FFB608 /* vender */,
 				2CD6C0201B7ADEAB00F1FF6A /* libWeiboSDK */,
-				2C7345CF1B776775004D8AB3 /* WeChatSDK_1.5_OnlyIphone */,
+				2C7345CF1B776775004D8AB3 /* WeChatSDK */,
 				576F09BE1AC3A3DF0083395C /* HardWare */,
 				2C8C621A1AB09B0E00CF4C19 /* Images */,
 				579AC7DF1AA033BC0045E9A2 /* ThirdLib */,
@@ -2161,6 +2165,24 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		2C619E331BF1E90D00FFB608 /* vender */ = {
+			isa = PBXGroup;
+			children = (
+				2C619E341BF1E94100FFB608 /* ODRefreshControl */,
+			);
+			name = vender;
+			sourceTree = "<group>";
+		};
+		2C619E341BF1E94100FFB608 /* ODRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				2C619E351BF1E94100FFB608 /* ODRefreshControl.h */,
+				2C619E361BF1E94100FFB608 /* ODRefreshControl.m */,
+			);
+			name = ODRefreshControl;
+			path = lib/vender/ODRefreshControl;
+			sourceTree = "<group>";
+		};
 		2C64FFEE1AC7D75F00213474 /* OCCalendarView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2191,7 +2213,7 @@
 			path = lib/thirdlib/TLTagsContol;
 			sourceTree = "<group>";
 		};
-		2C7345CF1B776775004D8AB3 /* WeChatSDK_1.5_OnlyIphone */ = {
+		2C7345CF1B776775004D8AB3 /* WeChatSDK */ = {
 			isa = PBXGroup;
 			children = (
 				2CD6C0551B7C3FC000F1FF6A /* TencentOpenAPI.framework */,
@@ -2203,7 +2225,7 @@
 				2C7345D21B776775004D8AB3 /* WXApi.h */,
 				2C7345D31B776775004D8AB3 /* WXApiObject.h */,
 			);
-			name = WeChatSDK_1.5_OnlyIphone;
+			name = WeChatSDK;
 			path = lib/Source/WeChatSDK_1.5_OnlyIphone;
 			sourceTree = "<group>";
 		};
@@ -3747,6 +3769,7 @@
 				2C7345FA1B79C33C004D8AB3 /* CheckUserIsRegister.m in Sources */,
 				2C7319D51B759248005A3EE4 /* NightTimeView.m in Sources */,
 				2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */,
+				2C619E371BF1E94100FFB608 /* ODRefreshControl.m in Sources */,
 				2CDB86841BABCD4F00551192 /* NewSecondHeartViewController.m in Sources */,
 				2C5E5C241B12B3F200123CC4 /* UIViewController+RESideMenu.m in Sources */,
 				576B02461A9EB22C004DB418 /* BaseViewController.m in Sources */,
