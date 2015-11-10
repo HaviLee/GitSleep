@@ -96,7 +96,7 @@
         NSLog(@"index %ld", (long)currentPageIndex);
     };
     pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
-//    [pageViewController.navigationBarView addSubview:self.menuButton];
+    [pageViewController.navigationBarView addSubview:self.menuButton];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
     [self addChildViewController:navi];
     [self.view addSubview:navi.view];
