@@ -99,8 +99,8 @@
     ////测试使用havi
     thirdHardDeviceName = @"MT003";
     [UserManager setGlobalOauth];
-    CenterContainerViewController *containerView = [[CenterContainerViewController alloc]init];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:containerView];
+    self.containerView = [[CenterContainerViewController alloc]init];
+    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:self.containerView];
     LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
     
     RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navi

@@ -24,6 +24,7 @@
 @property (nonatomic, strong) CHCircleGaugeView *leftCircleView;
 @property (nonatomic, strong) NSArray *leftCellDataArr;
 @property (nonatomic, strong) NSArray *subPageViewArr;
+@property (nonatomic, strong) UIButton *cMenuButton;
 //
 @property (nonatomic, strong) SencondLeaveViewController *sendLeaveView;
 @property (nonatomic, strong) SencondTurnViewController *sendTurnView;
@@ -96,7 +97,7 @@
         NSLog(@"index %ld", (long)currentPageIndex);
     };
     pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
-    [pageViewController.navigationBarView addSubview:self.menuButton];
+    [pageViewController.navigationBarView addSubview:self.cMenuButton];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
     [self addChildViewController:navi];
     [self.view addSubview:navi.view];
@@ -108,6 +109,20 @@
 }
 
 #pragma mark setter
+
+- (UIButton *)cMenuButton
+{
+    if (!_cMenuButton) {
+        _cMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _cMenuButton.backgroundColor = [UIColor clearColor];
+        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
+        [_cMenuButton setImage:i forState:UIControlStateNormal];
+        [_cMenuButton setFrame:CGRectMake(0, 20, 44, 44)];
+        [_cMenuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _cMenuButton;
+}
+
 
 - (NewSecondHeartViewController*)secondHeartView
 {

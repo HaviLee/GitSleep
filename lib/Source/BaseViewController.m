@@ -753,7 +753,7 @@
         _menuButton.backgroundColor = [UIColor clearColor];
         UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
         [_menuButton setImage:i forState:UIControlStateNormal];
-        [_menuButton setFrame:CGRectMake(0, 20, 44, 44)];
+        [_menuButton setFrame:CGRectMake(0, 0, 44, 44)];
         [_menuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _menuButton;
