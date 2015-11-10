@@ -99,15 +99,6 @@
     ////测试使用havi
     thirdHardDeviceName = @"MT003";
     [UserManager setGlobalOauth];
-    /*
-    NewCenterViewController *centerViewController = [[NewCenterViewController alloc]init];
-    NewCenterViewController *cen = [[NewCenterViewController alloc]init];
-    
-    
-    self.nav_tweet = [RKSwipeBetweenViewControllers newSwipeBetweenViewControllers];
-    [_nav_tweet.viewControllerArray addObjectsFromArray:@[centerViewController,cen]];
-    _nav_tweet.buttonText = @[@"冒泡广场",@"我的冒泡"];
-     */
     CenterContainerViewController *containerView = [[CenterContainerViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:containerView];
     LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];

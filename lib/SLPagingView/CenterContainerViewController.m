@@ -53,11 +53,6 @@
 
 - (void)setPageViewController
 {
-    self.dataSource = [[NSMutableArray alloc] initWithArray:@[@"Hello world!", @"Shaqtin' a fool!", @"YEAHHH!",
-                                                              @"Hello world!", @"Shaqtin' a fool!", @"YEAHHH!",
-                                                              @"Hello world!", @"Shaqtin' a fool!", @"YEAHHH!",
-                                                              @"Hello world!", @"Shaqtin' a fool!", @"YEAHHH!",
-                                                              @"Hello world!", @"Shaqtin' a fool!", @"YEAHHH!"]];
     // Do any additional setup after loading the view.
     UILabel *navTitleLabel1 = [UILabel new];
     navTitleLabel1.text = @"梧桐植树";
@@ -70,7 +65,7 @@
     navTitleLabel2.textColor = [UIColor whiteColor];
     
     SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1, navTitleLabel2]
-                                                                                    navBarBackground:[UIColor colorWithRed:0.33 green:0.68 blue:0.91 alpha:1.000]
+                                                                                    navBarBackground:[UIColor clearColor]
                                                                                                views:@[self.leftTableView, self.rightTableView]
                                                                                      showPageControl:YES];
     [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
@@ -100,7 +95,7 @@
         // Do something
         NSLog(@"index %ld", (long)currentPageIndex);
     };
-//    pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
+    pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
 //    [pageViewController.navigationBarView addSubview:self.menuButton];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
     [self addChildViewController:navi];
