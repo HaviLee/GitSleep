@@ -560,7 +560,7 @@
     }
     
     AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    app.nav_tweet.navigationViewColor = selectedThemeIndex ==0?DefaultColor:[UIColor whiteColor];
+    app.nav_tweet.navigationView = selectedThemeIndex ==0?DefaultColor:[UIColor whiteColor];
     UIBarButtonItem *left = (UIBarButtonItem *)[self.navigationController.navigationBar viewWithTag:1000];
     left.customView = nil;
     UIBarButtonItem *right = (UIBarButtonItem *)[self.navigationController.navigationBar viewWithTag:1000];

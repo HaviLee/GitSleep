@@ -179,8 +179,6 @@
 		2C1F1FF51ADBF42700393E04 /* CalenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FF41ADBF42700393E04 /* CalenderView.m */; };
 		2C2D283A1BD616F900E0499F /* navi_pg_night_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2D28391BD616F900E0499F /* navi_pg_night_0@2x.png */; };
 		2C2D28421BD61AE700E0499F /* navi_bg_center_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2D28411BD61AE700E0499F /* navi_bg_center_1@2x.png */; };
-		2C2D284E1BD7628900E0499F /* UIColor+SLAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D28471BD7628900E0499F /* UIColor+SLAddition.m */; };
-		2C2D284F1BD7628900E0499F /* UIScrollView+UpdateContentSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D28491BD7628900E0499F /* UIScrollView+UpdateContentSize.m */; };
 		2C2D28501BD7628900E0499F /* SLPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D284C1BD7628900E0499F /* SLPagingViewController.m */; };
 		2C2D28531BD7633600E0499F /* CenterContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D28521BD7633600E0499F /* CenterContainerViewController.m */; };
 		2C3AF2B11AF4611E00B66E32 /* NKJPagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AF2B01AF4611E00B66E32 /* NKJPagerViewController.m */; };
@@ -216,6 +214,9 @@
 		2C6117021ABD6F6C00261A1E /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6117011ABD6F6C00261A1E /* RMDateSelectionViewController.m */; };
 		2C6117101ABEACF400261A1E /* EditUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C61170F1ABEACF400261A1E /* EditUserInfoViewController.m */; };
 		2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */; };
+		2C619E2E1BF1D8D400FFB608 /* UIColor+SLAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E2B1BF1D8D400FFB608 /* UIColor+SLAddition.m */; };
+		2C619E2F1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E2D1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.m */; };
+		2C619E321BF1DA4C00FFB608 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E311BF1DA4C00FFB608 /* SMPageControl.m */; };
 		2C6D2F411AF620A2008C285B /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D2F401AF620A2008C285B /* UserInfoTableViewCell.m */; };
 		2C6D2F441AF62267008C285B /* icon_phone_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */; };
 		2C6D2F451AF62267008C285B /* tel_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D2F431AF62267008C285B /* tel_1@2x.png */; };
@@ -568,9 +569,6 @@
 		2CE9E7481BD4B601001D8401 /* EasePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7451BD4B601001D8401 /* EasePageViewController.m */; };
 		2CE9E7491BD4B601001D8401 /* RKSwipeBetweenViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7471BD4B601001D8401 /* RKSwipeBetweenViewControllers.m */; };
 		2CE9E74C1BD4B661001D8401 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E74B1BD4B661001D8401 /* BaseNavigationController.m */; };
-		2CE9E74F1BD4B6B1001D8401 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E74E1BD4B6B1001D8401 /* SMPageControl.m */; };
-		2CE9E7521BD4C304001D8401 /* nav_page_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE9E7501BD4C304001D8401 /* nav_page_selected@2x.png */; };
-		2CE9E7531BD4C304001D8401 /* nav_page_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE9E7511BD4C304001D8401 /* nav_page_unselected@2x.png */; };
 		2CE9E7971BD4C5E2001D8401 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */; };
 		2CE9E7981BD4C5E2001D8401 /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7771BD4C5E2001D8401 /* UIDevice+Info.m */; };
 		2CE9E7991BD4C5E2001D8401 /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */; };
@@ -889,10 +887,6 @@
 		2C1F1FF41ADBF42700393E04 /* CalenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderView.m; sourceTree = "<group>"; };
 		2C2D28391BD616F900E0499F /* navi_pg_night_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_pg_night_0@2x.png"; sourceTree = "<group>"; };
 		2C2D28411BD61AE700E0499F /* navi_bg_center_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg_center_1@2x.png"; sourceTree = "<group>"; };
-		2C2D28461BD7628900E0499F /* UIColor+SLAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SLAddition.h"; sourceTree = "<group>"; };
-		2C2D28471BD7628900E0499F /* UIColor+SLAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SLAddition.m"; sourceTree = "<group>"; };
-		2C2D28481BD7628900E0499F /* UIScrollView+UpdateContentSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UpdateContentSize.h"; sourceTree = "<group>"; };
-		2C2D28491BD7628900E0499F /* UIScrollView+UpdateContentSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UpdateContentSize.m"; sourceTree = "<group>"; };
 		2C2D284A1BD7628900E0499F /* ShareResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareResources.h; sourceTree = "<group>"; };
 		2C2D284B1BD7628900E0499F /* SLPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPagingViewController.h; sourceTree = "<group>"; };
 		2C2D284C1BD7628900E0499F /* SLPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPagingViewController.m; sourceTree = "<group>"; };
@@ -954,6 +948,12 @@
 		2C61170F1ABEACF400261A1E /* EditUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditUserInfoViewController.m; path = controller/EditUserInfoViewController.m; sourceTree = "<group>"; };
 		2C6117111ABEBE8A00261A1E /* EditUserDefalutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditUserDefalutTableViewCell.h; path = controller/EditUserDefalutTableViewCell.h; sourceTree = "<group>"; };
 		2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditUserDefalutTableViewCell.m; path = controller/EditUserDefalutTableViewCell.m; sourceTree = "<group>"; };
+		2C619E2A1BF1D8D400FFB608 /* UIColor+SLAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SLAddition.h"; sourceTree = "<group>"; };
+		2C619E2B1BF1D8D400FFB608 /* UIColor+SLAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SLAddition.m"; sourceTree = "<group>"; };
+		2C619E2C1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UpdateContentSize.h"; sourceTree = "<group>"; };
+		2C619E2D1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UpdateContentSize.m"; sourceTree = "<group>"; };
+		2C619E301BF1DA4C00FFB608 /* SMPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageControl.h; sourceTree = "<group>"; };
+		2C619E311BF1DA4C00FFB608 /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
 		2C6D2F3F1AF620A2008C285B /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoTableViewCell.h; path = controller/UserInfoTableViewCell.h; sourceTree = "<group>"; };
 		2C6D2F401AF620A2008C285B /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoTableViewCell.m; path = controller/UserInfoTableViewCell.m; sourceTree = "<group>"; };
 		2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_phone_1@2x.png"; path = "common/icon_phone_1@2x.png"; sourceTree = "<group>"; };
@@ -1447,10 +1447,6 @@
 		2CE9E7471BD4B601001D8401 /* RKSwipeBetweenViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKSwipeBetweenViewControllers.m; sourceTree = "<group>"; };
 		2CE9E74A1BD4B661001D8401 /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
 		2CE9E74B1BD4B661001D8401 /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
-		2CE9E74D1BD4B6B1001D8401 /* SMPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageControl.h; sourceTree = "<group>"; };
-		2CE9E74E1BD4B6B1001D8401 /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
-		2CE9E7501BD4C304001D8401 /* nav_page_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_page_selected@2x.png"; sourceTree = "<group>"; };
-		2CE9E7511BD4C304001D8401 /* nav_page_unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_page_unselected@2x.png"; sourceTree = "<group>"; };
 		2CE9E7741BD4C5E2001D8401 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
 		2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
 		2CE9E7761BD4C5E2001D8401 /* UIDevice+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Info.h"; sourceTree = "<group>"; };
@@ -1912,7 +1908,7 @@
 		2C2D28431BD7628900E0499F /* SLPagingView */ = {
 			isa = PBXGroup;
 			children = (
-				2C2D28451BD7628900E0499F /* Categories */,
+				2C619E291BF1D8D400FFB608 /* Categories */,
 				2C2D284A1BD7628900E0499F /* ShareResources.h */,
 				2C2D284B1BD7628900E0499F /* SLPagingViewController.h */,
 				2C2D284C1BD7628900E0499F /* SLPagingViewController.m */,
@@ -1921,17 +1917,6 @@
 			);
 			name = SLPagingView;
 			path = lib/SLPagingView;
-			sourceTree = "<group>";
-		};
-		2C2D28451BD7628900E0499F /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				2C2D28461BD7628900E0499F /* UIColor+SLAddition.h */,
-				2C2D28471BD7628900E0499F /* UIColor+SLAddition.m */,
-				2C2D28481BD7628900E0499F /* UIScrollView+UpdateContentSize.h */,
-				2C2D28491BD7628900E0499F /* UIScrollView+UpdateContentSize.m */,
-			);
-			path = Categories;
 			sourceTree = "<group>";
 		};
 		2C3AF2AE1AF45ACC00B66E32 /* DataShow */ = {
@@ -2168,6 +2153,17 @@
 			);
 			name = RMDateSelectionViewController;
 			path = lib/thirdlib/RMDateSelectionViewController;
+			sourceTree = "<group>";
+		};
+		2C619E291BF1D8D400FFB608 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				2C619E2A1BF1D8D400FFB608 /* UIColor+SLAddition.h */,
+				2C619E2B1BF1D8D400FFB608 /* UIColor+SLAddition.m */,
+				2C619E2C1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.h */,
+				2C619E2D1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		2C64FFEE1AC7D75F00213474 /* OCCalendarView */ = {
@@ -2671,18 +2667,16 @@
 		2CE9E7431BD4B601001D8401 /* RKSwipeBetweenViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				2C619E301BF1DA4C00FFB608 /* SMPageControl.h */,
+				2C619E311BF1DA4C00FFB608 /* SMPageControl.m */,
 				2CE9E7441BD4B601001D8401 /* EasePageViewController.h */,
 				2CE9E7451BD4B601001D8401 /* EasePageViewController.m */,
 				2CE9E7461BD4B601001D8401 /* RKSwipeBetweenViewControllers.h */,
 				2CE9E7471BD4B601001D8401 /* RKSwipeBetweenViewControllers.m */,
 				2CE9E74A1BD4B661001D8401 /* BaseNavigationController.h */,
 				2CE9E74B1BD4B661001D8401 /* BaseNavigationController.m */,
-				2CE9E74D1BD4B6B1001D8401 /* SMPageControl.h */,
-				2CE9E74E1BD4B6B1001D8401 /* SMPageControl.m */,
 				2C2D28411BD61AE700E0499F /* navi_bg_center_1@2x.png */,
 				2C2D28391BD616F900E0499F /* navi_pg_night_0@2x.png */,
-				2CE9E7501BD4C304001D8401 /* nav_page_selected@2x.png */,
-				2CE9E7511BD4C304001D8401 /* nav_page_unselected@2x.png */,
 				2CE9E7A11BD4C9AF001D8401 /* NewCenterViewController.h */,
 				2CE9E7A21BD4C9AF001D8401 /* NewCenterViewController.m */,
 			);
@@ -3512,7 +3506,6 @@
 				2C7D221F1AF1C9F70011A45C /* icon_heart_rate_0@2x.png in Resources */,
 				2C15E7781AF2151500142F36 /* get_up3_1@2x.png in Resources */,
 				2C7D22D81AF1CA050011A45C /* pic_head_portrait_0@2x.png in Resources */,
-				2CE9E7521BD4C304001D8401 /* nav_page_selected@2x.png in Resources */,
 				2C15E7891AF2152100142F36 /* heart_3_1.png in Resources */,
 				2C15E7871AF2152100142F36 /* heart_1_1.png in Resources */,
 				2C15E71D1AF214E800142F36 /* icon_phone_1@2x.png in Resources */,
@@ -3639,7 +3632,6 @@
 				2C7D23031AF1CA220011A45C /* heart_8_0.png in Resources */,
 				2C7D22C81AF1CA050011A45C /* menology_0@2x.png in Resources */,
 				2C7345E81B7841C2004D8AB3 /* qq.png in Resources */,
-				2CE9E7531BD4C304001D8401 /* nav_page_unselected@2x.png in Resources */,
 				2C7D229A1AF1CA050011A45C /* btn_fatal_exception_0@2x.png in Resources */,
 				2C7D229E1AF1CA050011A45C /* btn_next_t_0@2x.png in Resources */,
 				2C15E7331AF214E800142F36 /* pic_2208_1.png in Resources */,
@@ -3784,14 +3776,15 @@
 				2C2D28531BD7633600E0499F /* CenterContainerViewController.m in Sources */,
 				2C94FA1A1B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m in Sources */,
 				2CDE553C1BAE486D0017C5DE /* MMSheetView.m in Sources */,
+				2C619E321BF1DA4C00FFB608 /* SMPageControl.m in Sources */,
 				2C8F7BC21AF374A500E56513 /* CalenderCantainerViewController.m in Sources */,
 				578681531ADCEE1200E881A2 /* WTURLRequestSerialization.m in Sources */,
 				576C3F071ABFC15500815EF3 /* MTStatusBarOverlay.m in Sources */,
 				576B02491A9EB24B004DB418 /* LeftSideViewController.m in Sources */,
 				579AC7DB1AA01DE40045E9A2 /* DataShowTableViewCell.m in Sources */,
 				5772BE481AB0326900E108BB /* CHTumblrMenuView.m in Sources */,
+				2C619E2F1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.m in Sources */,
 				2C9C01621AD0215F006362E9 /* TurnChartView.m in Sources */,
-				2C2D284F1BD7628900E0499F /* UIScrollView+UpdateContentSize.m in Sources */,
 				5759E35C1ABA67A700E51690 /* GetCodeViewController.m in Sources */,
 				5764CB141AB6B2C2002A0B85 /* LoginViewController.m in Sources */,
 				2CDE553A1BAE486D0017C5DE /* MMPopupView.m in Sources */,
@@ -3908,13 +3901,12 @@
 				2CD6C0691B7D812300F1FF6A /* UIBezierPath+curved.m in Sources */,
 				2C1F1FD01ADA57AB00393E04 /* WeekCalenderView.m in Sources */,
 				2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */,
-				2CE9E74F1BD4B6B1001D8401 /* SMPageControl.m in Sources */,
 				2CD6C0401B7B048100F1FF6A /* WeiBoLogoutAPI.m in Sources */,
 				2C5E5C221B12B3F200123CC4 /* RECommonFunctions.m in Sources */,
 				5793D1C11AA9A1BA00BC24CA /* XLScrollViewer.m in Sources */,
 				2C7319EF1B76EE49005A3EE4 /* PNBarNew.m in Sources */,
-				2C2D284E1BD7628900E0499F /* UIColor+SLAddition.m in Sources */,
 				2C77D50B1AEB3702004123D2 /* ReNameDeviceNameViewController.m in Sources */,
+				2C619E2E1BF1D8D400FFB608 /* UIColor+SLAddition.m in Sources */,
 				2C1247B21B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m in Sources */,
 				2C7319E81B75E598005A3EE4 /* TagObject.m in Sources */,
 				2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */,
