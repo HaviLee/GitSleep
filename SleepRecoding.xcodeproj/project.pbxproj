@@ -215,7 +215,6 @@
 		2C6117101ABEACF400261A1E /* EditUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C61170F1ABEACF400261A1E /* EditUserInfoViewController.m */; };
 		2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */; };
 		2C619E2E1BF1D8D400FFB608 /* UIColor+SLAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E2B1BF1D8D400FFB608 /* UIColor+SLAddition.m */; };
-		2C619E2F1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E2D1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.m */; };
 		2C619E321BF1DA4C00FFB608 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E311BF1DA4C00FFB608 /* SMPageControl.m */; };
 		2C6D2F411AF620A2008C285B /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D2F401AF620A2008C285B /* UserInfoTableViewCell.m */; };
 		2C6D2F441AF62267008C285B /* icon_phone_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */; };
@@ -950,8 +949,6 @@
 		2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditUserDefalutTableViewCell.m; path = controller/EditUserDefalutTableViewCell.m; sourceTree = "<group>"; };
 		2C619E2A1BF1D8D400FFB608 /* UIColor+SLAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SLAddition.h"; sourceTree = "<group>"; };
 		2C619E2B1BF1D8D400FFB608 /* UIColor+SLAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SLAddition.m"; sourceTree = "<group>"; };
-		2C619E2C1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UpdateContentSize.h"; sourceTree = "<group>"; };
-		2C619E2D1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UpdateContentSize.m"; sourceTree = "<group>"; };
 		2C619E301BF1DA4C00FFB608 /* SMPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageControl.h; sourceTree = "<group>"; };
 		2C619E311BF1DA4C00FFB608 /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
 		2C6D2F3F1AF620A2008C285B /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoTableViewCell.h; path = controller/UserInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -2160,8 +2157,6 @@
 			children = (
 				2C619E2A1BF1D8D400FFB608 /* UIColor+SLAddition.h */,
 				2C619E2B1BF1D8D400FFB608 /* UIColor+SLAddition.m */,
-				2C619E2C1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.h */,
-				2C619E2D1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3783,7 +3778,6 @@
 				576B02491A9EB24B004DB418 /* LeftSideViewController.m in Sources */,
 				579AC7DB1AA01DE40045E9A2 /* DataShowTableViewCell.m in Sources */,
 				5772BE481AB0326900E108BB /* CHTumblrMenuView.m in Sources */,
-				2C619E2F1BF1D8D400FFB608 /* UIScrollView+UpdateContentSize.m in Sources */,
 				2C9C01621AD0215F006362E9 /* TurnChartView.m in Sources */,
 				5759E35C1ABA67A700E51690 /* GetCodeViewController.m in Sources */,
 				5764CB141AB6B2C2002A0B85 /* LoginViewController.m in Sources */,
