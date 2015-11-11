@@ -47,8 +47,9 @@
 
 - (void)loginUserWithHeader:(NSDictionary *)header andWithPara:(NSDictionary *)parameter
 {
-    _detailUrl = @"v1/user/UserLogin";
-    _urlParaDic = parameter;
+    NSString *url = [NSString stringWithFormat:@"v1/user/UserLogin?UserIDOrigianal=%@&Password=%@",[parameter objectForKey:@"UserIDOrigianal"],[parameter objectForKey:@"Password"]];
+    _detailUrl = url;
+//    _urlParaDic = parameter;
     _urlHeaderDic = header;
 }
 

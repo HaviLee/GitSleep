@@ -289,9 +289,9 @@
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
     [MMProgressHUD showWithStatus:@"登录中..."];
     SHGetClient *client = [SHGetClient shareInstance];
+    NSString *userId = [NSString stringWithFormat:@"%@",self.nameText.text];
     NSDictionary *dic = @{
-                          @"CellPhone": self.nameText.text, //手机号码
-                          @"Email": @"", //邮箱地址，可留空，扩展注册用
+                          @"UserIDOrigianal": userId, //手机号码
                           @"Password": self.passWordText.text //传递明文，服务器端做加密存储
                           };
     NSDictionary *header = @{
@@ -304,7 +304,7 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             NSString *userId = [resposeDic objectForKey:@"UserID"];
             GloableUserId = userId;
-            [[NSUserDefaults standardUserDefaults]setObject:self.nameText.text forKey:@"userName"];
+            [[NSUserDefaults standardUserDefaults]setObject:[resposeDic objectForKey:@"UserID"] forKey:@"userName"];
             [[NSUserDefaults standardUserDefaults]synchronize];
             [[NSUserDefaults standardUserDefaults]setObject:self.passWordText.text forKey:@"userPassword"];
             [[NSUserDefaults standardUserDefaults]synchronize];
