@@ -177,8 +177,6 @@
 		2C1F1FEE1ADBF38F00393E04 /* WQScrollCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FE41ADBF38F00393E04 /* WQScrollCalendarView.m */; };
 		2C1F1FEF1ADBF38F00393E04 /* WQScrollCalendarWrapperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FE61ADBF38F00393E04 /* WQScrollCalendarWrapperView.m */; };
 		2C1F1FF51ADBF42700393E04 /* CalenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FF41ADBF42700393E04 /* CalenderView.m */; };
-		2C2D283A1BD616F900E0499F /* navi_pg_night_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2D28391BD616F900E0499F /* navi_pg_night_0@2x.png */; };
-		2C2D28421BD61AE700E0499F /* navi_bg_center_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2D28411BD61AE700E0499F /* navi_bg_center_1@2x.png */; };
 		2C2D28501BD7628900E0499F /* SLPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D284C1BD7628900E0499F /* SLPagingViewController.m */; };
 		2C2D28531BD7633600E0499F /* CenterContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D28521BD7633600E0499F /* CenterContainerViewController.m */; };
 		2C3AF2B11AF4611E00B66E32 /* NKJPagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AF2B01AF4611E00B66E32 /* NKJPagerViewController.m */; };
@@ -565,11 +563,9 @@
 		2CE567131BF30EA300839E91 /* UIColor+SLAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE567121BF30EA300839E91 /* UIColor+SLAddition.m */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
-		2CE9E74C1BD4B661001D8401 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E74B1BD4B661001D8401 /* BaseNavigationController.m */; };
 		2CE9E7971BD4C5E2001D8401 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */; };
 		2CE9E7981BD4C5E2001D8401 /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7771BD4C5E2001D8401 /* UIDevice+Info.m */; };
 		2CE9E7991BD4C5E2001D8401 /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */; };
-		2CE9E7A31BD4C9AF001D8401 /* NewCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7A21BD4C9AF001D8401 /* NewCenterViewController.m */; };
 		2CE9E7A61BD4D682001D8401 /* UIBarButtonItem+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7A51BD4D682001D8401 /* UIBarButtonItem+Common.m */; };
 		2CF34FC91BB1039E007099FC /* pic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF34FC81BB1039E007099FC /* pic_about@2x.png */; };
 		2CF350211BB2B51F007099FC /* CoolNavi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF350201BB2B51F007099FC /* CoolNavi.m */; };
@@ -882,8 +878,6 @@
 		2C1F1FE61ADBF38F00393E04 /* WQScrollCalendarWrapperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WQScrollCalendarWrapperView.m; sourceTree = "<group>"; };
 		2C1F1FF31ADBF42700393E04 /* CalenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalenderView.h; sourceTree = "<group>"; };
 		2C1F1FF41ADBF42700393E04 /* CalenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderView.m; sourceTree = "<group>"; };
-		2C2D28391BD616F900E0499F /* navi_pg_night_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_pg_night_0@2x.png"; sourceTree = "<group>"; };
-		2C2D28411BD61AE700E0499F /* navi_bg_center_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg_center_1@2x.png"; sourceTree = "<group>"; };
 		2C2D284A1BD7628900E0499F /* ShareResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareResources.h; sourceTree = "<group>"; };
 		2C2D284B1BD7628900E0499F /* SLPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPagingViewController.h; sourceTree = "<group>"; };
 		2C2D284C1BD7628900E0499F /* SLPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPagingViewController.m; sourceTree = "<group>"; };
@@ -1436,16 +1430,12 @@
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
 		2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		2CE9E74A1BD4B661001D8401 /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
-		2CE9E74B1BD4B661001D8401 /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		2CE9E7741BD4C5E2001D8401 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
 		2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
 		2CE9E7761BD4C5E2001D8401 /* UIDevice+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Info.h"; sourceTree = "<group>"; };
 		2CE9E7771BD4C5E2001D8401 /* UIDevice+Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Info.m"; sourceTree = "<group>"; };
 		2CE9E7781BD4C5E2001D8401 /* UIImage+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Common.h"; sourceTree = "<group>"; };
 		2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
-		2CE9E7A11BD4C9AF001D8401 /* NewCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCenterViewController.h; sourceTree = "<group>"; };
-		2CE9E7A21BD4C9AF001D8401 /* NewCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCenterViewController.m; sourceTree = "<group>"; };
 		2CE9E7A41BD4D682001D8401 /* UIBarButtonItem+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Common.h"; sourceTree = "<group>"; };
 		2CE9E7A51BD4D682001D8401 /* UIBarButtonItem+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Common.m"; sourceTree = "<group>"; };
 		2CF34FC81BB1039E007099FC /* pic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_about@2x.png"; sourceTree = "<group>"; };
@@ -1681,7 +1671,6 @@
 			isa = PBXGroup;
 			children = (
 				2C2D28431BD7628900E0499F /* SLPagingView */,
-				2CE9E7431BD4B601001D8401 /* RKSwipeBetweenViewControllers */,
 				2CF3501E1BB2B51F007099FC /* CoolNavi */,
 				2CDB86571BABCD4F00551192 /* report */,
 				2C5E5C1B1B12B3DE00123CC4 /* ResideMenu */,
@@ -2036,12 +2025,10 @@
 		2C4FCB011A8F56E800DCEEF3 = {
 			isa = PBXGroup;
 			children = (
-				2C619E331BF1E90D00FFB608 /* vender */,
-				2CD6C0201B7ADEAB00F1FF6A /* libWeiboSDK */,
-				2C7345CF1B776775004D8AB3 /* WeChatSDK */,
-				576F09BE1AC3A3DF0083395C /* HardWare */,
+				2C6C6C101BF314120076E0EF /* Utils */,
+				2C6C6C0F1BF313AD0076E0EF /* SDK */,
 				2C8C621A1AB09B0E00CF4C19 /* Images */,
-				579AC7DF1AA033BC0045E9A2 /* ThirdLib */,
+				579AC7DF1AA033BC0045E9A2 /* vender */,
 				2C0125351A8F5E5500382A9D /* MainController */,
 				2C4FCB0C1A8F56E800DCEEF3 /* SleepRecoding */,
 				2C4FCB261A8F56E800DCEEF3 /* SleepRecodingTests */,
@@ -2156,14 +2143,6 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		2C619E331BF1E90D00FFB608 /* vender */ = {
-			isa = PBXGroup;
-			children = (
-				2C619E341BF1E94100FFB608 /* ODRefreshControl */,
-			);
-			name = vender;
-			sourceTree = "<group>";
-		};
 		2C619E341BF1E94100FFB608 /* ODRefreshControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -2190,6 +2169,25 @@
 			);
 			name = OCCalendarView;
 			path = lib/thirdlib/OCCalendarView;
+			sourceTree = "<group>";
+		};
+		2C6C6C0F1BF313AD0076E0EF /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				576F09BE1AC3A3DF0083395C /* HardWare */,
+				2C7345CF1B776775004D8AB3 /* WeChatSDK */,
+				2CD6C0201B7ADEAB00F1FF6A /* libWeiboSDK */,
+			);
+			name = SDK;
+			sourceTree = "<group>";
+		};
+		2C6C6C101BF314120076E0EF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				57747DCD1AA57FAD002B5A49 /* ScrollDatepicker */,
+				2CE9E7541BD4C5E2001D8401 /* OC_Category */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		2C7319E31B75E598005A3EE4 /* TLTagsContol */ = {
@@ -2672,20 +2670,6 @@
 			path = lib/thirdlib/Alert_Classes;
 			sourceTree = "<group>";
 		};
-		2CE9E7431BD4B601001D8401 /* RKSwipeBetweenViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				2CE9E74A1BD4B661001D8401 /* BaseNavigationController.h */,
-				2CE9E74B1BD4B661001D8401 /* BaseNavigationController.m */,
-				2C2D28411BD61AE700E0499F /* navi_bg_center_1@2x.png */,
-				2C2D28391BD616F900E0499F /* navi_pg_night_0@2x.png */,
-				2CE9E7A11BD4C9AF001D8401 /* NewCenterViewController.h */,
-				2CE9E7A21BD4C9AF001D8401 /* NewCenterViewController.m */,
-			);
-			name = RKSwipeBetweenViewControllers;
-			path = lib/RKSwipeBetweenViewControllers;
-			sourceTree = "<group>";
-		};
 		2CE9E7541BD4C5E2001D8401 /* OC_Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -2887,7 +2871,7 @@
 			path = lib/thirdlib/TumblrMenu;
 			sourceTree = "<group>";
 		};
-		57747DCD1AA57FAD002B5A49 /* Sources */ = {
+		57747DCD1AA57FAD002B5A49 /* ScrollDatepicker */ = {
 			isa = PBXGroup;
 			children = (
 				57747DCE1AA57FAD002B5A49 /* DatePickerView.h */,
@@ -2897,7 +2881,7 @@
 				57747DD21AA57FAD002B5A49 /* DIDatepickerDateView.h */,
 				57747DD31AA57FAD002B5A49 /* DIDatepickerDateView.m */,
 			);
-			name = Sources;
+			name = ScrollDatepicker;
 			path = lib/thirdlib/Sources;
 			sourceTree = "<group>";
 		};
@@ -3090,10 +3074,10 @@
 			name = CenterViewController;
 			sourceTree = "<group>";
 		};
-		579AC7DF1AA033BC0045E9A2 /* ThirdLib */ = {
+		579AC7DF1AA033BC0045E9A2 /* vender */ = {
 			isa = PBXGroup;
 			children = (
-				2CE9E7541BD4C5E2001D8401 /* OC_Category */,
+				2C619E341BF1E94100FFB608 /* ODRefreshControl */,
 				2CDE55291BAE486D0017C5DE /* Alert_Classes */,
 				2CDB86961BABE66800551192 /* DefineLoading */,
 				2CC006F71B9FC6DB007DE798 /* LXActivity */,
@@ -3148,9 +3132,8 @@
 				2C8CB3F91B4A51B5007E97E5 /* UIViewController+TopBarMessage.m */,
 				2C1247B01B7F0150009C78EA /* NSString+OAURLEncodingAdditions.h */,
 				2C1247B11B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m */,
-				57747DCD1AA57FAD002B5A49 /* Sources */,
 			);
-			name = ThirdLib;
+			name = vender;
 			sourceTree = "<group>";
 		};
 		57D4C0041ABAC5520026A559 /* OTCover */ = {
@@ -3367,7 +3350,6 @@
 				2C4FCB1E1A8F56E800DCEEF3 /* LaunchScreen.xib in Resources */,
 				57C723F61AF73AAB006BE7D0 /* pic_day_1@3x.png in Resources */,
 				2C7D22FD1AF1CA220011A45C /* heart_2_0.png in Resources */,
-				2C2D283A1BD616F900E0499F /* navi_pg_night_0@2x.png in Resources */,
 				2C15E6FB1AF214E800142F36 /* btn_caeate_account_1@2x.png in Resources */,
 				2C15E70E1AF214E800142F36 /* gender_1@2x.png in Resources */,
 				2C15E7761AF2151500142F36 /* get_up1_1@2x.png in Resources */,
@@ -3404,7 +3386,6 @@
 				2C15E74F1AF214E800142F36 /* txtbox_quit_1@2x.png in Resources */,
 				2C7D22001AF1C6550011A45C /* btn_edit_info@2x.png in Resources */,
 				2C15E7131AF214E800142F36 /* icon_alarm_clock_1@2x.png in Resources */,
-				2C2D28421BD61AE700E0499F /* navi_bg_center_1@2x.png in Resources */,
 				2C7D22D41AF1CA050011A45C /* pic_day_0@3x.png in Resources */,
 				57C723F71AF73AAB006BE7D0 /* pic_night_1@3x.png in Resources */,
 				2CF350281BB2E938007099FC /* background@3x.png in Resources */,
@@ -3897,7 +3878,6 @@
 				2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */,
 				2C94F9E71B8AED0200F1A4DB /* NSDate+DateTools.m in Sources */,
 				2CC006FA1B9FC6DB007DE798 /* LXActivity.m in Sources */,
-				2CE9E74C1BD4B661001D8401 /* BaseNavigationController.m in Sources */,
 				2CD6C0691B7D812300F1FF6A /* UIBezierPath+curved.m in Sources */,
 				2C1F1FD01ADA57AB00393E04 /* WeekCalenderView.m in Sources */,
 				2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */,
@@ -3957,7 +3937,6 @@
 				572AA9841AC29A5700DED1D9 /* THPinInputCirclesView.m in Sources */,
 				2C435E811AD2D4C4003B1604 /* DataStaticViewController.m in Sources */,
 				2C1F1FEB1ADBF38F00393E04 /* WQCalendarTileView.m in Sources */,
-				2CE9E7A31BD4C9AF001D8401 /* NewCenterViewController.m in Sources */,
 				579AC7D81AA01D9A0045E9A2 /* IconTableViewCell.m in Sources */,
 				2C8CB3FA1B4A51B5007E97E5 /* UIViewController+TopBarMessage.m in Sources */,
 				57490FC71ACAA1A10057DC05 /* CBChartView.m in Sources */,
