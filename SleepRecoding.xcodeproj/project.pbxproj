@@ -2511,6 +2511,7 @@
 				2C4FCB071A8F56E800DCEEF3 /* Frameworks */,
 				2C4FCB081A8F56E800DCEEF3 /* Resources */,
 				A07B2CC7E42BDAAC76D5F756 /* Copy Pods Resources */,
+				C0C20B0B7ACB874788BC2195 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2959,6 +2960,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C0C20B0B7ACB874788BC2195 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -3283,6 +3299,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SleepRecoding/PrefixHeader.pch";
 				INFOPLIST_FILE = SleepRecoding/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -3304,6 +3321,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ihotkeys Co., Ltd";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SleepRecoding/PrefixHeader.pch";
 				INFOPLIST_FILE = SleepRecoding/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
