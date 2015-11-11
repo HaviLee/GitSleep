@@ -8,6 +8,8 @@
 
 #import "MyDeviceListViewController.h"
 #import "ODRefreshControl.h"
+#import "BindDeviceTableViewCell.h"
+#import "MessageShowTableViewCell.h"
 
 @interface MyDeviceListViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -28,6 +30,7 @@
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:_myDeviceListView];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
 }
+
 //刷新
 - (void)refresh{
     __weak typeof(self) weakSelf = self;
@@ -61,18 +64,34 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 30;
+    if (indexPath.row==0) {
+        return 200;
+    }else{
+        return 70;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIndentifier = @"cellIndentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+    if (indexPath.row==0) {
+        NSString *cellIndentifier = @"cellIndentifier1";
+        BindDeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+        if (!cell) {
+            cell = [[BindDeviceTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+        }
+        cell.backgroundColor = [UIColor colorWithRed:0.859f green:0.867f blue:0.878f alpha:1.00f];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else{
+        static NSString *cellIndentifier = @"cellIndentifier";
+        MessageShowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+        if (!cell) {
+            cell = [[MessageShowTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor colorWithRed:0.859f green:0.867f blue:0.878f alpha:1.00f];
+        return cell;
     }
-    cell.textLabel.text = @"li";
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

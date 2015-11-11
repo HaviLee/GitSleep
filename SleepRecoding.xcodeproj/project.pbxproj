@@ -179,6 +179,9 @@
 		2C1F1FF51ADBF42700393E04 /* CalenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FF41ADBF42700393E04 /* CalenderView.m */; };
 		2C2D28501BD7628900E0499F /* SLPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D284C1BD7628900E0499F /* SLPagingViewController.m */; };
 		2C2D28531BD7633600E0499F /* CenterContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D28521BD7633600E0499F /* CenterContainerViewController.m */; };
+		2C30A72C1BF3312F0064758F /* BindDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30A72B1BF3312F0064758F /* BindDeviceTableViewCell.m */; };
+		2C30A72F1BF331450064758F /* NoBindDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30A72E1BF331450064758F /* NoBindDeviceTableViewCell.m */; };
+		2C30A7321BF33B810064758F /* MessageShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30A7311BF33B810064758F /* MessageShowTableViewCell.m */; };
 		2C3AF2B11AF4611E00B66E32 /* NKJPagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AF2B01AF4611E00B66E32 /* NKJPagerViewController.m */; };
 		2C3AF2B41AF461DC00B66E32 /* TodayDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AF2B31AF461DC00B66E32 /* TodayDataViewController.m */; };
 		2C3AF2B71AF4620200B66E32 /* TodayHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3AF2B61AF4620200B66E32 /* TodayHeartViewController.m */; };
@@ -886,6 +889,12 @@
 		2C2D284C1BD7628900E0499F /* SLPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPagingViewController.m; sourceTree = "<group>"; };
 		2C2D28511BD7633600E0499F /* CenterContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterContainerViewController.h; sourceTree = "<group>"; };
 		2C2D28521BD7633600E0499F /* CenterContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterContainerViewController.m; sourceTree = "<group>"; };
+		2C30A72A1BF3312F0064758F /* BindDeviceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BindDeviceTableViewCell.h; path = controller/BindDeviceTableViewCell.h; sourceTree = "<group>"; };
+		2C30A72B1BF3312F0064758F /* BindDeviceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BindDeviceTableViewCell.m; path = controller/BindDeviceTableViewCell.m; sourceTree = "<group>"; };
+		2C30A72D1BF331450064758F /* NoBindDeviceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoBindDeviceTableViewCell.h; path = controller/NoBindDeviceTableViewCell.h; sourceTree = "<group>"; };
+		2C30A72E1BF331450064758F /* NoBindDeviceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoBindDeviceTableViewCell.m; path = controller/NoBindDeviceTableViewCell.m; sourceTree = "<group>"; };
+		2C30A7301BF33B810064758F /* MessageShowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageShowTableViewCell.h; path = controller/MessageShowTableViewCell.h; sourceTree = "<group>"; };
+		2C30A7311BF33B810064758F /* MessageShowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageShowTableViewCell.m; path = controller/MessageShowTableViewCell.m; sourceTree = "<group>"; };
 		2C3AF2AF1AF4611E00B66E32 /* NKJPagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NKJPagerViewController.h; path = lib/newData/NKJPagerViewController.h; sourceTree = "<group>"; };
 		2C3AF2B01AF4611E00B66E32 /* NKJPagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NKJPagerViewController.m; path = lib/newData/NKJPagerViewController.m; sourceTree = "<group>"; };
 		2C3AF2B21AF461DC00B66E32 /* TodayDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodayDataViewController.h; path = lib/newData/TodayDataViewController.h; sourceTree = "<group>"; };
@@ -2209,6 +2218,12 @@
 				2C6C6C161BF31DBC0076E0EF /* MyDeviceListViewController.m */,
 				2C6C6C181BF31DD20076E0EF /* FriendDeviceListViewController.h */,
 				2C6C6C191BF31DD20076E0EF /* FriendDeviceListViewController.m */,
+				2C30A72A1BF3312F0064758F /* BindDeviceTableViewCell.h */,
+				2C30A72B1BF3312F0064758F /* BindDeviceTableViewCell.m */,
+				2C30A72D1BF331450064758F /* NoBindDeviceTableViewCell.h */,
+				2C30A72E1BF331450064758F /* NoBindDeviceTableViewCell.m */,
+				2C30A7301BF33B810064758F /* MessageShowTableViewCell.h */,
+				2C30A7311BF33B810064758F /* MessageShowTableViewCell.m */,
 			);
 			name = DeviceListView;
 			sourceTree = "<group>";
@@ -3813,6 +3828,7 @@
 				2C1AD7191AAAE74A00655A5B /* ScaleAnimation.m in Sources */,
 				5763BAB91AA1665A00EFECD7 /* UserInfoViewController.m in Sources */,
 				2C8F7BB61AF3747700E56513 /* JTCalendar.m in Sources */,
+				2C30A72F1BF331450064758F /* NoBindDeviceTableViewCell.m in Sources */,
 				576451891AC68865008E3526 /* AddProductNameViewController.m in Sources */,
 				2C1AD71B1AAAE74A00655A5B /* SlideAnimation.m in Sources */,
 				2CE9E7981BD4C5E2001D8401 /* UIDevice+Info.m in Sources */,
@@ -3918,6 +3934,7 @@
 				2C91A67D1B9C4C940039EEAB /* EndTimeView.m in Sources */,
 				2C77D5081AEB31F0004123D2 /* MGSwipeTableCell.m in Sources */,
 				2CD404181B1460F60020B89E /* DataShowChartTableViewCell.m in Sources */,
+				2C30A7321BF33B810064758F /* MessageShowTableViewCell.m in Sources */,
 				57802E251AE7398200823E39 /* GetSleepReport.m in Sources */,
 				2C435E591AD0CA05003B1604 /* ToggleButton.m in Sources */,
 				5770861B1ABC019C004A2C07 /* UserContactTableViewCell.m in Sources */,
@@ -3991,6 +4008,7 @@
 				577120091AD5088700508C5C /* KxMenu.m in Sources */,
 				572AA98B1AC29A5700DED1D9 /* UIImage+ImageEffects.m in Sources */,
 				2C77D54A1AEFC127004123D2 /* GetLeaveDataAPI.m in Sources */,
+				2C30A72C1BF3312F0064758F /* BindDeviceTableViewCell.m in Sources */,
 				2CDE553B1BAE486D0017C5DE /* MMPopupWindow.m in Sources */,
 				2C8C627F1AB590CC00CF4C19 /* APPSettingViewController.m in Sources */,
 				2CF350211BB2B51F007099FC /* CoolNavi.m in Sources */,
