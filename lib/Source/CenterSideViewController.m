@@ -399,7 +399,7 @@
     //    NSString *newDateString = [NSString stringWithFormat:@"%@",date];
     
     NSString *subString = [NSString stringWithFormat:@"%@%@%@",[nowDate substringWithRange:NSMakeRange(0, 4)],[nowDate substringWithRange:NSMakeRange(5, 2)],[nowDate substringWithRange:NSMakeRange(8, 2)]];
-    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId&FromDate=%@&EndDate=%@&FromTime=&EndTime=",HardWareUUID,subString,subString];
+    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",HardWareUUID,GloableUserId,subString,subString];
     
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
