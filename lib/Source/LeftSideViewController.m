@@ -22,7 +22,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "PersonManagerViewController.h"
 //
-#import "NewCenterViewController.h"
+#import "DeviceListViewController.h"
 
 @interface LeftSideViewController ()
 @property (nonatomic,strong) UIView *tableHeaderView;
@@ -241,7 +241,7 @@
             [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
             }];
             */
-            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[DeviceManagerViewController alloc] init]]
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[DeviceListViewController alloc] init]]
                                                          animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             break;
