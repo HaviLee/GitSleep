@@ -573,6 +573,9 @@
 		2CE567131BF30EA300839E91 /* UIColor+SLAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE567121BF30EA300839E91 /* UIColor+SLAddition.m */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
+		2CE7A3A91BF485BA00E7CEDE /* SearchUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3A81BF485BA00E7CEDE /* SearchUserTableViewCell.m */; };
+		2CE7A3AC1BF486E300E7CEDE /* UITableView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3AB1BF486E300E7CEDE /* UITableView+Common.m */; };
+		2CE7A3B01BF4875700E7CEDE /* UITapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3AF1BF4875700E7CEDE /* UITapImageView.m */; };
 		2CE9E7971BD4C5E2001D8401 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */; };
 		2CE9E7981BD4C5E2001D8401 /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7771BD4C5E2001D8401 /* UIDevice+Info.m */; };
 		2CE9E7991BD4C5E2001D8401 /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */; };
@@ -1460,6 +1463,12 @@
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
 		2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2CE7A3A71BF485BA00E7CEDE /* SearchUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchUserTableViewCell.h; path = controller/SearchUserTableViewCell.h; sourceTree = "<group>"; };
+		2CE7A3A81BF485BA00E7CEDE /* SearchUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchUserTableViewCell.m; path = controller/SearchUserTableViewCell.m; sourceTree = "<group>"; };
+		2CE7A3AA1BF486E300E7CEDE /* UITableView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Common.h"; sourceTree = "<group>"; };
+		2CE7A3AB1BF486E300E7CEDE /* UITableView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Common.m"; sourceTree = "<group>"; };
+		2CE7A3AE1BF4875700E7CEDE /* UITapImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UITapImageView.h; path = lib/vender/UITapImageView.h; sourceTree = "<group>"; };
+		2CE7A3AF1BF4875700E7CEDE /* UITapImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UITapImageView.m; path = lib/vender/UITapImageView.m; sourceTree = "<group>"; };
 		2CE9E7741BD4C5E2001D8401 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
 		2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
 		2CE9E7761BD4C5E2001D8401 /* UIDevice+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Info.h"; sourceTree = "<group>"; };
@@ -2223,6 +2232,7 @@
 		2C6C6C101BF314120076E0EF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2CE7A3AD1BF4873700E7CEDE /* Common */,
 				2C27907B1BF4614200449071 /* XHRealTimeBlur */,
 				2C5E5C1B1B12B3DE00123CC4 /* ResideMenu */,
 				2C2D28431BD7628900E0499F /* SLPagingView */,
@@ -2251,6 +2261,8 @@
 				2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */,
 				2C2790781BF45E7F00449071 /* SearchBarDisplayController.h */,
 				2C2790791BF45E7F00449071 /* SearchBarDisplayController.m */,
+				2CE7A3A71BF485BA00E7CEDE /* SearchUserTableViewCell.h */,
+				2CE7A3A81BF485BA00E7CEDE /* SearchUserTableViewCell.m */,
 			);
 			name = DeviceListView;
 			sourceTree = "<group>";
@@ -2735,6 +2747,15 @@
 			path = lib/thirdlib/Alert_Classes;
 			sourceTree = "<group>";
 		};
+		2CE7A3AD1BF4873700E7CEDE /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2CE7A3AE1BF4875700E7CEDE /* UITapImageView.h */,
+				2CE7A3AF1BF4875700E7CEDE /* UITapImageView.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		2CE9E7541BD4C5E2001D8401 /* OC_Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -2748,6 +2769,8 @@
 				2CE9E7A51BD4D682001D8401 /* UIBarButtonItem+Common.m */,
 				2C27907F1BF462DB00449071 /* UISearchBar+Common.h */,
 				2C2790801BF462DB00449071 /* UISearchBar+Common.m */,
+				2CE7A3AA1BF486E300E7CEDE /* UITableView+Common.h */,
+				2CE7A3AB1BF486E300E7CEDE /* UITableView+Common.m */,
 			);
 			name = OC_Category;
 			path = lib/OC_Category;
@@ -3782,6 +3805,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CE7A3A91BF485BA00E7CEDE /* SearchUserTableViewCell.m in Sources */,
 				572AA98A1AC29A5700DED1D9 /* THPinViewController.m in Sources */,
 				5772BE441AAFFF1B00E108BB /* HaviSwitch.m in Sources */,
 				2CC8E7F31B972DE600F69ABE /* SencondLeaveViewController.m in Sources */,
@@ -3855,6 +3879,7 @@
 				2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */,
 				2CDB867B1BABCD4F00551192 /* FloatLayerView.m in Sources */,
 				2C1F1FEA1ADBF38F00393E04 /* WQCalendarLogic.m in Sources */,
+				2CE7A3AC1BF486E300E7CEDE /* UITableView+Common.m in Sources */,
 				2C7345F71B79894F004D8AB3 /* ThirdRegisterAPI.m in Sources */,
 				2C1AD7191AAAE74A00655A5B /* ScaleAnimation.m in Sources */,
 				5763BAB91AA1665A00EFECD7 /* UserInfoViewController.m in Sources */,
@@ -3948,6 +3973,7 @@
 				2C1F1FEF1ADBF38F00393E04 /* WQScrollCalendarWrapperView.m in Sources */,
 				2CDE55371BAE486D0017C5DE /* MMAlertView.m in Sources */,
 				2C1F1FEE1ADBF38F00393E04 /* WQScrollCalendarView.m in Sources */,
+				2CE7A3B01BF4875700E7CEDE /* UITapImageView.m in Sources */,
 				2C77D5291AEE7095004123D2 /* MMPickerView.m in Sources */,
 				2C95C2871B74430C00C626D9 /* CHCircleGaugeView.m in Sources */,
 				2C94F9E71B8AED0200F1A4DB /* NSDate+DateTools.m in Sources */,
