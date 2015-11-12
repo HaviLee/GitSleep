@@ -29,6 +29,7 @@
     if (self) {
         _bgImage = [[UIImageView alloc]init];
         [self addSubview:_bgImage];
+        _bgImage.userInteractionEnabled = YES;
         _bgImage.backgroundColor = [UIColor colorWithRed:0.929f green:0.929f blue:0.929f alpha:1.00f];
         _bgImage.layer.cornerRadius = 10;
         _bgImage.layer.masksToBounds = YES;
@@ -56,6 +57,9 @@
     return self;
 }
 
+- (void)layoutSubviews
+{
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

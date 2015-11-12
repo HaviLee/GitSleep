@@ -9,12 +9,17 @@
 #import "DeviceListViewController.h"
 #import "MyDeviceListViewController.h"
 #import "FriendDeviceListViewController.h"
+#import "UISearchBar+Common.h"
+#import "UIColor+expanded.h"
+#import "UIView+Frame.h"
 
-@interface DeviceListViewController ()
+@interface DeviceListViewController ()<UISearchBarDelegate,UISearchDisplayDelegate>
 
 @property UISegmentedControl *segmentTitle;
 @property MyDeviceListViewController *myDeviceList;
 @property FriendDeviceListViewController *friendDeviceList;
+
+
 
 @end
 
@@ -78,19 +83,77 @@
         case 0: {
             [self.view addSubview:_myDeviceList.view];
             _myDeviceList.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
-//            _myDeviceList.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             break;
         }
         case 1: {
             [self.view addSubview:_friendDeviceList.view];
             _friendDeviceList.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
-//            _friendDeviceList.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            
             break;
         }
         default:
             break;
     }
+}
+
+- (void)searchDevice:(UIButton*)sender
+{
+    
+
+    _searchBar = ({
+        
+        UISearchBar *searchBar = [[UISearchBar alloc] init];
+        searchBar.delegate = self;
+        [searchBar sizeToFit];
+        [searchBar setPlaceholder:@"输入手机号查找相应的设备"];
+        [searchBar setTintColor:[UIColor whiteColor]];
+        [searchBar setTranslucent:NO];
+        [searchBar insertBGColor:[UIColor colorWithHexString:@"0x28303b"]];
+        searchBar;
+    });
+    [self.navigationController.view addSubview:_searchBar];
+    [_searchBar setY:0];
+    
+    
+    
+    
+    _searchDisplayVC = ({
+        
+        SearchBarDisplayController *searchVC = [[SearchBarDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+        searchVC.parentVC = self;
+        searchVC;
+    });
+    
+    [_searchBar becomeFirstResponder];
+}
+
+#pragma mark UISearchBarDelegate Support
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    
+    return YES;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    HaviLog(@"%@",searchText);
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    
+}
+
+#pragma mark -
+#pragma mark UISearchDisplayDelegate Support
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
+    
+}
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
+    
 }
 
 - (void)didReceiveMemoryWarning {

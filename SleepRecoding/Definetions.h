@@ -21,6 +21,11 @@
 #define ISIPHON4 [UIScreen mainScreen].bounds.size.height==480 ? YES:NO
 #define ISIPHON6 [UIScreen mainScreen].bounds.size.height>568 ? YES:NO
 
+#define kScreen_Bounds [UIScreen mainScreen].bounds
+#define kScreen_Height [UIScreen mainScreen].bounds.size.height
+#define kScreen_Width [UIScreen mainScreen].bounds.size.width
+
+
 #define StatusbarSize 20
 
 //设置统一字号

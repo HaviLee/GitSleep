@@ -7,7 +7,12 @@
 //
 
 #import "BaseViewController.h"
+#import "SearchBarDisplayController.h"
 
 @interface DeviceListViewController : BaseViewController
+
+//搜索
+@property (nonatomic, strong) UISearchBar       *searchBar;
+@property (strong, nonatomic) SearchBarDisplayController *searchDisplayVC;
 
 @end

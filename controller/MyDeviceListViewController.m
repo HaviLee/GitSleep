@@ -11,7 +11,7 @@
 #import "BindDeviceTableViewCell.h"
 #import "MessageShowTableViewCell.h"
 
-@interface MyDeviceListViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MyDeviceListViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 
 @property (nonatomic, strong) UITableView *myDeviceListView;
 @property (nonatomic, strong) ODRefreshControl *refreshControl;
@@ -102,6 +102,38 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.001;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row==0) {
+        [self showInfoList];
+    }else{
+        
+    }
+}
+
+#pragma mark userAction
+
+- (void)showInfoList
+{
+    HaviLog(@"showDone");
+    //控制逻辑添加设备
+    UIActionSheet *infoSheet = [[UIActionSheet alloc] initWithTitle:@"选择您的操作"
+                                        delegate:self
+                               cancelButtonTitle:@"取消"
+                          destructiveButtonTitle:nil
+                               otherButtonTitles:@"添加设备",@"重命名", @"切换设备", @"重激活设备", @"删除设备", nil];
+    
+    // Show the sheet
+    [infoSheet showInView:self.view];
+}
+
+#pragma mark actionsheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"Button %ld", (long)buttonIndex);
 }
 
 - (void)didReceiveMemoryWarning {

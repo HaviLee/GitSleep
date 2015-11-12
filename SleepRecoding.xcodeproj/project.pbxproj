@@ -178,6 +178,9 @@
 		2C1F1FEF1ADBF38F00393E04 /* WQScrollCalendarWrapperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FE61ADBF38F00393E04 /* WQScrollCalendarWrapperView.m */; };
 		2C1F1FF51ADBF42700393E04 /* CalenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FF41ADBF42700393E04 /* CalenderView.m */; };
 		2C2790741BF4488F00449071 /* FriendMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */; };
+		2C27907A1BF45E7F00449071 /* SearchBarDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790791BF45E7F00449071 /* SearchBarDisplayController.m */; };
+		2C27907E1BF4614200449071 /* XHRealTimeBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27907D1BF4614200449071 /* XHRealTimeBlur.m */; };
+		2C2790811BF462DB00449071 /* UISearchBar+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790801BF462DB00449071 /* UISearchBar+Common.m */; };
 		2C2D28501BD7628900E0499F /* SLPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D284C1BD7628900E0499F /* SLPagingViewController.m */; };
 		2C2D28531BD7633600E0499F /* CenterContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D28521BD7633600E0499F /* CenterContainerViewController.m */; };
 		2C30A72C1BF3312F0064758F /* BindDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30A72B1BF3312F0064758F /* BindDeviceTableViewCell.m */; };
@@ -887,6 +890,12 @@
 		2C1F1FF41ADBF42700393E04 /* CalenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderView.m; sourceTree = "<group>"; };
 		2C2790721BF4488F00449071 /* FriendMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendMessageTableViewCell.h; path = controller/FriendMessageTableViewCell.h; sourceTree = "<group>"; };
 		2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendMessageTableViewCell.m; path = controller/FriendMessageTableViewCell.m; sourceTree = "<group>"; };
+		2C2790781BF45E7F00449071 /* SearchBarDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchBarDisplayController.h; path = controller/SearchBarDisplayController.h; sourceTree = "<group>"; };
+		2C2790791BF45E7F00449071 /* SearchBarDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchBarDisplayController.m; path = controller/SearchBarDisplayController.m; sourceTree = "<group>"; };
+		2C27907C1BF4614200449071 /* XHRealTimeBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHRealTimeBlur.h; sourceTree = "<group>"; };
+		2C27907D1BF4614200449071 /* XHRealTimeBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHRealTimeBlur.m; sourceTree = "<group>"; };
+		2C27907F1BF462DB00449071 /* UISearchBar+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+Common.h"; sourceTree = "<group>"; };
+		2C2790801BF462DB00449071 /* UISearchBar+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+Common.m"; sourceTree = "<group>"; };
 		2C2D284A1BD7628900E0499F /* ShareResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareResources.h; sourceTree = "<group>"; };
 		2C2D284B1BD7628900E0499F /* SLPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPagingViewController.h; sourceTree = "<group>"; };
 		2C2D284C1BD7628900E0499F /* SLPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPagingViewController.m; sourceTree = "<group>"; };
@@ -1905,6 +1914,16 @@
 			path = new;
 			sourceTree = "<group>";
 		};
+		2C27907B1BF4614200449071 /* XHRealTimeBlur */ = {
+			isa = PBXGroup;
+			children = (
+				2C27907C1BF4614200449071 /* XHRealTimeBlur.h */,
+				2C27907D1BF4614200449071 /* XHRealTimeBlur.m */,
+			);
+			name = XHRealTimeBlur;
+			path = lib/vender/XHRealTimeBlur;
+			sourceTree = "<group>";
+		};
 		2C2D28431BD7628900E0499F /* SLPagingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2204,6 +2223,7 @@
 		2C6C6C101BF314120076E0EF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2C27907B1BF4614200449071 /* XHRealTimeBlur */,
 				2C5E5C1B1B12B3DE00123CC4 /* ResideMenu */,
 				2C2D28431BD7628900E0499F /* SLPagingView */,
 				57747DCD1AA57FAD002B5A49 /* ScrollDatepicker */,
@@ -2229,6 +2249,8 @@
 				2C30A7311BF33B810064758F /* MessageShowTableViewCell.m */,
 				2C2790721BF4488F00449071 /* FriendMessageTableViewCell.h */,
 				2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */,
+				2C2790781BF45E7F00449071 /* SearchBarDisplayController.h */,
+				2C2790791BF45E7F00449071 /* SearchBarDisplayController.m */,
 			);
 			name = DeviceListView;
 			sourceTree = "<group>";
@@ -2724,6 +2746,8 @@
 				2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */,
 				2CE9E7A41BD4D682001D8401 /* UIBarButtonItem+Common.h */,
 				2CE9E7A51BD4D682001D8401 /* UIBarButtonItem+Common.m */,
+				2C27907F1BF462DB00449071 /* UISearchBar+Common.h */,
+				2C2790801BF462DB00449071 /* UISearchBar+Common.m */,
 			);
 			name = OC_Category;
 			path = lib/OC_Category;
@@ -3804,6 +3828,7 @@
 				2C2D28531BD7633600E0499F /* CenterContainerViewController.m in Sources */,
 				2C94FA1A1B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m in Sources */,
 				2CDE553C1BAE486D0017C5DE /* MMSheetView.m in Sources */,
+				2C2790811BF462DB00449071 /* UISearchBar+Common.m in Sources */,
 				2C8F7BC21AF374A500E56513 /* CalenderCantainerViewController.m in Sources */,
 				578681531ADCEE1200E881A2 /* WTURLRequestSerialization.m in Sources */,
 				576C3F071ABFC15500815EF3 /* MTStatusBarOverlay.m in Sources */,
@@ -3868,6 +3893,7 @@
 				2CDE55381BAE486D0017C5DE /* MMPopupCategory.m in Sources */,
 				2C4FCB101A8F56E800DCEEF3 /* main.m in Sources */,
 				2C3B62921B81AC0600E3842F /* TriangleView.m in Sources */,
+				2C27907E1BF4614200449071 /* XHRealTimeBlur.m in Sources */,
 				2C94FA141B8AEF9200F1A4DB /* CalendarHomeViewController.m in Sources */,
 				57747DD61AA57FAD002B5A49 /* DIDatepicker.m in Sources */,
 				2C77D5201AEB8F45004123D2 /* DVSwitch.m in Sources */,
@@ -3914,6 +3940,7 @@
 				2C8F7BBA1AF3747700E56513 /* JTCalendarMenuMonthView.m in Sources */,
 				2C15E67F1AF1FF8900142F36 /* GetTurnSleepDataAPI.m in Sources */,
 				2C8C62821AB5B0D100CF4C19 /* ModifyPassWordViewController.m in Sources */,
+				2C27907A1BF45E7F00449071 /* SearchBarDisplayController.m in Sources */,
 				2CE9E7991BD4C5E2001D8401 /* UIImage+Common.m in Sources */,
 				2C7319D21B759237005A3EE4 /* DayTimeView.m in Sources */,
 				2C94FA161B8AEF9200F1A4DB /* CalendarMonthCollectionViewLayout.m in Sources */,
