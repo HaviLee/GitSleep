@@ -576,6 +576,8 @@
 		2CE7A3A91BF485BA00E7CEDE /* SearchUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3A81BF485BA00E7CEDE /* SearchUserTableViewCell.m */; };
 		2CE7A3AC1BF486E300E7CEDE /* UITableView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3AB1BF486E300E7CEDE /* UITableView+Common.m */; };
 		2CE7A3B01BF4875700E7CEDE /* UITapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3AF1BF4875700E7CEDE /* UITapImageView.m */; };
+		2CE7A3B51BF490B900E7CEDE /* CSSearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3B21BF490B900E7CEDE /* CSSearchModel.m */; };
+		2CE7A3B61BF490B900E7CEDE /* TMCacheExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3B41BF490B900E7CEDE /* TMCacheExtend.m */; };
 		2CE9E7971BD4C5E2001D8401 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */; };
 		2CE9E7981BD4C5E2001D8401 /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7771BD4C5E2001D8401 /* UIDevice+Info.m */; };
 		2CE9E7991BD4C5E2001D8401 /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */; };
@@ -1469,6 +1471,10 @@
 		2CE7A3AB1BF486E300E7CEDE /* UITableView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Common.m"; sourceTree = "<group>"; };
 		2CE7A3AE1BF4875700E7CEDE /* UITapImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UITapImageView.h; path = lib/vender/UITapImageView.h; sourceTree = "<group>"; };
 		2CE7A3AF1BF4875700E7CEDE /* UITapImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UITapImageView.m; path = lib/vender/UITapImageView.m; sourceTree = "<group>"; };
+		2CE7A3B11BF490B900E7CEDE /* CSSearchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSSearchModel.h; path = lib/vender/CSSearchModel.h; sourceTree = "<group>"; };
+		2CE7A3B21BF490B900E7CEDE /* CSSearchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSSearchModel.m; path = lib/vender/CSSearchModel.m; sourceTree = "<group>"; };
+		2CE7A3B31BF490B900E7CEDE /* TMCacheExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMCacheExtend.h; path = lib/vender/TMCacheExtend.h; sourceTree = "<group>"; };
+		2CE7A3B41BF490B900E7CEDE /* TMCacheExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMCacheExtend.m; path = lib/vender/TMCacheExtend.m; sourceTree = "<group>"; };
 		2CE9E7741BD4C5E2001D8401 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
 		2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
 		2CE9E7761BD4C5E2001D8401 /* UIDevice+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Info.h"; sourceTree = "<group>"; };
@@ -2752,6 +2758,10 @@
 			children = (
 				2CE7A3AE1BF4875700E7CEDE /* UITapImageView.h */,
 				2CE7A3AF1BF4875700E7CEDE /* UITapImageView.m */,
+				2CE7A3B11BF490B900E7CEDE /* CSSearchModel.h */,
+				2CE7A3B21BF490B900E7CEDE /* CSSearchModel.m */,
+				2CE7A3B31BF490B900E7CEDE /* TMCacheExtend.h */,
+				2CE7A3B41BF490B900E7CEDE /* TMCacheExtend.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -4002,6 +4012,7 @@
 				2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */,
 				2CD6C06D1B7D827C00F1FF6A /* HeartGraphView.m in Sources */,
 				2CDE55391BAE486D0017C5DE /* MMPopupitem.m in Sources */,
+				2CE7A3B51BF490B900E7CEDE /* CSSearchModel.m in Sources */,
 				2C1F1FC71AD95CA600393E04 /* MonthReportTableViewCell.m in Sources */,
 				2C7345E41B7835DA004D8AB3 /* WeiXinAPI.m in Sources */,
 				2C94F9E61B8AED0200F1A4DB /* DTTimePeriodGroup.m in Sources */,
@@ -4063,6 +4074,7 @@
 				2CD6C0701B7DDBE000F1FF6A /* BreathGraphView.m in Sources */,
 				2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */,
 				2C7319E91B75E598005A3EE4 /* TLTagsControl.m in Sources */,
+				2CE7A3B61BF490B900E7CEDE /* TMCacheExtend.m in Sources */,
 				2CDB867D1BABCD4F00551192 /* MPGraphView.m in Sources */,
 				577120091AD5088700508C5C /* KxMenu.m in Sources */,
 				572AA98B1AC29A5700DED1D9 /* UIImage+ImageEffects.m in Sources */,

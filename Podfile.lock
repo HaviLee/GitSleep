@@ -24,6 +24,7 @@ PODS:
     - AFNetworking/NSURLSession
   - Masonry (0.6.1)
   - MMProgressHUD (0.3.1)
+  - TMCache (2.1.0)
   - YTKNetwork (0.2.0):
     - AFDownloadRequestOperation (~> 2.0)
     - AFNetworking (~> 2.0)
@@ -31,6 +32,7 @@ PODS:
 DEPENDENCIES:
   - Masonry (~> 0.6.1)
   - MMProgressHUD (~> 0.3.1)
+  - TMCache (= 2.1.0)
   - YTKNetwork (~> 0.2.0)
 
 SPEC CHECKSUMS:
@@ -38,6 +40,7 @@ SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   MMProgressHUD: dac2655d62d28e7d6dc28bf72d9531a4d4c62459
+  TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
   YTKNetwork: 8adc811cb3877e0d2993aa873d9869ac058bdb84
 
 COCOAPODS: 0.39.0

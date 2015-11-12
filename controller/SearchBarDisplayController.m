@@ -10,6 +10,9 @@
 #import "XHRealTimeBlur.h"
 #import "SearchUserTableViewCell.h"
 #import "UITableView+Common.h"
+#import "UIView+Frame.h"
+#import "CSSearchModel.h"
+#import "TMCacheExtend.h"
 
 @class DeviceListViewController;
 
@@ -20,6 +23,7 @@
 @property (nonatomic, strong) XHRealTimeBlur *backgroundView;
 //
 @property (nonatomic, strong) NSMutableArray *resultArr;
+@property (nonatomic, strong) UIScrollView  *searchHistoryView;
 
 @end
 
@@ -64,7 +68,7 @@
                 
                 UIView *view = [[UIView alloc] init];
                 view.frame = CGRectMake(0.0f, 64.0f, kScreen_Width, kScreen_Height - 64.0f);
-                view.backgroundColor = [UIColor redColor];
+                view.backgroundColor = [UIColor lightGrayColor];
                 view.userInteractionEnabled = YES;
                 
                 UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickedContentView:)];
@@ -90,6 +94,88 @@
         [self.parentVC.view bringSubviewToFront:_contentView];
         self.searchBar.delegate = self;
     }
+}
+
+- (void)initSearchHistoryView {
+    
+    if(!_searchHistoryView) {
+        
+        _searchHistoryView = [[UIScrollView alloc] init];
+        _searchHistoryView.backgroundColor = [UIColor clearColor];
+        [_contentView addSubview:_searchHistoryView];
+        _searchHistoryView.frame = CGRectMake(0, 64, kScreen_Width, 350);
+//        [_searchHistoryView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            
+//            make.top.mas_equalTo(self);
+//            make.left.mas_equalTo(@0);
+//            make.width.mas_equalTo(kScreen_Width);
+//            make.height.mas_equalTo(@350);
+//        }];
+        _searchHistoryView.contentSize = CGSizeMake(kScreen_Width, 0);
+    }
+    
+    [[_searchHistoryView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 0.5)];
+        view.backgroundColor = [UIColor colorWithHexString:@"0xdddddd"];
+        [_searchHistoryView addSubview:view];
+    }
+    NSArray *array = [CSSearchModel getSearchHistory];
+    CGFloat imageLeft = 12.0f;
+    CGFloat textLeft = 34.0f;
+    CGFloat height = 40.0f;
+    
+    for (int i = 0; i < array.count; i++) {
+        
+        UILabel *lblHistory = [[UILabel alloc] initWithFrame:CGRectMake(textLeft, i * height, kScreen_Width - textLeft, height)];
+        lblHistory.userInteractionEnabled = YES;
+        lblHistory.font = [UIFont systemFontOfSize:14];
+        lblHistory.textColor = [UIColor colorWithHexString:@"0x222222"];
+        lblHistory.text = array[i];
+        
+        UIImageView *leftView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+        leftView.frame = CGRectMake(12, leftView.frame.origin.y, leftView.frame.size.width, leftView.frame.size.height);
+        CGPoint center = leftView.center;
+        center.y = lblHistory.center.y;
+        leftView.center = center;
+        leftView.image = [UIImage imageNamed:@"icon_search_clock"];
+        
+        UIImageView *rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 14, 14)];
+        rightImageView.frame = CGRectMake(kScreen_Width - 12 - rightImageView.frame.size.width, rightImageView.frame.origin.y, rightImageView.frame.size.width, rightImageView.frame.size.height);
+        CGPoint center1 = leftView.center;
+        center1.y = lblHistory.center.y;
+        rightImageView.center = center;
+        rightImageView.image = [UIImage imageNamed:@"icon_arrow_searchHistory"];
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(imageLeft, (i + 1) * height, kScreen_Width - imageLeft, 0.5)];
+        view.backgroundColor = [UIColor colorWithHexString:@"0xdddddd"];
+        
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickedHistory:)];
+        [lblHistory addGestureRecognizer:tapGestureRecognizer];
+        
+        [_searchHistoryView addSubview:lblHistory];
+        [_searchHistoryView addSubview:leftView];
+        [_searchHistoryView addSubview:rightImageView];
+        [_searchHistoryView addSubview:view];
+    }
+    
+    if(array.count) {
+        
+        UIButton *btnClean = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnClean.titleLabel.font = [UIFont systemFontOfSize:14];
+        [btnClean setTitle:@"清除搜索历史" forState:UIControlStateNormal];
+        [btnClean setTitleColor:[UIColor colorWithHexString:@"0x1bbf75"] forState:UIControlStateNormal];
+        [btnClean setFrame:CGRectMake(0, array.count * height, kScreen_Width, height)];
+        [_searchHistoryView addSubview:btnClean];
+        [btnClean addTarget:self action:@selector(didCLickedCleanSearchHistory:) forControlEvents:UIControlEventTouchUpInside];
+        {
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(imageLeft, (array.count + 1) * height, kScreen_Width - imageLeft, 0.5)];
+            view.backgroundColor = [UIColor colorWithHexString:@"0xdddddd"];
+            [_searchHistoryView addSubview:view];
+        }
+    }
+    
 }
 
 - (void)didClickedContentView:(UIGestureRecognizer *)sender {
