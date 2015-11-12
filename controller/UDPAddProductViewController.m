@@ -137,7 +137,7 @@
     showLabel.text = @"1.在使用前请确保床垫处于工作状态。\n2.请手动输入需要接入的无线网络名称和密码。";
     showLabel.numberOfLines = 0;
     [showLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view.left).offset(20);
+        make.left.equalTo(self.view.left).offset(20);
         make.right.equalTo(self.view.right).offset(-20);
         make.centerY.equalTo(self.view.centerY).offset(40);
     }];

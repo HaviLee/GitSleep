@@ -10,6 +10,8 @@
 #import "ODRefreshControl.h"
 #import "BindDeviceTableViewCell.h"
 #import "MessageShowTableViewCell.h"
+#import "AddProductNameViewController.h"
+#import "UDPAddProductViewController.h"
 
 @interface MyDeviceListViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 
@@ -134,6 +136,35 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     NSLog(@"Button %ld", (long)buttonIndex);
+    switch (buttonIndex) {
+        case 0:{
+            AddProductNameViewController *addProductName = [[AddProductNameViewController alloc]init];
+            [self.navigationController pushViewController:addProductName animated:YES];
+            break;
+        }
+        case 1:{
+            break;
+        }
+        case 2:{
+            break;
+        }
+        case 3:{
+            UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
+            NSString *deviceName = @"li";
+            NSString *deviceUUID = @"li";
+            udp.productName = deviceName;
+            udp.productUUID = deviceUUID;
+            [self.navigationController pushViewController:udp animated:YES];
+            break;
+        }
+        case 4:{
+            break;
+        }
+            
+            
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
