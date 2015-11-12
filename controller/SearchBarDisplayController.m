@@ -175,11 +175,11 @@
     
     [self.searchBar removeFromSuperview];
     
-    [_searchTableView removeFromSuperview];
+//    [_searchTableView removeFromSuperview];
     [_backgroundView removeFromSuperview];
     [_contentView removeFromSuperview];
 
-    _searchTableView = nil;
+//    _searchTableView = nil;
     _contentView = nil;
     _backgroundView = nil;
 }

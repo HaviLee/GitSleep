@@ -102,20 +102,23 @@
     _searchBar = ({
         
         UISearchBar *searchBar = [[UISearchBar alloc] init];
+        searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 64);
         searchBar.delegate = self;
         [searchBar sizeToFit];
         [searchBar setPlaceholder:@"输入手机号查找相应的设备"];
         [searchBar setTintColor:[UIColor whiteColor]];
         [searchBar setTranslucent:NO];
+//        searchBar.backgroundColor=[UIColor colorWithHexString:@"0x28303b"];
         [searchBar insertBGColor:[UIColor colorWithHexString:@"0x28303b"]];
         searchBar;
     });
     [self.navigationController.view addSubview:_searchBar];
-    [_searchBar setY:0];
+    self.navigationController.view.backgroundColor = [UIColor redColor];
+    [_searchBar setY:20];
+    [_searchBar setHeight:64];
+
     
-    
-    
-    
+
     _searchDisplayVC = ({
         
         SearchBarDisplayController *searchVC = [[SearchBarDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
