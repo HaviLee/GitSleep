@@ -67,7 +67,7 @@
     if (indexPath.row==0) {
         return 200;
     }else{
-        return 70;
+        return 110;
     }
 }
 

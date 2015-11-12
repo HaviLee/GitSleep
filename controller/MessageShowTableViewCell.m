@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UILabel *messageTime;
 @property (nonatomic, strong) UIButton *messageAccepteButton;
 @property (nonatomic, strong) UIButton *messageRefuseButton;
+@property (nonatomic, strong) UILabel *messageShowWord;
 
 @end
 
@@ -47,6 +48,19 @@
         [self addSubview:_messageTime];
         _messageTime.text = @"2015-11-11";
         _messageTime.font = [UIFont systemFontOfSize:14];
+        //
+        _messageShowWord = [[UILabel alloc]init];
+        [self addSubview:_messageShowWord];
+        _messageShowWord.text = @"你好，我是哈维，我请求查看的你的设备";
+//        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:@"你好，我是哈维，我请求查看的你的设备"];
+//        [attriString addAttribute:(NSString *)kCTForegroundColorAttributeName
+//                            value:(id)[UIColor redColor].CGColor
+//                            range:];
+//        _messageShowWord.attributedText = attriString;
+        _messageShowWord.font = [UIFont systemFontOfSize:14];
+        _messageShowWord.layer.cornerRadius = 5;
+        _messageShowWord.layer.masksToBounds = YES;
+        _messageShowWord.backgroundColor = [UIColor whiteColor];
         //
         _messageAccepteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:_messageAccepteButton];
@@ -106,6 +120,13 @@
         [_messageRefuseButton makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self).offset(-10);
             make.centerY.equalTo(_messageAccepteButton.centerY);
+        }];
+        //
+        [_messageShowWord makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(10);
+            make.right.equalTo(self).offset(-10);
+            make.top.equalTo(_messageRefuseButton.bottom).offset(5);
+            make.bottom.equalTo(self).offset(-10);
         }];
         
     }

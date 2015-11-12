@@ -42,7 +42,7 @@
         [_bgImage makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(10);
             make.right.equalTo(self).offset(-10);
-            make.bottom.equalTo(self).offset(-5);
+            make.bottom.equalTo(self).offset(-15);
             make.top.equalTo(_deviceTitleLabel.bottom).offset(15);
         }];
         [_deviceTitleLabel makeConstraints:^(MASConstraintMaker *make) {
