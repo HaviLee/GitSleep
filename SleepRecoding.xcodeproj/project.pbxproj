@@ -177,6 +177,7 @@
 		2C1F1FEE1ADBF38F00393E04 /* WQScrollCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FE41ADBF38F00393E04 /* WQScrollCalendarView.m */; };
 		2C1F1FEF1ADBF38F00393E04 /* WQScrollCalendarWrapperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FE61ADBF38F00393E04 /* WQScrollCalendarWrapperView.m */; };
 		2C1F1FF51ADBF42700393E04 /* CalenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FF41ADBF42700393E04 /* CalenderView.m */; };
+		2C2790741BF4488F00449071 /* FriendMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */; };
 		2C2D28501BD7628900E0499F /* SLPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D284C1BD7628900E0499F /* SLPagingViewController.m */; };
 		2C2D28531BD7633600E0499F /* CenterContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D28521BD7633600E0499F /* CenterContainerViewController.m */; };
 		2C30A72C1BF3312F0064758F /* BindDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30A72B1BF3312F0064758F /* BindDeviceTableViewCell.m */; };
@@ -884,6 +885,8 @@
 		2C1F1FE61ADBF38F00393E04 /* WQScrollCalendarWrapperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WQScrollCalendarWrapperView.m; sourceTree = "<group>"; };
 		2C1F1FF31ADBF42700393E04 /* CalenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalenderView.h; sourceTree = "<group>"; };
 		2C1F1FF41ADBF42700393E04 /* CalenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderView.m; sourceTree = "<group>"; };
+		2C2790721BF4488F00449071 /* FriendMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendMessageTableViewCell.h; path = controller/FriendMessageTableViewCell.h; sourceTree = "<group>"; };
+		2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendMessageTableViewCell.m; path = controller/FriendMessageTableViewCell.m; sourceTree = "<group>"; };
 		2C2D284A1BD7628900E0499F /* ShareResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareResources.h; sourceTree = "<group>"; };
 		2C2D284B1BD7628900E0499F /* SLPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPagingViewController.h; sourceTree = "<group>"; };
 		2C2D284C1BD7628900E0499F /* SLPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPagingViewController.m; sourceTree = "<group>"; };
@@ -2224,6 +2227,8 @@
 				2C30A72E1BF331450064758F /* NoBindDeviceTableViewCell.m */,
 				2C30A7301BF33B810064758F /* MessageShowTableViewCell.h */,
 				2C30A7311BF33B810064758F /* MessageShowTableViewCell.m */,
+				2C2790721BF4488F00449071 /* FriendMessageTableViewCell.h */,
+				2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */,
 			);
 			name = DeviceListView;
 			sourceTree = "<group>";
@@ -3770,6 +3775,7 @@
 				577120061AD5022800508C5C /* HaviButton.m in Sources */,
 				2CDB86BB1BABE66800551192 /* YXSpritesLoadingView.m in Sources */,
 				2CDB86871BABCD4F00551192 /* ReportDataTableViewCell.m in Sources */,
+				2C2790741BF4488F00449071 /* FriendMessageTableViewCell.m in Sources */,
 				2C7345FA1B79C33C004D8AB3 /* CheckUserIsRegister.m in Sources */,
 				2C7319D51B759248005A3EE4 /* NightTimeView.m in Sources */,
 				2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */,
