@@ -15,6 +15,7 @@
 #import "ActiveDeviceAPI.h"
 #import "URBAlertView.h"
 #import "MMPopupItem.h"
+#import "NameDoubleViewController.h"
 
 @interface ScanBarcodeViewController ()<UITextFieldDelegate,UIAlertViewDelegate>
 @property (nonatomic,strong) UITextField *barTextfield;
@@ -368,7 +369,24 @@ float prewMoveY;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.session startRunning];
         });
-        [self bindingDeviceWithUUID:self.barTextfield.text];
+        if ([self checkIsDoubleBed:self.barTextfield.text]) {
+            NameDoubleViewController *doubleBed = [[NameDoubleViewController alloc]init];
+            [self.navigationController pushViewController:doubleBed animated:YES];
+        }else{
+            [self bindingDeviceWithUUID:self.barTextfield.text];
+        }
+        
+        
+    }
+}
+
+- (BOOL)checkIsDoubleBed:(NSString *)deviceUUID
+{
+    NSString *subString = [deviceUUID substringToIndex:3];
+    if ([subString isEqualToString:@"845"]) {
+        return NO;
+    }else{
+        return YES;
     }
 }
 
@@ -379,7 +397,12 @@ float prewMoveY;
         [self.view makeToast:@"请输入或者扫描设备二维码" duration:2 position:@"center"];
         return;
     }
-    [self bindingDeviceWithUUID:self.barTextfield.text];
+    if ([self checkIsDoubleBed:self.barTextfield.text]) {
+        NameDoubleViewController *doubleBed = [[NameDoubleViewController alloc]init];
+        [self.navigationController pushViewController:doubleBed animated:YES];
+    }else{
+        [self bindingDeviceWithUUID:self.barTextfield.text];
+    }
 }
 //进行设备关联
 #pragma mark 绑定硬件

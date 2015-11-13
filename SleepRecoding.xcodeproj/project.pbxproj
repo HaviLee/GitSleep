@@ -578,6 +578,9 @@
 		2CE7A3B01BF4875700E7CEDE /* UITapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3AF1BF4875700E7CEDE /* UITapImageView.m */; };
 		2CE7A3B51BF490B900E7CEDE /* CSSearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3B21BF490B900E7CEDE /* CSSearchModel.m */; };
 		2CE7A3B61BF490B900E7CEDE /* TMCacheExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3B41BF490B900E7CEDE /* TMCacheExtend.m */; };
+		2CE7A3B91BF58A5200E7CEDE /* NameDoubleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3B81BF58A5200E7CEDE /* NameDoubleViewController.m */; };
+		2CE7A3BB1BF59AA600E7CEDE /* double_bed.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE7A3BA1BF59AA600E7CEDE /* double_bed.png */; };
+		2CE7A3BD1BF5B2FF00E7CEDE /* edit_double_bed.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE7A3BC1BF5B2FF00E7CEDE /* edit_double_bed.png */; };
 		2CE9E7971BD4C5E2001D8401 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */; };
 		2CE9E7981BD4C5E2001D8401 /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7771BD4C5E2001D8401 /* UIDevice+Info.m */; };
 		2CE9E7991BD4C5E2001D8401 /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */; };
@@ -1475,6 +1478,10 @@
 		2CE7A3B21BF490B900E7CEDE /* CSSearchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSSearchModel.m; path = lib/vender/CSSearchModel.m; sourceTree = "<group>"; };
 		2CE7A3B31BF490B900E7CEDE /* TMCacheExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMCacheExtend.h; path = lib/vender/TMCacheExtend.h; sourceTree = "<group>"; };
 		2CE7A3B41BF490B900E7CEDE /* TMCacheExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMCacheExtend.m; path = lib/vender/TMCacheExtend.m; sourceTree = "<group>"; };
+		2CE7A3B71BF58A5200E7CEDE /* NameDoubleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NameDoubleViewController.h; path = controller/NameDoubleViewController.h; sourceTree = "<group>"; };
+		2CE7A3B81BF58A5200E7CEDE /* NameDoubleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NameDoubleViewController.m; path = controller/NameDoubleViewController.m; sourceTree = "<group>"; };
+		2CE7A3BA1BF59AA600E7CEDE /* double_bed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = double_bed.png; sourceTree = "<group>"; };
+		2CE7A3BC1BF5B2FF00E7CEDE /* edit_double_bed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit_double_bed.png; sourceTree = "<group>"; };
 		2CE9E7741BD4C5E2001D8401 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
 		2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
 		2CE9E7761BD4C5E2001D8401 /* UIDevice+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Info.h"; sourceTree = "<group>"; };
@@ -2009,6 +2016,7 @@
 				2CF34FC81BB1039E007099FC /* pic_about@2x.png */,
 				2C7D21F21AF1C6550011A45C /* btn_done@2x.png */,
 				2C7D21F31AF1C6550011A45C /* btn_edit_info@2x.png */,
+				2CE7A3BC1BF5B2FF00E7CEDE /* edit_double_bed.png */,
 				2C7D21F41AF1C6550011A45C /* emergency_Contact@2x.png */,
 				2C3AF2C11AF470C800B66E32 /* btn_back_calender@2x.png */,
 				2C3AF2C21AF470C800B66E32 /* btn_back_left_calender@2x.png */,
@@ -2056,6 +2064,7 @@
 				2CDE55721BAE8B150017C5DE /* btn_left_75_0@2x.png */,
 				2CDE55731BAE8B150017C5DE /* btn_right_75_1@2x.png */,
 				2CDE55741BAE8B150017C5DE /* btn_left_75_1@2x.png */,
+				2CE7A3BA1BF59AA600E7CEDE /* double_bed.png */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -2275,6 +2284,10 @@
 				5764518E1AC69701008E3526 /* ScanBarcodeViewController.m */,
 				57F1D14A1AB8329500B5B0D1 /* UDPAddProductViewController.h */,
 				57F1D14B1AB8329500B5B0D1 /* UDPAddProductViewController.m */,
+				2C77D5091AEB3702004123D2 /* ReNameDeviceNameViewController.h */,
+				2C77D50A1AEB3702004123D2 /* ReNameDeviceNameViewController.m */,
+				2CE7A3B71BF58A5200E7CEDE /* NameDoubleViewController.h */,
+				2CE7A3B81BF58A5200E7CEDE /* NameDoubleViewController.m */,
 			);
 			name = DeviceListView;
 			sourceTree = "<group>";
@@ -3125,8 +3138,6 @@
 				57490FCB1ACAA7E10057DC05 /* AboutMeViewController.m */,
 				2C435E7F1AD2D4C4003B1604 /* DataStaticViewController.h */,
 				2C435E801AD2D4C4003B1604 /* DataStaticViewController.m */,
-				2C77D5091AEB3702004123D2 /* ReNameDeviceNameViewController.h */,
-				2C77D50A1AEB3702004123D2 /* ReNameDeviceNameViewController.m */,
 				2C7CA0261B6FCFD300AA511D /* CenterViewTableViewCell.h */,
 				2C7CA0271B6FCFD300AA511D /* CenterViewTableViewCell.m */,
 				2C7319CD1B74859A005A3EE4 /* SleepAnalysisViewController.h */,
@@ -3561,6 +3572,7 @@
 				2C15E7271AF214E800142F36 /* line_diagnostic_message_1@2x.png in Resources */,
 				2C7D22071AF1C6550011A45C /* name@2x.png in Resources */,
 				2C7D22EF1AF1CA050011A45C /* txtbox_no_number_add_0@2x.png in Resources */,
+				2CE7A3BB1BF59AA600E7CEDE /* double_bed.png in Resources */,
 				2C7D22AD1AF1CA050011A45C /* home_0@2x.png in Resources */,
 				2C15E6F11AF214E800142F36 /* arrows_report_right_1@2x.png in Resources */,
 				2C7D22D61AF1CA050011A45C /* pic_diagnostic_deep_0@2x.png in Resources */,
@@ -3667,6 +3679,7 @@
 				2CC8E80D1B9C19AE00F69ABE /* ic_getup_1.png in Resources */,
 				2C7D22A01AF1CA050011A45C /* btn_over_0@2x.png in Resources */,
 				2C7D22FC1AF1CA220011A45C /* heart_1_0.png in Resources */,
+				2CE7A3BD1BF5B2FF00E7CEDE /* edit_double_bed.png in Resources */,
 				2C15E7191AF214E800142F36 /* icon_general_exception_1@2x.png in Resources */,
 				2C15E78D1AF2152100142F36 /* heart_7_1.png in Resources */,
 				2CD6C0501B7B852700F1FF6A /* res1thumb.png in Resources */,
@@ -3868,6 +3881,7 @@
 				576C3F071ABFC15500815EF3 /* MTStatusBarOverlay.m in Sources */,
 				576B02491A9EB24B004DB418 /* LeftSideViewController.m in Sources */,
 				579AC7DB1AA01DE40045E9A2 /* DataShowTableViewCell.m in Sources */,
+				2CE7A3B91BF58A5200E7CEDE /* NameDoubleViewController.m in Sources */,
 				5772BE481AB0326900E108BB /* CHTumblrMenuView.m in Sources */,
 				2C9C01621AD0215F006362E9 /* TurnChartView.m in Sources */,
 				5759E35C1ABA67A700E51690 /* GetCodeViewController.m in Sources */,

@@ -12,6 +12,7 @@
 #import "MessageShowTableViewCell.h"
 #import "AddProductNameViewController.h"
 #import "UDPAddProductViewController.h"
+#import "ReNameDeviceNameViewController.h"
 
 @interface MyDeviceListViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 
@@ -143,6 +144,9 @@
             break;
         }
         case 1:{
+            ReNameDeviceNameViewController *name = [[ReNameDeviceNameViewController alloc]init];
+            name.deviceInfo = @{@"Havi":@"li"};
+            [self.navigationController pushViewController:name animated:YES];
             break;
         }
         case 2:{
