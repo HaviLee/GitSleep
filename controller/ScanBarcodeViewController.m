@@ -139,8 +139,6 @@
     if (!_barTextfield) {
         _barTextfield = [[UITextField alloc]init];
         _barTextfield.borderStyle = UITextBorderStyleNone;
-//        _barTextfield.layer.borderColor = [UIColor whiteColor].CGColor;
-//        _barTextfield.layer.borderWidth = 1;
         _barTextfield.background = [UIImage imageNamed:[NSString stringWithFormat:@"textbox_hollow_%d",selectedThemeIndex]];
         _barTextfield.backgroundColor = [UIColor clearColor];
         _barTextfield.layer.cornerRadius = 0;
@@ -182,7 +180,6 @@
 #pragma mark view 函数
 -(void)viewWillAppear:(BOOL)animated
 {
-//    [self setupCameraWith];
     [super viewWillAppear:animated];
 }
 
@@ -371,6 +368,8 @@ float prewMoveY;
         });
         if ([self checkIsDoubleBed:self.barTextfield.text]) {
             NameDoubleViewController *doubleBed = [[NameDoubleViewController alloc]init];
+            doubleBed.barUUIDString = self.barTextfield.text;
+            doubleBed.doubleDeviceName = self.deviceName;
             [self.navigationController pushViewController:doubleBed animated:YES];
         }else{
             [self bindingDeviceWithUUID:self.barTextfield.text];
@@ -399,6 +398,8 @@ float prewMoveY;
     }
     if ([self checkIsDoubleBed:self.barTextfield.text]) {
         NameDoubleViewController *doubleBed = [[NameDoubleViewController alloc]init];
+        doubleBed.barUUIDString = self.barTextfield.text;
+        doubleBed.doubleDeviceName = self.deviceName;
         [self.navigationController pushViewController:doubleBed animated:YES];
     }else{
         [self bindingDeviceWithUUID:self.barTextfield.text];

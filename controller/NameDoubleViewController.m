@@ -47,7 +47,7 @@
         make.height.equalTo(44);
     }];
     deviceLabel.font = DefaultWordFont;
-    deviceLabel.text = @"哈维床垫";
+    deviceLabel.text = self.doubleDeviceName;
     deviceLabel.textColor = [UIColor whiteColor];
     //
     UIImageView *bgView = [[UIImageView alloc]init];
@@ -165,7 +165,7 @@
         make.top.equalTo(nextButton.bottom).offset(20);
         make.height.equalTo(ButtonHeight);
         make.width.equalTo(bgView.width);
-        make.bottom.equalTo(self.view).offset(-20);
+//        make.bottom.equalTo(self.view).offset(-20);
     }];
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyBoardView)];
 //    [self.view addGestureRecognizer:tap];
@@ -200,7 +200,7 @@
     NSDictionary *para = @{
                            @"UserID":thirdPartyLoginUserId,
                            @"UUID": self.barUUIDString,
-                           @"Description":@"",
+                           @"Description":self.doubleDeviceName,
                            };
     BindingDeviceUUIDAPI *client = [BindingDeviceUUIDAPI shareInstance];
     [client bindingDeviceUUID:header andWithPara:para];
