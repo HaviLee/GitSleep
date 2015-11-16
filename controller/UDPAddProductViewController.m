@@ -12,10 +12,11 @@
 #import "Sniffer.h"
 #import "UDPController.h"
 #import "AppDelegate.h"
-#import "DeviceManagerViewController.h"
+#import "DeviceListViewController.h"
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 #include <netdb.h>
+#import "HFSmtlkV30.h"
 
 #include <net/if.h>
 #import <dlfcn.h>
@@ -26,6 +27,13 @@
     UDPController *udpController;
     dispatch_queue_t   queue;
     NSInteger   times;
+    //double
+    NSInteger DoubleTimes;
+    NSInteger findTimes;
+    BOOL isfinding ;
+    HFSmtlkV30 *smtlk;
+    int smtlkState;
+
 }
 @property (nonatomic,strong) UITextField *textFiledName;
 @property (nonatomic,strong) UITextField *textFiledPassWord;
@@ -40,15 +48,21 @@
 - (void)viewDidLoad {
     self.navigationController.navigationBarHidden = YES;
     [super viewDidLoad];
-    //硬件的初始化
-    sniffer = [[Sniffer alloc]init];
-    sniffer.delegate = self;
-    //udp启动
-    AppDelegate *app = [[UIApplication sharedApplication]delegate];
-    udpController = app.udpController;
-    udpController.delegate = self;
-    //
-    self.noReceiveData = YES;
+    if ([[self.productUUID substringToIndex:3]isEqualToString:@"845"]) {
+        //硬件的初始化
+        sniffer = [[Sniffer alloc]init];
+        sniffer.delegate = self;
+        //udp启动
+        AppDelegate *app = [[UIApplication sharedApplication]delegate];
+        udpController = app.udpController;
+        udpController.delegate = self;
+        //
+        self.noReceiveData = YES;
+    }else{
+        smtlkState= 0;
+        smtlk=[[HFSmtlkV30 alloc] initWithDelegate:self];
+    }
+    
     // Do any additional setup after loading the view.
     self.bgImageView.image = [UIImage imageNamed:@""];
     self.view.backgroundColor = [UIColor colorWithRed:0.188f green:0.184f blue:0.239f alpha:1.00f];
@@ -209,11 +223,6 @@
         [self.view makeToast:@"请输入网络名或者密码" duration:2 position:@"center"];
         return;
     }
-    self.noReceiveData = YES;
-    /*
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-    [MMProgressHUD showWithStatus:@"正在激活设备,请稍候..."];
-     */
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -222,18 +231,39 @@
                         [UIImage imageNamed:@"havi1_5"]];
     [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(120 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.noReceiveData) {
-            [self stopUDPAndAgain];
+    if ([[self.productUUID substringToIndex:3]isEqualToString:@"845"]) {
+        self.noReceiveData = YES;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(120 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.noReceiveData) {
+                [self stopUDPAndAgain];
+            }
+        });
+        //这里是调用不同的硬件设备
+        NSError *error =[sniffer startSniffer:[self fetchSSIDInfo] password:self.textFiledPassWord.text];
+        if (error) {
+            [MMProgressHUD dismiss];
+            [ShowAlertView showAlert:[NSString stringWithFormat:@"硬件报错%@",error.localizedDescription]];
         }
-    });
-    
-    NSError *error =[sniffer startSniffer:[self fetchSSIDInfo] password:self.textFiledPassWord.text];
-    if (error) {
-        [MMProgressHUD dismiss];
-        [ShowAlertView showAlert:[NSString stringWithFormat:@"硬件报错%@",error.localizedDescription]];
+    }else{
+        if (smtlkState== 0)
+        {
+            smtlkState= 1;
+            times= 0;
+            findTimes= 0;
+            // start to do smtlk
+            [self startSmartLink];
+        }
+        else
+        {
+            // stop smtlk
+            [self stopSmartLink];
+            smtlkState= 0;
+            isfinding = NO;
+        }
     }
 }
+#pragma mark 江波龙硬件设备配置
 //激活设备超时提示
 - (void)stopUDPAndAgain
 {
@@ -305,13 +335,6 @@
                     [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                         [self.view makeToast:@"设备激活成功" duration:2 position:@"center"];
                         [self.navigationController popToRootViewControllerAnimated:YES];
-//                        for (UIViewController *controller in self.navigationController.viewControllers) {
-//                            if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
-//                                
-//                                [self.navigationController popToViewController:controller animated:YES];
-//                                break;
-//                            }
-//                        }
                     }];
                     [MMProgressHUD dismiss];
                 });
@@ -360,7 +383,7 @@
     [sniffer stopSniffer];
 }
 
-#pragma mark EventListener
+#pragma mark 江波龙硬件回调
 //设备配置成功 回调函数 获得设备的 ip 地址
 - (void)onDeviceOnline:(NSString*)ip{
     [self stopSniffer];
@@ -370,12 +393,10 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), queue, ^{
         [self getInfo:ip];
     });
-    //old
-    //    [self findWukoon];
 }
 
 #pragma mark controller
-
+/*
 //广播寻找设备
 -(void)findWukoon{
     
@@ -385,7 +406,10 @@
         [udpController findWukoonWithBroadcast];//广播发寻找包寻找设备
     }
 }
-#pragma mark udp delegate
+ */
+
+
+#pragma mark 江波龙接收
 
 -(void)udpReceiveDataString:(NSString *)string{
     //接收到udp包后，将标识位改为no
@@ -393,7 +417,7 @@
     [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
         [self.view makeToast:@"激活成功" duration:2 position:@"center"];
         for (UIViewController *controller in self.navigationController.viewControllers) {
-            if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
+            if ([controller isKindOfClass:[DeviceListViewController class]]) {
                 
                 [self.navigationController popToViewController:controller animated:YES];
                 break;
@@ -402,10 +426,11 @@
     }];
     [MMProgressHUD dismiss];
 }
-
+/*
 -(void)findWukoonWithIp:(NSString *)ip{
     [udpController findWukoonWithIp:ip];
 }
+ */
 - (void)cancelButtonDone:(UIButton *)button
 {
     //    self.navigationController.navigationBarHidden = NO;
@@ -420,6 +445,131 @@
     }
      */
 }
+
+#pragma 双人床垫设备配置
+
+// do smartLink
+- (void)startSmartLink
+{
+    [smtlk SmtlkV30StartWithKey:self.textFiledPassWord.text];
+}
+
+- (void)stopSmartLink
+{
+    [MMProgressHUD dismiss];
+    [smtlk SmtlkV30Stop];
+}
+
+- (void)SmtlkTimeOut
+{
+    //findTimes++;
+    // NSLog(@"smtlkTimeOut, %ld", findTimes);
+    //if (findTimes== 20)
+    if (!isfinding)
+    {
+        [self stopSmartLink];
+        smtlkState= 0;
+//        if ([macArray count]== 0)
+//            [self showTimeout];
+//        [_butConnect setTitle:@"开始连接" forState:UIControlStateNormal];
+        return;
+    }
+    
+    [smtlk SendSmtlkFind];
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(SmtlkTimeOut) userInfo:nil repeats:NO];
+}
+
+// SmartLink delegate
+- (void)SmtlkV30Finished
+{
+    if (DoubleTimes < 2)
+    {
+        NSLog(@"smtlk second start");
+        DoubleTimes++;
+        [self startSmartLink];
+        findTimes= 0;
+        isfinding = YES;
+        [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(SmtlkTimeOut) userInfo:nil repeats:NO];
+    }else{
+        isfinding = NO;
+        [self stopSmartLink];
+    }
+}
+
+- (void)SmtlkV30ReceivedRspMAC:(NSString *)mac fromHost:(NSString *)host
+{
+    NSLog(@"Receive MAC:%@",mac);
+    NSLog(@"Receive IP:%@",host);
+//    NSInteger macNum=[macArray count];
+//    NSInteger i;
+//    for (i= 0; i< macNum; i++)
+//    {
+//        if ([mac isEqualToString:macArray[i]])
+//            return;
+//    }
+//    [macArray addObject:mac];
+    NSString* msg = [@"smart_config " stringByAppendingString:mac];
+    NSLog(@"msg %@",msg);
+    // 让模块停止发送信息。
+    isfinding = NO;
+    
+    [smtlk SendSmartlinkEnd:msg moduelIp:host];
+    [self showLogMac:mac fromhost:host];
+    [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+        [self.view makeToast:@"激活成功" duration:2 position:@"center"];
+        for (UIViewController *controller in self.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[DeviceListViewController class]]) {
+                
+                [self.navigationController popToViewController:controller animated:YES];
+                break;
+            }
+        }
+    }];
+    [MMProgressHUD dismiss];
+}
+//end
+- (void)showLogMac:(NSString *)mac fromhost:(NSString *)host
+{
+//    _lblLog.text=mac;
+//    _lblLogIp.text = host;
+//    [UIView animateWithDuration:0.1
+//                          delay:0.0
+//                        options:UIViewAnimationOptionCurveEaseOut
+//                     animations:^{
+//                         [_viewLog setAlpha:1.0f];
+//                     }
+//                     completion:^(BOOL finished) {
+//                         [UIView animateWithDuration:0.5
+//                                               delay:1.0
+//                                             options:UIViewAnimationOptionCurveEaseOut
+//                                          animations:^{
+//                                              [_viewLog setAlpha:0.0f];
+//                                          }
+//                                          completion:^(BOOL finished) {
+//                                          }];
+//                     }];
+}
+
+//- (void)showTimeout
+//{
+//    [UIView animateWithDuration:0.1
+//                          delay:0.0
+//                        options:UIViewAnimationOptionCurveEaseOut
+//                     animations:^{
+//                         [_viewTimeout setAlpha:1.0f];
+//                     }
+//                     completion:^(BOOL finished) {
+//                         [UIView animateWithDuration:0.5
+//                                               delay:1.0
+//                                             options:UIViewAnimationOptionCurveEaseOut
+//                                          animations:^{
+//                                              [_viewTimeout setAlpha:0.0f];
+//                                          }
+//                                          completion:^(BOOL finished) {
+//                                          }];
+//                     }];
+//}
+//
 
 #pragma mark 键盘事件
 - (void)keyboardWillShow:(NSNotification *)aNotification

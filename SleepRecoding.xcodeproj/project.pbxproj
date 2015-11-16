@@ -573,6 +573,7 @@
 		2CE567131BF30EA300839E91 /* UIColor+SLAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE567121BF30EA300839E91 /* UIColor+SLAddition.m */; };
 		2CE5DA061AB9C49200CF6458 /* btRippleButtton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */; };
 		2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */; };
+		2CE64F911BF96DA50079C33B /* libSmartLinkV30Lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE64F901BF96DA50079C33B /* libSmartLinkV30Lib.a */; };
 		2CE7A3A91BF485BA00E7CEDE /* SearchUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3A81BF485BA00E7CEDE /* SearchUserTableViewCell.m */; };
 		2CE7A3AC1BF486E300E7CEDE /* UITableView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3AB1BF486E300E7CEDE /* UITableView+Common.m */; };
 		2CE7A3B01BF4875700E7CEDE /* UITapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3AF1BF4875700E7CEDE /* UITapImageView.m */; };
@@ -1468,6 +1469,8 @@
 		2CE5DA041AB9C49200CF6458 /* btRippleButtton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btRippleButtton.h; path = lib/thirdlib/ScrollView/btRippleButtton.h; sourceTree = "<group>"; };
 		2CE5DA051AB9C49200CF6458 /* btRippleButtton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = btRippleButtton.m; path = lib/thirdlib/ScrollView/btRippleButtton.m; sourceTree = "<group>"; };
 		2CE5DA071AB9C7C300CF6458 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2CE64F8F1BF96DA50079C33B /* HFSmtlkV30.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFSmtlkV30.h; path = lib/thirdlib/libSmartLinkStaticLib/HFSmtlkV30.h; sourceTree = "<group>"; };
+		2CE64F901BF96DA50079C33B /* libSmartLinkV30Lib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSmartLinkV30Lib.a; path = lib/thirdlib/libSmartLinkStaticLib/libSmartLinkV30Lib.a; sourceTree = "<group>"; };
 		2CE7A3A71BF485BA00E7CEDE /* SearchUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchUserTableViewCell.h; path = controller/SearchUserTableViewCell.h; sourceTree = "<group>"; };
 		2CE7A3A81BF485BA00E7CEDE /* SearchUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchUserTableViewCell.m; path = controller/SearchUserTableViewCell.m; sourceTree = "<group>"; };
 		2CE7A3AA1BF486E300E7CEDE /* UITableView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Common.h"; sourceTree = "<group>"; };
@@ -1694,6 +1697,7 @@
 				2CD6C0321B7AE06100F1FF6A /* Security.framework in Frameworks */,
 				2C7345DB1B776EE8004D8AB3 /* libc++.dylib in Frameworks */,
 				2C7345D91B776ED9004D8AB3 /* libsqlite3.0.dylib in Frameworks */,
+				2CE64F911BF96DA50079C33B /* libSmartLinkV30Lib.a in Frameworks */,
 				2C7345D71B776ECB004D8AB3 /* libz.dylib in Frameworks */,
 				2CD6C0561B7C3FC000F1FF6A /* TencentOpenAPI.framework in Frameworks */,
 				2C0912C01B4E668F00BEE2FF /* CoreTelephony.framework in Frameworks */,
@@ -2772,6 +2776,15 @@
 			path = lib/thirdlib/Alert_Classes;
 			sourceTree = "<group>";
 		};
+		2CE64F8E1BF96CFA0079C33B /* DoubleSmartLib */ = {
+			isa = PBXGroup;
+			children = (
+				2CE64F8F1BF96DA50079C33B /* HFSmtlkV30.h */,
+				2CE64F901BF96DA50079C33B /* libSmartLinkV30Lib.a */,
+			);
+			name = DoubleSmartLib;
+			sourceTree = "<group>";
+		};
 		2CE7A3AD1BF4873700E7CEDE /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -2928,6 +2941,7 @@
 		576F09BE1AC3A3DF0083395C /* HardWare */ = {
 			isa = PBXGroup;
 			children = (
+				2CE64F8E1BF96CFA0079C33B /* DoubleSmartLib */,
 				576F09BF1AC3A4020083395C /* libSmartLinkStaticLib */,
 			);
 			name = HardWare;

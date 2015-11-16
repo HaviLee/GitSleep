@@ -207,6 +207,14 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"绑定设备结果是%@",resposeDic);
+        //测试
+        [MMProgressHUD dismiss];
+        UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
+        udp.productName = self.doubleDeviceName;//测试
+        HardWareUUID = self.barUUIDString;
+        udp.productUUID = self.barUUIDString;
+        [self.navigationController pushViewController:udp animated:YES];
+        /*
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [MMProgressHUD dismiss];
             [self activeUUID:self.barUUIDString];
@@ -218,6 +226,7 @@
         }else{
             [MMProgressHUD dismissWithSuccess:[resposeDic objectForKey:@"ErrorMessage"] title:nil afterDelay:2];
         }
+         */
     } failure:^(YTKBaseRequest *request) {
         [MMProgressHUD dismiss];
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
@@ -242,7 +251,7 @@
             MMPopupItemHandler block = ^(NSInteger index){
                 if (index == 1) {
                     UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
-                    udp.productName = @"LI";//测试
+                    udp.productName = self.doubleDeviceName;//测试
                     HardWareUUID = self.barUUIDString;
                     udp.productUUID = self.barUUIDString;
                     [self.navigationController pushViewController:udp animated:YES];
