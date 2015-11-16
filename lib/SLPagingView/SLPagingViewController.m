@@ -231,7 +231,7 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
-    self.navigationBarView.frame = (CGRect){0, 0, SCREEN_SIZE.width, 44};
+    self.navigationBarView.frame = (CGRect){0, -20, SCREEN_SIZE.width, 64};
 }
 
 #pragma mark - public methods
@@ -294,7 +294,7 @@
 
 -(void) initCrucialObjects:(UIColor *)background showPageControl:(BOOL) showPageControl{
     _needToShowPageControl             = showPageControl;
-    _navigationBarView                 = [[UIView alloc] init];
+    _navigationBarView                 = [[UIImageView alloc] init];
     _navigationBarView.backgroundColor = background;
     // UserInteraction activate by default
     _isUserInteraction                 = YES;
@@ -348,7 +348,7 @@
     CGFloat distance = (SCREEN_SIZE.width/2) - self.navigationSideItemsStyle;
     CGSize vSize = ([v isKindOfClass:[UILabel class]])? [self getLabelSize:(UILabel*)v] : v.frame.size;
     CGFloat originX = (SCREEN_SIZE.width/2 - vSize.width/2) + self.navItemsViews.count*distance;
-    v.frame = (CGRect){originX, 8, vSize.width, vSize.height};
+    v.frame = (CGRect){originX, 28, vSize.width, vSize.height};
     v.tag = tag;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(tapOnHeader:)];
@@ -379,7 +379,7 @@
     if(self.needToShowPageControl){
         // Make the page control
         self.pageControl               = [[UIPageControl alloc] init];
-        self.pageControl.frame         = (CGRect){0, 35, 0, 0};
+        self.pageControl.frame         = (CGRect){0, 55, 0, 0};
         self.pageControl.numberOfPages = self.navigationBarView.subviews.count;
         self.pageControl.currentPage   = 0;
         if(self.currentPageControlColor) self.pageControl.currentPageIndicatorTintColor = self.currentPageControlColor;
@@ -490,7 +490,7 @@
         CGFloat distance = (SCREEN_SIZE.width/2) - self.navigationSideItemsStyle;
         CGSize vSize     = ([v isKindOfClass:[UILabel class]])? [self getLabelSize:(UILabel*)v] : v.frame.size;
         CGFloat originX  = ((SCREEN_SIZE.width/2 - vSize.width/2) + i*distance) - xOffset/(SCREEN_SIZE.width/distance);
-        v.frame          = (CGRect){originX, 8, vSize.width, vSize.height};
+        v.frame          = (CGRect){originX, 28, vSize.width, vSize.height};
         i++;
     }];
 }

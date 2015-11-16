@@ -181,6 +181,8 @@
 		2C27907A1BF45E7F00449071 /* SearchBarDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790791BF45E7F00449071 /* SearchBarDisplayController.m */; };
 		2C27907E1BF4614200449071 /* XHRealTimeBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27907D1BF4614200449071 /* XHRealTimeBlur.m */; };
 		2C2790811BF462DB00449071 /* UISearchBar+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790801BF462DB00449071 /* UISearchBar+Common.m */; };
+		2C2C96091BF98AD900CF366F /* navi_bg_center_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2C96071BF98AD900CF366F /* navi_bg_center_1@2x.png */; };
+		2C2C960A1BF98AD900CF366F /* navi_pg_night_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2C96081BF98AD900CF366F /* navi_pg_night_0@2x.png */; };
 		2C2D28501BD7628900E0499F /* SLPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D284C1BD7628900E0499F /* SLPagingViewController.m */; };
 		2C2D28531BD7633600E0499F /* CenterContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D28521BD7633600E0499F /* CenterContainerViewController.m */; };
 		2C30A72C1BF3312F0064758F /* BindDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30A72B1BF3312F0064758F /* BindDeviceTableViewCell.m */; };
@@ -905,6 +907,8 @@
 		2C27907D1BF4614200449071 /* XHRealTimeBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHRealTimeBlur.m; sourceTree = "<group>"; };
 		2C27907F1BF462DB00449071 /* UISearchBar+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+Common.h"; sourceTree = "<group>"; };
 		2C2790801BF462DB00449071 /* UISearchBar+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+Common.m"; sourceTree = "<group>"; };
+		2C2C96071BF98AD900CF366F /* navi_bg_center_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg_center_1@2x.png"; sourceTree = "<group>"; };
+		2C2C96081BF98AD900CF366F /* navi_pg_night_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_pg_night_0@2x.png"; sourceTree = "<group>"; };
 		2C2D284A1BD7628900E0499F /* ShareResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareResources.h; sourceTree = "<group>"; };
 		2C2D284B1BD7628900E0499F /* SLPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPagingViewController.h; sourceTree = "<group>"; };
 		2C2D284C1BD7628900E0499F /* SLPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPagingViewController.m; sourceTree = "<group>"; };
@@ -1959,6 +1963,8 @@
 				2C2D284C1BD7628900E0499F /* SLPagingViewController.m */,
 				2C2D28511BD7633600E0499F /* CenterContainerViewController.h */,
 				2C2D28521BD7633600E0499F /* CenterContainerViewController.m */,
+				2C2C96071BF98AD900CF366F /* navi_bg_center_1@2x.png */,
+				2C2C96081BF98AD900CF366F /* navi_pg_night_0@2x.png */,
 			);
 			name = SLPagingView;
 			path = lib/SLPagingView;
@@ -3472,6 +3478,7 @@
 				2C7D228E1AF1CA050011A45C /* arrows_report_right_0@2x.png in Resources */,
 				2C91A68E1B9D78A70039EEAB /* skinpeeler_tint_bg.png in Resources */,
 				2C3B62941B81D3A100E3842F /* icon_wechat.png in Resources */,
+				2C2C960A1BF98AD900CF366F /* navi_pg_night_0@2x.png in Resources */,
 				2C4FCB1E1A8F56E800DCEEF3 /* LaunchScreen.xib in Resources */,
 				57C723F61AF73AAB006BE7D0 /* pic_day_1@3x.png in Resources */,
 				2C7D22FD1AF1CA220011A45C /* heart_2_0.png in Resources */,
@@ -3752,6 +3759,7 @@
 				2C15E7771AF2151500142F36 /* get_up2_1@2x.png in Resources */,
 				2C7D231C1AF1CA450011A45C /* get_up2_0@2x.png in Resources */,
 				2C15E7381AF214E800142F36 /* pic_day_1@2x.png in Resources */,
+				2C2C96091BF98AD900CF366F /* navi_bg_center_1@2x.png in Resources */,
 				2C7D22BE1AF1CA050011A45C /* icon_verification_code_0@2x.png in Resources */,
 				2C7D22E91AF1CA050011A45C /* textbox_phone_0@2x.png in Resources */,
 				2C7D23281AF1CA5C0011A45C /* leave2_0.png in Resources */,
