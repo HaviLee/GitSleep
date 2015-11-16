@@ -9,6 +9,10 @@
 #import "CenterContainerViewController.h"
 #import "CenterViewTableViewCell.h"
 #import "CHCircleGaugeView.h"
+#import "GetDefatultSleepAPI.h"
+#import "MMPopupItem.h"
+#import "MMTwoListPickerView.h"
+#import "DeviceListViewController.h"
 
 #import "NewSecondHeartViewController.h"
 #import "NewSecondBreathViewController.h"
@@ -23,10 +27,13 @@
 @property (nonatomic, strong) UILabel *leftSleepTimeLabel;//睡眠时长
 @property (nonatomic, strong) UILabel *rightSleepTimeLabel;//睡眠时长
 @property (nonatomic, strong) CHCircleGaugeView *leftCircleView;
+@property (nonatomic, strong) CHCircleGaugeView *rightCircleView;
 @property (nonatomic, strong) NSArray *leftCellDataArr;
 @property (nonatomic, strong) NSArray *subPageViewArr;
 @property (nonatomic, strong) UIButton *leftMenuButton;
 @property (nonatomic, strong) UIButton *rightMenuButton;
+@property (nonatomic, strong) NSArray *leftTableData;
+@property (nonatomic, strong) NSArray *rightTableData;
 //
 @property (nonatomic, strong) SencondLeaveViewController *sendLeaveView;
 @property (nonatomic, strong) SencondTurnViewController *sendTurnView;
@@ -41,7 +48,213 @@
     [super viewDidLoad];
     [self setPageViewController];
     [self setControllerBackGroundImage];
+    [self getAllDeviceList];
+}
+
+#pragma mark 获取用户数据
+
+//请求帐号下的设备列表
+- (void)getAllDeviceList
+{
+    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",thirdPartyLoginUserId];
     
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"用户%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
+        [MMProgressHUD dismiss];
+        NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
+        if (arr.count == 0) {
+            self.clearNaviTitleLabel.text = thirdHardDeviceName;
+        }else{
+            for (NSDictionary *dic in arr) {
+                if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+                    HardWareUUID = [dic objectForKey:@"UUID"];
+                    thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
+                    thirdHardDeviceName = [dic objectForKey:@"Description"];
+                    self.clearNaviTitleLabel.text = thirdHardDeviceName;
+                    [UserManager setGlobalOauth];
+                    HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,HardWareUUID);
+                    break;
+                }
+            }
+        }
+        if (![HardWareUUID isEqualToString:@""]) {
+            NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+            [self getTodaySleepQualityData:newString];
+        }else{
+            MMPopupItemHandler block = ^(NSInteger index){
+                HaviLog(@"clickd %@ button",@(index));
+                if(index==1){
+                    DeviceListViewController *user = [[DeviceListViewController alloc]init];
+                    [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+                }
+            };
+            NSArray *items =
+            @[MMItemMake(@"暂不绑定", MMItemTypeNormal, block),
+              MMItemMake(@"确定", MMItemTypeNormal, block)];
+            
+            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                                 detail:@"您还没有绑定设备,是否现在去绑定？" items:items];
+            alertView.attachedView = self.view;
+            
+            [alertView show];
+            
+        }
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
+}
+
+
+- (void)getTodaySleepQualityData:(NSString *)nowDateString
+{
+    //fromdate 是当天的日期
+    if ([HardWareUUID isEqualToString:@""]) {
+        MMPopupItemHandler block = ^(NSInteger index){
+            HaviLog(@"clickd %@ button",@(index));
+            if(index==1){
+                DeviceListViewController *user = [[DeviceListViewController alloc]init];
+                [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+            }
+        };
+        NSArray *items =
+        @[MMItemMake(@"暂不绑定", MMItemTypeNormal, block),
+          MMItemMake(@"确定", MMItemTypeNormal, block)];
+        
+        MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                             detail:@"您还没有绑定设备,是否现在去绑定？" items:items];
+        alertView.attachedView = self.view;
+        
+        [alertView show];
+        return;
+    }
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    if (!nowDateString) {
+        
+        return;
+    }
+    NSDate *newDate = [self.dateFormmatterBase dateFromString:nowDateString];
+    NSString *urlString = @"";
+    self.dateComponentsBase.day = -1;
+    NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+    NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
+    NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
+    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,newString,nowDateString];
+//    self.tagFromDateAndEndDate = urlString;
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    GetDefatultSleepAPI *client = [GetDefatultSleepAPI shareInstance];
+    /*
+     增加了一个判断当前的是不是在进行，进行的话终止
+     */
+    if ([client isExecuting]) {
+        [client stop];
+    }
+    [client queryDefaultSleep:header withDetailUrl:urlString];
+    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+        }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
+            MMPopupItemHandler block = ^(NSInteger index){
+                HaviLog(@"clickd %@ button",@(index));
+            };
+            NSArray *items =
+            @[MMItemMake(@"确定", MMItemTypeNormal, block)];
+            
+            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                                 detail:@"不存在当前设备，请检查您的设备UUID" items:items];
+            alertView.attachedView = self.view;
+            
+            [alertView show];
+            
+        }else{
+            
+        }
+        [self refreshViewWithSleepData:resposeDic];
+        HaviLog(@"获取%@日睡眠质量:%@ \n url:%@ \n",nowDateString,resposeDic,urlString);
+    } failure:^(YTKBaseRequest *request) {
+        
+    }];
+}
+
+- (void)refreshViewWithSleepData:(NSDictionary *)sleepDic
+{
+    
+    self.leftTableData = @[
+                         [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageHeartRate"]intValue]],
+                         [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageRespiratoryRate"]intValue]],
+                         [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"OutOfBedTimes"]intValue]],
+                         [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
+                         ];
+    [self.leftTableView reloadData];
+    //
+    self.rightTableData = @[
+                           [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageHeartRate"]intValue]],
+                           [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageRespiratoryRate"]intValue]],
+                           [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"OutOfBedTimes"]intValue]],
+                           [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
+                           ];
+    [self.rightTableView reloadData];
+    //
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[sleepDic objectForKey:@"Data"]];
+    NSString *selectString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+    NSString *subString = [selectString substringToIndex:10];
+    NSDictionary *dataDic=nil;
+    for (NSDictionary *dic in arr) {
+        if ([[dic objectForKey:@"Date"]isEqualToString:subString]) {
+            dataDic = dic;
+        }
+    }
+    /*
+    //    NSDictionary *dataDic = [[sleepDic objectForKey:@"Data"] lastObject];
+    NSString *sleepStartTime = [dataDic objectForKey:@"SleepStartTime"];
+    NSString *sleepEndTime = [dataDic objectForKey:@"SleepEndTime"];
+    NSString *sleepDuration = [dataDic objectForKey:@"SleepDuration"];
+    int sleepLevel = [[sleepDic objectForKey:@"SleepQuality"]intValue];
+    [self.circleView changeSleepQualityValue:sleepLevel*20];//睡眠指数
+    [self.circleView changeSleepTimeValue:sleepLevel*20];
+    //    [self.circleView changeSleepTimeValue:([sleepDuration floatValue]>0?[sleepDuration floatValue]:-[sleepDuration floatValue])/12*100];//睡眠时长
+    [self.circleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
+    self.circleView.rotationValue = 88;
+    
+    //    [self setClockRoationValueWithStartTime:sleepStartTime];
+    int hour = [sleepDuration intValue];
+    double second2 = 0.0;
+    double subsecond2 = modf([sleepDuration floatValue], &second2);
+    NSString *sleepTimeDuration= @"";
+    if((int)round(subsecond2*60)<10){
+        sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长:%@小时0%d分",hour<10?[NSString stringWithFormat:@"0%d",hour]:[NSString stringWithFormat:@"%d",hour],(int)round(subsecond2*60)];
+    }else{
+        sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长:%@小时%d分",hour<10?[NSString stringWithFormat:@"0%d",hour]:[NSString stringWithFormat:@"%d",hour],(int)round(subsecond2*60)];
+    }
+    self.sleepTimeLabel.text= sleepTimeDuration;
+    if (sleepStartTime) {
+        
+        [self.circleView addSubview:self.startView];
+        self.startView.startTime = [sleepStartTime substringWithRange:NSMakeRange(11, 5)];
+        self.startView.center = CGPointMake(90, 5);
+    }else{
+        [self.startView removeFromSuperview];
+    }
+    if (sleepEndTime) {
+        [self.circleView addSubview:self.endView];
+        self.endView.endTime = [sleepEndTime substringWithRange:NSMakeRange(11, 5)];
+        self.endView.center = CGPointMake(self.view.frame.size.width-60, 5);
+        //        self.endView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showEndTimePicker)];
+        [self.endView addGestureRecognizer:tap];
+    }else
+    {
+        [self.endView removeFromSuperview];
+    }
+     */
 }
 
 - (void)setControllerBackGroundImage
@@ -109,6 +322,8 @@
     rect.size.height = rect.size.height- datePickerHeight;
     [navi.view setFrame:rect];
     [self.view addSubview:self.datePicker];
+    NSDate *nowDate = [self getNowDate];
+    selectedDateToUse = nowDate;
 }
 
 #pragma mark setter
@@ -196,6 +411,31 @@
     }
     return _leftCircleView;
 }
+
+- (CHCircleGaugeView *)rightCircleView
+{
+    if (_rightCircleView == nil) {
+        int datePickerHeight = self.view.frame.size.height*0.202623;
+        if (ISIPHON4) {
+            _rightCircleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35+60)];
+        }else{
+            _rightCircleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35)];
+        }
+        _rightCircleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
+        _rightCircleView.trackWidth = 1;
+        _rightCircleView.gaugeStyle = CHCircleGaugeStyleOutside;
+        _rightCircleView.gaugeTintColor = [UIColor blackColor];
+        _rightCircleView.gaugeWidth = 15;
+        _rightCircleView.valueTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        _rightCircleView.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        _rightCircleView.responseColor = [UIColor greenColor];
+        _rightCircleView.font = [UIFont systemFontOfSize:30];
+        _rightCircleView.rotationValue = 100;
+        _rightCircleView.value = 0.0;
+    }
+    return _rightCircleView;
+}
+
 
 
 - (UILabel *)leftSleepTimeLabel
@@ -308,7 +548,7 @@
                 NSArray *titleArr = @[@"心率",@"呼吸",@"离床",@"体动"];
                 NSArray *cellImage = @[[NSString stringWithFormat:@"icon_heart_rate_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_breathe_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_get_up_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_turn_over_%d",selectedThemeIndex]];
                 cell.cellTitle = [titleArr objectAtIndex:indexPath.row];
-                cell.cellData = [self.leftCellDataArr objectAtIndex:indexPath.row];
+                cell.cellData = [self.leftTableData objectAtIndex:indexPath.row];
                 cell.cellImageName = [cellImage objectAtIndex:indexPath.row];
                 cell.selectionStyle = UITableViewCellSelectionStyleGray;
                 for (UIImageView*imageLine in cell.subviews) {
@@ -328,6 +568,7 @@
                 cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
                 cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.145f green:0.733f blue:0.957f alpha:0.15f];
             }
+            [cell layoutSubviews];
             cell.backgroundColor = [UIColor clearColor];
             return cell;
         }else{
@@ -345,6 +586,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
             cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.145f green:0.733f blue:0.957f alpha:0.15f];
+            [cell layoutSubviews];
             return cell;
             
         }
@@ -364,7 +606,7 @@
                 NSArray *titleArr = @[@"心率",@"呼吸",@"离床",@"体动"];
                 NSArray *cellImage = @[[NSString stringWithFormat:@"icon_heart_rate_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_breathe_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_get_up_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_turn_over_%d",selectedThemeIndex]];
                 cell.cellTitle = [titleArr objectAtIndex:indexPath.row];
-                cell.cellData = [self.leftCellDataArr objectAtIndex:indexPath.row];
+                cell.cellData = [self.rightTableData objectAtIndex:indexPath.row];
                 cell.cellImageName = [cellImage objectAtIndex:indexPath.row];
                 cell.selectionStyle = UITableViewCellSelectionStyleGray;
                 for (UIImageView*imageLine in cell.subviews) {
@@ -385,6 +627,7 @@
                 cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.145f green:0.733f blue:0.957f alpha:0.15f];
             }
             cell.backgroundColor = [UIColor clearColor];
+            [cell layoutSubviews];
             return cell;
         }else{
             static NSString *cellIndentifier1 = @"rightCellLast";
@@ -393,13 +636,14 @@
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier1];
             }
             if (indexPath.row==5) {
-                [cell addSubview:self.leftCircleView];
+                [cell addSubview:self.rightCircleView];
             }else{
                 cell.textLabel.text = @"li";
             }
             cell.backgroundColor = [UIColor clearColor];
             cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
             cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.145f green:0.733f blue:0.957f alpha:0.15f];
+            [cell layoutSubviews];
             return cell;
             
         }

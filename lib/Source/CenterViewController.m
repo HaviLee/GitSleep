@@ -143,22 +143,7 @@
             alertView.attachedView = self.view;
             
             [alertView show];
-            /*
-            URBAlertView *alertView = [URBAlertView dialogWithTitle:@"注意" subtitle:@"您还没有绑定设备,是否现在去绑定？"];
-            alertView.blurBackground = NO;
-            [alertView addButtonWithTitle:@"取消"];
-            [alertView addButtonWithTitle:@"确认"];
-            [alertView setHandlerBlock:^(NSInteger buttonIndex, URBAlertView *alertView) {
-                [alertView hideWithAnimation:URBAlertAnimationFade completionBlock:^{
-                    if (buttonIndex == 1) {
-                        DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
-                        [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
-                    }
-                }];
-                
-            }];
-            [alertView showWithAnimation:URBAlertAnimationFade];
-             */
+            
         }
         
     } failed:^(NSURLResponse *response, NSError *error) {

@@ -382,7 +382,7 @@ float prewMoveY;
 - (BOOL)checkIsDoubleBed:(NSString *)deviceUUID
 {
     NSString *subString = [deviceUUID substringToIndex:3];
-    if ([subString isEqualToString:@"845"]) {
+    if ([subString isEqualToString:@"845"]||[[deviceUUID substringToIndex:2]isEqualToString:@"MT"]) {
         return NO;
     }else{
         return YES;
