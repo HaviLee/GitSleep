@@ -14,6 +14,7 @@
 #import "NewSecondBreathViewController.h"
 #import "SencondLeaveViewController.h"
 #import "SencondTurnViewController.h"
+#import "KxMenu.h"
 
 @interface CenterContainerViewController ()
 @property (nonatomic,strong) NSArray *dataSource;
@@ -24,7 +25,8 @@
 @property (nonatomic, strong) CHCircleGaugeView *leftCircleView;
 @property (nonatomic, strong) NSArray *leftCellDataArr;
 @property (nonatomic, strong) NSArray *subPageViewArr;
-@property (nonatomic, strong) UIButton *cMenuButton;
+@property (nonatomic, strong) UIButton *leftMenuButton;
+@property (nonatomic, strong) UIButton *rightMenuButton;
 //
 @property (nonatomic, strong) SencondLeaveViewController *sendLeaveView;
 @property (nonatomic, strong) SencondTurnViewController *sendTurnView;
@@ -97,7 +99,8 @@
         NSLog(@"index %ld", (long)currentPageIndex);
     };
     pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
-    [pageViewController.navigationBarView addSubview:self.cMenuButton];
+    [pageViewController.navigationBarView addSubview:self.leftMenuButton];
+    [pageViewController.navigationBarView addSubview:self.rightMenuButton];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
     [self addChildViewController:navi];
     [self.view addSubview:navi.view];
@@ -110,17 +113,30 @@
 
 #pragma mark setter
 
-- (UIButton *)cMenuButton
+- (UIButton *)leftMenuButton
 {
-    if (!_cMenuButton) {
-        _cMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _cMenuButton.backgroundColor = [UIColor clearColor];
+    if (!_leftMenuButton) {
+        _leftMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftMenuButton.backgroundColor = [UIColor clearColor];
         UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
-        [_cMenuButton setImage:i forState:UIControlStateNormal];
-        [_cMenuButton setFrame:CGRectMake(0, 20, 44, 44)];
-        [_cMenuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
+        [_leftMenuButton setImage:i forState:UIControlStateNormal];
+        [_leftMenuButton setFrame:CGRectMake(0, 20, 44, 44)];
+        [_leftMenuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _cMenuButton;
+    return _leftMenuButton;
+}
+
+- (UIButton *)rightMenuButton
+{
+    if (!_rightMenuButton) {
+        _rightMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rightMenuButton.backgroundColor = [UIColor clearColor];
+        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"btn_ellipse"]];
+        [_rightMenuButton setImage:i forState:UIControlStateNormal];
+        [_rightMenuButton setFrame:CGRectMake(self.view.frame.size.width-60, 20, 44, 44)];
+        [_rightMenuButton addTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightMenuButton;
 }
 
 
@@ -398,7 +414,47 @@
     }
 }
 
+#pragma mark showMoreInfo
 
+- (void)showMoreInfo:(UIButton *)sender
+{
+    NSArray *menuItems =
+    @[
+      
+      [KxMenuItem menuItem:@"我的设备"
+                     image:[UIImage imageNamed:@""]
+                    target:self
+                    action:@selector(pushMenuItem:)],
+      
+      [KxMenuItem menuItem:@"分享应用"
+                     image:[UIImage imageNamed:@""]
+                    target:self
+                    action:@selector(pushMenuItem:)],
+      ];
+    CGRect popUpPos = sender.frame;
+    popUpPos.origin.y -= 10;
+    [KxMenu showMenuInView:self.view
+                  fromRect:popUpPos
+                 menuItems:menuItems];
+}
+
+- (void) pushMenuItem:(id)sender
+{
+    KxMenuItem *item = (KxMenuItem *)sender;
+    if ([item.title isEqualToString:@"我的应用"]) {
+        HaviLog(@"周报");
+    }else if ([item.title isEqualToString:@"分享应用"]){
+        HaviLog(@"月报");
+        [self shareApp:nil];
+    }
+}
+
+- (void)shareApp:(UIButton *)sender
+{
+    //    [self.shareMenuView show];
+    [self.shareNewMenuView showInView:self.view];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
