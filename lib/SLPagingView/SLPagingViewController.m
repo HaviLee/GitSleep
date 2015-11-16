@@ -54,7 +54,7 @@
         int i                         = 0;
         for(i=0; i<items.count; i++){
             // Be sure items contains only UIView's object
-            if([[items objectAtIndex:i] isKindOfClass:UIView.class])
+            if([[items objectAtIndex:i] isKindOfClass:UILabel.class])
                 [self addNavigationItem:[items objectAtIndex:i] tag:i];
         }
         
@@ -295,6 +295,7 @@
 -(void) initCrucialObjects:(UIColor *)background showPageControl:(BOOL) showPageControl{
     _needToShowPageControl             = showPageControl;
     _navigationBarView                 = [[UIImageView alloc] init];
+    _navigationBarView.userInteractionEnabled = YES;
     _navigationBarView.backgroundColor = background;
     // UserInteraction activate by default
     _isUserInteraction                 = YES;
@@ -380,7 +381,7 @@
         // Make the page control
         self.pageControl               = [[UIPageControl alloc] init];
         self.pageControl.frame         = (CGRect){0, 55, 0, 0};
-        self.pageControl.numberOfPages = self.navigationBarView.subviews.count;
+        self.pageControl.numberOfPages = self.navItemsViews.count;
         self.pageControl.currentPage   = 0;
         if(self.currentPageControlColor) self.pageControl.currentPageIndicatorTintColor = self.currentPageControlColor;
         if(self.tintPageControlColor) self.pageControl.pageIndicatorTintColor = self.tintPageControlColor;
