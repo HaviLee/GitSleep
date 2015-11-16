@@ -13,6 +13,8 @@
 #import "MMPopupItem.h"
 #import "MMTwoListPickerView.h"
 #import "DeviceListViewController.h"
+#import "StartTimeView.h"
+#import "EndTimeView.h"
 
 #import "NewSecondHeartViewController.h"
 #import "NewSecondBreathViewController.h"
@@ -34,6 +36,16 @@
 @property (nonatomic, strong) UIButton *rightMenuButton;
 @property (nonatomic, strong) NSArray *leftTableData;
 @property (nonatomic, strong) NSArray *rightTableData;
+@property (nonatomic, strong) StartTimeView *leftStartView;
+@property (nonatomic, strong) EndTimeView *leftEndView;
+@property (nonatomic, strong) StartTimeView *rightStartView;
+@property (nonatomic, strong) EndTimeView *rightEndView;
+//为了标签使用
+@property (nonatomic, strong) NSString *tagFromDateAndEndDate;
+@property (nonatomic, strong) UIButton *leftIWantSleepLabel;
+@property (nonatomic, strong) UIButton *rightIWantSleepLabel;
+
+
 //
 @property (nonatomic, strong) SencondLeaveViewController *sendLeaveView;
 @property (nonatomic, strong) SencondTurnViewController *sendTurnView;
@@ -212,17 +224,14 @@
             dataDic = dic;
         }
     }
-    /*
-    //    NSDictionary *dataDic = [[sleepDic objectForKey:@"Data"] lastObject];
     NSString *sleepStartTime = [dataDic objectForKey:@"SleepStartTime"];
     NSString *sleepEndTime = [dataDic objectForKey:@"SleepEndTime"];
     NSString *sleepDuration = [dataDic objectForKey:@"SleepDuration"];
     int sleepLevel = [[sleepDic objectForKey:@"SleepQuality"]intValue];
-    [self.circleView changeSleepQualityValue:sleepLevel*20];//睡眠指数
-    [self.circleView changeSleepTimeValue:sleepLevel*20];
-    //    [self.circleView changeSleepTimeValue:([sleepDuration floatValue]>0?[sleepDuration floatValue]:-[sleepDuration floatValue])/12*100];//睡眠时长
-    [self.circleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
-    self.circleView.rotationValue = 88;
+    [self.leftCircleView changeSleepQualityValue:sleepLevel*20];//睡眠指数
+    [self.leftCircleView changeSleepTimeValue:sleepLevel*20];
+    [self.leftCircleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
+    self.leftCircleView.rotationValue = 88;
     
     //    [self setClockRoationValueWithStartTime:sleepStartTime];
     int hour = [sleepDuration intValue];
@@ -234,27 +243,76 @@
     }else{
         sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长:%@小时%d分",hour<10?[NSString stringWithFormat:@"0%d",hour]:[NSString stringWithFormat:@"%d",hour],(int)round(subsecond2*60)];
     }
-    self.sleepTimeLabel.text= sleepTimeDuration;
+    self.leftSleepTimeLabel.text= sleepTimeDuration;
     if (sleepStartTime) {
         
-        [self.circleView addSubview:self.startView];
-        self.startView.startTime = [sleepStartTime substringWithRange:NSMakeRange(11, 5)];
-        self.startView.center = CGPointMake(90, 5);
+        [self.leftCircleView addSubview:self.leftStartView];
+        self.leftStartView.startTime = [sleepStartTime substringWithRange:NSMakeRange(11, 5)];
+        self.leftStartView.center = CGPointMake(90, 10);
     }else{
-        [self.startView removeFromSuperview];
+        [self.leftStartView removeFromSuperview];
     }
     if (sleepEndTime) {
-        [self.circleView addSubview:self.endView];
-        self.endView.endTime = [sleepEndTime substringWithRange:NSMakeRange(11, 5)];
-        self.endView.center = CGPointMake(self.view.frame.size.width-60, 5);
+        [self.leftCircleView addSubview:self.leftEndView];
+        self.leftEndView.endTime = [sleepEndTime substringWithRange:NSMakeRange(11, 5)];
+        self.leftEndView.center = CGPointMake(self.view.frame.size.width-60, 10);
         //        self.endView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showEndTimePicker)];
-        [self.endView addGestureRecognizer:tap];
+        [self.leftEndView addGestureRecognizer:tap];
     }else
     {
-        [self.endView removeFromSuperview];
+        [self.leftEndView removeFromSuperview];
     }
-     */
+    //
+    NSMutableArray *arrR = [NSMutableArray arrayWithArray:[sleepDic objectForKey:@"Data"]];
+    NSString *selectStringR = [NSString stringWithFormat:@"%@",selectedDateToUse];
+    NSString *subStringR = [selectStringR substringToIndex:10];
+    NSDictionary *dataDicR=nil;
+    for (NSDictionary *dic in arrR) {
+        if ([[dic objectForKey:@"Date"]isEqualToString:subStringR]) {
+            dataDicR = dic;
+        }
+    }
+    NSString *sleepStartTimeR = [dataDic objectForKey:@"SleepStartTime"];
+    NSString *sleepEndTimeR = [dataDic objectForKey:@"SleepEndTime"];
+    NSString *sleepDurationR = [dataDic objectForKey:@"SleepDuration"];
+    int sleepLevelR = [[sleepDic objectForKey:@"SleepQuality"]intValue];
+    [self.rightCircleView changeSleepQualityValue:sleepLevelR*20];//睡眠指数
+    [self.rightCircleView changeSleepTimeValue:sleepLevelR*20];
+    [self.rightCircleView changeSleepLevelValue:[self changeNumToWord:sleepLevelR]];
+    self.rightCircleView.rotationValue = 88;
+    
+    //    [self setClockRoationValueWithStartTime:sleepStartTime];
+    int hourR = [sleepDurationR intValue];
+    double second2R = 0.0;
+    double subsecond2R = modf([sleepDuration floatValue], &second2R);
+    NSString *sleepTimeDurationR= @"";
+    if((int)round(subsecond2R*60)<10){
+        sleepTimeDurationR = [NSString stringWithFormat:@"睡眠时长:%@小时0%d分",hourR<10?[NSString stringWithFormat:@"0%d",hourR]:[NSString stringWithFormat:@"%d",hourR],(int)round(subsecond2R*60)];
+    }else{
+        sleepTimeDurationR = [NSString stringWithFormat:@"睡眠时长:%@小时%d分",hourR<10?[NSString stringWithFormat:@"0%d",hourR]:[NSString stringWithFormat:@"%d",hourR],(int)round(subsecond2R*60)];
+    }
+    self.rightSleepTimeLabel.text= sleepTimeDurationR;
+    if (sleepStartTimeR) {
+        
+        [self.rightCircleView addSubview:self.rightStartView];
+        self.rightStartView.startTime = [sleepStartTimeR substringWithRange:NSMakeRange(11, 5)];
+        self.rightStartView.center = CGPointMake(90, 10);
+    }else{
+        [self.leftStartView removeFromSuperview];
+    }
+    if (sleepEndTimeR) {
+        [self.rightCircleView addSubview:self.rightEndView];
+        self.rightEndView.endTime = [sleepEndTimeR substringWithRange:NSMakeRange(11, 5)];
+        self.rightEndView.center = CGPointMake(self.view.frame.size.width-60, 10);
+        //        self.endView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showEndTimePicker)];
+        [self.rightEndView addGestureRecognizer:tap];
+    }else
+    {
+        [self.rightEndView removeFromSuperview];
+    }
+    
 }
 
 - (void)setControllerBackGroundImage
@@ -328,6 +386,69 @@
 
 #pragma mark setter
 
+- (StartTimeView *)leftStartView
+{
+    if (_leftStartView==nil) {
+        _leftStartView = [[StartTimeView alloc]init];
+        
+    }
+    return _leftStartView;
+}
+
+- (EndTimeView *)leftEndView
+{
+    if (_leftEndView == nil) {
+        _leftEndView = [[EndTimeView alloc]init];
+    }
+    return _leftEndView;
+}
+
+- (StartTimeView *)rightStartView
+{
+    if (_rightStartView==nil) {
+        _rightStartView = [[StartTimeView alloc]init];
+        
+    }
+    return _rightStartView;
+}
+
+- (EndTimeView *)rightEndView
+{
+    if (_rightEndView == nil) {
+        _rightEndView = [[EndTimeView alloc]init];
+    }
+    return _rightEndView;
+}
+
+
+- (UIButton *)leftIWantSleepLabel
+{
+    if (_leftIWantSleepLabel==nil) {
+        _leftIWantSleepLabel = [[UIButton alloc]init];
+        _leftIWantSleepLabel.frame = CGRectMake((self.view.frame.size.width-90)/2, 10, 90,25);
+        [_leftIWantSleepLabel setTitle:@"我要睡觉" forState:UIControlStateNormal];
+        [_leftIWantSleepLabel setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_textbox_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+        [_leftIWantSleepLabel setTitleColor:selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_leftIWantSleepLabel.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_leftIWantSleepLabel addTarget:self action:@selector(sendSleepTime:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _leftIWantSleepLabel;
+}
+
+- (UIButton *)rightIWantSleepLabel
+{
+    if (_rightIWantSleepLabel==nil) {
+        _rightIWantSleepLabel = [[UIButton alloc]init];
+        _rightIWantSleepLabel.frame = CGRectMake((self.view.frame.size.width-90)/2, 10, 90,25);
+        [_rightIWantSleepLabel setTitle:@"我要睡觉" forState:UIControlStateNormal];
+        [_rightIWantSleepLabel setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_textbox_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+        [_rightIWantSleepLabel setTitleColor:selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_rightIWantSleepLabel.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_rightIWantSleepLabel addTarget:self action:@selector(sendSleepTime:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightIWantSleepLabel;
+}
+
 - (UIButton *)leftMenuButton
 {
     if (!_leftMenuButton) {
@@ -348,7 +469,7 @@
         _rightMenuButton.backgroundColor = [UIColor clearColor];
         UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"btn_ellipse"]];
         [_rightMenuButton setImage:i forState:UIControlStateNormal];
-        [_rightMenuButton setFrame:CGRectMake(self.view.frame.size.width-60, 20, 44, 44)];
+        [_rightMenuButton setFrame:CGRectMake(self.view.frame.size.width-50, 20, 44, 44)];
         [_rightMenuButton addTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightMenuButton;
@@ -394,9 +515,11 @@
         int datePickerHeight = self.view.frame.size.height*0.202623;
         if (ISIPHON4) {
             _leftCircleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35+60)];
+            
         }else{
             _leftCircleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35)];
         }
+//        _leftCircleView.backgroundColor = [UIColor redColor];
         _leftCircleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
         _leftCircleView.trackWidth = 1;
         _leftCircleView.gaugeStyle = CHCircleGaugeStyleOutside;
@@ -442,7 +565,7 @@
 {
     if (_leftSleepTimeLabel == nil) {
         _leftSleepTimeLabel = [[UILabel alloc]init];
-        _leftSleepTimeLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 30);
+        _leftSleepTimeLabel.frame = CGRectMake(0,0, self.view.frame.size.width, 30);
         _leftSleepTimeLabel.textAlignment = NSTextAlignmentCenter;
         _leftSleepTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         _leftSleepTimeLabel.backgroundColor = [UIColor clearColor];
@@ -513,7 +636,7 @@
     if (indexPath.row<5) {
         
         if (indexPath.row==4) {
-            return 30;
+            return 40;
         }else{
             if (ISIPHON4) {
                 return 34;
@@ -577,12 +700,13 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier1];
             }
+            cell.backgroundColor = [UIColor clearColor];
             if (indexPath.row==5) {
                 [cell addSubview:self.leftCircleView];
             }else{
-                cell.textLabel.text = @"li";
+                [cell addSubview:self.leftIWantSleepLabel];
             }
-            cell.backgroundColor = [UIColor clearColor];
+            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
             cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.145f green:0.733f blue:0.957f alpha:0.15f];
@@ -600,7 +724,7 @@
                 cell = [[CenterViewTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndetifier];
             }
             if (indexPath.row==4) {
-                [cell addSubview:self.leftSleepTimeLabel];
+                [cell addSubview:self.rightSleepTimeLabel];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }else{
                 NSArray *titleArr = @[@"心率",@"呼吸",@"离床",@"体动"];
@@ -638,7 +762,7 @@
             if (indexPath.row==5) {
                 [cell addSubview:self.rightCircleView];
             }else{
-                cell.textLabel.text = @"li";
+                [cell addSubview:self.rightIWantSleepLabel];
             }
             cell.backgroundColor = [UIColor clearColor];
             cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
@@ -655,6 +779,37 @@
     if (indexPath.row<4) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [self.navigationController pushViewController:[self.leftCellDataArr objectAtIndex:indexPath.row] animated:YES];
+    }
+}
+
+#pragma mark user action
+- (NSString *)changeNumToWord:(int)level
+{
+    switch (level) {
+        case 1:{
+            return @"非常差";
+            break;
+        }
+        case 2:{
+            return @"差";
+            break;
+        }
+        case 3:{
+            return @"一般";
+            break;
+        }
+        case 4:{
+            return @"好";
+            break;
+        }
+        case 5:{
+            return @"非常好";
+            break;
+        }
+            
+        default:
+            return @"没有数据哦";
+            break;
     }
 }
 
