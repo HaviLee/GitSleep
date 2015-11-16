@@ -819,7 +819,7 @@
 {
     if (indexPath.row<4) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self.navigationController pushViewController:[self.leftCellDataArr objectAtIndex:indexPath.row] animated:YES];
+        [self.navigationController pushViewController:[self.subPageViewArr objectAtIndex:indexPath.row] animated:YES];
     }
 }
 
