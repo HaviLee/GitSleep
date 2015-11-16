@@ -334,13 +334,13 @@
     // Do any additional setup after loading the view.
     UILabel *navTitleLabel1 = [UILabel new];
     navTitleLabel1.text = @"梧桐植树";
-    navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:20];
-    navTitleLabel1.textColor = [UIColor whiteColor];
+    navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
+    navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     
     UILabel *navTitleLabel2 = [UILabel new];
     navTitleLabel2.text = @"哈维之家";
-    navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:20];
-    navTitleLabel2.textColor = [UIColor whiteColor];
+    navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
+    navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     
     SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1, navTitleLabel2]
                                                                                     navBarBackground:[UIColor clearColor]
@@ -349,6 +349,9 @@
     [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
     [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
     [pageViewController updateUserInteractionOnNavigation:NO];
+    pageViewController.tintPageControlColor = [UIColor grayColor];
+    pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
+    
     
     // Twitter Like
     pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
