@@ -48,6 +48,8 @@
 @property (nonatomic, strong) UIButton *leftIWantSleepLabel;
 @property (nonatomic, strong) UIButton *rightIWantSleepLabel;
 
+@property (nonatomic, strong) NSString *leftDeviceShowName;
+
 
 //
 @property (nonatomic, strong) SencondLeaveViewController *sendLeaveView;
@@ -64,6 +66,21 @@
     [self setPageViewController];
     [self initDatePicker];
     [self setControllerBackGroundImage];
+    [self setNotifationList];
+}
+
+#pragma mark 创建消息监听
+
+- (void)setNotifationList
+{
+    //监听登录成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessAndQueryData:) name:LoginSuccessedNoti object:nil];
+}
+
+#pragma mark 消息监听方法
+
+- (void)loginSuccessAndQueryData:(NSNotification *)noti
+{
     [self getAllDeviceList];
 }
 
@@ -91,6 +108,7 @@
                     thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
                     thirdHardDeviceName = [dic objectForKey:@"Description"];
                     self.clearNaviTitleLabel.text = thirdHardDeviceName;
+                    self.leftDeviceShowName = [dic objectForKey:@"Description"];
                     [UserManager setGlobalOauth];
                     HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,HardWareUUID);
                     break;
