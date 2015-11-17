@@ -12,12 +12,15 @@
 #import "UISearchBar+Common.h"
 #import "UIColor+expanded.h"
 #import "UIView+Frame.h"
+#import "AddProductNameViewController.h"
+#import "DeviceManagerViewController.h"
 
 @interface DeviceListViewController ()<UISearchBarDelegate,UISearchDisplayDelegate>
 
 @property UISegmentedControl *segmentTitle;
-@property MyDeviceListViewController *myDeviceList;
+@property DeviceManagerViewController *myDeviceList;
 @property FriendDeviceListViewController *friendDeviceList;
+@property (nonatomic, strong) UIButton *rightMenuButton;
 
 
 
@@ -40,14 +43,22 @@
          {
              return self.menuButton;
          }else if (nIndex == 0){
-             self.rightButton.frame = CGRectMake(self.view.frame.size.width-35, 12, 20, 20);
-             [self.rightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"search"]] forState:UIControlStateNormal];
-             [self.rightButton addTarget:self action:@selector(searchDevice:) forControlEvents:UIControlEventTouchUpInside];
-             return self.rightButton;
+             [self.rightMenuButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"plus_math"]] forState:UIControlStateNormal];
+             [self.rightMenuButton addTarget:self action:@selector(addProduct:) forControlEvents:UIControlEventTouchUpInside];
+             return self.rightMenuButton;
          }
          
          return nil;
      }];
+}
+
+- (UIButton *)rightMenuButton
+{
+    if (!_rightMenuButton) {
+        _rightMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rightMenuButton.frame = CGRectMake(self.view.frame.size.width-35, 12, 20, 20);
+    }
+    return _rightMenuButton;
 }
 
 //设置导航栏中的titleView
@@ -60,7 +71,7 @@
     self.segmentTitle.frame = CGRectMake(70, 30, self.view.frame.size.width-140, 25);
     [self.segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.segmentTitle];
-    _myDeviceList = [[MyDeviceListViewController alloc]init];
+    _myDeviceList = [[DeviceManagerViewController alloc]init];
     _myDeviceList.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
     _myDeviceList.view.tag = 1001;
     _friendDeviceList = [[FriendDeviceListViewController alloc]init];
@@ -78,14 +89,20 @@
             [subview removeFromSuperview];
         }
     }
-    
     switch (_segmentTitle.selectedSegmentIndex) {
         case 0: {
+            [self.rightMenuButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"plus_math"]] forState:UIControlStateNormal];
+            [self.rightMenuButton removeTarget:self action:@selector(searchDevice:) forControlEvents:UIControlEventTouchUpInside];
+            [self.rightMenuButton addTarget:self action:@selector(addProduct:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:_myDeviceList.view];
             _myDeviceList.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
             break;
         }
         case 1: {
+            
+            [self.rightMenuButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"search"]] forState:UIControlStateNormal];
+            [self.rightMenuButton removeTarget:self action:@selector(addProduct:) forControlEvents:UIControlEventTouchUpInside];
+            [self.rightMenuButton addTarget:self action:@selector(searchDevice:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:_friendDeviceList.view];
             _friendDeviceList.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
             break;
@@ -93,6 +110,12 @@
         default:
             break;
     }
+}
+
+- (void)addProduct:(UIButton *)sender
+{
+    AddProductNameViewController *addProductName = [[AddProductNameViewController alloc]init];
+    [self.navigationController pushViewController:addProductName animated:YES];
 }
 
 - (void)searchDevice:(UIButton*)sender

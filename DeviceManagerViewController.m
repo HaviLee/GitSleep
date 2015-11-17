@@ -14,6 +14,7 @@
 #import "ChangeUUIDAPI.h"
 #import "ReNameDeviceNameViewController.h"
 #import "UDPAddProductViewController.h"
+#import "ODRefreshControl.h"
 //
 #import "MGSwipeTableCell.h"
 #import "MGSwipeButton.h"
@@ -24,6 +25,7 @@
 
 @property (nonatomic,strong) NSMutableArray *deviceArr;
 @property (nonatomic, strong) NSIndexPath *selectedPath;
+@property (nonatomic, strong) ODRefreshControl *refreshControl;
 
 @end
 
@@ -38,21 +40,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
-    [self createNavWithTitle:@"设备管理" createMenuItem:^UIView *(int nIndex)
-     {
-         if (nIndex == 1)
-         {
-             return self.menuButton;
-         }else if (nIndex == 0){
-             self.rightButton.frame = CGRectMake(self.view.frame.size.width-35, 8, 25, 25);
-             [self.rightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_add_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-             [self.rightButton addTarget:self action:@selector(addDevice:) forControlEvents:UIControlEventTouchUpInside];
-             return self.rightButton;
-         }
-         
-         
-         return nil;
-     }];
+//    [self createNavWithTitle:@"设备管理" createMenuItem:^UIView *(int nIndex)
+//     {
+//         if (nIndex == 1)
+//         {
+//             return self.menuButton;
+//         }else if (nIndex == 0){
+//             self.rightButton.frame = CGRectMake(self.view.frame.size.width-35, 8, 25, 25);
+//             [self.rightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_add_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+//             [self.rightButton addTarget:self action:@selector(addDevice:) forControlEvents:UIControlEventTouchUpInside];
+//             return self.rightButton;
+//         }
+//         
+//         
+//         return nil;
+//     }];
     // Do any additional setup after loading the view.
     //
     self.bgImageView.image = [UIImage imageNamed:@""];
@@ -60,15 +62,25 @@
     [self.view addSubview:self.sideTableView];
     [self.sideTableView makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(0);
-        make.top.equalTo(self.view).offset(64);
+        make.top.equalTo(self.view).offset(0);
         make.bottom.equalTo(self.view.bottom).offset(0);
         make.right.equalTo(self.view.right).offset(0);
     }];
     self.sideTableView.backgroundColor = [UIColor clearColor];
     self.sideTableView.delegate = self;
     self.sideTableView.dataSource = self;
-    
+    _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.sideTableView];
+    [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     //    self.deviceArr = [[NSMutableArray alloc]initWithArray:@[@"我的设备",@"梅西的设备",@"哈维的设备",]];
+}
+
+//刷新
+- (void)refresh{
+    __weak typeof(self) weakSelf = self;
+    
+    HaviLog(@"刷新ok");
+    [weakSelf.refreshControl endRefreshing];
+    
 }
 
 #pragma mark 为了左滑动和有滑动的

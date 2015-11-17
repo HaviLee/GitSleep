@@ -2301,6 +2301,8 @@
 				2C77D50A1AEB3702004123D2 /* ReNameDeviceNameViewController.m */,
 				2CE7A3B71BF58A5200E7CEDE /* NameDoubleViewController.h */,
 				2CE7A3B81BF58A5200E7CEDE /* NameDoubleViewController.m */,
+				575F5A9B1AAE87670061AA11 /* DeviceManagerViewController.h */,
+				575F5A9C1AAE87670061AA11 /* DeviceManagerViewController.m */,
 			);
 			name = DeviceListView;
 			sourceTree = "<group>";
@@ -3139,8 +3141,6 @@
 				579AC7DA1AA01DE40045E9A2 /* DataShowTableViewCell.m */,
 				579AC7E71AA03F720045E9A2 /* DefaultTableViewCell.h */,
 				579AC7E81AA03F720045E9A2 /* DefaultTableViewCell.m */,
-				575F5A9B1AAE87670061AA11 /* DeviceManagerViewController.h */,
-				575F5A9C1AAE87670061AA11 /* DeviceManagerViewController.m */,
 				575F5A9E1AAE900B0061AA11 /* SleepSettingViewController.h */,
 				575F5A9F1AAE900B0061AA11 /* SleepSettingViewController.m */,
 				2C8C627D1AB590CC00CF4C19 /* APPSettingViewController.h */,
