@@ -24,6 +24,9 @@
 #import "KxMenu.h"
 #import "UploadTagAPI.h"
 
+//
+#import "DoubleLeaveContainerViewController.h"
+
 @interface CenterContainerViewController ()<SetScrollDateDelegate>
 
 @property (nonatomic,strong) NSArray *dataSource;
@@ -56,6 +59,8 @@
 @property (nonatomic, strong) SencondTurnViewController *sendTurnView;
 @property (nonatomic, strong) NewSecondBreathViewController *secondBreathView;
 @property (nonatomic, strong) NewSecondHeartViewController *secondHeartView;
+//
+@property (nonatomic, strong) DoubleLeaveContainerViewController *doubleLeaveView;
 
 @end
 
@@ -339,7 +344,7 @@
 
 - (void)setControllerBackGroundImage
 {
-     self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.sendLeaveView,self.sendTurnView];
+     self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.sendTurnView];
     if (selectedThemeIndex == 0) {
         self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
     }else{
@@ -427,6 +432,14 @@
 }
 
 #pragma mark setter
+
+- (DoubleLeaveContainerViewController *)doubleLeaveView
+{
+    if (!_doubleLeaveView) {
+        _doubleLeaveView = [[DoubleLeaveContainerViewController alloc]init];
+    }
+    return _doubleLeaveView;
+}
 
 - (StartTimeView *)leftStartView
 {

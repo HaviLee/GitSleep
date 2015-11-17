@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self createNavigationView];
+//    [self createNavigationView];
     [self createSubView];
     [self.view addSubview:self.bottomTableView];
 //    self.bgImageView.image = [UIImage imageNamed:@"ic_pic_bg.png"];

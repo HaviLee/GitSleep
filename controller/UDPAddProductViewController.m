@@ -507,7 +507,7 @@
 //            return;
 //    }
 //    [macArray addObject:mac];
-    NSString* msg = [@"smart_config " stringByAppendingString:mac];
+    NSString* msg = [@"激活成功smart_config " stringByAppendingString:mac];
     NSLog(@"msg %@",msg);
     // 让模块停止发送信息。
     isfinding = NO;

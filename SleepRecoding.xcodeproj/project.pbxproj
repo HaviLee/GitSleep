@@ -496,6 +496,9 @@
 		2CC8E80D1B9C19AE00F69ABE /* ic_getup_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E80C1B9C19AE00F69ABE /* ic_getup_1.png */; };
 		2CC8E80F1B9C19C500F69ABE /* ic_body_movement_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E80E1B9C19C500F69ABE /* ic_body_movement_1.png */; };
 		2CCDE2C31AF8A7FC00CAE9CB /* QueryDataCacheAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */; };
+		2CCE23251BFB134B00046EF7 /* DoubleHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE23241BFB134B00046EF7 /* DoubleHeartViewController.m */; };
+		2CCE23281BFB135D00046EF7 /* DoubleBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE23271BFB135D00046EF7 /* DoubleBreathViewController.m */; };
+		2CCE232B1BFB154300046EF7 /* DoubleLeaveContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE232A1BFB154300046EF7 /* DoubleLeaveContainerViewController.m */; };
 		2CCF41D51AF867E0008BEFD3 /* libSniffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCF41D41AF867E0008BEFD3 /* libSniffer.a */; };
 		2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD386C51B65F33C00A3AF04 /* LoginContainerViewController.m */; };
 		2CD404181B1460F60020B89E /* DataShowChartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD404171B1460F60020B89E /* DataShowChartTableViewCell.m */; };
@@ -1328,10 +1331,10 @@
 		2CC8E7EC1B96AEEF00F69ABE /* SencondHeartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondHeartViewController.m; path = controller/SencondHeartViewController.m; sourceTree = "<group>"; };
 		2CC8E7EE1B97272100F69ABE /* SencondBreathViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondBreathViewController.h; path = controller/SencondBreathViewController.h; sourceTree = "<group>"; };
 		2CC8E7EF1B97272100F69ABE /* SencondBreathViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondBreathViewController.m; path = controller/SencondBreathViewController.m; sourceTree = "<group>"; };
-		2CC8E7F11B972DE600F69ABE /* SencondLeaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondLeaveViewController.h; path = ../SencondLeaveViewController.h; sourceTree = "<group>"; };
-		2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondLeaveViewController.m; path = ../SencondLeaveViewController.m; sourceTree = "<group>"; };
-		2CC8E7F41B972DFB00F69ABE /* SencondTurnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondTurnViewController.h; path = ../SencondTurnViewController.h; sourceTree = "<group>"; };
-		2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondTurnViewController.m; path = ../SencondTurnViewController.m; sourceTree = "<group>"; };
+		2CC8E7F11B972DE600F69ABE /* SencondLeaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondLeaveViewController.h; path = controller/SencondLeaveViewController.h; sourceTree = "<group>"; };
+		2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondLeaveViewController.m; path = controller/SencondLeaveViewController.m; sourceTree = "<group>"; };
+		2CC8E7F41B972DFB00F69ABE /* SencondTurnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SencondTurnViewController.h; path = controller/SencondTurnViewController.h; sourceTree = "<group>"; };
+		2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SencondTurnViewController.m; path = controller/SencondTurnViewController.m; sourceTree = "<group>"; };
 		2CC8E7F71B9BE59900F69ABE /* ic_body_movement_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_body_movement_0.png; sourceTree = "<group>"; };
 		2CC8E7F81B9BE59900F69ABE /* ic_dot_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_dot_0.png; sourceTree = "<group>"; };
 		2CC8E7F91B9BE59900F69ABE /* ic_getup_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_getup_0.png; sourceTree = "<group>"; };
@@ -1345,6 +1348,12 @@
 		2CC8E80E1B9C19C500F69ABE /* ic_body_movement_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_body_movement_1.png; sourceTree = "<group>"; };
 		2CCDE2C11AF8A7FC00CAE9CB /* QueryDataCacheAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryDataCacheAPI.h; path = API/QueryDataCacheAPI.h; sourceTree = "<group>"; };
 		2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryDataCacheAPI.m; path = API/QueryDataCacheAPI.m; sourceTree = "<group>"; };
+		2CCE23231BFB134B00046EF7 /* DoubleHeartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleHeartViewController.h; path = controller/DoubleHeartViewController.h; sourceTree = "<group>"; };
+		2CCE23241BFB134B00046EF7 /* DoubleHeartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleHeartViewController.m; path = controller/DoubleHeartViewController.m; sourceTree = "<group>"; };
+		2CCE23261BFB135D00046EF7 /* DoubleBreathViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleBreathViewController.h; path = controller/DoubleBreathViewController.h; sourceTree = "<group>"; };
+		2CCE23271BFB135D00046EF7 /* DoubleBreathViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleBreathViewController.m; path = controller/DoubleBreathViewController.m; sourceTree = "<group>"; };
+		2CCE23291BFB154300046EF7 /* DoubleLeaveContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleLeaveContainerViewController.h; path = controller/DoubleLeaveContainerViewController.h; sourceTree = "<group>"; };
+		2CCE232A1BFB154300046EF7 /* DoubleLeaveContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleLeaveContainerViewController.m; path = controller/DoubleLeaveContainerViewController.m; sourceTree = "<group>"; };
 		2CCF41D41AF867E0008BEFD3 /* libSniffer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSniffer.a; sourceTree = "<group>"; };
 		2CD386C41B65F33C00A3AF04 /* LoginContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginContainerViewController.h; path = controller/LoginContainerViewController.h; sourceTree = "<group>"; };
 		2CD386C51B65F33C00A3AF04 /* LoginContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginContainerViewController.m; path = controller/LoginContainerViewController.m; sourceTree = "<group>"; };
@@ -1738,12 +1747,13 @@
 		2C0125351A8F5E5500382A9D /* MainController */ = {
 			isa = PBXGroup;
 			children = (
+				2CCE231C1BFB124E00046EF7 /* DoubleController */,
 				2C6C6C111BF316CE0076E0EF /* DeviceListView */,
 				2CF3501E1BB2B51F007099FC /* PersonCenterView */,
 				2CDB86571BABCD4F00551192 /* ReportView */,
 				5764CB111AB6B2A0002A0B85 /* Login */,
 				579AC7D51AA019370045E9A2 /* CenterViewController */,
-				2C3AF2AE1AF45ACC00B66E32 /* DataShow */,
+				2C3AF2AE1AF45ACC00B66E32 /* DataShow_old */,
 				579AC7D41AA019260045E9A2 /* LeftViewController */,
 				576B02431A9EB210004DB418 /* BaseView */,
 			);
@@ -1979,7 +1989,7 @@
 			path = lib/SLPagingView;
 			sourceTree = "<group>";
 		};
-		2C3AF2AE1AF45ACC00B66E32 /* DataShow */ = {
+		2C3AF2AE1AF45ACC00B66E32 /* DataShow_old */ = {
 			isa = PBXGroup;
 			children = (
 				2C3AF2AF1AF4611E00B66E32 /* NKJPagerViewController.h */,
@@ -2003,7 +2013,7 @@
 				2CC8E7FF1B9BF61B00F69ABE /* DataTableViewCell.h */,
 				2CC8E8001B9BF61B00F69ABE /* DataTableViewCell.m */,
 			);
-			name = DataShow;
+			name = DataShow_old;
 			sourceTree = "<group>";
 		};
 		2C3E87191AF1BD510086C0CF /* common */ = {
@@ -2639,6 +2649,23 @@
 			path = lib/thirdlib/LXActivity;
 			sourceTree = "<group>";
 		};
+		2CCE231C1BFB124E00046EF7 /* DoubleController */ = {
+			isa = PBXGroup;
+			children = (
+				2CCE23231BFB134B00046EF7 /* DoubleHeartViewController.h */,
+				2CCE23241BFB134B00046EF7 /* DoubleHeartViewController.m */,
+				2CCE23261BFB135D00046EF7 /* DoubleBreathViewController.h */,
+				2CCE23271BFB135D00046EF7 /* DoubleBreathViewController.m */,
+				2CCE23291BFB154300046EF7 /* DoubleLeaveContainerViewController.h */,
+				2CCE232A1BFB154300046EF7 /* DoubleLeaveContainerViewController.m */,
+				2CC8E7F11B972DE600F69ABE /* SencondLeaveViewController.h */,
+				2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */,
+				2CC8E7F41B972DFB00F69ABE /* SencondTurnViewController.h */,
+				2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */,
+			);
+			name = DoubleController;
+			sourceTree = "<group>";
+		};
 		2CD6C0201B7ADEAB00F1FF6A /* libWeiboSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2701,10 +2728,6 @@
 				2CDB86681BABCD4F00551192 /* NewSecondBreathViewController.m */,
 				2CDB86691BABCD4F00551192 /* NewSecondHeartViewController.h */,
 				2CDB866A1BABCD4F00551192 /* NewSecondHeartViewController.m */,
-				2CC8E7F11B972DE600F69ABE /* SencondLeaveViewController.h */,
-				2CC8E7F21B972DE600F69ABE /* SencondLeaveViewController.m */,
-				2CC8E7F41B972DFB00F69ABE /* SencondTurnViewController.h */,
-				2CC8E7F51B972DFB00F69ABE /* SencondTurnViewController.m */,
 				2CDB866B1BABCD4F00551192 /* NewWeekReport.h */,
 				2CDB866C1BABCD4F00551192 /* NewWeekReport.m */,
 				2CDB866D1BABCD4F00551192 /* NewWeekReportViewController.h */,
@@ -3865,6 +3888,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CE7A3A91BF485BA00E7CEDE /* SearchUserTableViewCell.m in Sources */,
+				2CCE232B1BFB154300046EF7 /* DoubleLeaveContainerViewController.m in Sources */,
 				572AA98A1AC29A5700DED1D9 /* THPinViewController.m in Sources */,
 				5772BE441AAFFF1B00E108BB /* HaviSwitch.m in Sources */,
 				2CC8E7F31B972DE600F69ABE /* SencondLeaveViewController.m in Sources */,
@@ -3950,6 +3974,7 @@
 				2C1AD71B1AAAE74A00655A5B /* SlideAnimation.m in Sources */,
 				2CE9E7981BD4C5E2001D8401 /* UIDevice+Info.m in Sources */,
 				2CDB868F1BABCDCD00551192 /* SleepTimeTagView.m in Sources */,
+				2CCE23251BFB134B00046EF7 /* DoubleHeartViewController.m in Sources */,
 				57F1D1491AB825C300B5B0D1 /* AddProductViewController.m in Sources */,
 				576B024C1A9EB25F004DB418 /* RightSideViewController.m in Sources */,
 				2CE567131BF30EA300839E91 /* UIColor+SLAddition.m in Sources */,
@@ -4108,6 +4133,7 @@
 				2C7319DC1B75A309005A3EE4 /* TagShowViewController.m in Sources */,
 				577086131ABBEA8E004A2C07 /* UserInfoNameTableViewCell.m in Sources */,
 				5781D00B1AE8DB9C0092E8CD /* BindingDeviceUUIDAPI.m in Sources */,
+				2CCE23281BFB135D00046EF7 /* DoubleBreathViewController.m in Sources */,
 				575F5AA01AAE900B0061AA11 /* SleepSettingViewController.m in Sources */,
 				578F57E71AB7D3D20090A167 /* CKTextField.m in Sources */,
 				5759ECE81AC52DD800E9BFF2 /* MLTransitionAnimation.m in Sources */,
