@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self createNavigationView];
+//    [self createNavigationView];
     [self createSubView];
     [self.view addSubview:self.bottomTableView];
     [self getData];
@@ -192,7 +192,7 @@
 
 - (void)createSubView
 {
-    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 203)];
+    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 203)];
     backView.backgroundColor = [UIColor clearColor];
     [backView addSubview:self.leaveImage];
     [backView addSubview:self.sleepTimeLabel];
@@ -274,7 +274,7 @@
 - (UITableView *)bottomTableView
 {
     if (_bottomTableView == nil) {
-        _bottomTableView = [[UITableView alloc]initWithFrame:CGRectMake(0,202+64 , self.view.frame.size.width, self.view.frame.size.height-204-64) style:UITableViewStylePlain];
+        _bottomTableView = [[UITableView alloc]initWithFrame:CGRectMake(0,202 , self.view.frame.size.width, self.view.frame.size.height-204-64) style:UITableViewStylePlain];
         _bottomTableView.backgroundColor = [UIColor clearColor];
         _bottomTableView.delegate = self;
         _bottomTableView.dataSource = self;

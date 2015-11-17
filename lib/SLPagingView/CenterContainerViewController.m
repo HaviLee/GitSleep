@@ -26,6 +26,7 @@
 
 //
 #import "DoubleLeaveContainerViewController.h"
+#import "DoubleTurnContainerViewController.h"
 
 @interface CenterContainerViewController ()<SetScrollDateDelegate>
 
@@ -61,6 +62,7 @@
 @property (nonatomic, strong) NewSecondHeartViewController *secondHeartView;
 //
 @property (nonatomic, strong) DoubleLeaveContainerViewController *doubleLeaveView;
+@property (nonatomic, strong) DoubleTurnContainerViewController *doubleTurnView;
 
 @end
 
@@ -344,7 +346,7 @@
 
 - (void)setControllerBackGroundImage
 {
-     self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.sendTurnView];
+     self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
     if (selectedThemeIndex == 0) {
         self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
     }else{
@@ -440,6 +442,15 @@
     }
     return _doubleLeaveView;
 }
+
+- (DoubleTurnContainerViewController *)doubleTurnView
+{
+    if (!_doubleTurnView) {
+        _doubleTurnView = [[DoubleTurnContainerViewController alloc]init];
+    }
+    return _doubleTurnView;
+}
+
 
 - (StartTimeView *)leftStartView
 {

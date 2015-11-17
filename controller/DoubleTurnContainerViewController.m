@@ -1,26 +1,25 @@
 //
-//  DoubleLeaveContainerViewController.m
+//  DoubleTurnContainerViewController.m
 //  SleepRecoding
 //
 //  Created by Havi on 15/11/17.
 //  Copyright © 2015年 Havi. All rights reserved.
 //
 
-#import "DoubleLeaveContainerViewController.h"
+#import "DoubleTurnContainerViewController.h"
+#import "SencondTurnViewController.h"
 #import "SLPagingViewController.h"
-#import "SencondLeaveViewController.h"
 
-@interface DoubleLeaveContainerViewController ()
+@interface DoubleTurnContainerViewController ()
 
-@property (nonatomic ,strong) SencondLeaveViewController *leftLeave;
-@property (nonatomic ,strong) SencondLeaveViewController *rightLeave;
+@property (nonatomic ,strong) SencondTurnViewController *leftLeave;
+@property (nonatomic ,strong) SencondTurnViewController *rightLeave;
 @property (nonatomic, strong) UIButton *leftMenuButton;
 @property (nonatomic, strong) UIButton *rightMenuButton;
 
-
 @end
 
-@implementation DoubleLeaveContainerViewController
+@implementation DoubleTurnContainerViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -112,19 +111,19 @@
     return _rightMenuButton;
 }
 
-- (SencondLeaveViewController *)leftLeave
+- (SencondTurnViewController *)leftLeave
 {
     if (!_leftLeave) {
-        _leftLeave = [[SencondLeaveViewController alloc]init];
+        _leftLeave = [[SencondTurnViewController alloc]init];
         
     }
     return _leftLeave;
 }
 
-- (SencondLeaveViewController *)rightLeave
+- (SencondTurnViewController *)rightLeave
 {
     if (!_rightLeave) {
-        _rightLeave = [[SencondLeaveViewController alloc]init];
+        _rightLeave = [[SencondTurnViewController alloc]init];
         
     }
     return _rightLeave;
@@ -143,6 +142,7 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

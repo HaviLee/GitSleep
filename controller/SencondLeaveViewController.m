@@ -33,8 +33,14 @@
     [self createSubView];
     [self.view addSubview:self.bottomTableView];
 //    self.bgImageView.image = [UIImage imageNamed:@"ic_pic_bg.png"];
+    
     [self getData];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self getData];
 }
 
 - (void)getData
@@ -182,7 +188,7 @@
 
 - (void)createSubView
 {
-    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 203)];
+    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 203)];
     backView.backgroundColor = [UIColor clearColor];
     [backView addSubview:self.leaveImage];
     [backView addSubview:self.sleepTimeLabel];
@@ -235,11 +241,9 @@
     [self.view addSubview:backView];
 }
 
+/*
 - (void)createNavigationView
 {
-//    isUp = YES;
-//    self.viewHeight = self.view.frame.size.height;
-//    _modalAnimationController = [[ModalAnimation alloc] init];
     [self createClearBgNavWithTitle:@"离床" andTitleColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
@@ -259,12 +263,13 @@
     }];
 }
 
+*/
 #pragma mark setter
 
 - (UITableView *)bottomTableView
 {
     if (_bottomTableView == nil) {
-        _bottomTableView = [[UITableView alloc]initWithFrame:CGRectMake(0,202+64 , self.view.frame.size.width, self.view.frame.size.height-204-64) style:UITableViewStylePlain];
+        _bottomTableView = [[UITableView alloc]initWithFrame:CGRectMake(0,202 , self.view.frame.size.width, self.view.frame.size.height-204-64) style:UITableViewStylePlain];
         _bottomTableView.backgroundColor = [UIColor clearColor];
         _bottomTableView.delegate = self;
         _bottomTableView.dataSource = self;
@@ -400,12 +405,6 @@
 {
 //    [self.shareMenuView show];
     [self.shareNewMenuView showInView:self.view];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self getData];
 }
 
 - (void)didReceiveMemoryWarning {
