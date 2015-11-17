@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface MyDeviceListViewController : BaseViewController
+@interface MessageListViewController : BaseViewController
 
 @end

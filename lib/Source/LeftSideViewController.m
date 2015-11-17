@@ -21,6 +21,7 @@
 #import "AppDelegate.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "PersonManagerViewController.h"
+#import "MessageListViewController.h"
 //
 #import "DeviceListViewController.h"
 
@@ -268,6 +269,12 @@
             }];
              */
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[APPSettingViewController alloc] init]]
+                                                         animated:YES];
+            [self.sideMenuViewController hideMenuViewController];
+            break;
+        }
+        case 5:{
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[MessageListViewController alloc] init]]
                                                          animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             break;

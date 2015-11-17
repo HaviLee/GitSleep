@@ -7,7 +7,7 @@
 //
 
 #import "DeviceListViewController.h"
-#import "MyDeviceListViewController.h"
+#import "MessageListViewController.h"
 #import "FriendDeviceListViewController.h"
 #import "UISearchBar+Common.h"
 #import "UIColor+expanded.h"

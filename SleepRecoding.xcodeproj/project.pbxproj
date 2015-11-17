@@ -224,7 +224,7 @@
 		2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */; };
 		2C619E371BF1E94100FFB608 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E361BF1E94100FFB608 /* ODRefreshControl.m */; };
 		2C6C6C141BF3190B0076E0EF /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C6C131BF3190B0076E0EF /* DeviceListViewController.m */; };
-		2C6C6C171BF31DBC0076E0EF /* MyDeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C6C161BF31DBC0076E0EF /* MyDeviceListViewController.m */; };
+		2C6C6C171BF31DBC0076E0EF /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C6C161BF31DBC0076E0EF /* MessageListViewController.m */; };
 		2C6C6C1A1BF31DD20076E0EF /* FriendDeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C6C191BF31DD20076E0EF /* FriendDeviceListViewController.m */; };
 		2C6D2F411AF620A2008C285B /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D2F401AF620A2008C285B /* UserInfoTableViewCell.m */; };
 		2C6D2F441AF62267008C285B /* icon_phone_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D2F421AF62267008C285B /* icon_phone_1@2x.png */; };
@@ -982,8 +982,8 @@
 		2C619E361BF1E94100FFB608 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 		2C6C6C121BF3190B0076E0EF /* DeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceListViewController.h; path = controller/DeviceListViewController.h; sourceTree = "<group>"; };
 		2C6C6C131BF3190B0076E0EF /* DeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceListViewController.m; path = controller/DeviceListViewController.m; sourceTree = "<group>"; };
-		2C6C6C151BF31DBC0076E0EF /* MyDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyDeviceListViewController.h; path = controller/MyDeviceListViewController.h; sourceTree = "<group>"; };
-		2C6C6C161BF31DBC0076E0EF /* MyDeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyDeviceListViewController.m; path = controller/MyDeviceListViewController.m; sourceTree = "<group>"; };
+		2C6C6C151BF31DBC0076E0EF /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageListViewController.h; path = controller/MessageListViewController.h; sourceTree = "<group>"; };
+		2C6C6C161BF31DBC0076E0EF /* MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageListViewController.m; path = controller/MessageListViewController.m; sourceTree = "<group>"; };
 		2C6C6C181BF31DD20076E0EF /* FriendDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendDeviceListViewController.h; path = controller/FriendDeviceListViewController.h; sourceTree = "<group>"; };
 		2C6C6C191BF31DD20076E0EF /* FriendDeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendDeviceListViewController.m; path = controller/FriendDeviceListViewController.m; sourceTree = "<group>"; };
 		2C6D2F3F1AF620A2008C285B /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoTableViewCell.h; path = controller/UserInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -2275,8 +2275,8 @@
 			children = (
 				2C6C6C121BF3190B0076E0EF /* DeviceListViewController.h */,
 				2C6C6C131BF3190B0076E0EF /* DeviceListViewController.m */,
-				2C6C6C151BF31DBC0076E0EF /* MyDeviceListViewController.h */,
-				2C6C6C161BF31DBC0076E0EF /* MyDeviceListViewController.m */,
+				2C6C6C151BF31DBC0076E0EF /* MessageListViewController.h */,
+				2C6C6C161BF31DBC0076E0EF /* MessageListViewController.m */,
 				2C6C6C181BF31DD20076E0EF /* FriendDeviceListViewController.h */,
 				2C6C6C191BF31DD20076E0EF /* FriendDeviceListViewController.m */,
 				2C30A72A1BF3312F0064758F /* BindDeviceTableViewCell.h */,
@@ -4092,7 +4092,7 @@
 				579AC7D81AA01D9A0045E9A2 /* IconTableViewCell.m in Sources */,
 				2C8CB3FA1B4A51B5007E97E5 /* UIViewController+TopBarMessage.m in Sources */,
 				57490FC71ACAA1A10057DC05 /* CBChartView.m in Sources */,
-				2C6C6C171BF31DBC0076E0EF /* MyDeviceListViewController.m in Sources */,
+				2C6C6C171BF31DBC0076E0EF /* MessageListViewController.m in Sources */,
 				2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */,
 				2C7319DC1B75A309005A3EE4 /* TagShowViewController.m in Sources */,
 				577086131ABBEA8E004A2C07 /* UserInfoNameTableViewCell.m in Sources */,
