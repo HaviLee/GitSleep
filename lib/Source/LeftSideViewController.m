@@ -22,6 +22,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "PersonManagerViewController.h"
 #import "MessageListViewController.h"
+#import "UIBadgeView.h"
 //
 #import "DeviceListViewController.h"
 
@@ -187,6 +188,12 @@
             defaultCell.cellImageName = [[self.imageArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             defaultCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             defaultCell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            if (indexPath.row==5) {
+                UIBadgeView *badgeV = [UIBadgeView viewWithBadgeTip:@"1"];
+                [defaultCell addSubview:badgeV];
+                [badgeV setTag:100001];
+                [badgeV setCenter:CGPointMake(120, 15)];
+            }
             return defaultCell;
         }
     }else{
@@ -227,6 +234,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     switch (indexPath.row) {
         case 0:{
             AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
@@ -274,6 +282,13 @@
             break;
         }
         case 5:{
+            DefaultTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            NSArray *subViews =[cell subviews];
+            for (UIView *aView in subViews) {
+                if (aView.tag == 100001 && [aView isKindOfClass:[UIBadgeView class]]) {
+                    aView.hidden = YES;
+                }
+            }
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[MessageListViewController alloc] init]]
                                                          animated:YES];
             [self.sideMenuViewController hideMenuViewController];

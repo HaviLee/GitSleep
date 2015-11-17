@@ -223,6 +223,8 @@
 		2C6117101ABEACF400261A1E /* EditUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C61170F1ABEACF400261A1E /* EditUserInfoViewController.m */; };
 		2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */; };
 		2C619E371BF1E94100FFB608 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C619E361BF1E94100FFB608 /* ODRefreshControl.m */; };
+		2C694F6E1BFAF3A50027788B /* UIBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C694F6D1BFAF3A50027788B /* UIBadgeView.m */; };
+		2C694F711BFAF5720027788B /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C694F701BFAF5720027788B /* NSString+Common.m */; };
 		2C6C6C141BF3190B0076E0EF /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C6C131BF3190B0076E0EF /* DeviceListViewController.m */; };
 		2C6C6C171BF31DBC0076E0EF /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C6C161BF31DBC0076E0EF /* MessageListViewController.m */; };
 		2C6C6C1A1BF31DD20076E0EF /* FriendDeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C6C191BF31DD20076E0EF /* FriendDeviceListViewController.m */; };
@@ -980,6 +982,10 @@
 		2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditUserDefalutTableViewCell.m; path = controller/EditUserDefalutTableViewCell.m; sourceTree = "<group>"; };
 		2C619E351BF1E94100FFB608 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
 		2C619E361BF1E94100FFB608 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
+		2C694F6C1BFAF3A50027788B /* UIBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBadgeView.h; sourceTree = "<group>"; };
+		2C694F6D1BFAF3A50027788B /* UIBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBadgeView.m; sourceTree = "<group>"; };
+		2C694F6F1BFAF5720027788B /* NSString+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Common.h"; sourceTree = "<group>"; };
+		2C694F701BFAF5720027788B /* NSString+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Common.m"; sourceTree = "<group>"; };
 		2C6C6C121BF3190B0076E0EF /* DeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceListViewController.h; path = controller/DeviceListViewController.h; sourceTree = "<group>"; };
 		2C6C6C131BF3190B0076E0EF /* DeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceListViewController.m; path = controller/DeviceListViewController.m; sourceTree = "<group>"; };
 		2C6C6C151BF31DBC0076E0EF /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageListViewController.h; path = controller/MessageListViewController.h; sourceTree = "<group>"; };
@@ -2824,6 +2830,10 @@
 				2C2790801BF462DB00449071 /* UISearchBar+Common.m */,
 				2CE7A3AA1BF486E300E7CEDE /* UITableView+Common.h */,
 				2CE7A3AB1BF486E300E7CEDE /* UITableView+Common.m */,
+				2C694F6C1BFAF3A50027788B /* UIBadgeView.h */,
+				2C694F6D1BFAF3A50027788B /* UIBadgeView.m */,
+				2C694F6F1BFAF5720027788B /* NSString+Common.h */,
+				2C694F701BFAF5720027788B /* NSString+Common.m */,
 			);
 			name = OC_Category;
 			path = lib/OC_Category;
@@ -3912,6 +3922,7 @@
 				2C9C01621AD0215F006362E9 /* TurnChartView.m in Sources */,
 				5759E35C1ABA67A700E51690 /* GetCodeViewController.m in Sources */,
 				5764CB141AB6B2C2002A0B85 /* LoginViewController.m in Sources */,
+				2C694F711BFAF5720027788B /* NSString+Common.m in Sources */,
 				2CDE553A1BAE486D0017C5DE /* MMPopupView.m in Sources */,
 				5772BE5E1AB0432400E108BB /* AMBlurView.m in Sources */,
 				2C94F9E31B8AED0200F1A4DB /* DTTimePeriod.m in Sources */,
@@ -4114,6 +4125,7 @@
 				2CD6C0701B7DDBE000F1FF6A /* BreathGraphView.m in Sources */,
 				2C77D4FD1AEA9846004123D2 /* CheckDeviceStatusAPI.m in Sources */,
 				2C7319E91B75E598005A3EE4 /* TLTagsControl.m in Sources */,
+				2C694F6E1BFAF3A50027788B /* UIBadgeView.m in Sources */,
 				2CE7A3B61BF490B900E7CEDE /* TMCacheExtend.m in Sources */,
 				2CDB867D1BABCD4F00551192 /* MPGraphView.m in Sources */,
 				577120091AD5088700508C5C /* KxMenu.m in Sources */,
