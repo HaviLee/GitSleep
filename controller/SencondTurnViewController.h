@@ -10,4 +10,6 @@
 
 @interface SencondTurnViewController : BaseViewController
 
+- (void)refreshView;
+
 @end

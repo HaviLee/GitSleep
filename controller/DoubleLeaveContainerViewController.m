@@ -130,6 +130,13 @@
     return _rightLeave;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.leftLeave refreshView];
+    [self.rightLeave refreshView];
+}
+
 #pragma mark userAction
 
 - (void)shareApp:(UIButton *)sender

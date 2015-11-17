@@ -31,9 +31,14 @@
 //    [self createNavigationView];
     [self createSubView];
     [self.view addSubview:self.bottomTableView];
-    [self getData];
     
 }
+
+- (void)refreshView
+{
+    [self getData];
+}
+
 
 - (void)getData
 {

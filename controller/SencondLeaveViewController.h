@@ -10,4 +10,6 @@
 
 @interface SencondLeaveViewController : BaseViewController
 
+- (void)refreshView;
+
 @end

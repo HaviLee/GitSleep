@@ -83,6 +83,14 @@
     [self.view addSubview:navi.view];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.leftLeave refreshView];
+    [self.rightLeave refreshView];
+}
+
+
 #pragma mark setter
 
 - (UIButton *)leftMenuButton
