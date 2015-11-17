@@ -183,7 +183,7 @@
     [self notifyControllers:NSSelectorFromString(@"viewDidAppear:")
                      object:@(animated)
                  checkIndex:YES];
-    [self.navigationController.navigationBar addSubview:self.navigationBarView];
+    [self.view addSubview:self.navigationBarView];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -231,7 +231,7 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
-    self.navigationBarView.frame = (CGRect){0, -20, SCREEN_SIZE.width, 64};
+    self.navigationBarView.frame = (CGRect){0, 0, SCREEN_SIZE.width, 64};
 }
 
 #pragma mark - public methods
@@ -450,7 +450,7 @@
                                                                                           views:@{@"v" : v}]];
                 }
             else{
-                v.frame = (CGRect){SCREEN_SIZE.width * i, 0, SCREEN_SIZE.width, CGRectGetHeight(self.view.frame)};
+                v.frame = (CGRect){SCREEN_SIZE.width * i, 44, SCREEN_SIZE.width, CGRectGetHeight(self.view.frame)};
                 i++;
             }
         }];

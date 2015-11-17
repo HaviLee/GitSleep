@@ -399,6 +399,7 @@
     [pageViewController.navigationBarView addSubview:self.rightMenuButton];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
     [self addChildViewController:navi];
+    navi.navigationBarHidden = YES;
     [self.view addSubview:navi.view];
     CGRect rect = self.view.frame;
     int datePickerHeight = self.view.frame.size.height*0.202623;
