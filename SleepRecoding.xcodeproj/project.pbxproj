@@ -496,6 +496,8 @@
 		2CC8E80D1B9C19AE00F69ABE /* ic_getup_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E80C1B9C19AE00F69ABE /* ic_getup_1.png */; };
 		2CC8E80F1B9C19C500F69ABE /* ic_body_movement_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E80E1B9C19C500F69ABE /* ic_body_movement_1.png */; };
 		2CCD55431BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD55421BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m */; };
+		2CCD55461BFC4BA4004A76B2 /* DoubleFloatLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD55451BFC4BA4004A76B2 /* DoubleFloatLayerView.m */; };
+		2CCD55481BFC51CA004A76B2 /* float_view.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD55471BFC51CA004A76B2 /* float_view.png */; };
 		2CCDE2C31AF8A7FC00CAE9CB /* QueryDataCacheAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */; };
 		2CCE23251BFB134B00046EF7 /* DoubleHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE23241BFB134B00046EF7 /* DoubleHeartViewController.m */; };
 		2CCE23281BFB135D00046EF7 /* DoubleBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE23271BFB135D00046EF7 /* DoubleBreathViewController.m */; };
@@ -1350,6 +1352,9 @@
 		2CC8E80E1B9C19C500F69ABE /* ic_body_movement_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_body_movement_1.png; sourceTree = "<group>"; };
 		2CCD55411BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleShowChartTableViewCell.h; path = controller/DoubleShowChartTableViewCell.h; sourceTree = "<group>"; };
 		2CCD55421BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleShowChartTableViewCell.m; path = controller/DoubleShowChartTableViewCell.m; sourceTree = "<group>"; };
+		2CCD55441BFC4BA4004A76B2 /* DoubleFloatLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleFloatLayerView.h; sourceTree = "<group>"; };
+		2CCD55451BFC4BA4004A76B2 /* DoubleFloatLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleFloatLayerView.m; sourceTree = "<group>"; };
+		2CCD55471BFC51CA004A76B2 /* float_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = float_view.png; sourceTree = "<group>"; };
 		2CCDE2C11AF8A7FC00CAE9CB /* QueryDataCacheAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryDataCacheAPI.h; path = API/QueryDataCacheAPI.h; sourceTree = "<group>"; };
 		2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryDataCacheAPI.m; path = API/QueryDataCacheAPI.m; sourceTree = "<group>"; };
 		2CCE23231BFB134B00046EF7 /* DoubleHeartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleHeartViewController.h; path = controller/DoubleHeartViewController.h; sourceTree = "<group>"; };
@@ -2720,7 +2725,10 @@
 			children = (
 				2CDB86581BABCD4F00551192 /* FloatLayerView.h */,
 				2CDB86591BABCD4F00551192 /* FloatLayerView.m */,
+				2CCD55441BFC4BA4004A76B2 /* DoubleFloatLayerView.h */,
+				2CCD55451BFC4BA4004A76B2 /* DoubleFloatLayerView.m */,
 				2CDB865A1BABCD4F00551192 /* floatView_0.png */,
+				2CCD55471BFC51CA004A76B2 /* float_view.png */,
 				2CDE553F1BAE63400017C5DE /* floatView_1.png */,
 				2CDB865B1BABCD4F00551192 /* MPGraphView.h */,
 				2CDB865C1BABCD4F00551192 /* MPGraphView.m */,
@@ -3495,6 +3503,7 @@
 				2C7D22C31AF1CA050011A45C /* line_diagnose_0@2x.png in Resources */,
 				2C7D23001AF1CA220011A45C /* heart_5_0.png in Resources */,
 				2C73197E1B746567005A3EE4 /* sleep_analysis_textbox_0.png in Resources */,
+				2CCD55481BFC51CA004A76B2 /* float_view.png in Resources */,
 				2C7D22D51AF1CA050011A45C /* pic_diagnostic_centre_0@2x.png in Resources */,
 				2C7D22EB1AF1CA050011A45C /* textbox_solid_0@2x.png in Resources */,
 				2C7D22EC1AF1CA050011A45C /* textbox_verification_code_0@2x.png in Resources */,
@@ -4077,6 +4086,7 @@
 				2CC006FA1B9FC6DB007DE798 /* LXActivity.m in Sources */,
 				2CD6C0691B7D812300F1FF6A /* UIBezierPath+curved.m in Sources */,
 				2C1F1FD01ADA57AB00393E04 /* WeekCalenderView.m in Sources */,
+				2CCD55461BFC4BA4004A76B2 /* DoubleFloatLayerView.m in Sources */,
 				2C435E581AD0CA05003B1604 /* ToggleBase.m in Sources */,
 				2CD6C0401B7B048100F1FF6A /* WeiBoLogoutAPI.m in Sources */,
 				2C5E5C221B12B3F200123CC4 /* RECommonFunctions.m in Sources */,

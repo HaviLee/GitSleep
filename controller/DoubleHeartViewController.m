@@ -13,7 +13,7 @@
 #import "GetHeartDataAPI.h"
 #import "GetHeartSleepDataAPI.h"
 #import "NewHeartGrapheView.h"
-#import "FloatLayerView.h"
+#import "DoubleFloatLayerView.h"
 #import "GetExceptionAPI.h"
 #import "DiagnoseReportViewController.h"
 #import "ModalAnimation.h"
@@ -36,7 +36,7 @@
 @property (nonatomic,strong) NSDictionary *reportData;
 @property (nonatomic,strong) NewHeartGrapheView *heartGraphView;
 @property (nonatomic,strong) UIScrollView *heartContainerView;
-@property (nonatomic,strong) FloatLayerView *layerFloatView;
+@property (nonatomic,strong) DoubleFloatLayerView *layerFloatView;
 @property (nonatomic,strong) UIView *yCoorBackView;
 @property (nonatomic,strong) NSString *currentDate;
 @property (nonatomic,strong) NSDictionary *currentSleepQulitity;
@@ -181,7 +181,8 @@
             if (xValue==60) {
                 xValue = xValue-60;
             }
-            self.layerFloatView.dataString = [NSString stringWithFormat:@"%d",xValue];
+            self.layerFloatView.leftDataString = [NSString stringWithFormat:@"%d",xValue];
+            self.layerFloatView.rightDataString = [NSString stringWithFormat:@"%d",xValue];
         });
     });
     return nil;
@@ -315,12 +316,12 @@
     return _yCoorBackView;
 }
 
-- (FloatLayerView *)layerFloatView
+- (DoubleFloatLayerView *)layerFloatView
 {
     if (!_layerFloatView) {
-        _layerFloatView = [[FloatLayerView alloc]initWithFrame:CGRectMake(0, 0, 20, 15)];
+        _layerFloatView = [[DoubleFloatLayerView alloc]initWithFrame:CGRectMake(0, 0, 20, 25)];
         CGFloat xCoor = self.view.frame.size.width*4/25/2;
-        CGPoint xPoint = CGPointMake(xCoor, 180-20-7.5);
+        CGPoint xPoint = CGPointMake(xCoor, 180-20-12.5);
         self.layerFloatView.center = xPoint;
         
     }
@@ -620,7 +621,7 @@
         CGFloat xLeft = self.view.frame.size.width*4/25/2;
         //浮标的位置
         CGFloat xScaleValue = scrollView.contentOffset.x+(scrollView.contentOffset.x)*(self.view.frame.size.width-2*xLeft)/(self.view.frame.size.width*3)+xLeft;
-        CGPoint point = CGPointMake(xScaleValue, 180-20-7.5);
+        CGPoint point = CGPointMake(xScaleValue, 180-20-12.5);
         self.layerFloatView.center = point;
         //浮标数据
         CGFloat xWidth = ([[UIScreen mainScreen] applicationFrame].size.width*4-2*20)/289;
@@ -630,7 +631,8 @@
             if (xValue==60) {
                 xValue = xValue-60;
             }
-            self.layerFloatView.dataString = [NSString stringWithFormat:@"%d",xValue];
+            self.layerFloatView.leftDataString = [NSString stringWithFormat:@"%d",xValue];
+            self.layerFloatView.rightDataString = [NSString stringWithFormat:@"%d",xValue];
         }
         
         
