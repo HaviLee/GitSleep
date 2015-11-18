@@ -27,7 +27,8 @@
         self.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
         [self setUpCoordinateSystem];
         [self setBackImage];
-        [self addSubview:self.heartView];
+        [self addSubview:self.heartViewLeft];
+        [self addSubview:self.heartViewRight];
     }
     return self;
 }
@@ -167,15 +168,26 @@
     }
     return _rightImage;
 }
-- (MPGraphView *)heartView
+- (MPGraphView *)heartViewLeft
 {
-    if (_heartView==nil) {
-        _heartView=[[MPGraphView alloc] initWithFrame:CGRectMake(0, 5, xCoordinateWidth, yCoordinateHeight)];
-        _heartView.waitToUpdate=NO;
-        _heartView.lineWidth = 0.5;
-        _heartView.backgroundColor = [UIColor clearColor];
+    if (_heartViewLeft==nil) {
+        _heartViewLeft=[[MPGraphView alloc] initWithFrame:CGRectMake(0, 3.5, xCoordinateWidth, yCoordinateHeight)];
+        _heartViewLeft.waitToUpdate=NO;
+        _heartViewLeft.lineWidth = 0.5;
+        _heartViewLeft.backgroundColor = [UIColor clearColor];
     }
-    return _heartView;
+    return _heartViewLeft;
+}
+
+- (MPGraphView *)heartViewRight
+{
+    if (_heartViewRight==nil) {
+        _heartViewRight=[[MPGraphView alloc] initWithFrame:CGRectMake(0, 6.5, xCoordinateWidth, yCoordinateHeight)];
+        _heartViewRight.waitToUpdate=NO;
+        _heartViewRight.lineWidth = 0.5;
+        _heartViewRight.backgroundColor = [UIColor clearColor];
+    }
+    return _heartViewRight;
 }
 
 /*

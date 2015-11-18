@@ -238,7 +238,7 @@
     switch (indexPath.row) {
         case 0:{
             AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
-            [self.sideMenuViewController setContentViewController:app.containerView animated:YES];
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc]initWithRootViewController:app.containerView] animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             break;
         }

@@ -11,7 +11,8 @@
 
 @interface NewHeartGrapheView : UIView
 
-@property (nonatomic,strong) MPGraphView *heartView;
+@property (nonatomic,strong) MPGraphView *heartViewLeft;
+@property (nonatomic,strong) MPGraphView *heartViewRight;
 /**
  *  x轴的坐标值
  */

@@ -142,8 +142,8 @@
         for (int i=0; i<288; i++) {
             [arr1 addObject:[NSNumber numberWithFloat:60]];
         }
-        self.heartGraphView.heartView.values = arr1;
-        [self.heartGraphView.heartView animate];
+        self.heartGraphView.heartViewLeft.values = arr1;
+        [self.heartGraphView.heartViewLeft animate];
     }
 }
 
@@ -170,8 +170,8 @@
         self.heartDic = arr;
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.heartGraphView.heartView.values = self.heartDic;
-            [self.heartGraphView.heartView animate];
+            self.heartGraphView.heartViewLeft.values = self.heartDic;
+            [self.heartGraphView.heartViewLeft animate];
             int xValue = [[self.heartDic objectAtIndex:0] intValue];
             if (xValue==60) {
                 xValue = xValue-60;
@@ -343,11 +343,11 @@
     if (!_heartGraphView) {
         _heartGraphView = [[NewHeartGrapheView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*4, 180)];
         _heartGraphView.xValues = @[@"18:00",@"19:00",@"20:00",@"21:00",@"22:00",@"23:00",@"24:00",@"01:00",@"02:00",@"03:00",@"04:00",@"05:00",@"06:00",@"07:00",@"08:00",@"09:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"17:00",@"18:00"];
-        _heartGraphView.heartView.maxValue = 100;
-        _heartGraphView.heartView.minValue = 50;
-        _heartGraphView.heartView.horizonValue = 140;
-        _heartGraphView.heartView.graphColor = selectedThemeIndex==0?[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f]:[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f];
-        _heartGraphView.heartView.graphTitle = @"xinlv";
+        _heartGraphView.heartViewLeft.maxValue = 100;
+        _heartGraphView.heartViewLeft.minValue = 50;
+        _heartGraphView.heartViewLeft.horizonValue = 140;
+        _heartGraphView.heartViewLeft.graphColor = selectedThemeIndex==0?[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f]:[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f];
+        _heartGraphView.heartViewLeft.graphTitle = @"xinlv";
         [_heartGraphView addSubview:self.layerFloatView];
 
     }
