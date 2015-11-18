@@ -8,7 +8,7 @@
 
 #import "DoubleHeartViewController.h"
 #import "ReportTableViewCell.h"
-#import "NewDataShowChartTableViewCell.h"
+#import "DoubleShowChartTableViewCell.h"
 #import "SleepTimeTagView.h"
 #import "GetHeartDataAPI.h"
 #import "GetHeartSleepDataAPI.h"
@@ -454,14 +454,17 @@
     if (indexPath.section==0) {
         if (indexPath.row==0) {
             static NSString *cellIndentifier = @"cell0";
-            NewDataShowChartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+            DoubleShowChartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
             if (!cell) {
-                cell = [[NewDataShowChartTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+                cell = [[DoubleShowChartTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
             }
             //timeSwitchButton
+            cell.leftCellName = @"左侧哈维之家";
+            cell.rightCellName = @"右侧大笔";
             cell.iconTitleName = [NSString stringWithFormat:@"icon_heart_rate_%d",selectedThemeIndex];
             
-            cell.cellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]];
+            cell.leftCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]];
+            cell.rightCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = [UIColor clearColor];
             return cell;

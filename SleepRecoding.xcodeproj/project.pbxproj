@@ -495,6 +495,7 @@
 		2CC8E80B1B9C12F300F69ABE /* ic_pic_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E80A1B9C12F300F69ABE /* ic_pic_bg.png */; };
 		2CC8E80D1B9C19AE00F69ABE /* ic_getup_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E80C1B9C19AE00F69ABE /* ic_getup_1.png */; };
 		2CC8E80F1B9C19C500F69ABE /* ic_body_movement_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC8E80E1B9C19C500F69ABE /* ic_body_movement_1.png */; };
+		2CCD55431BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD55421BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m */; };
 		2CCDE2C31AF8A7FC00CAE9CB /* QueryDataCacheAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */; };
 		2CCE23251BFB134B00046EF7 /* DoubleHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE23241BFB134B00046EF7 /* DoubleHeartViewController.m */; };
 		2CCE23281BFB135D00046EF7 /* DoubleBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE23271BFB135D00046EF7 /* DoubleBreathViewController.m */; };
@@ -1347,6 +1348,8 @@
 		2CC8E80A1B9C12F300F69ABE /* ic_pic_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_pic_bg.png; sourceTree = "<group>"; };
 		2CC8E80C1B9C19AE00F69ABE /* ic_getup_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_getup_1.png; sourceTree = "<group>"; };
 		2CC8E80E1B9C19C500F69ABE /* ic_body_movement_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_body_movement_1.png; sourceTree = "<group>"; };
+		2CCD55411BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleShowChartTableViewCell.h; path = controller/DoubleShowChartTableViewCell.h; sourceTree = "<group>"; };
+		2CCD55421BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleShowChartTableViewCell.m; path = controller/DoubleShowChartTableViewCell.m; sourceTree = "<group>"; };
 		2CCDE2C11AF8A7FC00CAE9CB /* QueryDataCacheAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryDataCacheAPI.h; path = API/QueryDataCacheAPI.h; sourceTree = "<group>"; };
 		2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryDataCacheAPI.m; path = API/QueryDataCacheAPI.m; sourceTree = "<group>"; };
 		2CCE23231BFB134B00046EF7 /* DoubleHeartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleHeartViewController.h; path = controller/DoubleHeartViewController.h; sourceTree = "<group>"; };
@@ -2659,6 +2662,8 @@
 				2CCE23241BFB134B00046EF7 /* DoubleHeartViewController.m */,
 				2CCE23261BFB135D00046EF7 /* DoubleBreathViewController.h */,
 				2CCE23271BFB135D00046EF7 /* DoubleBreathViewController.m */,
+				2CCD55411BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.h */,
+				2CCD55421BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m */,
 				2CCE23291BFB154300046EF7 /* DoubleLeaveContainerViewController.h */,
 				2CCE232A1BFB154300046EF7 /* DoubleLeaveContainerViewController.m */,
 				2CCE232C1BFB23D000046EF7 /* DoubleTurnContainerViewController.h */,
@@ -4148,6 +4153,7 @@
 				57D566731AD222D300FE7439 /* DiagnoseReportViewController.m in Sources */,
 				57490FCC1ACAA7E10057DC05 /* AboutMeViewController.m in Sources */,
 				579AC7E21AA033F70045E9A2 /* GifView.m in Sources */,
+				2CCD55431BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m in Sources */,
 				2C3AF2B41AF461DC00B66E32 /* TodayDataViewController.m in Sources */,
 				2C1F1FE71ADBF38F00393E04 /* NSDate+WQCalendarLogic.m in Sources */,
 				57802E2A1AE7398200823E39 /* SHPostClient.m in Sources */,
