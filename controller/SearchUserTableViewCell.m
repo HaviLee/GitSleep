@@ -76,8 +76,25 @@
             make.left.equalTo(_messagePhone.right).offset(0);
         }];
         
+        UIView *line = [[UIView alloc]init];
+        line.backgroundColor = [UIColor lightGrayColor];
+        line.alpha = 0.5;
+        [self addSubview:line];
+        [line makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self);
+            make.left.equalTo(self);
+            make.right.equalTo(self);
+            make.height.equalTo(1);
+        }];
+        
     }
     return self;
+}
+
+- (void)layoutSubviews
+{
+    _messageName.text = self.cellUserName;
+    _messagePhone.text = self.cellUserPhone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

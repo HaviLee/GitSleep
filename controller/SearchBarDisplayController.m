@@ -13,6 +13,7 @@
 #import "UIView+Frame.h"
 #import "CSSearchModel.h"
 #import "TMCacheExtend.h"
+#import "SHGetClient.h"
 
 @class DeviceListViewController;
 
@@ -22,8 +23,9 @@
 @property (nonatomic, strong) UITableView *searchTableView;
 @property (nonatomic, strong) XHRealTimeBlur *backgroundView;
 //
-@property (nonatomic, strong) NSMutableArray *resultArr;
+@property (nonatomic, strong) NSArray *resultArr;
 @property (nonatomic, strong) UIScrollView  *searchHistoryView;
+@property (nonatomic, strong) UILabel *messageLabel;
 
 @end
 
@@ -37,7 +39,7 @@
         [_searchTableView removeFromSuperview];
         [_backgroundView removeFromSuperview];
         [_contentView removeFromSuperview];
-        
+        _resultArr = [[NSMutableArray alloc]init];
         _searchTableView = nil;
         _contentView = nil;
         _backgroundView = nil;
@@ -96,88 +98,6 @@
     }
 }
 
-- (void)initSearchHistoryView {
-    
-    if(!_searchHistoryView) {
-        
-        _searchHistoryView = [[UIScrollView alloc] init];
-        _searchHistoryView.backgroundColor = [UIColor clearColor];
-        [_contentView addSubview:_searchHistoryView];
-        _searchHistoryView.frame = CGRectMake(0, 64, kScreen_Width, 350);
-//        [_searchHistoryView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            
-//            make.top.mas_equalTo(self);
-//            make.left.mas_equalTo(@0);
-//            make.width.mas_equalTo(kScreen_Width);
-//            make.height.mas_equalTo(@350);
-//        }];
-        _searchHistoryView.contentSize = CGSizeMake(kScreen_Width, 0);
-    }
-    
-    [[_searchHistoryView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 0.5)];
-        view.backgroundColor = [UIColor colorWithHexString:@"0xdddddd"];
-        [_searchHistoryView addSubview:view];
-    }
-    NSArray *array = [CSSearchModel getSearchHistory];
-    CGFloat imageLeft = 12.0f;
-    CGFloat textLeft = 34.0f;
-    CGFloat height = 40.0f;
-    
-    for (int i = 0; i < array.count; i++) {
-        
-        UILabel *lblHistory = [[UILabel alloc] initWithFrame:CGRectMake(textLeft, i * height, kScreen_Width - textLeft, height)];
-        lblHistory.userInteractionEnabled = YES;
-        lblHistory.font = [UIFont systemFontOfSize:14];
-        lblHistory.textColor = [UIColor colorWithHexString:@"0x222222"];
-        lblHistory.text = array[i];
-        
-        UIImageView *leftView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
-        leftView.frame = CGRectMake(12, leftView.frame.origin.y, leftView.frame.size.width, leftView.frame.size.height);
-        CGPoint center = leftView.center;
-        center.y = lblHistory.center.y;
-        leftView.center = center;
-        leftView.image = [UIImage imageNamed:@"icon_search_clock"];
-        
-        UIImageView *rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 14, 14)];
-        rightImageView.frame = CGRectMake(kScreen_Width - 12 - rightImageView.frame.size.width, rightImageView.frame.origin.y, rightImageView.frame.size.width, rightImageView.frame.size.height);
-        CGPoint center1 = leftView.center;
-        center1.y = lblHistory.center.y;
-        rightImageView.center = center;
-        rightImageView.image = [UIImage imageNamed:@"icon_arrow_searchHistory"];
-        
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(imageLeft, (i + 1) * height, kScreen_Width - imageLeft, 0.5)];
-        view.backgroundColor = [UIColor colorWithHexString:@"0xdddddd"];
-        
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickedHistory:)];
-        [lblHistory addGestureRecognizer:tapGestureRecognizer];
-        
-        [_searchHistoryView addSubview:lblHistory];
-        [_searchHistoryView addSubview:leftView];
-        [_searchHistoryView addSubview:rightImageView];
-        [_searchHistoryView addSubview:view];
-    }
-    
-    if(array.count) {
-        
-        UIButton *btnClean = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnClean.titleLabel.font = [UIFont systemFontOfSize:14];
-        [btnClean setTitle:@"清除搜索历史" forState:UIControlStateNormal];
-        [btnClean setTitleColor:[UIColor colorWithHexString:@"0x1bbf75"] forState:UIControlStateNormal];
-        [btnClean setFrame:CGRectMake(0, array.count * height, kScreen_Width, height)];
-        [_searchHistoryView addSubview:btnClean];
-        [btnClean addTarget:self action:@selector(didCLickedCleanSearchHistory:) forControlEvents:UIControlEventTouchUpInside];
-        {
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(imageLeft, (array.count + 1) * height, kScreen_Width - imageLeft, 0.5)];
-            view.backgroundColor = [UIColor colorWithHexString:@"0xdddddd"];
-            [_searchHistoryView addSubview:view];
-        }
-    }
-    
-}
-
 - (void)didClickedContentView:(UIGestureRecognizer *)sender {
     
     [self.searchBar resignFirstResponder];
@@ -192,6 +112,20 @@
 }
 
 #pragma mark Private Method
+
+- (UILabel *)messageLabel
+{
+    if (!_messageLabel) {
+        _messageLabel = [[UILabel alloc]init];
+        _messageLabel.frame = CGRectMake(0, self.searchTableView.frame.size.height/2-100,self.parentVC.view.frame.size.width , 40);
+        _messageLabel.text = @"没有相应的用户！";
+        _messageLabel.font = [UIFont systemFontOfSize:17];
+        _messageLabel.textAlignment = NSTextAlignmentCenter;
+        _messageLabel.textColor = [UIColor lightGrayColor];
+        
+    }
+    return _messageLabel;
+}
 
 - (void)initSubViewsInContentView {
     
@@ -265,8 +199,49 @@
 //
     [self initSearchResultsTableView];
     [_searchTableView layoutSubviews];
+    _resultArr = nil;
     HaviLog(@"搜索");
+    [self searchUserList:(NSString *)self.searchBar.text];
     
+}
+
+//
+- (void)searchUserList:(NSString *)searchText
+{
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",@"v1/user/FindUsers?SelectionCriteria=",self.searchBar.text];
+    [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+    
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+        [MMProgressHUD dismiss];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            _resultArr = [resposeDic objectForKey:@"UserList"];
+            [self.searchTableView reloadData];
+            [_searchTableView setNeedsLayout];
+        }else{
+            
+        }
+        if (_resultArr.count==0) {
+            [self.searchTableView addSubview:self.messageLabel];
+        }else{
+            [self.messageLabel removeFromSuperview];
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismiss];
+    }];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -285,46 +260,17 @@
 
 - (void)initSearchResultsTableView {
     
-    _resultArr = [[NSMutableArray alloc] init];
-    for (int i=0; i<5; i++) {
-        [_resultArr addObject:@"Li"];
-    }
-    
     if(!_searchTableView) {
         _searchTableView = ({
             
             UITableView *tableView = [[UITableView alloc] initWithFrame:_contentView.frame style:UITableViewStylePlain];
             tableView.backgroundColor = [UIColor whiteColor];
             tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//            [tableView registerClass:[CSSearchCell class] forCellReuseIdentifier:kCellIdentifier_Search];
             tableView.dataSource = self;
             tableView.delegate = self;
-//            {
-//                __weak typeof(self) weakSelf = self;
-//                [tableView addInfiniteScrollingWithActionHandler:^{
-//                    [weakSelf loadMore];
-//                }];
-//            }
             
             [self.parentVC.parentViewController.view addSubview:tableView];
             
-//            self.headerLabel = ({
-//                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, kScreen_Width, 44)];
-//                label.backgroundColor = [UIColor clearColor];
-//                label.textColor = [UIColor colorWithHexString:@"0x999999"];
-//                label.textAlignment = NSTextAlignmentCenter;
-//                label.font = [UIFont systemFontOfSize:12];
-//                
-//                label;
-//            });
-//            
-//            UIView *headview = ({
-//                UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 44)];
-//                v.backgroundColor = [UIColor whiteColor];
-//                [v addSubview:self.headerLabel];
-//                v;
-//            });
-//            tableView.tableHeaderView = headview;
             
             tableView;
         });
@@ -336,6 +282,7 @@
     //    [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     
     [_searchTableView reloadData];
+    
 //    [self refresh];
 }
 
@@ -357,8 +304,10 @@
     if (!cell) {
         cell = [[SearchUserTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
     }
+    cell.cellUserName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserName"];
+    cell.cellUserPhone = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"CellPhone"];
     
-    [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0];
+    
     return cell;
 }
 

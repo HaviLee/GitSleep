@@ -39,4 +39,6 @@
 - (void)queryAlarm:(NSDictionary *)header andPara:(NSDictionary *)parameter;
 //获取图片
 - (void)downloadImage:(NSDictionary *)header andImageId:(NSString *)imageId;
+//获取搜索用户列表
+- (void)getSearchUserList:(NSDictionary *)header andPara:(NSDictionary *)parameter;
 @end

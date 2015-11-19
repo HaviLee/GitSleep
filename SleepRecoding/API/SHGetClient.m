@@ -110,6 +110,15 @@
 
 }
 
+//获取搜索用户列表
+- (void)getSearchUserList:(NSDictionary *)header andPara:(NSDictionary *)parameter
+{
+    NSString *url = [NSString stringWithFormat:@"%@?SelectionCriteria=%@",@"v1/user/FindUsers",[parameter objectForKey:@"SelectionCriteria"]];
+    _detailUrl = url;
+//    _urlParaDic = parameter;
+    _urlHeaderDic = header;
+}
+
 - (NSInteger)cacheTimeInSeconds {
     return 0 * 60 * 24;
 }
