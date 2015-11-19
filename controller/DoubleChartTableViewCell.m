@@ -7,8 +7,6 @@
 //
 
 #import "DoubleChartTableViewCell.h"
-#import "MyPieElement.h"
-#import "PieLayer.h"
 
 @interface DoubleChartTableViewCell ()
 {
@@ -29,16 +27,9 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _leftPieChart = [[PieChartView alloc]initWithFrame:CGRectMake(0, 10, 40, 40)];
+        _leftPieChart = [[KDGoalBar alloc]initWithFrame:CGRectMake((self.frame.size.width/3-100)/2, 0, 100, 100)];
         [self addSubview:_leftPieChart];
-//        [_leftPieChart makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.equalTo(self);
-//            make.centerX.equalTo(self.centerX).multipliedBy(0.3333333);
-//            make.height.equalTo(_leftPieChart.width);
-//            make.top.equalTo(self).offset(20);
-//            make.bottom.equalTo(self.bottom).offset(-20);
-//            
-//        }];
+        
         lineView = [[UIView alloc]init];
         lineView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
         [self addSubview:lineView];
@@ -72,15 +63,10 @@
             make.width.equalTo(0.5);
         }];
         //
-        _rightPieChart = [[PieChartView alloc]init];
+        _rightPieChart = [[KDGoalBar alloc]initWithFrame:CGRectMake((self.frame.size.width/3-100)/2+self.frame.size.width/3*2, 0, 100, 100)];
         [self addSubview:_rightPieChart];
-        [_rightPieChart makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self);
-            make.centerX.equalTo(self.centerX).multipliedBy(1.6666666);
-            make.height.equalTo(_rightPieChart.width);
-            make.top.equalTo(self).offset(20);
-            make.bottom.equalTo(self).offset(-20);
-        }];
+        [self addSubview:_rightPieChart];
+    
         lineViewBottom = [[UIView alloc]init];
         lineViewBottom.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
         [self addSubview:lineViewBottom];
@@ -127,19 +113,12 @@
 
 - (void)setLeftPieGrade:(int)leftPieGrade
 {
-    float pieValue = (float)leftPieGrade;
-    MyPieElement* elem = [MyPieElement pieElementWithValue:pieValue color:[UIColor redColor]];
-    elem.title = [NSString stringWithFormat:@"%d%@",leftPieGrade,@"%"];
-    MyPieElement* elem1 = [MyPieElement pieElementWithValue:(100-pieValue) color:[UIColor whiteColor]];
-    elem1.title = [NSString stringWithFormat:@"%d%@",(100-leftPieGrade),@"%"];
-    [self.leftPieChart.layer addValues:@[elem] animated:NO];
-    [self.leftPieChart.layer addValues:@[elem1] animated:NO];
-    
-    //mutch easier do this with array outside
-    self.leftPieChart.layer.transformTitleBlock = ^(PieElement* elem){
-        return [(MyPieElement*)elem title];
-    };
-    self.leftPieChart.layer.showTitles = ShowTitlesAlways;
+    [self.leftPieChart setPercent:(leftPieGrade) animated:YES];
+}
+
+- (void)setRightPieGrade:(int)rightPieGrad;
+{
+    [self.rightPieChart setPercent:(rightPieGrad) animated:YES];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

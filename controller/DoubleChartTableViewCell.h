@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PieChartView.h"
+#import "KDGoalBar.h"
 
 @interface DoubleChartTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) PieChartView *leftPieChart;
-@property (nonatomic,strong) PieChartView *rightPieChart;
+@property (nonatomic,strong) KDGoalBar *leftPieChart;
+@property (nonatomic,strong) KDGoalBar *rightPieChart;
+@property (nonatomic, strong) UIView *leftView;
+@property (nonatomic, strong) UIView *rightView;
 @property (nonatomic,strong) NSString *middleDataString;
 
 @property (nonatomic,strong) UIFont *cellFont;

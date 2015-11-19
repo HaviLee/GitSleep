@@ -304,6 +304,17 @@
     // 让模块停止发送信息。
     isfinding = NO;
     [smtlk SendSmartlinkEnd:msg moduelIp:host];
+    [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+        [self.view makeToast:@"激活成功" duration:2 position:@"center"];
+        for (UIViewController *controller in self.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[DeviceListViewController class]]) {
+                
+                [self.navigationController popToViewController:controller animated:YES];
+                break;
+            }
+        }
+    }];
+    [MMProgressHUD dismiss];
     [self.view makeToast:@"激活成功" duration:3 position:@"center"];
 }
 

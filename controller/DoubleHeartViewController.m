@@ -624,6 +624,11 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.middleDataString = @"心率异常数高于";
         cell.leftPieGrade = 40;
+        cell.rightPieGrade = 70;
+        cell.leftPieChart.percentLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.867f blue:0.596f alpha:1.00f]:[UIColor whiteColor];
+        cell.rightPieChart.percentLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.514f green:0.447f blue:0.820f alpha:1.00f]:[UIColor whiteColor];
+        cell.leftPieChart.kdPieColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.867f blue:0.596f alpha:1.00f]:[UIColor whiteColor];
+        cell.rightPieChart.kdPieColor = selectedThemeIndex==0?[UIColor colorWithRed:0.514f green:0.447f blue:0.820f alpha:1.00f]:[UIColor whiteColor];
         return cell;
     }
     
