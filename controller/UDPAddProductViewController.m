@@ -261,6 +261,21 @@
             smtlkState= 0;
             isfinding = NO;
         }
+//        if (smtlkState== 0)
+//        {
+//            smtlkState= 1;
+//            times= 0;
+//            findTimes= 0;
+//            // start to do smtlk
+//            [self startSmartLink];
+//        }
+//        else
+//        {
+//            // stop smtlk
+//            [self stopSmartLink];
+//            smtlkState= 0;
+//            isfinding = NO;
+//        }
     }
 }
 #pragma mark 江波龙硬件设备配置
@@ -444,8 +459,7 @@
     }
      */
 }
-
-#pragma 双人床垫设备配置
+#pragma mark mark 双人床垫设备配置
 
 // do smartLink
 - (void)startSmartLink
@@ -481,10 +495,10 @@
 // SmartLink delegate
 - (void)SmtlkV30Finished
 {
-    if (DoubleTimes < 2)
+    if (times < 2)
     {
         NSLog(@"smtlk second start");
-        DoubleTimes++;
+        times++;
         [self startSmartLink];
         findTimes= 0;
         isfinding = YES;

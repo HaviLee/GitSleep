@@ -11,6 +11,7 @@
 #import "ActiveDeviceAPI.h"
 #import "MMPopupItem.h"
 #import "UDPAddProductViewController.h"
+#import "DoubleDUPViewController.h"
 
 @interface NameDoubleViewController ()
 
@@ -209,7 +210,7 @@
         HaviLog(@"绑定设备结果是%@",resposeDic);
         //测试
         [MMProgressHUD dismiss];
-        UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
+        DoubleDUPViewController *udp = [[DoubleDUPViewController alloc]init];
         udp.productName = self.doubleDeviceName;//测试
         HardWareUUID = self.barUUIDString;
         udp.productUUID = self.barUUIDString;

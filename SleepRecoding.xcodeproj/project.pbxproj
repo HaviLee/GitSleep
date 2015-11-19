@@ -601,6 +601,7 @@
 		2CE7A3B91BF58A5200E7CEDE /* NameDoubleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7A3B81BF58A5200E7CEDE /* NameDoubleViewController.m */; };
 		2CE7A3BB1BF59AA600E7CEDE /* double_bed.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE7A3BA1BF59AA600E7CEDE /* double_bed.png */; };
 		2CE7A3BD1BF5B2FF00E7CEDE /* edit_double_bed.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE7A3BC1BF5B2FF00E7CEDE /* edit_double_bed.png */; };
+		2CE98C271BFD85FB005ADB7B /* DoubleDUPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE98C261BFD85FB005ADB7B /* DoubleDUPViewController.m */; };
 		2CE9E7971BD4C5E2001D8401 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */; };
 		2CE9E7981BD4C5E2001D8401 /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7771BD4C5E2001D8401 /* UIDevice+Info.m */; };
 		2CE9E7991BD4C5E2001D8401 /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */; };
@@ -1539,6 +1540,8 @@
 		2CE7A3B81BF58A5200E7CEDE /* NameDoubleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NameDoubleViewController.m; path = controller/NameDoubleViewController.m; sourceTree = "<group>"; };
 		2CE7A3BA1BF59AA600E7CEDE /* double_bed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = double_bed.png; sourceTree = "<group>"; };
 		2CE7A3BC1BF5B2FF00E7CEDE /* edit_double_bed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit_double_bed.png; sourceTree = "<group>"; };
+		2CE98C251BFD85FB005ADB7B /* DoubleDUPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleDUPViewController.h; path = controller/DoubleDUPViewController.h; sourceTree = "<group>"; };
+		2CE98C261BFD85FB005ADB7B /* DoubleDUPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleDUPViewController.m; path = controller/DoubleDUPViewController.m; sourceTree = "<group>"; };
 		2CE9E7741BD4C5E2001D8401 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
 		2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
 		2CE9E7761BD4C5E2001D8401 /* UIDevice+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Info.h"; sourceTree = "<group>"; };
@@ -2347,6 +2350,8 @@
 				5764518E1AC69701008E3526 /* ScanBarcodeViewController.m */,
 				57F1D14A1AB8329500B5B0D1 /* UDPAddProductViewController.h */,
 				57F1D14B1AB8329500B5B0D1 /* UDPAddProductViewController.m */,
+				2CE98C251BFD85FB005ADB7B /* DoubleDUPViewController.h */,
+				2CE98C261BFD85FB005ADB7B /* DoubleDUPViewController.m */,
 				2C77D5091AEB3702004123D2 /* ReNameDeviceNameViewController.h */,
 				2C77D50A1AEB3702004123D2 /* ReNameDeviceNameViewController.m */,
 				2CE7A3B71BF58A5200E7CEDE /* NameDoubleViewController.h */,
@@ -4230,6 +4235,7 @@
 				2CE7A3B61BF490B900E7CEDE /* TMCacheExtend.m in Sources */,
 				2CDB867D1BABCD4F00551192 /* MPGraphView.m in Sources */,
 				577120091AD5088700508C5C /* KxMenu.m in Sources */,
+				2CE98C271BFD85FB005ADB7B /* DoubleDUPViewController.m in Sources */,
 				572AA98B1AC29A5700DED1D9 /* UIImage+ImageEffects.m in Sources */,
 				2C77D54A1AEFC127004123D2 /* GetLeaveDataAPI.m in Sources */,
 				2C30A72C1BF3312F0064758F /* BindDeviceTableViewCell.m in Sources */,
