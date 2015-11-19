@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) UIColor * barColor;
 
+@property (nonatomic, strong) NSArray *colorsArr;
+
 @property (nonatomic,strong) NSString *titleString;
 
 @property (nonatomic,strong) CAGradientLayer *gradientLayer;

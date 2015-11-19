@@ -17,6 +17,8 @@
 #import "GetExceptionAPI.h"
 #import "DiagnoseReportViewController.h"
 #import "ModalAnimation.h"
+#import "DoubleReportTableViewCell.h"
+#import "DoubleChartTableViewCell.h"
 
 @interface DoubleHeartViewController ()<UITableViewDataSource,UITableViewDelegate,UIViewControllerTransitioningDelegate>
 {
@@ -25,7 +27,8 @@
 }
 
 @property (nonatomic,strong) UITableView *reportTableView;
-@property (nonatomic,strong) SleepTimeTagView *longSleepView;
+@property (nonatomic,strong) SleepTimeTagView *leftLongSleepView;
+@property (nonatomic,strong) SleepTimeTagView *rightLongSleepView;
 @property (nonatomic,strong) UIView *sleepNightBottomLine;
 @property (nonatomic,strong) UIView *sleepNightBottomLine1;
 @property (nonatomic,strong) NSArray *sleepQualityTitleArr;
@@ -40,6 +43,9 @@
 @property (nonatomic,strong) UIView *yCoorBackView;
 @property (nonatomic,strong) NSString *currentDate;
 @property (nonatomic,strong) NSDictionary *currentSleepQulitity;
+//
+@property (nonatomic,strong) UILabel *cellDateTitleLabel;
+
 @end
 
 @implementation DoubleHeartViewController
@@ -223,17 +229,30 @@
                     dataDic = dic;
                 }
             }
-            self.longSleepView.grade = [[dataDic objectForKey:@"SleepDuration"]floatValue]/24;
+            //
+            self.leftLongSleepView.grade = [[dataDic objectForKey:@"SleepDuration"]floatValue]/24;
             if ([[NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]]isEqualToString:@"(null)"]) {
-                self.longSleepView.sleepYearMonthDayString = @"";
+                self.leftLongSleepView.sleepYearMonthDayString = @"";
             }else{
-                self.longSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]];
+                self.leftLongSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]];
             }
             float duration = [[dataDic objectForKey:@"SleepDuration"]floatValue]<0?-[[dataDic objectForKey:@"SleepDuration"]floatValue]:[[dataDic objectForKey:@"SleepDuration"]floatValue];
             double second = 0.0;
             double subsecond = modf(duration, &second);
-            self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)ceilf(subsecond*60)];
-            
+            self.leftLongSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)ceilf(subsecond*60)];
+            //
+            self.rightLongSleepView.grade = [[dataDic objectForKey:@"SleepDuration"]floatValue]/24;
+            if ([[NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]]isEqualToString:@"(null)"]) {
+                self.rightLongSleepView.sleepYearMonthDayString = @"";
+            }else{
+                self.rightLongSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]];
+            }
+            float duration1 = [[dataDic objectForKey:@"SleepDuration"]floatValue]<0?-[[dataDic objectForKey:@"SleepDuration"]floatValue]:[[dataDic objectForKey:@"SleepDuration"]floatValue];
+            double second1 = 0.0;
+            double subsecond1 = modf(duration1, &second1);
+            self.rightLongSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration1,(int)ceilf(subsecond1*60)];
+            self.rightLongSleepView.grade = 0.5;
+            //
             self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%@次/分",[resposeDic objectForKey:@"AverageHeartRate"]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"]];
             [self.reportTableView reloadData];
             
@@ -253,16 +272,32 @@
                         dataDic = dic;
                     }
                 }
-                self.longSleepView.grade = [[dataDic objectForKey:@"SleepDuration"]floatValue]/24;
+                //
+                self.leftLongSleepView.grade = [[dataDic objectForKey:@"SleepDuration"]floatValue]/24;
                 if ([[NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]]isEqualToString:@"(null)"]) {
-                    self.longSleepView.sleepYearMonthDayString = @"";
+                    self.leftLongSleepView.sleepYearMonthDayString = @"";
                 }else{
-                    self.longSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]];
+                    self.leftLongSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]];
                 }
                 float duration = [[dataDic objectForKey:@"SleepDuration"]floatValue]<0?-[[dataDic objectForKey:@"SleepDuration"]floatValue]:[[dataDic objectForKey:@"SleepDuration"]floatValue];
                 double second = 0.0;
                 double subsecond = modf(duration, &second);
-                self.longSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)ceilf(subsecond*60)];
+                self.leftLongSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)ceilf(subsecond*60)];
+                //
+                self.rightLongSleepView.grade = [[dataDic objectForKey:@"SleepDuration"]floatValue]/24;
+                if ([[NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]]isEqualToString:@"(null)"]) {
+                    self.rightLongSleepView.sleepYearMonthDayString = @"";
+                }else{
+                    self.rightLongSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]];
+                }
+                float duration1 = [[dataDic objectForKey:@"SleepDuration"]floatValue]<0?-[[dataDic objectForKey:@"SleepDuration"]floatValue]:[[dataDic objectForKey:@"SleepDuration"]floatValue];
+                double second1 = 0.0;
+                double subsecond1 = modf(duration1, &second1);
+                self.rightLongSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration1,(int)ceilf(subsecond1*60)];
+
+                self.rightLongSleepView.grade = 0.5;
+                self.leftLongSleepView.grade = 0.5;
+                //
                 self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%d次/分",[[resposeDic objectForKey:@"AverageHeartRate"]intValue]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"]];
                 [self.reportTableView reloadData];
                 
@@ -277,6 +312,19 @@
 
 
 #pragma mark setter
+
+- (UILabel *)cellDateTitleLabel
+{
+    if (_cellDateTitleLabel ==nil) {
+        _cellDateTitleLabel = [[UILabel alloc]init];
+        _cellDateTitleLabel.frame = CGRectMake(20, 5, 200, 20);
+        NSString *dateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+        _cellDateTitleLabel.text = [NSString stringWithFormat:@"%@  %@",[dateString substringToIndex:10],@"睡眠时长"];
+        _cellDateTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        _cellDateTitleLabel.font = [UIFont systemFontOfSize:13];
+    }
+    return _cellDateTitleLabel;
+}
 
 - (UIView*)yCoorBackView
 {
@@ -367,16 +415,33 @@
     return _heartGraphView;
 }
 
-- (SleepTimeTagView *)longSleepView
+- (SleepTimeTagView *)leftLongSleepView
 {
-    if (_longSleepView == nil) {
-        _longSleepView = [[SleepTimeTagView alloc]init ];
-        _longSleepView.frame = CGRectMake(0, 1, self.view.frame.size.width, 58);
-        _longSleepView.sleepNightCategoryColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-        _longSleepView.sleepNightCategoryString = @"睡眠时长";
+    if (_leftLongSleepView == nil) {
+        _leftLongSleepView = [[SleepTimeTagView alloc]init ];
+        _leftLongSleepView.frame = CGRectMake(0, 10, self.view.frame.size.width, 42);
+//        _leftLongSleepView.backgroundColor = [UIColor redColor];
+        _leftLongSleepView.sleepNightCategoryColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.867f blue:0.596f alpha:1.00f]:[UIColor whiteColor];
+        _leftLongSleepView.sleepLongTimeColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.867f blue:0.596f alpha:1.00f]:[UIColor whiteColor];
+        _leftLongSleepView.sleepNightCategoryString = @"左侧哈维";
+        _leftLongSleepView.lineColorArr = @[(__bridge id)[UIColor colorWithRed:0.200f green:0.443f blue:0.545f alpha:1.00f].CGColor,(__bridge id)[UIColor colorWithRed:0.000f green:0.855f blue:0.573f alpha:1.00f].CGColor];
     }
-    return _longSleepView;
+    return _leftLongSleepView;
 }
+
+- (SleepTimeTagView *)rightLongSleepView
+{
+    if (_rightLongSleepView == nil) {
+        _rightLongSleepView = [[SleepTimeTagView alloc]init ];
+        _rightLongSleepView.frame = CGRectMake(0, 42, self.view.frame.size.width, 42);
+        _rightLongSleepView.sleepNightCategoryColor = selectedThemeIndex==0?[UIColor colorWithRed:0.537f green:0.475f blue:0.827f alpha:1.00f]:[UIColor whiteColor];
+        _rightLongSleepView.sleepNightCategoryString = @"右侧小白";
+        _rightLongSleepView.sleepLongTimeColor = selectedThemeIndex==0?[UIColor colorWithRed:0.537f green:0.475f blue:0.827f alpha:1.00f]:[UIColor whiteColor];
+        _rightLongSleepView.lineColorArr = @[(__bridge id)[UIColor colorWithRed:0.200f green:0.443f blue:0.545f alpha:1.00f].CGColor,(__bridge id)[UIColor colorWithRed:0.537f green:0.475f blue:0.827f alpha:1.00f].CGColor];
+    }
+    return _rightLongSleepView;
+}
+
 
 
 - (UITableView *)reportTableView
@@ -401,6 +466,14 @@
     }
     return _sleepNightBottomLine;
 }
+
+- (UIView *)sleepNightBottomLineWithBottomY:(NSInteger)y;
+{
+    UIView *_sleepNightBottomLiney = [[UIView alloc]initWithFrame:CGRectMake(0, y, self.view.frame.size.width, 0.5)];
+    _sleepNightBottomLiney.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.161f green:0.251f blue:0.365f alpha:1.00f]:[UIColor colorWithRed:0.349f green:0.608f blue:0.780f alpha:1.00f];
+    return _sleepNightBottomLiney;
+}
+
 - (UIView *)sleepNightBottomLine1
 {
     if (!_sleepNightBottomLine1) {
@@ -437,7 +510,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -445,7 +518,9 @@
     if (section==0) {
         return 2;
     }else if (section==1) {
-        return 5;
+        return 4;
+    }else if (section ==2){
+        return 1;
     }
     return 0;
 }
@@ -508,30 +583,48 @@
             }
             cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            [cell addSubview:self.longSleepView];
+            [self.cellDateTitleLabel removeFromSuperview];
+            [cell addSubview:self.cellDateTitleLabel];
+            NSString *dateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+            _cellDateTitleLabel.text = [NSString stringWithFormat:@"%@  %@",[dateString substringToIndex:10],@"睡眠时长"];
+            [self.leftLongSleepView removeFromSuperview];
+            [self.rightLongSleepView removeFromSuperview];
+            [cell addSubview:self.leftLongSleepView];
+            [cell addSubview:self.rightLongSleepView];
             [self.sleepNightBottomLine removeFromSuperview];
-            [cell addSubview:self.sleepNightBottomLine];
+            [cell addSubview:[self sleepNightBottomLineWithBottomY:99]];
             return cell;
         }else{
             static NSString *cellIndentifier = @"cell4";
-            ReportTableViewCell *cell = (ReportTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+            DoubleReportTableViewCell *cell = (DoubleReportTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
             if (!cell) {
-                cell = [[ReportTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+                cell = [[DoubleReportTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
                 
             }
             cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             cell.cellFont = [UIFont systemFontOfSize:16];
-            cell.leftDataString = [self.sleepQualityTitleArr objectAtIndex:indexPath.row-2];
+            cell.leftDataString = [self.sleepQualityDataArr objectAtIndex:indexPath.row-2];
             cell.rightDataString = [self.sleepQualityDataArr objectAtIndex:indexPath.row-2];
-            cell.cellDataColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.855f blue:0.576f alpha:1.00f]:[UIColor whiteColor];
+            cell.middleDataString = [self.sleepQualityTitleArr objectAtIndex:indexPath.row-2];
+            cell.cellDataColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.537f green:0.475f blue:0.827f alpha:1.00f]:[UIColor whiteColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
+            cell.cellColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.867f blue:0.596f alpha:1.00f]:[UIColor whiteColor];
             if (indexPath.row==4) {
                 cell.bottomColor = [UIColor clearColor];
-            }
-            
+            }            
             return cell;
         }
+    }else if (indexPath.section ==2){
+        NSString *cellindentifer = @"cellChart";
+        DoubleChartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellindentifer ];
+        if (!cell) {
+            cell = [[DoubleChartTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellindentifer];
+        }
+        cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.middleDataString = @"心率异常数高于";
+        cell.leftPieGrade = 40;
+        return cell;
     }
     
     return nil;
@@ -546,8 +639,14 @@
             }else{
                 return 180;
             }
-        }else {
-            return 60;
+        }else if(indexPath.section==1){
+            if (indexPath.row==1) {
+                return 100;
+            }else{
+                return 60;
+            }
+        }else{
+            return 100;
         }
     }else{
         return 10;

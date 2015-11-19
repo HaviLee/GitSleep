@@ -175,6 +175,11 @@
     sleepTimeLongLabel.text = sleepTimeLongString;
 }
 
+- (void)setSleepLongTimeColor:(UIColor *)sleepLongTimeColor
+{
+    sleepTimeLongLabel.textColor = sleepLongTimeColor;
+}
+
 - (void)setSleepNameLabelString:(NSString *)sleepNameLabelString
 {
     sleepNameLabel.text = sleepNameLabelString;
@@ -193,7 +198,10 @@
     }];
 }
 
-
+- (void)setLineColorArr:(NSArray *)lineColorArr
+{
+    sleepLineView.colorsArr = lineColorArr;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

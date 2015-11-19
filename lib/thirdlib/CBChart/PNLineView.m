@@ -32,6 +32,11 @@
     return self;
 }
 
+- (void)setColorsArr:(NSArray *)colorsArr
+{
+    self.gradientLayer.colors = colorsArr;
+}
+
 - (void)setFrame:(CGRect)frame
 {
     self.gradientLayer.frame = CGRectMake(0, 2.5, 0, 5);

@@ -498,6 +498,13 @@
 		2CCD55431BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD55421BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m */; };
 		2CCD55461BFC4BA4004A76B2 /* DoubleFloatLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD55451BFC4BA4004A76B2 /* DoubleFloatLayerView.m */; };
 		2CCD55481BFC51CA004A76B2 /* float_view.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD55471BFC51CA004A76B2 /* float_view.png */; };
+		2CCD554B1BFC6689004A76B2 /* DoubleReportTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD554A1BFC6689004A76B2 /* DoubleReportTableViewCell.m */; };
+		2CCD554E1BFC6BA6004A76B2 /* DoubleChartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD554D1BFC6BA6004A76B2 /* DoubleChartTableViewCell.m */; };
+		2CCD556D1BFC8194004A76B2 /* MyPieElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD55651BFC8194004A76B2 /* MyPieElement.m */; };
+		2CCD556E1BFC8194004A76B2 /* NSMutableArray+pieEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD55671BFC8194004A76B2 /* NSMutableArray+pieEx.m */; };
+		2CCD556F1BFC8194004A76B2 /* PieElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD55691BFC8194004A76B2 /* PieElement.m */; };
+		2CCD55701BFC8194004A76B2 /* PieLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD556B1BFC8194004A76B2 /* PieLayer.m */; };
+		2CCD55731BFC8231004A76B2 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD55721BFC8231004A76B2 /* PieChartView.m */; };
 		2CCDE2C31AF8A7FC00CAE9CB /* QueryDataCacheAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */; };
 		2CCE23251BFB134B00046EF7 /* DoubleHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE23241BFB134B00046EF7 /* DoubleHeartViewController.m */; };
 		2CCE23281BFB135D00046EF7 /* DoubleBreathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE23271BFB135D00046EF7 /* DoubleBreathViewController.m */; };
@@ -1355,6 +1362,21 @@
 		2CCD55441BFC4BA4004A76B2 /* DoubleFloatLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleFloatLayerView.h; sourceTree = "<group>"; };
 		2CCD55451BFC4BA4004A76B2 /* DoubleFloatLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleFloatLayerView.m; sourceTree = "<group>"; };
 		2CCD55471BFC51CA004A76B2 /* float_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = float_view.png; sourceTree = "<group>"; };
+		2CCD55491BFC6689004A76B2 /* DoubleReportTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleReportTableViewCell.h; sourceTree = "<group>"; };
+		2CCD554A1BFC6689004A76B2 /* DoubleReportTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleReportTableViewCell.m; sourceTree = "<group>"; };
+		2CCD554C1BFC6BA6004A76B2 /* DoubleChartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleChartTableViewCell.h; path = controller/DoubleChartTableViewCell.h; sourceTree = "<group>"; };
+		2CCD554D1BFC6BA6004A76B2 /* DoubleChartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleChartTableViewCell.m; path = controller/DoubleChartTableViewCell.m; sourceTree = "<group>"; };
+		2CCD55631BFC8194004A76B2 /* MagicPieLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicPieLayer.h; sourceTree = "<group>"; };
+		2CCD55641BFC8194004A76B2 /* MyPieElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPieElement.h; sourceTree = "<group>"; };
+		2CCD55651BFC8194004A76B2 /* MyPieElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPieElement.m; sourceTree = "<group>"; };
+		2CCD55661BFC8194004A76B2 /* NSMutableArray+pieEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+pieEx.h"; sourceTree = "<group>"; };
+		2CCD55671BFC8194004A76B2 /* NSMutableArray+pieEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+pieEx.m"; sourceTree = "<group>"; };
+		2CCD55681BFC8194004A76B2 /* PieElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieElement.h; sourceTree = "<group>"; };
+		2CCD55691BFC8194004A76B2 /* PieElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieElement.m; sourceTree = "<group>"; };
+		2CCD556A1BFC8194004A76B2 /* PieLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieLayer.h; sourceTree = "<group>"; };
+		2CCD556B1BFC8194004A76B2 /* PieLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieLayer.m; sourceTree = "<group>"; };
+		2CCD55711BFC8231004A76B2 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartView.h; sourceTree = "<group>"; };
+		2CCD55721BFC8231004A76B2 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartView.m; sourceTree = "<group>"; };
 		2CCDE2C11AF8A7FC00CAE9CB /* QueryDataCacheAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryDataCacheAPI.h; path = API/QueryDataCacheAPI.h; sourceTree = "<group>"; };
 		2CCDE2C21AF8A7FC00CAE9CB /* QueryDataCacheAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryDataCacheAPI.m; path = API/QueryDataCacheAPI.m; sourceTree = "<group>"; };
 		2CCE23231BFB134B00046EF7 /* DoubleHeartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleHeartViewController.h; path = controller/DoubleHeartViewController.h; sourceTree = "<group>"; };
@@ -2287,6 +2309,7 @@
 		2C6C6C101BF314120076E0EF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2CCD55601BFC8194004A76B2 /* MagicPieLayer */,
 				2CE7A3AD1BF4873700E7CEDE /* Common */,
 				2C27907B1BF4614200449071 /* XHRealTimeBlur */,
 				2C5E5C1B1B12B3DE00123CC4 /* ResideMenu */,
@@ -2660,6 +2683,25 @@
 			path = lib/thirdlib/LXActivity;
 			sourceTree = "<group>";
 		};
+		2CCD55601BFC8194004A76B2 /* MagicPieLayer */ = {
+			isa = PBXGroup;
+			children = (
+				2CCD55711BFC8231004A76B2 /* PieChartView.h */,
+				2CCD55721BFC8231004A76B2 /* PieChartView.m */,
+				2CCD55631BFC8194004A76B2 /* MagicPieLayer.h */,
+				2CCD55641BFC8194004A76B2 /* MyPieElement.h */,
+				2CCD55651BFC8194004A76B2 /* MyPieElement.m */,
+				2CCD55661BFC8194004A76B2 /* NSMutableArray+pieEx.h */,
+				2CCD55671BFC8194004A76B2 /* NSMutableArray+pieEx.m */,
+				2CCD55681BFC8194004A76B2 /* PieElement.h */,
+				2CCD55691BFC8194004A76B2 /* PieElement.m */,
+				2CCD556A1BFC8194004A76B2 /* PieLayer.h */,
+				2CCD556B1BFC8194004A76B2 /* PieLayer.m */,
+			);
+			name = MagicPieLayer;
+			path = lib/vender/MagicPieLayer;
+			sourceTree = "<group>";
+		};
 		2CCE231C1BFB124E00046EF7 /* DoubleController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2669,6 +2711,10 @@
 				2CCE23271BFB135D00046EF7 /* DoubleBreathViewController.m */,
 				2CCD55411BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.h */,
 				2CCD55421BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m */,
+				2CCD55491BFC6689004A76B2 /* DoubleReportTableViewCell.h */,
+				2CCD554A1BFC6689004A76B2 /* DoubleReportTableViewCell.m */,
+				2CCD554C1BFC6BA6004A76B2 /* DoubleChartTableViewCell.h */,
+				2CCD554D1BFC6BA6004A76B2 /* DoubleChartTableViewCell.m */,
 				2CCE23291BFB154300046EF7 /* DoubleLeaveContainerViewController.h */,
 				2CCE232A1BFB154300046EF7 /* DoubleLeaveContainerViewController.m */,
 				2CCE232C1BFB23D000046EF7 /* DoubleTurnContainerViewController.h */,
@@ -3955,6 +4001,7 @@
 				2C94FA1A1B8AEF9200F1A4DB /* NSDate+WQCalendarLogic.m in Sources */,
 				2CDE553C1BAE486D0017C5DE /* MMSheetView.m in Sources */,
 				2C2790811BF462DB00449071 /* UISearchBar+Common.m in Sources */,
+				2CCD556E1BFC8194004A76B2 /* NSMutableArray+pieEx.m in Sources */,
 				2C8F7BC21AF374A500E56513 /* CalenderCantainerViewController.m in Sources */,
 				578681531ADCEE1200E881A2 /* WTURLRequestSerialization.m in Sources */,
 				576C3F071ABFC15500815EF3 /* MTStatusBarOverlay.m in Sources */,
@@ -3980,6 +4027,7 @@
 				2CC8E7F01B97272100F69ABE /* SencondBreathViewController.m in Sources */,
 				2C7345E11B77A943004D8AB3 /* UserManager.m in Sources */,
 				2C1F1FC41AD8B7E700393E04 /* QuaterCalenderView.m in Sources */,
+				2CCD556F1BFC8194004A76B2 /* PieElement.m in Sources */,
 				2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */,
 				2CDB867B1BABCD4F00551192 /* FloatLayerView.m in Sources */,
 				2C1F1FEA1ADBF38F00393E04 /* WQCalendarLogic.m in Sources */,
@@ -4002,6 +4050,7 @@
 				5781D0111AE8EA230092E8CD /* ChangeUUIDAPI.m in Sources */,
 				2C8F7BB81AF3747700E56513 /* JTCalendarContentView.m in Sources */,
 				2C3AF2C01AF4623A00B66E32 /* TodayTurnViewController.m in Sources */,
+				2CCD554E1BFC6BA6004A76B2 /* DoubleChartTableViewCell.m in Sources */,
 				577086211ABC0BB1004A2C07 /* LRGlowingButton.m in Sources */,
 				2CD6C03D1B7AF9A600F1FF6A /* WeiBoAPI.m in Sources */,
 				2C8F7BB71AF3747700E56513 /* JTCalendarAppearance.m in Sources */,
@@ -4111,6 +4160,7 @@
 				2CDE55391BAE486D0017C5DE /* MMPopupitem.m in Sources */,
 				2CE7A3B51BF490B900E7CEDE /* CSSearchModel.m in Sources */,
 				2C1F1FC71AD95CA600393E04 /* MonthReportTableViewCell.m in Sources */,
+				2CCD55701BFC8194004A76B2 /* PieLayer.m in Sources */,
 				2C7345E41B7835DA004D8AB3 /* WeiXinAPI.m in Sources */,
 				2C94F9E61B8AED0200F1A4DB /* DTTimePeriodGroup.m in Sources */,
 				2CC05F951BC6266F00D27F42 /* EditCellInfoViewController.m in Sources */,
@@ -4146,11 +4196,14 @@
 				572AA9841AC29A5700DED1D9 /* THPinInputCirclesView.m in Sources */,
 				2C435E811AD2D4C4003B1604 /* DataStaticViewController.m in Sources */,
 				2C1F1FEB1ADBF38F00393E04 /* WQCalendarTileView.m in Sources */,
+				2CCD554B1BFC6689004A76B2 /* DoubleReportTableViewCell.m in Sources */,
 				579AC7D81AA01D9A0045E9A2 /* IconTableViewCell.m in Sources */,
+				2CCD556D1BFC8194004A76B2 /* MyPieElement.m in Sources */,
 				2C8CB3FA1B4A51B5007E97E5 /* UIViewController+TopBarMessage.m in Sources */,
 				57490FC71ACAA1A10057DC05 /* CBChartView.m in Sources */,
 				2C6C6C171BF31DBC0076E0EF /* MessageListViewController.m in Sources */,
 				2C77D5071AEB31F0004123D2 /* MGSwipeButton.m in Sources */,
+				2CCD55731BFC8231004A76B2 /* PieChartView.m in Sources */,
 				2C7319DC1B75A309005A3EE4 /* TagShowViewController.m in Sources */,
 				577086131ABBEA8E004A2C07 /* UserInfoNameTableViewCell.m in Sources */,
 				5781D00B1AE8DB9C0092E8CD /* BindingDeviceUUIDAPI.m in Sources */,

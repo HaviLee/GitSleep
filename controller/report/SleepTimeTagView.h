@@ -17,5 +17,6 @@
 @property (nonatomic,strong) NSString *sleepNameLabelString;
 @property (nonatomic,assign) CGFloat grade;//百分比和24小时的
 @property (nonatomic,strong) UIColor *sleepNightCategoryColor;
-
+@property (nonatomic,strong) UIColor *sleepLongTimeColor;
+@property (nonatomic,strong) NSArray *lineColorArr;
 @end
