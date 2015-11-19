@@ -304,7 +304,14 @@
     if (!cell) {
         cell = [[SearchUserTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
     }
-    cell.cellUserName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserName"];
+    NSString *userName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserName"];
+    NSString *url = [NSString stringWithFormat:@"%@/v1/file/DownloadFile/%@",BaseUrl,[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserID"]];
+    cell.cellUserIcon = url;
+    if (userName.length==0) {
+        cell.cellUserName = @"匿名用户";
+    }else{
+        cell.cellUserName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserName"];
+    }
     cell.cellUserPhone = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"CellPhone"];
     
     

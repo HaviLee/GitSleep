@@ -304,8 +304,6 @@
             [[NSUserDefaults standardUserDefaults]setObject:imageData forKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]];
             [[NSUserDefaults standardUserDefaults]synchronize];
             dispatch_async(dispatch_get_main_queue(), ^{
-//                MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
-//                [overlay postImmediateFinishMessage:@"头像修改成功" duration:2 animated:YES];
                 self.headerView.headerImageView.image = [UIImage imageWithData:imageData];
                 [self.view makeToast:@"上传头像成功" duration:2 position:@"center"];
             });

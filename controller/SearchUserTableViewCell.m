@@ -7,6 +7,7 @@
 //
 
 #import "SearchUserTableViewCell.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface SearchUserTableViewCell ()
 
@@ -29,6 +30,8 @@
     if (self) {
         _messageIcon = [[UIImageView alloc]init];
         [self addSubview:_messageIcon];
+        _messageIcon.layer.cornerRadius = 22.5;
+        _messageIcon.layer.masksToBounds = YES;
         _messageIcon.image = [UIImage imageNamed:@"head_portrait_0"];
         //
         _messageName = [[UILabel alloc]init];
@@ -95,7 +98,9 @@
 {
     _messageName.text = self.cellUserName;
     _messagePhone.text = self.cellUserPhone;
+    [self.messageIcon setImageWithURL:[NSURL URLWithString:self.cellUserIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
 }
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
