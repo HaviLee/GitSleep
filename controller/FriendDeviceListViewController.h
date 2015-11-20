@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface FriendDeviceListViewController : BaseViewController
-
+- (void)refreshBegining;
 @end

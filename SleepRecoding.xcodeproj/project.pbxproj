@@ -599,6 +599,7 @@
 		2CE98C271BFD85FB005ADB7B /* DoubleDUPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE98C261BFD85FB005ADB7B /* DoubleDUPViewController.m */; };
 		2CE98C4B1BFD9922005ADB7B /* KDGoalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE98C481BFD9922005ADB7B /* KDGoalBar.m */; };
 		2CE98C4C1BFD9922005ADB7B /* KDGoalBarPercentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE98C4A1BFD9922005ADB7B /* KDGoalBarPercentLayer.m */; };
+		2CE98C601BFECF6E005ADB7B /* RexpUntil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE98C5F1BFECF6E005ADB7B /* RexpUntil.m */; };
 		2CE9E7971BD4C5E2001D8401 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */; };
 		2CE9E7981BD4C5E2001D8401 /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7771BD4C5E2001D8401 /* UIDevice+Info.m */; };
 		2CE9E7991BD4C5E2001D8401 /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */; };
@@ -1532,6 +1533,8 @@
 		2CE98C481BFD9922005ADB7B /* KDGoalBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KDGoalBar.m; sourceTree = "<group>"; };
 		2CE98C491BFD9922005ADB7B /* KDGoalBarPercentLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KDGoalBarPercentLayer.h; sourceTree = "<group>"; };
 		2CE98C4A1BFD9922005ADB7B /* KDGoalBarPercentLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KDGoalBarPercentLayer.m; sourceTree = "<group>"; };
+		2CE98C5E1BFECF6E005ADB7B /* RexpUntil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RexpUntil.h; sourceTree = "<group>"; };
+		2CE98C5F1BFECF6E005ADB7B /* RexpUntil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RexpUntil.m; sourceTree = "<group>"; };
 		2CE9E7741BD4C5E2001D8401 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
 		2CE9E7751BD4C5E2001D8401 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
 		2CE9E7761BD4C5E2001D8401 /* UIDevice+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Info.h"; sourceTree = "<group>"; };
@@ -2909,6 +2912,8 @@
 				2C694F6D1BFAF3A50027788B /* UIBadgeView.m */,
 				2C694F6F1BFAF5720027788B /* NSString+Common.h */,
 				2C694F701BFAF5720027788B /* NSString+Common.m */,
+				2CE98C5E1BFECF6E005ADB7B /* RexpUntil.h */,
+				2CE98C5F1BFECF6E005ADB7B /* RexpUntil.m */,
 			);
 			name = OC_Category;
 			path = lib/OC_Category;
@@ -4159,6 +4164,7 @@
 				2C8F7BBF1AF3747700E56513 /* JTCircleView.m in Sources */,
 				2CDB86811BABCD4F00551192 /* NewMonthReportViewController.m in Sources */,
 				2C77D5231AED13EF004123D2 /* GetUserDefaultDataAPI.m in Sources */,
+				2CE98C601BFECF6E005ADB7B /* RexpUntil.m in Sources */,
 				5744AB8F1ACD2AED00AAA869 /* HaviBarView.m in Sources */,
 				2C1F1FCA1AD96A5800393E04 /* MonthReportView.m in Sources */,
 				2C94FA181B8AEF9200F1A4DB /* CalendarViewController.m in Sources */,

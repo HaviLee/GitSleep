@@ -348,17 +348,20 @@
 
 - (void)setControllerBackGroundImage
 {
-    if ([[thirdHardDeviceUUID substringToIndex:3]isEqualToString:@"845"]) {
-        self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
-    }else{
-        
-        self.subPageViewArr = @[self.doubleHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
+    if (thirdHardDeviceUUID.length>0) {
+        if ([[thirdHardDeviceUUID substringToIndex:3]isEqualToString:@"845"]) {
+            self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
+        }else{
+            
+            self.subPageViewArr = @[self.doubleHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
+        }
+        if (selectedThemeIndex == 0) {
+            self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
+        }else{
+            self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
+        }
     }
-    if (selectedThemeIndex == 0) {
-        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
-    }else{
-        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
-    }
+    
 }
 
 - (void)setPageViewController

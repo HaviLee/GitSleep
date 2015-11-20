@@ -273,7 +273,7 @@
 // SmartLink delegate
 - (void)SmtlkV30Finished
 {
-    if (times < 2)
+    if (times < 5)
     {
         NSLog(@"smtlk second start");
         times++;

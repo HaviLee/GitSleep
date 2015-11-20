@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) UITableView *myDeviceListView;
 @property (nonatomic, strong) ODRefreshControl *refreshControl;
+@property (nonatomic, strong) NSArray *resultArr;
+@property (nonatomic, strong) UILabel *messageLabel;
 
 @end
 
@@ -26,17 +28,86 @@
     [self.view addSubview:self.myDeviceListView];
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:_myDeviceListView];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self refresh];
+}
+
+- (void)refreshBegining
+{
+    [self refresh];
+
 }
 
 - (void)refresh{
-    __weak typeof(self) weakSelf = self;
     
     HaviLog(@"刷新ok");
-    [weakSelf.refreshControl endRefreshing];
+    [self getFriendDeviceList];
+    
     
 }
 
+- (void)getFriendDeviceList
+{
+//    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+//                        [UIImage imageNamed:@"havi1_1"],
+//                        [UIImage imageNamed:@"havi1_2"],
+//                        [UIImage imageNamed:@"havi1_3"],
+//                        [UIImage imageNamed:@"havi1_4"],
+//                        [UIImage imageNamed:@"havi1_5"]];
+//    
+//    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+//    [MMProgressHUD showWithTitle:nil status:nil images:images];
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",@"v1/user/BeingRequestedUsers?UserId=",thirdPartyLoginUserId];
+    
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        __weak typeof(self) weakSelf = self;
+        [weakSelf.refreshControl endRefreshing];
+        NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+        [MMProgressHUD dismiss];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            self.resultArr = [resposeDic objectForKey:@"UserList"];
+            [self.myDeviceListView reloadData];
+            [_myDeviceListView setNeedsLayout];
+        }else{
+            
+        }
+        if (_resultArr.count==0) {
+            [self.myDeviceListView addSubview:self.messageLabel];
+        }else{
+            [self.messageLabel removeFromSuperview];
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismiss];
+    }];
+
+}
+
 #pragma setter meathod
+
+- (UILabel *)messageLabel
+{
+    if (!_messageLabel) {
+        _messageLabel = [[UILabel alloc]init];
+        _messageLabel.frame = CGRectMake(0, self.myDeviceListView.frame.size.height/2-100,self.myDeviceListView.frame.size.width , 40);
+        _messageLabel.text = @"没有他人设备！";
+        _messageLabel.font = [UIFont systemFontOfSize:17];
+        _messageLabel.textAlignment = NSTextAlignmentCenter;
+        _messageLabel.textColor = [UIColor lightGrayColor];
+        
+    }
+    return _messageLabel;
+}
+
 
 - (UITableView *)myDeviceListView
 {
@@ -44,7 +115,7 @@
         _myDeviceListView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStyleGrouped];
         _myDeviceListView.dataSource = self;
         _myDeviceListView.delegate = self;
-        _myDeviceListView.backgroundColor = [UIColor lightGrayColor];
+        _myDeviceListView.backgroundColor = [UIColor whiteColor];
         
         
     }
@@ -55,7 +126,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return self.resultArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -85,6 +156,8 @@
 {
     return 0.001;
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

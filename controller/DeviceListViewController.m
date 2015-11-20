@@ -104,7 +104,9 @@
             [self.rightMenuButton removeTarget:self action:@selector(addProduct:) forControlEvents:UIControlEventTouchUpInside];
             [self.rightMenuButton addTarget:self action:@selector(searchDevice:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:_friendDeviceList.view];
+            [_friendDeviceList refreshBegining];
             _friendDeviceList.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
+            
             break;
         }
         default:

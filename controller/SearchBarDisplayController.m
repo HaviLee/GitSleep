@@ -14,6 +14,7 @@
 #import "CSSearchModel.h"
 #import "TMCacheExtend.h"
 #import "SHGetClient.h"
+#import "RexpUntil.h"
 
 @class DeviceListViewController;
 
@@ -208,6 +209,14 @@
 //
 - (void)searchUserList:(NSString *)searchText
 {
+    
+    if (![RexpUntil checkTelNumber:self.searchBar.text]) {
+        [self.searchTableView addSubview:self.messageLabel];
+        self.messageLabel.text = @"请输入正确的手机号码!";
+        return;
+    }else{
+        [self.messageLabel removeFromSuperview];
+    }
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
