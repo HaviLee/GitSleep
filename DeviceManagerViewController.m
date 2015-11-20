@@ -72,14 +72,14 @@
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.sideTableView];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     //    self.deviceArr = [[NSMutableArray alloc]initWithArray:@[@"我的设备",@"梅西的设备",@"哈维的设备",]];
+    [self getUserDeviceList];
 }
 
 //刷新
 - (void)refresh{
-    __weak typeof(self) weakSelf = self;
     
     HaviLog(@"刷新ok");
-    [weakSelf.refreshControl endRefreshing];
+    [self getUserDeviceList];
     
 }
 
@@ -124,28 +124,31 @@
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
         return;
     }
-
+    
     NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",thirdPartyLoginUserId];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
-                        [UIImage imageNamed:@"havi1_1"],
-                        [UIImage imageNamed:@"havi1_2"],
-                        [UIImage imageNamed:@"havi1_3"],
-                        [UIImage imageNamed:@"havi1_4"],
-                        [UIImage imageNamed:@"havi1_5"]];
-    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
-    [MMProgressHUD showWithTitle:nil status:nil images:images];
+//    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+//                        [UIImage imageNamed:@"havi1_1"],
+//                        [UIImage imageNamed:@"havi1_2"],
+//                        [UIImage imageNamed:@"havi1_3"],
+//                        [UIImage imageNamed:@"havi1_4"],
+//                        [UIImage imageNamed:@"havi1_5"]];
+//    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+//    [MMProgressHUD showWithTitle:nil status:nil images:images];
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         HaviLog(@"请求的设备列表是%@",resposeDic);
+        
+        [self.refreshControl endRefreshing];
         self.deviceArr = [resposeDic objectForKey:@"DeviceList"];
         if (self.deviceArr.count == 0) {
             [MMProgressHUD dismiss];
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                [self.view makeToast:@"您还没有绑定设备" duration:2 position:@"center"];
             }];
+            
+            [self.view makeToast:@"您还没有绑定设备" duration:2 position:@"center"];
         }
         if (self.deviceArr.count>0) {
             BOOL noActive = YES;

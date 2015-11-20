@@ -33,10 +33,13 @@
                             handler:(MMPopupInputHandler)inputHandler
 {
     MMAlertViewConfig *config = [MMAlertViewConfig globalConfig];
+    MMPopupItem *confirm = MMItemMake(config.defaultTextConfirm, MMItemTypeHighlight, nil);
+    MMPopupItem *cancel = MMItemMake(config.defaultTextCancel, MMItemTypeHighlight, nil);
+    confirm.color = [UIColor greenColor];
     
     NSArray *items =@[
-                      MMItemMake(config.defaultTextCancel, MMItemTypeHighlight, nil),
-                      MMItemMake(config.defaultTextConfirm, MMItemTypeHighlight, nil)
+                      cancel,confirm
+                      
                       ];
     return [self initWithTitle:title detail:detail items:items inputPlaceholder:inputPlaceholder inputHandler:inputHandler];
 }
@@ -143,6 +146,8 @@
             self.inputView.layer.borderColor = config.splitColor.CGColor;
             self.inputView.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 5)];
             self.inputView.textColor = config.detailColor;
+            self.inputView.layer.cornerRadius = 5;
+            self.inputView.layer.masksToBounds = YES;
             self.inputView.leftViewMode = UITextFieldViewModeAlways;
             self.inputView.clearButtonMode = UITextFieldViewModeWhileEditing;
 //            self.inputView.placeholder = inputPlaceholder;

@@ -18,7 +18,7 @@
 
 @class DeviceListViewController;
 
-@interface SearchBarDisplayController ()<UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SearchBarDisplayController ()<UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource,CustomCellProtocol>
 
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UITableView *searchTableView;
@@ -217,15 +217,15 @@
     }else{
         [self.messageLabel removeFromSuperview];
     }
-    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
-                        [UIImage imageNamed:@"havi1_1"],
-                        [UIImage imageNamed:@"havi1_2"],
-                        [UIImage imageNamed:@"havi1_3"],
-                        [UIImage imageNamed:@"havi1_4"],
-                        [UIImage imageNamed:@"havi1_5"]];
-    
-    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
-    [MMProgressHUD showWithTitle:nil status:nil images:images];
+//    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+//                        [UIImage imageNamed:@"havi1_1"],
+//                        [UIImage imageNamed:@"havi1_2"],
+//                        [UIImage imageNamed:@"havi1_3"],
+//                        [UIImage imageNamed:@"havi1_4"],
+//                        [UIImage imageNamed:@"havi1_5"]];
+//    
+//    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+//    [MMProgressHUD showWithTitle:nil status:nil images:images];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -245,6 +245,7 @@
         }
         if (_resultArr.count==0) {
             [self.searchTableView addSubview:self.messageLabel];
+            self.messageLabel.text = @"没有对应用户哦！";
         }else{
             [self.messageLabel removeFromSuperview];
         }
@@ -294,6 +295,25 @@
     
 //    [self refresh];
 }
+#pragma mark custom delegate
+- (void)customCell:(SearchUserTableViewCell *)cell didTapButton:(UIButton *)button
+{
+    NSIndexPath *indexPath = [self.searchTableView indexPathForCell:cell];
+    HaviLog(@"点击了%ld",(long)indexPath.row);
+    NSDictionary *userDic = [_resultArr objectAtIndex:indexPath.row];
+    NSString *responseID = [userDic objectForKey:@"UserID"];
+    MMPopupBlock completeBlock = ^(MMPopupView *popupView){
+    };
+    [[[MMAlertView alloc] initWithInputTitle:@"提示" detail:@"请输入验证信息，可以提高您的申请成功率" placeholder:@"我是***,希望查看您的设备" handler:^(NSString *text) {
+        if (text.length==0) {
+            [ShowAlertView showAlert:@"请输入您的验证信息"];
+            return ;
+        }
+        NSString *commentString = text;
+        [self sendMyRequest:commentString andUserId:responseID];
+        
+    }] showWithBlock:completeBlock];
+}
 
 #pragma mark UITableViewDelegate & UITableViewDataSource Support
 
@@ -321,8 +341,11 @@
     }else{
         cell.cellUserName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserName"];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.cellUserPhone = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"CellPhone"];
     
+    cell.delegate = self;
+    cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
 }
@@ -330,6 +353,43 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
+- (void)sendMyRequest:(NSString *)commentRequest andUserId:(NSString *)responseID
+{
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
+
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    NSString *urlString = [NSString stringWithFormat:@"%@",@"v1/user/RequestToAddFriend"];
+    NSDictionary *para = @{
+                           @"RequestUserId":thirdPartyLoginUserId,
+                           @"ResponseUserId":responseID,
+                           @"Comment":commentRequest,
+                           };
+    [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
+    [WTRequestCenter postWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [ShowAlertView showAlert:@"成功"];
+        }
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+        [MMProgressHUD dismiss];
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismiss];
+
+    }];
     
 }
 
