@@ -209,7 +209,7 @@
 //
 - (void)searchUserList:(NSString *)searchText
 {
-    
+    /*
     if (![RexpUntil checkTelNumber:self.searchBar.text]) {
         [self.searchTableView addSubview:self.messageLabel];
         self.messageLabel.text = @"请输入正确的手机号码!";
@@ -217,15 +217,7 @@
     }else{
         [self.messageLabel removeFromSuperview];
     }
-//    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
-//                        [UIImage imageNamed:@"havi1_1"],
-//                        [UIImage imageNamed:@"havi1_2"],
-//                        [UIImage imageNamed:@"havi1_3"],
-//                        [UIImage imageNamed:@"havi1_4"],
-//                        [UIImage imageNamed:@"havi1_5"]];
-//    
-//    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
-//    [MMProgressHUD showWithTitle:nil status:nil images:images];
+     */
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -303,12 +295,14 @@
     NSDictionary *userDic = [_resultArr objectAtIndex:indexPath.row];
     NSString *responseID = [userDic objectForKey:@"UserID"];
     MMPopupBlock completeBlock = ^(MMPopupView *popupView){
+        
     };
     [[[MMAlertView alloc] initWithInputTitle:@"提示" detail:@"请输入验证信息，可以提高您的申请成功率" placeholder:@"我是***,希望查看您的设备" handler:^(NSString *text) {
         if (text.length==0) {
-            [ShowAlertView showAlert:@"请输入您的验证信息"];
+            [[UIApplication sharedApplication].keyWindow makeToast:@"请输入手机号" duration:2 position:@"center" ];
             return ;
         }
+        [self.searchBar resignFirstResponder];
         NSString *commentString = text;
         [self sendMyRequest:commentString andUserId:responseID];
         
@@ -381,7 +375,7 @@
     [WTRequestCenter postWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [ShowAlertView showAlert:@"成功"];
+            [self.searchTableView makeToast:@"申请成功" duration:2 position:@"center" ];
         }
         [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
         [MMProgressHUD dismiss];

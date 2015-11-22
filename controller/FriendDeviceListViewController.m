@@ -65,13 +65,13 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",@"v1/user/BeingRequestedUsers?UserId=",thirdPartyLoginUserId];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",@"v1/user/FriendDeviceList?UserID=",thirdPartyLoginUserId];
     
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         __weak typeof(self) weakSelf = self;
         [weakSelf.refreshControl endRefreshing];
         NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        
+        HaviLog(@"朋友的列表%@",resposeDic);
         [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
         [MMProgressHUD dismiss];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
@@ -88,6 +88,7 @@
         }
     } failed:^(NSURLResponse *response, NSError *error) {
         [MMProgressHUD dismiss];
+        [self.refreshControl endRefreshing];
     }];
 
 }
