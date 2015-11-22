@@ -17,7 +17,7 @@
 @property (nonatomic, strong) UILabel *messageTime;
 @property (nonatomic, strong) UIButton *messageAccepteButton;
 @property (nonatomic, strong) UIButton *messageRefuseButton;
-@property (nonatomic, strong) UILabel *messageShowWord;
+@property (nonatomic, strong) UITextView *messageShowWord;
 
 @end
 
@@ -58,7 +58,7 @@
         _messageTime.textColor = [UIColor colorWithRed:0.247f green:0.263f blue:0.271f alpha:1.00f];
 
         //
-        _messageShowWord = [[UILabel alloc]init];
+        _messageShowWord = [[UITextView alloc]init];
         [self addSubview:_messageShowWord];
         _messageShowWord.text = @"你好，我是哈维，我请求查看的你的设备";
 //        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:@"你好，我是哈维，我请求查看的你的设备"];
@@ -70,6 +70,8 @@
         _messageShowWord.layer.cornerRadius = 5;
         _messageShowWord.layer.masksToBounds = YES;
         _messageShowWord.backgroundColor = [UIColor whiteColor];
+        _messageShowWord.userInteractionEnabled = NO;
+        _messageShowWord.textColor = [UIColor colorWithRed:0.247f green:0.263f blue:0.271f alpha:1.00f];
         //
         _messageAccepteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:_messageAccepteButton];
@@ -168,6 +170,7 @@
 {
     _messageName.text = self.cellUserName;
     _messagePhone.text = self.cellUserPhone;
+    _messageTime.text = self.cellRequreTime;
     [self.messageIcon setImageWithURL:[NSURL URLWithString:self.cellUserIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
 }
 

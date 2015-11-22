@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class MessageShowTableViewCell;
+
 @protocol CustomMessageProtocol
 
 - (void)customMessageAcceptCell:(MessageShowTableViewCell *)cell didTapButton:(UIButton *)button;
@@ -23,6 +24,6 @@
 @property (nonatomic ,strong) NSString *cellUserName;
 @property (nonatomic ,strong) NSString *cellUserPhone;
 @property (nonatomic ,strong) NSString *cellUserIcon;
-
+@property (nonatomic ,strong) NSString *cellRequreTime;
 
 @end

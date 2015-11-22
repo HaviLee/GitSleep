@@ -116,7 +116,8 @@
         _myDeviceListView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStyleGrouped];
         _myDeviceListView.dataSource = self;
         _myDeviceListView.delegate = self;
-        _myDeviceListView.backgroundColor = [UIColor whiteColor];
+        _myDeviceListView.backgroundColor = [UIColor lightGrayColor];
+        _myDeviceListView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         
     }
@@ -127,7 +128,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.resultArr.count;
+//    return self.resultArr.count;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -143,8 +145,22 @@
     if (!cell) {
         cell = [[FriendMessageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
     }
+    NSString *userName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserName"];
+    NSString *url = [NSString stringWithFormat:@"%@/v1/file/DownloadFile/%@",BaseUrl,[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserID"]];
+    cell.cellUserIcon = url;
+    if (userName.length==0) {
+        cell.cellUserName = @"匿名用户";
+    }else{
+        cell.cellUserName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserName"];
+    }
+    cell.cellUserDescription = [[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"Description"]substringToIndex:16];
+    cell.cellUserPhone = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"CellPhone"];
+    //测试
+    cell.cellUserDescription = @"哈维床垫";
+    cell.cellUserName = @"小白";
+    cell.cellUserPhone = @"13122785292";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor colorWithRed:0.859f green:0.867f blue:0.878f alpha:1.00f];
+    cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 

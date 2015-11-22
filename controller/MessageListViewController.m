@@ -123,7 +123,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 120;
+    return 130;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -143,6 +143,7 @@
     }
     cell.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.cellRequreTime = [[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"RequestDate"]substringToIndex:16];
     cell.cellUserPhone = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"CellPhone"];
     cell.backgroundColor = [UIColor colorWithRed:0.859f green:0.867f blue:0.878f alpha:1.00f];
     return cell;
