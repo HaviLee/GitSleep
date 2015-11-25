@@ -268,6 +268,7 @@
     }
 }
 
+
 -(BOOL) swipeTableCell:(MGSwipeTableCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
 {
     HaviLog(@"Delegate: button tapped, %@ position, index %d, from Expansion: %@",
