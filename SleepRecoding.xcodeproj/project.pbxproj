@@ -219,6 +219,9 @@
 		2C5E5C231B12B3F200123CC4 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E5C1F1B12B3F200123CC4 /* RESideMenu.m */; };
 		2C5E5C241B12B3F200123CC4 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E5C211B12B3F200123CC4 /* UIViewController+RESideMenu.m */; };
 		2C5E5C261B12C26D00123CC4 /* Stars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C5E5C251B12C26D00123CC4 /* Stars@2x.png */; };
+		2C5F6F571C06927F008CE910 /* DoubleWeekReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5F6F561C06927F008CE910 /* DoubleWeekReportViewController.m */; };
+		2C5F6F5A1C0692AF008CE910 /* DoubleMonthReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5F6F591C0692AF008CE910 /* DoubleMonthReportViewController.m */; };
+		2C5F6F5D1C0692CA008CE910 /* DoubleQuarterReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5F6F5C1C0692CA008CE910 /* DoubleQuarterReportViewController.m */; };
 		2C6117021ABD6F6C00261A1E /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6117011ABD6F6C00261A1E /* RMDateSelectionViewController.m */; };
 		2C6117101ABEACF400261A1E /* EditUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C61170F1ABEACF400261A1E /* EditUserInfoViewController.m */; };
 		2C6117131ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6117121ABEBE8A00261A1E /* EditUserDefalutTableViewCell.m */; };
@@ -987,6 +990,12 @@
 		2C5E5C201B12B3F200123CC4 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+RESideMenu.h"; path = "lib/RESideMenu/UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
 		2C5E5C211B12B3F200123CC4 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+RESideMenu.m"; path = "lib/RESideMenu/UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
 		2C5E5C251B12C26D00123CC4 /* Stars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Stars@2x.png"; path = "common/Stars@2x.png"; sourceTree = "<group>"; };
+		2C5F6F551C06927F008CE910 /* DoubleWeekReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleWeekReportViewController.h; path = controller/DoubleWeekReportViewController.h; sourceTree = "<group>"; };
+		2C5F6F561C06927F008CE910 /* DoubleWeekReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleWeekReportViewController.m; path = controller/DoubleWeekReportViewController.m; sourceTree = "<group>"; };
+		2C5F6F581C0692AF008CE910 /* DoubleMonthReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleMonthReportViewController.h; path = controller/DoubleMonthReportViewController.h; sourceTree = "<group>"; };
+		2C5F6F591C0692AF008CE910 /* DoubleMonthReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleMonthReportViewController.m; path = controller/DoubleMonthReportViewController.m; sourceTree = "<group>"; };
+		2C5F6F5B1C0692CA008CE910 /* DoubleQuarterReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleQuarterReportViewController.h; path = controller/DoubleQuarterReportViewController.h; sourceTree = "<group>"; };
+		2C5F6F5C1C0692CA008CE910 /* DoubleQuarterReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleQuarterReportViewController.m; path = controller/DoubleQuarterReportViewController.m; sourceTree = "<group>"; };
 		2C6117001ABD6F6C00261A1E /* RMDateSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDateSelectionViewController.h; sourceTree = "<group>"; };
 		2C6117011ABD6F6C00261A1E /* RMDateSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDateSelectionViewController.m; sourceTree = "<group>"; };
 		2C61170E1ABEACF400261A1E /* EditUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditUserInfoViewController.h; path = controller/EditUserInfoViewController.h; sourceTree = "<group>"; };
@@ -1776,6 +1785,7 @@
 		2C0125351A8F5E5500382A9D /* MainController */ = {
 			isa = PBXGroup;
 			children = (
+				2C5F6F541C069240008CE910 /* DoubleReportView */,
 				2CCE231C1BFB124E00046EF7 /* DoubleController */,
 				2C6C6C111BF316CE0076E0EF /* DeviceListView */,
 				2CF3501E1BB2B51F007099FC /* PersonCenterView */,
@@ -2238,6 +2248,19 @@
 				2C5E5C211B12B3F200123CC4 /* UIViewController+RESideMenu.m */,
 			);
 			name = ResideMenu;
+			sourceTree = "<group>";
+		};
+		2C5F6F541C069240008CE910 /* DoubleReportView */ = {
+			isa = PBXGroup;
+			children = (
+				2C5F6F551C06927F008CE910 /* DoubleWeekReportViewController.h */,
+				2C5F6F561C06927F008CE910 /* DoubleWeekReportViewController.m */,
+				2C5F6F581C0692AF008CE910 /* DoubleMonthReportViewController.h */,
+				2C5F6F591C0692AF008CE910 /* DoubleMonthReportViewController.m */,
+				2C5F6F5B1C0692CA008CE910 /* DoubleQuarterReportViewController.h */,
+				2C5F6F5C1C0692CA008CE910 /* DoubleQuarterReportViewController.m */,
+			);
+			name = DoubleReportView;
 			sourceTree = "<group>";
 		};
 		2C6116FF1ABD6F6C00261A1E /* RMDateSelectionViewController */ = {
@@ -3969,6 +3992,7 @@
 				2C7319D51B759248005A3EE4 /* NightTimeView.m in Sources */,
 				2C15E6761AF1FF3F00142F36 /* GetHeartSleepDataAPI.m in Sources */,
 				2C619E371BF1E94100FFB608 /* ODRefreshControl.m in Sources */,
+				2C5F6F5D1C0692CA008CE910 /* DoubleQuarterReportViewController.m in Sources */,
 				2CDB86841BABCD4F00551192 /* NewSecondHeartViewController.m in Sources */,
 				2C5E5C241B12B3F200123CC4 /* UIViewController+RESideMenu.m in Sources */,
 				576B02461A9EB22C004DB418 /* BaseViewController.m in Sources */,
@@ -4083,6 +4107,7 @@
 				2C1F1FE81ADBF38F00393E04 /* WQCalendarDay.m in Sources */,
 				576A767B1AC1513400BE8206 /* GetInavlideCodeApi.m in Sources */,
 				575F5A9D1AAE87670061AA11 /* DeviceManagerViewController.m in Sources */,
+				2C5F6F5A1C0692AF008CE910 /* DoubleMonthReportViewController.m in Sources */,
 				2C1AD7181AAAE74A00655A5B /* ModalAnimation.m in Sources */,
 				2CCE232E1BFB23D000046EF7 /* DoubleTurnContainerViewController.m in Sources */,
 				2CC05F921BC6173400D27F42 /* PersonDetailTableViewCell.m in Sources */,
@@ -4111,6 +4136,7 @@
 				2C77D5261AED198B004123D2 /* GetDefatultSleepAPI.m in Sources */,
 				2C0912B71B4E521F00BEE2FF /* Reachability.m in Sources */,
 				2C8F7BBA1AF3747700E56513 /* JTCalendarMenuMonthView.m in Sources */,
+				2C5F6F571C06927F008CE910 /* DoubleWeekReportViewController.m in Sources */,
 				2C15E67F1AF1FF8900142F36 /* GetTurnSleepDataAPI.m in Sources */,
 				2C8C62821AB5B0D100CF4C19 /* ModifyPassWordViewController.m in Sources */,
 				2C27907A1BF45E7F00449071 /* SearchBarDisplayController.m in Sources */,

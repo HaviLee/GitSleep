@@ -23,6 +23,7 @@
 #import "PersonManagerViewController.h"
 #import "MessageListViewController.h"
 #import "UIBadgeView.h"
+#import "DoubleWeekReportViewController.h"
 //
 #import "DeviceListViewController.h"
 
@@ -322,10 +323,13 @@
 {
     DataStaticViewController *user = nil;
     if (sender.tag == 101) {
-        user = [[DataStaticViewController alloc]init];
-        user.title = @"周报";
-        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
+        DoubleWeekReportViewController *doubleReport = [[DoubleWeekReportViewController alloc]init];
+        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:doubleReport] animated:YES];
         [self.sideMenuViewController hideMenuViewController];
+//        user = [[DataStaticViewController alloc]init];
+//        user.title = @"周报";
+//        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
+//        [self.sideMenuViewController hideMenuViewController];
     }else if(sender.tag == 102){
         user = [[DataStaticViewController alloc]init];
         user.title = @"月报";

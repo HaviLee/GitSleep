@@ -28,6 +28,7 @@
 #import "DoubleLeaveContainerViewController.h"
 #import "DoubleTurnContainerViewController.h"
 #import "DoubleHeartViewController.h"
+#import "DoubleBreathViewController.h"
 
 @interface CenterContainerViewController ()<SetScrollDateDelegate>
 
@@ -65,6 +66,7 @@
 @property (nonatomic, strong) DoubleLeaveContainerViewController *doubleLeaveView;
 @property (nonatomic, strong) DoubleTurnContainerViewController *doubleTurnView;
 @property (nonatomic, strong) DoubleHeartViewController *doubleHeartView;
+@property (nonatomic, strong) DoubleBreathViewController *doubleBreathView;
 
 @end
 
@@ -353,7 +355,7 @@
             self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
         }else{
             
-            self.subPageViewArr = @[self.doubleHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
+            self.subPageViewArr = @[self.doubleHeartView,self.doubleBreathView,self.doubleLeaveView,self.doubleTurnView];
         }
         if (selectedThemeIndex == 0) {
             self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
@@ -451,6 +453,14 @@
         _doubleHeartView = [[DoubleHeartViewController alloc]init];
     }
     return _doubleHeartView;
+}
+
+- (DoubleBreathViewController*)doubleBreathView
+{
+    if (!_doubleBreathView) {
+        _doubleBreathView = [[DoubleBreathViewController alloc]init];
+    }
+    return _doubleBreathView;
 }
 
 - (DoubleLeaveContainerViewController *)doubleLeaveView
