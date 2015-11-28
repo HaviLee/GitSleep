@@ -9,7 +9,7 @@
 #import "FriendDeviceListViewController.h"
 #import "ODRefreshControl.h"
 #import "FriendMessageTableViewCell.h"
-@interface FriendDeviceListViewController ()<MGSwipeTableCellDelegate>
+@interface FriendDeviceListViewController ()<JASwipeCellDelegate>
 
 @property (nonatomic, strong) UITableView *myDeviceListView;
 @property (nonatomic, strong) ODRefreshControl *refreshControl;
@@ -53,15 +53,6 @@
 
 - (void)getFriendDeviceList
 {
-//    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
-//                        [UIImage imageNamed:@"havi1_1"],
-//                        [UIImage imageNamed:@"havi1_2"],
-//                        [UIImage imageNamed:@"havi1_3"],
-//                        [UIImage imageNamed:@"havi1_4"],
-//                        [UIImage imageNamed:@"havi1_5"]];
-//    
-//    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
-//    [MMProgressHUD showWithTitle:nil status:nil images:images];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -128,8 +119,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.resultArr.count;
-//    return 1;
+//    return self.resultArr.count;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -140,12 +131,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIndentifier = @"cellIndentifier";
+    NSString *cellIndentifier = [NSString stringWithFormat:@"cellIndentifier%ld",(long)indexPath.row];
     
-    FriendMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
-    if (!cell) {
-        cell = [[FriendMessageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
-    }
+    FriendMessageTableViewCell *cell = [[FriendMessageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+    //测试
+//    [cell addActionButtons:[self leftButtons] withButtonWidth:kJAButtonWidth withButtonPosition:JAButtonLocationLeft];
+    [cell addActionButtons:[self rightButtons] withButtonWidth:kJAButtonWidth withButtonPosition:JAButtonLocationRight];
     NSString *userName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserName"];
     NSString *url = [NSString stringWithFormat:@"%@/v1/file/DownloadFile/%@",BaseUrl,[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserID"]];
     cell.cellUserIcon = url;
@@ -156,8 +147,9 @@
     }
     cell.cellUserDescription = [[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"Description"]substringToIndex:16];
     cell.cellUserPhone = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"CellPhone"];
-    //测试
-//    cell.delegate = self;
+    
+//
+    cell.delegate = self;
     cell.cellUserDescription = @"哈维床垫";
     cell.cellUserName = @"小白";
     cell.cellUserPhone = @"13122785292";
@@ -166,60 +158,107 @@
     return cell;
 }
 
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//
+- (NSArray *)leftButtons
 {
+    __typeof(self) __weak weakSelf = self;
+    JAActionButton *button1 = [JAActionButton actionButtonWithTitle:@"Delete" color:[UIColor redColor] handler:^(UIButton *actionButton, JASwipeCell*cell) {
+        [cell completePinToTopViewAnimation];
+        [weakSelf leftMostButtonSwipeCompleted:cell];
+        NSLog(@"Left Button: Delete Pressed");
+    }];
     
+    JAActionButton *button2 = [JAActionButton actionButtonWithTitle:@"Mark as unread" color:kUnreadButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mark As Unread" message:@"Done!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        NSLog(@"Left Button: Mark as unread Pressed");
+    }];
+    
+    return @[button1, button2];
 }
-#pragma mark 左右滑动的代理
-//填充数据
--(NSArray*) swipeTableCell:(MGSwipeTableCell*) cell swipeButtonsForDirection:(MGSwipeDirection)direction
-             swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings;
+
+- (NSArray *)rightButtons
 {
-    [cell layoutSubviews];
-    if (direction == MGSwipeDirectionLeftToRight) {
-        expansionSettings.fillOnTrigger = YES;
-        return [self createLeftButtons:2];
-    }
-    else {
-        expansionSettings.fillOnTrigger = YES;
-        return [self createRightButtons:1];
+    __typeof(self) __weak weakSelf = self;
+    JAActionButton *button1 = [JAActionButton actionButtonWithTitle:@"Archive" color:kArchiveButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
+        [cell completePinToTopViewAnimation];
+        [weakSelf rightMostButtonSwipeCompleted:cell];
+        NSLog(@"Right Button: Archive Pressed");
+    }];
+    
+    JAActionButton *button2 = [JAActionButton actionButtonWithTitle:@"Flag" color:kFlagButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Flag" message:@"Flag pressed!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        NSLog(@"Right Button: Flag Pressed");
+    }];
+    JAActionButton *button3 = [JAActionButton actionButtonWithTitle:@"More" color:kMoreButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"More Options" delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Option 1" otherButtonTitles:@"Option 2",nil];
+        [sheet showInView:weakSelf.view];
+        NSLog(@"Right Button: More Pressed");
+    }];
+    
+    return @[button1, button2, button3];
+}
+
+- (void)leftMostButtonSwipeCompleted:(JASwipeCell *)cell
+{
+    NSIndexPath *indexPath = [self.myDeviceListView indexPathForCell:cell];
+//    [self.tableData removeObjectAtIndex:indexPath.row];
+    
+    [self.myDeviceListView beginUpdates];
+    [self.myDeviceListView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.myDeviceListView endUpdates];
+}
+
+- (void)rightMostButtonSwipeCompleted:(JASwipeCell *)cell
+{
+    NSIndexPath *indexPath = [self.myDeviceListView indexPathForCell:cell];
+//    [self.tableData removeObjectAtIndex:indexPath.row];
+    
+    [self.myDeviceListView beginUpdates];
+    [self.myDeviceListView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.myDeviceListView endUpdates];
+}
+
+#pragma mark - JASwipeCellDelegate methods
+
+- (void)swipingRightForCell:(JASwipeCell *)cell
+{
+    NSArray *indexPaths = [self.myDeviceListView indexPathsForVisibleRows];
+    for (NSIndexPath *indexPath in indexPaths) {
+        JASwipeCell *visibleCell = (JASwipeCell *)[self.myDeviceListView cellForRowAtIndexPath:indexPath];
+        if (visibleCell != cell) {
+            [visibleCell resetContainerView];
+        }
+        
     }
 }
 
-#pragma mark 为了左滑动和有滑动的
--(NSArray *) createLeftButtons: (int) number
+- (void)swipingLeftForCell:(JASwipeCell *)cell
 {
-    NSMutableArray * result = [NSMutableArray array];
-    NSString* titles[2] = {@"重命名",@"重激活"};
-    UIColor * colors[2] = {[UIColor colorWithRed:0.165f green:0.239f blue:0.588f alpha:1.00f],[UIColor colorWithRed:0.525f green:0.808f blue:0.922f alpha:1.00f]};
-    for (int i = 0; i < number; ++i)
-    {
-        MGSwipeButton * button = [MGSwipeButton buttonWithTitle:titles[i] backgroundColor:colors[i] callback:^BOOL(MGSwipeTableCell * sender){
-            HaviLog(@"重命名");
-            return YES;
-        }];
-        [result addObject:button];
+    NSArray *indexPaths = [self.myDeviceListView indexPathsForVisibleRows];
+    for (NSIndexPath *indexPath in indexPaths) {
+        JASwipeCell *visibleCell = (JASwipeCell *)[self.myDeviceListView cellForRowAtIndexPath:indexPath];
+        if (visibleCell != cell) {
+            [visibleCell resetContainerView];
+        }
+        
     }
-    return result;
+}
+
+#pragma mark - UIScrollViewDelegate methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSArray *indexPaths = [self.myDeviceListView indexPathsForVisibleRows];
+    for (NSIndexPath *indexPath in indexPaths) {
+        FriendMessageTableViewCell *cell = (FriendMessageTableViewCell *)[self.myDeviceListView cellForRowAtIndexPath:indexPath];
+        [cell resetContainerView];
+    }
 }
 
 
--(NSArray *) createRightButtons: (int) number
-{
-    NSMutableArray * result = [NSMutableArray array];
-    NSString* titles[1] = {@"  删除  "};
-    UIColor * colors[1] = {[UIColor redColor]};
-    for (int i = 0; i < number; ++i)
-    {
-        MGSwipeButton * button = [MGSwipeButton buttonWithTitle:titles[i] backgroundColor:colors[i] callback:^BOOL(MGSwipeTableCell * sender){
-            HaviLog(@"删除");
-            return YES;
-        }];
-        [result addObject:button];
-    }
-    return result;
-}
+
 /*
 -(BOOL) swipeTableCell:(MGSwipeTableCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
 {

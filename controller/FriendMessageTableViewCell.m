@@ -29,45 +29,46 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _messageIcon = [[UIImageView alloc]init];
-        [self addSubview:_messageIcon];
+        [self.topContentView addSubview:_messageIcon];
+        _messageIcon.frame = CGRectMake(0, 10, 20, 20);
         _messageIcon.image = [UIImage imageNamed:@"head_portrait_0"];
         _messageIcon.layer.cornerRadius = 22.5;
         _messageIcon.layer.masksToBounds = YES;
-
+        
         //
         _messageName = [[UILabel alloc]init];
-        [self addSubview:_messageName];
+        [self.topContentView addSubview:_messageName];
         _messageName.text = @"哈维";
         _messageName.font = [UIFont systemFontOfSize:14];
         _messageName.textColor = [UIColor colorWithRed:0.247f green:0.263f blue:0.271f alpha:1.00f];
-
+        
         //
         _messagePhone = [[UILabel alloc]init];
-        [self addSubview:_messagePhone];
+        [self.topContentView addSubview:_messagePhone];
         _messagePhone.font = [UIFont systemFontOfSize:14];
         _messagePhone.text = @"13122785292";
         _messagePhone.textColor = [UIColor colorWithRed:0.247f green:0.263f blue:0.271f alpha:1.00f];
-
+        
         //
         _messageTime = [[UILabel alloc]init];
         _messageTime.numberOfLines = 0;
-        [self addSubview:_messageTime];
+        [self.topContentView addSubview:_messageTime];
         _messageTime.text = @"哈维的床垫ddddddddddddd";
         _messageTime.font = [UIFont systemFontOfSize:14];
         _messageTime.textColor = [UIColor colorWithRed:0.247f green:0.263f blue:0.271f alpha:1.00f];
-
+        
         //
         
         [_messageIcon makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self).offset(10);
-            make.top.equalTo(self).offset(10);
+            make.left.equalTo(self.topContentView).offset(10);
+            make.top.equalTo(self.topContentView).offset(10);
             make.height.equalTo(45);
             make.width.equalTo(45);
         }];
         //
         [_messageName makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_messageIcon.right).offset(5);
-            make.top.equalTo(self).offset(10);
+            make.top.equalTo(self.topContentView).offset(10);
             make.height.equalTo(20);
             make.height.equalTo(_messagePhone.height);
             make.width.equalTo(100);
@@ -80,9 +81,9 @@
         }];
         //
         [_messageTime makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(-30);
+            make.right.equalTo(self.topContentView).offset(-30);
             make.top.equalTo(_messageName.bottom).offset(5);
-            make.bottom.equalTo(self.bottom).offset(-10);
+            make.bottom.equalTo(self.topContentView.bottom).offset(-10);
             make.left.equalTo(_messagePhone.right).offset(0);
             make.centerY.equalTo(_messageName.centerY);
             
@@ -91,11 +92,11 @@
         UIView *line = [[UIView alloc]init];
         line.backgroundColor = [UIColor lightGrayColor];
         line.alpha = 0.5;
-        [self addSubview:line];
+        [self.topContentView addSubview:line];
         [line makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self);
-            make.left.equalTo(self);
-            make.right.equalTo(self);
+            make.bottom.equalTo(self.topContentView);
+            make.left.equalTo(self.topContentView);
+            make.right.equalTo(self.topContentView);
             make.height.equalTo(1);
         }];
         
@@ -103,13 +104,26 @@
     return self;
 }
 
-- (void)layoutSubviews
+- (void)setCellUserIcon:(NSString *)cellUserIcon
 {
-    _messageName.text = self.cellUserName;
-    _messagePhone.text = self.cellUserPhone;
-    _messageTime.text = self.cellUserDescription;
-    [self.messageIcon setImageWithURL:[NSURL URLWithString:self.cellUserIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
+    [self.messageIcon setImageWithURL:[NSURL URLWithString:cellUserIcon] placeholderImage:[UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]]];
 }
+
+- (void)setCellUserName:(NSString *)cellUserName
+{
+    self.messageName.text = cellUserName;
+}
+
+- (void)setCellUserPhone:(NSString *)cellUserPhone
+{
+    self.messagePhone.text = cellUserPhone;
+}
+
+- (void)setCellUserDescription:(NSString *)cellUserDescription
+{
+    self.messageTime.text = cellUserDescription;
+}
+
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

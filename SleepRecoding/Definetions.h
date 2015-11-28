@@ -31,6 +31,11 @@
 #define kScaleFrom_iPhone5_Desgin(_X_) (_X_ * (kScreen_Width/320))
 #define StatusbarSize 20
 
+#define kFlagButtonColor        [UIColor colorWithRed:255.0/255.0 green:150.0/255.0 blue:0/255.0 alpha:1]
+#define kMoreButtonColor        [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1]
+#define kArchiveButtonColor     [UIColor colorWithRed:60.0/255.0 green:112.0/255.0 blue:168/255.0 alpha:1]
+#define kUnreadButtonColor      [UIColor colorWithRed:0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1]
+
 //设置统一字号
 #define DefaultWordFont      [UIFont systemFontOfSize:17]         
 //[UIFont fontWithName:@"Helvetica Bold" size:20]

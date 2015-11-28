@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGSwipeTableCell.h"
-#import "MGSwipeButton.h"
+#import "JASwipeCell.h"
+#import "JAActionButton.h"
 
-
-@interface FriendMessageTableViewCell : UITableViewCell
+@interface FriendMessageTableViewCell : JASwipeCell
 
 @property (nonatomic ,strong) NSString *cellUserName;
 @property (nonatomic ,strong) NSString *cellUserPhone;
