@@ -9,7 +9,7 @@
 #import "FriendDeviceListViewController.h"
 #import "ODRefreshControl.h"
 #import "FriendMessageTableViewCell.h"
-@interface FriendDeviceListViewController ()<JASwipeCellDelegate>
+@interface FriendDeviceListViewController ()<JASwipeCellDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) UITableView *myDeviceListView;
 @property (nonatomic, strong) ODRefreshControl *refreshControl;
@@ -84,7 +84,7 @@
 
 }
 
-#pragma setter meathod
+#pragma mark setter meathod
 
 - (UILabel *)messageLabel
 {
@@ -155,43 +155,26 @@
     cell.cellUserPhone = @"13122785292";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
+//    cell.accessoryType = UITableViewCellAccessoryCheckmark;
     return cell;
 }
 
 //
-- (NSArray *)leftButtons
-{
-    __typeof(self) __weak weakSelf = self;
-    JAActionButton *button1 = [JAActionButton actionButtonWithTitle:@"Delete" color:[UIColor redColor] handler:^(UIButton *actionButton, JASwipeCell*cell) {
-        [cell completePinToTopViewAnimation];
-        [weakSelf leftMostButtonSwipeCompleted:cell];
-        NSLog(@"Left Button: Delete Pressed");
-    }];
-    
-    JAActionButton *button2 = [JAActionButton actionButtonWithTitle:@"Mark as unread" color:kUnreadButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mark As Unread" message:@"Done!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-        NSLog(@"Left Button: Mark as unread Pressed");
-    }];
-    
-    return @[button1, button2];
-}
-
 - (NSArray *)rightButtons
 {
     __typeof(self) __weak weakSelf = self;
-    JAActionButton *button1 = [JAActionButton actionButtonWithTitle:@"Archive" color:kArchiveButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
+    JAActionButton *button1 = [JAActionButton actionButtonWithTitle:@"删除" color:kArchiveButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
         [cell completePinToTopViewAnimation];
         [weakSelf rightMostButtonSwipeCompleted:cell];
         NSLog(@"Right Button: Archive Pressed");
     }];
     
-    JAActionButton *button2 = [JAActionButton actionButtonWithTitle:@"Flag" color:kFlagButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
+    JAActionButton *button2 = [JAActionButton actionButtonWithTitle:@"重命名" color:kFlagButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Flag" message:@"Flag pressed!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
         NSLog(@"Right Button: Flag Pressed");
     }];
-    JAActionButton *button3 = [JAActionButton actionButtonWithTitle:@"More" color:kMoreButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
+    JAActionButton *button3 = [JAActionButton actionButtonWithTitle:@"重激活" color:kMoreButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"More Options" delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Option 1" otherButtonTitles:@"Option 2",nil];
         [sheet showInView:weakSelf.view];
         NSLog(@"Right Button: More Pressed");
@@ -218,6 +201,13 @@
     [self.myDeviceListView beginUpdates];
     [self.myDeviceListView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     [self.myDeviceListView endUpdates];
+}
+#pragma mark 操作设备
+
+- (void)deleteFriendDevice:(NSString *)deviceUUID
+{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:@"您确认删除该设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    [alertView show];
 }
 
 #pragma mark - JASwipeCellDelegate methods
