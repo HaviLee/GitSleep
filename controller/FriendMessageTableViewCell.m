@@ -56,8 +56,19 @@
         _messageTime.text = @"哈维的床垫ddddddddddddd";
         _messageTime.font = [UIFont systemFontOfSize:14];
         _messageTime.textColor = [UIColor colorWithRed:0.247f green:0.263f blue:0.271f alpha:1.00f];
+        _selectImageView = [[UIImageView alloc]init];
+        _selectImageView.image = [UIImage imageNamed:@"ic_dot_1"];
+        [self.topContentView addSubview:_selectImageView];
+        _selectImageView.hidden = YES;
         
         //
+        
+        [_selectImageView makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(20);
+            make.width.equalTo(20);
+            make.centerY.equalTo(self.topContentView.centerY);
+            make.right.equalTo(self.topContentView.right).offset(-10);
+        }];
         
         [_messageIcon makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.topContentView).offset(10);

@@ -168,13 +168,29 @@
     }else{
         cell.cellUserName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"FriendUserName"];
     }
+    if (indexPath.row==1) {
+        cell.selectImageView.hidden = NO;
+    }
+    /*
+    if ([[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"] isEqualToString:@"true"]) {
+        cell.selectImageView.hidden = NO;
+    }else{
+        cell.selectImageView.hidden = YES;
+    }
+     */
 //
     cell.delegate = self;
     cell.cellUserDescription = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"Description"];
     cell.cellUserPhone = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"UUID"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
     cell.backgroundColor = [UIColor whiteColor];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self reActiveFriendDevice:indexPath];
 }
 
 //
@@ -182,21 +198,22 @@
 {
     __typeof(self) __weak weakSelf = self;
     JAActionButton *button1 = [JAActionButton actionButtonWithTitle:@"删除" color:[UIColor redColor] handler:^(UIButton *actionButton, JASwipeCell*cell) {
-        self.selectTableViewCell = cell;
-        NSIndexPath *indexPath = [self.myDeviceListView indexPathForCell:cell];
-        [self deleteFriendDevice:[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]];
+        weakSelf.selectTableViewCell = cell;
+        NSIndexPath *indexPath = [weakSelf.myDeviceListView indexPathForCell:cell];
+        [weakSelf deleteFriendDevice:[[weakSelf.resultArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]];
         NSLog(@"Right Button: Archive Pressed");
     }];
     
     JAActionButton *button2 = [JAActionButton actionButtonWithTitle:@"重命名" color:kFlagButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
-        self.selectTableViewCell = cell;
-        NSIndexPath *indexPath = [self.myDeviceListView indexPathForCell:cell];
-        [self renameFriendDevice:indexPath];
+        weakSelf.selectTableViewCell = cell;
+        NSIndexPath *indexPath = [weakSelf.myDeviceListView indexPathForCell:cell];
+        [weakSelf renameFriendDevice:indexPath];
         NSLog(@"Right Button: Flag Pressed");
     }];
     JAActionButton *button3 = [JAActionButton actionButtonWithTitle:@"重激活" color:kMoreButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"More Options" delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Option 1" otherButtonTitles:@"Option 2",nil];
-        [sheet showInView:weakSelf.view];
+        weakSelf.selectTableViewCell = cell;
+        NSIndexPath *indexPath = [weakSelf.myDeviceListView indexPathForCell:cell];
+        [weakSelf reActiveFriendDevice:indexPath];
         NSLog(@"Right Button: More Pressed");
     }];
     
@@ -338,6 +355,41 @@
     ReNameDeviceNameViewController *name = [[ReNameDeviceNameViewController alloc]init];
     name.deviceInfo = [self.resultArr objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:name animated:YES];
+}
+
+- (void)reActiveFriendDevice:(NSIndexPath *)indexPath
+{
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
+    NSString *urlString = [NSString stringWithFormat:@"%@v1/user/DeleteUserDevice",BaseUrl];
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    NSDictionary *para = @{
+                           @"FriendUserID": [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"FriendUserID"],
+                           @"UserID":thirdPartyLoginUserId,
+                           @"UUID": [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"UUID"],
+                           };
+    [WTRequestCenter putWithURL:urlString header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"数据是%@",obj);
+        if ([[obj objectForKey:@"ReturnCode"]intValue]==200) {
+            [MMProgressHUD dismiss];
+            [self getFriendDeviceList];
+        }else{
+            [MMProgressHUD dismissWithError:[obj objectForKey:@"ErrorMessage"] afterDelay:2];
+            [self.selectTableViewCell resetContainerView];
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismiss];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

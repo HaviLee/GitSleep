@@ -16,5 +16,6 @@
 @property (nonatomic ,strong) NSString *cellUserPhone;
 @property (nonatomic ,strong) NSString *cellUserIcon;
 @property (nonatomic ,strong) NSString *cellUserDescription;
+@property (nonatomic ,strong) UIImageView *selectImageView;
 
 @end
