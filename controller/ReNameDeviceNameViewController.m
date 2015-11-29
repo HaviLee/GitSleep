@@ -141,41 +141,78 @@
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    NSDictionary *para = @{
-                           @"UserID":thirdPartyLoginUserId,
-                           @"UUID": [NSString stringWithFormat:@"%@",[self.deviceInfo  objectForKey:@"UUID"]],
-                           @"Description":self.nameTextField.text,
-                           };
-    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
-                        [UIImage imageNamed:@"havi1_1"],
-                        [UIImage imageNamed:@"havi1_2"],
-                        [UIImage imageNamed:@"havi1_3"],
-                        [UIImage imageNamed:@"havi1_4"],
-                        [UIImage imageNamed:@"havi1_5"]];
-    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
-    [MMProgressHUD showWithTitle:nil status:nil images:images];
-    BindingDeviceUUIDAPI *client = [BindingDeviceUUIDAPI shareInstance];
-    [client bindingDeviceUUID:header andWithPara:para];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        HaviLog(@"绑定设备结果是%@",resposeDic);
-        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+    //
+    
+    NSArray *allKeys = [self.deviceInfo allKeys];
+    if ([allKeys containsObject:@"FriendUserID"]) {
+        NSDictionary *para = @{
+                               @"FriendUserID": [NSString stringWithFormat:@"%@",[self.deviceInfo  objectForKey:@"FriendUserID"]],
+                               @"UserID":thirdPartyLoginUserId,
+                               @"UUID": [NSString stringWithFormat:@"%@",[self.deviceInfo  objectForKey:@"UUID"]],
+                               @"Description":self.nameTextField.text,
+                               };
+        NSString *urlString = [NSString stringWithFormat:@"%@v1/user/RenameFriendDevice",BaseUrl];
+        [WTRequestCenter putWithURL:urlString header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            HaviLog(@"数据是%@",obj);
+            if ([[obj objectForKey:@"ReturnCode"]intValue]==200) {
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    
+                    [self backToHomeView:nil];
+                }];
+                [MMProgressHUD dismiss];
+            }else{
                 
-                [self backToHomeView:nil];
-            }];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    
+                }];
+                [MMProgressHUD dismiss];
+            }
+        } failed:^(NSURLResponse *response, NSError *error) {
             [MMProgressHUD dismiss];
-        }else{
-            
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+            [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        }];
+
+    }else{
+        NSDictionary *para = @{
+                               @"UserID":thirdPartyLoginUserId,
+                               @"UUID": [NSString stringWithFormat:@"%@",[self.deviceInfo  objectForKey:@"UUID"]],
+                               @"Description":self.nameTextField.text,
+                               };
+        NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                            [UIImage imageNamed:@"havi1_1"],
+                            [UIImage imageNamed:@"havi1_2"],
+                            [UIImage imageNamed:@"havi1_3"],
+                            [UIImage imageNamed:@"havi1_4"],
+                            [UIImage imageNamed:@"havi1_5"]];
+        [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+        [MMProgressHUD showWithTitle:nil status:nil images:images];
+        BindingDeviceUUIDAPI *client = [BindingDeviceUUIDAPI shareInstance];
+        [client bindingDeviceUUID:header andWithPara:para];
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            HaviLog(@"绑定设备结果是%@",resposeDic);
+            if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    
+                    [self backToHomeView:nil];
+                }];
+                [MMProgressHUD dismiss];
+            }else{
                 
-            }];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    
+                }];
+                [MMProgressHUD dismiss];
+            }
+        } failure:^(YTKBaseRequest *request) {
             [MMProgressHUD dismiss];
-        }
-    } failure:^(YTKBaseRequest *request) {
-        [MMProgressHUD dismiss];
-        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
-    }];
+            [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        }];
+    }
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
