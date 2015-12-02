@@ -92,7 +92,7 @@
         [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
         [MMProgressHUD dismiss];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            self.resultArr = [resposeDic objectForKey:@"UserList"];
+            self.resultArr = [resposeDic objectForKey:@"DeviceList"];
             [self.myDeviceListView reloadData];
             [_myDeviceListView setNeedsLayout];
         }else{
@@ -168,22 +168,17 @@
     }else{
         cell.cellUserName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"FriendUserName"];
     }
-    if (indexPath.row==1) {
-        cell.selectImageView.hidden = NO;
-    }
-    /*
-    if ([[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"] isEqualToString:@"true"]) {
+    cell.delegate = self;
+    cell.cellUserDescription = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"Description"];
+    cell.cellUserPhone = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"CellPhone"];
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    cell.backgroundColor = [UIColor whiteColor];
+    if ([[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
         cell.selectImageView.hidden = NO;
     }else{
         cell.selectImageView.hidden = YES;
+
     }
-     */
-//
-    cell.delegate = self;
-    cell.cellUserDescription = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"Description"];
-    cell.cellUserPhone = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"UUID"];
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 
@@ -218,11 +213,6 @@
     }];
     
     return @[button1, button2, button3];
-}
-
-- (void)leftMostButtonSwipeCompleted:(JASwipeCell *)cell
-{
-    
 }
 
 - (void)rightMostButtonSwipeCompleted:(JASwipeCell *)cell
@@ -323,7 +313,7 @@
                         [UIImage imageNamed:@"havi1_5"]];
     [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
-    NSString *urlString = [NSString stringWithFormat:@"%@v1/user/DeleteUserDevice",BaseUrl];
+    NSString *urlString = [NSString stringWithFormat:@"%@v1/user/RemoveFriendDevice",BaseUrl];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -367,7 +357,7 @@
                         [UIImage imageNamed:@"havi1_5"]];
     [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
-    NSString *urlString = [NSString stringWithFormat:@"%@v1/user/DeleteUserDevice",BaseUrl];
+    NSString *urlString = [NSString stringWithFormat:@"%@v1/user/ActivateFriendDevice",BaseUrl];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };

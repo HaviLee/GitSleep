@@ -38,7 +38,7 @@
         //
         _messageName = [[UILabel alloc]init];
         [self.topContentView addSubview:_messageName];
-        _messageName.text = @"哈维";
+        _messageName.text = @"";
         _messageName.font = [UIFont systemFontOfSize:14];
         _messageName.textColor = [UIColor colorWithRed:0.247f green:0.263f blue:0.271f alpha:1.00f];
         
@@ -46,18 +46,18 @@
         _messagePhone = [[UILabel alloc]init];
         [self.topContentView addSubview:_messagePhone];
         _messagePhone.font = [UIFont systemFontOfSize:14];
-        _messagePhone.text = @"13122785292";
+        _messagePhone.text = @"";
         _messagePhone.textColor = [UIColor colorWithRed:0.247f green:0.263f blue:0.271f alpha:1.00f];
         
         //
         _messageTime = [[UILabel alloc]init];
         _messageTime.numberOfLines = 0;
         [self.topContentView addSubview:_messageTime];
-        _messageTime.text = @"哈维的床垫ddddddddddddd";
+        _messageTime.text = @"";
         _messageTime.font = [UIFont systemFontOfSize:14];
         _messageTime.textColor = [UIColor colorWithRed:0.247f green:0.263f blue:0.271f alpha:1.00f];
         _selectImageView = [[UIImageView alloc]init];
-        _selectImageView.image = [UIImage imageNamed:@"ic_dot_1"];
+        _selectImageView.image = [UIImage imageNamed:@"choose"];
         [self.topContentView addSubview:_selectImageView];
         _selectImageView.hidden = YES;
         
@@ -92,11 +92,10 @@
         }];
         //
         [_messageTime makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.topContentView).offset(-30);
-            make.top.equalTo(_messageName.bottom).offset(5);
-            make.bottom.equalTo(self.topContentView.bottom).offset(-10);
-            make.left.equalTo(_messagePhone.right).offset(0);
+            make.right.equalTo(self.topContentView.right).offset(-30);
+            make.left.equalTo(_messagePhone.right).offset(10);
             make.centerY.equalTo(_messageName.centerY);
+            make.height.equalTo(30);
             
         }];
         

@@ -20,10 +20,15 @@
 
 @property (nonatomic, strong) id <CustomMessageProtocol> delegate;
 
-
+@property (nonatomic, strong) UIButton *messageAccepteButton;
+@property (nonatomic, strong) UIButton *messageRefuseButton;
+@property (nonatomic, strong) UIImageView *statusImageView;
+//
 @property (nonatomic ,strong) NSString *cellUserName;
 @property (nonatomic ,strong) NSString *cellUserPhone;
 @property (nonatomic ,strong) NSString *cellUserIcon;
 @property (nonatomic ,strong) NSString *cellRequreTime;
+@property (nonatomic ,strong) NSString *messageShowString;
+@property (nonatomic, strong) UIColor *cellDataColor;
 
 @end

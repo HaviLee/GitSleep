@@ -426,6 +426,10 @@
 		2C7D23291AF1CA5C0011A45C /* leave3_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D23241AF1CA5C0011A45C /* leave3_0.png */; };
 		2C7D232A1AF1CA5C0011A45C /* leave4_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D23251AF1CA5C0011A45C /* leave4_0.png */; };
 		2C7D232B1AF1CA5C0011A45C /* leave5_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D23261AF1CA5C0011A45C /* leave5_0.png */; };
+		2C7F89DD1C0EBEBB009A6834 /* choose.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89DC1C0EBEBB009A6834 /* choose.png */; };
+		2C7F89E91C0EDB09009A6834 /* accept@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89E81C0EDB09009A6834 /* accept@2x.png */; };
+		2C7F89EB1C0EDC2E009A6834 /* apply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89EA1C0EDC2E009A6834 /* apply@2x.png */; };
+		2C7F89ED1C0EDC33009A6834 /* refuse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89EC1C0EDC33009A6834 /* refuse@2x.png */; };
 		2C8C627F1AB590CC00CF4C19 /* APPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C627E1AB590CC00CF4C19 /* APPSettingViewController.m */; };
 		2C8C62821AB5B0D100CF4C19 /* ModifyPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C62811AB5B0D100CF4C19 /* ModifyPassWordViewController.m */; };
 		2C8C628F1AB5B8A200CF4C19 /* digitCell.psd in Resources */ = {isa = PBXBuildFile; fileRef = 2C8C62851AB5B8A200CF4C19 /* digitCell.psd */; };
@@ -1246,6 +1250,10 @@
 		2C7D23241AF1CA5C0011A45C /* leave3_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leave3_0.png; path = "color0/gif/体动/leave3_0.png"; sourceTree = "<group>"; };
 		2C7D23251AF1CA5C0011A45C /* leave4_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leave4_0.png; path = "color0/gif/体动/leave4_0.png"; sourceTree = "<group>"; };
 		2C7D23261AF1CA5C0011A45C /* leave5_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leave5_0.png; path = "color0/gif/体动/leave5_0.png"; sourceTree = "<group>"; };
+		2C7F89DC1C0EBEBB009A6834 /* choose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choose.png; sourceTree = "<group>"; };
+		2C7F89E81C0EDB09009A6834 /* accept@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accept@2x.png"; sourceTree = "<group>"; };
+		2C7F89EA1C0EDC2E009A6834 /* apply@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apply@2x.png"; sourceTree = "<group>"; };
+		2C7F89EC1C0EDC33009A6834 /* refuse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refuse@2x.png"; sourceTree = "<group>"; };
 		2C8C627D1AB590CC00CF4C19 /* APPSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APPSettingViewController.h; path = controller/APPSettingViewController.h; sourceTree = "<group>"; };
 		2C8C627E1AB590CC00CF4C19 /* APPSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APPSettingViewController.m; path = controller/APPSettingViewController.m; sourceTree = "<group>"; };
 		2C8C62801AB5B0D100CF4C19 /* ModifyPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPassWordViewController.h; sourceTree = "<group>"; };
@@ -2029,6 +2037,10 @@
 				2C2C96071BF98AD900CF366F /* navi_bg_center_1@2x.png */,
 				2C2C96081BF98AD900CF366F /* navi_pg_night_0@2x.png */,
 				2C5349281BF9B5AA00A66287 /* btn_ellipse@2x.png */,
+				2C7F89DC1C0EBEBB009A6834 /* choose.png */,
+				2C7F89E81C0EDB09009A6834 /* accept@2x.png */,
+				2C7F89EA1C0EDC2E009A6834 /* apply@2x.png */,
+				2C7F89EC1C0EDC33009A6834 /* refuse@2x.png */,
 			);
 			name = SLPagingView;
 			path = lib/SLPagingView;
@@ -3533,6 +3545,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C7F89EB1C0EDC2E009A6834 /* apply@2x.png in Resources */,
 				2C7D22DE1AF1CA050011A45C /* pic_sleep_0@2x.png in Resources */,
 				2C15E6F21AF214E800142F36 /* bg_menology_1@2x.png in Resources */,
 				2C7D22241AF1C9F70011A45C /* pic_off_line_0@2x.png in Resources */,
@@ -3581,6 +3594,7 @@
 				2C8C62951AB5B8A200CF4C19 /* papasscode_marker.png in Resources */,
 				57C723F11AF71906006BE7D0 /* scan_line@2x.png in Resources */,
 				2C7D220A1AF1C6550011A45C /* wireframe.png in Resources */,
+				2C7F89E91C0EDB09009A6834 /* accept@2x.png in Resources */,
 				2C7D22C31AF1CA050011A45C /* line_diagnose_0@2x.png in Resources */,
 				2C7D23001AF1CA220011A45C /* heart_5_0.png in Resources */,
 				2C73197E1B746567005A3EE4 /* sleep_analysis_textbox_0.png in Resources */,
@@ -3677,6 +3691,7 @@
 				2C7D22A31AF1CA050011A45C /* btn_share_0@2x.png in Resources */,
 				2C15E7651AF2150900142F36 /* breathe1_1@2x.png in Resources */,
 				2C15E6F31AF214E800142F36 /* bg_two-dimension_code_1@2x.png in Resources */,
+				2C7F89DD1C0EBEBB009A6834 /* choose.png in Resources */,
 				2CDE55421BAE64A90017C5DE /* qqzone.png in Resources */,
 				2C15E7041AF214E800142F36 /* btn_over_1@2x.png in Resources */,
 				2C15E70D1AF214E800142F36 /* emergency_contact_1@2x.png in Resources */,
@@ -3739,6 +3754,7 @@
 				2C7D22DF1AF1CA050011A45C /* qr_code_0@2x.png in Resources */,
 				2C7D229F1AF1CA050011A45C /* btn_number_to_add_0@2x.png in Resources */,
 				2C15E7451AF214E800142F36 /* tel_1@2x.png in Resources */,
+				2C7F89ED1C0EDC33009A6834 /* refuse@2x.png in Resources */,
 				2C15E77A1AF2151500142F36 /* get_up5_1@2x.png in Resources */,
 				2C15E7421AF214E800142F36 /* quarter_1@2x.png in Resources */,
 				57C723F31AF71920006BE7D0 /* scan_line@3x.png in Resources */,

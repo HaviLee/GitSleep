@@ -142,10 +142,40 @@
         cell.cellUserName = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"UserName"];
     }
     cell.delegate = self;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.cellRequreTime = [[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"RequestDate"]substringToIndex:16];
-    cell.cellUserPhone = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"CellPhone"];
-    cell.backgroundColor = [UIColor colorWithRed:0.859f green:0.867f blue:0.878f alpha:1.00f];
+    if ([[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"StatusCode"] intValue]==1) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.cellRequreTime = [[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"RequestDate"]substringToIndex:16];
+        cell.cellUserPhone = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"CellPhone"];
+        cell.messageShowString = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"Comment"];
+        cell.backgroundColor = [UIColor colorWithRed:0.859f green:0.867f blue:0.878f alpha:1.00f];
+        cell.messageAccepteButton.userInteractionEnabled = NO;
+        [cell.messageAccepteButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
+        cell.messageRefuseButton.userInteractionEnabled = NO;
+        [cell.messageRefuseButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
+        cell.statusImageView.image = [UIImage imageNamed:@"accept"];
+        cell.cellDataColor = [UIColor grayColor];
+        
+    }else if ([[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"StatusCode"] intValue]==-1){
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.cellRequreTime = [[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"RequestDate"]substringToIndex:16];
+        cell.cellUserPhone = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"CellPhone"];
+        cell.messageShowString = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"Comment"];
+        cell.backgroundColor = [UIColor colorWithRed:0.859f green:0.867f blue:0.878f alpha:1.00f];
+        cell.messageAccepteButton.userInteractionEnabled = NO;
+        [cell.messageAccepteButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
+        cell.messageRefuseButton.userInteractionEnabled = NO;
+        [cell.messageRefuseButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
+        cell.statusImageView.image = [UIImage imageNamed:@"refuse"];
+        cell.cellDataColor = [UIColor grayColor];
+    }else if([[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"StatusCode"] intValue]==0){
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.cellRequreTime = [[[_resultArr objectAtIndex:indexPath.row]objectForKey:@"RequestDate"]substringToIndex:16];
+        cell.cellUserPhone = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"CellPhone"];
+        cell.messageShowString = [[_resultArr objectAtIndex:indexPath.row]objectForKey:@"Comment"];
+        cell.backgroundColor = [UIColor colorWithRed:0.859f green:0.867f blue:0.878f alpha:1.00f];
+        cell.statusImageView.image = [UIImage imageNamed:@""];
+    }
+    
     return cell;
 }
 
@@ -157,14 +187,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.001;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row==0) {
-    }else{
-        
-    }
 }
 
 #pragma mark custom cell action
