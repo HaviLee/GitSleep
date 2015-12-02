@@ -59,6 +59,11 @@
         [MMProgressHUD dismiss];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             _resultArr = [resposeDic objectForKey:@"UserList"];
+            NSArray *sortedArray = [_resultArr sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *p1, NSDictionary *p2){
+                return [[p2 objectForKey:@"RequestDate"] compare:[p1 objectForKey:@"RequestDate"]];
+                
+            }];
+            _resultArr = sortedArray;
             [self.myDeviceListView reloadData];
             [_myDeviceListView setNeedsLayout];
         }else{

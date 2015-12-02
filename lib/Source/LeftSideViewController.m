@@ -97,9 +97,9 @@
     }];
     self.sideTableView.showsVerticalScrollIndicator = NO;
     //
-    self.sideArray = @[@[@"今日数据",@"数据分析",@"设备管理",@"睡眠设置",@"设       定",@"消       息"]];
+    self.sideArray = @[@[@"今日数据",@"数据分析",@"设备管理",@"睡眠设置",@"消       息",@"设       定"]];
 
-    self.imageArr = @[@[[NSString stringWithFormat:@"icon_todays_data_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_data_analysis_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_equipment_management_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_alarm_clock_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_setting_%d",selectedThemeIndex],[NSString stringWithFormat:@"left_message"]]];
+    self.imageArr = @[@[[NSString stringWithFormat:@"icon_todays_data_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_data_analysis_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_equipment_management_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_alarm_clock_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_message_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_setting_%d",selectedThemeIndex]]];
     //添加退出
     /*
     UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -189,7 +189,7 @@
             defaultCell.cellImageName = [[self.imageArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             defaultCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             defaultCell.selectionStyle = UITableViewCellSelectionStyleBlue;
-            if (indexPath.row==5) {
+            if (indexPath.row==4) {
                 UIBadgeView *badgeV = [UIBadgeView viewWithBadgeTip:@"1"];
                 [defaultCell addSubview:badgeV];
                 [badgeV setTag:100001];
@@ -270,19 +270,7 @@
             break;
         }
         case 4:{
-            /*
-            APPSettingViewController *user = [[APPSettingViewController alloc]init];
-            UINavigationController *navi = (UINavigationController*)self.drawerController.centerViewController;
-            [navi pushViewController:user animated:NO];
-            [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
-            }];
-             */
-            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[APPSettingViewController alloc] init]]
-                                                         animated:YES];
-            [self.sideMenuViewController hideMenuViewController];
-            break;
-        }
-        case 5:{
+            
             DefaultTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             NSArray *subViews =[cell subviews];
             for (UIView *aView in subViews) {
@@ -291,6 +279,13 @@
                 }
             }
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[MessageListViewController alloc] init]]
+                                                         animated:YES];
+            [self.sideMenuViewController hideMenuViewController];
+            break;
+        }
+        case 5:{
+            
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[APPSettingViewController alloc] init]]
                                                          animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             break;

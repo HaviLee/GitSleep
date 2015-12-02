@@ -14,12 +14,14 @@
 #import "UIView+Frame.h"
 #import "AddProductNameViewController.h"
 #import "DeviceManagerViewController.h"
+#import "MyDeviceListViewController.h"
 
 @interface DeviceListViewController ()<UISearchBarDelegate,UISearchDisplayDelegate>
 
 @property UISegmentedControl *segmentTitle;
 @property DeviceManagerViewController *myDeviceList;
 @property FriendDeviceListViewController *friendDeviceList;
+@property (nonatomic, strong) MyDeviceListViewController *myNewDeviceList;
 @property (nonatomic, strong) UIButton *rightMenuButton;
 
 
@@ -71,14 +73,14 @@
     self.segmentTitle.frame = CGRectMake(70, 30, self.view.frame.size.width-140, 25);
     [self.segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.segmentTitle];
-    _myDeviceList = [[DeviceManagerViewController alloc]init];
-    _myDeviceList.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
+    _myNewDeviceList = [[MyDeviceListViewController alloc]init];
+    _myNewDeviceList.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
     _myDeviceList.view.tag = 1001;
     _friendDeviceList = [[FriendDeviceListViewController alloc]init];
     _friendDeviceList.view.tag = 1002;
-    [self addChildViewController:_myDeviceList];
+    [self addChildViewController:_myNewDeviceList];
     [self addChildViewController:_friendDeviceList];
-    [self.view addSubview:_myDeviceList.view];
+    [self.view addSubview:_myNewDeviceList.view];
 }
 
 //选择控件的事件
@@ -94,8 +96,9 @@
             [self.rightMenuButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"plus_math"]] forState:UIControlStateNormal];
             [self.rightMenuButton removeTarget:self action:@selector(searchDevice:) forControlEvents:UIControlEventTouchUpInside];
             [self.rightMenuButton addTarget:self action:@selector(addProduct:) forControlEvents:UIControlEventTouchUpInside];
-            [self.view addSubview:_myDeviceList.view];
-            _myDeviceList.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
+            [self.view addSubview:_myNewDeviceList.view];
+            [_myNewDeviceList refreshBegining];
+            _myNewDeviceList.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
             break;
         }
         case 1: {

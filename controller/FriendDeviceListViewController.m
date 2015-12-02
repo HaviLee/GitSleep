@@ -33,27 +33,6 @@
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:_myDeviceListView];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     //测试数据
-//    self.resultArr = @[@{
-//                           @"FriendUserID": @"meddo99.com$Test-2",
-//                           @"FriendUserName": @"张*",
-//                           @"UUID": @"131227865292",
-//                           @"Description": @"床垫",
-//                           @"IsActivated": @"true"
-//                           },
-//                       @{
-//                           @"FriendUserID": @"meddo99.com$Test-2",
-//                           @"FriendUserName": @"历史",
-//                           @"UUID": @"378327865292",
-//                           @"Description": @"坐垫",
-//                           @"IsActivated": @"true"
-//                           },
-//                       @{
-//                           @"FriendUserID": @"meddo99.com$Test-2",
-//                           @"FriendUserName": @"梅西",
-//                           @"UUID": @"82367826",
-//                           @"Description": @"双人",
-//                           @"IsActivated": @"true"
-//                           }];
     
 }
 
@@ -212,7 +191,7 @@
         NSLog(@"Right Button: More Pressed");
     }];
     
-    return @[button1, button2, button3];
+    return @[button1, button2];
 }
 
 - (void)rightMostButtonSwipeCompleted:(JASwipeCell *)cell
@@ -220,14 +199,14 @@
     NSLog(@"左滑到底");
     self.selectTableViewCell = cell;
     NSIndexPath *indexPath = [self.myDeviceListView indexPathForCell:cell];
-    [self deleteFriendDevice:[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]];
+    [self deleteFriendDevice:[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"FriendUserID"]];
 }
 #pragma mark 操作设备
 
 - (void)deleteFriendDevice:(NSString *)deviceUUID
 {
     self.selectDeviceUUID = deviceUUID;
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:@"您确认删除该设备？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"注意" message:@"删除该设备将同时删除和该设备关联的用户下的所有设备" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     alertView.tag = 1001;
     [alertView show];
 }
@@ -313,13 +292,13 @@
                         [UIImage imageNamed:@"havi1_5"]];
     [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
-    NSString *urlString = [NSString stringWithFormat:@"%@v1/user/RemoveFriendDevice",BaseUrl];
+    NSString *urlString = [NSString stringWithFormat:@"%@v1/user/RemoveFriend",BaseUrl];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
     NSDictionary *para = @{
-                           @"UserID":thirdPartyLoginUserId,
-                           @"UUID": deviceUUID,
+                           @"RequestUserId":thirdPartyLoginUserId,
+                           @"ResponseUserId": deviceUUID,
                            };
     [WTRequestCenter putWithURL:urlString header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
