@@ -93,6 +93,7 @@
 - (void)loginSuccessAndQueryData:(NSNotification *)noti
 {
     [self getAllDeviceList];
+    [self setControllerBackGroundImage];
 }
 
 #pragma mark 获取用户数据

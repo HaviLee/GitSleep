@@ -225,7 +225,7 @@
     [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-    
+        HaviLog(@"请求列表是%@",resposeDic);
         [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
         [MMProgressHUD dismiss];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
@@ -374,6 +374,7 @@
     [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
     [WTRequestCenter postWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [self.searchTableView makeToast:@"申请成功" duration:2 position:@"center" ];
         }

@@ -33,27 +33,27 @@
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:_myDeviceListView];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     //测试数据
-    self.resultArr = @[@{
-                           @"FriendUserID": @"meddo99.com$Test-2",
-                           @"FriendUserName": @"张*",
-                           @"UUID": @"131227865292",
-                           @"Description": @"床垫",
-                           @"IsActivated": @"true"
-                           },
-                       @{
-                           @"FriendUserID": @"meddo99.com$Test-2",
-                           @"FriendUserName": @"历史",
-                           @"UUID": @"378327865292",
-                           @"Description": @"坐垫",
-                           @"IsActivated": @"true"
-                           },
-                       @{
-                           @"FriendUserID": @"meddo99.com$Test-2",
-                           @"FriendUserName": @"梅西",
-                           @"UUID": @"82367826",
-                           @"Description": @"双人",
-                           @"IsActivated": @"true"
-                           }];
+//    self.resultArr = @[@{
+//                           @"FriendUserID": @"meddo99.com$Test-2",
+//                           @"FriendUserName": @"张*",
+//                           @"UUID": @"131227865292",
+//                           @"Description": @"床垫",
+//                           @"IsActivated": @"true"
+//                           },
+//                       @{
+//                           @"FriendUserID": @"meddo99.com$Test-2",
+//                           @"FriendUserName": @"历史",
+//                           @"UUID": @"378327865292",
+//                           @"Description": @"坐垫",
+//                           @"IsActivated": @"true"
+//                           },
+//                       @{
+//                           @"FriendUserID": @"meddo99.com$Test-2",
+//                           @"FriendUserName": @"梅西",
+//                           @"UUID": @"82367826",
+//                           @"Description": @"双人",
+//                           @"IsActivated": @"true"
+//                           }];
     
 }
 
@@ -92,7 +92,7 @@
         [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
         [MMProgressHUD dismiss];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-//            self.resultArr = [resposeDic objectForKey:@"UserList"];
+            self.resultArr = [resposeDic objectForKey:@"UserList"];
             [self.myDeviceListView reloadData];
             [_myDeviceListView setNeedsLayout];
         }else{
