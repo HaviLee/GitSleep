@@ -20,6 +20,7 @@ NSDate *selectedDateToUse = nil;
 BOOL DeviceStatus = NO;
 BOOL isThirdLogin = NO;
 BOOL isSixteenTime = NO;
+BOOL isDoubleDevice = NO;
 NSData *user_Register_Data = nil;
 
 BOOL isUserDefaultTime = NO;

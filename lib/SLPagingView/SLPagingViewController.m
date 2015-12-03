@@ -92,6 +92,12 @@
     return self;
 }
 
+//增加单独的一个view
+- (void)addSubViews:(NSArray*)views andItems:(NSArray*)items
+{
+    
+}
+
 #pragma mark - constructors with controllers
 
 -(id)initWithNavBarControllers:(NSArray *)controllers{
@@ -215,8 +221,8 @@
 
 -(void)dealloc{
     // Remove Observers
-    [[NSNotificationCenter defaultCenter]removeObserver:self
-                                             forKeyPath:UIDeviceOrientationDidChangeNotification];
+//    [[NSNotificationCenter defaultCenter]removeObserver:self
+//                                             forKeyPath:UIDeviceOrientationDidChangeNotification];
     // Close relationships
     _didChangedPage           = nil;
     _pagingViewMoving         = nil;

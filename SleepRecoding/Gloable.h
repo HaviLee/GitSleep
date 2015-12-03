@@ -18,6 +18,8 @@ extern  NSString *HardWareIP;
 
 extern BOOL isThirdLogin;
 
+extern BOOL isDoubleDevice;
+
 extern BOOL DeviceStatus;
 extern BOOL isSixteenTime;
 //

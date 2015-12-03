@@ -55,7 +55,7 @@
 @property (nonatomic, strong) UIButton *rightIWantSleepLabel;
 
 @property (nonatomic, strong) NSString *leftDeviceShowName;
-
+@property (nonatomic, strong) UINavigationController *containerNavi;
 
 
 //
@@ -75,10 +75,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setPageViewController];
+    [self setContainerNavigationAndBackImage];
     [self initDatePicker];
-    [self setControllerBackGroundImage];
     [self setNotifationList];
+    //前三个和UUID无关可以先加载
+    /*
+     关于该界面的逻辑思路
+     1，首先判断DeviceUUID是不是为空，为空进行请求，否则
+     2，判断UUID是单人还是双人的，并获取相应UUID名称
+     3，请求数据
+     */
+}
+
+- (void)setContainerNavigationAndBackImage
+{
+    if (selectedThemeIndex == 0) {
+        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
+    }else{
+        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
+    }
+    _containerNavi = [[UINavigationController alloc]init];
+    [self addChildViewController:_containerNavi];
+    _containerNavi.navigationBarHidden = YES;
+    [self.view addSubview:_containerNavi.view];
+    CGRect rect = self.view.frame;
+    int datePickerHeight = self.view.frame.size.height*0.202623;
+    rect.size.height = rect.size.height- datePickerHeight;
+    [_containerNavi.view setFrame:rect];
 }
 
 #pragma mark 创建消息监听
@@ -96,7 +119,7 @@
 {
     [self getDeviceInfoWithUUID:thirdHardDeviceUUID];
 }
-
+#pragma mark 进行获取设备信息
 - (void)getDeviceInfoWithUUID:(NSString *)deviceUUID
 {
     NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",deviceUUID];
@@ -107,33 +130,34 @@
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
-        NSArray *childArr = [self childViewControllers];
+        NSArray *childArr = [_containerNavi childViewControllers];
         for (UIViewController *navi in childArr) {
-            if ([navi isKindOfClass:[UINavigationController class]]) {
-                [[NSNotificationCenter defaultCenter]removeObserver:self name:CHANGEDEVICEUUID object:nil];
-                [[NSNotificationCenter defaultCenter]removeObserver:self name:LoginSuccessedNoti object:nil];
+            if ([navi isKindOfClass:[SLPagingViewController class]]) {
                 [navi removeFromParentViewController];
             }
         }
+        if ([[[resposeDic objectForKey:@"SensorInfo"]objectForKey:@"DetailSensorInfo"] count]>1) {
+            isDoubleDevice = YES;
+        }else{
+            isDoubleDevice = NO;
+        }
         //
-        [self setPageViewController];
-        [MMProgressHUD dismiss];
+        [self setPageViewControllerWithDic:[resposeDic objectForKey:@"SensorInfo"]];
+        [self setController];
+        
         
     } failed:^(NSURLResponse *response, NSError *error) {
-        
+        [MMProgressHUD dismiss];
     }];
 }
-
+//这个是在登录成功之后进行调用，无论你是首次注册还是说自动登录
 - (void)loginSuccessAndQueryData:(NSNotification *)noti
 {
-    
-    [self setControllerBackGroundImage];
+    //thirdHardDeviceUUID是从plist文件进行读取的。判断是不是为空
     if (thirdHardDeviceUUID.length==0) {
-        [self getAllDeviceList];
+        [self getAllDeviceList];//获取
     }else{
-        NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
-        [self getTodaySleepQualityData:newString];
+        [self getDeviceInfoWithUUID:thirdHardDeviceUUID];
     }
 }
 
@@ -185,8 +209,8 @@
             }
             if (![thirdHardDeviceUUID isEqualToString:@""]) {
                 //
-                [self setPageViewController];
-                [self setControllerBackGroundImage];
+                [self setPageViewControllerWithDic:nil];
+                [self setController];
                 NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
                 NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
                 [self getTodaySleepQualityData:newString];
@@ -412,28 +436,23 @@
     
 }
 
-- (void)setControllerBackGroundImage
+- (void)setController
 {
     if (thirdHardDeviceUUID.length>0) {
-        if ([[thirdHardDeviceUUID substringToIndex:3]isEqualToString:@"845"]) {
+        if (isDoubleDevice) {
             self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
         }else{
-            
             self.subPageViewArr = @[self.doubleHeartView,self.doubleBreathView,self.doubleLeaveView,self.doubleTurnView];
         }
-        if (selectedThemeIndex == 0) {
-            self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
-        }else{
-            self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
-        }
+        
     }
     
 }
 
-- (void)setPageViewController
+- (void)setPageViewControllerWithDic:(NSArray*)deviceArr
 {
     if (thirdHardDeviceUUID.length>0) {
-        if ([[thirdHardDeviceUUID substringToIndex:3]isEqualToString:@"ACC"]) {
+        if (isDoubleDevice) {
             UILabel *navTitleLabel1 = [UILabel new];
             navTitleLabel1.text = @"梧桐植树";
             navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
@@ -481,14 +500,8 @@
             pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
             [pageViewController.navigationBarView addSubview:self.leftMenuButton];
             [pageViewController.navigationBarView addSubview:self.rightMenuButton];
-            UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
-            [self addChildViewController:navi];
-            navi.navigationBarHidden = YES;
-            [self.view addSubview:navi.view];
-            CGRect rect = self.view.frame;
-            int datePickerHeight = self.view.frame.size.height*0.202623;
-            rect.size.height = rect.size.height- datePickerHeight;
-            [navi.view setFrame:rect];
+            [_containerNavi setViewControllers:@[pageViewController]];
+            
         }else{
             UILabel *navTitleLabel1 = [UILabel new];
             navTitleLabel1.text = thirdHardDeviceName;
@@ -532,15 +545,12 @@
             pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
             [pageViewController.navigationBarView addSubview:self.leftMenuButton];
             [pageViewController.navigationBarView addSubview:self.rightMenuButton];
-            UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
-            [self addChildViewController:navi];
-            navi.navigationBarHidden = YES;
-            [self.view addSubview:navi.view];
-            CGRect rect = self.view.frame;
-            int datePickerHeight = self.view.frame.size.height*0.202623;
-            rect.size.height = rect.size.height- datePickerHeight;
-            [navi.view setFrame:rect];
+            [_containerNavi setViewControllers:@[pageViewController]];
         }
+        NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+        [self getTodaySleepQualityData:newString];
+
     }else{
         UILabel *navTitleLabel1 = [UILabel new];
         navTitleLabel1.text = @"";
@@ -584,14 +594,7 @@
         pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
         [pageViewController.navigationBarView addSubview:self.leftMenuButton];
         [pageViewController.navigationBarView addSubview:self.rightMenuButton];
-        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
-        [self addChildViewController:navi];
-        navi.navigationBarHidden = YES;
-        [self.view addSubview:navi.view];
-        CGRect rect = self.view.frame;
-        int datePickerHeight = self.view.frame.size.height*0.202623;
-        rect.size.height = rect.size.height- datePickerHeight;
-        [navi.view setFrame:rect];
+        [_containerNavi setViewControllers:@[pageViewController]];
     }
     
     // Do any additional setup after loading the view.

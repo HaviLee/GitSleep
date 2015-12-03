@@ -218,6 +218,9 @@ typedef void(^SLPagingViewDidChanged)(NSInteger currentPage);
  *
  *  @param color
  */
+//增加单独的一个view
+- (void)addSubViews:(NSArray*)views andItems:(NSArray*)items;
+
 -(void)setNavigationBarColor:(UIColor*) color;
 
 @end
