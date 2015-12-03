@@ -1021,7 +1021,7 @@
         notification.repeatInterval= kCFCalendarUnitDay;//循环次数，kCFCalendarUnitWeekday一周一次
         notification.timeZone=[NSTimeZone defaultTimeZone];
         //        notification.applicationIconBadgeNumber=0; //应用的红色数字
-        notification.soundName = @"user3.wav";
+        notification.soundName = @"alert.mp3";
         NSString *noteAlert = [NSString stringWithFormat:@"您有一个起床闹钟"] ;//提示信息 弹出提示框
         notification.alertBody= noteAlert;//提示信息 弹出提示框
         notification.alertAction = @"打开";  //提示框按钮

@@ -436,6 +436,9 @@
 		2C7F89F71C0EE918009A6834 /* icon_solo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89F61C0EE918009A6834 /* icon_solo.png */; };
 		2C7F89F91C0EF946009A6834 /* icon_message_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89F81C0EF946009A6834 /* icon_message_0.png */; };
 		2C7F89FB1C0EF94C009A6834 /* icon_message_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89FA1C0EF94C009A6834 /* icon_message_1.png */; };
+		2C7F89FD1C10254D009A6834 /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89FC1C10254D009A6834 /* alert.mp3 */; };
+		2C7F8A001C102BF8009A6834 /* DoubleLeaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7F89FF1C102BF8009A6834 /* DoubleLeaveViewController.m */; };
+		2C7F8A031C102C08009A6834 /* DoubleTurnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7F8A021C102C08009A6834 /* DoubleTurnViewController.m */; };
 		2C8C627F1AB590CC00CF4C19 /* APPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C627E1AB590CC00CF4C19 /* APPSettingViewController.m */; };
 		2C8C62821AB5B0D100CF4C19 /* ModifyPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C62811AB5B0D100CF4C19 /* ModifyPassWordViewController.m */; };
 		2C8C628F1AB5B8A200CF4C19 /* digitCell.psd in Resources */ = {isa = PBXBuildFile; fileRef = 2C8C62851AB5B8A200CF4C19 /* digitCell.psd */; };
@@ -1268,6 +1271,11 @@
 		2C7F89F61C0EE918009A6834 /* icon_solo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_solo.png; sourceTree = "<group>"; };
 		2C7F89F81C0EF946009A6834 /* icon_message_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_message_0.png; sourceTree = "<group>"; };
 		2C7F89FA1C0EF94C009A6834 /* icon_message_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_message_1.png; sourceTree = "<group>"; };
+		2C7F89FC1C10254D009A6834 /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
+		2C7F89FE1C102BF8009A6834 /* DoubleLeaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleLeaveViewController.h; path = controller/DoubleLeaveViewController.h; sourceTree = "<group>"; };
+		2C7F89FF1C102BF8009A6834 /* DoubleLeaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleLeaveViewController.m; path = controller/DoubleLeaveViewController.m; sourceTree = "<group>"; };
+		2C7F8A011C102C08009A6834 /* DoubleTurnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleTurnViewController.h; path = controller/DoubleTurnViewController.h; sourceTree = "<group>"; };
+		2C7F8A021C102C08009A6834 /* DoubleTurnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleTurnViewController.m; path = controller/DoubleTurnViewController.m; sourceTree = "<group>"; };
 		2C8C627D1AB590CC00CF4C19 /* APPSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APPSettingViewController.h; path = controller/APPSettingViewController.h; sourceTree = "<group>"; };
 		2C8C627E1AB590CC00CF4C19 /* APPSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APPSettingViewController.m; path = controller/APPSettingViewController.m; sourceTree = "<group>"; };
 		2C8C62801AB5B0D100CF4C19 /* ModifyPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPassWordViewController.h; sourceTree = "<group>"; };
@@ -2242,6 +2250,7 @@
 				57D7A18A1AB972FA00797059 /* Definetions.h */,
 				2C0EBE311AF0C13000F2D2F7 /* user3.wav */,
 				2C94FA261B8DB42100F1A4DB /* Button29.wav */,
+				2C7F89FC1C10254D009A6834 /* alert.mp3 */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2764,6 +2773,10 @@
 				2CCE23241BFB134B00046EF7 /* DoubleHeartViewController.m */,
 				2CCE23261BFB135D00046EF7 /* DoubleBreathViewController.h */,
 				2CCE23271BFB135D00046EF7 /* DoubleBreathViewController.m */,
+				2C7F89FE1C102BF8009A6834 /* DoubleLeaveViewController.h */,
+				2C7F89FF1C102BF8009A6834 /* DoubleLeaveViewController.m */,
+				2C7F8A011C102C08009A6834 /* DoubleTurnViewController.h */,
+				2C7F8A021C102C08009A6834 /* DoubleTurnViewController.m */,
 				2CCD55411BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.h */,
 				2CCD55421BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m */,
 				2CCD55491BFC6689004A76B2 /* DoubleReportTableViewCell.h */,
@@ -3744,6 +3757,7 @@
 				2C7D22C61AF1CA050011A45C /* line_side_face_0@2x.png in Resources */,
 				2C15E7111AF214E800142F36 /* home_1@2x.png in Resources */,
 				2C15E7181AF214E800142F36 /* icon_fatal_exception_1@2x.png in Resources */,
+				2C7F89FD1C10254D009A6834 /* alert.mp3 in Resources */,
 				2C7D22D11AF1CA050011A45C /* pic_bg_night_0@2x.png in Resources */,
 				2C91A68B1B9D76E20039EEAB /* btn_textbox_1.png in Resources */,
 				2C3AF2CD1AF470C800B66E32 /* btn_down_two.png in Resources */,
@@ -4189,6 +4203,7 @@
 				2CC8E7F61B972DFB00F69ABE /* SencondTurnViewController.m in Sources */,
 				2CD6C0481B7B342B00F1FF6A /* GetTagListAPI.m in Sources */,
 				2CDB86881BABCD4F00551192 /* ReportTableViewCell.m in Sources */,
+				2C7F8A001C102BF8009A6834 /* DoubleLeaveViewController.m in Sources */,
 				576451781AC63C24008E3526 /* SelectThemeViewController.m in Sources */,
 				57802E271AE7398200823E39 /* HaviGetNewClient.m in Sources */,
 				57D4C0071ABAC5520026A559 /* OTCover.m in Sources */,
@@ -4302,6 +4317,7 @@
 				2C3AF2B41AF461DC00B66E32 /* TodayDataViewController.m in Sources */,
 				2C1F1FE71ADBF38F00393E04 /* NSDate+WQCalendarLogic.m in Sources */,
 				57802E2A1AE7398200823E39 /* SHPostClient.m in Sources */,
+				2C7F8A031C102C08009A6834 /* DoubleTurnViewController.m in Sources */,
 				2CDB86AE1BABE66800551192 /* FBShimmeringView.m in Sources */,
 				2C3AF2B11AF4611E00B66E32 /* NKJPagerViewController.m in Sources */,
 				2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */,

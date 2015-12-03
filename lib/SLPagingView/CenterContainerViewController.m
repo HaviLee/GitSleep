@@ -25,10 +25,12 @@
 #import "UploadTagAPI.h"
 
 //
-#import "DoubleLeaveContainerViewController.h"
-#import "DoubleTurnContainerViewController.h"
+//#import "DoubleLeaveContainerViewController.h"
+//#import "DoubleTurnContainerViewController.h"
 #import "DoubleHeartViewController.h"
 #import "DoubleBreathViewController.h"
+#import "DoubleLeaveViewController.h"
+#import "DoubleTurnViewController.h"
 
 @interface CenterContainerViewController ()<SetScrollDateDelegate>
 
@@ -64,8 +66,8 @@
 @property (nonatomic, strong) NewSecondBreathViewController *secondBreathView;
 @property (nonatomic, strong) NewSecondHeartViewController *secondHeartView;
 //
-@property (nonatomic, strong) DoubleLeaveContainerViewController *doubleLeaveView;
-@property (nonatomic, strong) DoubleTurnContainerViewController *doubleTurnView;
+@property (nonatomic, strong) DoubleLeaveViewController *doubleLeaveView;
+@property (nonatomic, strong) DoubleTurnViewController *doubleTurnView;
 @property (nonatomic, strong) DoubleHeartViewController *doubleHeartView;
 @property (nonatomic, strong) DoubleBreathViewController *doubleBreathView;
 
@@ -87,6 +89,7 @@
      */
     //这个是在UUID不为空的情况下
     [self checkDeviceInfo];
+    [self setPageViewControllerWithDic:nil];
 }
 
 - (void)checkDeviceInfo
@@ -646,18 +649,18 @@
     return _doubleBreathView;
 }
 
-- (DoubleLeaveContainerViewController *)doubleLeaveView
+- (DoubleLeaveViewController *)doubleLeaveView
 {
     if (!_doubleLeaveView) {
-        _doubleLeaveView = [[DoubleLeaveContainerViewController alloc]init];
+        _doubleLeaveView = [[DoubleLeaveViewController alloc]init];
     }
     return _doubleLeaveView;
 }
 
-- (DoubleTurnContainerViewController *)doubleTurnView
+- (DoubleTurnViewController *)doubleTurnView
 {
     if (!_doubleTurnView) {
-        _doubleTurnView = [[DoubleTurnContainerViewController alloc]init];
+        _doubleTurnView = [[DoubleTurnViewController alloc]init];
     }
     return _doubleTurnView;
 }
