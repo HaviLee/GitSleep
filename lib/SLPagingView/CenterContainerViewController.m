@@ -85,6 +85,15 @@
      2，判断UUID是单人还是双人的，并获取相应UUID名称
      3，请求数据
      */
+    //这个是在UUID不为空的情况下
+    [self checkDeviceInfo];
+}
+
+- (void)checkDeviceInfo
+{
+    if (thirdHardDeviceUUID.length>0) {
+        [self getDeviceInfoWithUUID:thirdHardDeviceUUID];
+    }
 }
 
 - (void)setContainerNavigationAndBackImage
@@ -156,8 +165,6 @@
     //thirdHardDeviceUUID是从plist文件进行读取的。判断是不是为空
     if (thirdHardDeviceUUID.length==0) {
         [self getAllDeviceList];//获取
-    }else{
-        [self getDeviceInfoWithUUID:thirdHardDeviceUUID];
     }
 }
 
@@ -181,7 +188,6 @@
                 thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
                 thirdHardDeviceName = [dic objectForKey:@"Description"];
                 [UserManager setGlobalOauth];
-                HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,thirdHardDeviceUUID);
                 break;
             }
         }
@@ -193,7 +199,7 @@
                                  };
         [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
             NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            HaviLog(@"用户%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
+            HaviLog(@"朋友%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
             [MMProgressHUD dismiss];
             NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
             for (NSDictionary *dic in arr) {
@@ -203,10 +209,11 @@
                     self.clearNaviTitleLabel.text = thirdHardDeviceName;
                     self.leftDeviceShowName = [dic objectForKey:@"Description"];
                     [UserManager setGlobalOauth];
-                    HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,thirdHardDeviceUUID);
+                    
                     break;
                 }
             }
+            HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,thirdHardDeviceUUID);
             if (![thirdHardDeviceUUID isEqualToString:@""]) {
                 //
                 [self setPageViewControllerWithDic:nil];
