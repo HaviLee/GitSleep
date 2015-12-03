@@ -285,7 +285,6 @@
     NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
     NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
     urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,thirdPartyLoginUserId,newString,nowDateString];
-//    self.tagFromDateAndEndDate = urlString;
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -326,7 +325,7 @@
 
 - (void)refreshViewWithSleepData:(NSDictionary *)sleepDic
 {
-    
+    //左侧床垫数据
     self.leftTableData = @[
                          [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageHeartRate"]intValue]],
                          [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageRespiratoryRate"]intValue]],
@@ -334,15 +333,7 @@
                          [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
                          ];
     [self.leftTableView reloadData];
-    //
-    self.rightTableData = @[
-                           [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageHeartRate"]intValue]],
-                           [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageRespiratoryRate"]intValue]],
-                           [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"OutOfBedTimes"]intValue]],
-                           [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
-                           ];
-    [self.rightTableView reloadData];
-    //
+    
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[sleepDic objectForKey:@"Data"]];
     NSString *selectString = [NSString stringWithFormat:@"%@",selectedDateToUse];
     NSString *subString = [selectString substringToIndex:10];
@@ -391,7 +382,17 @@
     {
         [self.leftEndView removeFromSuperview];
     }
+
     //
+    self.rightTableData = @[
+                           [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageHeartRate"]intValue]],
+                           [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageRespiratoryRate"]intValue]],
+                           [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"OutOfBedTimes"]intValue]],
+                           [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
+                           ];
+    [self.rightTableView reloadData];
+    //
+        //
     NSMutableArray *arrR = [NSMutableArray arrayWithArray:[sleepDic objectForKey:@"Data"]];
     NSString *selectStringR = [NSString stringWithFormat:@"%@",selectedDateToUse];
     NSString *subStringR = [selectStringR substringToIndex:10];
@@ -446,7 +447,7 @@
 - (void)setController
 {
     if (thirdHardDeviceUUID.length>0) {
-        if (isDoubleDevice) {
+        if (!isDoubleDevice) {
             self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
         }else{
             self.subPageViewArr = @[self.doubleHeartView,self.doubleBreathView,self.doubleLeaveView,self.doubleTurnView];
