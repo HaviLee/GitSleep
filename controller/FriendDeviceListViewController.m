@@ -165,6 +165,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self reActiveFriendDevice:indexPath];
+    thirdHardDeviceUUID = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"UUID"];
+    thirdHardDeviceName = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"Description"];
+    [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICEUUID object:nil];
+    [UserManager setGlobalOauth];
 }
 
 //
@@ -184,14 +188,18 @@
         [weakSelf renameFriendDevice:indexPath];
         NSLog(@"Right Button: Flag Pressed");
     }];
-    JAActionButton *button3 = [JAActionButton actionButtonWithTitle:@"重激活" color:kMoreButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
-        weakSelf.selectTableViewCell = cell;
-        NSIndexPath *indexPath = [weakSelf.myDeviceListView indexPathForCell:cell];
-        [weakSelf reActiveFriendDevice:indexPath];
-        NSLog(@"Right Button: More Pressed");
-    }];
+//    JAActionButton *button3 = [JAActionButton actionButtonWithTitle:@"重激活" color:kMoreButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
+//        weakSelf.selectTableViewCell = cell;
+//        NSIndexPath *indexPath = [weakSelf.myDeviceListView indexPathForCell:cell];
+//        [weakSelf reActiveFriendDevice:indexPath];
+//        NSLog(@"Right Button: More Pressed");
+//    }];
     
     return @[button1, button2];
+}
+
+- (void)leftMostButtonSwipeCompleted:(JASwipeCell *)cell
+{
 }
 
 - (void)rightMostButtonSwipeCompleted:(JASwipeCell *)cell

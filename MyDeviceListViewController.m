@@ -133,6 +133,9 @@
     [tableView reloadData];
     [self changeUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]];
     thirdHardDeviceUUID = [[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"];
+    thirdHardDeviceName = [[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"Description"];
+    [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICEUUID object:nil];
+    [UserManager setGlobalOauth];
     /*
      切换uuid
      */
@@ -205,6 +208,11 @@
     }];
     
     return @[button1, button2, button3];
+}
+
+- (void)leftMostButtonSwipeCompleted:(JASwipeCell *)cell
+{
+    
 }
 
 - (void)rightMostButtonSwipeCompleted:(JASwipeCell *)cell

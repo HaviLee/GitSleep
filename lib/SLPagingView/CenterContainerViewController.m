@@ -57,6 +57,7 @@
 @property (nonatomic, strong) NSString *leftDeviceShowName;
 
 
+
 //
 @property (nonatomic, strong) SencondLeaveViewController *sendLeaveView;
 @property (nonatomic, strong) SencondTurnViewController *sendTurnView;
@@ -86,9 +87,42 @@
 {
     //监听登录成功
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessAndQueryData:) name:LoginSuccessedNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changedDeviceUUID:) name:CHANGEDEVICEUUID object:nil];
 }
 
 #pragma mark 消息监听方法
+
+- (void)changedDeviceUUID:(NSNotification *)noti
+{
+    [self getDeviceInfoWithUUID:thirdHardDeviceUUID];
+}
+
+- (void)getDeviceInfoWithUUID:(NSString *)deviceUUID
+{
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",deviceUUID];
+    
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
+        NSArray *childArr = [self childViewControllers];
+        for (UIViewController *navi in childArr) {
+            if ([navi isKindOfClass:[UINavigationController class]]) {
+                [[NSNotificationCenter defaultCenter]removeObserver:self name:CHANGEDEVICEUUID object:nil];
+                [[NSNotificationCenter defaultCenter]removeObserver:self name:LoginSuccessedNoti object:nil];
+                [navi removeFromParentViewController];
+            }
+        }
+        //
+        [self setPageViewController];
+        [MMProgressHUD dismiss];
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
+    }];
+}
 
 - (void)loginSuccessAndQueryData:(NSNotification *)noti
 {
@@ -122,8 +156,6 @@
             if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
                 thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
                 thirdHardDeviceName = [dic objectForKey:@"Description"];
-                self.clearNaviTitleLabel.text = thirdHardDeviceName;
-                self.leftDeviceShowName = [dic objectForKey:@"Description"];
                 [UserManager setGlobalOauth];
                 HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,thirdHardDeviceUUID);
                 break;
@@ -459,7 +491,7 @@
             [navi.view setFrame:rect];
         }else{
             UILabel *navTitleLabel1 = [UILabel new];
-            navTitleLabel1.text = @"梧桐植树";
+            navTitleLabel1.text = thirdHardDeviceName;
             navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
             navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
             
@@ -1316,6 +1348,7 @@
     }
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
