@@ -451,9 +451,10 @@
 {
     if (thirdHardDeviceUUID.length>0) {
         if (!isDoubleDevice) {
-            self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
-        }else{
+            
             self.subPageViewArr = @[self.doubleHeartView,self.doubleBreathView,self.doubleLeaveView,self.doubleTurnView];
+        }else{
+            self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
         }
         
     }

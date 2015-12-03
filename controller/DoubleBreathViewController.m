@@ -10,15 +10,15 @@
 #import "ReportTableViewCell.h"
 #import "DoubleShowChartTableViewCell.h"
 #import "SleepTimeTagView.h"
-#import "GetHeartDataAPI.h"
+#import "GetBreathDataAPI.h"
 #import "GetHeartSleepDataAPI.h"
-#import "NewHeartGrapheView.h"
 #import "DoubleFloatLayerView.h"
 #import "GetExceptionAPI.h"
 #import "DiagnoseReportViewController.h"
 #import "ModalAnimation.h"
 #import "DoubleReportTableViewCell.h"
 #import "DoubleChartTableViewCell.h"
+#import "NewHeartGrapheView.h"
 
 @interface DoubleBreathViewController ()<UITableViewDataSource,UITableViewDelegate,UIViewControllerTransitioningDelegate>
 {
@@ -36,7 +36,7 @@
 @property (nonatomic,assign) CGFloat viewHeight;
 //
 @property (nonatomic,strong) NSDictionary *reportData;
-@property (nonatomic,strong) NewHeartGrapheView *heartGraphView;
+@property (nonatomic,strong) NewHeartGrapheView *breathGraphView;
 @property (nonatomic,strong) UIScrollView *heartContainerView;
 @property (nonatomic,strong) DoubleFloatLayerView *layerFloatView;
 @property (nonatomic,strong) UIView *yCoorBackView;
@@ -54,7 +54,7 @@
     [self createNavigationView];
     [self.view addSubview:self.reportTableView];
     self.viewHeight = self.view.frame.size.width;
-    self.sleepQualityTitleArr = @[@"心率平均值",@"心率异常数",@"心率异常数高于"];
+    self.sleepQualityTitleArr = @[@"呼吸平均值",@"呼吸异常数",@"呼吸异常数高于"];
     // Do any additional setup after loading the view.
 }
 
@@ -62,7 +62,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showHeartEmercenyView:) name:PostHeartEmergencyNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showBreatheEmercenyView:) name:PostBreatheEmergencyNoti object:nil];
     [self getData];
 }
 
@@ -99,26 +99,26 @@
         NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
         NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
         NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,newString,toDate];
+        urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,newString,toDate];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
-        GetHeartDataAPI *client = [GetHeartDataAPI shareInstance];
+        GetBreathDataAPI *client = [GetBreathDataAPI shareInstance];
         if ([client isExecuting]) {
             [client stop];
         }
-        [client getHeartData:header withDetailUrl:urlString];
+        [client getBreathData:header withDetailUrl:urlString];
         if ([client getCacheJsonWithDate:fromDate]) {
             NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-            HaviLog(@"缓存请求的心率数据%@和url%@",resposeDic,urlString);
+            HaviLog(@"缓存的呼吸数据%@和url:%@",resposeDic,urlString);
             [self reloadUserViewWithData:resposeDic];
             [self getUserSleepReportData:fromDate toDate:toDate];
         }else{
             [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
                 NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
                 [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                HaviLog(@"请求的心率数据%@和url%@",resposeDic,urlString);
+                HaviLog(@"请求的呼吸数据%@和url:%@",resposeDic,urlString);
                 [self reloadUserViewWithData:resposeDic];
                 [self getUserSleepReportData:fromDate toDate:toDate];
             } failure:^(YTKBaseRequest *request) {
@@ -144,13 +144,13 @@
     if (arr.count==0) {
         NSMutableArray *arr1 = [[NSMutableArray alloc]init];
         for (int i=0; i<288; i++) {
-            [arr1 addObject:[NSNumber numberWithFloat:60]];
+            [arr1 addObject:[NSNumber numberWithFloat:15]];
         }
-        self.heartGraphView.heartViewLeft.values = arr1;
-        [self.heartGraphView.heartViewLeft animate];
+        self.breathGraphView.heartViewLeft.values = arr1;
+        [self.breathGraphView.heartViewLeft animate];
         //
-        self.heartGraphView.heartViewRight.values = arr1;
-        [self.heartGraphView.heartViewRight animate];
+        self.breathGraphView.heartViewRight.values = arr1;
+        [self.breathGraphView.heartViewRight animate];
     }
 }
 
@@ -159,7 +159,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *arr = [[NSMutableArray alloc]init];
         for (int i=0; i<288; i++) {
-            [arr addObject:[NSNumber numberWithFloat:60]];
+            [arr addObject:[NSNumber numberWithFloat:15]];
         }
         for (int i = 0; i<severDataArr.count; i++) {
             NSDictionary *dic = [severDataArr objectAtIndex:i];
@@ -177,14 +177,14 @@
         self.heartDic = arr;
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.heartGraphView.heartViewLeft.values = self.heartDic;
-            [self.heartGraphView.heartViewLeft animate];
+            self.breathGraphView.heartViewLeft.values = self.heartDic;
+            [self.breathGraphView.heartViewLeft animate];
             //
-            self.heartGraphView.heartViewRight.values = self.heartDic;
-            [self.heartGraphView.heartViewRight animate];
+            self.breathGraphView.heartViewRight.values = self.heartDic;
+            [self.breathGraphView.heartViewRight animate];
             int xValue = [[self.heartDic objectAtIndex:0] intValue];
-            if (xValue==60) {
-                xValue = xValue-60;
+            if (xValue==15) {
+                xValue = xValue-15;
             }
             self.layerFloatView.leftDataString = [NSString stringWithFormat:@"%d",xValue];
             self.layerFloatView.rightDataString = [NSString stringWithFormat:@"%d",xValue];
@@ -197,7 +197,6 @@
 - (void)getUserSleepReportData:(NSString *)fromDate toDate:(NSString *)toDate
 {
     if (fromDate) {
-        
         NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
         NSString *urlString = @"";
         self.dateComponentsBase.day = -1;
@@ -252,7 +251,7 @@
             self.rightLongSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration1,(int)ceilf(subsecond1*60)];
             self.rightLongSleepView.grade = 0.5;
             //
-            self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%@次/分",[resposeDic objectForKey:@"AverageHeartRate"]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"]];
+            self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%@次/分",[resposeDic objectForKey:@"AverageRespiratoryRate"]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"]];
             [self.reportTableView reloadData];
             
         }else{
@@ -297,7 +296,7 @@
                 self.rightLongSleepView.grade = 0.5;
                 self.leftLongSleepView.grade = 0.5;
                 //
-                self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%d次/分",[[resposeDic objectForKey:@"AverageHeartRate"]intValue]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"]];
+                self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%d次/分",[[resposeDic objectForKey:@"AverageRespiratoryRate"]intValue]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"]];
                 [self.reportTableView reloadData];
                 
             } failure:^(YTKBaseRequest *request) {
@@ -331,32 +330,32 @@
         _yCoorBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 160)];
         _yCoorBackView.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.075f green:0.149f blue:0.290f alpha:1.00f]:[UIColor colorWithRed:0.408f green:0.616f blue:0.757f alpha:1.00f];
         UILabel *sixLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 70, 20, 20)];
-        sixLabel.text = @"60";
+        sixLabel.text = @"15";
         sixLabel.textAlignment = NSTextAlignmentLeft;
         sixLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         sixLabel.font = [UIFont systemFontOfSize:14];
         [_yCoorBackView addSubview:sixLabel];
-        UIView *sixLine = [[UIView alloc]initWithFrame:CGRectMake(17, 79.5, self.view.frame.size.width-17, 0.7)];
+        UIView *sixLine = [[UIView alloc]initWithFrame:CGRectMake(17, 79.5, self.view.frame.size.width-17, 1)];
         sixLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.133f green:0.698f blue:0.914f alpha:.30f]:[UIColor colorWithWhite:1 alpha:0.3];
         [_yCoorBackView addSubview:sixLine];
         
         UILabel *fiveLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 104, 20, 20)];
-        fiveLabel.text = @"50";
+        fiveLabel.text = @"10";
         fiveLabel.textAlignment = NSTextAlignmentLeft;
         fiveLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor colorWithWhite:1 alpha:1];
         fiveLabel.font = [UIFont systemFontOfSize:14];
         [_yCoorBackView addSubview:fiveLabel];
-        UIView *fiveLine = [[UIView alloc]initWithFrame:CGRectMake(17, 114, self.view.frame.size.width-17, 0.7)];
+        UIView *fiveLine = [[UIView alloc]initWithFrame:CGRectMake(17, 114, self.view.frame.size.width-17, 1)];
         fiveLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.133f green:0.698f blue:0.914f alpha:.30f]:[UIColor colorWithWhite:1 alpha:0.3];
         [_yCoorBackView addSubview:fiveLine];
         
         UILabel *sevenLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 33, 20, 20)];
-        sevenLabel.text = @"70";
+        sevenLabel.text = @"20";
         sevenLabel.textAlignment = NSTextAlignmentLeft;
         sevenLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor colorWithWhite:1 alpha:1];
         sevenLabel.font = [UIFont systemFontOfSize:14];
         [_yCoorBackView addSubview:sevenLabel];
-        UIView *sevenLine = [[UIView alloc]initWithFrame:CGRectMake(17, 43, self.view.frame.size.width-17, 0.7)];
+        UIView *sevenLine = [[UIView alloc]initWithFrame:CGRectMake(17, 43, self.view.frame.size.width-17, 1)];
         sevenLine.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.133f green:0.698f blue:0.914f alpha:.30f]:[UIColor colorWithWhite:1 alpha:0.3];
         [_yCoorBackView addSubview:sevenLine];
     }
@@ -379,7 +378,7 @@
 {
     if (!_heartContainerView) {
         _heartContainerView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 180)];
-        [_heartContainerView addSubview:self.heartGraphView];
+        [_heartContainerView addSubview:self.breathGraphView];
         _heartContainerView.contentSize = CGSizeMake(self.view.frame.size.width*4, 180);
         _heartContainerView.showsHorizontalScrollIndicator = NO;
         _heartContainerView.delegate = self;
@@ -392,26 +391,20 @@
     return _heartContainerView;
 }
 
-- (NewHeartGrapheView *)heartGraphView
+- (NewHeartGrapheView *)breathGraphView
 {
-    if (!_heartGraphView) {
-        _heartGraphView = [[NewHeartGrapheView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*4, 180)];
-        _heartGraphView.xValues = @[@"18:00",@"19:00",@"20:00",@"21:00",@"22:00",@"23:00",@"24:00",@"01:00",@"02:00",@"03:00",@"04:00",@"05:00",@"06:00",@"07:00",@"08:00",@"09:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"17:00",@"18:00"];
-        _heartGraphView.heartViewLeft.maxValue = 100;
-        _heartGraphView.heartViewLeft.minValue = 50;
-        _heartGraphView.heartViewLeft.horizonValue = 140;
-        _heartGraphView.heartViewLeft.graphColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f]:[UIColor colorWithRed:0.000f green:0.851f blue:0.573f alpha:1.00f];
-        _heartGraphView.heartViewLeft.graphTitle = @"xinlv";
-        //
-        _heartGraphView.heartViewRight.maxValue = 100;
-        _heartGraphView.heartViewRight.minValue = 50;
-        _heartGraphView.heartViewRight.horizonValue = 140;
-        _heartGraphView.heartViewRight.graphColor = selectedThemeIndex==0?[UIColor colorWithRed:0.514f green:0.447f blue:0.820f alpha:1.00f]:[UIColor colorWithRed:0.514f green:0.447f blue:0.820f alpha:1.00f];
-        _heartGraphView.heartViewRight.graphTitle = @"xinlv";
-        [_heartGraphView addSubview:self.layerFloatView];
+    if (!_breathGraphView) {
+        _breathGraphView = [[NewHeartGrapheView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*4, 180)];
+        _breathGraphView.xValues = @[@"18:00",@"19:00",@"20:00",@"21:00",@"22:00",@"23:00",@"24:00",@"01:00",@"02:00",@"03:00",@"04:00",@"05:00",@"06:00",@"07:00",@"08:00",@"09:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"17:00",@"18:00"];
+        _breathGraphView.heartViewLeft.maxValue = 20;
+        _breathGraphView.heartViewLeft.minValue = 10;
+        _breathGraphView.heartViewLeft.horizonValue = 40;
+        _breathGraphView.heartViewLeft.graphColor = selectedThemeIndex==0?[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f]:[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f];
+        _breathGraphView.heartViewLeft.graphTitle = @"huxi";
+        [_breathGraphView addSubview:self.layerFloatView];
         
     }
-    return _heartGraphView;
+    return _breathGraphView;
 }
 
 - (SleepTimeTagView *)leftLongSleepView
@@ -486,7 +479,7 @@
 - (void)createNavigationView
 {
     _modalAnimationController = [[ModalAnimation alloc] init];
-    [self createClearBgNavWithTitle:@"心率" andTitleColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] createMenuItem:^UIView *(int nIndex) {
+    [self createClearBgNavWithTitle:@"呼吸" andTitleColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor] createMenuItem:^UIView *(int nIndex) {
         if (nIndex == 1)
         {
             [self.leftButton addTarget:self action:@selector(backToHomeView:) forControlEvents:UIControlEventTouchUpInside];
@@ -538,8 +531,8 @@
             cell.rightCellName = @"右侧大笔";
             cell.iconTitleName = [NSString stringWithFormat:@"icon_heart_rate_%d",selectedThemeIndex];
             
-            cell.leftCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]];
-            cell.rightCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]];
+            cell.leftCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageRespiratoryRate"] intValue]];
+            cell.rightCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageRespiratoryRate"] intValue]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = [UIColor clearColor];
             return cell;
@@ -564,7 +557,7 @@
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
                 
             }
-            cell.textLabel.text = @"心率分析";
+            cell.textLabel.text = @"呼吸分析";
             cell.textLabel.font = [UIFont systemFontOfSize:18];
             cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -621,7 +614,7 @@
         }
         cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.middleDataString = @"心率异常数高于";
+        cell.middleDataString = @"呼吸异常数高于";
         cell.leftPieGrade = 40;
         cell.rightPieGrade = 70;
         cell.leftPieChart.percentLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.867f blue:0.596f alpha:1.00f]:[UIColor whiteColor];
@@ -742,14 +735,13 @@
     }
 }
 
-#pragma mark 异常报告
-
-- (void)showHeartEmercenyView:(NSNotification *)noti
+#pragma mark 异常数据
+- (void)showBreatheEmercenyView:(NSNotification*)noti
 {
-    [self showDiagnoseReportHeart];
+    [self showDiagnoseReportBreath];
 }
 
-- (void)showDiagnoseReportHeart
+- (void)showDiagnoseReportBreath
 {
     NSString *urlString = @"";
     NSDate *newDate = [self.dateFormmatterBase dateFromString:self.currentDate];
@@ -757,14 +749,10 @@
     NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
     NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
     NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-    urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,newString,self.currentDate];
+    urlString = [NSString stringWithFormat:@"v1/app/SensorDataIrregular?UUID=%@&DataProperty=4&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,newString,self.currentDate];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    /*
-     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-     [MMProgressHUD showWithStatus:@"异常数据请求中..."];
-     */
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -773,25 +761,26 @@
                         [UIImage imageNamed:@"havi1_5"]];
     [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
-    
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         [MMProgressHUD dismiss];
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [self showExceptionView:resposeDic withTitle:@"心率"];
+            [self showExceptionView:resposeDic withTitle:@"呼吸"];
         }else{
             [self.view makeToast:[resposeDic objectForKey:@"ErrorMessage"] duration:2 position:@"center"];
-        }    } failed:^(NSURLResponse *response, NSError *error) {
-            [MMProgressHUD dismissWithError:@"网络出错啦" afterDelay:1];
-        }];
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismissWithError:@"网络出错啦" afterDelay:1];
+    }];
     /*
      GetExceptionAPI *client = [GetExceptionAPI shareInstance];
      [client getException:header withDetailUrl:urlString];
+     
      [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
      [MMProgressHUD dismiss];
      NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
      if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-     [self showExceptionView:resposeDic withTitle:@"心率"];
+     [self showExceptionView:resposeDic withTitle:@"呼吸"];
      }else{
      [self.view makeToast:[resposeDic objectForKey:@"ErrorMessage"] duration:2 position:@"center"];
      }
@@ -799,6 +788,7 @@
      [MMProgressHUD dismissWithError:@"网络出错啦" afterDelay:1];
      }];
      */
+    
 }
 
 - (void)showExceptionView:(NSDictionary *)dic withTitle:(NSString *)exceptionTitle
