@@ -76,14 +76,14 @@
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
         return;
     }
-    if ([HardWareUUID isEqualToString:@""]) {
+    if ([thirdHardDeviceUUID isEqualToString:@""]) {
         [self.view makeToast:@"您还没有绑定设备,无法查看数据" duration:2 position:@"center"];
         return;
     }
     if (!fromDate) {
         return;
     }
-    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",HardWareUUID,thirdPartyLoginUserId,fromDate,endTime];
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",thirdHardDeviceUUID,thirdPartyLoginUserId,fromDate,endTime];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };

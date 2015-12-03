@@ -112,17 +112,17 @@
         }else{
             for (NSDictionary *dic in arr) {
                 if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
-                    HardWareUUID = [dic objectForKey:@"UUID"];
+                    thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
                     thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
                     thirdHardDeviceName = [dic objectForKey:@"Description"];
                     self.clearNaviTitleLabel.text = thirdHardDeviceName;
                     [UserManager setGlobalOauth];
-                    HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,HardWareUUID);
+                    HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,thirdHardDeviceUUID);
                     break;
                 }
             }
         }
-        if (![HardWareUUID isEqualToString:@""]) {
+        if (![thirdHardDeviceUUID isEqualToString:@""]) {
             NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
             [self getTodaySleepQualityData:newString];
@@ -154,7 +154,7 @@
 - (void)getTodaySleepQualityData:(NSString *)nowDateString
 {
     //fromdate 是当天的日期
-    if ([HardWareUUID isEqualToString:@""]) {
+    if ([thirdHardDeviceUUID isEqualToString:@""]) {
         MMPopupItemHandler block = ^(NSInteger index){
             HaviLog(@"clickd %@ button",@(index));
             if(index==1){
@@ -194,7 +194,7 @@
     NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
     NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
     NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
-    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,newString,nowDateString];
+    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,thirdPartyLoginUserId,newString,nowDateString];
 //    if (isTodayHourEqualSixteen<18 || !isSixteenTime) {
 //    }else {
 //        
@@ -203,7 +203,7 @@
 //    NSDate *nextDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
 //    NSString *nextDayString = [NSString stringWithFormat:@"%@",nextDay];
 //    NSString *newNextDayString = [NSString stringWithFormat:@"%@%@%@",[nextDayString substringWithRange:NSMakeRange(0, 4)],[nextDayString substringWithRange:NSMakeRange(5, 2)],[nextDayString substringWithRange:NSMakeRange(8, 2)]];
-//    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,nowDateString,newNextDayString];
+//    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,thirdPartyLoginUserId,nowDateString,newNextDayString];
     self.tagFromDateAndEndDate = urlString;
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -270,14 +270,14 @@
         
         NSString *urlString = @"";
         if (startInt<endInt) {
-            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",thirdHardDeviceUUID,fromDate,toDate,startTime,endTime];
         }else if (startInt>endInt || startInt==endInt){
             NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
             self.dateComponentsBase.day = +1;
             NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
             NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",thirdHardDeviceUUID,fromDate,newString,startTime,endTime];
             
         }
         NSDictionary *header = @{
@@ -1037,7 +1037,7 @@
 {
     [super viewWillAppear:animated];
     self.clearNaviTitleLabel.text = thirdHardDeviceName;
-    if (![HardWareUUID isEqualToString:thirdHardDeviceUUID]&&![HardWareUUID isEqualToString:@""]&&![thirdHardDeviceName isEqualToString:@""]) {
+    if (![thirdHardDeviceUUID isEqualToString:thirdHardDeviceUUID]&&![thirdHardDeviceUUID isEqualToString:@""]&&![thirdHardDeviceName isEqualToString:@""]) {
         [self getAllDeviceList];
         HaviLog(@"hard UUID出现不同");
     }
@@ -1047,7 +1047,7 @@
 
 - (void)sendSleepTime
 {
-    if (HardWareUUID.length>0) {
+    if (thirdHardDeviceUUID.length>0) {
         /*
         [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
         [MMProgressHUD showWithStatus:@"保存中..."];
@@ -1066,7 +1066,7 @@
 //        NSString *dateString = [NSString stringWithFormat:@"%@",date1];
 //        NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],@"22:07"];
         NSDictionary *dic = @{
-                              @"UUID" : HardWareUUID,
+                              @"UUID" : thirdHardDeviceUUID,
                               @"UserID" : thirdPartyLoginUserId,
                               @"Tags" : @[@{
                                        @"Tag": @"<%睡眠时间记录%>",
@@ -1105,7 +1105,7 @@
 
 - (void)sendSleepEndTime:(NSString *)endString
 {
-    if (HardWareUUID.length>0) {
+    if (thirdHardDeviceUUID.length>0) {
         /*
         [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
         [MMProgressHUD showWithStatus:@"保存中..."];
@@ -1122,7 +1122,7 @@
         NSString *dateString = [NSString stringWithFormat:@"%@",date1];
         NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],endString];
         NSDictionary *dic = @{
-                              @"UUID" : HardWareUUID,
+                              @"UUID" : thirdHardDeviceUUID,
                               @"UserID" : thirdPartyLoginUserId,
                               @"Tags" :@[ @{
                                       @"Tag": @"<%睡眠时间记录%>",

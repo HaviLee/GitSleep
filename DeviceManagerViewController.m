@@ -241,7 +241,7 @@
     self.selectedPath = indexPath;
     [tableView reloadData];
     [self changeUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]];
-    HardWareUUID = [[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"];
+    thirdHardDeviceUUID = [[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"];
     /*
      切换uuid
      */
@@ -340,7 +340,7 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [self getUserDeviceList];
-                HardWareUUID = UUID;
+                thirdHardDeviceUUID = UUID;
             }];
             [MMProgressHUD dismiss];
         }else{
@@ -400,7 +400,7 @@
                 [self getUserDeviceList];
             }else{
                 [self.navigationController popToRootViewControllerAnimated:YES];
-                HardWareUUID = @"";
+                thirdHardDeviceUUID = @"";
                 [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICEUUID object:nil];
                 [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEUSERID object:nil];
             }

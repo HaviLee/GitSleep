@@ -14,7 +14,7 @@ extern  NSString *GloableUserId;
 //硬件ip
 extern  NSString *HardWareIP;
 //硬件UUID
-extern NSString *HardWareUUID;
+//extern NSString *HardWareUUID;
 
 extern BOOL isThirdLogin;
 

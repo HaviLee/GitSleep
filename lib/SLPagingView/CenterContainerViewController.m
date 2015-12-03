@@ -92,8 +92,15 @@
 
 - (void)loginSuccessAndQueryData:(NSNotification *)noti
 {
-    [self getAllDeviceList];
+    
     [self setControllerBackGroundImage];
+    if (thirdHardDeviceUUID.length==0) {
+        [self getAllDeviceList];
+    }else{
+        NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+        [self getTodaySleepQualityData:newString];
+    }
 }
 
 #pragma mark 获取用户数据
@@ -111,45 +118,69 @@
         HaviLog(@"用户%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
         [MMProgressHUD dismiss];
         NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
-        if (arr.count == 0) {
-            self.clearNaviTitleLabel.text = thirdHardDeviceName;
-        }else{
+        for (NSDictionary *dic in arr) {
+            if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+                thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
+                thirdHardDeviceName = [dic objectForKey:@"Description"];
+                self.clearNaviTitleLabel.text = thirdHardDeviceName;
+                self.leftDeviceShowName = [dic objectForKey:@"Description"];
+                [UserManager setGlobalOauth];
+                HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,thirdHardDeviceUUID);
+                break;
+            }
+        }
+        
+        NSString *urlString = [NSString stringWithFormat:@"v1/user/FriendDeviceList?UserID=%@",thirdPartyLoginUserId];
+        
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            HaviLog(@"用户%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
+            [MMProgressHUD dismiss];
+            NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
             for (NSDictionary *dic in arr) {
                 if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
-                    HardWareUUID = [dic objectForKey:@"UUID"];
                     thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
                     thirdHardDeviceName = [dic objectForKey:@"Description"];
                     self.clearNaviTitleLabel.text = thirdHardDeviceName;
                     self.leftDeviceShowName = [dic objectForKey:@"Description"];
                     [UserManager setGlobalOauth];
-                    HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,HardWareUUID);
+                    HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,thirdHardDeviceUUID);
                     break;
                 }
             }
-        }
-        if (![HardWareUUID isEqualToString:@""]) {
-            NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
-            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
-            [self getTodaySleepQualityData:newString];
-        }else{
-            MMPopupItemHandler block = ^(NSInteger index){
-                HaviLog(@"clickd %@ button",@(index));
-                if(index==1){
-                    DeviceListViewController *user = [[DeviceListViewController alloc]init];
-                    [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
-                }
-            };
-            NSArray *items =
-            @[MMItemMake(@"暂不绑定", MMItemTypeNormal, block),
-              MMItemMake(@"确定", MMItemTypeNormal, block)];
+            if (![thirdHardDeviceUUID isEqualToString:@""]) {
+                //
+                [self setPageViewController];
+                [self setControllerBackGroundImage];
+                NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+                NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+                [self getTodaySleepQualityData:newString];
+            }else{
+                MMPopupItemHandler block = ^(NSInteger index){
+                    HaviLog(@"clickd %@ button",@(index));
+                    if(index==1){
+                        DeviceListViewController *user = [[DeviceListViewController alloc]init];
+                        [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+                    }
+                };
+                NSArray *items =
+                @[MMItemMake(@"暂不绑定", MMItemTypeNormal, block),
+                  MMItemMake(@"确定", MMItemTypeNormal, block)];
+                
+                MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                                     detail:@"您还没有绑定设备,是否现在去绑定？" items:items];
+                alertView.attachedView = self.view;
+                
+                [alertView show];
+                
+            }
             
-            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
-                                                                 detail:@"您还没有绑定设备,是否现在去绑定？" items:items];
-            alertView.attachedView = self.view;
+        } failed:^(NSURLResponse *response, NSError *error) {
             
-            [alertView show];
-            
-        }
+        }];
         
     } failed:^(NSURLResponse *response, NSError *error) {
         
@@ -160,7 +191,7 @@
 - (void)getTodaySleepQualityData:(NSString *)nowDateString
 {
     //fromdate 是当天的日期
-    if ([HardWareUUID isEqualToString:@""]) {
+    if ([thirdHardDeviceUUID isEqualToString:@""]) {
         MMPopupItemHandler block = ^(NSInteger index){
             HaviLog(@"clickd %@ button",@(index));
             if(index==1){
@@ -190,7 +221,7 @@
     NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
     NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
     NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
-    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,thirdPartyLoginUserId,newString,nowDateString];
+    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,thirdPartyLoginUserId,newString,nowDateString];
 //    self.tagFromDateAndEndDate = urlString;
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
@@ -369,62 +400,170 @@
 
 - (void)setPageViewController
 {
-    // Do any additional setup after loading the view.
-    UILabel *navTitleLabel1 = [UILabel new];
-    navTitleLabel1.text = @"梧桐植树";
-    navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
-    navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-    
-    UILabel *navTitleLabel2 = [UILabel new];
-    navTitleLabel2.text = @"哈维之家";
-    navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
-    navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-    
-    SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1, navTitleLabel2]
-                                                                                    navBarBackground:[UIColor clearColor]
-                                                                                               views:@[self.leftTableView, self.rightTableView]
-                                                                                     showPageControl:YES];
-    [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
-    [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
-    [pageViewController updateUserInteractionOnNavigation:NO];
-    pageViewController.tintPageControlColor = [UIColor grayColor];
-    pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
-    
-    
-    // Twitter Like
-    pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
-        float mid   = [UIScreen mainScreen].bounds.size.width/2 - 45.0;
-        float width = [UIScreen mainScreen].bounds.size.width;
-        CGFloat xOffset = scrollView.contentOffset.x;
-        int i = 0;
-        for(UILabel *v in subviews){
-            CGFloat alpha = 0.0;
-            if(v.frame.origin.x < mid)
-                alpha = 1 - (xOffset - i*width) / width;
-            else if(v.frame.origin.x >mid)
-                alpha=(xOffset - i*width) / width + 1;
-            else if(v.frame.origin.x == mid-5)
-                alpha = 1.0;
-            i++;
-            v.alpha = alpha;
+    if (thirdHardDeviceUUID.length>0) {
+        if ([[thirdHardDeviceUUID substringToIndex:3]isEqualToString:@"ACC"]) {
+            UILabel *navTitleLabel1 = [UILabel new];
+            navTitleLabel1.text = @"梧桐植树";
+            navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
+            navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+            
+            UILabel *navTitleLabel2 = [UILabel new];
+            navTitleLabel2.text = @"哈维之家";
+            navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
+            navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+            
+            SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1, navTitleLabel2]
+                                                                                            navBarBackground:[UIColor clearColor]
+                                                                                                       views:@[self.leftTableView, self.rightTableView]
+                                                                                             showPageControl:YES];
+            [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
+            [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
+            [pageViewController updateUserInteractionOnNavigation:NO];
+            pageViewController.tintPageControlColor = [UIColor grayColor];
+            pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
+            
+            
+            // Twitter Like
+            pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
+                float mid   = [UIScreen mainScreen].bounds.size.width/2 - 45.0;
+                float width = [UIScreen mainScreen].bounds.size.width;
+                CGFloat xOffset = scrollView.contentOffset.x;
+                int i = 0;
+                for(UILabel *v in subviews){
+                    CGFloat alpha = 0.0;
+                    if(v.frame.origin.x < mid)
+                        alpha = 1 - (xOffset - i*width) / width;
+                    else if(v.frame.origin.x >mid)
+                        alpha=(xOffset - i*width) / width + 1;
+                    else if(v.frame.origin.x == mid-5)
+                        alpha = 1.0;
+                    i++;
+                    v.alpha = alpha;
+                }
+            };
+            
+            pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
+                // Do something
+                NSLog(@"index %ld", (long)currentPageIndex);
+            };
+            pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
+            [pageViewController.navigationBarView addSubview:self.leftMenuButton];
+            [pageViewController.navigationBarView addSubview:self.rightMenuButton];
+            UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
+            [self addChildViewController:navi];
+            navi.navigationBarHidden = YES;
+            [self.view addSubview:navi.view];
+            CGRect rect = self.view.frame;
+            int datePickerHeight = self.view.frame.size.height*0.202623;
+            rect.size.height = rect.size.height- datePickerHeight;
+            [navi.view setFrame:rect];
+        }else{
+            UILabel *navTitleLabel1 = [UILabel new];
+            navTitleLabel1.text = @"梧桐植树";
+            navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
+            navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+            
+            SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1]
+                                                                                            navBarBackground:[UIColor clearColor]
+                                                                                                       views:@[self.leftTableView]
+                                                                                             showPageControl:YES];
+            [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
+            [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
+            [pageViewController updateUserInteractionOnNavigation:NO];
+            pageViewController.tintPageControlColor = [UIColor grayColor];
+            pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
+            
+            
+            // Twitter Like
+            pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
+                float mid   = [UIScreen mainScreen].bounds.size.width/2 - 45.0;
+                float width = [UIScreen mainScreen].bounds.size.width;
+                CGFloat xOffset = scrollView.contentOffset.x;
+                int i = 0;
+                for(UILabel *v in subviews){
+                    CGFloat alpha = 0.0;
+                    if(v.frame.origin.x < mid)
+                        alpha = 1 - (xOffset - i*width) / width;
+                    else if(v.frame.origin.x >mid)
+                        alpha=(xOffset - i*width) / width + 1;
+                    else if(v.frame.origin.x == mid-5)
+                        alpha = 1.0;
+                    i++;
+                    v.alpha = alpha;
+                }
+            };
+            
+            pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
+                // Do something
+                NSLog(@"index %ld", (long)currentPageIndex);
+            };
+            pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
+            [pageViewController.navigationBarView addSubview:self.leftMenuButton];
+            [pageViewController.navigationBarView addSubview:self.rightMenuButton];
+            UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
+            [self addChildViewController:navi];
+            navi.navigationBarHidden = YES;
+            [self.view addSubview:navi.view];
+            CGRect rect = self.view.frame;
+            int datePickerHeight = self.view.frame.size.height*0.202623;
+            rect.size.height = rect.size.height- datePickerHeight;
+            [navi.view setFrame:rect];
         }
-    };
+    }else{
+        UILabel *navTitleLabel1 = [UILabel new];
+        navTitleLabel1.text = @"";
+        navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
+        navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        
+        SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1]
+                                                                                        navBarBackground:[UIColor clearColor]
+                                                                                                   views:@[self.leftTableView]
+                                                                                         showPageControl:YES];
+        [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
+        [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
+        [pageViewController updateUserInteractionOnNavigation:NO];
+        pageViewController.tintPageControlColor = [UIColor grayColor];
+        pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
+        
+        
+        // Twitter Like
+        pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
+            float mid   = [UIScreen mainScreen].bounds.size.width/2 - 45.0;
+            float width = [UIScreen mainScreen].bounds.size.width;
+            CGFloat xOffset = scrollView.contentOffset.x;
+            int i = 0;
+            for(UILabel *v in subviews){
+                CGFloat alpha = 0.0;
+                if(v.frame.origin.x < mid)
+                    alpha = 1 - (xOffset - i*width) / width;
+                else if(v.frame.origin.x >mid)
+                    alpha=(xOffset - i*width) / width + 1;
+                else if(v.frame.origin.x == mid-5)
+                    alpha = 1.0;
+                i++;
+                v.alpha = alpha;
+            }
+        };
+        
+        pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
+            // Do something
+            NSLog(@"index %ld", (long)currentPageIndex);
+        };
+        pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
+        [pageViewController.navigationBarView addSubview:self.leftMenuButton];
+        [pageViewController.navigationBarView addSubview:self.rightMenuButton];
+        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
+        [self addChildViewController:navi];
+        navi.navigationBarHidden = YES;
+        [self.view addSubview:navi.view];
+        CGRect rect = self.view.frame;
+        int datePickerHeight = self.view.frame.size.height*0.202623;
+        rect.size.height = rect.size.height- datePickerHeight;
+        [navi.view setFrame:rect];
+    }
     
-    pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
-        // Do something
-        NSLog(@"index %ld", (long)currentPageIndex);
-    };
-    pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
-    [pageViewController.navigationBarView addSubview:self.leftMenuButton];
-    [pageViewController.navigationBarView addSubview:self.rightMenuButton];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
-    [self addChildViewController:navi];
-    navi.navigationBarHidden = YES;
-    [self.view addSubview:navi.view];
-    CGRect rect = self.view.frame;
-    int datePickerHeight = self.view.frame.size.height*0.202623;
-    rect.size.height = rect.size.height- datePickerHeight;
-    [navi.view setFrame:rect];
+    // Do any additional setup after loading the view.
+    
 }
 
 - (void)initDatePicker
@@ -1062,7 +1201,7 @@
 
 - (void)sendSleepTime:(UIButton *)sender
 {
-    if (HardWareUUID.length>0) {
+    if (thirdHardDeviceUUID.length>0) {
         /*
          [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
          [MMProgressHUD showWithStatus:@"保存中..."];
@@ -1081,7 +1220,7 @@
         //        NSString *dateString = [NSString stringWithFormat:@"%@",date1];
         //        NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],@"22:07"];
         NSDictionary *dic = @{
-                              @"UUID" : HardWareUUID,
+                              @"UUID" : thirdHardDeviceUUID,
                               @"UserID" : thirdPartyLoginUserId,
                               @"Tags" : @[@{
                                               @"Tag": @"<%睡眠时间记录%>",
@@ -1120,7 +1259,7 @@
 
 - (void)sendSleepEndTime:(NSString *)endString
 {
-    if (HardWareUUID.length>0) {
+    if (thirdHardDeviceUUID.length>0) {
         /*
          [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
          [MMProgressHUD showWithStatus:@"保存中..."];
@@ -1137,7 +1276,7 @@
         NSString *dateString = [NSString stringWithFormat:@"%@",date1];
         NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],endString];
         NSDictionary *dic = @{
-                              @"UUID" : HardWareUUID,
+                              @"UUID" : thirdHardDeviceUUID,
                               @"UserID" : thirdPartyLoginUserId,
                               @"Tags" :@[ @{
                                               @"Tag": @"<%睡眠时间记录%>",

@@ -631,7 +631,7 @@
         NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
         NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
         NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
+        NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,newString,toDate];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
@@ -674,7 +674,7 @@
         NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
         NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
         NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",HardWareUUID,newString,toDate];
+        NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,newString,toDate];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
@@ -731,7 +731,7 @@
         
         NSString *urlString = @"";
         if (startInt<endInt) {
-            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",thirdHardDeviceUUID,fromDate,toDate,startTime,endTime];
         }else if (startInt>endInt || startInt==endInt){
             NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
             self.dateComponentsBase.day = +1;
@@ -739,7 +739,7 @@
             NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
             //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
-            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
+            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",thirdHardDeviceUUID,fromDate,newString,startTime,endTime];
             
         }
         
@@ -793,7 +793,7 @@
         
         NSString *urlString = @"";
         if (startInt<endInt) {
-            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,toDate,startTime,endTime];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",thirdHardDeviceUUID,fromDate,toDate,startTime,endTime];
         }else if (startInt>endInt || startInt==endInt){
             NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
             self.dateComponentsBase.day = +1;
@@ -801,7 +801,7 @@
             NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
             NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
             //        NSString *newString = [NSString stringWithFormat:@"%@%d",[toDate substringToIndex:6],[[toDate substringFromIndex:6] intValue]+1];
-            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",HardWareUUID,fromDate,newString,startTime,endTime];
+            urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&FromDate=%@&EndDate=%@&FromTime=%@&EndTime=%@",thirdHardDeviceUUID,fromDate,newString,startTime,endTime];
             
         }
         NSDictionary *header = @{

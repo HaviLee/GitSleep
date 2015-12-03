@@ -212,7 +212,7 @@
         [MMProgressHUD dismiss];
         DoubleDUPViewController *udp = [[DoubleDUPViewController alloc]init];
         udp.productName = self.doubleDeviceName;//测试
-        HardWareUUID = self.barUUIDString;
+        thirdHardDeviceUUID = self.barUUIDString;
         udp.productUUID = self.barUUIDString;
         [self.navigationController pushViewController:udp animated:YES];
         /*
@@ -248,12 +248,12 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            HardWareUUID = UUID;
+            thirdHardDeviceUUID = UUID;
             MMPopupItemHandler block = ^(NSInteger index){
                 if (index == 1) {
                     UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
                     udp.productName = self.doubleDeviceName;//测试
-                    HardWareUUID = self.barUUIDString;
+                    thirdHardDeviceUUID = self.barUUIDString;
                     udp.productUUID = self.barUUIDString;
                     [self.navigationController pushViewController:udp animated:YES];
                 }else if (index ==0){
@@ -262,7 +262,7 @@
 //                            
 //                            [self.navigationController popToViewController:controller animated:YES];
 //                            //泡个消息，让首界面更新数据
-//                            HardWareUUID = self.barUUIDString;
+//                            thirdHardDeviceUUID = self.barUUIDString;
 //                            break;
 //                        }
                     }

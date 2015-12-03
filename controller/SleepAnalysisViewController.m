@@ -519,14 +519,14 @@
 }
 - (void)getTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
 {
-    if ([HardWareUUID isEqualToString:@""]) {
+    if ([thirdHardDeviceUUID isEqualToString:@""]) {
         //        [ShowAlertView showAlert:@"您还没有绑定设备"];
         return;
     }
     if (!fromDate) {
         return;
     }
-    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",HardWareUUID,thirdPartyLoginUserId,fromDate,endTime];
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",thirdHardDeviceUUID,thirdPartyLoginUserId,fromDate,endTime];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };

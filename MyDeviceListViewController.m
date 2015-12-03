@@ -132,7 +132,7 @@
     self.selectedPath = indexPath;
     [tableView reloadData];
     [self changeUUID:[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]];
-    HardWareUUID = [[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"];
+    thirdHardDeviceUUID = [[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"];
     /*
      切换uuid
      */
@@ -168,7 +168,7 @@
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
                 [self getUserDeviceList];
-                HardWareUUID = UUID;
+                thirdHardDeviceUUID = UUID;
             }];
             [MMProgressHUD dismiss];
         }else{
@@ -335,13 +335,13 @@
     if ([[[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]substringToIndex:3]isEqualToString:@"ACC"]) {
         DoubleDUPViewController *udp = [[DoubleDUPViewController alloc]init];
         udp.productName = [dic objectForKey:@"Description"];//测试
-        HardWareUUID = [dic objectForKey:@"UUID"];
+        thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
         udp.productUUID = [dic objectForKey:@"UUID"];
         [self.navigationController pushViewController:udp animated:YES];
     }else{
         UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];
         udp.productName = [dic objectForKey:@"Description"];;
-        HardWareUUID = [dic objectForKey:@"UUID"];
+        thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
         udp.productUUID = [dic objectForKey:@"UUID"];
         [self.navigationController pushViewController:udp animated:YES];
     }

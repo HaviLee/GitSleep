@@ -472,7 +472,7 @@
 
 - (void)sendTags:(UIButton *)sender
 {
-    if (HardWareUUID.length>0) {
+    if (thirdHardDeviceUUID.length>0) {
         
         if (self.sendTagListArr.count==0) {
             [self.view makeToast:@"请选择标签" duration:2 position:@"center"];
@@ -510,7 +510,7 @@
         [MMProgressHUD showWithStatus:@"保存中..."];
         
         NSDictionary *dic = @{
-                              @"UUID" : HardWareUUID,
+                              @"UUID" : thirdHardDeviceUUID,
                               @"UserID" : thirdPartyLoginUserId,
                               @"Tags" : self.sendTagListArr,
                               };

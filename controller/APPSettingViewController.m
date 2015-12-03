@@ -217,7 +217,7 @@
     [self.sideMenuViewController setContentViewController:app.containerView animated:YES];
     [self.sideMenuViewController hideMenuViewController];
     [UserManager resetUserInfo];
-    HardWareUUID = thirdHardDeviceUUID;
+    thirdHardDeviceUUID = thirdHardDeviceUUID;
     [[NSNotificationCenter defaultCenter]postNotificationName:ThirdUserLogoutNoti object:nil];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
