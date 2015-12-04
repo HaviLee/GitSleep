@@ -336,10 +336,13 @@
 //        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
 //        [self.sideMenuViewController hideMenuViewController];
     }else if (sender.tag == 103){
-        user = [[DataStaticViewController alloc]init];
-        user.title = @"季报";
-        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
+        DoubleQuarterReportViewController *doubleReport = [[DoubleQuarterReportViewController alloc]init];
+        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:doubleReport] animated:YES];
         [self.sideMenuViewController hideMenuViewController];
+//        user = [[DataStaticViewController alloc]init];
+//        user.title = @"季报";
+//        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
+//        [self.sideMenuViewController hideMenuViewController];
     }else if (sender.tag == 104){
         SleepAnalysisViewController *analysis = [[SleepAnalysisViewController alloc]init];
         [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:analysis] animated:YES];
