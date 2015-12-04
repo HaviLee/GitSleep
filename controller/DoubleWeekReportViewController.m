@@ -49,37 +49,14 @@
 //
 @property (nonatomic,strong) UIView *sleepNightBottomLine;
 @property (nonatomic,strong) UIView *noDataImageView;
+@property (nonatomic,strong) NSArray *dataRightCellArr;
 //右侧数据
-//@property (nonatomic,strong) UIButton *leftCalButton;
-//@property (nonatomic,strong) UIButton *rightCalButton;
-//@property (nonatomic,strong) UILabel *monthTitleLabel;
-//@property (nonatomic,strong) UIImageView *calenderImage;
-//@property (nonatomic,strong) UILabel *monthLabel;
-//@property (nonatomic,strong) NSDateFormatter *dateFormmatter;
-//@property (nonatomic,strong) NSCalendar *calender;
-//@property (nonatomic,strong) NSTimeZone *tmZone;
-//@property (nonatomic,strong) NSDateComponents *dateComponents;
-//@property (nonatomic,strong) UIView *calenderBackView;
 ////
 @property (nonatomic,strong) NSMutableArray *rightMutableArr;
 @property (nonatomic,strong) NSMutableArray *rightMutableTimeArr;
 @property (nonatomic,strong) NSDictionary *rightReportData;
 @property (nonatomic,strong) UITableView *reportRightTableView;
 @property (nonatomic,strong) NewWeekReport *secondRightWeekReport;
-
-//@property (nonatomic,strong) NewWeekReport *secondWeekReport;
-//@property (nonatomic,strong) SleepTimeTagView *longSleepView;
-//@property (nonatomic,strong) SleepTimeTagView *shortSleepView;
-////
-////保存数据
-//@property (nonatomic,strong) NSDictionary *reportData;
-//@property (nonatomic,strong) NSMutableArray *mutableArr;
-//@property (nonatomic,strong) NSMutableArray *mutableTimeArr;
-//@property (nonatomic,strong) NSArray *dataTitleArr;
-//@property (nonatomic,strong) NSArray *dataCellArr;
-////
-//@property (nonatomic,strong) UIView *sleepNightBottomLine;
-//@property (nonatomic,strong) UIView *noDataImageView;
 
 @end
 
@@ -344,7 +321,7 @@
 {
     HaviLog(@"周报数据是%@",dic);
 //    self.rightReportData = dic;
-    self.dataCellArr = @[@[[NSString stringWithFormat:@"%d次/分钟",[[self.rightReportData objectForKey:@"AverageHeartRate"] intValue]],[NSString stringWithFormat:@"%d次/分钟",[[self.rightReportData objectForKey:@"AverageRespiratoryRate"] intValue]]],@[[NSString stringWithFormat:@"%d次",[[self.rightReportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.rightReportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d次",[[self.rightReportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.rightReportData objectForKey:@"SlowHeartRateTimes"] intValue]]],@[[NSString stringWithFormat:@"%d%@",[[self.rightReportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"],[NSString stringWithFormat:@"%d%@",[[self.rightReportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"]]];
+    self.dataRightCellArr = @[@[[NSString stringWithFormat:@"%d次/分钟",[[self.rightReportData objectForKey:@"AverageHeartRate"] intValue]],[NSString stringWithFormat:@"%d次/分钟",[[self.rightReportData objectForKey:@"AverageRespiratoryRate"] intValue]]],@[[NSString stringWithFormat:@"%d次",[[self.rightReportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.rightReportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d次",[[self.rightReportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.rightReportData objectForKey:@"SlowHeartRateTimes"] intValue]]],@[[NSString stringWithFormat:@"%d%@",[[self.rightReportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"],[NSString stringWithFormat:@"%d%@",[[self.rightReportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"]]];
     [self.reportRightTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:1],[NSIndexPath indexPathForRow:2 inSection:1],[NSIndexPath indexPathForRow:3 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
     [self.reportRightTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationNone];
     //
@@ -1063,10 +1040,10 @@
                 cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
                 cell.cellDataColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.855f blue:0.576f alpha:1.00f]:[UIColor whiteColor];
                 //
-                cell.leftTitleString = [[self.dataTitleArr objectAtIndex:indexPath.row-1] objectAtIndex:0];
-                cell.rightTitleString = [[self.dataTitleArr objectAtIndex:indexPath.row-1] objectAtIndex:1];
-                cell.leftDataString = [[self.dataCellArr objectAtIndex:indexPath.row-1] objectAtIndex:0];;
-                cell.rightDataString = [[self.dataCellArr objectAtIndex:indexPath.row-1] objectAtIndex:1];
+                cell.leftTitleString = [[self.dataRightCellArr objectAtIndex:indexPath.row-1] objectAtIndex:0];
+                cell.rightTitleString = [[self.dataRightCellArr objectAtIndex:indexPath.row-1] objectAtIndex:1];
+                cell.leftDataString = [[self.dataRightCellArr objectAtIndex:indexPath.row-1] objectAtIndex:0];;
+                cell.rightDataString = [[self.dataRightCellArr objectAtIndex:indexPath.row-1] objectAtIndex:1];
                 return cell;
                 
             }

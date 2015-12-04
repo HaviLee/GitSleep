@@ -24,6 +24,8 @@
 #import "MessageListViewController.h"
 #import "UIBadgeView.h"
 #import "DoubleWeekReportViewController.h"
+#import "DoubleMonthReportViewController.h"
+#import "DoubleQuarterReportViewController.h"
 //
 #import "DeviceListViewController.h"
 
@@ -326,10 +328,13 @@
 //        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
 //        [self.sideMenuViewController hideMenuViewController];
     }else if(sender.tag == 102){
-        user = [[DataStaticViewController alloc]init];
-        user.title = @"月报";
-        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
+        DoubleMonthReportViewController *doubleReport = [[DoubleMonthReportViewController alloc]init];
+        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:doubleReport] animated:YES];
         [self.sideMenuViewController hideMenuViewController];
+//        user = [[DataStaticViewController alloc]init];
+//        user.title = @"月报";
+//        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
+//        [self.sideMenuViewController hideMenuViewController];
     }else if (sender.tag == 103){
         user = [[DataStaticViewController alloc]init];
         user.title = @"季报";
