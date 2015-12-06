@@ -167,6 +167,10 @@
     [self reActiveFriendDevice:indexPath];
     thirdHardDeviceUUID = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"UUID"];
     thirdHardDeviceName = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"Description"];
+    thirdLeftDeviceUUID = @"";
+    thirdRightDeviceUUID = @"";
+    thirdLeftDeviceName = @"";
+    thirdRightDeviceName = @"";
     if ([[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
         NSArray *_arrDeatilListDescription = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"];
         thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"Description"];

@@ -33,7 +33,7 @@
 @property (nonatomic, strong) UILabel *rightCircleTitle;
 @property (nonatomic, strong) UILabel *rightCircleSubTitle;
 @property (nonatomic, strong) UITableView *rightBottomTableView;
-@property (nonatomic,strong) NSArray *rihgtLeaveDic;
+@property (nonatomic,strong) NSArray *rightLeaveDic;
 @end
 
 @implementation DoubleTurnViewController
@@ -49,12 +49,12 @@
     // Do any additional setup after loading the view.
     if (isDoubleDevice) {
         UILabel *navTitleLabel1 = [UILabel new];
-        navTitleLabel1.text = @"梧桐植树";
+        navTitleLabel1.text = thirdLeftDeviceName.length==0?@"Left":thirdLeftDeviceName;
         navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
         navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         
         UILabel *navTitleLabel2 = [UILabel new];
-        navTitleLabel2.text = @"哈维之家";
+        navTitleLabel2.text = thirdRightDeviceName.length==0?@"Right":thirdRightDeviceName;;
         navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
         navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         
@@ -150,22 +150,22 @@
     
 }
 
-- (void)getData
+#pragma mark 获取左侧数据
+//
+- (void)getDataWithLeftUUID:(NSString *)UUID
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
     NSString *dateString = [formatter stringFromDate:selectedDateToUse];
     NSString *queryDate = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
     //请求数据
-    [self getUserAllDaySensorData:queryDate toDate:queryDate];
+    [self getLeftUserAllDaySensorData:queryDate toDate:queryDate andUUID:UUID];
 }
 
-#pragma mark 获取24小时用户数据
-
-- (void)getUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
+- (void)getLeftUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate andUUID:(NSString *)deviceUUID
 {
     if (fromDate) {
-        
+        //        [MMProgressHUD showWithStatus:@"请求中..."];
         NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                             [UIImage imageNamed:@"havi1_1"],
                             [UIImage imageNamed:@"havi1_2"],
@@ -174,96 +174,33 @@
                             [UIImage imageNamed:@"havi1_5"]];
         [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
         [MMProgressHUD showWithTitle:nil status:nil images:images];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
         NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
         NSString *urlString = @"";
         self.dateComponentsBase.day = -1;
         NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
         NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
         NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,newString,toDate];
-        //        if (isTodayHourEqualSixteen<18) {
-        //        }else{
-        //            self.dateComponentsBase.day = 1;
-        //            NSDate *nextDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-        //            NSString *nextDayString = [NSString stringWithFormat:@"%@",nextDay];
-        //            NSString *newNextDayString = [NSString stringWithFormat:@"%@%@%@",[nextDayString substringWithRange:NSMakeRange(0, 4)],[nextDayString substringWithRange:NSMakeRange(5, 2)],[nextDayString substringWithRange:NSMakeRange(8, 2)]];
-        //            urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,fromDate,newNextDayString];
-        //        }
+        urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",deviceUUID,newString,toDate];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
-        GetTurnDataAPI *client = [GetTurnDataAPI shareInstance];
-        if ([client isExecuting]) {
-            [client stop];
-        }
-        [client getTurnData:header withDetailUrl:urlString];
-        if ([client getCacheJsonWithDate:fromDate]) {
+        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             [MMProgressHUD dismiss];
-            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            //            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-            HaviLog(@"缓存的体动数据%@和%@",resposeDic,urlString);
-            [self reloadUserViewWithData:resposeDic];
-            [self getUserSleepReportData:fromDate toDate:toDate];
-        }else{
-            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                //                [MMProgressHUD dismiss];
-                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                HaviLog(@"请求的体动数据%@和%@",resposeDic,urlString);
-                [self reloadUserViewWithData:resposeDic];
-                [self getUserSleepReportData:fromDate toDate:toDate];
-            } failure:^(YTKBaseRequest *request) {
-                [MMProgressHUD dismiss];
-                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
-            }];
-        }
-    }
-}
-
-- (void)getUserSleepReportData:(NSString *)fromDate toDate:(NSString *)toDate
-{
-    if (fromDate) {
-        
-        NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
-        NSString *urlString = @"";
-        self.dateComponentsBase.day = -1;
-        NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
-        NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
-        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,thirdPartyLoginUserId,newString,fromDate];
-        NSDictionary *header = @{
-                                 @"AccessToken":@"123456789"
-                                 };
-        GetTurnSleepDataAPI *client = [GetTurnSleepDataAPI shareInstance];
-        if ([client isExecuting]) {
-            [client stop];
-        }
-        [client getTurnSleepData:header withDetailUrl:urlString];
-        if ([client getCacheJsonWithDate:fromDate]) {
-            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
-            HaviLog(@"缓存的睡眠数据是%@,and%@",resposeDic,urlString);
-            //为了异常报告
+            HaviLog(@"请求左侧的离床数据%@和%@",resposeDic,urlString);
+            [self reloadLeftUserViewWithData:resposeDic];
+            [self getLeftUserSleepReportData:fromDate toDate:toDate andUUID:deviceUUID];
+            
+        } failed:^(NSURLResponse *response, NSError *error) {
             [MMProgressHUD dismiss];
-            [self reloadSleepView:resposeDic];
-        }else{
-            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-                [MMProgressHUD dismiss];
-                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                HaviLog(@"睡眠是%@and %@",resposeDic,urlString);
-                //为了异常报告
-                [self reloadSleepView:resposeDic];
-            } failure:^(YTKBaseRequest *request) {
-                [MMProgressHUD dismiss];
-                [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
-            }];
-        }
+        }];
+        
     }
 }
 
-- (void)reloadUserViewWithData:(NSDictionary *)dataDic
+- (void)reloadLeftUserViewWithData:(NSDictionary *)dataDic
 {
     self.leaveDic = nil;
     NSArray *arr = [dataDic objectForKey:@"SensorData"];
@@ -281,7 +218,37 @@
     [self.leftBottomTableView reloadData];
 }
 
-- (void)reloadSleepView:(NSDictionary *)dic
+- (void)getLeftUserSleepReportData:(NSString *)fromDate toDate:(NSString *)toDate andUUID:(NSString *)UUID
+{
+    if (fromDate) {
+        
+        NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+        NSString *urlString = @"";
+        self.dateComponentsBase.day = -1;
+        NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
+        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",UUID,thirdPartyLoginUserId,newString,fromDate];
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        
+        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            [MMProgressHUD dismiss];
+            HaviLog(@"离床是%@and url:%@",resposeDic,urlString);
+            //为了异常报告
+            [self reloadLeftSleepView:resposeDic];
+            
+        } failed:^(NSURLResponse *response, NSError *error) {
+            [MMProgressHUD dismiss];
+        }];
+        //
+    }
+}
+
+- (void)reloadLeftSleepView:(NSDictionary *)dic
 {
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[dic objectForKey:@"Data"]];
     NSString *selectString = [NSString stringWithFormat:@"%@",selectedDateToUse];
@@ -299,6 +266,123 @@
     [attribute addAttribute:NSForegroundColorAttributeName value:selectedThemeIndex==0? DefaultColor:[UIColor whiteColor] range:[sting rangeOfString:@"小时"]];
     _sleepTimeLabel.attributedText = attribute;
     self.timesLabel.text = [NSString stringWithFormat:@"%d",[[dic objectForKey:@"BodyMovementTimes"] intValue]];
+}
+
+#pragma mark 右侧数据
+- (void)getDataWithRightUUID:(NSString *)UUID
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
+    NSString *dateString = [formatter stringFromDate:selectedDateToUse];
+    NSString *queryDate = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
+    //请求数据
+    [self getRightUserAllDaySensorData:queryDate toDate:queryDate andUUID:UUID];
+}
+
+- (void)getRightUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate andUUID:(NSString *)deviceUUID
+{
+    if (fromDate) {
+        //        [MMProgressHUD showWithStatus:@"请求中..."];
+        NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                            [UIImage imageNamed:@"havi1_1"],
+                            [UIImage imageNamed:@"havi1_2"],
+                            [UIImage imageNamed:@"havi1_3"],
+                            [UIImage imageNamed:@"havi1_4"],
+                            [UIImage imageNamed:@"havi1_5"]];
+        [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+        [MMProgressHUD showWithTitle:nil status:nil images:images];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
+        NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+        NSString *urlString = @"";
+        self.dateComponentsBase.day = -1;
+        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+        urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=1&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",deviceUUID,newString,toDate];
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            [MMProgressHUD dismiss];
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+            HaviLog(@"请求右侧的离床数据%@和%@",resposeDic,urlString);
+            [self reloadRightUserViewWithData:resposeDic];
+            [self getRightUserSleepReportData:fromDate toDate:toDate andUUID:deviceUUID];
+            
+        } failed:^(NSURLResponse *response, NSError *error) {
+            [MMProgressHUD dismiss];
+        }];
+        
+    }
+}
+
+- (void)reloadRightUserViewWithData:(NSDictionary *)dataDic
+{
+    self.rightLeaveDic = nil;
+    NSArray *arr = [dataDic objectForKey:@"SensorData"];
+    NSMutableArray *arrSub = [[NSMutableArray alloc]init];
+    for (NSDictionary *dic in arr) {
+        self.rightLeaveDic = [dic objectForKey:@"Data"];
+        
+    }
+    for (NSDictionary *dic in self.rightLeaveDic) {
+        if ([[dic objectForKey:@"Value"]intValue]==1) {
+            [arrSub addObject:dic];
+        }
+    }
+    self.rightLeaveDic = arrSub;
+    [self.rightBottomTableView reloadData];
+}
+
+- (void)getRightUserSleepReportData:(NSString *)fromDate toDate:(NSString *)toDate andUUID:(NSString *)UUID
+{
+    if (fromDate) {
+        
+        NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+        NSString *urlString = @"";
+        self.dateComponentsBase.day = -1;
+        NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
+        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",UUID,thirdPartyLoginUserId,newString,fromDate];
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        
+        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            [MMProgressHUD dismiss];
+            HaviLog(@"离床是%@and url:%@",resposeDic,urlString);
+            //为了异常报告
+            [self reloadRightSleepView:resposeDic];
+            
+        } failed:^(NSURLResponse *response, NSError *error) {
+            [MMProgressHUD dismiss];
+        }];
+        //
+    }
+}
+
+- (void)reloadRightSleepView:(NSDictionary *)dic
+{
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[dic objectForKey:@"Data"]];
+    NSString *selectString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+    NSString *subString = [selectString substringToIndex:10];
+    NSDictionary *dataDic=nil;
+    for (NSDictionary *dic in arr) {
+        if ([[dic objectForKey:@"Date"]isEqualToString:subString]) {
+            dataDic = dic;
+        }
+    }
+    NSString *sting = [NSString stringWithFormat:@"睡眠时长: %0.2f小时",[[dataDic objectForKey:@"SleepDuration"] floatValue]];
+    NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc]initWithString:sting];
+    [attribute addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, [sting length])];
+    [attribute addAttribute:NSForegroundColorAttributeName value:selectedThemeIndex==0? DefaultColor:[UIColor whiteColor] range:[sting rangeOfString:@"睡眠时长:"]];
+    [attribute addAttribute:NSForegroundColorAttributeName value:selectedThemeIndex==0? DefaultColor:[UIColor whiteColor] range:[sting rangeOfString:@"小时"]];
+    _rightSleepTimeLabel.attributedText = attribute;
+    self.rightTimesLabel.text = [NSString stringWithFormat:@"%d",[[dic objectForKey:@"BodyMovementTimes"] intValue]];
 }
 
 #pragma mark 创建view
@@ -638,7 +722,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.leaveDic.count;
+    if ([tableView isEqual:self.leftBottomTableView]) {
+        return self.leaveDic.count;
+    }else{
+        return self.rightLeaveDic.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -651,6 +739,31 @@
             cell = [[DataTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellTitle];
         }
         NSDictionary *cellDic = [self.leaveDic objectAtIndex:indexPath.row];
+        NSString *cellString = [cellDic objectForKey:@"At"];
+        
+        NSString *month = [NSString stringWithFormat:@"%@月%@日",[cellString substringWithRange:NSMakeRange(5, 2)],[cellString substringWithRange:NSMakeRange(8, 2)]];
+        NSString *time = [NSString stringWithFormat:@"%@",[cellString substringWithRange:NSMakeRange(11, 8)]];
+        if (indexPath.row%2==0) {
+            cell.leftTitleName = month;
+            cell.leftSubTitleName = time;
+            cell.rightTitleName = @"";
+            cell.rightSubTitleName = @"";
+        }else{
+            cell.leftTitleName = @"";
+            cell.leftSubTitleName = @"";
+            cell.rightTitleName = month;
+            cell.rightSubTitleName = time;
+        }
+        cell.backgroundColor = [UIColor clearColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if ([tableView isEqual:self.rightBottomTableView]){
+        static NSString *cellTitle = @"cellTitle1";
+        DataTableViewCell *cell = (DataTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellTitle];
+        if (cell==nil) {
+            cell = [[DataTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellTitle];
+        }
+        NSDictionary *cellDic = [self.rightLeaveDic objectAtIndex:indexPath.row];
         NSString *cellString = [cellDic objectForKey:@"At"];
         
         NSString *month = [NSString stringWithFormat:@"%@月%@日",[cellString substringWithRange:NSMakeRange(5, 2)],[cellString substringWithRange:NSMakeRange(8, 2)]];
@@ -710,7 +823,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self getData];
+    if (isDoubleDevice) {
+        [self getDataWithLeftUUID:thirdLeftDeviceUUID];
+        [self getDataWithRightUUID:thirdRightDeviceUUID];
+    }else{
+        [self getDataWithLeftUUID:thirdHardDeviceUUID];
+    }
 }
 
 /*

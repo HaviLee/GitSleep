@@ -136,6 +136,9 @@
 - (void)changedDeviceUUID:(NSNotification *)noti
 {
     [self getDeviceInfoWithUUID:thirdHardDeviceUUID];
+    self.subPageViewArr = nil;
+    self.doubleLeaveView = nil;
+    self.doubleTurnView = nil;
 }
 #pragma mark 进行获取设备信息
 - (void)getDeviceInfoWithUUID:(NSString *)deviceUUID
@@ -162,6 +165,8 @@
         //
         [self setPageViewControllerWithDic:[resposeDic objectForKey:@"SensorInfo"]];
         [self setController];
+        [self.datePicker updateCalenderSelectedDate:[NSDate date]];
+
         
         
     } failed:^(NSURLResponse *response, NSError *error) {
