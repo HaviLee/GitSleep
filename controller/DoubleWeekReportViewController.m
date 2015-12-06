@@ -49,6 +49,7 @@
 //
 @property (nonatomic,strong) UIView *sleepNightBottomLine;
 @property (nonatomic,strong) UIView *noDataImageView;
+@property (nonatomic,strong) UIView *noDataImageView1;
 @property (nonatomic,strong) NSArray *dataRightCellArr;
 //右侧数据
 ////
@@ -69,64 +70,128 @@
     [self setPageViewController];
     [self.view addSubview:self.calenderBackView];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self getUserData];
+        
     });
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (isDoubleDevice) {
+        [self getLeftUserData];
+        [self getRightUserData];
+ 
+    }else{
+        [self getLeftUserData];
+
+    }
+    
 }
 
 - (void)setPageViewController
 {
     // Do any additional setup after loading the view.
-    UILabel *navTitleLabel1 = [UILabel new];
-    navTitleLabel1.text = @"梧桐植树";
-    navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
-    navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    if (isDoubleDevice) {
+        UILabel *navTitleLabel1 = [UILabel new];
+        navTitleLabel1.text = thirdLeftDeviceName.length==0?@"Left":thirdLeftDeviceName;
+        navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
+        navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        
+        UILabel *navTitleLabel2 = [UILabel new];
+        navTitleLabel2.text = thirdRightDeviceName.length==0?@"Right":thirdRightDeviceName;;
+        navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
+        navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        
+        SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1,navTitleLabel2]
+                                                                                        navBarBackground:[UIColor clearColor]
+                                                                                                   views:@[self.reportTableView,self.reportRightTableView]
+                                                                                         showPageControl:YES];
+        [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
+        [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
+        [pageViewController updateUserInteractionOnNavigation:NO];
+        pageViewController.tintPageControlColor = [UIColor grayColor];
+        pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
+        
+        
+        // Twitter Like
+        pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
+            float mid   = [UIScreen mainScreen].bounds.size.width/2 - 45.0;
+            float width = [UIScreen mainScreen].bounds.size.width;
+            CGFloat xOffset = scrollView.contentOffset.x;
+            int i = 0;
+            for(UILabel *v in subviews){
+                CGFloat alpha = 0.0;
+                if(v.frame.origin.x < mid)
+                    alpha = 1 - (xOffset - i*width) / width;
+                else if(v.frame.origin.x >mid)
+                    alpha=(xOffset - i*width) / width + 1;
+                else if(v.frame.origin.x == mid-5)
+                    alpha = 1.0;
+                i++;
+                v.alpha = alpha;
+            }
+        };
+        
+        pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
+            // Do something
+            NSLog(@"index %ld", (long)currentPageIndex);
+        };
+        pageViewController.navigationBarView.image = [UIImage imageNamed:@""];
+        [pageViewController.navigationBarView addSubview:self.leftMenuButton];
+        [pageViewController.navigationBarView addSubview:self.rightMenuButton];
+        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
+        [self addChildViewController:navi];
+        navi.navigationBarHidden = YES;
+        [self.view addSubview:navi.view];
+    }else{
+        UILabel *navTitleLabel2 = [UILabel new];
+        navTitleLabel2.text = thirdHardDeviceName;
+        navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
+        navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        
+        SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel2]
+                                                                                        navBarBackground:[UIColor clearColor]
+                                                                                                   views:@[self.reportTableView]
+                                                                                         showPageControl:YES];
+        [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
+        [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
+        [pageViewController updateUserInteractionOnNavigation:NO];
+        pageViewController.tintPageControlColor = [UIColor grayColor];
+        pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
+        
+        
+        // Twitter Like
+        pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
+            float mid   = [UIScreen mainScreen].bounds.size.width/2 - 45.0;
+            float width = [UIScreen mainScreen].bounds.size.width;
+            CGFloat xOffset = scrollView.contentOffset.x;
+            int i = 0;
+            for(UILabel *v in subviews){
+                CGFloat alpha = 0.0;
+                if(v.frame.origin.x < mid)
+                    alpha = 1 - (xOffset - i*width) / width;
+                else if(v.frame.origin.x >mid)
+                    alpha=(xOffset - i*width) / width + 1;
+                else if(v.frame.origin.x == mid-5)
+                    alpha = 1.0;
+                i++;
+                v.alpha = alpha;
+            }
+        };
+        
+        pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
+            // Do something
+            NSLog(@"index %ld", (long)currentPageIndex);
+        };
+        pageViewController.navigationBarView.image = [UIImage imageNamed:@""];
+        [pageViewController.navigationBarView addSubview:self.leftMenuButton];
+        [pageViewController.navigationBarView addSubview:self.rightMenuButton];
+        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
+        [self addChildViewController:navi];
+        navi.navigationBarHidden = YES;
+        [self.view addSubview:navi.view];
+    }
     
-    UILabel *navTitleLabel2 = [UILabel new];
-    navTitleLabel2.text = @"哈维之家";
-    navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
-    navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-    
-    SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1,navTitleLabel2]
-                                                                                    navBarBackground:[UIColor clearColor]
-                                                                                               views:@[self.reportTableView,self.reportRightTableView]
-                                                                                     showPageControl:YES];
-    [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
-    [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
-    [pageViewController updateUserInteractionOnNavigation:NO];
-    pageViewController.tintPageControlColor = [UIColor grayColor];
-    pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
-    
-    
-    // Twitter Like
-    pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
-        float mid   = [UIScreen mainScreen].bounds.size.width/2 - 45.0;
-        float width = [UIScreen mainScreen].bounds.size.width;
-        CGFloat xOffset = scrollView.contentOffset.x;
-        int i = 0;
-        for(UILabel *v in subviews){
-            CGFloat alpha = 0.0;
-            if(v.frame.origin.x < mid)
-                alpha = 1 - (xOffset - i*width) / width;
-            else if(v.frame.origin.x >mid)
-                alpha=(xOffset - i*width) / width + 1;
-            else if(v.frame.origin.x == mid-5)
-                alpha = 1.0;
-            i++;
-            v.alpha = alpha;
-        }
-    };
-    
-    pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
-        // Do something
-        NSLog(@"index %ld", (long)currentPageIndex);
-    };
-    pageViewController.navigationBarView.image = [UIImage imageNamed:@""];
-    [pageViewController.navigationBarView addSubview:self.leftMenuButton];
-    [pageViewController.navigationBarView addSubview:self.rightMenuButton];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
-    [self addChildViewController:navi];
-    navi.navigationBarHidden = YES;
-    [self.view addSubview:navi.view];
 }
 
 #pragma mark setter
@@ -136,7 +201,7 @@
     if (!_leftMenuButton) {
         _leftMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _leftMenuButton.backgroundColor = [UIColor clearColor];
-        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]];
+        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
         [_leftMenuButton setImage:i forState:UIControlStateNormal];
         [_leftMenuButton setFrame:CGRectMake(0, 20, 44, 44)];
         [_leftMenuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
@@ -160,7 +225,7 @@
 
 #pragma mark 获取用户数据
 
-- (void)getUserData
+- (void)getLeftUserData
 {
     NSString *year = [self.monthTitleLabel.text substringWithRange:NSMakeRange(0, 4)];
     NSString *fromMonth = [self.monthLabel.text substringWithRange:NSMakeRange(0, 2)];
@@ -169,10 +234,10 @@
     NSString *toDay = [self.monthLabel.text substringWithRange:NSMakeRange(10, 2)];
     NSString *fromDate = [NSString stringWithFormat:@"%@%@%@",year,fromMonth,fromDay];
     NSString *toDate = [NSString stringWithFormat:@"%@%@%@",year,toMonth,toDay];
-    [self getTodayUserData:fromDate endDate:toDate withCompareDate:nil];
+    [self getLeftTodayUserData:fromDate endDate:toDate withCompareDate:nil];
 }
 
-- (void)getTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
+- (void)getLeftTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
 {
     if (![self isNetworkExist]) {
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
@@ -185,7 +250,7 @@
     if (!fromDate) {
         return;
     }
-    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",thirdHardDeviceUUID,thirdPartyLoginUserId,fromDate,endTime];
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",thirdLeftDeviceUUID.length==0?thirdHardDeviceUUID:thirdLeftDeviceUUID,thirdPartyLoginUserId,fromDate,endTime];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -197,37 +262,133 @@
                         [UIImage imageNamed:@"havi1_5"]];
     [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
-    HaviGetNewClient *client = [HaviGetNewClient shareInstance];
-    if ([client isExecuting]) {
-        [client stop];
-    }
-    [client querySensorDataOld:header withDetailUrl:urlString];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+    
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        [MMProgressHUD dismiss];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+        HaviLog(@"请求左侧周报数据%@和url%@",resposeDic,urlString);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                [self reloadLeftUserUI:(NSDictionary *)resposeDic];
-                [self reloadRightUserUI:(NSDictionary *)resposeDic];
-            }];
-            [MMProgressHUD dismissAfterDelay:0.3];
+            [self reloadLeftUserUI:(NSDictionary *)resposeDic];
+            [MMProgressHUD dismiss];
         }else{
             [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
         }
-    } failure:^(YTKBaseRequest *request) {
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
         [MMProgressHUD dismiss];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
+//
+//    HaviGetNewClient *client = [HaviGetNewClient shareInstance];
+//    if ([client isExecuting]) {
+//        [client stop];
+//    }
+//    [client querySensorDataOld:header withDetailUrl:urlString];
+//    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+//        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+//        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+//            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+//                [self reloadLeftUserUI:(NSDictionary *)resposeDic];
+//                [self reloadRightUserUI:(NSDictionary *)resposeDic];
+//            }];
+//            [MMProgressHUD dismissAfterDelay:0.3];
+//        }else{
+//            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
+//        }
+//    } failure:^(YTKBaseRequest *request) {
+//        [MMProgressHUD dismiss];
+//        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+//    }];
 }
+
+- (void)getRightUserData
+{
+    NSString *year = [self.monthTitleLabel.text substringWithRange:NSMakeRange(0, 4)];
+    NSString *fromMonth = [self.monthLabel.text substringWithRange:NSMakeRange(0, 2)];
+    NSString *fromDay = [self.monthLabel.text substringWithRange:NSMakeRange(3, 2)];
+    NSString *toMonth = [self.monthLabel.text substringWithRange:NSMakeRange(7, 2)];
+    NSString *toDay = [self.monthLabel.text substringWithRange:NSMakeRange(10, 2)];
+    NSString *fromDate = [NSString stringWithFormat:@"%@%@%@",year,fromMonth,fromDay];
+    NSString *toDate = [NSString stringWithFormat:@"%@%@%@",year,toMonth,toDay];
+    [self getRightTodayUserData:fromDate endDate:toDate withCompareDate:nil];
+}
+
+- (void)getRightTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
+{
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
+    if ([thirdHardDeviceUUID isEqualToString:@""]) {
+        [self.view makeToast:@"您还没有绑定设备,无法查看数据" duration:2 position:@"center"];
+        return;
+    }
+    if (!fromDate) {
+        return;
+    }
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",thirdRightDeviceUUID,thirdPartyLoginUserId,fromDate,endTime];
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
+    
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        [MMProgressHUD dismiss];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+        HaviLog(@"请求右侧周报数据%@和url%@",resposeDic,urlString);
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [self reloadRightUserUI:(NSDictionary *)resposeDic];
+            [MMProgressHUD dismiss];
+        }else{
+            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
+        }
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismiss];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+    }];
+    //
+    //    HaviGetNewClient *client = [HaviGetNewClient shareInstance];
+    //    if ([client isExecuting]) {
+    //        [client stop];
+    //    }
+    //    [client querySensorDataOld:header withDetailUrl:urlString];
+    //    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+    //        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+    //        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+    //            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+    //                [self reloadLeftUserUI:(NSDictionary *)resposeDic];
+    //                [self reloadRightUserUI:(NSDictionary *)resposeDic];
+    //            }];
+    //            [MMProgressHUD dismissAfterDelay:0.3];
+    //        }else{
+    //            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
+    //        }
+    //    } failure:^(YTKBaseRequest *request) {
+    //        [MMProgressHUD dismiss];
+    //        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+    //    }];
+}
+
 
 #pragma mark 更新界面
 
 - (void)reloadLeftUserUI:(NSDictionary *)dic
 {
-    HaviLog(@"周报数据是%@",dic);
     self.reportData = dic;
     self.dataCellArr = @[@[[NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]],[NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageRespiratoryRate"] intValue]]],@[[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]]],@[[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"]]];
-    [self.reportTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:1],[NSIndexPath indexPathForRow:2 inSection:1],[NSIndexPath indexPathForRow:3 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-    [self.reportTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.reportTableView reloadData];
     //
     NSArray *sleepArr = [self.reportData objectForKey:@"Data"];
     NSDictionary *longDic = nil;
@@ -319,11 +480,9 @@
 
 - (void)reloadRightUserUI:(NSDictionary *)dic
 {
-    HaviLog(@"周报数据是%@",dic);
-//    self.rightReportData = dic;
+    self.rightReportData = dic;
     self.dataRightCellArr = @[@[[NSString stringWithFormat:@"%d次/分钟",[[self.rightReportData objectForKey:@"AverageHeartRate"] intValue]],[NSString stringWithFormat:@"%d次/分钟",[[self.rightReportData objectForKey:@"AverageRespiratoryRate"] intValue]]],@[[NSString stringWithFormat:@"%d次",[[self.rightReportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.rightReportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d次",[[self.rightReportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.rightReportData objectForKey:@"SlowHeartRateTimes"] intValue]]],@[[NSString stringWithFormat:@"%d%@",[[self.rightReportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"],[NSString stringWithFormat:@"%d%@",[[self.rightReportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"]]];
-    [self.reportRightTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:1],[NSIndexPath indexPathForRow:2 inSection:1],[NSIndexPath indexPathForRow:3 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-    [self.reportRightTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.reportRightTableView reloadData];
     //
     NSArray *sleepArr = [self.rightReportData objectForKey:@"Data"];
     NSDictionary *longDic = nil;
@@ -400,10 +559,10 @@
         
     }
     if (dataArr.count>0) {
-        [self.noDataImageView removeFromSuperview];
+        [self.noDataImageView1 removeFromSuperview];
     }else{
-        [self.secondRightWeekReport addSubview:self.noDataImageView];
-        self.noDataImageView.center = self.secondRightWeekReport.center;
+        [self.secondRightWeekReport addSubview:self.noDataImageView1];
+        self.noDataImageView1.center = self.secondRightWeekReport.center;
     }
     self.secondRightWeekReport.sleepQulityDataValues = self.rightMutableArr;
     self.secondRightWeekReport.sleepTimeDataValues = self.rightMutableTimeArr;
@@ -459,6 +618,24 @@
     }
     return _noDataImageView;
 }
+
+- (UIView*)noDataImageView1
+{
+    if (!_noDataImageView1) {
+        _noDataImageView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 150, 105)];
+        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(59, 16, 32.5, 32.5)];
+        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"sad-75_%d",selectedThemeIndex]];
+        [_noDataImageView1 addSubview:image];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 49, 150, 30)];
+        label.text= @"没有数据哦!";
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont systemFontOfSize:17];
+        label.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        [_noDataImageView1 addSubview:label];
+    }
+    return _noDataImageView1;
+}
+
 
 - (UIView *)sleepNightBottomLine
 {
@@ -564,20 +741,6 @@
     return _longRightSleepView;
 }
 
-
-- (UITableView *)reportTableView
-{
-    if (_reportTableView == nil) {
-        _reportTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStyleGrouped];
-        _reportTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
-        _reportTableView.backgroundColor = [UIColor clearColor];
-        _reportTableView.delegate = self;
-        _reportTableView.dataSource = self;
-        _reportTableView.showsVerticalScrollIndicator = NO;
-        _reportTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    }
-    return _reportTableView;
-}
 
 - (UIView *)calenderBackView
 {
@@ -730,7 +893,15 @@
     self.monthTitleLabel.text = [NSString stringWithFormat:@"%@年第%ld周",[nextString substringToIndex:4],(long)weekNum];
     //改变小标题
     //刷新数据
-    [self getUserData];
+    if (isDoubleDevice) {
+        [self getLeftUserData];
+        [self getRightUserData];
+        
+    }else{
+        [self getLeftUserData];
+        
+    }
+
 }
 
 - (void)nextQuater:(UIButton *)sender
@@ -763,7 +934,15 @@
     self.monthTitleLabel.text = [NSString stringWithFormat:@"%@年第%ld周",[nextString substringToIndex:4],(long)weekNum];
     //改变小标题
     //刷新数据
-    [self getUserData];
+    if (isDoubleDevice) {
+        [self getLeftUserData];
+        [self getRightUserData];
+        
+    }else{
+        [self getLeftUserData];
+        
+    }
+
 }
 
 - (NSDate*)dayInTheLastMonth:(NSDate *)date
@@ -818,11 +997,25 @@
     return _calenderImage;
 }
 
+- (UITableView *)reportTableView
+{
+    if (_reportTableView == nil) {
+        _reportTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStyleGrouped];
+        _reportTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
+        _reportTableView.backgroundColor = [UIColor clearColor];
+        _reportTableView.delegate = self;
+        _reportTableView.dataSource = self;
+        _reportTableView.showsVerticalScrollIndicator = NO;
+        _reportTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return _reportTableView;
+}
+
 - (UITableView *)reportRightTableView
 {
     if (_reportRightTableView == nil) {
         _reportRightTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStylePlain];
-        _reportRightTableView.backgroundColor = [UIColor redColor];
+        _reportRightTableView.backgroundColor = [UIColor clearColor];
         _reportRightTableView.delegate = self;
         _reportRightTableView.dataSource = self;
         _reportRightTableView.showsVerticalScrollIndicator = NO;
@@ -996,7 +1189,7 @@
     }else{
         if (indexPath.section==0) {
             if (indexPath.row==0) {
-                static NSString *cellIndentifier = @"rightCell4";
+                static NSString *cellIndentifier = @"rightCell42";
                 UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
                 if (!cell) {
                     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
@@ -1009,7 +1202,7 @@
             
         }else if (indexPath.section==1) {
             if (indexPath.row == 0) {
-                static NSString *cellIndentifier = @"rightCell1";
+                static NSString *cellIndentifier = @"rightCell12";
                 ReportTableViewCell *cell = (ReportTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
                 if (!cell) {
                     cell = [[ReportTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
@@ -1025,7 +1218,7 @@
                 
                 return cell;
             }else{
-                NSString *cellIndentifier = [NSString stringWithFormat:@"cell2%ld",(long)indexPath.row];
+                NSString *cellIndentifier = [NSString stringWithFormat:@"cell12%ld",(long)indexPath.row];
                 ReportDataTableViewCell *cell = (ReportDataTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
                 if (!cell) {
                     cell = [[ReportDataTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
@@ -1040,8 +1233,8 @@
                 cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
                 cell.cellDataColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.000f green:0.855f blue:0.576f alpha:1.00f]:[UIColor whiteColor];
                 //
-                cell.leftTitleString = [[self.dataRightCellArr objectAtIndex:indexPath.row-1] objectAtIndex:0];
-                cell.rightTitleString = [[self.dataRightCellArr objectAtIndex:indexPath.row-1] objectAtIndex:1];
+                cell.leftTitleString = [[self.dataTitleArr objectAtIndex:indexPath.row-1] objectAtIndex:0];
+                cell.rightTitleString = [[self.dataTitleArr objectAtIndex:indexPath.row-1] objectAtIndex:1];
                 cell.leftDataString = [[self.dataRightCellArr objectAtIndex:indexPath.row-1] objectAtIndex:0];;
                 cell.rightDataString = [[self.dataRightCellArr objectAtIndex:indexPath.row-1] objectAtIndex:1];
                 return cell;
@@ -1049,7 +1242,7 @@
             }
         }else if(indexPath.section==2){
             if (indexPath.row == 0) {
-                static NSString *cellIndentifier = @"rightCell3";
+                static NSString *cellIndentifier = @"rightCell32";
                 ReportTableViewCell *cell = (ReportTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
                 if (!cell) {
                     cell = [[ReportTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
@@ -1069,7 +1262,7 @@
                 cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
                 return cell;
             }else{
-                static NSString *cellIndentifier = @"rightCell4";
+                static NSString *cellIndentifier = @"rightCell44";
                 UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
                 if (!cell) {
                     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
@@ -1219,13 +1412,15 @@
     self.monthTitleLabel.text = [NSString stringWithFormat:@"%@年第%ld周",[nextString substringToIndex:4],(long)weekNum];
     self.monthTitleLabel.text = monthString;
     //刷新数据
-    [self getUserData];
-}
+    if (isDoubleDevice) {
+        [self getLeftUserData];
+        [self getRightUserData];
+        
+    }else{
+        [self getLeftUserData];
+        
+    }
 
-
-- (void)backToHome:(UIButton *)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

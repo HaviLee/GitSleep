@@ -440,7 +440,7 @@
     if (!_leftMenuButton) {
         _leftMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _leftMenuButton.backgroundColor = [UIColor clearColor];
-        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"btn_back_%d",selectedThemeIndex]];
+        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]];
         [_leftMenuButton setImage:i forState:UIControlStateNormal];
         [_leftMenuButton setFrame:CGRectMake(0, 20, 44, 44)];
         [_leftMenuButton addTarget:self action:@selector(presentLeftMenuViewController:) forControlEvents:UIControlEventTouchUpInside];
