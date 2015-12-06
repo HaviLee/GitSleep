@@ -216,6 +216,7 @@
     [[NSUserDefaults standardUserDefaults]setObject:@"06:00" forKey:UserDefaultEndTime ];
     [self.sideMenuViewController setContentViewController:app.containerView animated:YES];
     [self.sideMenuViewController hideMenuViewController];
+    isDoubleDevice = NO;
     [UserManager resetUserInfo];
     thirdHardDeviceUUID = thirdHardDeviceUUID;
     [[NSNotificationCenter defaultCenter]postNotificationName:ThirdUserLogoutNoti object:nil];

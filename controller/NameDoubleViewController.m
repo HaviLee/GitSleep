@@ -14,7 +14,8 @@
 #import "DoubleDUPViewController.h"
 
 @interface NameDoubleViewController ()
-
+@property (nonatomic, strong) UITextField *leftText;
+@property (nonatomic, strong) UITextField *rightText;
 @end
 
 @implementation NameDoubleViewController
@@ -76,43 +77,43 @@
         make.bottom.equalTo(bgView.bottom);
     }];
     //
-    UITextField *leftText = [[UITextField alloc]init];
-    [bgView addSubview:leftText];
-    leftText.text = @"Left";
-    leftText.layer.borderWidth = 0.5;
-    leftText.layer.cornerRadius = 5;
-    leftText.layer.masksToBounds = YES;
-    leftText.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    leftText.textAlignment = NSTextAlignmentLeft;
-    leftText.borderStyle = UITextBorderStyleNone;
-    leftText.leftViewMode = UITextFieldViewModeAlways;
+    _leftText = [[UITextField alloc]init];
+    [bgView addSubview:_leftText];
+    _leftText.text = @"Left";
+    _leftText.layer.borderWidth = 0.5;
+    _leftText.layer.cornerRadius = 5;
+    _leftText.layer.masksToBounds = YES;
+    _leftText.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _leftText.textAlignment = NSTextAlignmentLeft;
+    _leftText.borderStyle = UITextBorderStyleNone;
+    _leftText.leftViewMode = UITextFieldViewModeAlways;
     UIImageView *leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
     leftImage.image = [UIImage imageNamed:@"edit_double_bed"];
     [bgView addSubview:leftImage];
 //    leftText.leftView = leftImage;
     
     //
-    UITextField *rightText = [[UITextField alloc]init];
-    [bgView addSubview:rightText];
-    rightText.textAlignment = NSTextAlignmentLeft;
-    rightText.layer.borderWidth = 0.5;
-    rightText.layer.cornerRadius = 5;
-    rightText.layer.masksToBounds = YES;
-    rightText.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    rightText.text = @"Right";
-    rightText.leftViewMode = UITextFieldViewModeAlways;
-    rightText.borderStyle = UITextBorderStyleNone;
+    _rightText = [[UITextField alloc]init];
+    [bgView addSubview:_rightText];
+    _rightText.textAlignment = NSTextAlignmentLeft;
+    _rightText.layer.borderWidth = 0.5;
+    _rightText.layer.cornerRadius = 5;
+    _rightText.layer.masksToBounds = YES;
+    _rightText.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _rightText.text = @"Right";
+    _rightText.leftViewMode = UITextFieldViewModeAlways;
+    _rightText.borderStyle = UITextBorderStyleNone;
     UIImageView *rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
     rightImage.image = [UIImage imageNamed:@"edit_double_bed"];
     [bgView addSubview:rightImage];
 //    rightText.leftView = rightImage;
     //
-    [leftText makeConstraints:^(MASConstraintMaker *make) {
+    [_leftText makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(bgView.centerY);
         make.height.equalTo(25);
         make.left.equalTo(bgView.left).offset(10);
     }];
-    [rightText makeConstraints:^(MASConstraintMaker *make) {
+    [_rightText makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(bgView.centerY);
         make.height.equalTo(25);
         make.left.equalTo(lineView.right).offset(10);
@@ -120,18 +121,18 @@
     }];
     //
     [leftImage makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(leftText.right).offset(5);
+        make.left.equalTo(_leftText.right).offset(5);
         make.right.equalTo(lineView.left).offset(-10);
         make.height.equalTo(20);
         make.width.equalTo(20);
-        make.centerY.equalTo(leftText.centerY);
+        make.centerY.equalTo(_leftText.centerY);
     }];
     [rightImage makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(rightText.right).offset(5);
+        make.left.equalTo(_rightText.right).offset(5);
         make.right.equalTo(bgView.right).offset(-10);
         make.height.equalTo(20);
         make.width.equalTo(20);
-        make.centerY.equalTo(leftText.centerY);
+        make.centerY.equalTo(_leftText.centerY);
     }];
     
     //
@@ -200,38 +201,49 @@
                              };
     NSDictionary *para = @{
                            @"UserID":thirdPartyLoginUserId,
-                           @"UUID": self.barUUIDString,
-                           @"Description":self.doubleDeviceName,
+                           @"DeviceList":@[
+                                   @{
+                                       @"UUID":self.barUUIDString,
+                                       @"Description":self.doubleDeviceName,
+                                       },
+                                   @{
+                                       @"UUID":[[[self.dicDetailDevice objectForKey:@"DetailSensorInfo"]objectAtIndex:0]objectForKey:@"UUID"],
+                                       @"Description":self.leftText.text,
+                                       },
+                                   @{
+                                       @"UUID":[[[self.dicDetailDevice objectForKey:@"DetailSensorInfo"]objectAtIndex:1]objectForKey:@"UUID"],
+                                       @"Description":self.rightText.text,
+                                       }
+                                   ]
+//                           @"UUID": self.barUUIDString,
+//                           @"Description":self.doubleDeviceName,
                            };
-    BindingDeviceUUIDAPI *client = [BindingDeviceUUIDAPI shareInstance];
-    [client bindingDeviceUUID:header andWithPara:para];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        HaviLog(@"绑定设备结果是%@",resposeDic);
-        //测试
+    NSString *urlString = [NSString stringWithFormat:@"v1/user/RenameUserDevice"];
+
+    [WTRequestCenter putWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {
         [MMProgressHUD dismiss];
-        DoubleDUPViewController *udp = [[DoubleDUPViewController alloc]init];
-        udp.productName = self.doubleDeviceName;//测试
-        thirdHardDeviceUUID = self.barUUIDString;
-        udp.productUUID = self.barUUIDString;
-        [self.navigationController pushViewController:udp animated:YES];
-        /*
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [MMProgressHUD dismiss];
-            [self activeUUID:self.barUUIDString];
-        }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
-            [MMProgressHUD dismiss];
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                [self.view makeToast:@"不存在该硬件,请核对设备ID" duration:2 position:@"center"];
-            }];
-        }else{
-            [MMProgressHUD dismissWithSuccess:[resposeDic objectForKey:@"ErrorMessage"] title:nil afterDelay:2];
+            HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
+            thirdHardDeviceUUID = self.barUUIDString;
+            thirdHardDeviceName = self.doubleDeviceName;
+            thirdLeftDeviceUUID = [[[self.dicDetailDevice objectForKey:@"DetailSensorInfo"]objectAtIndex:0]objectForKey:@"UUID"];
+            thirdRightDeviceUUID = [[[self.dicDetailDevice objectForKey:@"DetailSensorInfo"]objectAtIndex:1]objectForKey:@"UUID"];
+            thirdLeftDeviceName = self.leftText.text;
+            thirdRightDeviceName = self.rightText.text;
+            [UserManager setGlobalOauth];
+            [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICEUUID object:nil];
+            DoubleDUPViewController *udp = [[DoubleDUPViewController alloc]init];
+            udp.productName = self.doubleDeviceName;//测试
+            thirdHardDeviceUUID = self.barUUIDString;
+            udp.productUUID = self.barUUIDString;
+            [self.navigationController pushViewController:udp animated:YES];
         }
-         */
-    } failure:^(YTKBaseRequest *request) {
-        [MMProgressHUD dismiss];
-        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        
     }];
+    
 }
 //激活
 - (void)activeUUID:(NSString *)UUID

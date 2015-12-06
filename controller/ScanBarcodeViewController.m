@@ -366,27 +366,37 @@ float prewMoveY;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.session startRunning];
         });
-        if ([self checkIsDoubleBed:self.barTextfield.text]) {
-            NameDoubleViewController *doubleBed = [[NameDoubleViewController alloc]init];
-            doubleBed.barUUIDString = self.barTextfield.text;
-            doubleBed.doubleDeviceName = self.deviceName;
-            [self.navigationController pushViewController:doubleBed animated:YES];
-        }else{
-            [self bindingDeviceWithUUID:self.barTextfield.text];
-        }
-        
+        [self checkIsDoubleBed:self.barTextfield.text];
         
     }
 }
 
 - (BOOL)checkIsDoubleBed:(NSString *)deviceUUID
 {
-    NSString *subString = [deviceUUID substringToIndex:3];
-    if ([subString isEqualToString:@"845"]||[[deviceUUID substringToIndex:2]isEqualToString:@"MT"]) {
-        return NO;
-    }else{
-        return YES;
-    }
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",deviceUUID];
+    
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
+        
+        if ([[[resposeDic objectForKey:@"SensorInfo"]objectForKey:@"DetailSensorInfo"] count]>1) {
+            NameDoubleViewController *doubleBed = [[NameDoubleViewController alloc]init];
+            doubleBed.barUUIDString = self.barTextfield.text;
+            doubleBed.doubleDeviceName = self.deviceName;
+            doubleBed.dicDetailDevice = [resposeDic objectForKey:@"SensorInfo"];
+            [self.navigationController pushViewController:doubleBed animated:YES];
+        }else{
+            [self bindingDeviceWithUUID:self.barTextfield.text];
+        }
+        //
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismiss];
+    }];
+    return YES;
 }
 
 #pragma mark user action
@@ -396,14 +406,7 @@ float prewMoveY;
         [self.view makeToast:@"请输入或者扫描设备二维码" duration:2 position:@"center"];
         return;
     }
-    if ([self checkIsDoubleBed:self.barTextfield.text]) {
-        NameDoubleViewController *doubleBed = [[NameDoubleViewController alloc]init];
-        doubleBed.barUUIDString = self.barTextfield.text;
-        doubleBed.doubleDeviceName = self.deviceName;
-        [self.navigationController pushViewController:doubleBed animated:YES];
-    }else{
-        [self bindingDeviceWithUUID:self.barTextfield.text];
-    }
+    [self checkIsDoubleBed:self.barTextfield.text];
 }
 //进行设备关联
 #pragma mark 绑定硬件

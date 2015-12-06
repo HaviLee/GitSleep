@@ -11,4 +11,5 @@
 @interface NameDoubleViewController : BaseViewController
 @property (nonatomic, strong) NSString *barUUIDString;
 @property (nonatomic, strong) NSString *doubleDeviceName;
+@property (nonatomic, strong) NSDictionary *dicDetailDevice;
 @end
