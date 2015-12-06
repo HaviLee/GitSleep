@@ -45,6 +45,14 @@
 @property (nonatomic,strong) NSDictionary *currentSleepQulitity;
 //
 @property (nonatomic,strong) UILabel *cellDateTitleLabel;
+//右侧数据
+@property (nonatomic,strong) NSArray *heartRightDic;
+@property (nonatomic,strong) NSDictionary *reportRightData;
+@property (nonatomic,strong) NSDictionary *currentRightSleepQulitity;
+@property (nonatomic,strong) NSArray *sleepRightQualityDataArr;
+
+
+
 
 @end
 
@@ -64,10 +72,13 @@
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showHeartEmercenyView:) name:PostHeartEmergencyNoti object:nil];
-    [self getData];
+    [self getLeftData];
+    [self getRightData];
 }
 
-- (void)getData
+#pragma mark 左侧数据
+
+- (void)getLeftData
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
@@ -75,12 +86,12 @@
     NSString *queryDate = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
     self.currentDate = queryDate;
     //请求数据
-    [self getUserAllDaySensorData:queryDate toDate:queryDate];
+    [self getLeftUserAllDaySensorData:queryDate toDate:queryDate];
 }
 
 #pragma mark 获取24小时用户数据
 
-- (void)getUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
+- (void)getLeftUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
 {
     //    [MMProgressHUD showWithStatus:@"请求中..."];
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
@@ -100,43 +111,32 @@
         NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
         NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
         NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
-        urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,newString,toDate];
+        urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdLeftDeviceUUID,newString,toDate];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
-        GetHeartDataAPI *client = [GetHeartDataAPI shareInstance];
-        if ([client isExecuting]) {
-            [client stop];
-        }
-        [client getHeartData:header withDetailUrl:urlString];
-        if ([client getCacheJsonWithDate:fromDate]) {
-            NSDictionary *resposeDic = (NSDictionary *)[client cacheJson];
+        
+        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            [MMProgressHUD dismiss];
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-            HaviLog(@"缓存请求的心率数据%@和url%@",resposeDic,urlString);
-            [self reloadUserViewWithData:resposeDic];
-            [self getUserSleepReportData:fromDate toDate:toDate];
-        }else{
-            [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-                NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                HaviLog(@"请求的心率数据%@和url%@",resposeDic,urlString);
-                [self reloadUserViewWithData:resposeDic];
-                [self getUserSleepReportData:fromDate toDate:toDate];
-            } failure:^(YTKBaseRequest *request) {
-                [MMProgressHUD dismiss];
-                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
-                [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
-            }];
-        }
+            HaviLog(@"请求的心率数据%@和url%@",resposeDic,urlString);
+            [self reloadLeftUserViewWithData:resposeDic];
+            [self getLeftUserSleepReportData:fromDate toDate:toDate];
+            
+        } failed:^(NSURLResponse *response, NSError *error) {
+            [MMProgressHUD dismiss];
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+            [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        }];
+        
+        
     }
 }
 
-- (void)reloadUserViewWithData:(NSDictionary *)dataDic
+- (void)reloadLeftUserViewWithData:(NSDictionary *)dataDic
 {
     NSArray *arr = [dataDic objectForKey:@"SensorData"];
-    //    NSArray *arr1 = @[[NSNumber numberWithInt:23],[NSNumber numberWithInt:33]];
-    //    self.heartGraphView.heartView.values = arr1;
-    //    [self.heartGraphView.heartView animate];
     self.heartDic = nil;
     for (NSDictionary *dic in arr) {
         self.heartDic = [self changeSeverDataToChartData:[dic objectForKey:@"Data"]];
@@ -150,8 +150,6 @@
         self.heartGraphView.heartViewLeft.values = arr1;
         [self.heartGraphView.heartViewLeft animate];
         //
-        self.heartGraphView.heartViewRight.values = arr1;
-        [self.heartGraphView.heartViewRight animate];
     }
 }
 
@@ -181,21 +179,18 @@
             self.heartGraphView.heartViewLeft.values = self.heartDic;
             [self.heartGraphView.heartViewLeft animate];
             //
-            self.heartGraphView.heartViewRight.values = self.heartDic;
-            [self.heartGraphView.heartViewRight animate];
             int xValue = [[self.heartDic objectAtIndex:0] intValue];
             if (xValue==60) {
                 xValue = xValue-60;
             }
             self.layerFloatView.leftDataString = [NSString stringWithFormat:@"%d",xValue];
-            self.layerFloatView.rightDataString = [NSString stringWithFormat:@"%d",xValue];
         });
     });
     return nil;
 }
 
 
-- (void)getUserSleepReportData:(NSString *)fromDate toDate:(NSString *)toDate
+- (void)getLeftUserSleepReportData:(NSString *)fromDate toDate:(NSString *)toDate
 {
     if (fromDate) {
         
@@ -205,10 +200,48 @@
         NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
         NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
         NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
-        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,thirdPartyLoginUserId,newString,fromDate];
+        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdLeftDeviceUUID,thirdPartyLoginUserId,newString,fromDate];
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
                                  };
+        
+        //
+        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            [MMProgressHUD dismiss];
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+            self.reportData = resposeDic;
+            NSString *selectString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+            self.currentSleepQulitity = resposeDic;
+            NSString *subString = [selectString substringToIndex:10];
+            NSDictionary *dataDic=nil;
+            for (NSDictionary *dic in [resposeDic objectForKey:@"Data"]) {
+                if ([[dic objectForKey:@"Date"]isEqualToString:subString]) {
+                    dataDic = dic;
+                }
+            }
+            //
+            self.leftLongSleepView.grade = [[dataDic objectForKey:@"SleepDuration"]floatValue]/24;
+            if ([[NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]]isEqualToString:@"(null)"]) {
+                self.leftLongSleepView.sleepYearMonthDayString = @"";
+            }else{
+                self.leftLongSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]];
+            }
+            float duration = [[dataDic objectForKey:@"SleepDuration"]floatValue]<0?-[[dataDic objectForKey:@"SleepDuration"]floatValue]:[[dataDic objectForKey:@"SleepDuration"]floatValue];
+            double second = 0.0;
+            double subsecond = modf(duration, &second);
+            self.leftLongSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)ceilf(subsecond*60)];
+            //
+            self.sleepQualityDataArr = @[[NSString stringWithFormat:@"%d次/分",[[resposeDic objectForKey:@"AverageHeartRate"]intValue]],[NSString stringWithFormat:@"%d次",[[self.reportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"]];
+            [self.reportTableView reloadData];
+            
+        } failed:^(NSURLResponse *response, NSError *error) {
+            [MMProgressHUD dismiss];
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+            [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        }];
+        
+        /*
         GetHeartSleepDataAPI *client = [GetHeartSleepDataAPI shareInstance];
         if ([client isExecuting]) {
             [client stop];
@@ -307,9 +340,173 @@
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[resposeDic objectForKey:@"ErrorMessage"]] duration:2 position:@"center"];
             }];
         }
+         */
+    }
+}
+#pragma mark 右侧数据
+- (void)getRightData
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy年MM月dd日HH时mm分ss秒"];
+    NSString *dateString = [formatter stringFromDate:selectedDateToUse];
+    NSString *queryDate = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
+    self.currentDate = queryDate;
+    //请求数据
+    [self getRightUserAllDaySensorData:queryDate toDate:queryDate];
+}
+
+#pragma mark 获取24小时用户数据
+
+- (void)getRightUserAllDaySensorData:(NSString *)fromDate toDate:(NSString *)toDate
+{
+    //    [MMProgressHUD showWithStatus:@"请求中..."];
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
+    [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
+    if (fromDate) {
+        
+        NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+        NSString *urlString = @"";
+        self.dateComponentsBase.day = -1;
+        NSDate *lastDay = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *lastDayString = [NSString stringWithFormat:@"%@",lastDay];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[lastDayString substringWithRange:NSMakeRange(0, 4)],[lastDayString substringWithRange:NSMakeRange(5, 2)],[lastDayString substringWithRange:NSMakeRange(8, 2)]];
+        urlString = [NSString stringWithFormat:@"v1/app/SensorDataHistory?UUID=%@&DataProperty=3&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdRightDeviceUUID,newString,toDate];
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        
+        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            [MMProgressHUD dismiss];
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+            HaviLog(@"请求的心率数据%@和url%@",resposeDic,urlString);
+            [self reloadRightUserViewWithData:resposeDic];
+            [self getRightUserSleepReportData:fromDate toDate:toDate];
+            
+        } failed:^(NSURLResponse *response, NSError *error) {
+            [MMProgressHUD dismiss];
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+            [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        }];
+        
+        
     }
 }
 
+- (void)reloadRightUserViewWithData:(NSDictionary *)dataDic
+{
+    NSArray *arr = [dataDic objectForKey:@"SensorData"];
+    self.heartRightDic = nil;
+    for (NSDictionary *dic in arr) {
+        self.heartRightDic = [self changeRightSeverDataToChartData:[dic objectForKey:@"Data"]];
+        
+    }
+    if (arr.count==0) {
+        NSMutableArray *arr1 = [[NSMutableArray alloc]init];
+        for (int i=0; i<288; i++) {
+            [arr1 addObject:[NSNumber numberWithFloat:60]];
+        }
+        //
+        self.heartGraphView.heartViewRight.values = arr1;
+        [self.heartGraphView.heartViewRight animate];
+    }
+}
+
+- (NSMutableArray *)changeRightSeverDataToChartData:(NSArray *)severDataArr
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        for (int i=0; i<288; i++) {
+            [arr addObject:[NSNumber numberWithFloat:60]];
+        }
+        for (int i = 0; i<severDataArr.count; i++) {
+            NSDictionary *dic = [severDataArr objectAtIndex:i];
+            NSString *date = [dic objectForKey:@"At"];
+            NSString *hourDate1 = [date substringWithRange:NSMakeRange(11, 2)];
+            NSString *minuteDate2 = [date substringWithRange:NSMakeRange(14, 2)];
+            int indexIn = 0;
+            if ([hourDate1 intValue]<18) {
+                indexIn = (int)((24 -18)*60 + [hourDate1 intValue]*60 + [minuteDate2 intValue])/5;
+            }else {
+                indexIn = (int)(([hourDate1 intValue]-18)*60 + [minuteDate2 intValue])/5;
+            }
+            [arr replaceObjectAtIndex:indexIn withObject:[NSNumber numberWithFloat:[[dic objectForKey:@"Value"] floatValue]]];
+        }
+        self.heartRightDic = arr;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //
+            self.heartGraphView.heartViewRight.values = self.heartRightDic;
+            [self.heartGraphView.heartViewRight animate];
+            int xValue = [[self.heartDic objectAtIndex:0] intValue];
+            if (xValue==60) {
+                xValue = xValue-60;
+            }
+            self.layerFloatView.rightDataString = [NSString stringWithFormat:@"%d",xValue];
+        });
+    });
+    return nil;
+}
+
+
+- (void)getRightUserSleepReportData:(NSString *)fromDate toDate:(NSString *)toDate
+{
+    if (fromDate) {
+        
+        NSDate *newDate = [self.dateFormmatterBase dateFromString:fromDate];
+        NSString *urlString = @"";
+        self.dateComponentsBase.day = -1;
+        NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+        NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
+        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
+        urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdRightDeviceUUID,thirdPartyLoginUserId,newString,fromDate];
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        
+        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            [MMProgressHUD dismiss];
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+            self.reportRightData = resposeDic;
+            NSString *selectString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+            self.currentSleepQulitity = resposeDic;
+            NSString *subString = [selectString substringToIndex:10];
+            NSDictionary *dataDic=nil;
+            for (NSDictionary *dic in [resposeDic objectForKey:@"Data"]) {
+                if ([[dic objectForKey:@"Date"]isEqualToString:subString]) {
+                    dataDic = dic;
+                }
+            }
+            //
+            self.rightLongSleepView.grade = [[dataDic objectForKey:@"SleepDuration"]floatValue]/24;
+            if ([[NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]]isEqualToString:@"(null)"]) {
+                self.rightLongSleepView.sleepYearMonthDayString = @"";
+            }else{
+                self.rightLongSleepView.sleepYearMonthDayString = [NSString stringWithFormat:@"%@",[dataDic objectForKey:@"Date"]];
+            }
+            float duration = [[dataDic objectForKey:@"SleepDuration"]floatValue]<0?-[[dataDic objectForKey:@"SleepDuration"]floatValue]:[[dataDic objectForKey:@"SleepDuration"]floatValue];
+            double second = 0.0;
+            double subsecond = modf(duration, &second);
+            self.rightLongSleepView.sleepTimeLongString = [NSString stringWithFormat:@"%d小时%d分",(int)duration,(int)ceilf(subsecond*60)];
+            //
+            self.sleepRightQualityDataArr = @[[NSString stringWithFormat:@"%d次/分",[[resposeDic objectForKey:@"AverageHeartRate"]intValue]],[NSString stringWithFormat:@"%d次",[[self.reportRightData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.reportRightData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d%@",[[self.reportRightData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"]];
+            [self.reportTableView reloadData];
+            
+        } failed:^(NSURLResponse *response, NSError *error) {
+            [MMProgressHUD dismiss];
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+            [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        }];
+    }
+}
 
 #pragma mark setter
 
@@ -423,7 +620,7 @@
 //        _leftLongSleepView.backgroundColor = [UIColor redColor];
         _leftLongSleepView.sleepNightCategoryColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.867f blue:0.596f alpha:1.00f]:[UIColor whiteColor];
         _leftLongSleepView.sleepLongTimeColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.867f blue:0.596f alpha:1.00f]:[UIColor whiteColor];
-        _leftLongSleepView.sleepNightCategoryString = @"左侧哈维";
+        _leftLongSleepView.sleepNightCategoryString = thirdLeftDeviceName.length==0?@"Left":thirdLeftDeviceName;
         _leftLongSleepView.lineColorArr = @[(__bridge id)[UIColor colorWithRed:0.200f green:0.443f blue:0.545f alpha:1.00f].CGColor,(__bridge id)[UIColor colorWithRed:0.000f green:0.855f blue:0.573f alpha:1.00f].CGColor];
     }
     return _leftLongSleepView;
@@ -435,7 +632,7 @@
         _rightLongSleepView = [[SleepTimeTagView alloc]init ];
         _rightLongSleepView.frame = CGRectMake(0, 42, self.view.frame.size.width, 42);
         _rightLongSleepView.sleepNightCategoryColor = selectedThemeIndex==0?[UIColor colorWithRed:0.537f green:0.475f blue:0.827f alpha:1.00f]:[UIColor whiteColor];
-        _rightLongSleepView.sleepNightCategoryString = @"右侧小白";
+        _rightLongSleepView.sleepNightCategoryString = thirdRightDeviceName.length==0?@"Right":thirdRightDeviceName;
         _rightLongSleepView.sleepLongTimeColor = selectedThemeIndex==0?[UIColor colorWithRed:0.537f green:0.475f blue:0.827f alpha:1.00f]:[UIColor whiteColor];
         _rightLongSleepView.lineColorArr = @[(__bridge id)[UIColor colorWithRed:0.200f green:0.443f blue:0.545f alpha:1.00f].CGColor,(__bridge id)[UIColor colorWithRed:0.537f green:0.475f blue:0.827f alpha:1.00f].CGColor];
     }
@@ -535,12 +732,12 @@
                 cell = [[DoubleShowChartTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
             }
             //timeSwitchButton
-            cell.leftCellName = @"左侧哈维之家";
-            cell.rightCellName = @"右侧大笔";
+            cell.leftCellName = thirdLeftDeviceName.length==0?@"Left":thirdLeftDeviceName;
+            cell.rightCellName = thirdRightDeviceName.length==0?@"Right":thirdRightDeviceName;
             cell.iconTitleName = [NSString stringWithFormat:@"icon_heart_rate_%d",selectedThemeIndex];
             
             cell.leftCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]];
-            cell.rightCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageHeartRate"] intValue]];
+            cell.rightCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportRightData objectForKey:@"AverageHeartRate"] intValue]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = [UIColor clearColor];
             return cell;
@@ -604,7 +801,7 @@
             cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
             cell.cellFont = [UIFont systemFontOfSize:16];
             cell.leftDataString = [self.sleepQualityDataArr objectAtIndex:indexPath.row-2];
-            cell.rightDataString = [self.sleepQualityDataArr objectAtIndex:indexPath.row-2];
+            cell.rightDataString = [self.sleepRightQualityDataArr objectAtIndex:indexPath.row-2];
             cell.middleDataString = [self.sleepQualityTitleArr objectAtIndex:indexPath.row-2];
             cell.cellDataColor = selectedThemeIndex == 0? [UIColor colorWithRed:0.537f green:0.475f blue:0.827f alpha:1.00f]:[UIColor whiteColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -623,8 +820,8 @@
         cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.middleDataString = @"心率异常数高于";
-        cell.leftPieGrade = 40;
-        cell.rightPieGrade = 70;
+        cell.rightPieGrade = [[self.reportRightData objectForKey:@"AbnormalHeartRatePercent"] intValue];
+        cell.leftPieGrade = [[self.reportData objectForKey:@"AbnormalHeartRatePercent"] intValue];
         cell.leftPieChart.percentLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.867f blue:0.596f alpha:1.00f]:[UIColor whiteColor];
         cell.rightPieChart.percentLabel.textColor = selectedThemeIndex==0?[UIColor colorWithRed:0.514f green:0.447f blue:0.820f alpha:1.00f]:[UIColor whiteColor];
         cell.leftPieChart.kdPieColor = selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.867f blue:0.596f alpha:1.00f]:[UIColor whiteColor];
@@ -735,8 +932,12 @@
             if (xValue==60) {
                 xValue = xValue-60;
             }
+            int xValue1 = [[self.heartRightDic objectAtIndex:xIndex] intValue];
+            if (xValue1==60) {
+                xValue1 = xValue1-60;
+            }
             self.layerFloatView.leftDataString = [NSString stringWithFormat:@"%d",xValue];
-            self.layerFloatView.rightDataString = [NSString stringWithFormat:@"%d",xValue];
+            self.layerFloatView.rightDataString = [NSString stringWithFormat:@"%d",xValue1];
         }
         
         
