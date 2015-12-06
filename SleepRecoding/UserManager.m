@@ -19,6 +19,10 @@ static NSString* CUR_HardWareName = @"CUR_HardWareName";
 static NSString* CUR_USERNICKNAME = @"CUR_USERNICKNAME";
 static NSString* CUR_MeddoPhone = @"CUR_MeddoPhone";
 static NSString* CUR_MeddoPassWord = @"CUR_MeddoPassWord";
+static NSString* CUR_LeftHardWareUUID = @"CUR_LeftHardWareUUID";
+static NSString* CUR_RightHardWareUUID = @"CUR_RightHardWareUUID";
+static NSString* CUR_LeftHardWareName = @"CUR_LeftHardWareName";
+static NSString* CUR_RightHardWareName = @"CUR_RightHardWareName";
 
 @implementation UserManager
 
@@ -39,6 +43,10 @@ static NSString* CUR_MeddoPassWord = @"CUR_MeddoPassWord";
     userinfo[CUR_MeddoPhone] = thirdMeddoPhone;
     userinfo[CUR_OriginalUSERID] = thirdPartyLoginOriginalId;
     userinfo[CUR_MeddoPassWord] = thirdMeddoPassWord;
+    userinfo[CUR_LeftHardWareName] = thirdLeftDeviceName;
+    userinfo[CUR_LeftHardWareUUID] = thirdLeftDeviceUUID;
+    userinfo[CUR_RightHardWareName] = thirdRightDeviceName;
+    userinfo[CUR_RightHardWareUUID] = thirdRightDeviceUUID;
     [global setObject:userinfo forKey:CUR_USERINFO];
 }
 
@@ -57,6 +65,10 @@ static NSString* CUR_MeddoPassWord = @"CUR_MeddoPassWord";
     thirdMeddoPassWord = @"";
     thirdMeddoPhone = @"";
     thirdPartyLoginOriginalId = @"";
+    thirdRightDeviceUUID = @"";
+    thirdRightDeviceName = @"";
+    thirdLeftDeviceUUID = @"";
+    thirdLeftDeviceName = @"";
     
 }
 
@@ -88,6 +100,10 @@ static NSString* CUR_MeddoPassWord = @"CUR_MeddoPassWord";
         thirdMeddoPhone = [userinfo objectForKey:CUR_MeddoPhone];
         thirdMeddoPassWord = [userinfo objectForKey:CUR_MeddoPassWord];
         thirdPartyLoginOriginalId = [userinfo objectForKey:CUR_OriginalUSERID];
+        thirdLeftDeviceName = [userinfo objectForKey:CUR_LeftHardWareName];
+        thirdLeftDeviceUUID = [userinfo objectForKey:CUR_LeftHardWareUUID];
+        thirdRightDeviceName = [userinfo objectForKey:CUR_RightHardWareName];
+        thirdRightDeviceUUID = [userinfo objectForKey:CUR_RightHardWareUUID];
         return TRUE;
         
     } else {

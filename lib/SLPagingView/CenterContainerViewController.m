@@ -95,7 +95,13 @@
 - (void)checkDeviceInfo
 {
     if (thirdHardDeviceUUID.length>0) {
-        [self getDeviceInfoWithUUID:thirdHardDeviceUUID];
+        if (thirdRightDeviceUUID.length>0&&thirdLeftDeviceUUID.length>0) {
+            isDoubleDevice = YES;
+        }else{
+            isDoubleDevice = NO;
+        }
+        [self setController];
+//        [self getDeviceInfoWithUUID:thirdHardDeviceUUID];
     }
 }
 
@@ -176,77 +182,88 @@
 //请求帐号下的设备列表
 - (void)getAllDeviceList
 {
-    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserDeviceList?UserID=%@",thirdPartyLoginUserId];
+    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserAndFriendDevices?UserID=%@",thirdPartyLoginUserId];
     
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
     [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        HaviLog(@"用户%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
+        HaviLog(@"朋友%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
         [MMProgressHUD dismiss];
-        NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
-        for (NSDictionary *dic in arr) {
+        NSArray *_arrFriendDeviceList = [resposeDic objectForKey:@"FriendDeviceList"];
+        for (NSDictionary *dic in _arrFriendDeviceList) {
             if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
                 thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
                 thirdHardDeviceName = [dic objectForKey:@"Description"];
+                if ([[dic objectForKey:@"DetailDevice"] count]>0) {
+                    NSArray *_arrDeatilListDescription = [dic objectForKey:@"DetailDevice"];
+                    thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"Description"];
+                    thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"UUID"];
+                    thirdRightDeviceName = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"Description"];
+                    thirdRightDeviceUUID = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"UUID"];
+                    isDoubleDevice = YES;
+                }
+                isDoubleDevice = NO;
+                self.clearNaviTitleLabel.text = thirdHardDeviceName;
+                self.leftDeviceShowName = [dic objectForKey:@"Description"];
                 [UserManager setGlobalOauth];
+                
                 break;
             }
         }
-        
-        NSString *urlString = [NSString stringWithFormat:@"v1/user/FriendDeviceList?UserID=%@",thirdPartyLoginUserId];
-        
-        NSDictionary *header = @{
-                                 @"AccessToken":@"123456789"
-                                 };
-        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
-            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            HaviLog(@"朋友%@下所有的设备%@",thirdPartyLoginUserId,resposeDic);
-            [MMProgressHUD dismiss];
-            NSArray *arr = [resposeDic objectForKey:@"DeviceList"];
-            for (NSDictionary *dic in arr) {
-                if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
-                    thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
-                    thirdHardDeviceName = [dic objectForKey:@"Description"];
-                    self.clearNaviTitleLabel.text = thirdHardDeviceName;
-                    self.leftDeviceShowName = [dic objectForKey:@"Description"];
-                    [UserManager setGlobalOauth];
-                    
-                    break;
+        NSArray *arrUserDeviceList = [resposeDic objectForKey:@"UserDeviceList"];
+        for (NSDictionary *dic in arrUserDeviceList) {
+            if ([[dic objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+                thirdHardDeviceUUID = [dic objectForKey:@"UUID"];
+                thirdHardDeviceName = [dic objectForKey:@"Description"];
+                if ([[dic objectForKey:@"DetailDevice"] count]>0) {
+                    NSArray *_arrDeatilListDescription = [dic objectForKey:@"DetailDevice"];
+                    thirdLeftDeviceName = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"Description"];
+                    thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"UUID"];
+                    thirdRightDeviceName = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"Description"];
+                    thirdRightDeviceUUID = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"UUID"];
                 }
+                self.clearNaviTitleLabel.text = thirdHardDeviceName;
+                self.leftDeviceShowName = [dic objectForKey:@"Description"];
+                [UserManager setGlobalOauth];
+                
+                break;
             }
-            HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,thirdHardDeviceUUID);
-            if (![thirdHardDeviceUUID isEqualToString:@""]) {
-                //
-                [self setPageViewControllerWithDic:nil];
-                [self setController];
-                NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
-                NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
-                [self getTodaySleepQualityData:newString];
+        }
+        HaviLog(@"用户%@关联默认的uuid是%@",thirdPartyLoginUserId,thirdHardDeviceUUID);
+        if (![thirdHardDeviceUUID isEqualToString:@""]) {
+            //
+            [self setPageViewControllerWithDic:nil];
+            [self setController];
+            NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+            if (isDoubleDevice) {
+                [self getTodaySleepQualityData:newString withLeftUUID:thirdLeftDeviceUUID];
+                [self getTodaySleepQualityData:newString withRightUUID:thirdRightDeviceUUID];
             }else{
-                MMPopupItemHandler block = ^(NSInteger index){
-                    HaviLog(@"clickd %@ button",@(index));
-                    if(index==1){
-                        DeviceListViewController *user = [[DeviceListViewController alloc]init];
-                        [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
-                    }
-                };
-                NSArray *items =
-                @[MMItemMake(@"暂不绑定", MMItemTypeNormal, block),
-                  MMItemMake(@"确定", MMItemTypeNormal, block)];
-                
-                MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
-                                                                     detail:@"您还没有绑定设备,是否现在去绑定？" items:items];
-                alertView.attachedView = self.view;
-                
-                [alertView show];
-                
+                [self getTodaySleepQualityData:newString withLeftUUID:thirdHardDeviceUUID];
             }
             
-        } failed:^(NSURLResponse *response, NSError *error) {
+        }else{
+            MMPopupItemHandler block = ^(NSInteger index){
+                HaviLog(@"clickd %@ button",@(index));
+                if(index==1){
+                    DeviceListViewController *user = [[DeviceListViewController alloc]init];
+                    [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+                }
+            };
+            NSArray *items =
+            @[MMItemMake(@"暂不绑定", MMItemTypeNormal, block),
+              MMItemMake(@"确定", MMItemTypeNormal, block)];
             
-        }];
+            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                                 detail:@"您还没有绑定设备,是否现在去绑定？" items:items];
+            alertView.attachedView = self.view;
+            
+            [alertView show];
+            
+        }
         
     } failed:^(NSURLResponse *response, NSError *error) {
         
@@ -254,7 +271,7 @@
 }
 
 
-- (void)getTodaySleepQualityData:(NSString *)nowDateString
+- (void)getTodaySleepQualityData:(NSString *)nowDateString withLeftUUID:(NSString *)UUID
 {
     //fromdate 是当天的日期
     if ([thirdHardDeviceUUID isEqualToString:@""]) {
@@ -287,20 +304,13 @@
     NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
     NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
     NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
-    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",thirdHardDeviceUUID,thirdPartyLoginUserId,newString,nowDateString];
+    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",UUID,thirdPartyLoginUserId,newString,nowDateString];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    GetDefatultSleepAPI *client = [GetDefatultSleepAPI shareInstance];
-    /*
-     增加了一个判断当前的是不是在进行，进行的话终止
-     */
-    if ([client isExecuting]) {
-        [client stop];
-    }
-    [client queryDefaultSleep:header withDetailUrl:urlString];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+    
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
@@ -319,14 +329,85 @@
         }else{
             
         }
-        [self refreshViewWithSleepData:resposeDic];
-        HaviLog(@"获取%@日睡眠质量:%@ \n url:%@ \n",nowDateString,resposeDic,urlString);
-    } failure:^(YTKBaseRequest *request) {
+        [self refreshViewWithLeftSleepData:resposeDic];
         
+        HaviLog(@"获取左侧%@日睡眠质量:%@ \n url:%@ \n",nowDateString,resposeDic,urlString);
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismiss];
+    }];
+    
+}
+
+- (void)getTodaySleepQualityData:(NSString *)nowDateString withRightUUID:(NSString *)UUID
+{
+    //fromdate 是当天的日期
+    if ([thirdHardDeviceUUID isEqualToString:@""]) {
+        MMPopupItemHandler block = ^(NSInteger index){
+            HaviLog(@"clickd %@ button",@(index));
+            if(index==1){
+                DeviceListViewController *user = [[DeviceListViewController alloc]init];
+                [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
+            }
+        };
+        NSArray *items =
+        @[MMItemMake(@"暂不绑定", MMItemTypeNormal, block),
+          MMItemMake(@"确定", MMItemTypeNormal, block)];
+        
+        MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                             detail:@"您还没有绑定设备,是否现在去绑定？" items:items];
+        alertView.attachedView = self.view;
+        
+        [alertView show];
+        return;
+    }
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    if (!nowDateString) {
+        
+        return;
+    }
+    NSDate *newDate = [self.dateFormmatterBase dateFromString:nowDateString];
+    NSString *urlString = @"";
+    self.dateComponentsBase.day = -1;
+    NSDate *yestoday = [[NSCalendar currentCalendar] dateByAddingComponents:self.dateComponentsBase toDate:newDate options:0];
+    NSString *yestodayString = [NSString stringWithFormat:@"%@",yestoday];
+    NSString *newString = [NSString stringWithFormat:@"%@%@%@",[yestodayString substringWithRange:NSMakeRange(0, 4)],[yestodayString substringWithRange:NSMakeRange(5, 2)],[yestodayString substringWithRange:NSMakeRange(8, 2)]];
+    urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=18:00&EndTime=18:00",UUID,thirdPartyLoginUserId,newString,nowDateString];
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+        }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
+            MMPopupItemHandler block = ^(NSInteger index){
+                HaviLog(@"clickd %@ button",@(index));
+            };
+            NSArray *items =
+            @[MMItemMake(@"确定", MMItemTypeNormal, block)];
+            
+            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
+                                                                 detail:@"不存在当前设备，请检查您的设备UUID" items:items];
+            alertView.attachedView = self.view;
+            
+            [alertView show];
+            
+        }else{
+            
+        }
+
+        [self refreshViewWithRightSleepData:resposeDic];
+        
+        HaviLog(@"获取右侧%@日睡眠质量:%@ \n url:%@ \n",nowDateString,resposeDic,urlString);
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismiss];
     }];
 }
 
-- (void)refreshViewWithSleepData:(NSDictionary *)sleepDic
+
+- (void)refreshViewWithLeftSleepData:(NSDictionary *)sleepDic
 {
     //左侧床垫数据
     self.leftTableData = @[
@@ -385,17 +466,79 @@
     {
         [self.leftEndView removeFromSuperview];
     }
+    
+}
 
+- (void)refreshViewWithRightSleepData:(NSDictionary *)sleepDic
+{
+    //左侧床垫数据
+//    self.leftTableData = @[
+//                           [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageHeartRate"]intValue]],
+//                           [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageRespiratoryRate"]intValue]],
+//                           [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"OutOfBedTimes"]intValue]],
+//                           [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
+//                           ];
+//    [self.leftTableView reloadData];
+//    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[sleepDic objectForKey:@"Data"]];
+    NSString *selectString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+    NSString *subString = [selectString substringToIndex:10];
+    NSDictionary *dataDic=nil;
+    for (NSDictionary *dic in arr) {
+        if ([[dic objectForKey:@"Date"]isEqualToString:subString]) {
+            dataDic = dic;
+        }
+    }
+//    NSString *sleepStartTime = [dataDic objectForKey:@"SleepStartTime"];
+//    NSString *sleepEndTime = [dataDic objectForKey:@"SleepEndTime"];
+    NSString *sleepDuration = [dataDic objectForKey:@"SleepDuration"];
+//    int sleepLevel = [[sleepDic objectForKey:@"SleepQuality"]intValue];
+//    [self.leftCircleView changeSleepQualityValue:sleepLevel*20];//睡眠指数
+//    [self.leftCircleView changeSleepTimeValue:sleepLevel*20];
+//    [self.leftCircleView changeSleepLevelValue:[self changeNumToWord:sleepLevel]];
+//    self.leftCircleView.rotationValue = 88;
+//    
+//    //    [self setClockRoationValueWithStartTime:sleepStartTime];
+//    int hour = [sleepDuration intValue];
+//    double second2 = 0.0;
+//    double subsecond2 = modf([sleepDuration floatValue], &second2);
+//    NSString *sleepTimeDuration= @"";
+//    if((int)round(subsecond2*60)<10){
+//        sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长:%@小时0%d分",hour<10?[NSString stringWithFormat:@"0%d",hour]:[NSString stringWithFormat:@"%d",hour],(int)round(subsecond2*60)];
+//    }else{
+//        sleepTimeDuration = [NSString stringWithFormat:@"睡眠时长:%@小时%d分",hour<10?[NSString stringWithFormat:@"0%d",hour]:[NSString stringWithFormat:@"%d",hour],(int)round(subsecond2*60)];
+//    }
+//    self.leftSleepTimeLabel.text= sleepTimeDuration;
+//    if (sleepStartTime) {
+//        
+//        [self.leftCircleView addSubview:self.leftStartView];
+//        self.leftStartView.startTime = [sleepStartTime substringWithRange:NSMakeRange(11, 5)];
+//        self.leftStartView.center = CGPointMake(90, 10);
+//    }else{
+//        [self.leftStartView removeFromSuperview];
+//    }
+//    if (sleepEndTime) {
+//        [self.leftCircleView addSubview:self.leftEndView];
+//        self.leftEndView.endTime = [sleepEndTime substringWithRange:NSMakeRange(11, 5)];
+//        self.leftEndView.center = CGPointMake(self.view.frame.size.width-60, 10);
+//        //        self.endView.userInteractionEnabled = YES;
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showEndTimePicker)];
+//        [self.leftEndView addGestureRecognizer:tap];
+//    }else
+//    {
+//        [self.leftEndView removeFromSuperview];
+//    }
+    
     //
     self.rightTableData = @[
-                           [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageHeartRate"]intValue]],
-                           [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageRespiratoryRate"]intValue]],
-                           [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"OutOfBedTimes"]intValue]],
-                           [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
-                           ];
+                            [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageHeartRate"]intValue]],
+                            [NSString stringWithFormat:@"%d次/分",[[sleepDic objectForKey:@"AverageRespiratoryRate"]intValue]],
+                            [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"OutOfBedTimes"]intValue]],
+                            [NSString stringWithFormat:@"%d次/天",[[sleepDic objectForKey:@"BodyMovementTimes"]intValue]]
+                            ];
     [self.rightTableView reloadData];
     //
-        //
+    //
     NSMutableArray *arrR = [NSMutableArray arrayWithArray:[sleepDic objectForKey:@"Data"]];
     NSString *selectStringR = [NSString stringWithFormat:@"%@",selectedDateToUse];
     NSString *subStringR = [selectStringR substringToIndex:10];
@@ -450,7 +593,7 @@
 - (void)setController
 {
     if (thirdHardDeviceUUID.length>0) {
-        if (!isDoubleDevice) {
+        if (isDoubleDevice) {
             
             self.subPageViewArr = @[self.doubleHeartView,self.doubleBreathView,self.doubleLeaveView,self.doubleTurnView];
         }else{
@@ -466,12 +609,12 @@
     if (thirdHardDeviceUUID.length>0) {
         if (isDoubleDevice) {
             UILabel *navTitleLabel1 = [UILabel new];
-            navTitleLabel1.text = @"梧桐植树";
+            navTitleLabel1.text = thirdLeftDeviceName.length==0?@"Left":thirdLeftDeviceName;
             navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
             navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
             
             UILabel *navTitleLabel2 = [UILabel new];
-            navTitleLabel2.text = @"哈维之家";
+            navTitleLabel2.text = thirdRightDeviceName.length==0?@"Right":thirdRightDeviceName;
             navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
             navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
             
@@ -513,6 +656,10 @@
             [pageViewController.navigationBarView addSubview:self.leftMenuButton];
             [pageViewController.navigationBarView addSubview:self.rightMenuButton];
             [_containerNavi setViewControllers:@[pageViewController]];
+            NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+            [self getTodaySleepQualityData:newString withLeftUUID:thirdLeftDeviceUUID];
+            [self getTodaySleepQualityData:newString withRightUUID:thirdRightDeviceUUID];
             
         }else{
             UILabel *navTitleLabel1 = [UILabel new];
@@ -558,10 +705,11 @@
             [pageViewController.navigationBarView addSubview:self.leftMenuButton];
             [pageViewController.navigationBarView addSubview:self.rightMenuButton];
             [_containerNavi setViewControllers:@[pageViewController]];
+            NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+            [self getTodaySleepQualityData:newString withLeftUUID:thirdHardDeviceUUID];
         }
-        NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
-        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
-        [self getTodaySleepQualityData:newString];
+        
 
     }else{
         UILabel *navTitleLabel1 = [UILabel new];
@@ -1151,7 +1299,12 @@
             HaviLog(@"当前选中的日期是%@",dateString);
             NSString *subString = [NSString stringWithFormat:@"%@%@%@",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
             if ([self isNetworkExist]) {
-                [self getTodaySleepQualityData:subString];
+                if (isDoubleDevice) {
+                    [self getTodaySleepQualityData:subString withLeftUUID:thirdLeftDeviceUUID];
+                    [self getTodaySleepQualityData:subString withRightUUID:thirdRightDeviceUUID];
+                }else{
+                    [self getTodaySleepQualityData:subString withLeftUUID:thirdHardDeviceUUID];
+                }
             }else{
                 [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
             }
@@ -1349,7 +1502,7 @@
                     //                    [self.view makeToast:@"做个好梦喽" duration:3 position:@"center"];
                     NSString *selctString = [NSString stringWithFormat:@"%@",selectedDateToUse];
                     NSString *subString = [NSString stringWithFormat:@"%@%@%@",[selctString substringWithRange:NSMakeRange(0, 4)],[selctString substringWithRange:NSMakeRange(5, 2)],[selctString substringWithRange:NSMakeRange(8, 2)]];
-                    [self getTodaySleepQualityData:subString];
+                    [self getTodaySleepQualityData:subString withLeftUUID:nil];
                 }];
             }else{
                 HaviLog(@"%@",resposeDic);

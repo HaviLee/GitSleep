@@ -20,7 +20,6 @@ NSDate *selectedDateToUse = nil;
 BOOL DeviceStatus = NO;
 BOOL isThirdLogin = NO;
 BOOL isSixteenTime = NO;
-BOOL isDoubleDevice = NO;
 NSData *user_Register_Data = nil;
 
 BOOL isUserDefaultTime = NO;
@@ -40,5 +39,12 @@ NSString *thirdHardDeviceUUID = @"";
 NSString *thirdHardDeviceName = @"";
 NSString *thirdMeddoPhone = @"";
 NSString *thirdMeddoPassWord = @"";
+NSString *thirdLeftDeviceUUID = @"";
+NSString *thirdRightDeviceUUID = @"";
+NSString *thirdLeftDeviceName = @"";
+NSString *thirdRightDeviceName = @"";
+BOOL isDoubleDevice = NO;
+
+
 
 

@@ -43,6 +43,10 @@ extern NSString *thirdHardDeviceUUID;
 extern NSString *thirdHardDeviceName;
 extern NSString *thirdMeddoPhone;
 extern NSString *thirdMeddoPassWord;
+extern NSString *thirdLeftDeviceUUID;
+extern NSString *thirdRightDeviceUUID;
+extern NSString *thirdLeftDeviceName;
+extern NSString *thirdRightDeviceName;
 
 
 

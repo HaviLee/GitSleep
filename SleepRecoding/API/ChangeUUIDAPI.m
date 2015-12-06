@@ -23,7 +23,7 @@
 //1，请求方法：
 - (YTKRequestMethod)requestMethod
 {
-    return YTKRequestMethodPost;
+    return YTKRequestMethodPut;
 }
 
 - (YTKRequestSerializerType)requestSerializerType {
