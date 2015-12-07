@@ -281,26 +281,6 @@
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
 //
-//    HaviGetNewClient *client = [HaviGetNewClient shareInstance];
-//    if ([client isExecuting]) {
-//        [client stop];
-//    }
-//    [client querySensorDataOld:header withDetailUrl:urlString];
-//    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-//        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-//        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-//            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-//                [self reloadLeftUserUI:(NSDictionary *)resposeDic];
-//                [self reloadRightUserUI:(NSDictionary *)resposeDic];
-//            }];
-//            [MMProgressHUD dismissAfterDelay:0.3];
-//        }else{
-//            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
-//        }
-//    } failure:^(YTKBaseRequest *request) {
-//        [MMProgressHUD dismiss];
-//        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
-//    }];
 }
 
 - (void)getRightUserData

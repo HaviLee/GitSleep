@@ -55,6 +55,7 @@
 //右侧数据
 @property (nonatomic,strong) UIView *sleepNightBottomLine;
 @property (nonatomic,strong) UIView *noDataImageView;
+@property (nonatomic,strong) UIView *noDataImageView1;
 @property (nonatomic,strong) UIScrollView *dataScrollView;
 @property (nonatomic,strong) UIScrollView *dataRightScrollView;
 @property (nonatomic,strong) NSMutableArray *rightMutableArr;
@@ -72,78 +73,137 @@
     // Do any additional setup after loading the view.
     self.dataTitleArr = @[@[@"心率平均值",@"呼吸平均值"],@[@"心率异常数",@"呼吸异常数"],@[@"心率异常数高于",@"呼吸异常数高于"]];
     [self setPageViewController];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self getUserData];
-    });
     [self.view addSubview:self.calenderBackView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (isDoubleDevice) {
+        [self getLeftUserData];
+        [self getRightUserData];
+        
+    }else{
+        [self getLeftUserData];
+        
+    }
 }
 
 - (void)setPageViewController
 {
     // Do any additional setup after loading the view.
-    UILabel *navTitleLabel1 = [UILabel new];
-    navTitleLabel1.text = @"梧桐植树";
-    navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
-    navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-    
-    UILabel *navTitleLabel2 = [UILabel new];
-    navTitleLabel2.text = @"哈维之家";
-    navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
-    navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
-    
-    SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1, navTitleLabel2]
-                                                                                    navBarBackground:[UIColor clearColor]
-                                                                                               views:@[self.reportTableView, self.reportRightTableView]
-                                                                                     showPageControl:YES];
-    [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
-    [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
-    [pageViewController updateUserInteractionOnNavigation:NO];
-    pageViewController.tintPageControlColor = [UIColor grayColor];
-    pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
-    
-    
-    // Twitter Like
-    pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
-        float mid   = [UIScreen mainScreen].bounds.size.width/2 - 45.0;
-        float width = [UIScreen mainScreen].bounds.size.width;
-        CGFloat xOffset = scrollView.contentOffset.x;
-        int i = 0;
-        for(UILabel *v in subviews){
-            CGFloat alpha = 0.0;
-            if(v.frame.origin.x < mid)
-                alpha = 1 - (xOffset - i*width) / width;
-            else if(v.frame.origin.x >mid)
-                alpha=(xOffset - i*width) / width + 1;
-            else if(v.frame.origin.x == mid-5)
-                alpha = 1.0;
-            i++;
-            v.alpha = alpha;
-        }
-    };
-    
-    pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
-        // Do something
-        NSLog(@"index %ld", (long)currentPageIndex);
-    };
-    pageViewController.navigationBarView.image = [UIImage imageNamed:@""];
-    [pageViewController.navigationBarView addSubview:self.leftMenuButton];
-    [pageViewController.navigationBarView addSubview:self.rightMenuButton];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
-    [self addChildViewController:navi];
-    navi.navigationBarHidden = YES;
-    [self.view addSubview:navi.view];
+    if (isDoubleDevice) {
+        UILabel *navTitleLabel1 = [UILabel new];
+        navTitleLabel1.text = thirdLeftDeviceName.length==0?@"Left":thirdLeftDeviceName;
+        navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
+        navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        
+        UILabel *navTitleLabel2 = [UILabel new];
+        navTitleLabel2.text = thirdRightDeviceName.length==0?@"Right":thirdRightDeviceName;;
+        navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
+        navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        
+        SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1,navTitleLabel2]
+                                                                                        navBarBackground:[UIColor clearColor]
+                                                                                                   views:@[self.reportTableView,self.reportRightTableView]
+                                                                                         showPageControl:YES];
+        [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
+        [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
+        [pageViewController updateUserInteractionOnNavigation:NO];
+        pageViewController.tintPageControlColor = [UIColor grayColor];
+        pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
+        
+        
+        // Twitter Like
+        pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
+            float mid   = [UIScreen mainScreen].bounds.size.width/2 - 45.0;
+            float width = [UIScreen mainScreen].bounds.size.width;
+            CGFloat xOffset = scrollView.contentOffset.x;
+            int i = 0;
+            for(UILabel *v in subviews){
+                CGFloat alpha = 0.0;
+                if(v.frame.origin.x < mid)
+                    alpha = 1 - (xOffset - i*width) / width;
+                else if(v.frame.origin.x >mid)
+                    alpha=(xOffset - i*width) / width + 1;
+                else if(v.frame.origin.x == mid-5)
+                    alpha = 1.0;
+                i++;
+                v.alpha = alpha;
+            }
+        };
+        
+        pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
+            // Do something
+            NSLog(@"index %ld", (long)currentPageIndex);
+        };
+        pageViewController.navigationBarView.image = [UIImage imageNamed:@""];
+        [pageViewController.navigationBarView addSubview:self.leftMenuButton];
+        [pageViewController.navigationBarView addSubview:self.rightMenuButton];
+        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
+        [self addChildViewController:navi];
+        navi.navigationBarHidden = YES;
+        [self.view addSubview:navi.view];
+    }else{
+        UILabel *navTitleLabel2 = [UILabel new];
+        navTitleLabel2.text = thirdHardDeviceName;
+        navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
+        navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        
+        SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel2]
+                                                                                        navBarBackground:[UIColor clearColor]
+                                                                                                   views:@[self.reportTableView]
+                                                                                         showPageControl:YES];
+        [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
+        [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
+        [pageViewController updateUserInteractionOnNavigation:NO];
+        pageViewController.tintPageControlColor = [UIColor grayColor];
+        pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
+        
+        
+        // Twitter Like
+        pageViewController.pagingViewMovingRedefine = ^(UIScrollView *scrollView, NSArray *subviews){
+            float mid   = [UIScreen mainScreen].bounds.size.width/2 - 45.0;
+            float width = [UIScreen mainScreen].bounds.size.width;
+            CGFloat xOffset = scrollView.contentOffset.x;
+            int i = 0;
+            for(UILabel *v in subviews){
+                CGFloat alpha = 0.0;
+                if(v.frame.origin.x < mid)
+                    alpha = 1 - (xOffset - i*width) / width;
+                else if(v.frame.origin.x >mid)
+                    alpha=(xOffset - i*width) / width + 1;
+                else if(v.frame.origin.x == mid-5)
+                    alpha = 1.0;
+                i++;
+                v.alpha = alpha;
+            }
+        };
+        
+        pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
+            // Do something
+            NSLog(@"index %ld", (long)currentPageIndex);
+        };
+        pageViewController.navigationBarView.image = [UIImage imageNamed:@""];
+        [pageViewController.navigationBarView addSubview:self.leftMenuButton];
+        [pageViewController.navigationBarView addSubview:self.rightMenuButton];
+        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:pageViewController];
+        [self addChildViewController:navi];
+        navi.navigationBarHidden = YES;
+        [self.view addSubview:navi.view];
+    }
 }
 
 #pragma mark 获取用户数据
 
-- (void)getUserData
+- (void)getLeftUserData
 {
     NSString *year = [self.monthTitleLabel.text substringWithRange:NSMakeRange(0, 4)];
     NSString *fromMonth = [self.monthTitleLabel.text substringWithRange:NSMakeRange(5, 2)];
     NSString *fromDate = [NSString stringWithFormat:@"%@%@%@",year,fromMonth,@"01"];
     NSString *toDate = @"";
     toDate = [NSString stringWithFormat:@"%@%@%ld",year,fromMonth,[self getCurrentMonthDayNum:year month:fromMonth]];
-    [self getTodayUserData:fromDate endDate:toDate withCompareDate:nil];
+    [self getLeftTodayUserData:fromDate endDate:toDate withCompareDate:nil];
 }
 
 - (NSInteger)getCurrentMonthDayNum:(NSString *)year month:(NSString *)month
@@ -155,7 +215,7 @@
     return dayNum;
 }
 
-- (void)getTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
+- (void)getLeftTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
 {
     if (![self isNetworkExist]) {
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
@@ -169,10 +229,6 @@
     if (!fromDate) {
         return;
     }
-    /*
-     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-     [MMProgressHUD showWithStatus:@"加载中..."];
-     */
     NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                         [UIImage imageNamed:@"havi1_1"],
                         [UIImage imageNamed:@"havi1_2"],
@@ -181,32 +237,87 @@
                         [UIImage imageNamed:@"havi1_5"]];
     [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
-    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",thirdHardDeviceUUID,thirdPartyLoginUserId,fromDate,endTime];
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",thirdLeftDeviceUUID.length==0?thirdHardDeviceUUID:thirdLeftDeviceUUID,thirdPartyLoginUserId,fromDate,endTime];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
-    HaviGetNewClient *client = [HaviGetNewClient shareInstance];
-    if ([client isExecuting]) {
-        [client stop];
-    }
-    [client querySensorDataOld:header withDetailUrl:urlString];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+    
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        [MMProgressHUD dismiss];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+        HaviLog(@"请求左侧周报数据%@和url%@",resposeDic,urlString);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                HaviLog(@"周报数据是%@和url:%@",resposeDic,urlString);
-                [self reloadUserUI:(NSDictionary *)resposeDic];
-                [self reloadRightUserUI:(NSDictionary *)resposeDic];
-            }];
-            [MMProgressHUD dismissAfterDelay:0.3];
+            [self reloadLeftUserUI:(NSDictionary *)resposeDic];
+            [MMProgressHUD dismiss];
         }else{
             [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
         }
-    } failure:^(YTKBaseRequest *request) {
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
         [MMProgressHUD dismiss];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
 }
+
+- (void)getRightUserData
+{
+    NSString *year = [self.monthTitleLabel.text substringWithRange:NSMakeRange(0, 4)];
+    NSString *fromMonth = [self.monthTitleLabel.text substringWithRange:NSMakeRange(5, 2)];
+    NSString *fromDate = [NSString stringWithFormat:@"%@%@%@",year,fromMonth,@"01"];
+    NSString *toDate = @"";
+    toDate = [NSString stringWithFormat:@"%@%@%ld",year,fromMonth,[self getCurrentMonthDayNum:year month:fromMonth]];
+    [self getRightTodayUserData:fromDate endDate:toDate withCompareDate:nil];
+}
+
+- (void)getRightTodayUserData:(NSString *)fromDate endDate:(NSString *)endTime withCompareDate:(NSDate *)compDate
+{
+    if (![self isNetworkExist]) {
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        return;
+    }
+    
+    if ([thirdHardDeviceUUID isEqualToString:@""]) {
+        [self.view makeToast:@"您还没有绑定设备,无法查看数据" duration:2 position:@"center"];
+        return;
+    }
+    if (!fromDate) {
+        return;
+    }
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
+    NSString *urlString = [NSString stringWithFormat:@"v1/app/SleepQuality?UUID=%@&UserId=%@&FromDate=%@&EndDate=%@&FromTime=&EndTime=",thirdRightDeviceUUID,thirdPartyLoginUserId,fromDate,endTime];
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        [MMProgressHUD dismiss];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+        HaviLog(@"请求左侧周报数据%@和url%@",resposeDic,urlString);
+        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+            [self reloadRightUserUI:(NSDictionary *)resposeDic];
+            [MMProgressHUD dismiss];
+        }else{
+            [MMProgressHUD dismissWithError:[resposeDic objectForKey:@"ErrorMessage"] afterDelay:2];
+        }
+        
+    } failed:^(NSURLResponse *response, NSError *error) {
+        [MMProgressHUD dismiss];
+        [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+    }];
+}
+
+
 
 #pragma mark 更新界面
 
@@ -244,7 +355,7 @@
     }
 }
 
-- (void)reloadUserUI:(NSDictionary *)dic
+- (void)reloadLeftUserUI:(NSDictionary *)dic
 {
     
     self.reportData = dic;
@@ -291,12 +402,12 @@
     }else if (duration1==0){
         self.shortSleepView.sleepTimeLongString = [NSString stringWithFormat:@""];
     }
-    [self reloadReportChart:[self.reportData objectForKey:@"Data"]];
+    [self reloadLeftReportChart:[self.reportData objectForKey:@"Data"]];
     
 }
 
 
-- (void)reloadReportChart:(NSArray *)dataArr
+- (void)reloadLeftReportChart:(NSArray *)dataArr
 {
     if (self.mutableArr.count>0) {
         [self.mutableArr removeAllObjects];
@@ -318,8 +429,10 @@
         NSString *toDateString = [NSString stringWithFormat:@"%@年%@月%@日",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
         NSDate *toDate = [self.dateFormmatter1 dateFromString:toDateString];
         NSDateComponents *dayComponents = [self.calender components:NSDayCalendarUnit fromDate:fromDate toDate:toDate options:0];
-        [self.mutableArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepQuality"]]];
-        [self.mutableTimeArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepDuration"]]];
+        if ((dayComponents.day>0 || dayComponents.day==0) && dayComponents.day ) {
+            [self.mutableArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepQuality"]]];
+            [self.mutableTimeArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepDuration"]]];
+        }
         
     }
     
@@ -340,7 +453,7 @@
 - (void)reloadRightUserUI:(NSDictionary *)dic
 {
     
-//    self.rightReportData = dic;
+    self.rightReportData = dic;
     self.dataRightCellArr = @[@[[NSString stringWithFormat:@"%d次/分钟",[[self.rightReportData objectForKey:@"AverageHeartRate"] intValue]],[NSString stringWithFormat:@"%d次/分钟",[[self.rightReportData objectForKey:@"AverageRespiratoryRate"] intValue]]],@[[NSString stringWithFormat:@"%d次",[[self.rightReportData objectForKey:@"FastHeartRateTimes"] intValue]+[[self.rightReportData objectForKey:@"SlowHeartRateTimes"] intValue]],[NSString stringWithFormat:@"%d次",[[self.rightReportData objectForKey:@"SlowRespiratoryRateTimes"] intValue]+[[self.rightReportData objectForKey:@"SlowHeartRateTimes"] intValue]]],@[[NSString stringWithFormat:@"%d%@",[[self.rightReportData objectForKey:@"AbnormalHeartRatePercent"] intValue],@"%用户"],[NSString stringWithFormat:@"%d%@",[[self.rightReportData objectForKey:@"AbnormalRespiratoryRatePercent"] intValue],@"%用户"]]];
     [self.reportRightTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:1],[NSIndexPath indexPathForRow:2 inSection:1],[NSIndexPath indexPathForRow:3 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
     [self.reportRightTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationNone];
@@ -411,18 +524,20 @@
         NSString *toDateString = [NSString stringWithFormat:@"%@年%@月%@日",[dateString substringWithRange:NSMakeRange(0, 4)],[dateString substringWithRange:NSMakeRange(5, 2)],[dateString substringWithRange:NSMakeRange(8, 2)]];
         NSDate *toDate = [self.dateFormmatter1 dateFromString:toDateString];
         NSDateComponents *dayComponents = [self.calender components:NSDayCalendarUnit fromDate:fromDate toDate:toDate options:0];
-        [self.rightMutableArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepQuality"]]];
-        [self.rightMutableTimeArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepDuration"]]];
+        if ((dayComponents.day>0 || dayComponents.day==0)&&dayComponents.day) {
+            [self.rightMutableArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepQuality"]]];
+            [self.rightMutableTimeArr replaceObjectAtIndex:dayComponents.day withObject:[NSString stringWithFormat:@"%@",[dic objectForKey:@"SleepDuration"]]];
+        }
         
     }
     
     if (dataArr.count>0) {
         [self.noDataImageView removeFromSuperview];
     }else{
-        [self.dataScrollView addSubview:self.noDataImageView];
-        self.noDataImageView.center = self.dataScrollView.center;
-        [self.dataRightScrollView addSubview:self.noDataImageView];
-        self.noDataImageView.center = self.dataRightScrollView.center;
+        [self.dataScrollView addSubview:self.noDataImageView1];
+        self.noDataImageView1.center = self.dataScrollView.center;
+        [self.dataRightScrollView addSubview:self.noDataImageView1];
+        self.noDataImageView1.center = self.dataRightScrollView.center;
     }
     
     self.secondRightWeekReport.sleepQulityDataValues = self.rightMutableArr;
@@ -508,6 +623,23 @@
         [_noDataImageView addSubview:label];
     }
     return _noDataImageView;
+}
+
+- (UIView*)noDataImageView1
+{
+    if (!_noDataImageView1) {
+        _noDataImageView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 150, 105)];
+        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(59, 16, 32.5, 32.5)];
+        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"sad-75_%d",selectedThemeIndex]];
+        [_noDataImageView1 addSubview:image];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 49, 150, 30)];
+        label.text= @"没有数据哦!";
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont systemFontOfSize:17];
+        label.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+        [_noDataImageView1 addSubview:label];
+    }
+    return _noDataImageView1;
 }
 
 - (UIView *)sleepNightBottomLine
@@ -847,7 +979,14 @@
     //改变x轴
     [self chageXvalueWithMonth];
     //获取数据
-    [self getUserData];
+    if (isDoubleDevice) {
+        [self getLeftUserData];
+        [self getRightUserData];
+        
+    }else{
+        [self getLeftUserData];
+        
+    }
 }
 
 - (void)nextMonth:(UIButton *)sender
@@ -863,7 +1002,14 @@
     //获取书
     //改变x轴
     [self chageXvalueWithMonth];
-    [self getUserData];
+    if (isDoubleDevice) {
+        [self getLeftUserData];
+        [self getRightUserData];
+        
+    }else{
+        [self getLeftUserData];
+        
+    }
 }
 
 - (NSDate*)dayInTheLastMonth:(NSDate *)date
@@ -1210,7 +1356,14 @@
     //改变x轴
     [self chageXvalueWithMonth];
     //获取书
-    [self getUserData];
+    if (isDoubleDevice) {
+        [self getLeftUserData];
+        [self getRightUserData];
+        
+    }else{
+        [self getLeftUserData];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
