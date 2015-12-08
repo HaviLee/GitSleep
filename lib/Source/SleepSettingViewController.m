@@ -27,6 +27,8 @@
 @property (nonatomic,strong) NSArray *arrTitle;
 @property (nonatomic,strong) RMDateSelectionViewController *dateSelectionVC;
 @property (nonatomic,strong) RMDateSelectionViewController *pickerSelectionVC;
+@property (nonatomic,strong) RMDateSelectionViewController *gerderPicker;
+
 @property (nonatomic,strong) NSMutableArray *hourArr;
 @property (nonatomic,strong) NSMutableArray *minteArr;
 @property (nonatomic,strong) NSMutableArray *hourArr1;
@@ -48,6 +50,7 @@
 @property (nonatomic,strong) NSString *selectString1;
 @property (nonatomic,strong) NSString *selectString2;
 @property (nonatomic,strong) NSString *selectString3;
+@property (nonatomic,strong) NSArray *arrTimeStep;
 @end
 
 @implementation SleepSettingViewController
@@ -99,6 +102,7 @@
     for (int i = 0; i<60; i++) {
         [self.minteArr addObject:[NSString stringWithFormat:@"%d分",i]];
     }
+    self.arrTimeStep = @[@"5秒",@"15秒",@"30秒",@"1分钟",@"5分钟",@"10分钟",@"15分钟",];
 //  注册默认的设置
     //默认的时间设置
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{SleepSettingSwitchKey:@"NO"}];
@@ -735,7 +739,17 @@
 
 - (void)showLeaveBedPickerList:(LRGlowingButton*)sender
 {
-    NSString *cancel = self.leaveBedAlarmLabel.titleLabel.text;
+    if (!_gerderPicker) {
+        self.gerderPicker = [RMDateSelectionViewController dateSelectionControllerWith:PickerViewListType];
+        _gerderPicker.delegate = self;
+        _gerderPicker.titleLabel.hidden = YES;
+        _gerderPicker.hideNowButton = YES;
+        _gerderPicker.pickerDataArray = _arrTimeStep;
+    }
+    _gerderPicker.title = @"leaveAlert";
+    [_gerderPicker show];
+
+    /*
     [MMTwoListPickerView showPickerViewInView:self.view
                                   withStrings:@[_hourArr,_minteArr]
                                   withOptions:@{MMbackgroundColor: [UIColor whiteColor],
@@ -769,6 +783,7 @@
                                            [self updateAlartTime:timeNum withAlartType:@"AlarmTimeOutOfBed"];
                                        }
                                    }];
+     */
 
 }
 
@@ -1003,8 +1018,25 @@
         int num = [sub1 intValue]*60+[sub2 intValue];
         NSString *timeNum = [NSString stringWithFormat:@"%d",num];
         [self updateAlartTime:timeNum withAlartType:@"AlarmTimeOutOfBed"];
+    }else if ([vc.title isEqualToString:@"leaveAlert"]){
+        if (aDate.length>0) {
+            HaviLog(@"Successfully selected date: %@", aDate);
+            NSString *titleString = [NSString stringWithFormat:@"离床%@警告",aDate];
+            [_leaveBedAlarmLabel setTitle:titleString forState:UIControlStateNormal];
+            [[NSUserDefaults standardUserDefaults]setObject:titleString forKey:UserDefaultLeaveTime];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            NSRange rangeMinute = [aDate rangeOfString:@"分钟"];
+            float num=0;
+            if (rangeMinute.length>0) {
+                num = [[aDate substringToIndex:rangeMinute.location] floatValue];
+            }else{
+                NSRange rangeMinute1 = [aDate rangeOfString:@"秒"];
+                num = [[aDate substringToIndex:rangeMinute1.location] floatValue]/60.0;
+            }
+            [self updateAlartTime:[NSString stringWithFormat:@"%.2f",num] withAlartType:@"AlarmTimeOutOfBed"];
+        }
     }
-    HaviLog(@"Successfully selected date: %@", aDate);
+    
 }
 #pragma mark 设置设备的闹钟提醒
 
@@ -1061,12 +1093,14 @@
                     [JDStatusBarNotification showWithStatus:@"久睡超时警告开启" dismissAfter:2 styleName:JDStatusBarStyleDark];
                 }else{
                     [JDStatusBarNotification showWithStatus:@"久睡离床警告开启" dismissAfter:2 styleName:JDStatusBarStyleDark];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:ShowLeaveBedAlertNoti object:nil];
                 }
             }else{
                 if ([alartType isEqualToString:@"IsTimeoutAlarmSleepTooLong"]) {
                     [JDStatusBarNotification showWithStatus:@"久睡超时警告关闭" dismissAfter:2 styleName:JDStatusBarStyleDark];
                 }else{
                     [JDStatusBarNotification showWithStatus:@"久睡离床警告关闭" dismissAfter:2 styleName:JDStatusBarStyleDark];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:ShowLeaveBedAlertNoti object:nil];
                 }
             }
         }

@@ -32,7 +32,6 @@
 //
 #import "LoginContainerViewController.h"//架构重构
 #import "CenterViewController.h"//架构重构
-#import "BackgroundModelManager.h"
 
 @interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate,TencentSessionDelegate>
 @property (nonatomic,strong) LoginContainerViewController *loginView;
@@ -87,7 +86,6 @@
     [self setThirdLoginNoti];
     
     //默认注册一个不开启睡眠时间设置
-//    [[NSUserDefaults standardUserDefaults]registerDefaults:@{SleepSettingSwitchKey:@"NO"}];
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultStartTime:@"18:00"}];
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultEndTime:@"06:00"}];
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepSettingSwitchKey]isEqualToString:@"NO"]) {
@@ -126,9 +124,7 @@
     [self.window makeKeyAndVisible];
     [self setLoginView];
     [self configAlertView];
-    //开启后台模式
-    BackgroundModelManager *backManager = [[BackgroundModelManager alloc]init];
-    [backManager openBackgroundModel];
+    
     return YES;
 }
 

@@ -74,11 +74,21 @@
 #define CHANGEUSERID             @"CHANGEUSERID"
 #define CHANGEDEVICEUUID         @"CHANGEDEVICEUUID"
 #define CHANGEDEVICNAME         @"CHANGEDEVICNAME"
-#define TwtityFourHourNoti       @"TwtityFourHourNoti"
-#define UserDefaultHourNoti      @"UserDefaultHourNoti"
 #define SleepSettingSwitchKey @"isSleepSetting"
 #define UserDefaultStartTime   @"defaultStartTime"
 #define UserDefaultEndTime   @"defaultEndTime"
+
+#define LoginSuccessedNoti @"LoginSuccessedNoti"
+#define ShowPhoneInputViewNoti  @"ShowPhoneInputViewNoti"
+#define ThirdGetPhoneSuccessedNoti  @"ThirdGetPhoneSuccessed"
+#define ThirdUserLogoutNoti @"ThirdUserLogoutNoti"
+//四个界面noti
+#define HeartViewNoti   @"HeartViewNoti"
+#define BreathViewNoti  @"BreathViewNoti"
+#define LeaveBedViewNoti @"LeaveBedViewNoti"
+#define TurnRoundViewNoti @"TurnRoundViewNoti"
+
+#define ShowLeaveBedAlertNoti @"ShowLeaveBedAlertNoti"
 /**
  *  登录成功的noti
  */
@@ -92,16 +102,6 @@
 //
 #define WBAPPKey @"2199355574"
 #define WBRedirectURL @"http://www.meddo.com"
-
-#define LoginSuccessedNoti @"LoginSuccessedNoti"
-#define ShowPhoneInputViewNoti  @"ShowPhoneInputViewNoti"
-#define ThirdGetPhoneSuccessedNoti  @"ThirdGetPhoneSuccessed"
-#define ThirdUserLogoutNoti @"ThirdUserLogoutNoti"
-//四个界面noti
-#define HeartViewNoti   @"HeartViewNoti"
-#define BreathViewNoti  @"BreathViewNoti"
-#define LeaveBedViewNoti @"LeaveBedViewNoti"
-#define TurnRoundViewNoti @"TurnRoundViewNoti"
 
 #define NOBINDUUID @"NOBINDUUID"
 #define NOUSEUUID  @"NOUSEUUID"

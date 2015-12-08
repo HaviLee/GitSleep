@@ -27,6 +27,7 @@
 #import "UploadTagAPI.h"
 #import "MyDeviceListCell.h"
 #import "CantainerDeviceListViewController.h"
+#import "BackgroundModelManager.h"
 //
 //#import "DoubleLeaveContainerViewController.h"
 //#import "DoubleTurnContainerViewController.h"
@@ -34,7 +35,7 @@
 #import "DoubleBreathViewController.h"
 #import "DoubleLeaveViewController.h"
 #import "DoubleTurnViewController.h"
-
+#define SleepLeaveBedSwitchKey @"isLeaveBedSwitch"
 
 @interface CenterContainerViewController ()<SetScrollDateDelegate,UIViewControllerTransitioningDelegate>
 {
@@ -85,6 +86,7 @@
 @property (nonatomic, strong) NSTimer *queryTimer;
 //drop menu
 @property (strong, nonatomic) UITableView *menuTableView;
+@property (strong, nonatomic) BackgroundModelManager *backManager;
 
 
 @end
@@ -146,6 +148,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessAndQueryData:) name:LoginSuccessedNoti object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changedDeviceUUID:) name:CHANGEDEVICEUUID object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeDeviceName:) name:CHANGEDEVICNAME object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeLeaveBedAlert:) name:ShowLeaveBedAlertNoti object:nil];
 }
 
 #pragma mark 消息监听方法
@@ -209,8 +212,7 @@
     if (thirdHardDeviceUUID.length==0) {
         [self getAllDeviceList];//获取
     }
-//    [self playAlert];
-    self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
+    [self checkIsOpenAlert];
     
 }
 
@@ -695,7 +697,6 @@
             
             pageViewController.didChangedPage = ^(NSInteger currentPageIndex){
                 // Do something
-                NSLog(@"index %ld", (long)currentPageIndex);
             };
             pageViewController.navigationBarView.image = [UIImage imageNamed:[NSString stringWithFormat:@"navi_pg_night_%d",selectedThemeIndex]];
             [pageViewController.navigationBarView addSubview:self.leftMenuButton];
@@ -1632,7 +1633,6 @@
             }else if ([isBodyOutOfBed isEqualToString:@"True"]){
                 isBodyOnBed = YES;
             }
-            [self playAlert];
             
         } failed:^(NSURLResponse *response, NSError *error) {
             [MMProgressHUD dismiss];
@@ -1665,6 +1665,43 @@
     return YES;
 }
 
+#pragma mark 通知开启还是关闭警报
+
+- (void)changeLeaveBedAlert:(NSNotification*)noti
+{
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepLeaveBedSwitchKey]isEqualToString:@"YES"]) {
+        _backManager = [[BackgroundModelManager alloc]init];
+        [_backManager openBackgroundModel];
+        self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
+    }else {
+        [self.queryTimer invalidate];
+        self.queryTimer = nil;
+        _backManager = nil;
+    }
+}
+
+#pragma mark 检测是不是开启警报
+- (void)checkIsOpenAlert
+{
+    NSString *urlString = [NSString stringWithFormat:@"v1/user/UserInfo?UserID=%@",thirdPartyLoginUserId];
+    
+    NSDictionary *header = @{
+                             @"AccessToken":@"123456789"
+                             };
+    [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+        NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        HaviLog(@"检测警告ok");
+        if ([[[resposeDic objectForKey:@"UserInfo"] objectForKey:@"IsTimeoutAlarmOutOfBed"]isEqualToString:@"True"]) {
+            self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
+            //开启后台模式
+            _backManager = [[BackgroundModelManager alloc]init];
+            [_backManager openBackgroundModel];
+        }
+    } failed:^(NSURLResponse *response, NSError *error) {
+        self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
+    }];
+}
+
 #pragma mark dropDown Menu
 
 - (void)showDropDownView
@@ -1672,11 +1709,7 @@
     // Init dropdown view
     CantainerDeviceListViewController *modal = [[CantainerDeviceListViewController alloc] init];
     modal.transitioningDelegate = self;
-//    modal.dateTime = self.currentDate;
-//    modal.reportTitleString = exceptionTitle;
     modal.modalPresentationStyle = UIModalPresentationCustom;
-//    modal.exceptionDic = dic;
-//    modal.sleepDic = self.currentSleepQulitity;
     [self presentViewController:modal animated:YES completion:nil];
 
    
