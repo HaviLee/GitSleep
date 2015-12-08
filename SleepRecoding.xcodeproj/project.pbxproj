@@ -500,6 +500,9 @@
 		2CAC543C1C16839C00515EAC /* ContainerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC543B1C16839C00515EAC /* ContainerTableViewCell.m */; };
 		2CAC54421C16AB1100515EAC /* btn_ellipse_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC54411C16AB1100515EAC /* btn_ellipse_0@2x.png */; };
 		2CAC54441C16AB5200515EAC /* btn_ellipse_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC54431C16AB5200515EAC /* btn_ellipse_1@2x.png */; };
+		2CAC544C1C16D6D900515EAC /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC54471C16D6D900515EAC /* JDStatusBarNotification.m */; };
+		2CAC544D1C16D6D900515EAC /* JDStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC54491C16D6D900515EAC /* JDStatusBarStyle.m */; };
+		2CAC544E1C16D6D900515EAC /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC544B1C16D6D900515EAC /* JDStatusBarView.m */; };
 		2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */; };
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
 		2CC006FA1B9FC6DB007DE798 /* LXActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC006F91B9FC6DB007DE798 /* LXActivity.m */; };
@@ -1389,6 +1392,12 @@
 		2CAC543B1C16839C00515EAC /* ContainerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContainerTableViewCell.m; path = controller/ContainerTableViewCell.m; sourceTree = "<group>"; };
 		2CAC54411C16AB1100515EAC /* btn_ellipse_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_ellipse_0@2x.png"; sourceTree = "<group>"; };
 		2CAC54431C16AB5200515EAC /* btn_ellipse_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_ellipse_1@2x.png"; sourceTree = "<group>"; };
+		2CAC54461C16D6D900515EAC /* JDStatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarNotification.h; sourceTree = "<group>"; };
+		2CAC54471C16D6D900515EAC /* JDStatusBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarNotification.m; sourceTree = "<group>"; };
+		2CAC54481C16D6D900515EAC /* JDStatusBarStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarStyle.h; sourceTree = "<group>"; };
+		2CAC54491C16D6D900515EAC /* JDStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarStyle.m; sourceTree = "<group>"; };
+		2CAC544A1C16D6D900515EAC /* JDStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarView.h; sourceTree = "<group>"; };
+		2CAC544B1C16D6D900515EAC /* JDStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarView.m; sourceTree = "<group>"; };
 		2CAF5E8E1AE7F49300E7E3AA /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
 		2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
 		2CAF5E911AE7F55700E7E3AA /* protocol.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = protocol.html; sourceTree = "<group>"; };
@@ -2403,6 +2412,7 @@
 		2C6C6C101BF314120076E0EF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2CAC54451C16D6D900515EAC /* JDStatusBarNotification */,
 				2C5F6F5E1C094C69008CE910 /* JASwipeCell */,
 				2CE98C461BFD9922005ADB7B /* KDCustom */,
 				2CE7A3AD1BF4873700E7CEDE /* Common */,
@@ -2778,6 +2788,20 @@
 			);
 			name = CHCircleGaugeView;
 			path = lib/thirdlib/CHCircleGaugeView;
+			sourceTree = "<group>";
+		};
+		2CAC54451C16D6D900515EAC /* JDStatusBarNotification */ = {
+			isa = PBXGroup;
+			children = (
+				2CAC54461C16D6D900515EAC /* JDStatusBarNotification.h */,
+				2CAC54471C16D6D900515EAC /* JDStatusBarNotification.m */,
+				2CAC54481C16D6D900515EAC /* JDStatusBarStyle.h */,
+				2CAC54491C16D6D900515EAC /* JDStatusBarStyle.m */,
+				2CAC544A1C16D6D900515EAC /* JDStatusBarView.h */,
+				2CAC544B1C16D6D900515EAC /* JDStatusBarView.m */,
+			);
+			name = JDStatusBarNotification;
+			path = lib/vender/JDStatusBarNotification;
 			sourceTree = "<group>";
 		};
 		2CC006F71B9FC6DB007DE798 /* LXActivity */ = {
@@ -4086,6 +4110,7 @@
 				2C77D52E1AEE7EB4004123D2 /* MMTwoListPickerView.m in Sources */,
 				2C1F1FCD1AD989DB00393E04 /* QuaterReportView.m in Sources */,
 				2C435E661AD0D8FA003B1604 /* ToggleView.m in Sources */,
+				2CAC544E1C16D6D900515EAC /* JDStatusBarView.m in Sources */,
 				2C6C6C1A1BF31DD20076E0EF /* FriendDeviceListViewController.m in Sources */,
 				5777E6921AD76A2F00A7C6C4 /* MonthCalenderView.m in Sources */,
 				577120061AD5022800508C5C /* HaviButton.m in Sources */,
@@ -4174,6 +4199,7 @@
 				2CD6C03D1B7AF9A600F1FF6A /* WeiBoAPI.m in Sources */,
 				2C8F7BB71AF3747700E56513 /* JTCalendarAppearance.m in Sources */,
 				2CE9E7971BD4C5E2001D8401 /* UIColor+expanded.m in Sources */,
+				2CAC544C1C16D6D900515EAC /* JDStatusBarNotification.m in Sources */,
 				2CDB868A1BABCD4F00551192 /* SleepQualityBar.m in Sources */,
 				577062DD1AC285F100790F79 /* STAlertView.m in Sources */,
 				2CE98C4C1BFD9922005ADB7B /* KDGoalBarPercentLayer.m in Sources */,
@@ -4283,6 +4309,7 @@
 				577B85231AE9EE2900D876E8 /* HeartChartView.m in Sources */,
 				572AA9871AC29A5700DED1D9 /* THPinNumPadView.m in Sources */,
 				2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */,
+				2CAC544D1C16D6D900515EAC /* JDStatusBarStyle.m in Sources */,
 				2CD6C06D1B7D827C00F1FF6A /* HeartGraphView.m in Sources */,
 				2CDE55391BAE486D0017C5DE /* MMPopupitem.m in Sources */,
 				2CE7A3B51BF490B900E7CEDE /* CSSearchModel.m in Sources */,

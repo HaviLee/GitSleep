@@ -1056,18 +1056,17 @@
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"%@",resposeDic);
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
-            MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
             if (isOn) {
                 if ([alartType isEqualToString:@"IsTimeoutAlarmSleepTooLong"]) {
-                    [overlay postImmediateFinishMessage:@"久睡超时警告开启" duration:2 animated:YES];
+                    [JDStatusBarNotification showWithStatus:@"久睡超时警告开启" dismissAfter:2 styleName:JDStatusBarStyleDark];
                 }else{
-                    [overlay postImmediateFinishMessage:@"离床超时警告开启" duration:2 animated:YES];
+                    [JDStatusBarNotification showWithStatus:@"久睡离床警告开启" dismissAfter:2 styleName:JDStatusBarStyleDark];
                 }
             }else{
                 if ([alartType isEqualToString:@"IsTimeoutAlarmSleepTooLong"]) {
-                    [overlay postImmediateFinishMessage:@"久睡超时警告关闭" duration:2 animated:YES];
+                    [JDStatusBarNotification showWithStatus:@"久睡超时警告关闭" dismissAfter:2 styleName:JDStatusBarStyleDark];
                 }else{
-                    [overlay postImmediateFinishMessage:@"离床超时警告关闭" duration:2 animated:YES];
+                    [JDStatusBarNotification showWithStatus:@"久睡离床警告关闭" dismissAfter:2 styleName:JDStatusBarStyleDark];
                 }
             }
         }
@@ -1091,12 +1090,12 @@
     [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         HaviLog(@"保存%@",resposeDic);
-        MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
+        
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             if ([alartType isEqualToString:@"AlarmTimeSleepTooLong"]) {
-                [overlay postImmediateFinishMessage:@"久睡超时时间修改成功" duration:2 animated:YES];
+                [JDStatusBarNotification showWithStatus:@"久睡超时修改成功" dismissAfter:2 styleName:JDStatusBarStyleDark];
             }else{
-                [overlay postImmediateFinishMessage:@"离床超时时间修改成功" duration:2 animated:YES];
+                [JDStatusBarNotification showWithStatus:@"久睡离床修改成功" dismissAfter:2 styleName:JDStatusBarStyleDark];
             }
         }
     } failure:^(YTKBaseRequest *request) {
