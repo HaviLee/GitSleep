@@ -210,9 +210,9 @@
         
     }
     for (NSDictionary *dic in self.leaveDic) {
-        if ([[dic objectForKey:@"Value"]intValue]==1) {
-            [arrSub addObject:dic];
-        }
+//        if ([[dic objectForKey:@"Value"]intValue]==1) {
+//        }
+        [arrSub addObject:dic];
     }
     self.leaveDic = arrSub;
     [self.leftBottomTableView reloadData];

@@ -236,7 +236,7 @@
                 if ([[dic objectForKey:@"DetailDevice"] count]>0) {
                     NSArray *_arrDeatilListDescription = [dic objectForKey:@"DetailDevice"];
                     NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                        return obj1<obj2;
+                        return [obj1 objectForKey:@"UUID"]<[obj1 objectForKey:@"UUID"];
                     }];
                     thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
                     thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"UUID"];
@@ -259,10 +259,13 @@
                 thirdHardDeviceName = [dic objectForKey:@"Description"];
                 if ([[dic objectForKey:@"DetailDevice"] count]>0) {
                     NSArray *_arrDeatilListDescription = [dic objectForKey:@"DetailDevice"];
-                    thirdLeftDeviceName = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"Description"];
-                    thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"UUID"];
-                    thirdRightDeviceName = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"Description"];
-                    thirdRightDeviceUUID = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"UUID"];
+                    NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                        return [obj1 objectForKey:@"UUID"]<[obj1 objectForKey:@"UUID"];
+                    }];
+                    thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
+                    thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"UUID"];
+                    thirdRightDeviceName = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"Description"];
+                    thirdRightDeviceUUID = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"UUID"];
                     isDoubleDevice = YES;
                     isMineDevice = @"YES";
                 }
@@ -694,7 +697,7 @@
                 // Do something
                 NSLog(@"index %ld", (long)currentPageIndex);
             };
-            pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
+            pageViewController.navigationBarView.image = [UIImage imageNamed:[NSString stringWithFormat:@"navi_pg_night_%d",selectedThemeIndex]];
             [pageViewController.navigationBarView addSubview:self.leftMenuButton];
             [pageViewController.navigationBarView addSubview:self.rightMenuButton];
             [_containerNavi setViewControllers:@[pageViewController]];
@@ -743,7 +746,7 @@
                 // Do something
                 NSLog(@"index %ld", (long)currentPageIndex);
             };
-            pageViewController.navigationBarView.image = [UIImage imageNamed:@"navi_pg_night_0"];
+            pageViewController.navigationBarView.image = [UIImage imageNamed:[NSString stringWithFormat:@"navi_pg_night_%d",selectedThemeIndex]];
             [pageViewController.navigationBarView addSubview:self.leftMenuButton];
             [pageViewController.navigationBarView addSubview:self.rightMenuButton];
             [_containerNavi setViewControllers:@[pageViewController]];
@@ -949,7 +952,7 @@
     if (!_rightMenuButton) {
         _rightMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _rightMenuButton.backgroundColor = [UIColor clearColor];
-        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"btn_ellipse"]];
+        UIImage *i = [UIImage imageNamed:[NSString stringWithFormat:@"btn_ellipse_%d",selectedThemeIndex]];
         [_rightMenuButton setImage:i forState:UIControlStateNormal];
         [_rightMenuButton setFrame:CGRectMake(self.view.frame.size.width-50, 20, 44, 44)];
         [_rightMenuButton addTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
@@ -1682,6 +1685,64 @@
 -(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     _modalAnimationController.type = AnimationTypeDismiss;
     return _modalAnimationController;
+}
+
+#pragma mark 换肤
+
+- (void)reloadThemeImage
+{
+    [super reloadThemeImage];
+    
+    if (selectedThemeIndex == 0) {
+        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_night_%d",0]];
+    }else{
+        self.bgImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic_bg_center_%d",1]];
+    }
+    self.clearNaviTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [self.rightButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_share_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [self.menuButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    _leftCircleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
+    _leftCircleView.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    _leftCircleView.valueTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [_leftCircleView.cView.gradientLayer1 setColors:selectedThemeIndex ==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x356E8B alpha:1]CGColor],[[self colorWithHex:0x3e608d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1C7A59 alpha:1]CGColor],[[self colorWithHex:0x0F705C alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
+    [_leftCircleView.cView.gradientLayer2 setColors:selectedThemeIndex==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1cd98d alpha:1]CGColor],(id)[[self colorWithHex:0x21c88d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x8DEC45 alpha:1]CGColor],(id)[[self colorWithHex:0x85E445 alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
+    
+    _rightCircleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
+    _rightCircleView.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    _rightCircleView.valueTitleLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [_rightCircleView.cView.gradientLayer1 setColors:selectedThemeIndex ==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x356E8B alpha:1]CGColor],[[self colorWithHex:0x3e608d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1C7A59 alpha:1]CGColor],[[self colorWithHex:0x0F705C alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
+    [_rightCircleView.cView.gradientLayer2 setColors:selectedThemeIndex==0?[NSArray arrayWithObjects:(id)[[self colorWithHex:0x1cd98d alpha:1]CGColor],(id)[[self colorWithHex:0x21c88d alpha:1]CGColor ],(id)[[self colorWithHex:0x00C790 alpha:1]CGColor ],nil]:[NSArray arrayWithObjects:(id)[[self colorWithHex:0x8DEC45 alpha:1]CGColor],(id)[[self colorWithHex:0x85E445 alpha:1]CGColor ],(id)[[self colorWithHex:0x51AD4A alpha:1]CGColor ],nil]];
+    
+    self.datePicker.backLine.backgroundColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    self.datePicker.monthLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [self.datePicker.calenderButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"menology_%d",1]] forState:UIControlStateNormal];
+    [self.leftTableView reloadData];
+    [self.rightTableView reloadData];
+    
+    self.leftSleepTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [_leftIWantSleepLabel setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_textbox_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [_leftIWantSleepLabel setTitleColor:selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.rightSleepTimeLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    [_rightIWantSleepLabel setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_textbox_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [_rightIWantSleepLabel setTitleColor:selectedThemeIndex==0?[UIColor colorWithRed:0.000f green:0.859f blue:0.573f alpha:1.00f]:[UIColor whiteColor] forState:UIControlStateNormal];
+    _navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    _navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+    _sendLeaveView = nil;
+    _sendTurnView = nil;
+    _secondBreathView = nil;
+    _secondHeartView = nil;
+    _subPageViewArr = nil;
+    [self.leftMenuButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    [self.rightMenuButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_ellipse_%d",selectedThemeIndex]] forState:UIControlStateNormal];
+    self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.sendLeaveView,self.sendTurnView];
+    NSArray *childArr = [_containerNavi childViewControllers];
+    for (UIViewController *navi in childArr) {
+        if ([navi isKindOfClass:[SLPagingViewController class]]) {
+            SLPagingViewController *view = (SLPagingViewController *)navi;
+            view.navigationBarView.image = [UIImage imageNamed:[NSString stringWithFormat:@"navi_pg_night_%d",selectedThemeIndex]];
+        }
+    }
+    [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
 }
 
 - (void)didReceiveMemoryWarning {

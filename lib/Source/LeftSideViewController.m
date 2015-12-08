@@ -362,7 +362,7 @@
 {
     [super reloadThemeImage];
     self.imageArr = nil;
-    self.imageArr = @[@[[NSString stringWithFormat:@"icon_todays_data_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_data_analysis_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_equipment_management_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_alarm_clock_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_setting_%d",selectedThemeIndex]],@[@"icon_setting"]];
+    self.imageArr = @[@[[NSString stringWithFormat:@"icon_todays_data_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_data_analysis_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_equipment_management_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_alarm_clock_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_message_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_setting_%d",selectedThemeIndex]]];
     [self.sideTableView reloadData];
     _userName.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     if ([self.changeNowDate intValue]>7 && [self.changeNowDate intValue]<18) {

@@ -172,13 +172,17 @@
     thirdRightDeviceUUID = @"";
     thirdLeftDeviceName = @"";
     thirdRightDeviceName = @"";
-    isMineDevice = @"YES";
+    isMineDevice = @"NO";
     if ([[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
         NSArray *_arrDeatilListDescription = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"];
-        thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"Description"];
-        thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"UUID"];
-        thirdRightDeviceName = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"Description"];
-        thirdRightDeviceUUID = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"UUID"];
+        NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 objectForKey:@"UUID"]<[obj1 objectForKey:@"UUID"];
+        }];
+        thirdLeftDeviceName = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
+        thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"UUID"];
+        thirdRightDeviceName = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"Description"];
+        thirdRightDeviceUUID = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"UUID"];
+        isDoubleDevice = YES;
     }
     [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICEUUID object:nil];
     [UserManager setGlobalOauth];

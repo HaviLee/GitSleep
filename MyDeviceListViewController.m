@@ -144,13 +144,14 @@
     if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
         NSArray *_arrDeatilListDescription = [[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"];
         NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return obj1<obj2;
+            return [obj1 objectForKey:@"UUID"]<[obj1 objectForKey:@"UUID"];
         }];
         thirdLeftDeviceName = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
         thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"UUID"];
         thirdRightDeviceName = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"Description"];
         thirdRightDeviceUUID = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"UUID"];
-        isDoubleDevice = YES;    }
+        isDoubleDevice = YES;
+    }
     [UserManager setGlobalOauth];
     [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICEUUID object:nil];
     /*
@@ -363,7 +364,7 @@
 - (void)reActiveFriendDevice:(NSIndexPath *)indexPath
 {
     NSDictionary *dic = [self.deviceArr objectAtIndex:indexPath.row];
-    if ([[[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"]substringToIndex:3]isEqualToString:@"ACC"]) {
+    if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
         DoubleDUPViewController *udp = [[DoubleDUPViewController alloc]init];
         udp.productName = [dic objectForKey:@"Description"];//测试
         thirdHardDeviceUUID = [dic objectForKey:@"UUID"];

@@ -150,7 +150,14 @@
                              @"AccessToken":@"123456789"
                              };
     //
-    
+    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                        [UIImage imageNamed:@"havi1_1"],
+                        [UIImage imageNamed:@"havi1_2"],
+                        [UIImage imageNamed:@"havi1_3"],
+                        [UIImage imageNamed:@"havi1_4"],
+                        [UIImage imageNamed:@"havi1_5"]];
+    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+    [MMProgressHUD showWithTitle:nil status:nil images:images];
     NSArray *allKeys = [self.deviceInfo allKeys];
     if ([allKeys containsObject:@"FriendUserID"]) {
         NSDictionary *para = @{
@@ -200,14 +207,7 @@
                                        
                                        ]
                                };
-        NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
-                            [UIImage imageNamed:@"havi1_1"],
-                            [UIImage imageNamed:@"havi1_2"],
-                            [UIImage imageNamed:@"havi1_3"],
-                            [UIImage imageNamed:@"havi1_4"],
-                            [UIImage imageNamed:@"havi1_5"]];
-        [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
-        [MMProgressHUD showWithTitle:nil status:nil images:images];
+       
         NSString *urlString = [NSString stringWithFormat:@"%@v1/user/RenameUserDevice",BaseUrl];
         [WTRequestCenter putWithURL:urlString header:header parameters:para finished:^(NSURLResponse *response, NSData *data) {
             NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

@@ -29,8 +29,10 @@
         [self setBackImage];
         
         [self addSubview:self.heartViewLeft];
+        self.heartViewLeft.userInteractionEnabled = YES;
         if (isDoubleDevice) {
             [self addSubview:self.heartViewRight];
+            self.heartViewRight.userInteractionEnabled = YES;
         }
     }
     return self;

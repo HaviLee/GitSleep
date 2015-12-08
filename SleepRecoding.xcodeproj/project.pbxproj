@@ -181,7 +181,7 @@
 		2C27907A1BF45E7F00449071 /* SearchBarDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790791BF45E7F00449071 /* SearchBarDisplayController.m */; };
 		2C27907E1BF4614200449071 /* XHRealTimeBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27907D1BF4614200449071 /* XHRealTimeBlur.m */; };
 		2C2790811BF462DB00449071 /* UISearchBar+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790801BF462DB00449071 /* UISearchBar+Common.m */; };
-		2C2C96091BF98AD900CF366F /* navi_bg_center_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2C96071BF98AD900CF366F /* navi_bg_center_1@2x.png */; };
+		2C2C96091BF98AD900CF366F /* navi_pg_night_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2C96071BF98AD900CF366F /* navi_pg_night_1@2x.png */; };
 		2C2C960A1BF98AD900CF366F /* navi_pg_night_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2C96081BF98AD900CF366F /* navi_pg_night_0@2x.png */; };
 		2C2D28501BD7628900E0499F /* SLPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D284C1BD7628900E0499F /* SLPagingViewController.m */; };
 		2C2D28531BD7633600E0499F /* CenterContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D28521BD7633600E0499F /* CenterContainerViewController.m */; };
@@ -214,7 +214,6 @@
 		2C4FCB1E1A8F56E800DCEEF3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C4FCB1C1A8F56E800DCEEF3 /* LaunchScreen.xib */; };
 		2C4FCB2A1A8F56E800DCEEF3 /* SleepRecodingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4FCB291A8F56E800DCEEF3 /* SleepRecodingTests.m */; };
 		2C5202181AC438FB00BA1D5D /* ZWIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5202171AC438FB00BA1D5D /* ZWIntroductionViewController.m */; };
-		2C5349291BF9B5AA00A66287 /* btn_ellipse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C5349281BF9B5AA00A66287 /* btn_ellipse@2x.png */; };
 		2C5E5C221B12B3F200123CC4 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E5C1D1B12B3F200123CC4 /* RECommonFunctions.m */; };
 		2C5E5C231B12B3F200123CC4 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E5C1F1B12B3F200123CC4 /* RESideMenu.m */; };
 		2C5E5C241B12B3F200123CC4 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E5C211B12B3F200123CC4 /* UIViewController+RESideMenu.m */; };
@@ -499,6 +498,8 @@
 		2CAC542E1C1562DB00515EAC /* bookSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC542D1C1562DB00515EAC /* bookSound.mp3 */; };
 		2CAC54391C167F2D00515EAC /* CantainerDeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC54381C167F2D00515EAC /* CantainerDeviceListViewController.m */; };
 		2CAC543C1C16839C00515EAC /* ContainerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC543B1C16839C00515EAC /* ContainerTableViewCell.m */; };
+		2CAC54421C16AB1100515EAC /* btn_ellipse_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC54411C16AB1100515EAC /* btn_ellipse_0@2x.png */; };
+		2CAC54441C16AB5200515EAC /* btn_ellipse_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC54431C16AB5200515EAC /* btn_ellipse_1@2x.png */; };
 		2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */; };
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
 		2CC006FA1B9FC6DB007DE798 /* LXActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC006F91B9FC6DB007DE798 /* LXActivity.m */; };
@@ -946,7 +947,7 @@
 		2C27907D1BF4614200449071 /* XHRealTimeBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHRealTimeBlur.m; sourceTree = "<group>"; };
 		2C27907F1BF462DB00449071 /* UISearchBar+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+Common.h"; sourceTree = "<group>"; };
 		2C2790801BF462DB00449071 /* UISearchBar+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+Common.m"; sourceTree = "<group>"; };
-		2C2C96071BF98AD900CF366F /* navi_bg_center_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg_center_1@2x.png"; sourceTree = "<group>"; };
+		2C2C96071BF98AD900CF366F /* navi_pg_night_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_pg_night_1@2x.png"; sourceTree = "<group>"; };
 		2C2C96081BF98AD900CF366F /* navi_pg_night_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_pg_night_0@2x.png"; sourceTree = "<group>"; };
 		2C2D284A1BD7628900E0499F /* ShareResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareResources.h; sourceTree = "<group>"; };
 		2C2D284B1BD7628900E0499F /* SLPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPagingViewController.h; sourceTree = "<group>"; };
@@ -1002,7 +1003,6 @@
 		2C4FCB291A8F56E800DCEEF3 /* SleepRecodingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SleepRecodingTests.m; sourceTree = "<group>"; };
 		2C5202161AC438FB00BA1D5D /* ZWIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWIntroductionViewController.h; sourceTree = "<group>"; };
 		2C5202171AC438FB00BA1D5D /* ZWIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWIntroductionViewController.m; sourceTree = "<group>"; };
-		2C5349281BF9B5AA00A66287 /* btn_ellipse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_ellipse@2x.png"; sourceTree = "<group>"; };
 		2C5E5C1C1B12B3F200123CC4 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RECommonFunctions.h; path = lib/RESideMenu/RECommonFunctions.h; sourceTree = "<group>"; };
 		2C5E5C1D1B12B3F200123CC4 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RECommonFunctions.m; path = lib/RESideMenu/RECommonFunctions.m; sourceTree = "<group>"; };
 		2C5E5C1E1B12B3F200123CC4 /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RESideMenu.h; path = lib/RESideMenu/RESideMenu.h; sourceTree = "<group>"; };
@@ -1387,6 +1387,8 @@
 		2CAC54381C167F2D00515EAC /* CantainerDeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CantainerDeviceListViewController.m; path = controller/CantainerDeviceListViewController.m; sourceTree = "<group>"; };
 		2CAC543A1C16839C00515EAC /* ContainerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContainerTableViewCell.h; path = controller/ContainerTableViewCell.h; sourceTree = "<group>"; };
 		2CAC543B1C16839C00515EAC /* ContainerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContainerTableViewCell.m; path = controller/ContainerTableViewCell.m; sourceTree = "<group>"; };
+		2CAC54411C16AB1100515EAC /* btn_ellipse_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_ellipse_0@2x.png"; sourceTree = "<group>"; };
+		2CAC54431C16AB5200515EAC /* btn_ellipse_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_ellipse_1@2x.png"; sourceTree = "<group>"; };
 		2CAF5E8E1AE7F49300E7E3AA /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
 		2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
 		2CAF5E911AE7F55700E7E3AA /* protocol.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = protocol.html; sourceTree = "<group>"; };
@@ -2070,9 +2072,10 @@
 				2C2D284C1BD7628900E0499F /* SLPagingViewController.m */,
 				2C2D28511BD7633600E0499F /* CenterContainerViewController.h */,
 				2C2D28521BD7633600E0499F /* CenterContainerViewController.m */,
-				2C2C96071BF98AD900CF366F /* navi_bg_center_1@2x.png */,
+				2C2C96071BF98AD900CF366F /* navi_pg_night_1@2x.png */,
 				2C2C96081BF98AD900CF366F /* navi_pg_night_0@2x.png */,
-				2C5349281BF9B5AA00A66287 /* btn_ellipse@2x.png */,
+				2CAC54411C16AB1100515EAC /* btn_ellipse_0@2x.png */,
+				2CAC54431C16AB5200515EAC /* btn_ellipse_1@2x.png */,
 				2C7F89DC1C0EBEBB009A6834 /* choose.png */,
 				2C7F89E81C0EDB09009A6834 /* accept@2x.png */,
 				2C7F89EA1C0EDC2E009A6834 /* apply@2x.png */,
@@ -3884,15 +3887,16 @@
 				2C15E7881AF2152100142F36 /* heart_2_1.png in Resources */,
 				2C15E7321AF214E800142F36 /* pic_1334_1.png in Resources */,
 				2C15E7401AF214E800142F36 /* pic_sleep_1@2x.png in Resources */,
+				2CAC54421C16AB1100515EAC /* btn_ellipse_0@2x.png in Resources */,
 				2C15E7681AF2150900142F36 /* breathe4_1@2x.png in Resources */,
 				57711FFF1AD4DB5800508C5C /* papasscode_background2@2x.png in Resources */,
 				2C7D22E51AF1CA050011A45C /* textbox_devicename_0@2x.png in Resources */,
 				2C7D22C51AF1CA050011A45C /* line_next_0@2x.png in Resources */,
 				2C3AF2C91AF470C800B66E32 /* btn_back_calender@2x.png in Resources */,
 				2C7D22F11AF1CA050011A45C /* txtbox_report_0@2x.png in Resources */,
-				2C5349291BF9B5AA00A66287 /* btn_ellipse@2x.png in Resources */,
 				2C15E75A1AF214F800142F36 /* leave4_1.png in Resources */,
 				2CDE557A1BAE9BF00017C5DE /* pic_introduce_2@2x.png in Resources */,
+				2CAC54441C16AB5200515EAC /* btn_ellipse_1@2x.png in Resources */,
 				572AA9891AC29A5700DED1D9 /* THPinViewController.bundle in Resources */,
 				2C15E7481AF214E800142F36 /* textbox_hollow_1@2x.png in Resources */,
 				2C15E72B1AF214E800142F36 /* menology_1@2x.png in Resources */,
@@ -3976,7 +3980,7 @@
 				2C15E7771AF2151500142F36 /* get_up2_1@2x.png in Resources */,
 				2C7D231C1AF1CA450011A45C /* get_up2_0@2x.png in Resources */,
 				2C15E7381AF214E800142F36 /* pic_day_1@2x.png in Resources */,
-				2C2C96091BF98AD900CF366F /* navi_bg_center_1@2x.png in Resources */,
+				2C2C96091BF98AD900CF366F /* navi_pg_night_1@2x.png in Resources */,
 				2C7D22BE1AF1CA050011A45C /* icon_verification_code_0@2x.png in Resources */,
 				2C7D22E91AF1CA050011A45C /* textbox_phone_0@2x.png in Resources */,
 				2C7D23281AF1CA5C0011A45C /* leave2_0.png in Resources */,
