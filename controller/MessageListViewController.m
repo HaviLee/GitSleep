@@ -41,6 +41,12 @@
     [self.view addSubview:self.myDeviceListView];
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:_myDeviceListView];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self getMessageList];
 }
 

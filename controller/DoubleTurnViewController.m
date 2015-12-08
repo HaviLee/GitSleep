@@ -327,9 +327,9 @@
         
     }
     for (NSDictionary *dic in self.rightLeaveDic) {
-        if ([[dic objectForKey:@"Value"]intValue]==1) {
-            [arrSub addObject:dic];
-        }
+        [arrSub addObject:dic];
+//        if ([[dic objectForKey:@"Value"]intValue]==1) {
+//        }
     }
     self.rightLeaveDic = arrSub;
     [self.rightBottomTableView reloadData];
@@ -651,7 +651,7 @@
     if (_rightLeaveImage==nil) {
         _rightLeaveImage = [[UIImageView alloc]init];
         //                       WithFrame:CGRectMake(100, 0, 51, 34)];
-        _rightLeaveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_getup_%d",selectedThemeIndex]];
+        _rightLeaveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_body_movement_%d",selectedThemeIndex]];
     }
     return _rightLeaveImage;
 }
@@ -758,7 +758,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else if ([tableView isEqual:self.rightBottomTableView]){
-        static NSString *cellTitle = @"cellTitle1";
+        static NSString *cellTitle = @"cellTitle2";
         DataTableViewCell *cell = (DataTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellTitle];
         if (cell==nil) {
             cell = [[DataTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellTitle];

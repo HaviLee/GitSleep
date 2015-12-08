@@ -532,10 +532,8 @@
     }
     
     if (dataArr.count>0) {
-        [self.noDataImageView removeFromSuperview];
+        [self.noDataImageView1 removeFromSuperview];
     }else{
-        [self.dataScrollView addSubview:self.noDataImageView1];
-        self.noDataImageView1.center = self.dataScrollView.center;
         [self.dataRightScrollView addSubview:self.noDataImageView1];
         self.noDataImageView1.center = self.dataRightScrollView.center;
     }
@@ -1342,6 +1340,7 @@
         }
         CGPoint centerPoint = CGPointMake(scrollView.contentOffset.x + self.view.frame.size.width/2, scrollView.center.y);
         self.noDataImageView.center = centerPoint;
+        self.noDataImageView1.center = centerPoint;
     }
     
 }
@@ -1365,6 +1364,14 @@
         
     }
 }
+
+- (void)shareApp:(UIButton *)sender
+{
+    //    [self.shareMenuView show];
+    [self.shareNewMenuView showInView:self.view];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

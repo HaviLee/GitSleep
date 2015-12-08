@@ -73,6 +73,7 @@
 #define POSTLOGOUTNOTI           @"POSTLOGOUTNOTI"
 #define CHANGEUSERID             @"CHANGEUSERID"
 #define CHANGEDEVICEUUID         @"CHANGEDEVICEUUID"
+#define CHANGEDEVICNAME         @"CHANGEDEVICNAME"
 #define TwtityFourHourNoti       @"TwtityFourHourNoti"
 #define UserDefaultHourNoti      @"UserDefaultHourNoti"
 #define SleepSettingSwitchKey @"isSleepSetting"

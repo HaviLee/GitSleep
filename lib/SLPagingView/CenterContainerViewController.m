@@ -16,6 +16,7 @@
 #import "DeviceListViewController.h"
 #import "StartTimeView.h"
 #import "EndTimeView.h"
+#import <AVFoundation/AVFoundation.h>
 
 #import "NewSecondHeartViewController.h"
 #import "NewSecondBreathViewController.h"
@@ -23,7 +24,7 @@
 #import "SencondTurnViewController.h"
 #import "KxMenu.h"
 #import "UploadTagAPI.h"
-
+#import "MyDeviceListCell.h"
 //
 //#import "DoubleLeaveContainerViewController.h"
 //#import "DoubleTurnContainerViewController.h"
@@ -32,7 +33,11 @@
 #import "DoubleLeaveViewController.h"
 #import "DoubleTurnViewController.h"
 
+
 @interface CenterContainerViewController ()<SetScrollDateDelegate>
+{
+    AVAudioPlayer *_player;
+}
 
 @property (nonatomic,strong) NSArray *dataSource;
 @property (nonatomic,strong) UITableView *leftTableView;
@@ -70,6 +75,14 @@
 @property (nonatomic, strong) DoubleTurnViewController *doubleTurnView;
 @property (nonatomic, strong) DoubleHeartViewController *doubleHeartView;
 @property (nonatomic, strong) DoubleBreathViewController *doubleBreathView;
+//
+@property (nonatomic, strong) UILabel *navTitleLabel1;
+@property (nonatomic, strong) UILabel *navTitleLabel2;
+
+@property (nonatomic, strong) NSTimer *queryTimer;
+//drop menu
+@property (strong, nonatomic) UITableView *menuTableView;
+
 
 @end
 
@@ -101,7 +114,6 @@
             isDoubleDevice = NO;
         }
         [self setController];
-//        [self getDeviceInfoWithUUID:thirdHardDeviceUUID];
     }
 }
 
@@ -129,9 +141,22 @@
     //监听登录成功
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessAndQueryData:) name:LoginSuccessedNoti object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changedDeviceUUID:) name:CHANGEDEVICEUUID object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeDeviceName:) name:CHANGEDEVICNAME object:nil];
 }
 
 #pragma mark 消息监听方法
+
+- (void)changeDeviceName:(NSNotification *)noti
+{
+    if (isDoubleDevice) {
+        _navTitleLabel1.text = thirdLeftDeviceName.length==0?@"Left":thirdLeftDeviceName;
+        _navTitleLabel2.text = thirdRightDeviceName;
+    }else{
+        _navTitleLabel1.text = thirdHardDeviceName;
+    }
+    
+}
+
 
 - (void)changedDeviceUUID:(NSNotification *)noti
 {
@@ -180,6 +205,9 @@
     if (thirdHardDeviceUUID.length==0) {
         [self getAllDeviceList];//获取
     }
+//    [self playAlert];
+    self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
+    
 }
 
 #pragma mark 获取用户数据
@@ -203,13 +231,16 @@
                 thirdHardDeviceName = [dic objectForKey:@"Description"];
                 if ([[dic objectForKey:@"DetailDevice"] count]>0) {
                     NSArray *_arrDeatilListDescription = [dic objectForKey:@"DetailDevice"];
-                    thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"Description"];
-                    thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"UUID"];
-                    thirdRightDeviceName = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"Description"];
-                    thirdRightDeviceUUID = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"UUID"];
+                    NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                        return obj1<obj2;
+                    }];
+                    thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
+                    thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"UUID"];
+                    thirdRightDeviceName = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"Description"];
+                    thirdRightDeviceUUID = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"UUID"];
                     isDoubleDevice = YES;
+                    isMineDevice = @"NO";
                 }
-                isDoubleDevice = NO;
                 self.clearNaviTitleLabel.text = thirdHardDeviceName;
                 self.leftDeviceShowName = [dic objectForKey:@"Description"];
                 [UserManager setGlobalOauth];
@@ -228,6 +259,8 @@
                     thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"UUID"];
                     thirdRightDeviceName = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"Description"];
                     thirdRightDeviceUUID = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"UUID"];
+                    isDoubleDevice = YES;
+                    isMineDevice = @"YES";
                 }
                 self.clearNaviTitleLabel.text = thirdHardDeviceName;
                 self.leftDeviceShowName = [dic objectForKey:@"Description"];
@@ -613,17 +646,17 @@
 {
     if (thirdHardDeviceUUID.length>0) {
         if (isDoubleDevice) {
-            UILabel *navTitleLabel1 = [UILabel new];
-            navTitleLabel1.text = thirdLeftDeviceName.length==0?@"Left":thirdLeftDeviceName;
-            navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
-            navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+            _navTitleLabel1 = [UILabel new];
+            _navTitleLabel1.text = thirdLeftDeviceName.length==0?@"Left":thirdLeftDeviceName;
+            _navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
+            _navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
             
-            UILabel *navTitleLabel2 = [UILabel new];
-            navTitleLabel2.text = thirdRightDeviceName.length==0?@"Right":thirdRightDeviceName;
-            navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
-            navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+            _navTitleLabel2 = [UILabel new];
+            _navTitleLabel2.text = thirdRightDeviceName.length==0?@"Right":thirdRightDeviceName;
+            _navTitleLabel2.font = [UIFont fontWithName:@"Helvetica" size:17];
+            _navTitleLabel2.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
             
-            SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1, navTitleLabel2]
+            SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[_navTitleLabel1, _navTitleLabel2]
                                                                                             navBarBackground:[UIColor clearColor]
                                                                                                        views:@[self.leftTableView, self.rightTableView]
                                                                                              showPageControl:YES];
@@ -667,12 +700,12 @@
             [self getTodaySleepQualityData:newString withRightUUID:thirdRightDeviceUUID];
             
         }else{
-            UILabel *navTitleLabel1 = [UILabel new];
-            navTitleLabel1.text = thirdHardDeviceName;
-            navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
-            navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+            _navTitleLabel1 = [UILabel new];
+            _navTitleLabel1.text = thirdHardDeviceName;
+            _navTitleLabel1.font = [UIFont fontWithName:@"Helvetica" size:17];
+            _navTitleLabel1.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
             
-            SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[navTitleLabel1]
+            SLPagingViewController *pageViewController = [[SLPagingViewController alloc] initWithNavBarItems:@[_navTitleLabel1]
                                                                                             navBarBackground:[UIColor clearColor]
                                                                                                        views:@[self.leftTableView]
                                                                                              showPageControl:YES];
@@ -786,6 +819,17 @@
 }
 
 #pragma mark setter
+
+- (UITableView *)menuTableView
+{
+    if (!_menuTableView) {
+        _menuTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200) style:UITableViewStylePlain];
+        _menuTableView.delegate = self;
+        _menuTableView.dataSource = self;
+        _menuTableView.backgroundColor = [UIColor clearColor];
+    }
+    return _menuTableView;
+}
 
 - (DoubleHeartViewController*)doubleHeartView
 {
@@ -1058,33 +1102,46 @@
     return 0.01;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    if ([tableView isEqual:self.menuTableView]) {
+        return 3;
+    }else{
+        return 7;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row<5) {
-        
-        if (indexPath.row==4) {
-            return 40;
+    if ([tableView isEqual:self.menuTableView]) {
+        return 44;
+    }else{
+        if (indexPath.row<5) {
+            
+            if (indexPath.row==4) {
+                return 40;
+            }else{
+                if (ISIPHON4) {
+                    return 34;
+                }else
+                {
+                    return 44;
+                }
+            }
         }else{
-            if (ISIPHON4) {
-                return 34;
-            }else
-            {
+            if (indexPath.row==5) {
+                int datePickerHeight = self.view.frame.size.height*0.202623;
+                return self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35;
+            }else{
                 return 44;
             }
-        }
-    }else{
-        if (indexPath.row==5) {
-            int datePickerHeight = self.view.frame.size.height*0.202623;
-            return self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35;
-        }else{
-            return 44;
         }
     }
 }
@@ -1149,7 +1206,7 @@
             
         }
         
-    }else{
+    }else if([tableView isEqual:self.rightTableView]){
         if (indexPath.row<5) {
             
             static NSString *cellIndetifier = @"rightCell";
@@ -1206,14 +1263,40 @@
             return cell;
             
         }
+    }else if ([tableView isEqual:self.menuTableView]){
+        NSString *cellIndentifier = [NSString stringWithFormat:@"cell%ld",(long)indexPath.row];
+        MyDeviceListCell *cell = [[MyDeviceListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+        cell.backgroundColor = [UIColor clearColor];
+//        [cell addActionButtons:[self rightButtons] withButtonWidth:kJAButtonWidth withButtonPosition:JAButtonLocationRight];
+        /*
+        cell.cellUserDescription = [NSString stringWithFormat:@"%@",[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"Description"]];
+        if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"IsActivated"]isEqualToString:@"True"]) {
+            cell.selectImageView.hidden = NO;
+        }else{
+            cell.selectImageView.hidden = YES;
+            
+        }
+        if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
+            cell.cellIconImageView.image = [UIImage imageNamed:@"icon_double"];
+        }else{
+            cell.cellIconImageView.image = [UIImage imageNamed:@"icon_solo"];
+        }
+         */
+        cell.textLabel.text = @"li";
+        return cell;
     }
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row<4) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self.navigationController pushViewController:[self.subPageViewArr objectAtIndex:indexPath.row] animated:YES];
+    if ([tableView isEqual:self.menuTableView]) {
+        
+    }else{
+        if (indexPath.row<4) {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            [self.navigationController pushViewController:[self.subPageViewArr objectAtIndex:indexPath.row] animated:YES];
+        }
     }
 }
 
@@ -1387,10 +1470,9 @@
 - (void) pushMenuItem:(id)sender
 {
     KxMenuItem *item = (KxMenuItem *)sender;
-    if ([item.title isEqualToString:@"我的应用"]) {
-        HaviLog(@"周报");
+    if ([item.title isEqualToString:@"我的设备"]) {
+        [self showDropDownView];
     }else if ([item.title isEqualToString:@"分享应用"]){
-        HaviLog(@"月报");
         [self shareApp:nil];
     }
 }
@@ -1522,6 +1604,61 @@
     
 }
 
+#pragma mark 轮询传感器信息
+- (void)querySensorInfo:(NSTimer *)timer
+{
+    NSLog(@"警告请求一次");
+    if ([isMineDevice isEqualToString:@"YES"]) {
+        NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",thirdRightDeviceUUID];
+        
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
+            NSString *isBodyOutOfBed = [[resposeDic objectForKey:@"SensorInfo"] objectForKey:@"IsAnybodyOnBed"];
+            if ([isBodyOutOfBed isEqualToString:@"False"]) {
+                //离床
+//                [self playAlert];
+                
+            }
+            
+        } failed:^(NSURLResponse *response, NSError *error) {
+            [MMProgressHUD dismiss];
+        }];
+    }
+}
+
+- (BOOL)playAlert
+{
+    NSError *error;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"alert" ofType:@"mp3"];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) return NO;
+    
+    NSURL *url = [NSURL fileURLWithPath:path];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    if (!_player)
+    {
+        NSLog(@"警告播放: %@", [error localizedDescription]);
+        return NO;
+    }
+    [_player prepareToPlay];
+    [_player setVolume:1.0f];
+    // 设置循环无限次播放
+    [_player setNumberOfLoops:2];
+    [_player play];
+    return YES;
+}
+
+#pragma mark dropDown Menu
+
+- (void)showDropDownView
+{
+    // Init dropdown view
+   
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

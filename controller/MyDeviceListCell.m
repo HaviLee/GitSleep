@@ -63,16 +63,16 @@
             
         }];
         
-        UIView *line = [[UIView alloc]init];
-        line.backgroundColor = [UIColor lightGrayColor];
-        line.alpha = 0.5;
-        [self.topContentView addSubview:line];
-        [line makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.topContentView);
-            make.left.equalTo(self.topContentView);
-            make.right.equalTo(self.topContentView);
-            make.height.equalTo(1);
-        }];
+//        UIView *line = [[UIView alloc]init];
+//        line.backgroundColor = [UIColor lightGrayColor];
+//        line.alpha = 0.5;
+//        [self.topContentView addSubview:line];
+//        [line makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(self.topContentView);
+//            make.left.equalTo(self.topContentView);
+//            make.right.equalTo(self.topContentView);
+//            make.height.equalTo(1);
+//        }];
         
     }
     return self;

@@ -23,6 +23,7 @@ static NSString* CUR_LeftHardWareUUID = @"CUR_LeftHardWareUUID";
 static NSString* CUR_RightHardWareUUID = @"CUR_RightHardWareUUID";
 static NSString* CUR_LeftHardWareName = @"CUR_LeftHardWareName";
 static NSString* CUR_RightHardWareName = @"CUR_RightHardWareName";
+static NSString* CUR_MineDevice = @"CUR_MineDevice";
 
 @implementation UserManager
 
@@ -47,6 +48,7 @@ static NSString* CUR_RightHardWareName = @"CUR_RightHardWareName";
     userinfo[CUR_LeftHardWareUUID] = thirdLeftDeviceUUID;
     userinfo[CUR_RightHardWareName] = thirdRightDeviceName;
     userinfo[CUR_RightHardWareUUID] = thirdRightDeviceUUID;
+    userinfo[CUR_MineDevice] = isMineDevice;
     [global setObject:userinfo forKey:CUR_USERINFO];
 }
 
@@ -69,6 +71,7 @@ static NSString* CUR_RightHardWareName = @"CUR_RightHardWareName";
     thirdRightDeviceName = @"";
     thirdLeftDeviceUUID = @"";
     thirdLeftDeviceName = @"";
+    isMineDevice = @"NO";
     
 }
 
@@ -104,6 +107,7 @@ static NSString* CUR_RightHardWareName = @"CUR_RightHardWareName";
         thirdLeftDeviceUUID = [userinfo objectForKey:CUR_LeftHardWareUUID];
         thirdRightDeviceName = [userinfo objectForKey:CUR_RightHardWareName];
         thirdRightDeviceUUID = [userinfo objectForKey:CUR_RightHardWareUUID];
+        isMineDevice = [userinfo objectForKey:CUR_MineDevice];
         return TRUE;
         
     } else {

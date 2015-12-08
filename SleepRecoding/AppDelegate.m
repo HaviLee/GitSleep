@@ -31,6 +31,8 @@
 //
 #import "LoginContainerViewController.h"//架构重构
 #import "CenterViewController.h"//架构重构
+#import "BackgroundModelManager.h"
+
 @interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate,TencentSessionDelegate>
 @property (nonatomic,strong) LoginContainerViewController *loginView;
 @property (nonatomic,strong) NSDictionary *ThirdPlatformInfoDic;
@@ -123,6 +125,9 @@
     [self.window makeKeyAndVisible];
     [self setLoginView];
     [self configAlertView];
+    //开启后台模式
+    BackgroundModelManager *backManager = [[BackgroundModelManager alloc]init];
+    [backManager openBackgroundModel];
     return YES;
 }
 

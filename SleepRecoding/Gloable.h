@@ -47,6 +47,7 @@ extern NSString *thirdLeftDeviceUUID;
 extern NSString *thirdRightDeviceUUID;
 extern NSString *thirdLeftDeviceName;
 extern NSString *thirdRightDeviceName;
+extern NSString *isMineDevice;
 
 
 

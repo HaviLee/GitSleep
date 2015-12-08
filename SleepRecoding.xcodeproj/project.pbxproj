@@ -494,6 +494,9 @@
 		2C95C2881B74430C00C626D9 /* CirlcleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2841B74430C00C626D9 /* CirlcleView.m */; };
 		2C95C2891B74430C00C626D9 /* UILabel+FlickerNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95C2861B74430C00C626D9 /* UILabel+FlickerNumber.m */; };
 		2C9C01621AD0215F006362E9 /* TurnChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C01611AD0215F006362E9 /* TurnChartView.m */; };
+		2CAC54291C152B4A00515EAC /* ReNameDoubleDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC54281C152B4A00515EAC /* ReNameDoubleDeviceViewController.m */; };
+		2CAC542C1C1562AE00515EAC /* BackgroundModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC542A1C1562AE00515EAC /* BackgroundModelManager.m */; };
+		2CAC542E1C1562DB00515EAC /* bookSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC542D1C1562DB00515EAC /* bookSound.mp3 */; };
 		2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */; };
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
 		2CC006FA1B9FC6DB007DE798 /* LXActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC006F91B9FC6DB007DE798 /* LXActivity.m */; };
@@ -1373,6 +1376,11 @@
 		2C9C01601AD0215F006362E9 /* TurnChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TurnChartView.h; sourceTree = "<group>"; };
 		2C9C01611AD0215F006362E9 /* TurnChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TurnChartView.m; sourceTree = "<group>"; };
 		2C9C01631AD0217F006362E9 /* ChartViewDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartViewDefine.h; sourceTree = "<group>"; };
+		2CAC54271C152B4A00515EAC /* ReNameDoubleDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReNameDoubleDeviceViewController.h; path = controller/ReNameDoubleDeviceViewController.h; sourceTree = "<group>"; };
+		2CAC54281C152B4A00515EAC /* ReNameDoubleDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReNameDoubleDeviceViewController.m; path = controller/ReNameDoubleDeviceViewController.m; sourceTree = "<group>"; };
+		2CAC542A1C1562AE00515EAC /* BackgroundModelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundModelManager.m; sourceTree = "<group>"; };
+		2CAC542B1C1562AE00515EAC /* BackgroundModelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundModelManager.h; sourceTree = "<group>"; };
+		2CAC542D1C1562DB00515EAC /* bookSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bookSound.mp3; sourceTree = "<group>"; };
 		2CAF5E8E1AE7F49300E7E3AA /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
 		2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
 		2CAF5E911AE7F55700E7E3AA /* protocol.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = protocol.html; sourceTree = "<group>"; };
@@ -2251,6 +2259,7 @@
 				2C0EBE311AF0C13000F2D2F7 /* user3.wav */,
 				2C94FA261B8DB42100F1A4DB /* Button29.wav */,
 				2C7F89FC1C10254D009A6834 /* alert.mp3 */,
+				2CAC542D1C1562DB00515EAC /* bookSound.mp3 */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2428,6 +2437,8 @@
 				2CE98C261BFD85FB005ADB7B /* DoubleDUPViewController.m */,
 				2C77D5091AEB3702004123D2 /* ReNameDeviceNameViewController.h */,
 				2C77D50A1AEB3702004123D2 /* ReNameDeviceNameViewController.m */,
+				2CAC54271C152B4A00515EAC /* ReNameDoubleDeviceViewController.h */,
+				2CAC54281C152B4A00515EAC /* ReNameDoubleDeviceViewController.m */,
 				2CE7A3B71BF58A5200E7CEDE /* NameDoubleViewController.h */,
 				2CE7A3B81BF58A5200E7CEDE /* NameDoubleViewController.m */,
 				2C7F89EE1C0EE542009A6834 /* MyDeviceListViewController.h */,
@@ -3003,6 +3014,8 @@
 				2C694F701BFAF5720027788B /* NSString+Common.m */,
 				2CE98C5E1BFECF6E005ADB7B /* RexpUntil.h */,
 				2CE98C5F1BFECF6E005ADB7B /* RexpUntil.m */,
+				2CAC542B1C1562AE00515EAC /* BackgroundModelManager.h */,
+				2CAC542A1C1562AE00515EAC /* BackgroundModelManager.m */,
 			);
 			name = OC_Category;
 			path = lib/OC_Category;
@@ -3834,6 +3847,7 @@
 				2C7D23211AF1CA450011A45C /* get_up7_0@2x.png in Resources */,
 				2C15E7571AF214F800142F36 /* leave1_1.png in Resources */,
 				2CDB86BA1BABE66800551192 /* slice3_2.png in Resources */,
+				2CAC542E1C1562DB00515EAC /* bookSound.mp3 in Resources */,
 				2CDB86B61BABE66800551192 /* havi1_7@2x.png in Resources */,
 				2C15E76A1AF2150900142F36 /* breathe6_1@2x.png in Resources */,
 				2C8C62961AB5B8A200CF4C19 /* papasscode_marker@2x.png in Resources */,
@@ -4199,6 +4213,7 @@
 				2C7CA0281B6FCFD300AA511D /* CenterViewTableViewCell.m in Sources */,
 				5770860B1ABBB239004A2C07 /* HaviAnimationView.m in Sources */,
 				57802E261AE7398200823E39 /* GetSuggestionList.m in Sources */,
+				2CAC54291C152B4A00515EAC /* ReNameDoubleDeviceViewController.m in Sources */,
 				57802E291AE7398200823E39 /* SHGetClient.m in Sources */,
 				2CC8E7F61B972DFB00F69ABE /* SencondTurnViewController.m in Sources */,
 				2CD6C0481B7B342B00F1FF6A /* GetTagListAPI.m in Sources */,
@@ -4249,6 +4264,7 @@
 				57802E251AE7398200823E39 /* GetSleepReport.m in Sources */,
 				2C435E591AD0CA05003B1604 /* ToggleButton.m in Sources */,
 				5770861B1ABC019C004A2C07 /* UserContactTableViewCell.m in Sources */,
+				2CAC542C1C1562AE00515EAC /* BackgroundModelManager.m in Sources */,
 				577B85231AE9EE2900D876E8 /* HeartChartView.m in Sources */,
 				572AA9871AC29A5700DED1D9 /* THPinNumPadView.m in Sources */,
 				2CD386C61B65F33C00A3AF04 /* LoginContainerViewController.m in Sources */,

@@ -14,6 +14,7 @@
 #import "ReNameDeviceNameViewController.h"
 #import "DoubleDUPViewController.h"
 #import "UDPAddProductViewController.h"
+#import "ReNameDoubleDeviceViewController.h"
 
 @interface MyDeviceListViewController ()<JASwipeCellDelegate>
 
@@ -113,7 +114,7 @@
         
     }
     cell.delegate = self;
-    if ([[[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"UUID"] substringToIndex:3]isEqualToString:@"ACC"]) {
+    if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
         cell.cellIconImageView.image = [UIImage imageNamed:@"icon_double"];
     }else{
         cell.cellIconImageView.image = [UIImage imageNamed:@"icon_solo"];
@@ -138,14 +139,18 @@
     thirdRightDeviceUUID = @"";
     thirdLeftDeviceName = @"";
     thirdRightDeviceName = @"";
+    isMineDevice = @"YES";
 
     if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
         NSArray *_arrDeatilListDescription = [[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"];
-        thirdLeftDeviceName = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"Description"];
-        thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"UUID"];
-        thirdRightDeviceName = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"Description"];
-        thirdRightDeviceUUID = [[_arrDeatilListDescription objectAtIndex:1]objectForKey:@"UUID"];
-    }
+        NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return obj1<obj2;
+        }];
+        thirdLeftDeviceName = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
+        thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"UUID"];
+        thirdRightDeviceName = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"Description"];
+        thirdRightDeviceUUID = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"UUID"];
+        isDoubleDevice = YES;    }
     [UserManager setGlobalOauth];
     [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICEUUID object:nil];
     /*
@@ -344,9 +349,15 @@
 - (void)renameFriendDevice:(NSIndexPath *)indexPath
 {
     [self.selectTableViewCell resetContainerView];
-    ReNameDeviceNameViewController *name = [[ReNameDeviceNameViewController alloc]init];
-    name.deviceInfo = [self.deviceArr objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:name animated:YES];
+    if ([[[self.deviceArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
+        ReNameDoubleDeviceViewController *name = [[ReNameDoubleDeviceViewController alloc]init];
+        name.deviceInfo = [self.deviceArr objectAtIndex:indexPath.row];
+        [self.navigationController pushViewController:name animated:YES];
+    }else{
+        ReNameDeviceNameViewController *name = [[ReNameDeviceNameViewController alloc]init];
+        name.deviceInfo = [self.deviceArr objectAtIndex:indexPath.row];
+        [self.navigationController pushViewController:name animated:YES];
+    }
 }
 
 - (void)reActiveFriendDevice:(NSIndexPath *)indexPath

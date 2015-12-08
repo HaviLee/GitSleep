@@ -44,6 +44,7 @@ NSString *thirdRightDeviceUUID = @"";
 NSString *thirdLeftDeviceName = @"";
 NSString *thirdRightDeviceName = @"";
 BOOL isDoubleDevice = NO;
+NSString *isMineDevice = @"NO";
 
 
 

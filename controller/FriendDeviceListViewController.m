@@ -10,6 +10,7 @@
 #import "ODRefreshControl.h"
 #import "FriendMessageTableViewCell.h"
 #import "ReNameDeviceNameViewController.h"
+#import "ReNameDoubleDeviceViewController.h"
 
 @interface FriendDeviceListViewController ()<JASwipeCellDelegate,UIAlertViewDelegate>
 
@@ -171,6 +172,7 @@
     thirdRightDeviceUUID = @"";
     thirdLeftDeviceName = @"";
     thirdRightDeviceName = @"";
+    isMineDevice = @"YES";
     if ([[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
         NSArray *_arrDeatilListDescription = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"];
         thirdLeftDeviceUUID = [[_arrDeatilListDescription objectAtIndex:0]objectForKey:@"Description"];
@@ -340,9 +342,15 @@
 - (void)renameFriendDevice:(NSIndexPath *)indexPath
 {
     [self.selectTableViewCell resetContainerView];
-    ReNameDeviceNameViewController *name = [[ReNameDeviceNameViewController alloc]init];
-    name.deviceInfo = [self.resultArr objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:name animated:YES];
+    if ([[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
+        ReNameDoubleDeviceViewController *name = [[ReNameDoubleDeviceViewController alloc]init];
+        name.deviceInfo = [self.resultArr objectAtIndex:indexPath.row];
+        [self.navigationController pushViewController:name animated:YES];
+    }else{
+        ReNameDeviceNameViewController *name = [[ReNameDeviceNameViewController alloc]init];
+        name.deviceInfo = [self.resultArr objectAtIndex:indexPath.row];
+        [self.navigationController pushViewController:name animated:YES];
+    }
 }
 
 - (void)reActiveFriendDevice:(NSIndexPath *)indexPath
