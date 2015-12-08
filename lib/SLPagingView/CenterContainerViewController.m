@@ -1625,11 +1625,14 @@
             NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
             NSString *isBodyOutOfBed = [[resposeDic objectForKey:@"SensorInfo"] objectForKey:@"IsAnybodyOnBed"];
-            if ([isBodyOutOfBed isEqualToString:@"False"]) {
+            if ([isBodyOutOfBed isEqualToString:@"False"]&&isBodyOnBed) {
                 //离床
-//                [self playAlert];
-                
+                [self playAlert];
+                isBodyOnBed = NO;
+            }else if ([isBodyOutOfBed isEqualToString:@"True"]){
+                isBodyOnBed = YES;
             }
+            [self playAlert];
             
         } failed:^(NSURLResponse *response, NSError *error) {
             [MMProgressHUD dismiss];
@@ -1656,6 +1659,9 @@
     // 设置循环无限次播放
     [_player setNumberOfLoops:2];
     [_player play];
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setActive:YES error:nil];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     return YES;
 }
 

@@ -27,6 +27,7 @@ extern NSString *dayTimeToUse;
 extern NSDate *selectedDateToUse;
 //判断是不是自定义的
 extern BOOL isUserDefaultTime;
+extern BOOL isBodyOnBed;
 //
 extern int selectedThemeIndex;
 extern NSData *user_Register_Data;
