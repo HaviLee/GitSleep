@@ -10,7 +10,7 @@
 #import "ScanBarcodeViewController.h"
 #import "AddProductViewController.h"
 #import "UDPAddProductViewController.h"
-#import "DeviceManagerViewController.h"
+#import "DeviceListViewController.h"
 #import "BindingDeviceUUIDAPI.h"
 #import "ActiveDeviceAPI.h"
 #import "URBAlertView.h"
@@ -475,7 +475,7 @@ float prewMoveY;
                     [self.navigationController pushViewController:udp animated:YES];
                 }else if (index ==0){
                     for (UIViewController *controller in self.navigationController.viewControllers) {
-                        if ([controller isKindOfClass:[DeviceManagerViewController class]]) {
+                        if ([controller isKindOfClass:[DeviceListViewController class]]) {
                             
                             [self.navigationController popToViewController:controller animated:YES];
                             //泡个消息，让首界面更新数据

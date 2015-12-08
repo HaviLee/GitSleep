@@ -196,6 +196,10 @@
                         [UIImage imageNamed:@"havi1_5"]];
     [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
+    NSArray *_arrDeatilListDescription = [self.dicDetailDevice  objectForKey:@"DetailSensorInfo"];
+    NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj1 objectForKey:@"UUID"]<[obj1 objectForKey:@"UUID"];
+    }];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -207,16 +211,14 @@
                                        @"Description":self.doubleDeviceName,
                                        },
                                    @{
-                                       @"UUID":[[[self.dicDetailDevice objectForKey:@"DetailSensorInfo"]objectAtIndex:0]objectForKey:@"UUID"],
+                                       @"UUID":[[_sortedDetailDevice objectAtIndex:0]objectForKey:@"UUID"],
                                        @"Description":self.leftText.text,
                                        },
                                    @{
-                                       @"UUID":[[[self.dicDetailDevice objectForKey:@"DetailSensorInfo"]objectAtIndex:1]objectForKey:@"UUID"],
+                                       @"UUID":[[_sortedDetailDevice objectAtIndex:1]objectForKey:@"UUID"],
                                        @"Description":self.rightText.text,
                                        }
                                    ]
-//                           @"UUID": self.barUUIDString,
-//                           @"Description":self.doubleDeviceName,
                            };
     NSString *urlString = [NSString stringWithFormat:@"v1/user/RenameUserDevice"];
 

@@ -45,7 +45,7 @@
          {
              return self.menuButton;
          }else if (nIndex == 0){
-             [self.rightMenuButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"plus_math"]] forState:UIControlStateNormal];
+             [self.rightMenuButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"plus_math_%d",selectedThemeIndex]] forState:UIControlStateNormal];
              [self.rightMenuButton addTarget:self action:@selector(addProduct:) forControlEvents:UIControlEventTouchUpInside];
              return self.rightMenuButton;
          }
@@ -68,7 +68,7 @@
 {
     self.segmentTitle = [[UISegmentedControl alloc] initWithItems:@[@"我的设备", @"他人设备"]];
     self.segmentTitle.selectedSegmentIndex = 0;
-//    self.segmentTitle.tintColor = [UIColor whiteColor];
+    self.segmentTitle.tintColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     self.segmentTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.segmentTitle.frame = CGRectMake(70, 30, self.view.frame.size.width-140, 25);
     [self.segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
@@ -93,7 +93,7 @@
     }
     switch (_segmentTitle.selectedSegmentIndex) {
         case 0: {
-            [self.rightMenuButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"plus_math"]] forState:UIControlStateNormal];
+            [self.rightMenuButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"plus_math_%d",selectedThemeIndex]] forState:UIControlStateNormal];
             [self.rightMenuButton removeTarget:self action:@selector(searchDevice:) forControlEvents:UIControlEventTouchUpInside];
             [self.rightMenuButton addTarget:self action:@selector(addProduct:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:_myNewDeviceList.view];
@@ -103,7 +103,7 @@
         }
         case 1: {
             
-            [self.rightMenuButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"search"]] forState:UIControlStateNormal];
+            [self.rightMenuButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"search_%d",selectedThemeIndex]] forState:UIControlStateNormal];
             [self.rightMenuButton removeTarget:self action:@selector(addProduct:) forControlEvents:UIControlEventTouchUpInside];
             [self.rightMenuButton addTarget:self action:@selector(searchDevice:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:_friendDeviceList.view];

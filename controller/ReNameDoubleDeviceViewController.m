@@ -147,7 +147,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSArray *_arrDeatilListDescription = [self.deviceInfo objectForKey:@"DetailDevice"];
     NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return obj1<obj2;
+        return [obj1 objectForKey:@"UUID"]<[obj2 objectForKey:@"UUID"];
     }];
     NSLog(@"双人的命名%@",self.deviceInfo);
     if (indexPath.section==0) {
@@ -255,7 +255,7 @@
     NSArray *allKeys = [self.deviceInfo allKeys];
     NSArray *_arrDeatilListDescription = [self.deviceInfo objectForKey:@"DetailDevice"];
     NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return obj1<obj2;
+        return [obj1 objectForKey:@"UUID"]<[obj2 objectForKey:@"UUID"];
     }];
     if ([allKeys containsObject:@"FriendUserID"]) {
         NSDictionary *para = @{
