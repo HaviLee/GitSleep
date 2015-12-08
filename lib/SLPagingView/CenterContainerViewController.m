@@ -16,6 +16,7 @@
 #import "DeviceListViewController.h"
 #import "StartTimeView.h"
 #import "EndTimeView.h"
+#import "ModalAnimation.h"
 #import <AVFoundation/AVFoundation.h>
 
 #import "NewSecondHeartViewController.h"
@@ -25,6 +26,7 @@
 #import "KxMenu.h"
 #import "UploadTagAPI.h"
 #import "MyDeviceListCell.h"
+#import "CantainerDeviceListViewController.h"
 //
 //#import "DoubleLeaveContainerViewController.h"
 //#import "DoubleTurnContainerViewController.h"
@@ -34,9 +36,10 @@
 #import "DoubleTurnViewController.h"
 
 
-@interface CenterContainerViewController ()<SetScrollDateDelegate>
+@interface CenterContainerViewController ()<SetScrollDateDelegate,UIViewControllerTransitioningDelegate>
 {
     AVAudioPlayer *_player;
+    ModalAnimation *_modalAnimationController;
 }
 
 @property (nonatomic,strong) NSArray *dataSource;
@@ -90,6 +93,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _modalAnimationController = [[ModalAnimation alloc] init];
     [self setContainerNavigationAndBackImage];
     [self initDatePicker];
     [self setNotifationList];
@@ -1657,7 +1661,27 @@
 - (void)showDropDownView
 {
     // Init dropdown view
+    CantainerDeviceListViewController *modal = [[CantainerDeviceListViewController alloc] init];
+    modal.transitioningDelegate = self;
+//    modal.dateTime = self.currentDate;
+//    modal.reportTitleString = exceptionTitle;
+    modal.modalPresentationStyle = UIModalPresentationCustom;
+//    modal.exceptionDic = dic;
+//    modal.sleepDic = self.currentSleepQulitity;
+    [self presentViewController:modal animated:YES completion:nil];
+
    
+}
+
+#pragma mark - Transitioning Delegate (Modal)
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    _modalAnimationController.type = AnimationTypePresent;
+    return _modalAnimationController;
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    _modalAnimationController.type = AnimationTypeDismiss;
+    return _modalAnimationController;
 }
 
 - (void)didReceiveMemoryWarning {

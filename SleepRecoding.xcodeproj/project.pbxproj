@@ -497,6 +497,8 @@
 		2CAC54291C152B4A00515EAC /* ReNameDoubleDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC54281C152B4A00515EAC /* ReNameDoubleDeviceViewController.m */; };
 		2CAC542C1C1562AE00515EAC /* BackgroundModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC542A1C1562AE00515EAC /* BackgroundModelManager.m */; };
 		2CAC542E1C1562DB00515EAC /* bookSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC542D1C1562DB00515EAC /* bookSound.mp3 */; };
+		2CAC54391C167F2D00515EAC /* CantainerDeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC54381C167F2D00515EAC /* CantainerDeviceListViewController.m */; };
+		2CAC543C1C16839C00515EAC /* ContainerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC543B1C16839C00515EAC /* ContainerTableViewCell.m */; };
 		2CAF5E901AE7F49300E7E3AA /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */; };
 		2CAF5E921AE7F55700E7E3AA /* protocol.html in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF5E911AE7F55700E7E3AA /* protocol.html */; };
 		2CC006FA1B9FC6DB007DE798 /* LXActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC006F91B9FC6DB007DE798 /* LXActivity.m */; };
@@ -1381,6 +1383,10 @@
 		2CAC542A1C1562AE00515EAC /* BackgroundModelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundModelManager.m; sourceTree = "<group>"; };
 		2CAC542B1C1562AE00515EAC /* BackgroundModelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundModelManager.h; sourceTree = "<group>"; };
 		2CAC542D1C1562DB00515EAC /* bookSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bookSound.mp3; sourceTree = "<group>"; };
+		2CAC54371C167F2D00515EAC /* CantainerDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CantainerDeviceListViewController.h; path = controller/CantainerDeviceListViewController.h; sourceTree = "<group>"; };
+		2CAC54381C167F2D00515EAC /* CantainerDeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CantainerDeviceListViewController.m; path = controller/CantainerDeviceListViewController.m; sourceTree = "<group>"; };
+		2CAC543A1C16839C00515EAC /* ContainerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContainerTableViewCell.h; path = controller/ContainerTableViewCell.h; sourceTree = "<group>"; };
+		2CAC543B1C16839C00515EAC /* ContainerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContainerTableViewCell.m; path = controller/ContainerTableViewCell.m; sourceTree = "<group>"; };
 		2CAF5E8E1AE7F49300E7E3AA /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
 		2CAF5E8F1AE7F49300E7E3AA /* UserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
 		2CAF5E911AE7F55700E7E3AA /* protocol.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = protocol.html; sourceTree = "<group>"; };
@@ -2445,6 +2451,10 @@
 				2C7F89EF1C0EE542009A6834 /* MyDeviceListViewController.m */,
 				2C7F89F11C0EE66E009A6834 /* MyDeviceListCell.h */,
 				2C7F89F21C0EE66E009A6834 /* MyDeviceListCell.m */,
+				2CAC54371C167F2D00515EAC /* CantainerDeviceListViewController.h */,
+				2CAC54381C167F2D00515EAC /* CantainerDeviceListViewController.m */,
+				2CAC543A1C16839C00515EAC /* ContainerTableViewCell.h */,
+				2CAC543B1C16839C00515EAC /* ContainerTableViewCell.m */,
 				575F5A9B1AAE87670061AA11 /* DeviceManagerViewController.h */,
 				575F5A9C1AAE87670061AA11 /* DeviceManagerViewController.m */,
 			);
@@ -4226,6 +4236,7 @@
 				2CE98C4B1BFD9922005ADB7B /* KDGoalBar.m in Sources */,
 				2CDB868B1BABCD4F00551192 /* SleepTimeLongBar.m in Sources */,
 				2C77D5261AED198B004123D2 /* GetDefatultSleepAPI.m in Sources */,
+				2CAC54391C167F2D00515EAC /* CantainerDeviceListViewController.m in Sources */,
 				2C0912B71B4E521F00BEE2FF /* Reachability.m in Sources */,
 				2C8F7BBA1AF3747700E56513 /* JTCalendarMenuMonthView.m in Sources */,
 				2C5F6F571C06927F008CE910 /* DoubleWeekReportViewController.m in Sources */,
@@ -4297,6 +4308,7 @@
 				2CDB867F1BABCD4F00551192 /* NewDataShowChartTableViewCell.m in Sources */,
 				2C5202181AC438FB00BA1D5D /* ZWIntroductionViewController.m in Sources */,
 				2C8F7BBC1AF3747700E56513 /* JTCalendarMonthView.m in Sources */,
+				2CAC543C1C16839C00515EAC /* ContainerTableViewCell.m in Sources */,
 				579AC7E91AA03F720045E9A2 /* DefaultTableViewCell.m in Sources */,
 				2CD6C0451B7B2A2B00F1FF6A /* UploadTagAPI.m in Sources */,
 				2C94FA131B8AEF9200F1A4DB /* CalendarDayModel.m in Sources */,

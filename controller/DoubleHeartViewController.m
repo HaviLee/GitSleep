@@ -130,7 +130,6 @@
             [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
         }];
         
-        
     }
 }
 
