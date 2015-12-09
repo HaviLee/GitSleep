@@ -1026,14 +1026,15 @@
             [[NSUserDefaults standardUserDefaults]setObject:titleString forKey:UserDefaultLeaveTime];
             [[NSUserDefaults standardUserDefaults]synchronize];
             NSRange rangeMinute = [aDate rangeOfString:@"分钟"];
-            float num=0;
+            int num=0;
             if (rangeMinute.length>0) {
-                num = [[aDate substringToIndex:rangeMinute.location] floatValue];
+                num = [[aDate substringToIndex:rangeMinute.location] intValue];
+                num = num*60;
             }else{
                 NSRange rangeMinute1 = [aDate rangeOfString:@"秒"];
-                num = [[aDate substringToIndex:rangeMinute1.location] floatValue]/60.0;
+                num = [[aDate substringToIndex:rangeMinute1.location] intValue];
             }
-            [self updateAlartTime:[NSString stringWithFormat:@"%.2f",num] withAlartType:@"AlarmTimeOutOfBed"];
+            [self updateAlartTime:[NSString stringWithFormat:@"%d",num] withAlartType:@"AlarmTimeOutOfBed"];
         }
     }
     
