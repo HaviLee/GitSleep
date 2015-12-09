@@ -437,6 +437,9 @@ float prewMoveY;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             [MMProgressHUD dismiss];
             [self activeUUID:self.barTextfield.text];
+        }else if ([[resposeDic objectForKey:@"ReturnCode"] intValue]==10033){
+            [MMProgressHUD dismiss];
+            [self.view makeToast:@"您已经绑定该设备,请换台设备!" duration:2 position:@"center"];
         }else if([[resposeDic objectForKey:@"ReturnCode"]intValue]==10008){
             [MMProgressHUD dismiss];
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
@@ -466,6 +469,14 @@ float prewMoveY;
         NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
         if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
             thirdHardDeviceUUID = UUID;
+            thirdHardDeviceName = self.deviceName;
+            thirdLeftDeviceUUID = @"";
+            thirdRightDeviceUUID = @"";
+            thirdLeftDeviceName = @"";
+            thirdRightDeviceName = @"";
+            isMineDevice = @"YES";
+            [UserManager setGlobalOauth];
+            [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICEUUID object:nil];
             MMPopupItemHandler block = ^(NSInteger index){
                 if (index == 1) {
                     UDPAddProductViewController *udp = [[UDPAddProductViewController alloc]init];

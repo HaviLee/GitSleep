@@ -1617,31 +1617,75 @@
 {
     NSLog(@"警告请求一次");
     if ([isMineDevice isEqualToString:@"YES"]) {
-        NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",thirdRightDeviceUUID];
-        
-        NSDictionary *header = @{
-                                 @"AccessToken":@"123456789"
-                                 };
-        [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
-            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
-            NSString *isBodyOutOfBed = [[resposeDic objectForKey:@"SensorInfo"] objectForKey:@"IsAnybodyOnBed"];
-            if ([isBodyOutOfBed isEqualToString:@"False"]&&isBodyOnBed) {
-                //离床
-                [self playAlert];
-                isBodyOnBed = NO;
-            }else if ([isBodyOutOfBed isEqualToString:@"True"]){
-                isBodyOnBed = YES;
-            }
+        if (isDoubleDevice) {
+            NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",thirdRightDeviceUUID];
             
-        } failed:^(NSURLResponse *response, NSError *error) {
-            [MMProgressHUD dismiss];
-        }];
+            NSDictionary *header = @{
+                                     @"AccessToken":@"123456789"
+                                     };
+            [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+                NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
+                NSString *isBodyOutOfBed = [[resposeDic objectForKey:@"SensorInfo"] objectForKey:@"IsAnybodyOnBed"];
+                if ([isBodyOutOfBed isEqualToString:@"False"]&&isBodyOnBed) {
+                    //离床
+                    [self playAlert];
+                    isBodyOnBed = NO;
+                }else if ([isBodyOutOfBed isEqualToString:@"True"]){
+                    isBodyOnBed = YES;
+                }
+                
+            } failed:^(NSURLResponse *response, NSError *error) {
+                [MMProgressHUD dismiss];
+            }];
+            NSString *urlString1 = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",thirdLeftDeviceUUID];
+            
+            [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString1] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+                NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
+                NSString *isBodyOutOfBed = [[resposeDic objectForKey:@"SensorInfo"] objectForKey:@"IsAnybodyOnBed"];
+                if ([isBodyOutOfBed isEqualToString:@"False"]&&isBodyOnBed) {
+                    //离床
+                    [self playAlert];
+                    isBodyOnBed = NO;
+                }else if ([isBodyOutOfBed isEqualToString:@"True"]){
+                    isBodyOnBed = YES;
+                }
+                
+            } failed:^(NSURLResponse *response, NSError *error) {
+                [MMProgressHUD dismiss];
+            }];
+  
+        }else{
+            NSString *urlString = [NSString stringWithFormat:@"v1/app/SensorInfo?UUID=%@",thirdHardDeviceUUID];
+            
+            NSDictionary *header = @{
+                                     @"AccessToken":@"123456789"
+                                     };
+            [WTRequestCenter getWithURL:[NSString stringWithFormat:@"%@%@",BaseUrl,urlString] headers:header parameters:nil option:WTRequestCenterCachePolicyNormal finished:^(NSURLResponse *response, NSData *data) {
+                NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
+                NSString *isBodyOutOfBed = [[resposeDic objectForKey:@"SensorInfo"] objectForKey:@"IsAnybodyOnBed"];
+                if ([isBodyOutOfBed isEqualToString:@"False"]&&isBodyOnBed) {
+                    //离床
+                    [self playAlert];
+                    isBodyOnBed = NO;
+                }else if ([isBodyOutOfBed isEqualToString:@"True"]){
+                    isBodyOnBed = YES;
+                }
+                
+            } failed:^(NSURLResponse *response, NSError *error) {
+                [MMProgressHUD dismiss];
+            }];
+        }
+        
     }
 }
 
 - (BOOL)playAlert
 {
+    NSLock *lockPlayer = [[NSLock alloc]init];
+    [lockPlayer lock];
     NSError *error;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"alert" ofType:@"mp3"];
     
@@ -1662,6 +1706,7 @@
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setActive:YES error:nil];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [lockPlayer unlock];
     return YES;
 }
 
