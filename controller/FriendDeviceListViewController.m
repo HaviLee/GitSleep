@@ -176,7 +176,7 @@
     if ([[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"] count]>0) {
         NSArray *_arrDeatilListDescription = [[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"DetailDevice"];
         NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return [obj1 objectForKey:@"UUID"]<[obj1 objectForKey:@"UUID"];
+            return [[obj1 objectForKey:@"UUID"] compare:[obj2 objectForKey:@"UUID"] options:NSCaseInsensitiveSearch];
         }];
         thirdLeftDeviceName = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
         thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"UUID"];

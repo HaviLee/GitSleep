@@ -87,6 +87,7 @@
 //drop menu
 @property (strong, nonatomic) UITableView *menuTableView;
 @property (strong, nonatomic) BackgroundModelManager *backManager;
+@property (strong, nonatomic) NSString *strAlertStartAfterTime;
 
 
 @end
@@ -238,9 +239,9 @@
                 if ([[dic objectForKey:@"DetailDevice"] count]>0) {
                     NSArray *_arrDeatilListDescription = [dic objectForKey:@"DetailDevice"];
                     NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                        return [obj1 objectForKey:@"UUID"]<[obj1 objectForKey:@"UUID"];
+                        return [[obj1 objectForKey:@"UUID"] compare:[obj2 objectForKey:@"UUID"] options:NSCaseInsensitiveSearch];
                     }];
-                    thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
+                    thirdLeftDeviceName = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
                     thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"UUID"];
                     thirdRightDeviceName = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"Description"];
                     thirdRightDeviceUUID = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"UUID"];
@@ -262,9 +263,9 @@
                 if ([[dic objectForKey:@"DetailDevice"] count]>0) {
                     NSArray *_arrDeatilListDescription = [dic objectForKey:@"DetailDevice"];
                     NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                        return [obj1 objectForKey:@"UUID"]<[obj1 objectForKey:@"UUID"];
+                        return [[obj1 objectForKey:@"UUID"] compare:[obj2 objectForKey:@"UUID"] options:NSCaseInsensitiveSearch];
                     }];
-                    thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
+                    thirdLeftDeviceName = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"Description"];
                     thirdLeftDeviceUUID = [[_sortedDetailDevice objectAtIndex:0]objectForKey:@"UUID"];
                     thirdRightDeviceName = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"Description"];
                     thirdRightDeviceUUID = [[_sortedDetailDevice objectAtIndex:1]objectForKey:@"UUID"];
@@ -669,7 +670,7 @@
                                                                                             navBarBackground:[UIColor clearColor]
                                                                                                        views:@[self.leftTableView, self.rightTableView]
                                                                                              showPageControl:YES];
-            [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
+            [pageViewController setCurrentPageControlColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor]];
             [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
             [pageViewController updateUserInteractionOnNavigation:NO];
             pageViewController.tintPageControlColor = [UIColor grayColor];
@@ -717,7 +718,7 @@
                                                                                             navBarBackground:[UIColor clearColor]
                                                                                                        views:@[self.leftTableView]
                                                                                              showPageControl:YES];
-            [pageViewController setCurrentPageControlColor:[UIColor whiteColor]];
+            [pageViewController setCurrentPageControlColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor]];
             [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
             [pageViewController updateUserInteractionOnNavigation:NO];
             pageViewController.tintPageControlColor = [UIColor grayColor];
@@ -1627,12 +1628,15 @@
                 NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                 HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
                 NSString *isBodyOutOfBed = [[resposeDic objectForKey:@"SensorInfo"] objectForKey:@"IsAnybodyOnBed"];
-                if ([isBodyOutOfBed isEqualToString:@"False"]&&isBodyOnBed) {
+                if ([isBodyOutOfBed isEqualToString:@"False"]&&isLeftBodyOnBed) {
                     //离床
-                    [self playAlert];
-                    isBodyOnBed = NO;
+                    HaviLog(@"开始报警");
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([self.strAlertStartAfterTime  intValue] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self playAlert];
+                    });
+                    isLeftBodyOnBed = NO;
                 }else if ([isBodyOutOfBed isEqualToString:@"True"]){
-                    isBodyOnBed = YES;
+                    isLeftBodyOnBed = YES;
                 }
                 
             } failed:^(NSURLResponse *response, NSError *error) {
@@ -1644,12 +1648,15 @@
                 NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                 HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
                 NSString *isBodyOutOfBed = [[resposeDic objectForKey:@"SensorInfo"] objectForKey:@"IsAnybodyOnBed"];
-                if ([isBodyOutOfBed isEqualToString:@"False"]&&isBodyOnBed) {
+                if ([isBodyOutOfBed isEqualToString:@"False"]&&isRihtBodyOnBed) {
                     //离床
-                    [self playAlert];
-                    isBodyOnBed = NO;
+                    HaviLog(@"开始报警");
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([self.strAlertStartAfterTime  intValue] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self playAlert];
+                    });
+                    isRihtBodyOnBed = NO;
                 }else if ([isBodyOutOfBed isEqualToString:@"True"]){
-                    isBodyOnBed = YES;
+                    isRihtBodyOnBed = YES;
                 }
                 
             } failed:^(NSURLResponse *response, NSError *error) {
@@ -1666,12 +1673,15 @@
                 NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                 HaviLog(@"当前用户%@设备信息%@",thirdPartyLoginUserId,resposeDic);
                 NSString *isBodyOutOfBed = [[resposeDic objectForKey:@"SensorInfo"] objectForKey:@"IsAnybodyOnBed"];
-                if ([isBodyOutOfBed isEqualToString:@"False"]&&isBodyOnBed) {
+                if ([isBodyOutOfBed isEqualToString:@"False"]&&isLeftBodyOnBed) {
                     //离床
-                    [self playAlert];
-                    isBodyOnBed = NO;
+                    HaviLog(@"开始报警");
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([self.strAlertStartAfterTime  intValue] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self playAlert];
+                    });
+                    isLeftBodyOnBed = NO;
                 }else if ([isBodyOutOfBed isEqualToString:@"True"]){
-                    isBodyOnBed = YES;
+                    isLeftBodyOnBed = YES;
                 }
                 
             } failed:^(NSURLResponse *response, NSError *error) {
@@ -1684,6 +1694,7 @@
 
 - (BOOL)playAlert
 {
+    HaviLog(@"延迟报警");
     NSLock *lockPlayer = [[NSLock alloc]init];
     [lockPlayer lock];
     NSError *error;
@@ -1692,17 +1703,24 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) return NO;
     
     NSURL *url = [NSURL fileURLWithPath:path];
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-    if (!_player)
-    {
-        NSLog(@"警告播放: %@", [error localizedDescription]);
-        return NO;
+    
+    int i=0;
+    while (i<6) {
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        if (!_player)
+        {
+            NSLog(@"警告播放: %@", [error localizedDescription]);
+            return NO;
+        }
+        [_player prepareToPlay];
+        [_player setVolume:1.0f];
+        // 设置循环无限次播放
+        [_player setNumberOfLoops:2];
+        [_player play];
+        sleep(10);
+        HaviLog(@"响%d次",i);
+        i++;
     }
-    [_player prepareToPlay];
-    [_player setVolume:1.0f];
-    // 设置循环无限次播放
-    [_player setNumberOfLoops:2];
-    [_player play];
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setActive:YES error:nil];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -1717,7 +1735,7 @@
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:SleepLeaveBedSwitchKey]isEqualToString:@"YES"]) {
         _backManager = [[BackgroundModelManager alloc]init];
         [_backManager openBackgroundModel];
-        self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
+        self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
     }else {
         [self.queryTimer invalidate];
         self.queryTimer = nil;
@@ -1737,13 +1755,14 @@
         NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         HaviLog(@"检测警告ok");
         if ([[[resposeDic objectForKey:@"UserInfo"] objectForKey:@"IsTimeoutAlarmOutOfBed"]isEqualToString:@"True"]) {
-            self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
+            self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
             //开启后台模式
+            self.strAlertStartAfterTime = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"AlarmTimeOutOfBed"];
             _backManager = [[BackgroundModelManager alloc]init];
             [_backManager openBackgroundModel];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
-        self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
+        self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
     }];
 }
 
@@ -1824,6 +1843,9 @@
         if ([navi isKindOfClass:[SLPagingViewController class]]) {
             SLPagingViewController *view = (SLPagingViewController *)navi;
             view.navigationBarView.image = [UIImage imageNamed:[NSString stringWithFormat:@"navi_pg_night_%d",selectedThemeIndex]];
+            view.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
+            [view setCurrentPageControlColor:selectedThemeIndex==0?DefaultColor:[UIColor whiteColor]];
+
         }
     }
     [self.datePicker updateCalenderSelectedDate:selectedDateToUse];

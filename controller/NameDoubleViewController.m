@@ -198,7 +198,7 @@
     [MMProgressHUD showWithTitle:nil status:nil images:images];
     NSArray *_arrDeatilListDescription = [self.dicDetailDevice  objectForKey:@"DetailSensorInfo"];
     NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj1 objectForKey:@"UUID"]<[obj1 objectForKey:@"UUID"];
+        return [[obj1 objectForKey:@"UUID"] compare:[obj2 objectForKey:@"UUID"] options:NSCaseInsensitiveSearch];
     }];
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"

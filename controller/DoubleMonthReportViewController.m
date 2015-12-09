@@ -1327,7 +1327,20 @@
             scrollView.contentOffset = CGPointMake(0, 0);
             return;
         }
-    }else if ([scrollView isEqual:self.dataRightScrollView]||[scrollView isEqual:self.dataScrollView]){
+    }else if ([scrollView isEqual:self.dataRightScrollView]){
+        if (scrollView.contentOffset.x < 0) {
+            scrollView.contentOffset = CGPointMake(0, 0);
+            return;
+        }
+        if (scrollView.contentSize.width>scrollView.frame.size.width&&scrollView.contentOffset.x>0) {
+            if (scrollView.contentSize.width-scrollView.contentOffset.x < scrollView.frame.size.width) {
+                scrollView.contentOffset = CGPointMake(scrollView.contentSize.width - scrollView.frame.size.width,0 );
+                return;
+            }
+        }
+        CGPoint centerPoint = CGPointMake(scrollView.contentOffset.x + self.view.frame.size.width/2, scrollView.center.y);
+        self.noDataImageView1.center = centerPoint;
+    }else if ([scrollView isEqual:self.dataScrollView]){
         if (scrollView.contentOffset.x < 0) {
             scrollView.contentOffset = CGPointMake(0, 0);
             return;
@@ -1340,7 +1353,6 @@
         }
         CGPoint centerPoint = CGPointMake(scrollView.contentOffset.x + self.view.frame.size.width/2, scrollView.center.y);
         self.noDataImageView.center = centerPoint;
-        self.noDataImageView1.center = centerPoint;
     }
     
 }

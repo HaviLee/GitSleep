@@ -49,7 +49,7 @@
         //
         _messageTime = [[UILabel alloc]init];
         _messageTime.numberOfLines = 0;
-        _messageTime.textColor = selectedThemeIndex==0?DefaultColor:[UIColor lightGrayColor];
+        _messageTime.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
         [self addSubview:_messageTime];
         _messageTime.text = @"";
         _messageTime.font = [UIFont systemFontOfSize:14];
@@ -79,7 +79,7 @@
 
 - (void)setCellUserDescription:(NSString *)cellUserDescription
 {
-    self.messageTime.textColor = selectedThemeIndex==0?DefaultColor:[UIColor grayColor];
+    self.messageTime.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
     self.messageTime.text = cellUserDescription;
 }
 

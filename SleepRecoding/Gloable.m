@@ -23,8 +23,8 @@ BOOL isSixteenTime = NO;
 NSData *user_Register_Data = nil;
 
 BOOL isUserDefaultTime = NO;
-BOOL isBodyOnBed = NO;
-
+BOOL isLeftBodyOnBed = NO;
+BOOL isRihtBodyOnBed = NO;
 int selectedThemeIndex = 0;
 int isTodayHourEqualSixteen = 0;
 
