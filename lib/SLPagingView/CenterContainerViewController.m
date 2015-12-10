@@ -1006,7 +1006,6 @@
         }else{
             _leftCircleView = [[CHCircleGaugeView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (64 + 4*44 +30 + 10)-datePickerHeight-10-35)];
         }
-//        _leftCircleView.backgroundColor = [UIColor redColor];
         _leftCircleView.trackTintColor = selectedThemeIndex==0?[UIColor colorWithRed:0.259f green:0.392f blue:0.498f alpha:1.00f] : [UIColor colorWithRed:0.961f green:0.863f blue:0.808f alpha:1.00f];
         _leftCircleView.trackWidth = 1;
         _leftCircleView.gaugeStyle = CHCircleGaugeStyleOutside;
@@ -1018,6 +1017,9 @@
         _leftCircleView.font = [UIFont systemFontOfSize:30];
         _leftCircleView.rotationValue = 100;
         _leftCircleView.value = 0.0;
+        UITapGestureRecognizer *_tapLeftGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeValueAnimation:)];
+        [_leftCircleView.cView addGestureRecognizer:_tapLeftGesture];
+        
     }
     return _leftCircleView;
 }
@@ -1042,6 +1044,8 @@
         _rightCircleView.font = [UIFont systemFontOfSize:30];
         _rightCircleView.rotationValue = 100;
         _rightCircleView.value = 0.0;
+        UITapGestureRecognizer *_tapRightGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeValueAnimation:)];
+        [_rightCircleView.cView addGestureRecognizer:_tapRightGesture];
     }
     return _rightCircleView;
 }
@@ -1611,6 +1615,16 @@
         [self.view makeToast:@"请先绑定设备ID" duration:2 position:@"center"];
     }
     
+}
+
+#pragma mark 定位刷新
+- (void)changeValueAnimation:(UITapGestureRecognizer *)gesture
+{
+    CGPoint _pointLeft = [gesture locationInView:_leftCircleView];
+    CGPoint _pointRight = [gesture locationInView:_rightCircleView];
+    if ((_pointLeft.x>(_leftCircleView.frame.size.width- self.leftCircleView.frame.size.height)/2 && _pointLeft.x <self.leftCircleView.frame.size.height+(self.leftCircleView.frame.size.width- self.leftCircleView.frame.size.height)/2)||(_pointRight.x>(self.rightCircleView.frame.size.width- self.rightCircleView.frame.size.height)/2 && _pointRight.x <self.rightCircleView.frame.size.height+(self.rightCircleView.frame.size.width- self.rightCircleView.frame.size.height)/2)) {
+        [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
+    }
 }
 
 #pragma mark 轮询传感器信息

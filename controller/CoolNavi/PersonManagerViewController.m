@@ -297,13 +297,14 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:0 timeoutInterval:5.0f];
     [request setValue:[dicHeader objectForKey:@"AccessToken"] forHTTPHeaderField:@"AccessToken"];
     [self setRequest:request withImageData:imageData];
-    NSLog(@"开始上传...");
+    HaviLog(@"开始上传...");
     [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if ([[dic objectForKey:@"ReturnCode"] intValue]==200) {
             [[NSUserDefaults standardUserDefaults]setObject:imageData forKey:[NSString stringWithFormat:@"%@%@",thirdPartyLoginUserId,thirdPartyLoginPlatform]];
             [[NSUserDefaults standardUserDefaults]synchronize];
             dispatch_async(dispatch_get_main_queue(), ^{
+                [JDStatusBarNotification showWithStatus:@"头像上传成功" dismissAfter:2 styleName:JDStatusBarStyleDark];
                 self.headerView.headerImageView.image = [UIImage imageWithData:imageData];
                 [self.view makeToast:@"上传头像成功" duration:2 position:@"center"];
             });

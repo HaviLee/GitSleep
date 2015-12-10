@@ -114,11 +114,6 @@
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultTimeoutTime:@"超时0小时15分钟"}];
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultLeaveTime:@"离床5s警告"}];
 //
-//    self.rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.rightButton setTitle:@"编辑" forState:UIControlStateNormal];
-//    [self.rightButton addTarget:self action:@selector(changeControllerView:) forControlEvents:UIControlEventTouchUpInside];
-//    self.rightButton.frame = CGRectMake(0, 0, 60, 40);
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightButton];
 }
 
 

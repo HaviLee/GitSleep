@@ -754,12 +754,6 @@
 //    [self.cellTableView reloadDataAnimateWithWave:RightToLeftWaveAnimation];
     CGPoint point = [gesture locationInView:self.circleView];
     if (point.x>(self.circleView.frame.size.width- self.circleView.frame.size.height)/2 && point.x <self.circleView.frame.size.height+(self.circleView.frame.size.width- self.circleView.frame.size.height)/2) {
-        //changevalue是睡眠时长。
-//        [self.circleView changeSleepQualityValue:0];
-//        [self.circleView changeSleepTimeValue:0];
-//        [self setClockRoationValue];
-//        NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
-//        NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
         [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
     }
 }
