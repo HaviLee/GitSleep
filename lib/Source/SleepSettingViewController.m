@@ -1035,6 +1035,7 @@
                 num = [[aDate substringToIndex:rangeMinute1.location] intValue];
             }
             [self updateAlartTime:[NSString stringWithFormat:@"%d",num] withAlartType:@"AlarmTimeOutOfBed"];
+            [[NSNotificationCenter defaultCenter]postNotificationName:ShowLeaveBedAfterTime object:nil userInfo:@{@"time":[NSString stringWithFormat:@"%d",num]}];
         }
     }
     

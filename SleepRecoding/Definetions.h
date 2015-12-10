@@ -89,6 +89,7 @@
 #define TurnRoundViewNoti @"TurnRoundViewNoti"
 
 #define ShowLeaveBedAlertNoti @"ShowLeaveBedAlertNoti"
+#define ShowLeaveBedAfterTime @"ShowLeaveBedAfterTime"
 /**
  *  登录成功的noti
  */

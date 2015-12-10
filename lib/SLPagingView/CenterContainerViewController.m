@@ -150,6 +150,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changedDeviceUUID:) name:CHANGEDEVICEUUID object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeDeviceName:) name:CHANGEDEVICNAME object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeLeaveBedAlert:) name:ShowLeaveBedAlertNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAlertTime:) name:ShowLeaveBedAfterTime object:nil];
 }
 
 #pragma mark 消息监听方法
@@ -1614,6 +1615,14 @@
 }
 
 #pragma mark 轮询传感器信息
+
+- (void)changeAlertTime:(NSNotification *)noti
+{
+    NSDictionary *dic = (NSDictionary *)noti.userInfo;
+    NSString *time = [dic objectForKey:@"time"];
+    self.strAlertStartAfterTime = time;
+}
+
 - (void)querySensorInfo:(NSTimer *)timer
 {
     NSLog(@"警告请求一次");
