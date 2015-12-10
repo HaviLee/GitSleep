@@ -102,23 +102,6 @@
     self.sideArray = @[@[@"今日数据",@"数据分析",@"设备管理",@"睡眠设置",@"消       息",@"设       定"]];
 
     self.imageArr = @[@[[NSString stringWithFormat:@"icon_todays_data_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_data_analysis_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_equipment_management_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_alarm_clock_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_message_%d",selectedThemeIndex],[NSString stringWithFormat:@"icon_setting_%d",selectedThemeIndex]]];
-    //添加退出
-    /*
-    UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [logoutButton setTitle:@"退出帐号" forState:UIControlStateNormal];
-    [logoutButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [logoutButton addTarget:self action:@selector(logoutCurrentUser:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:logoutButton];
-    [logoutButton makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(0);
-//        make.bottom.equalTo(self.view).offset(-10);
-        make.top.equalTo(self.sideTableView.bottom).offset(0);
-        int widthCenter = (self.view.frame.size.width - 220)*0.70710676908493042;
-        make.right.equalTo(self.view.right).offset(-widthCenter);
-        make.height.equalTo(40);
-    }];
-     */
-    
 }
 
 #pragma mark setter method
@@ -191,12 +174,15 @@
             defaultCell.cellImageName = [[self.imageArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             defaultCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             defaultCell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            /*
+             //推送设置badage
             if (indexPath.row==4) {
                 UIBadgeView *badgeV = [UIBadgeView viewWithBadgeTip:@"1"];
                 [defaultCell addSubview:badgeV];
                 [badgeV setTag:100001];
                 [badgeV setCenter:CGPointMake(120, 15)];
             }
+             */
             return defaultCell;
         }
     }else{
@@ -246,26 +232,12 @@
             break;
         }
         case 2:{
-            /*
-            DeviceManagerViewController *user = [[DeviceManagerViewController alloc]init];
-            UINavigationController *navi = (UINavigationController*)self.drawerController.centerViewController;
-            [navi pushViewController:user animated:NO];
-            [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
-            }];
-            */
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[DeviceListViewController alloc] init]]
                                                          animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             break;
         }
         case 3:{
-            /*
-            SleepSettingViewController *user = [[SleepSettingViewController alloc]init];
-            UINavigationController *navi = (UINavigationController*)self.drawerController.centerViewController;
-            [navi pushViewController:user animated:NO];
-            [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
-            }];
-             */
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[SleepSettingViewController alloc] init]]
                                                          animated:YES];
             [self.sideMenuViewController hideMenuViewController];
@@ -311,50 +283,27 @@
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:person];
     [self.sideMenuViewController setContentViewController:nav animated:YES];
     [self.sideMenuViewController hideMenuViewController];
-
-//    [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[UserInfoViewController alloc] init]] animated:YES];
-//    [self.sideMenuViewController hideMenuViewController];
 }
 
 - (void)buttonTaped:(UIButton*)sender
 {
-    DataStaticViewController *user = nil;
     if (sender.tag == 101) {
         DoubleWeekReportViewController *doubleReport = [[DoubleWeekReportViewController alloc]init];
         [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:doubleReport] animated:YES];
         [self.sideMenuViewController hideMenuViewController];
-//        user = [[DataStaticViewController alloc]init];
-//        user.title = @"周报";
-//        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
-//        [self.sideMenuViewController hideMenuViewController];
     }else if(sender.tag == 102){
         DoubleMonthReportViewController *doubleReport = [[DoubleMonthReportViewController alloc]init];
         [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:doubleReport] animated:YES];
         [self.sideMenuViewController hideMenuViewController];
-//        user = [[DataStaticViewController alloc]init];
-//        user.title = @"月报";
-//        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
-//        [self.sideMenuViewController hideMenuViewController];
     }else if (sender.tag == 103){
         DoubleQuarterReportViewController *doubleReport = [[DoubleQuarterReportViewController alloc]init];
         [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:doubleReport] animated:YES];
         [self.sideMenuViewController hideMenuViewController];
-//        user = [[DataStaticViewController alloc]init];
-//        user.title = @"季报";
-//        [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:user] animated:YES];
-//        [self.sideMenuViewController hideMenuViewController];
     }else if (sender.tag == 104){
         SleepAnalysisViewController *analysis = [[SleepAnalysisViewController alloc]init];
         [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:analysis] animated:YES];
         [self.sideMenuViewController hideMenuViewController];
     }
-    /*
-    UINavigationController *navi = (UINavigationController*)self.drawerController.centerViewController;
-    [navi pushViewController:user animated:NO];
-    [self.drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
-    }];
-     */
-    
 
 }
 

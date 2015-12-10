@@ -68,7 +68,6 @@
      }];
     // Do any additional setup after loading the view.
     self.bgImageView.image = [UIImage imageNamed:@""];
-//    self.sideTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.sideTableView];
     [self.sideTableView makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(0);
@@ -113,7 +112,7 @@
     
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultAlarmTime:@"20:00"}];
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultTimeoutTime:@"超时0小时15分钟"}];
-    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultLeaveTime:@"超时0小时15分钟"}];
+    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultLeaveTime:@"离床5s警告"}];
 //
 //    self.rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [self.rightButton setTitle:@"编辑" forState:UIControlStateNormal];
@@ -929,20 +928,6 @@
 - (void)dateSelectionViewController:(RMDateSelectionViewController *)vc didSelectDate:(NSString *)aDate {
     NSString *dateString = [NSString stringWithFormat:@"%@",aDate];
     if ([vc.pickerTitle isEqualToString:UserDefaultStartTime]) {
-        /*
-        NSRange range1 = [dateString rangeOfString:@"时"];
-        NSString *sub1 = [dateString substringToIndex:range1.location];
-        NSString *sub2 = [dateString substringFromIndex:(range1.location + range1.length)];
-        NSRange range2 = [sub2 rangeOfString:@"分"];
-        NSString *sub3 = [sub2 substringToIndex:range2.location];
-        if (sub1.length==1) {
-            sub1 = [NSString stringWithFormat:@"0%@",sub1];
-        }
-        if (sub3.length ==1) {
-            sub3 = [NSString stringWithFormat:@"0%@",sub3];
-        }
-        NSString *date = [NSString stringWithFormat:@"%@:%@",sub1,sub3];
-         */
         [_startTimeLabel setTitle:aDate forState:UIControlStateNormal];
         [[NSUserDefaults standardUserDefaults]setObject:aDate forKey:UserDefaultStartTime];
         [[NSUserDefaults standardUserDefaults]synchronize];

@@ -1430,7 +1430,7 @@
 		2CCD55421BFC3ECF004A76B2 /* DoubleShowChartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleShowChartTableViewCell.m; path = controller/DoubleShowChartTableViewCell.m; sourceTree = "<group>"; };
 		2CCD55441BFC4BA4004A76B2 /* DoubleFloatLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleFloatLayerView.h; sourceTree = "<group>"; };
 		2CCD55451BFC4BA4004A76B2 /* DoubleFloatLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleFloatLayerView.m; sourceTree = "<group>"; };
-		2CCD55471BFC51CA004A76B2 /* float_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = float_view.png; sourceTree = "<group>"; };
+		2CCD55471BFC51CA004A76B2 /* float_view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = float_view.png; path = ../controller/report/float_view.png; sourceTree = "<group>"; };
 		2CCD55491BFC6689004A76B2 /* DoubleReportTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleReportTableViewCell.h; sourceTree = "<group>"; };
 		2CCD554A1BFC6689004A76B2 /* DoubleReportTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleReportTableViewCell.m; sourceTree = "<group>"; };
 		2CCD554C1BFC6BA6004A76B2 /* DoubleChartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleChartTableViewCell.h; path = controller/DoubleChartTableViewCell.h; sourceTree = "<group>"; };
@@ -1495,7 +1495,7 @@
 		2CD6C06F1B7DDBE000F1FF6A /* BreathGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BreathGraphView.m; sourceTree = "<group>"; };
 		2CDB86581BABCD4F00551192 /* FloatLayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatLayerView.h; sourceTree = "<group>"; };
 		2CDB86591BABCD4F00551192 /* FloatLayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatLayerView.m; sourceTree = "<group>"; };
-		2CDB865A1BABCD4F00551192 /* floatView_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = floatView_0.png; sourceTree = "<group>"; };
+		2CDB865A1BABCD4F00551192 /* floatView_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = floatView_0.png; path = ../controller/report/floatView_0.png; sourceTree = "<group>"; };
 		2CDB865B1BABCD4F00551192 /* MPGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGraphView.h; sourceTree = "<group>"; };
 		2CDB865C1BABCD4F00551192 /* MPGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGraphView.m; sourceTree = "<group>"; };
 		2CDB865D1BABCD4F00551192 /* MPPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPPlot.h; sourceTree = "<group>"; };
@@ -1565,7 +1565,7 @@
 		2CDE55351BAE486D0017C5DE /* MMSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSheetView.h; sourceTree = "<group>"; };
 		2CDE55361BAE486D0017C5DE /* MMSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSheetView.m; sourceTree = "<group>"; };
 		2CDE553D1BAE629B0017C5DE /* sad-75_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sad-75_1.png"; sourceTree = "<group>"; };
-		2CDE553F1BAE63400017C5DE /* floatView_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = floatView_1.png; sourceTree = "<group>"; };
+		2CDE553F1BAE63400017C5DE /* floatView_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = floatView_1.png; path = ../controller/report/floatView_1.png; sourceTree = "<group>"; };
 		2CDE55411BAE64A90017C5DE /* qqzone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qqzone.png; sourceTree = "<group>"; };
 		2CDE556D1BAE7FE20017C5DE /* pic_sun@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_sun@2x.png"; sourceTree = "<group>"; };
 		2CDE556F1BAE7FE80017C5DE /* pic_moon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_moon@2x.png"; sourceTree = "<group>"; };
@@ -2203,6 +2203,9 @@
 				2CDE55731BAE8B150017C5DE /* btn_right_75_1@2x.png */,
 				2CDE55741BAE8B150017C5DE /* btn_left_75_1@2x.png */,
 				2CE7A3BA1BF59AA600E7CEDE /* double_bed.png */,
+				2CDB865A1BABCD4F00551192 /* floatView_0.png */,
+				2CCD55471BFC51CA004A76B2 /* float_view.png */,
+				2CDE553F1BAE63400017C5DE /* floatView_1.png */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -2889,9 +2892,6 @@
 				2CDB86591BABCD4F00551192 /* FloatLayerView.m */,
 				2CCD55441BFC4BA4004A76B2 /* DoubleFloatLayerView.h */,
 				2CCD55451BFC4BA4004A76B2 /* DoubleFloatLayerView.m */,
-				2CDB865A1BABCD4F00551192 /* floatView_0.png */,
-				2CCD55471BFC51CA004A76B2 /* float_view.png */,
-				2CDE553F1BAE63400017C5DE /* floatView_1.png */,
 				2CDB865B1BABCD4F00551192 /* MPGraphView.h */,
 				2CDB865C1BABCD4F00551192 /* MPGraphView.m */,
 				2CDB865D1BABCD4F00551192 /* MPPlot.h */,

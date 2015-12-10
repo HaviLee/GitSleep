@@ -29,13 +29,12 @@
 #import "CantainerDeviceListViewController.h"
 #import "BackgroundModelManager.h"
 //
-//#import "DoubleLeaveContainerViewController.h"
-//#import "DoubleTurnContainerViewController.h"
 #import "DoubleHeartViewController.h"
 #import "DoubleBreathViewController.h"
 #import "DoubleLeaveViewController.h"
 #import "DoubleTurnViewController.h"
 #define SleepLeaveBedSwitchKey @"isLeaveBedSwitch"
+#define UserDefaultLeaveTime   @"defaultLeaveTime"
 
 @interface CenterContainerViewController ()<SetScrollDateDelegate,UIViewControllerTransitioningDelegate>
 {
@@ -1767,8 +1766,13 @@
             self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
             //开启后台模式
             self.strAlertStartAfterTime = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"AlarmTimeOutOfBed"];
+            [[NSUserDefaults standardUserDefaults]setObject:UserDefaultLeaveTime forKey:[NSString stringWithFormat:@"离床%@s警告",self.strAlertStartAfterTime]];
+            [[NSUserDefaults standardUserDefaults]setObject:@"YES" forKey:SleepLeaveBedSwitchKey];
+
             _backManager = [[BackgroundModelManager alloc]init];
             [_backManager openBackgroundModel];
+        }else{
+            [[NSUserDefaults standardUserDefaults]setObject:@"NO" forKey:SleepLeaveBedSwitchKey];
         }
     } failed:^(NSURLResponse *response, NSError *error) {
         self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];

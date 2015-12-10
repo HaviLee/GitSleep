@@ -114,7 +114,7 @@
         _myDeviceListView.dataSource = self;
         _myDeviceListView.delegate = self;
         _myDeviceListView.backgroundColor = [UIColor lightGrayColor];
-        _myDeviceListView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _myDeviceListView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         
         
     }
@@ -205,13 +205,6 @@
         [weakSelf renameFriendDevice:indexPath];
         NSLog(@"Right Button: Flag Pressed");
     }];
-//    JAActionButton *button3 = [JAActionButton actionButtonWithTitle:@"重激活" color:kMoreButtonColor handler:^(UIButton *actionButton, JASwipeCell*cell) {
-//        weakSelf.selectTableViewCell = cell;
-//        NSIndexPath *indexPath = [weakSelf.myDeviceListView indexPathForCell:cell];
-//        [weakSelf reActiveFriendDevice:indexPath];
-//        NSLog(@"Right Button: More Pressed");
-//    }];
-    
     return @[button1, button2];
 }
 
@@ -221,7 +214,7 @@
 
 - (void)rightMostButtonSwipeCompleted:(JASwipeCell *)cell
 {
-    NSLog(@"左滑到底");
+    HaviLog(@"左滑到底");
     self.selectTableViewCell = cell;
     NSIndexPath *indexPath = [self.myDeviceListView indexPathForCell:cell];
     [self deleteFriendDevice:[[self.resultArr objectAtIndex:indexPath.row] objectForKey:@"FriendUserID"]];
