@@ -11,8 +11,6 @@
 #import "SearchUserTableViewCell.h"
 #import "UITableView+Common.h"
 #import "UIView+Frame.h"
-#import "CSSearchModel.h"
-#import "TMCacheExtend.h"
 #import "SHGetClient.h"
 #import "RexpUntil.h"
 

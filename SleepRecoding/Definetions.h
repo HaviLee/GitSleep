@@ -66,6 +66,8 @@
 #define AppPassWorkSetOkNoti    @"AppPassWorkSetOkNoti"
 #define AppPassWordCancelNoti   @"AppPassWordCancelNoti"
 #define RELOADIMAGE             @"reloadImage"
+#define  kBadgeTipStr @"badgeTip"
+
 #define ThemeDefaultColor              @"themeColor"
 #define PostHeartEmergencyNoti  @"PostHeartEmergencyNoti"
 #define PostBreatheEmergencyNoti @"PostBreatheEmergencyNoti"

@@ -32,4 +32,5 @@
 #import "UIColor+expanded.h"
 #import "UIImage+Common.h"
 #import "JDStatusBarNotification.h"
+#import "KDGoalBar.h"
 #endif
