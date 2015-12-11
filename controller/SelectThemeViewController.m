@@ -52,7 +52,7 @@
 
 - (void)initData
 {
-    _arData = @[@[@"默认", @"", @"skinpeeler_tint_bg"],
+    _arData = @[@[@"默认", @"", @"selectTheme"],
                 @[@"浅蓝", @"com.skin.1110", @"skinpeeler_dark_color_bg"],
                 ];
 }

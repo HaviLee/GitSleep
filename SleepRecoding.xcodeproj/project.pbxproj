@@ -222,6 +222,7 @@
 		2C511AB71C195C2B00EACB15 /* btn_ellipse_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C511AB61C195C2B00EACB15 /* btn_ellipse_0@2x.png */; };
 		2C511ABB1C195DDA00EACB15 /* navi_bg_night_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C511ABA1C195DDA00EACB15 /* navi_bg_night_1@2x.png */; };
 		2C511ABD1C195E7C00EACB15 /* navi_bg_night_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C511ABC1C195E7C00EACB15 /* navi_bg_night_0@2x.png */; };
+		2C511ABF1C1A891B00EACB15 /* selectTheme.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C511ABE1C1A891B00EACB15 /* selectTheme.png */; };
 		2C5202181AC438FB00BA1D5D /* ZWIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5202171AC438FB00BA1D5D /* ZWIntroductionViewController.m */; };
 		2C5E5C221B12B3F200123CC4 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E5C1D1B12B3F200123CC4 /* RECommonFunctions.m */; };
 		2C5E5C231B12B3F200123CC4 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E5C1F1B12B3F200123CC4 /* RESideMenu.m */; };
@@ -1019,6 +1020,7 @@
 		2C511AB61C195C2B00EACB15 /* btn_ellipse_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_ellipse_0@2x.png"; sourceTree = "<group>"; };
 		2C511ABA1C195DDA00EACB15 /* navi_bg_night_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg_night_1@2x.png"; sourceTree = "<group>"; };
 		2C511ABC1C195E7C00EACB15 /* navi_bg_night_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg_night_0@2x.png"; sourceTree = "<group>"; };
+		2C511ABE1C1A891B00EACB15 /* selectTheme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectTheme.png; sourceTree = "<group>"; };
 		2C5202161AC438FB00BA1D5D /* ZWIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWIntroductionViewController.h; sourceTree = "<group>"; };
 		2C5202171AC438FB00BA1D5D /* ZWIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWIntroductionViewController.m; sourceTree = "<group>"; };
 		2C5E5C1C1B12B3F200123CC4 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RECommonFunctions.h; path = lib/RESideMenu/RECommonFunctions.h; sourceTree = "<group>"; };
@@ -2168,6 +2170,7 @@
 				2CC8E7F81B9BE59900F69ABE /* ic_dot_0.png */,
 				2CC8E7F91B9BE59900F69ABE /* ic_getup_0.png */,
 				2CC8E7FA1B9BE59900F69ABE /* ic_line_0.png */,
+				2C511ABE1C1A891B00EACB15 /* selectTheme.png */,
 				2CC8E80E1B9C19C500F69ABE /* ic_body_movement_1.png */,
 				2CC8E8031B9C120700F69ABE /* ic_dot_1.png */,
 				2CC8E80C1B9C19AE00F69ABE /* ic_getup_1.png */,
@@ -3931,6 +3934,7 @@
 				2CDE55781BAE8B150017C5DE /* btn_left_75_1@2x.png in Resources */,
 				2C8C628F1AB5B8A200CF4C19 /* digitCell.psd in Resources */,
 				2CDE55751BAE8B150017C5DE /* btn_right_75_0@2x.png in Resources */,
+				2C511ABF1C1A891B00EACB15 /* selectTheme.png in Resources */,
 				2CC8E7FE1B9BE59900F69ABE /* ic_line_0.png in Resources */,
 				2CC8E80D1B9C19AE00F69ABE /* ic_getup_1.png in Resources */,
 				2C7D22A01AF1CA050011A45C /* btn_over_0@2x.png in Resources */,
