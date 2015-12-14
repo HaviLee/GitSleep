@@ -204,6 +204,7 @@
 {
     self.leaveDic = nil;
     NSArray *arr = [dataDic objectForKey:@"SensorData"];
+    HaviLog(@"左侧离床数组%@",arr);
     NSMutableArray *arrSub = [[NSMutableArray alloc]init];
     for (NSDictionary *dic in arr) {
         self.leaveDic = [dic objectForKey:@"Data"];
@@ -321,6 +322,7 @@
 {
     self.rightLeaveDic = nil;
     NSArray *arr = [dataDic objectForKey:@"SensorData"];
+    HaviLog(@"右侧离床数组%@",arr);
     NSMutableArray *arrSub = [[NSMutableArray alloc]init];
     for (NSDictionary *dic in arr) {
         self.rightLeaveDic = [dic objectForKey:@"Data"];

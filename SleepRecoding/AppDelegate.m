@@ -100,7 +100,6 @@
     self.containerView = [[CenterContainerViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:self.containerView];
     LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
-    
     RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navi
                                                                     leftMenuViewController:leftMenuViewController
                                                                    rightMenuViewController:nil];

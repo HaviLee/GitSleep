@@ -612,7 +612,7 @@
 - (UILabel *)circleTitle{
     if (_circleTitle==nil) {
         _circleTitle = [[UILabel alloc]init];
-        _circleTitle.text = @"您昨晚离床";
+        _circleTitle.text = @"您昨晚体动";
         _circleTitle.font = [UIFont systemFontOfSize:15];
         _circleTitle.textAlignment = NSTextAlignmentCenter;
         _circleTitle.textColor = selectedThemeIndex == 0?DefaultColor:[UIColor whiteColor];
@@ -695,7 +695,7 @@
 - (UILabel *)rightCircleTitle{
     if (_rightCircleTitle==nil) {
         _rightCircleTitle = [[UILabel alloc]init];
-        _rightCircleTitle.text = @"您昨晚离床";
+        _rightCircleTitle.text = @"您昨晚体动";
         _rightCircleTitle.font = [UIFont systemFontOfSize:15];
         _rightCircleTitle.textAlignment = NSTextAlignmentCenter;
         _rightCircleTitle.textColor = selectedThemeIndex == 0?DefaultColor:[UIColor whiteColor];
