@@ -89,7 +89,7 @@
         _txRightNameView = [[UITextField alloc]init];
         _txRightNameView.frame = CGRectMake(15, 0, self.view.frame.size.width-30, TableViewCellHeight);
         _txRightNameView.borderStyle = UITextBorderStyleNone;
-        _txRightNameView.placeholder = @"左侧床垫名称";
+        _txRightNameView.placeholder = @"Right";
         _txRightNameView.textColor = [UIColor grayColor];
         _txRightNameView.clearButtonMode = UITextFieldViewModeWhileEditing;
         _txRightNameView.delegate = self;
@@ -104,7 +104,7 @@
         _txLeftNameView = [[UITextField alloc]init];
         _txLeftNameView.frame = CGRectMake(15, 0, self.view.frame.size.width-30, TableViewCellHeight);
         _txLeftNameView.borderStyle = UITextBorderStyleNone;
-        _txLeftNameView.placeholder = @"右侧床垫名称";
+        _txLeftNameView.placeholder = @"Left";
         _txLeftNameView.textColor = [UIColor grayColor];
         _txLeftNameView.clearButtonMode = UITextFieldViewModeWhileEditing;
         _txLeftNameView.delegate = self;
