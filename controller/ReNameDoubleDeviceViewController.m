@@ -149,7 +149,7 @@
     NSArray *_sortedDetailDevice = [_arrDeatilListDescription sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [[obj1 objectForKey:@"UUID"] compare:[obj2 objectForKey:@"UUID"] options:NSCaseInsensitiveSearch];
     }];
-    NSLog(@"双人的命名%@",self.deviceInfo);
+    HaviLog(@"双人的命名%@",self.deviceInfo);
     if (indexPath.section==0) {
         [cell addSubview:self.nameTextField];
         self.nameTextField.text = [NSString stringWithFormat:@"%@",[self.deviceInfo  objectForKey:@"Description"]];
@@ -175,7 +175,6 @@
 {
     if (section==0) {
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-//        view.backgroundColor = [UIColor lightGrayColor];;
         UILabel *lMainNameView = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 100, 20)];
         lMainNameView.font = [UIFont systemFontOfSize:12];
         lMainNameView.text = @"设备名称";
@@ -184,7 +183,6 @@
         return view;
     }else if (section==1){
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-//        view.backgroundColor = [UIColor lightGrayColor];
         UILabel *lMainNameView = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 100, 20)];
         lMainNameView.text = @"左侧床垫名称";
         lMainNameView.textColor = [UIColor lightGrayColor];
@@ -193,7 +191,6 @@
         return view;
     }else{
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-//        view.backgroundColor = [UIColor lightGrayColor];;
         UILabel *lMainNameView = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 100, 20)];
         lMainNameView.textColor = [UIColor lightGrayColor];
         lMainNameView.font = [UIFont systemFontOfSize:12];
