@@ -1079,7 +1079,7 @@
     }else if (section==1) {
         return 4;
     }else{
-        return 3;
+        return 4;
     }
 }
 
@@ -1160,6 +1160,20 @@
                 cell.rightDataString = sleepTimeDuration;
                 cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
                 return cell;
+            }else if (indexPath.row==3){
+                static NSString *cellIndentifier = @"rightCell45";
+                UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+                if (!cell) {
+                    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+                    
+                }
+                cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.textLabel.font = [UIFont systemFontOfSize:18];
+                cell.textLabel.text = @"睡眠不错哦！";
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                cell.textLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+                return cell;
             }else{
                 static NSString *cellIndentifier = @"cell4";
                 UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
@@ -1167,10 +1181,8 @@
                     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
                     
                 }
-                if (indexPath.row==1) {
-                    [self.sleepNightBottomLine removeFromSuperview];
-                    [cell addSubview:self.sleepNightBottomLine];
-                }
+                [self.sleepNightBottomLine removeFromSuperview];
+                [cell addSubview:self.sleepNightBottomLine];
                 if (indexPath.row==1) {
                     [cell addSubview:self.longSleepView];
                     self.longSleepView.sleepNightCategoryString = @"最长的月份";
@@ -1262,6 +1274,20 @@
                 cell.rightDataString = sleepTimeDuration;
                 cell.cellColor = selectedThemeIndex == 0? DefaultColor:[UIColor whiteColor];
                 return cell;
+            }else if (indexPath.row==3){
+                static NSString *cellIndentifier = @"rightCell45";
+                UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+                if (!cell) {
+                    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+                    
+                }
+                cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.textLabel.font = [UIFont systemFontOfSize:18];
+                cell.textLabel.text = @"睡眠不错哦！";
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                cell.textLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
+                return cell;
             }else{
                 static NSString *cellIndentifier = @"cell4";
                 UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifier];
@@ -1269,10 +1295,8 @@
                     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
                     
                 }
-                if (indexPath.row==1) {
-                    [self.sleepNightBottomLine removeFromSuperview];
-                    [cell addSubview:self.sleepNightBottomLine];
-                }
+                [self.sleepNightBottomLine removeFromSuperview];
+                [cell addSubview:self.sleepNightBottomLine];
                 if (indexPath.row==1) {
                     [cell addSubview:self.longRightSleepView];
                     self.longRightSleepView.sleepNightCategoryString = @"最长的夜晚";
