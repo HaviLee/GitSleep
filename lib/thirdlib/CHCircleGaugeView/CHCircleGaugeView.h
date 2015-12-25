@@ -77,6 +77,8 @@ typedef NS_ENUM(NSInteger, CHCircleGaugeStyle) {
 
 - (void)changeSleepLevelValue:(NSString *)valueString;
 
+- (void)changeSleepTimeValue:(CGFloat)value andDuration:(int)duration;
+
 
 @property (nonatomic, strong) CirlcleView *cView;
 @property (nonatomic, strong) UILabel *valueTitleLabel;//havi

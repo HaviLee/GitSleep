@@ -46,13 +46,8 @@
 
 - (void)createGauge {
     
-//    [self.layer addSublayer:self.trackCircleLayer];
-//    [self addSubview:self.valueTextLabel];
-//    [self addSubview:self.valueTitleLabel];
-//    [self addSubview:self.resposeTextLabel];
     [self createnewGauge];
     
-//    [self setupConstraints];
 }
 
 - (void)createnewGauge {
@@ -111,11 +106,21 @@
 
 -(void)setPercent:(NSInteger)percent animated:(BOOL)animated
 {
-    
     [CATransaction begin];
     [CATransaction setDisableActions:!animated];
     [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
     [CATransaction setAnimationDuration:0.5];
+    _progressLayer.strokeEnd = percent/100.0;
+    [CATransaction commit];
+    
+}
+
+-(void)setPercent:(NSInteger)percent animated:(BOOL)animated withDuration:(int)duration
+{
+    [CATransaction begin];
+    [CATransaction setDisableActions:!animated];
+    [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
+    [CATransaction setAnimationDuration:duration];
     _progressLayer.strokeEnd = percent/100.0;
     [CATransaction commit];
     

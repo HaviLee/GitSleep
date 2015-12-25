@@ -222,8 +222,12 @@ static NSString * const CHKeyDefaultNoAnswersText = @"%";
 
 - (void)changeSleepTimeValue:(CGFloat)value
 {
-    [self.cView setPercent:0 animated:NO];
     [self.cView setPercent:value animated:YES];
+}
+
+- (void)changeSleepTimeValue:(CGFloat)value andDuration:(int)duration
+{
+    [self.cView setPercent:value animated:YES withDuration:duration];
 }
 
 - (void)changeSleepLevelValue:(NSString *)valueString

@@ -1050,8 +1050,6 @@
     return _rightCircleView;
 }
 
-
-
 - (UILabel *)leftSleepTimeLabel
 {
     if (_leftSleepTimeLabel == nil) {
@@ -1313,8 +1311,6 @@
     }
 }
 
-#pragma mark user action
-
 #pragma mark 日历展示和代理
 - (void)showCalender:(UIButton *)sender
 {
@@ -1370,11 +1366,9 @@
     if (![[dateString substringWithRange:NSMakeRange(5, 5)]isEqualToString:[slectDateString substringWithRange:NSMakeRange(5, 5)]]) {
         self.leftIWantSleepLabel.alpha = 0;
         self.rightIWantSleepLabel.alpha = 0;
-//        [self.leftIWantSleepLabel removeFromSuperview];
     }else {
         self.leftIWantSleepLabel.alpha = 1;
         self.rightIWantSleepLabel.alpha = 1;
-//        [self.view addSubview:self.iWantSleepLabel];
     }
     if ([[[NSDate date] dateByAddingHours:8]daysFrom:date]>7) {
         self.leftEndView.endImageString = @"";
@@ -1502,10 +1496,6 @@
 - (void)sendSleepTime:(UIButton *)sender
 {
     if (thirdHardDeviceUUID.length>0) {
-        /*
-         [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-         [MMProgressHUD showWithStatus:@"保存中..."];
-         */
         NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                             [UIImage imageNamed:@"havi1_1"],
                             [UIImage imageNamed:@"havi1_2"],
@@ -1516,9 +1506,6 @@
         [MMProgressHUD showWithTitle:nil status:nil images:images];
         NSDate *date = [[NSDate date]dateByAddingHours:8];
         NSString *dateString = [NSString stringWithFormat:@"%@",date];
-        //        NSDate *date1 = [selectedDateToUse dateByAddingDays:0];
-        //        NSString *dateString = [NSString stringWithFormat:@"%@",date1];
-        //        NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],@"22:07"];
         NSDictionary *dic = @{
                               @"UUID" : thirdHardDeviceUUID,
                               @"UserID" : thirdPartyLoginUserId,
@@ -1620,10 +1607,14 @@
 #pragma mark 定位刷新
 - (void)changeValueAnimation:(UITapGestureRecognizer *)gesture
 {
-    CGPoint _pointLeft = [gesture locationInView:_leftCircleView];
-    CGPoint _pointRight = [gesture locationInView:_rightCircleView];
-    if ((_pointLeft.x>(_leftCircleView.frame.size.width- self.leftCircleView.frame.size.height)/2 && _pointLeft.x <self.leftCircleView.frame.size.height+(self.leftCircleView.frame.size.width- self.leftCircleView.frame.size.height)/2)||(_pointRight.x>(self.rightCircleView.frame.size.width- self.rightCircleView.frame.size.height)/2 && _pointRight.x <self.rightCircleView.frame.size.height+(self.rightCircleView.frame.size.width- self.rightCircleView.frame.size.height)/2)) {
-        [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
+    NSString *selectDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+    NSString *nowDateString = [NSString stringWithFormat:@"%@",[[NSDate date] dateByAddingHours:8]];
+    if ([[selectDateString substringToIndex:10] isEqualToString:[nowDateString substringToIndex:10]]) {
+        CGPoint _pointLeft = [gesture locationInView:_leftCircleView];
+        CGPoint _pointRight = [gesture locationInView:_rightCircleView];
+        if ((_pointLeft.x>(_leftCircleView.frame.size.width- self.leftCircleView.frame.size.height)/2 && _pointLeft.x <self.leftCircleView.frame.size.height+(self.leftCircleView.frame.size.width- self.leftCircleView.frame.size.height)/2)||(_pointRight.x>(self.rightCircleView.frame.size.width- self.rightCircleView.frame.size.height)/2 && _pointRight.x <self.rightCircleView.frame.size.height+(self.rightCircleView.frame.size.width- self.rightCircleView.frame.size.height)/2)) {
+            [self.datePicker updateCalenderSelectedDate:[[NSDate date] dateByAddingHours:8]];
+        }
     }
 }
 

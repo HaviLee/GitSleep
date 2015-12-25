@@ -10,6 +10,7 @@
 
 @interface CirlcleView : UIView
 -(void)setPercent:(NSInteger)percent animated:(BOOL)animated;
+-(void)setPercent:(NSInteger)percent animated:(BOOL)animated withDuration:(int)duration;
 @property (nonatomic,strong) CAGradientLayer *gradientLayer2;
 @property (nonatomic,strong) CAGradientLayer *gradientLayer1;
 @end
