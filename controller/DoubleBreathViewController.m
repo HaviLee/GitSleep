@@ -590,13 +590,13 @@
         _breathGraphView = [[NewHeartGrapheView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*4, 180)];
         _breathGraphView.xValues = @[@"18:00",@"19:00",@"20:00",@"21:00",@"22:00",@"23:00",@"24:00",@"01:00",@"02:00",@"03:00",@"04:00",@"05:00",@"06:00",@"07:00",@"08:00",@"09:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"17:00",@"18:00"];
         _breathGraphView.heartViewLeft.maxValue = 20;
-        _breathGraphView.heartViewLeft.minValue = 10;
+        _breathGraphView.heartViewLeft.minValue = 5;
         _breathGraphView.heartViewLeft.horizonValue = 40;
         _breathGraphView.heartViewLeft.graphColor = selectedThemeIndex==0?[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f]:[UIColor colorWithRed:0.008f green:0.839f blue:0.573f alpha:.70f];
         _breathGraphView.heartViewLeft.graphTitle = @"huxi";
         
         _breathGraphView.heartViewRight.maxValue = 20;
-        _breathGraphView.heartViewRight.minValue = 10;
+        _breathGraphView.heartViewRight.minValue = 5;
         _breathGraphView.heartViewRight.horizonValue = 40;
         _breathGraphView.heartViewRight.graphColor = selectedThemeIndex==0?[UIColor colorWithRed:0.514f green:0.447f blue:0.820f alpha:1.00f]:[UIColor colorWithRed:0.514f green:0.447f blue:0.820f alpha:1.00f];
         _breathGraphView.heartViewRight.graphTitle = @"huxi";
