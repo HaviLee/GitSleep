@@ -112,7 +112,7 @@
     
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultAlarmTime:@"20:00"}];
     [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultTimeoutTime:@"超时0小时15分钟"}];
-    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultLeaveTime:@"离床5s警告"}];
+    [[NSUserDefaults standardUserDefaults]registerDefaults:@{UserDefaultLeaveTime:@"离床5秒警告"}];
 //
 }
 
