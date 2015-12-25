@@ -1152,7 +1152,7 @@
                 cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.textLabel.font = [UIFont systemFontOfSize:18];
-                cell.textLabel.text = @"睡眠不错哦！";
+                cell.textLabel.text = @"注意休息,早睡早起身体好!";
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
                 return cell;
@@ -1263,7 +1263,7 @@
                 cell.backgroundColor = selectedThemeIndex==0?[UIColor colorWithRed:0.059f green:0.141f blue:0.231f alpha:1.00f]:[UIColor colorWithRed:0.475f green:0.686f blue:0.820f alpha:1.00f];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.textLabel.font = [UIFont systemFontOfSize:18];
-                cell.textLabel.text = @"睡眠不错哦！";
+                cell.textLabel.text = @"注意休息,早睡早起身体好!";
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.textColor = selectedThemeIndex==0?DefaultColor:[UIColor whiteColor];
                 return cell;
