@@ -1771,7 +1771,7 @@
             self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
             //开启后台模式
             self.strAlertStartAfterTime = [[resposeDic objectForKey:@"UserInfo"] objectForKey:@"AlarmTimeOutOfBed"];
-            [[NSUserDefaults standardUserDefaults]setObject:UserDefaultLeaveTime forKey:[NSString stringWithFormat:@"离床%@s警告",self.strAlertStartAfterTime]];
+            [[NSUserDefaults standardUserDefaults]setObject:UserDefaultLeaveTime forKey:[NSString stringWithFormat:@"离床%@秒警告",self.strAlertStartAfterTime]];
             [[NSUserDefaults standardUserDefaults]setObject:@"YES" forKey:SleepLeaveBedSwitchKey];
 
             _backManager = [[BackgroundModelManager alloc]init];
