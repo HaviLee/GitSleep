@@ -1792,7 +1792,7 @@
     NSURL *url = [NSURL fileURLWithPath:path];
     
     int i=0;
-    while (i<2) {
+    while (i<3) {
         _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
         if (!_player)
         {

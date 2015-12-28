@@ -176,18 +176,44 @@ const CGFloat kDIDatepickerSpaceBetweenItems = 10.;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     dateFormatter.timeZone = time;
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    
+    NSUInteger daysLastYear = [self numberOfDaysInLastYear];
+    for (NSInteger day = daysLastYear; day >=0; day--) {
+        [todayComponents setDay:-day];
+        NSString *dateString = [NSString stringWithFormat:@"%@",[calendar dateFromComponents:todayComponents]];
+        NSString *nnn = [dateString substringToIndex:10];
+        NSDate *newDate = [dateFormatter dateFromString:nnn];
+        [dates addObject:newDate];
+    }
     NSUInteger daysInYear = [self numberOfDaysInThisYear];
-    for (NSInteger day = 2; day <= daysInYear; day++) {
+    NSUInteger daysInNextYear = [self numberOfDaysInNextYear];
+    for (NSInteger day = 2; day <= daysInYear+daysInNextYear; day++) {
         [todayComponents setDay:day];
         NSString *dateString = [NSString stringWithFormat:@"%@",[calendar dateFromComponents:todayComponents]];
         NSString *nnn = [dateString substringToIndex:10];
         NSDate *newDate = [dateFormatter dateFromString:nnn];
         [dates addObject:newDate];
     }
+
     self.dates = dates;
     //是不是在这里更新时间
     self.selectedDate = currentDate;
+}
+
+- (NSUInteger)numberOfDaysInLastYear
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *startOfYear;
+    NSTimeInterval lengthOfYear;
+    [calendar rangeOfUnit:NSYearCalendarUnit
+                startDate:&startOfYear
+                 interval:&lengthOfYear
+                  forDate:[[NSDate date] dateByAddingYears:-1]];
+    NSDate *endOfYear = [startOfYear dateByAddingTimeInterval:lengthOfYear];
+    NSDateComponents *components = [calendar components:NSDayCalendarUnit
+                                               fromDate:startOfYear
+                                                 toDate:endOfYear
+                                                options:0];
+    return [components day];
 }
 
 - (NSUInteger)numberOfDaysInThisYear
@@ -204,6 +230,23 @@ const CGFloat kDIDatepickerSpaceBetweenItems = 10.;
                                          fromDate:startOfYear
                                            toDate:endOfYear
                                           options:0];
+    return [components day];
+}
+
+- (NSUInteger)numberOfDaysInNextYear
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *startOfYear;
+    NSTimeInterval lengthOfYear;
+    [calendar rangeOfUnit:NSYearCalendarUnit
+                startDate:&startOfYear
+                 interval:&lengthOfYear
+                  forDate:[[NSDate date] dateByAddingYears:1]];
+    NSDate *endOfYear = [startOfYear dateByAddingTimeInterval:lengthOfYear];
+    NSDateComponents *components = [calendar components:NSDayCalendarUnit
+                                               fromDate:startOfYear
+                                                 toDate:endOfYear
+                                                options:0];
     return [components day];
 }
 
