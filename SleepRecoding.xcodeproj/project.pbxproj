@@ -11,6 +11,7 @@
 		2C0912BC1B4E591A00BEE2FF /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0912BB1B4E591A00BEE2FF /* Toast+UIView.m */; };
 		2C0912BE1B4E65A900BEE2FF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0912BD1B4E65A900BEE2FF /* CFNetwork.framework */; };
 		2C0912C01B4E668F00BEE2FF /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0912BF1B4E668F00BEE2FF /* CoreTelephony.framework */; };
+		2C0BE12B1C30DF4C0010CDF9 /* alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C0BE12A1C30DF4C0010CDF9 /* alert.wav */; };
 		2C0EBE321AF0C13000F2D2F7 /* user3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C0EBE311AF0C13000F2D2F7 /* user3.wav */; };
 		2C1247AD1B7E2B59009C78EA /* sina.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C1247AC1B7E2B59009C78EA /* sina.png */; };
 		2C1247B21B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1247B11B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m */; };
@@ -749,6 +750,7 @@
 		2C0912BB1B4E591A00BEE2FF /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		2C0912BD1B4E65A900BEE2FF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2C0912BF1B4E668F00BEE2FF /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		2C0BE12A1C30DF4C0010CDF9 /* alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alert.wav; sourceTree = "<group>"; };
 		2C0EBE311AF0C13000F2D2F7 /* user3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = user3.wav; sourceTree = "<group>"; };
 		2C1247AC1B7E2B59009C78EA /* sina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sina.png; sourceTree = "<group>"; };
 		2C1247B01B7F0150009C78EA /* NSString+OAURLEncodingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OAURLEncodingAdditions.h"; sourceTree = "<group>"; };
@@ -2267,6 +2269,7 @@
 				2C0EBE311AF0C13000F2D2F7 /* user3.wav */,
 				2C94FA261B8DB42100F1A4DB /* Button29.wav */,
 				2C7F89FC1C10254D009A6834 /* alert.mp3 */,
+				2C0BE12A1C30DF4C0010CDF9 /* alert.wav */,
 				2CAC542D1C1562DB00515EAC /* bookSound.mp3 */,
 			);
 			name = "Supporting Files";
@@ -3995,6 +3998,7 @@
 				2C15E7331AF214E800142F36 /* pic_2208_1.png in Resources */,
 				2C7D231F1AF1CA450011A45C /* get_up5_0@2x.png in Resources */,
 				2C15E6FC1AF214E800142F36 /* btn_compose_1@2x.png in Resources */,
+				2C0BE12B1C30DF4C0010CDF9 /* alert.wav in Resources */,
 				2C15E7371AF214E800142F36 /* pic_breathe_1@2x.png in Resources */,
 				2C7D22941AF1CA050011A45C /* btn_analysis_report_0@2x.png in Resources */,
 				2C15E7771AF2151500142F36 /* get_up2_1@2x.png in Resources */,

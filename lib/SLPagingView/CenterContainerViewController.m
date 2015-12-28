@@ -1546,11 +1546,7 @@
 
 - (void)sendSleepEndTime:(NSString *)endString
 {
-    if (thirdHardDeviceUUID.length>0) {
-        /*
-         [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleExpand];
-         [MMProgressHUD showWithStatus:@"保存中..."];
-         */
+    if (isDoubleDevice) {
         NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
                             [UIImage imageNamed:@"havi1_1"],
                             [UIImage imageNamed:@"havi1_2"],
@@ -1563,7 +1559,7 @@
         NSString *dateString = [NSString stringWithFormat:@"%@",date1];
         NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],endString];
         NSDictionary *dic = @{
-                              @"UUID" : thirdHardDeviceUUID,
+                              @"UUID" : thirdLeftDeviceUUID,
                               @"UserID" : thirdPartyLoginUserId,
                               @"Tags" :@[ @{
                                               @"Tag": @"<%睡眠时间记录%>",
@@ -1589,7 +1585,87 @@
                     //                    [self.view makeToast:@"做个好梦喽" duration:3 position:@"center"];
                     NSString *selctString = [NSString stringWithFormat:@"%@",selectedDateToUse];
                     NSString *subString = [NSString stringWithFormat:@"%@%@%@",[selctString substringWithRange:NSMakeRange(0, 4)],[selctString substringWithRange:NSMakeRange(5, 2)],[selctString substringWithRange:NSMakeRange(8, 2)]];
-                    [self getTodaySleepQualityData:subString withLeftUUID:nil];
+                    [self getTodaySleepQualityData:subString withLeftUUID:thirdLeftDeviceUUID];
+                    NSDictionary *dic = @{
+                                          @"UUID" : thirdRightDeviceUUID,
+                                          @"UserID" : thirdPartyLoginUserId,
+                                          @"Tags" :@[ @{
+                                                          @"Tag": @"<%睡眠时间记录%>",
+                                                          @"TagType": @"1",
+                                                          @"UserTagDate": date,
+                                                          }],
+                                          };
+                    [client uploadTagWithHeader:header andWithPara:dic];
+                    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+                        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+                        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+                            [MMProgressHUD dismiss];
+                            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                                //                    [self.view makeToast:@"做个好梦喽" duration:3 position:@"center"];
+                                NSString *selctString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+                                NSString *subString = [NSString stringWithFormat:@"%@%@%@",[selctString substringWithRange:NSMakeRange(0, 4)],[selctString substringWithRange:NSMakeRange(5, 2)],[selctString substringWithRange:NSMakeRange(8, 2)]];
+                                [self getTodaySleepQualityData:subString withLeftUUID:thirdRightDeviceUUID];
+                            }];
+                            
+                        }else{
+                            HaviLog(@"%@",resposeDic);
+                            [MMProgressHUD dismissWithError:@"出错啦" afterDelay:1];
+                        }
+                    } failure:^(YTKBaseRequest *request) {
+                        
+                    }];
+
+                }];
+                
+            }else{
+                HaviLog(@"%@",resposeDic);
+                [MMProgressHUD dismissWithError:@"出错啦" afterDelay:1];
+            }
+        } failure:^(YTKBaseRequest *request) {
+            
+        }];
+        
+        
+    }else{
+        NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                            [UIImage imageNamed:@"havi1_1"],
+                            [UIImage imageNamed:@"havi1_2"],
+                            [UIImage imageNamed:@"havi1_3"],
+                            [UIImage imageNamed:@"havi1_4"],
+                            [UIImage imageNamed:@"havi1_5"]];
+        [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+        [MMProgressHUD showWithTitle:nil status:nil images:images];
+        NSDate *date1 = [selectedDateToUse dateByAddingDays:0];
+        NSString *dateString = [NSString stringWithFormat:@"%@",date1];
+        NSString *date = [NSString stringWithFormat:@"%@%@:00",[dateString substringToIndex:11],endString];
+        NSDictionary *dic = @{
+                              @"UUID" : thirdLeftDeviceUUID,
+                              @"UserID" : thirdPartyLoginUserId,
+                              @"Tags" :@[ @{
+                                              @"Tag": @"<%睡眠时间记录%>",
+                                              @"TagType": @"1",
+                                              @"UserTagDate": date,
+                                              }],
+                              };
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        UploadTagAPI *client = [UploadTagAPI shareInstance];
+        if ([client isExecuting]) {
+            [client stop];
+        }
+        [MMProgressHUD dismiss];
+        
+        [client uploadTagWithHeader:header andWithPara:dic];
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+                [MMProgressHUD dismiss];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    //                    [self.view makeToast:@"做个好梦喽" duration:3 position:@"center"];
+                    NSString *selctString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+                    NSString *subString = [NSString stringWithFormat:@"%@%@%@",[selctString substringWithRange:NSMakeRange(0, 4)],[selctString substringWithRange:NSMakeRange(5, 2)],[selctString substringWithRange:NSMakeRange(8, 2)]];
+                    [self getTodaySleepQualityData:subString withLeftUUID:thirdHardDeviceUUID];
                 }];
             }else{
                 HaviLog(@"%@",resposeDic);
@@ -1598,8 +1674,6 @@
         } failure:^(YTKBaseRequest *request) {
             
         }];
-    }else{
-        [self.view makeToast:@"请先绑定设备ID" duration:2 position:@"center"];
     }
     
 }
@@ -1644,7 +1718,7 @@
                 if ([isBodyOutOfBed isEqualToString:@"False"]&&isLeftBodyOnBed) {
                     //离床
                     HaviLog(@"开始报警");
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([self.strAlertStartAfterTime  intValue] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    dispatch_after([self.strAlertStartAfterTime intValue], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         [self playAlert];
                     });
                     isLeftBodyOnBed = NO;
@@ -1664,7 +1738,7 @@
                 if ([isBodyOutOfBed isEqualToString:@"False"]&&isRihtBodyOnBed) {
                     //离床
                     HaviLog(@"开始报警");
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([self.strAlertStartAfterTime  intValue] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    dispatch_after([self.strAlertStartAfterTime intValue], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         [self playAlert];
                     });
                     isRihtBodyOnBed = NO;
@@ -1689,7 +1763,7 @@
                 if ([isBodyOutOfBed isEqualToString:@"False"]&&isLeftBodyOnBed) {
                     //离床
                     HaviLog(@"开始报警");
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([self.strAlertStartAfterTime  intValue] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    dispatch_after([self.strAlertStartAfterTime intValue], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         [self playAlert];
                     });
                     isLeftBodyOnBed = NO;
@@ -1718,7 +1792,7 @@
     NSURL *url = [NSURL fileURLWithPath:path];
     
     int i=0;
-    while (i<6) {
+    while (i<2) {
         _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
         if (!_player)
         {
