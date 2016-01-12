@@ -11,7 +11,6 @@
 		2C0912BC1B4E591A00BEE2FF /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0912BB1B4E591A00BEE2FF /* Toast+UIView.m */; };
 		2C0912BE1B4E65A900BEE2FF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0912BD1B4E65A900BEE2FF /* CFNetwork.framework */; };
 		2C0912C01B4E668F00BEE2FF /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0912BF1B4E668F00BEE2FF /* CoreTelephony.framework */; };
-		2C0BE12B1C30DF4C0010CDF9 /* alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C0BE12A1C30DF4C0010CDF9 /* alert.wav */; };
 		2C0EBE321AF0C13000F2D2F7 /* user3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C0EBE311AF0C13000F2D2F7 /* user3.wav */; };
 		2C1247AD1B7E2B59009C78EA /* sina.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C1247AC1B7E2B59009C78EA /* sina.png */; };
 		2C1247B21B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1247B11B7F0150009C78EA /* NSString+OAURLEncodingAdditions.m */; };
@@ -178,6 +177,10 @@
 		2C1F1FEE1ADBF38F00393E04 /* WQScrollCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FE41ADBF38F00393E04 /* WQScrollCalendarView.m */; };
 		2C1F1FEF1ADBF38F00393E04 /* WQScrollCalendarWrapperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FE61ADBF38F00393E04 /* WQScrollCalendarWrapperView.m */; };
 		2C1F1FF51ADBF42700393E04 /* CalenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F1FF41ADBF42700393E04 /* CalenderView.m */; };
+		2C2062D71C44C53A00292BF5 /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2062D61C44C53A00292BF5 /* libPushSDK-1.8.8.a */; };
+		2C2062D91C44C56C00292BF5 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C2062D81C44C56C00292BF5 /* PushConfig.plist */; };
+		2C2062DB1C44C5BC00292BF5 /* leaveAlert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C2062DA1C44C5BC00292BF5 /* leaveAlert.wav */; };
+		2C2062DD1C44DF2800292BF5 /* noti.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C2062DC1C44DF2800292BF5 /* noti.wav */; };
 		2C2790741BF4488F00449071 /* FriendMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */; };
 		2C27907A1BF45E7F00449071 /* SearchBarDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790791BF45E7F00449071 /* SearchBarDisplayController.m */; };
 		2C2790811BF462DB00449071 /* UISearchBar+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790801BF462DB00449071 /* UISearchBar+Common.m */; };
@@ -444,7 +447,6 @@
 		2C7F89F71C0EE918009A6834 /* icon_solo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89F61C0EE918009A6834 /* icon_solo.png */; };
 		2C7F89F91C0EF946009A6834 /* icon_message_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89F81C0EF946009A6834 /* icon_message_0.png */; };
 		2C7F89FB1C0EF94C009A6834 /* icon_message_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89FA1C0EF94C009A6834 /* icon_message_1.png */; };
-		2C7F89FD1C10254D009A6834 /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F89FC1C10254D009A6834 /* alert.mp3 */; };
 		2C7F8A001C102BF8009A6834 /* DoubleLeaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7F89FF1C102BF8009A6834 /* DoubleLeaveViewController.m */; };
 		2C7F8A031C102C08009A6834 /* DoubleTurnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7F8A021C102C08009A6834 /* DoubleTurnViewController.m */; };
 		2C8C627F1AB590CC00CF4C19 /* APPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C627E1AB590CC00CF4C19 /* APPSettingViewController.m */; };
@@ -750,7 +752,6 @@
 		2C0912BB1B4E591A00BEE2FF /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		2C0912BD1B4E65A900BEE2FF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2C0912BF1B4E668F00BEE2FF /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		2C0BE12A1C30DF4C0010CDF9 /* alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alert.wav; sourceTree = "<group>"; };
 		2C0EBE311AF0C13000F2D2F7 /* user3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = user3.wav; sourceTree = "<group>"; };
 		2C1247AC1B7E2B59009C78EA /* sina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sina.png; sourceTree = "<group>"; };
 		2C1247B01B7F0150009C78EA /* NSString+OAURLEncodingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OAURLEncodingAdditions.h"; sourceTree = "<group>"; };
@@ -943,6 +944,11 @@
 		2C1F1FE61ADBF38F00393E04 /* WQScrollCalendarWrapperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WQScrollCalendarWrapperView.m; sourceTree = "<group>"; };
 		2C1F1FF31ADBF42700393E04 /* CalenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalenderView.h; sourceTree = "<group>"; };
 		2C1F1FF41ADBF42700393E04 /* CalenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderView.m; sourceTree = "<group>"; };
+		2C2062D51C44C53A00292BF5 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
+		2C2062D61C44C53A00292BF5 /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
+		2C2062D81C44C56C00292BF5 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
+		2C2062DA1C44C5BC00292BF5 /* leaveAlert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = leaveAlert.wav; sourceTree = "<group>"; };
+		2C2062DC1C44DF2800292BF5 /* noti.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = noti.wav; sourceTree = "<group>"; };
 		2C2790721BF4488F00449071 /* FriendMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendMessageTableViewCell.h; path = controller/FriendMessageTableViewCell.h; sourceTree = "<group>"; };
 		2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendMessageTableViewCell.m; path = controller/FriendMessageTableViewCell.m; sourceTree = "<group>"; };
 		2C2790781BF45E7F00449071 /* SearchBarDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchBarDisplayController.h; path = controller/SearchBarDisplayController.h; sourceTree = "<group>"; };
@@ -1294,7 +1300,6 @@
 		2C7F89F61C0EE918009A6834 /* icon_solo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_solo.png; path = ../lib/SLPagingView/icon_solo.png; sourceTree = "<group>"; };
 		2C7F89F81C0EF946009A6834 /* icon_message_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_message_0.png; path = ../lib/SLPagingView/icon_message_0.png; sourceTree = "<group>"; };
 		2C7F89FA1C0EF94C009A6834 /* icon_message_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_message_1.png; path = ../lib/SLPagingView/icon_message_1.png; sourceTree = "<group>"; };
-		2C7F89FC1C10254D009A6834 /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
 		2C7F89FE1C102BF8009A6834 /* DoubleLeaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleLeaveViewController.h; path = controller/DoubleLeaveViewController.h; sourceTree = "<group>"; };
 		2C7F89FF1C102BF8009A6834 /* DoubleLeaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleLeaveViewController.m; path = controller/DoubleLeaveViewController.m; sourceTree = "<group>"; };
 		2C7F8A011C102C08009A6834 /* DoubleTurnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleTurnViewController.h; path = controller/DoubleTurnViewController.h; sourceTree = "<group>"; };
@@ -1827,6 +1832,7 @@
 				576C3F021ABFAA4500815EF3 /* AudioToolbox.framework in Frameworks */,
 				2CCF41D51AF867E0008BEFD3 /* libSniffer.a in Frameworks */,
 				2CE5DA081AB9C7C300CF6458 /* QuartzCore.framework in Frameworks */,
+				2C2062D71C44C53A00292BF5 /* libPushSDK-1.8.8.a in Frameworks */,
 				CBD26E83738A9870DDD07899 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2060,6 +2066,16 @@
 			path = new;
 			sourceTree = "<group>";
 		};
+		2C2062D41C44C53A00292BF5 /* JPushlib */ = {
+			isa = PBXGroup;
+			children = (
+				2C2062D51C44C53A00292BF5 /* APService.h */,
+				2C2062D61C44C53A00292BF5 /* libPushSDK-1.8.8.a */,
+			);
+			name = JPushlib;
+			path = lib/JPushlib;
+			sourceTree = "<group>";
+		};
 		2C2D28431BD7628900E0499F /* SLPagingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2265,12 +2281,13 @@
 				2C4FCB0F1A8F56E800DCEEF3 /* main.m */,
 				2CAF5E911AE7F55700E7E3AA /* protocol.html */,
 				576B02501A9EDDE3004DB418 /* PrefixHeader.pch */,
+				2C2062D81C44C56C00292BF5 /* PushConfig.plist */,
 				57D7A18A1AB972FA00797059 /* Definetions.h */,
+				2C2062DC1C44DF2800292BF5 /* noti.wav */,
 				2C0EBE311AF0C13000F2D2F7 /* user3.wav */,
 				2C94FA261B8DB42100F1A4DB /* Button29.wav */,
-				2C7F89FC1C10254D009A6834 /* alert.mp3 */,
-				2C0BE12A1C30DF4C0010CDF9 /* alert.wav */,
 				2CAC542D1C1562DB00515EAC /* bookSound.mp3 */,
+				2C2062DA1C44C5BC00292BF5 /* leaveAlert.wav */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2441,6 +2458,7 @@
 		2C6C6C0F1BF313AD0076E0EF /* SDK */ = {
 			isa = PBXGroup;
 			children = (
+				2C2062D41C44C53A00292BF5 /* JPushlib */,
 				576F09BE1AC3A3DF0083395C /* HardWare */,
 				2C7345CF1B776775004D8AB3 /* WeChatSDK */,
 				2CD6C0201B7ADEAB00F1FF6A /* libWeiboSDK */,
@@ -3730,6 +3748,7 @@
 				2CC8E7FD1B9BE59900F69ABE /* ic_getup_0.png in Resources */,
 				2C15E7011AF214E800142F36 /* btn_login_bg_1@2x.png in Resources */,
 				2C15E6811AF20DF800142F36 /* pic_scan_mirror@2x.png in Resources */,
+				2C2062D91C44C56C00292BF5 /* PushConfig.plist in Resources */,
 				2C15E72D1AF214E800142F36 /* name_1@2x.png in Resources */,
 				2C7D22EA1AF1CA050011A45C /* textbox_save_settings_0@2x.png in Resources */,
 				2C7D23271AF1CA5C0011A45C /* leave1_0.png in Resources */,
@@ -3804,7 +3823,6 @@
 				2C7D22C61AF1CA050011A45C /* line_side_face_0@2x.png in Resources */,
 				2C15E7111AF214E800142F36 /* home_1@2x.png in Resources */,
 				2C15E7181AF214E800142F36 /* icon_fatal_exception_1@2x.png in Resources */,
-				2C7F89FD1C10254D009A6834 /* alert.mp3 in Resources */,
 				2C7D22D11AF1CA050011A45C /* pic_bg_night_0@2x.png in Resources */,
 				2C91A68B1B9D76E20039EEAB /* btn_textbox_1.png in Resources */,
 				2C3AF2CD1AF470C800B66E32 /* btn_down_two.png in Resources */,
@@ -3899,6 +3917,7 @@
 				2C7D21FF1AF1C6550011A45C /* btn_done@2x.png in Resources */,
 				2C7D22E71AF1CA050011A45C /* textbox_hollow_0@2x.png in Resources */,
 				2C7D22C21AF1CA050011A45C /* line_abnormal_0@2x.png in Resources */,
+				2C2062DD1C44DF2800292BF5 /* noti.wav in Resources */,
 				2C94F99D1B8719C700F1A4DB /* pic_bg_day.png in Resources */,
 				2C7D23101AF1CA300011A45C /* breathe5_0@2x.png in Resources */,
 				2CDB86B71BABE66800551192 /* havi1_8@2x.png in Resources */,
@@ -3924,6 +3943,7 @@
 				2C15E7291AF214E800142F36 /* line_side_face_1@2x.png in Resources */,
 				2C7D230F1AF1CA300011A45C /* breathe4_0@2x.png in Resources */,
 				2C15E7661AF2150900142F36 /* breathe2_1@2x.png in Resources */,
+				2C2062DB1C44C5BC00292BF5 /* leaveAlert.wav in Resources */,
 				2C15E7261AF214E800142F36 /* line_diagnose_1@2x.png in Resources */,
 				2C15E7671AF2150900142F36 /* breathe3_1@2x.png in Resources */,
 				2CDB86B51BABE66800551192 /* havi1_6@2x.png in Resources */,
@@ -3998,7 +4018,6 @@
 				2C15E7331AF214E800142F36 /* pic_2208_1.png in Resources */,
 				2C7D231F1AF1CA450011A45C /* get_up5_0@2x.png in Resources */,
 				2C15E6FC1AF214E800142F36 /* btn_compose_1@2x.png in Resources */,
-				2C0BE12B1C30DF4C0010CDF9 /* alert.wav in Resources */,
 				2C15E7371AF214E800142F36 /* pic_breathe_1@2x.png in Resources */,
 				2C7D22941AF1CA050011A45C /* btn_analysis_report_0@2x.png in Resources */,
 				2C15E7771AF2151500142F36 /* get_up2_1@2x.png in Resources */,
@@ -4512,7 +4531,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: dai wengai (K5K86ZWE67)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4528,10 +4547,11 @@
 					"$(PROJECT_DIR)/lib/thirdlib/libSmartLinkStaticLib",
 					"$(PROJECT_DIR)/lib/Source/WeChatSDK_1.5_OnlyIphone",
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
+					"$(PROJECT_DIR)/lib/JPushlib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ihotkeys.ihotkeys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0a4a2d74-ee71-446f-8ce7-abadff3d4def";
 			};
 			name = Debug;
 		};
@@ -4557,10 +4577,11 @@
 					"$(PROJECT_DIR)/lib/thirdlib/libSmartLinkStaticLib",
 					"$(PROJECT_DIR)/lib/Source/WeChatSDK_1.5_OnlyIphone",
 					"$(PROJECT_DIR)/lib/Source/libWeiboSDK",
+					"$(PROJECT_DIR)/lib/JPushlib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ihotkeys.ihotkeys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0a4a2d74-ee71-446f-8ce7-abadff3d4def";
 			};
 			name = Release;
 		};

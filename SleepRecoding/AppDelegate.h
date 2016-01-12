@@ -13,6 +13,7 @@
 #import "WXApi.h"
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
+#import "LeftSideViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -24,6 +25,7 @@
 @property (strong, nonatomic) NSString *wbCurrentUserID;
 @property (strong, nonatomic) TencentOAuth *tencentOAuth;
 @property (strong, nonatomic) CenterContainerViewController *containerView;
+@property (strong, nonatomic) LeftSideViewController *leftMenuViewController;
 @property (nonatomic, assign) BOOL inNightMode;
 
 

@@ -50,6 +50,7 @@ extern NSString *thirdRightDeviceUUID;
 extern NSString *thirdLeftDeviceName;
 extern NSString *thirdRightDeviceName;
 extern NSString *isMineDevice;
+extern NSString *registeredID;
 
 
 

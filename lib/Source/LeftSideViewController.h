@@ -10,4 +10,6 @@
 
 @interface LeftSideViewController : BaseViewController
 
+- (void)setLeftBadageWithType:(NSString *)cellType;
+
 @end

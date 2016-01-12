@@ -58,6 +58,8 @@
 - (void)creatSubView
 {
     //头像北景
+    [[NSUserDefaults standardUserDefaults]registerDefaults:@{@"0":@"badage"}];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     UIView *iconBackView = [[UIView alloc]init];
     [self.view addSubview:iconBackView];
     [iconBackView makeConstraints:^(MASConstraintMaker *make) {
@@ -174,15 +176,15 @@
             defaultCell.cellImageName = [[self.imageArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             defaultCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             defaultCell.selectionStyle = UITableViewCellSelectionStyleBlue;
-            /*
              //推送设置badage
             if (indexPath.row==4) {
-                UIBadgeView *badgeV = [UIBadgeView viewWithBadgeTip:@"1"];
-                [defaultCell addSubview:badgeV];
-                [badgeV setTag:100001];
-                [badgeV setCenter:CGPointMake(120, 15)];
+                if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"badge"] intValue] > 0) {
+                    UIBadgeView *badgeV = [UIBadgeView viewWithBadgeTip:[[NSUserDefaults standardUserDefaults]objectForKey:@"badge"]];
+                    [defaultCell addSubview:badgeV];
+                    [badgeV setTag:100001];
+                    [badgeV setCenter:CGPointMake(120, 15)];
+                }
             }
-             */
             return defaultCell;
         }
     }else{
@@ -249,7 +251,9 @@
             NSArray *subViews =[cell subviews];
             for (UIView *aView in subViews) {
                 if (aView.tag == 100001 && [aView isKindOfClass:[UIBadgeView class]]) {
-                    aView.hidden = YES;
+                    [aView removeFromSuperview];
+                    [[NSUserDefaults standardUserDefaults]setObject:@"0" forKey:@"badge"];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
                 }
             }
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[MessageListViewController alloc] init]]
@@ -354,6 +358,33 @@
     }
 }
 
+- (void)setLeftBadageWithType:(NSString *)cellType
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+    DefaultTableViewCell *cell = (DefaultTableViewCell *)[self.sideTableView cellForRowAtIndexPath:indexPath];
+    BOOL isIn = NO;
+    for (UIView *aView in cell.subviews) {
+        if (aView.tag == 100001 && [aView isKindOfClass:[UIBadgeView class]]) {
+            NSString *badage = ((UIBadgeView*)aView).badgeValue;
+            int num = [badage intValue];
+            num++;
+            [((UIBadgeView*)aView) setBadgeValue:[NSString stringWithFormat:@"%d",num]];
+            [((UIBadgeView*)aView) setCenter:CGPointMake(120, 15)];
+            [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%d",num] forKey:@"badge"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            isIn = YES;
+        }
+    }
+    if (!isIn) {
+        UIBadgeView *badgeV = [UIBadgeView viewWithBadgeTip:@"1"];
+        [badgeV setTag:100001];
+        [badgeV setCenter:CGPointMake(120, 15)];
+        [cell addSubview:badgeV];
+        [[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"badge"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

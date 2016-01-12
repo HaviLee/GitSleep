@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "LeftSideViewController.h"
 #import "RightSideViewController.h"
 #import "YTKNetworkConfig.h"
 #import "LoginViewController.h"
@@ -25,6 +24,7 @@
 #import "MMAlertView.h"
 #import "MMSheetView.h"
 #import <AVFoundation/AVFoundation.h>
+#import "APService.h"
 
 //
 #import "CenterContainerViewController.h"
@@ -33,7 +33,7 @@
 #import "LoginContainerViewController.h"//架构重构
 #import "CenterViewController.h"//架构重构
 
-@interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate,TencentSessionDelegate>
+@interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate,TencentSessionDelegate,UIAlertViewDelegate>
 @property (nonatomic,strong) LoginContainerViewController *loginView;
 @property (nonatomic,strong) NSDictionary *ThirdPlatformInfoDic;
 @property (nonatomic,strong) NSString *thirdPlatform;
@@ -65,21 +65,15 @@
     //udp启动
     //注册本地通知
     //获取权限
-    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)])
-    {
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil]];
-    }
-    [[UIApplication sharedApplication]setApplicationIconBadgeNumber:0];
+    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                   UIRemoteNotificationTypeSound |
+                                                   UIRemoteNotificationTypeAlert)
+                                       categories:nil];
+    [APService setupWithOption:launchOptions];
     self.udpController = [[UDPController alloc]init];
     //网络配置
     YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
     config.baseUrl = BaseUrl;
-//    config.baseUrl = @"http://sdk4report.eucp.b2m.cn:8080/";
-    /*
-     设置状态栏的字体颜色
-     同时设置状态栏的字体的颜色要在info.plist文件中设置一个key: UIViewControllerBasedStatusBarAppearance 为NO
-     */
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"background1.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     //
     [self getSuggestionList];
@@ -96,12 +90,11 @@
     if ([UserManager IsUserLogged]) {
         [UserManager GetUserObj];
     }
-    ////测试使用havi
     self.containerView = [[CenterContainerViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:self.containerView];
-    LeftSideViewController *leftMenuViewController = [[LeftSideViewController alloc] init];
+    self.leftMenuViewController = [[LeftSideViewController alloc] init];
     RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navi
-                                                                    leftMenuViewController:leftMenuViewController
+                                                                    leftMenuViewController:_leftMenuViewController
                                                                    rightMenuViewController:nil];
     NSString *nowDateString = [NSString stringWithFormat:@"%@",[self getNowDateFromatAnDate:[NSDate date]]];
     NSString *sub = [nowDateString substringWithRange:NSMakeRange(11, 2)];
@@ -119,7 +112,6 @@
     sideMenuViewController.contentViewShadowEnabled = YES;
     self.sideMenuController = sideMenuViewController;
     self.window.rootViewController = self.sideMenuController;
-//    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
     [self.window makeKeyAndVisible];
     [self setLoginView];
     [self configAlertView];
@@ -762,6 +754,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [application setApplicationIconBadgeNumber:0];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -771,5 +764,99 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+#pragma mark 推送
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [APService registerDeviceToken:deviceToken];
+    registeredID = [APService registrationID];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [APService handleRemoteNotification:userInfo];
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+        [self playSound];
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:
+(void (^)(UIBackgroundFetchResult))completionHandler {
+    [APService handleRemoteNotification:userInfo];
+//    NSString *key = [[userInfo objectForKey:@"extras"] objectForKey:@"MessageType"];
+     NSString *key = [userInfo objectForKey:@"MessageType"];
+    switch ([key intValue]) {
+        case 101:{
+            //离床警报
+            if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+                [self playSound];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"您的家人离床时间过久" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                [alert show];
+            }
+        } break;
+        case 102:{
+            //上床警报
+        } break;
+        case 103:{
+            if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+                [self playSound];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"您的家人睡太久没有体动" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                [alert show];
+            }
+            //久睡警报
+        } break;
+        case 104:{
+            //心率异常
+        } break;
+        case 105:{
+            //呼吸异常
+        } break;
+        case 106:{
+            [self.leftMenuViewController setLeftBadageWithType:@"friend"];
+            //好友请求
+        } break;
+        case 107:{
+            //异常登录
+        } break;
+        case 108:{
+            //版本更新
+        } break;
+                    default:
+            break;
+    }
+    
+    NSLog(@"收到");
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
+/**
+ *  播放完成回调函数
+ *
+ *  @param soundID    系统声音ID
+ *  @param clientData 回调时传递的数据
+ */
+void soundCompleteCallback(SystemSoundID soundID,void * clientData){
+    AudioServicesDisposeSystemSoundID (soundID);
+}
+
+static SystemSoundID soundId;
+
+-(void) playSound
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"leaveAlert" ofType:@"wav"];
+    if (path) {
+        AudioServicesCreateSystemSoundID( (__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundId );
+        AudioServicesAddSystemSoundCompletion(soundId, NULL, NULL, soundCompleteCallback, NULL);
+        AudioServicesPlaySystemSound(soundId);
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([alertView.message isEqualToString:@"您的家人离床时间过久"] || [alertView.message isEqualToString:@"您的家人睡太久没有体动"]) {
+        if (buttonIndex == 1) {
+            AudioServicesDisposeSystemSoundID (soundId);
+        }
+    }
+}
+
 
 @end

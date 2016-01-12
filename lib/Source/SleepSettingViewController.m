@@ -1035,7 +1035,7 @@
         notification.repeatInterval= kCFCalendarUnitDay;//循环次数，kCFCalendarUnitWeekday一周一次
         notification.timeZone=[NSTimeZone defaultTimeZone];
         //        notification.applicationIconBadgeNumber=0; //应用的红色数字
-        notification.soundName = @"alert.mp3";
+        notification.soundName = @"user3.wav";
         NSString *noteAlert = [NSString stringWithFormat:@"您有一个起床闹钟"] ;//提示信息 弹出提示框
         notification.alertBody= noteAlert;//提示信息 弹出提示框
         notification.alertAction = @"打开";  //提示框按钮
@@ -1075,14 +1075,18 @@
                     [JDStatusBarNotification showWithStatus:@"久睡超时警告开启" dismissAfter:2 styleName:JDStatusBarStyleDark];
                 }else{
                     [JDStatusBarNotification showWithStatus:@"久睡离床警告开启" dismissAfter:2 styleName:JDStatusBarStyleDark];
+                    /*
                     [[NSNotificationCenter defaultCenter]postNotificationName:ShowLeaveBedAlertNoti object:nil];
+                     */
                 }
             }else{
                 if ([alartType isEqualToString:@"IsTimeoutAlarmSleepTooLong"]) {
                     [JDStatusBarNotification showWithStatus:@"久睡超时警告关闭" dismissAfter:2 styleName:JDStatusBarStyleDark];
                 }else{
                     [JDStatusBarNotification showWithStatus:@"久睡离床警告关闭" dismissAfter:2 styleName:JDStatusBarStyleDark];
+                    /*
                     [[NSNotificationCenter defaultCenter]postNotificationName:ShowLeaveBedAlertNoti object:nil];
+                     */
                 }
             }
         }

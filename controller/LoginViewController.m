@@ -21,6 +21,7 @@
 #import "WeiboSDK.h"
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "MMPopupView.h"
+#import "APService.h"
 
 @interface LoginViewController ()<UITextFieldDelegate,WXApiDelegate>
 @property (nonatomic,strong) CKTextField *nameText;
@@ -485,7 +486,7 @@
             thirdMeddoPhone = self.nameText.text;
             thirdMeddoPassWord = self.passWordText.text;
             [UserManager setGlobalOauth];
-            
+            [self uploadRegisterID];
             self.loginButtonClicked(1);
             [MMProgressHUD dismissAfterDelay:0.3];
         }else if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==10012) {
@@ -504,7 +505,31 @@
         [MMProgressHUD dismiss];
         [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
     }];
-    
+}
+
+- (void)uploadRegisterID
+{
+    NSString *registerID = [APService registrationID];
+    if (registerID.length > 0) {
+        NSDictionary *dic = @{
+                              @"UserId": thirdPartyLoginUserId, //关键字，必须传递
+                              @"RegistrationId": registeredID, //密码
+                              };
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789"
+                                 };
+        __weak __typeof(self)weakSelf = self;
+        [WTRequestCenter putWithURL:[NSString stringWithFormat:@"%@v1/user/RegisterPushDeviceId",BaseUrl] header:header parameters:dic finished:^(NSURLResponse *response, NSData *data) {
+            NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            if ([[resposeDic objectForKey:@"ReturnCode"] intValue] != 200) {
+                [weakSelf uploadRegisterID];
+            }else{
+                HaviLog(@"上传registerID ok");
+            }
+        } failed:^(NSURLResponse *response, NSError *error) {
+            
+        }];
+    }
 }
 
 
@@ -653,6 +678,7 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.loginButtonClicked(1);
             [MMProgressHUD dismiss];
+            [self uploadRegisterID];
             //监听网络
             AppDelegate *app = [UIApplication sharedApplication].delegate;
             [app setWifiNotification];

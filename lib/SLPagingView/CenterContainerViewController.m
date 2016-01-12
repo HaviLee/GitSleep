@@ -148,8 +148,10 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessAndQueryData:) name:LoginSuccessedNoti object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changedDeviceUUID:) name:CHANGEDEVICEUUID object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeDeviceName:) name:CHANGEDEVICNAME object:nil];
+    /*
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeLeaveBedAlert:) name:ShowLeaveBedAlertNoti object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAlertTime:) name:ShowLeaveBedAfterTime object:nil];
+     */
 }
 
 #pragma mark 消息监听方法
@@ -213,7 +215,10 @@
     if (thirdHardDeviceUUID.length==0) {
         [self getAllDeviceList];//获取
     }
+    /*
+     检测报警是否开启
     [self checkIsOpenAlert];
+     */
     
 }
 
@@ -1692,6 +1697,7 @@
     }
 }
 
+/*
 #pragma mark 轮询传感器信息
 
 - (void)changeAlertTime:(NSNotification *)noti
@@ -1857,7 +1863,7 @@
         self.queryTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(querySensorInfo:) userInfo:nil repeats:YES];
     }];
 }
-
+*/
 #pragma mark dropDown Menu
 
 - (void)showDropDownView

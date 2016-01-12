@@ -17,7 +17,6 @@
     UILabel *sleepNameLabel;
     UILabel *afterNameLabel;
     PNLineView *sleepLineView;
-
 }
 @end
 
