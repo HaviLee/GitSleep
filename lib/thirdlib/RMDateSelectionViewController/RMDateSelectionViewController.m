@@ -940,10 +940,10 @@ static UIImage *_cancelImage;
     [super viewDidAppear:animated];
     if ([self.title isEqualToString:@"height"]) {
         [self.pickerListView selectRow:120 inComponent:0 animated:YES];
-        _resultString = @"170";
+        _resultString = @"170 CM";
     }else if([self.title isEqualToString:@"weight"]){
         [self.pickerListView selectRow:25 inComponent:0 animated:YES];
-        _resultString = @"65";
+        _resultString = @"65 KG";
     }else if ([self.title isEqualToString:@"gender"]){
         [self.pickerListView selectRow:0 inComponent:0 animated:YES];
         _resultString = @"男";

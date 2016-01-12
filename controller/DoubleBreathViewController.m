@@ -729,7 +729,7 @@
             //timeSwitchButton
             cell.leftCellName = thirdLeftDeviceName.length==0?@"Left":thirdLeftDeviceName;
             cell.rightCellName = thirdRightDeviceName.length==0?@"Right":thirdRightDeviceName;
-            cell.iconTitleName = [NSString stringWithFormat:@"icon_heart_rate_%d",selectedThemeIndex];
+            cell.iconTitleName = [NSString stringWithFormat:@"icon_breathe_%d",selectedThemeIndex];
             
             cell.leftCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportData objectForKey:@"AverageRespiratoryRate"] intValue]];
             cell.rightCellData = [NSString stringWithFormat:@"%d次/分钟",[[self.reportRightData objectForKey:@"AverageRespiratoryRate"] intValue]];

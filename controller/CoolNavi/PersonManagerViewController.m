@@ -590,40 +590,42 @@
 #pragma mark 更新信息
 - (void)saveUserInfoWithKey:(NSString *)key andData:(NSString *)data
 {
-    
-    NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
-                        [UIImage imageNamed:@"havi1_1"],
-                        [UIImage imageNamed:@"havi1_2"],
-                        [UIImage imageNamed:@"havi1_3"],
-                        [UIImage imageNamed:@"havi1_4"],
-                        [UIImage imageNamed:@"havi1_5"]];
-    [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
-    [MMProgressHUD showWithTitle:nil status:nil images:images];
-    
-    SHPutClient *client = [SHPutClient shareInstance];
-    NSDictionary *dic = @{
-                          @"UserID": thirdPartyLoginUserId, //关键字，必须传递
-                          key:data,
-                          };
-    NSDictionary *header = @{
-                             @"AccessToken":@"123456789",
-                             };
-    [client modifyUserInfo:header andWithPara:dic];
-    [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
-        HaviLog(@"保存%@",resposeDic);
-        if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+    if (data.length>0) {
+        
+        NSArray *images = @[[UIImage imageNamed:@"havi1_0"],
+                            [UIImage imageNamed:@"havi1_1"],
+                            [UIImage imageNamed:@"havi1_2"],
+                            [UIImage imageNamed:@"havi1_3"],
+                            [UIImage imageNamed:@"havi1_4"],
+                            [UIImage imageNamed:@"havi1_5"]];
+        [[MMProgressHUD sharedHUD] setPresentationStyle:MMProgressHUDPresentationStyleShrink];
+        [MMProgressHUD showWithTitle:nil status:nil images:images];
+        
+        SHPutClient *client = [SHPutClient shareInstance];
+        NSDictionary *dic = @{
+                              @"UserID": thirdPartyLoginUserId, //关键字，必须传递
+                              key:data,
+                              };
+        NSDictionary *header = @{
+                                 @"AccessToken":@"123456789",
+                                 };
+        [client modifyUserInfo:header andWithPara:dic];
+        [client startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            NSDictionary *resposeDic = (NSDictionary *)request.responseJSONObject;
+            HaviLog(@"保存%@",resposeDic);
+            if ([[resposeDic objectForKey:@"ReturnCode"]intValue]==200) {
+                [MMProgressHUD dismiss];
+                [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
+                    [self queryUserInfo];
+                }];
+            }else{
+                [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
+            }
+        } failure:^(YTKBaseRequest *request) {
             [MMProgressHUD dismiss];
-            [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
-                [self queryUserInfo];
-            }];
-        }else{
-            [MMProgressHUD dismissWithError:[NSString stringWithFormat:@"%@",resposeDic] afterDelay:2];
-        }
-    } failure:^(YTKBaseRequest *request) {
-        [MMProgressHUD dismiss];
-        [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
-    }];
+            [self.view makeToast:@"网络出错啦,请检查您的网络" duration:2 position:@"center"];
+        }];
+    }
 }
 
 #pragma mark 计算高度
