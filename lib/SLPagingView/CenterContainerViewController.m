@@ -148,7 +148,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessAndQueryData:) name:LoginSuccessedNoti object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changedDeviceUUID:) name:CHANGEDEVICEUUID object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeDeviceName:) name:CHANGEDEVICNAME object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeUser) name:ThirdUserLogoutNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeUser) name:ThirdUserLogoutNoti object:nil];
 
     /*
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeLeaveBedAlert:) name:ShowLeaveBedAlertNoti object:nil];
@@ -301,22 +301,20 @@
             }
             
         }else{
-            MMPopupItemHandler block = ^(NSInteger index){
-                HaviLog(@"clickd %@ button",@(index));
-                if(index==1){
-                    DeviceListViewController *user = [[DeviceListViewController alloc]init];
-                    [self.navigationController.topViewController.navigationController pushViewController:user animated:YES];
-                }
-            };
-            NSArray *items =
-            @[MMItemMake(@"暂不绑定", MMItemTypeNormal, block),
-              MMItemMake(@"确定", MMItemTypeNormal, block)];
-            
-            MMAlertView *alertView = [[MMAlertView alloc] initWithTitle:@"提示"
-                                                                 detail:@"您还没有绑定设备,是否现在去绑定？" items:items];
-            alertView.attachedView = self.view;
-            
-            [alertView show];
+            isDoubleDevice = NO;
+            [self setPageViewControllerWithDic:nil];
+            _sendLeaveView = nil;
+            _sendTurnView = nil;
+            _secondBreathView = nil;
+            _secondHeartView = nil;
+            _doubleBreathView = nil;
+            _doubleLeaveView = nil;
+            _subPageViewArr = nil;
+            [self setController];
+            NSString *nowDateString = [NSString stringWithFormat:@"%@",selectedDateToUse];
+            NSString *newString = [NSString stringWithFormat:@"%@%@%@",[nowDateString substringWithRange:NSMakeRange(0, 4)],[nowDateString substringWithRange:NSMakeRange(5, 2)],[nowDateString substringWithRange:NSMakeRange(8, 2)]];
+
+            [self getTodaySleepQualityData:newString withLeftUUID:thirdHardDeviceUUID];
             
         }
         
@@ -656,6 +654,8 @@
             self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
         }
         
+    }else{
+        self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.doubleLeaveView,self.doubleTurnView];
     }
     
 }
@@ -1955,6 +1955,11 @@
         }
     }
     [self.datePicker updateCalenderSelectedDate:selectedDateToUse];
+}
+
+- (void)changeUser
+{
+    
 }
 
 - (void)didReceiveMemoryWarning {

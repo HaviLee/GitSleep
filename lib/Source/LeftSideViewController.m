@@ -55,7 +55,7 @@
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_night_0"];
     }
     [self creatSubView];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadTableView) name:ThirdUserLogoutNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadTableView) name:LoginSuccessedNoti object:nil];
 }
 
 - (void)creatSubView
@@ -186,6 +186,14 @@
                     [defaultCell addSubview:badgeV];
                     [badgeV setTag:100001];
                     [badgeV setCenter:CGPointMake(120, 15)];
+                }else {
+                    for (UIView *aView in defaultCell.subviews) {
+                        if (aView.tag == 100001 && [aView isKindOfClass:[UIBadgeView class]]) {
+                            [aView removeFromSuperview];
+                            [[NSUserDefaults standardUserDefaults]setObject:@"0" forKey:BadgeKey];
+                            [[NSUserDefaults standardUserDefaults]synchronize];
+                        }
+                    }
                 }
             }
             return defaultCell;
