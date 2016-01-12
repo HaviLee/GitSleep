@@ -148,6 +148,8 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccessAndQueryData:) name:LoginSuccessedNoti object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changedDeviceUUID:) name:CHANGEDEVICEUUID object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeDeviceName:) name:CHANGEDEVICNAME object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeUser) name:ThirdUserLogoutNoti object:nil];
+
     /*
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeLeaveBedAlert:) name:ShowLeaveBedAlertNoti object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAlertTime:) name:ShowLeaveBedAfterTime object:nil];
@@ -344,6 +346,7 @@
         alertView.attachedView = self.view;
         
         [alertView show];
+        [self refreshViewWithLeftSleepData:nil];
         return;
     }
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -1696,6 +1699,8 @@
         }
     }
 }
+
+
 
 /*
 #pragma mark 轮询传感器信息

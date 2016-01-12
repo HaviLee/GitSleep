@@ -29,6 +29,8 @@
 //
 #import "DeviceListViewController.h"
 
+#define BadgeKey [NSString stringWithFormat:@"badge%@",thirdPartyLoginUserId]
+
 @interface LeftSideViewController ()
 @property (nonatomic,strong) UIView *tableHeaderView;
 @property (nonatomic,strong) NSArray *imageArr;
@@ -53,6 +55,7 @@
         self.bgImageView.image = [UIImage imageNamed:@"pic_bg_night_0"];
     }
     [self creatSubView];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadTableView) name:ThirdUserLogoutNoti object:nil];
 }
 
 - (void)creatSubView
@@ -178,8 +181,8 @@
             defaultCell.selectionStyle = UITableViewCellSelectionStyleBlue;
              //推送设置badage
             if (indexPath.row==4) {
-                if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"badge"] intValue] > 0) {
-                    UIBadgeView *badgeV = [UIBadgeView viewWithBadgeTip:[[NSUserDefaults standardUserDefaults]objectForKey:@"badge"]];
+                if ([[[NSUserDefaults standardUserDefaults]objectForKey:BadgeKey] intValue] > 0) {
+                    UIBadgeView *badgeV = [UIBadgeView viewWithBadgeTip:[[NSUserDefaults standardUserDefaults]objectForKey:BadgeKey]];
                     [defaultCell addSubview:badgeV];
                     [badgeV setTag:100001];
                     [badgeV setCenter:CGPointMake(120, 15)];
@@ -252,7 +255,7 @@
             for (UIView *aView in subViews) {
                 if (aView.tag == 100001 && [aView isKindOfClass:[UIBadgeView class]]) {
                     [aView removeFromSuperview];
-                    [[NSUserDefaults standardUserDefaults]setObject:@"0" forKey:@"badge"];
+                    [[NSUserDefaults standardUserDefaults]setObject:@"0" forKey:BadgeKey];
                     [[NSUserDefaults standardUserDefaults]synchronize];
                 }
             }
@@ -370,7 +373,7 @@
             num++;
             [((UIBadgeView*)aView) setBadgeValue:[NSString stringWithFormat:@"%d",num]];
             [((UIBadgeView*)aView) setCenter:CGPointMake(120, 15)];
-            [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%d",num] forKey:@"badge"];
+            [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%d",num] forKey:BadgeKey];
             [[NSUserDefaults standardUserDefaults]synchronize];
             isIn = YES;
         }
@@ -380,10 +383,15 @@
         [badgeV setTag:100001];
         [badgeV setCenter:CGPointMake(120, 15)];
         [cell addSubview:badgeV];
-        [[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"badge"];
+        [[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:BadgeKey];
         [[NSUserDefaults standardUserDefaults]synchronize];
 
     }
+}
+
+- (void)reloadTableView
+{
+    [self.sideTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

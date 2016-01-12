@@ -815,9 +815,13 @@
         } break;
         case 107:{
             //异常登录
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"您的帐号在其他设备上登录,请重新登录" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+            [alert show];
+            [self loginAgain];
         } break;
         case 108:{
             //版本更新
+            
         } break;
                     default:
             break;
@@ -858,5 +862,20 @@ static SystemSoundID soundId;
     }
 }
 
+#pragma mark 重新登录
+
+- (void)loginAgain
+{
+    AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    [[NSUserDefaults standardUserDefaults]setObject:@"18:00" forKey:UserDefaultStartTime ];
+    [[NSUserDefaults standardUserDefaults]setObject:@"06:00" forKey:UserDefaultEndTime ];
+    [self.sideMenuController setContentViewController:[[UINavigationController alloc]initWithRootViewController:app.containerView] animated:YES];
+    [self.sideMenuController hideMenuViewController];
+    isDoubleDevice = NO;
+    [UserManager resetUserInfo];
+    thirdHardDeviceUUID = thirdHardDeviceUUID;
+    [[NSNotificationCenter defaultCenter]postNotificationName:ThirdUserLogoutNoti object:nil];
+
+}
 
 @end
