@@ -568,7 +568,7 @@
     if (_leaveImage==nil) {
         _leaveImage = [[UIImageView alloc]init];
         //                       WithFrame:CGRectMake(100, 0, 51, 34)];
-        _leaveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_body_movement_%d",selectedThemeIndex]];
+        _leaveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_body_movement_0"]];
     }
     return _leaveImage;
 }
@@ -813,7 +813,7 @@
 - (void)reloadThemeImage
 {
     [super reloadThemeImage];
-    _leaveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_getup_%d",selectedThemeIndex]];
+    _leaveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_body_movement_0"]];
     _circleSleepView.backgroundColor = selectedThemeIndex==0?[self colorWithHex:0x0e254c alpha:1]:[self colorWithHex:0x5e8abe alpha:1];
     _circleTitle.textColor = selectedThemeIndex == 0?DefaultColor:[UIColor whiteColor];
     _circleSubTitle.textColor = selectedThemeIndex == 0?DefaultColor:[UIColor whiteColor];

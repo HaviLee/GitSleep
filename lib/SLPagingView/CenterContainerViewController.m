@@ -1926,10 +1926,13 @@
     _sendTurnView = nil;
     _secondBreathView = nil;
     _secondHeartView = nil;
+    _doubleBreathView = nil;
+    _doubleLeaveView = nil;
     _subPageViewArr = nil;
     [self.leftMenuButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"re_order_%d",selectedThemeIndex]] forState:UIControlStateNormal];
     [self.rightMenuButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_ellipse_%d",selectedThemeIndex]] forState:UIControlStateNormal];
-    self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.sendLeaveView,self.sendTurnView];
+//    self.subPageViewArr = @[self.secondHeartView,self.secondBreathView,self.sendLeaveView,self.sendTurnView];
+    [self setController];
     NSArray *childArr = [_containerNavi childViewControllers];
     for (UIViewController *navi in childArr) {
         if ([navi isKindOfClass:[SLPagingViewController class]]) {
