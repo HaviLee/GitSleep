@@ -519,7 +519,7 @@
                                  @"AccessToken":@"123456789"
                                  };
         __weak __typeof(self)weakSelf = self;
-        [WTRequestCenter putWithURL:[NSString stringWithFormat:@"%@v1/user/RegisterPushDeviceId",BaseUrl] header:header parameters:dic finished:^(NSURLResponse *response, NSData *data) {
+        [WTRequestCenter postWithURL:[NSString stringWithFormat:@"%@v1/user/UpdateLoginInfo",BaseUrl] header:header parameters:dic finished:^(NSURLResponse *response, NSData *data) {
             NSDictionary *resposeDic = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             if ([[resposeDic objectForKey:@"ReturnCode"] intValue] != 200) {
                 [weakSelf uploadRegisterID];
