@@ -181,6 +181,7 @@
 		2C2062D91C44C56C00292BF5 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C2062D81C44C56C00292BF5 /* PushConfig.plist */; };
 		2C2062DB1C44C5BC00292BF5 /* leaveAlert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C2062DA1C44C5BC00292BF5 /* leaveAlert.wav */; };
 		2C2062DD1C44DF2800292BF5 /* noti.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C2062DC1C44DF2800292BF5 /* noti.wav */; };
+		2C2062DF1C46334D00292BF5 /* pic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2062DE1C46334D00292BF5 /* pic_about@2x.png */; };
 		2C2790741BF4488F00449071 /* FriendMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */; };
 		2C27907A1BF45E7F00449071 /* SearchBarDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790791BF45E7F00449071 /* SearchBarDisplayController.m */; };
 		2C2790811BF462DB00449071 /* UISearchBar+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2790801BF462DB00449071 /* UISearchBar+Common.m */; };
@@ -633,7 +634,6 @@
 		2CE9E7981BD4C5E2001D8401 /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7771BD4C5E2001D8401 /* UIDevice+Info.m */; };
 		2CE9E7991BD4C5E2001D8401 /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */; };
 		2CE9E7A61BD4D682001D8401 /* UIBarButtonItem+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9E7A51BD4D682001D8401 /* UIBarButtonItem+Common.m */; };
-		2CF34FC91BB1039E007099FC /* pic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF34FC81BB1039E007099FC /* pic_about@2x.png */; };
 		2CF350211BB2B51F007099FC /* CoolNavi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF350201BB2B51F007099FC /* CoolNavi.m */; };
 		2CF350241BB2B592007099FC /* PersonManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF350231BB2B592007099FC /* PersonManagerViewController.m */; };
 		2CF350271BB2E938007099FC /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF350251BB2E938007099FC /* background@2x.png */; };
@@ -949,6 +949,7 @@
 		2C2062D81C44C56C00292BF5 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
 		2C2062DA1C44C5BC00292BF5 /* leaveAlert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = leaveAlert.wav; sourceTree = "<group>"; };
 		2C2062DC1C44DF2800292BF5 /* noti.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = noti.wav; sourceTree = "<group>"; };
+		2C2062DE1C46334D00292BF5 /* pic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_about@2x.png"; sourceTree = "<group>"; };
 		2C2790721BF4488F00449071 /* FriendMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendMessageTableViewCell.h; path = controller/FriendMessageTableViewCell.h; sourceTree = "<group>"; };
 		2C2790731BF4488F00449071 /* FriendMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendMessageTableViewCell.m; path = controller/FriendMessageTableViewCell.m; sourceTree = "<group>"; };
 		2C2790781BF45E7F00449071 /* SearchBarDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchBarDisplayController.h; path = controller/SearchBarDisplayController.h; sourceTree = "<group>"; };
@@ -1616,7 +1617,6 @@
 		2CE9E7791BD4C5E2001D8401 /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
 		2CE9E7A41BD4D682001D8401 /* UIBarButtonItem+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Common.h"; sourceTree = "<group>"; };
 		2CE9E7A51BD4D682001D8401 /* UIBarButtonItem+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Common.m"; sourceTree = "<group>"; };
-		2CF34FC81BB1039E007099FC /* pic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic_about@2x.png"; sourceTree = "<group>"; };
 		2CF3501F1BB2B51F007099FC /* CoolNavi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoolNavi.h; sourceTree = "<group>"; };
 		2CF350201BB2B51F007099FC /* CoolNavi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoolNavi.m; sourceTree = "<group>"; };
 		2CF350221BB2B592007099FC /* PersonManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonManagerViewController.h; sourceTree = "<group>"; };
@@ -2155,7 +2155,7 @@
 				2C15E79B1AF219CE00142F36 /* common_green_checkbox@2x.png */,
 				2C15E7A11AF2476200142F36 /* pic_Prompt@2x.png */,
 				2C15E7A31AF2477C00142F36 /* pic_Prompt@3x.png */,
-				2CF34FC81BB1039E007099FC /* pic_about@2x.png */,
+				2C2062DE1C46334D00292BF5 /* pic_about@2x.png */,
 				2C7D21F21AF1C6550011A45C /* btn_done@2x.png */,
 				2C7D21F31AF1C6550011A45C /* btn_edit_info@2x.png */,
 				2CE7A3BC1BF5B2FF00E7CEDE /* edit_double_bed.png */,
@@ -3704,7 +3704,6 @@
 				2C7D22EC1AF1CA050011A45C /* textbox_verification_code_0@2x.png in Resources */,
 				2CDB86931BABDD3000551192 /* pic_introduce_3@2x.png in Resources */,
 				2C7D22D31AF1CA050011A45C /* pic_day_0@2x.png in Resources */,
-				2CF34FC91BB1039E007099FC /* pic_about@2x.png in Resources */,
 				2C7D22A41AF1CA050011A45C /* btn_sleep_advice_0@2x.png in Resources */,
 				2C15E73D1AF214E800142F36 /* pic_heart_rate_1@2x.png in Resources */,
 				2C15E79C1AF219CE00142F36 /* common_green_checkbox@2x.png in Resources */,
@@ -3759,6 +3758,7 @@
 				2C15E7171AF214E800142F36 /* icon_equipment_management_1@2x.png in Resources */,
 				2C15E79A1AF2180500142F36 /* pic_bad_5@2x.png in Resources */,
 				2C15E70B1AF214E800142F36 /* btn_x_1@2x.png in Resources */,
+				2C2062DF1C46334D00292BF5 /* pic_about@2x.png in Resources */,
 				2C7D22F31AF1CA050011A45C /* weight_0@2x.png in Resources */,
 				2CDB86AF1BABE66800551192 /* havi1_0@2x.png in Resources */,
 				2C15E7061AF214E800142F36 /* btn_right_1@2x.png in Resources */,
@@ -4482,7 +4482,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "2151e554-77a1-476e-aadd-643e0cff236e";
+				PROVISIONING_PROFILE = "98aa863c-44e3-4e42-800c-aa3c068bf873";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -4518,7 +4518,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "2151e554-77a1-476e-aadd-643e0cff236e";
+				PROVISIONING_PROFILE = "98aa863c-44e3-4e42-800c-aa3c068bf873";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -4551,7 +4551,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ihotkeys.ihotkeys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0a4a2d74-ee71-446f-8ce7-abadff3d4def";
+				PROVISIONING_PROFILE = "98aa863c-44e3-4e42-800c-aa3c068bf873";
 			};
 			name = Debug;
 		};
@@ -4561,7 +4561,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ihotkeys Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4581,7 +4581,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ihotkeys.ihotkeys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0a4a2d74-ee71-446f-8ce7-abadff3d4def";
+				PROVISIONING_PROFILE = "98aa863c-44e3-4e42-800c-aa3c068bf873";
 			};
 			name = Release;
 		};
