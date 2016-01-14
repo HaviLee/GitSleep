@@ -158,7 +158,7 @@
             bar.alpha = 1;
         } completion:^(BOOL finished) {
             if (gradePercent!=0) {
-                UILabel *label = [self getTopLabelWithTime:gradePercent andColor:[self returnColorWithSleepLevel:gradePercent] andFrame:CGRectMake(xPoint.x-21, 15+(yCoordinateHeight-15)-height- 22, 35, 10)];
+                UILabel *label = [self getTopLabelWithTime:gradePercent andColor:[self returnColorWithSleepLevel:gradePercent] andFrame:CGRectMake(xPoint.x-21, 15+(yCoordinateHeight-15)-height- 22, 35, 12)];
                 label.tag = 999;
                 label.textAlignment = NSTextAlignmentLeft;
                 label.backgroundColor = [UIColor clearColor];

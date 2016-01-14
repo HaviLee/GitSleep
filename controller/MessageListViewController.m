@@ -37,7 +37,6 @@
      }];
     // Do any additional setup after loading the view.
     self.bgImageView.image = [UIImage imageNamed:@""];
-    self.view.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.myDeviceListView];
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:_myDeviceListView];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
@@ -77,7 +76,7 @@
         }
         if (_resultArr.count==0) {
             [self.myDeviceListView addSubview:self.messageLabel];
-            self.messageLabel.text = @"没有对应用户哦！";
+            self.messageLabel.text = @"没有您的请求消息哦！";
         }else{
             [self.messageLabel removeFromSuperview];
         }
@@ -118,7 +117,7 @@
         _myDeviceListView.dataSource = self;
         _myDeviceListView.delegate = self;
         _myDeviceListView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _myDeviceListView.backgroundColor = [UIColor lightGrayColor];
+        _myDeviceListView.backgroundColor = [UIColor clearColor];
         
         
     }

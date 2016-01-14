@@ -780,7 +780,7 @@
         [pageViewController setTintPageControlColor:[UIColor colorWithWhite:0.799 alpha:1.000]];
         [pageViewController updateUserInteractionOnNavigation:NO];
         pageViewController.tintPageControlColor = [UIColor grayColor];
-        pageViewController.currentPageControlColor = selectedThemeIndex == 0? DefaultColor: [UIColor whiteColor];
+        pageViewController.currentPageControlColor = [UIColor clearColor];
         
         
         // Twitter Like
