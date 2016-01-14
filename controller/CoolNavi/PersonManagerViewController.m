@@ -306,12 +306,11 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [JDStatusBarNotification showWithStatus:@"头像上传成功" dismissAfter:2 styleName:JDStatusBarStyleDark];
                 self.headerView.headerImageView.image = [UIImage imageWithData:imageData];
-                [self.view makeToast:@"上传头像成功" duration:2 position:@"center"];
             });
 
             
         }
-        NSLog(@"8.18测试结果Result--%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        HaviLog(@"8.18测试结果Result--%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         
     }];
 }

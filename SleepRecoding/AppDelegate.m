@@ -277,7 +277,6 @@
                 }
             }
         }else {
-//            [self.view makeToast:@"当前没有网络,请检查您的手机" duration:3 position:@"center"];
             [[UIApplication sharedApplication].keyWindow makeToast:@"没有网络,请检查您的网络！" duration:3 position:@"center"];
         }
     } @catch (NSException *e) {

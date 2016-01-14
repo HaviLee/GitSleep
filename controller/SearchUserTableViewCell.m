@@ -81,10 +81,7 @@
         //
         [_messageSendButton makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self).offset(-20);
-//            make.top.equalTo(self).offset(10);
-//            make.bottom.equalTo(self.bottom).offset(-10);
             make.centerY.equalTo(_messagePhone.centerY);
-//            make.left.equalTo(_messagePhone.right).offset(0);
             make.width.equalTo(80);
             make.height.equalTo(30);
         }];

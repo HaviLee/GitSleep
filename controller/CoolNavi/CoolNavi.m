@@ -31,7 +31,7 @@
         
         _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width*0.5-80*0.5, 0.23*frame.size.height, 80, 80)];
 //        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:headerImageURL]];
-        _headerImageView.image = [UIImage imageNamed:@"pic_heder_portrait"];
+        _headerImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"head_portrait_%d",selectedThemeIndex]];
         [_headerImageView.layer setMasksToBounds:YES];
         _headerImageView.layer.cornerRadius = _headerImageView.frame.size.width/2.0f;
         _headerImageView.layer.borderColor = [UIColor whiteColor].CGColor;

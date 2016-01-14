@@ -516,7 +516,7 @@
                               @"PushRegistrationId": registeredID, //密码
                               @"AppVersion" : [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
                               @"OSName" : @"iOS",
-                              @"OSVersion" : [NSString stringWithFormat:@"%f",[UIDevice currentDevice].systemVersion.floatValue],
+                              @"OSVersion" : [UIDevice currentDevice].systemVersion,
                               @"CellPhoneModal" : [self machineModelName],
                               };
         NSDictionary *header = @{

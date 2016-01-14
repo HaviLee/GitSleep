@@ -22,7 +22,7 @@
 @property (nonatomic, strong) NSIndexPath *selectedPath;
 @property (nonatomic, strong) JASwipeCell *selectTableViewCell;
 @property (nonatomic, strong) NSString *selectDeviceUUID;
-
+@property (nonatomic, strong) UILabel *messageLabel;
 
 @property (nonatomic, strong) ODRefreshControl *refreshControl;
 
@@ -81,8 +81,10 @@
             [MMProgressHUD dismiss];
             [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
             }];
+            [self.sideTableView addSubview:self.messageLabel];
             
-            [self.view makeToast:@"您还没有绑定设备" duration:2 position:@"center"];
+        }else{
+            [self.messageLabel removeFromSuperview];
         }
         [self.sideTableView reloadData];
         
@@ -379,12 +381,24 @@
     }
 }
 
-
+- (UILabel *)messageLabel
+{
+    if (!_messageLabel) {
+        _messageLabel = [[UILabel alloc]init];
+        _messageLabel.frame = CGRectMake(0, self.sideTableView.frame.size.height/2-100,self.sideTableView.frame.size.width , 40);
+        _messageLabel.text = @"您还没有绑定设备！";
+        _messageLabel.font = [UIFont systemFontOfSize:17];
+        _messageLabel.textAlignment = NSTextAlignmentCenter;
+        _messageLabel.textColor = [UIColor grayColor];
+        
+    }
+    return _messageLabel;
+}
 
 //在界面出现的时候进行刷新数据
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     //获取数据
     [self getUserDeviceList];
 }

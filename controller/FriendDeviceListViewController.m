@@ -29,7 +29,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.bgImageView.image = [UIImage imageNamed:@""];
-    self.view.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.myDeviceListView];
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:_myDeviceListView];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
@@ -113,7 +112,7 @@
         _myDeviceListView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStyleGrouped];
         _myDeviceListView.dataSource = self;
         _myDeviceListView.delegate = self;
-        _myDeviceListView.backgroundColor = [UIColor lightGrayColor];
+        _myDeviceListView.backgroundColor = [UIColor clearColor];
         _myDeviceListView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         
         

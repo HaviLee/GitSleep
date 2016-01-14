@@ -207,7 +207,6 @@
 //
 - (void)searchUserList:(NSString *)searchText
 {
-    /*
     if (![RexpUntil checkTelNumber:self.searchBar.text]) {
         [self.searchTableView addSubview:self.messageLabel];
         self.messageLabel.text = @"请输入正确的手机号码!";
@@ -215,7 +214,6 @@
     }else{
         [self.messageLabel removeFromSuperview];
     }
-     */
     NSDictionary *header = @{
                              @"AccessToken":@"123456789"
                              };
@@ -297,7 +295,7 @@
     };
     [[[MMAlertView alloc] initWithInputTitle:@"提示" detail:@"请输入验证信息，可以提高您的申请成功率" placeholder:@"我是***,希望查看您的设备" handler:^(NSString *text) {
         if (text.length==0) {
-            [[UIApplication sharedApplication].keyWindow makeToast:@"请输入手机号" duration:2 position:@"center" ];
+            [[UIApplication sharedApplication].keyWindow makeToast:@"请输入验证信息" duration:2 position:@"center" ];
             return ;
         }
         [self.searchBar resignFirstResponder];

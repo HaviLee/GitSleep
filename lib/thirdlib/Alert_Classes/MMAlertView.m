@@ -151,8 +151,8 @@
             self.inputView.leftViewMode = UITextFieldViewModeAlways;
             self.inputView.clearButtonMode = UITextFieldViewModeWhileEditing;
 //            self.inputView.placeholder = inputPlaceholder;
-            NSDictionary *boldFont = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-            NSAttributedString *attrValue = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:boldFont];
+            NSDictionary *boldFont = @{NSForegroundColorAttributeName:[UIColor lightGrayColor]};
+            NSAttributedString *attrValue = [[NSAttributedString alloc] initWithString:inputPlaceholder attributes:boldFont];
             self.inputView.attributedPlaceholder = attrValue;
             
             lastAttribute = self.inputView.mas_bottom;
