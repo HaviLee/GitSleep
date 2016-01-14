@@ -782,13 +782,15 @@
 (void (^)(UIBackgroundFetchResult))completionHandler {
     [APService handleRemoteNotification:userInfo];
 //    NSString *key = [[userInfo objectForKey:@"extras"] objectForKey:@"MessageType"];
+    NSString *alertString = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
      NSString *key = [userInfo objectForKey:@"message_type"];
     switch ([key intValue]) {
         case 101:{
             //离床警报
             if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
                 [self playSound];
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"您的家人离床时间过久" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:alertString delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                alert.tag = 101;
                 [alert show];
             }
         } break;
@@ -798,7 +800,8 @@
         case 103:{
             if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
                 [self playSound];
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"您的家人睡太久没有体动" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:alertString delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+                alert.tag = 103;
                 [alert show];
             }
             //久睡警报
@@ -815,9 +818,12 @@
         } break;
         case 107:{
             //异常登录
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"您的帐号在其他设备上登录,请重新登录" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
-            [alert show];
-            [self loginAgain];
+            if (![self.window.subviews containsObject:_loginView.view]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:alertString delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+                [alert show];
+                alert.tag = 107;
+                [self loginAgain];
+            }
         } break;
         case 108:{
             //版本更新
@@ -855,7 +861,7 @@ static SystemSoundID soundId;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if ([alertView.message isEqualToString:@"您的家人离床时间过久"] || [alertView.message isEqualToString:@"您的家人睡太久没有体动"]) {
+    if (alertView.tag == 101 || alertView.tag == 103) {
         if (buttonIndex == 1) {
             AudioServicesDisposeSystemSoundID (soundId);
         }
