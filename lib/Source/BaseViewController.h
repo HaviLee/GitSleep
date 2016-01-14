@@ -155,4 +155,6 @@
  *  @return bool
  */
 - (BOOL)isThirdAppAllInstalled;
+
+- (NSString *)machineModelName;
 @end

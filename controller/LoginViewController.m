@@ -513,7 +513,11 @@
     if (registerID.length > 0) {
         NSDictionary *dic = @{
                               @"UserId": thirdPartyLoginUserId, //关键字，必须传递
-                              @"RegistrationId": registeredID, //密码
+                              @"PushRegistrationId": registeredID, //密码
+                              @"AppVersion" : [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+                              @"OSName" : @"iOS",
+                              @"OSVersion" : [NSString stringWithFormat:@"%f",[UIDevice currentDevice].systemVersion.floatValue],
+                              @"CellPhoneModal" : [self machineModelName],
                               };
         NSDictionary *header = @{
                                  @"AccessToken":@"123456789"
@@ -529,6 +533,11 @@
         } failed:^(NSURLResponse *response, NSError *error) {
             
         }];
+    }else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self uploadRegisterID];
+
+        });
     }
 }
 

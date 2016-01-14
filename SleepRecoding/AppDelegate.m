@@ -782,7 +782,7 @@
 (void (^)(UIBackgroundFetchResult))completionHandler {
     [APService handleRemoteNotification:userInfo];
 //    NSString *key = [[userInfo objectForKey:@"extras"] objectForKey:@"MessageType"];
-     NSString *key = [userInfo objectForKey:@"MessageType"];
+     NSString *key = [userInfo objectForKey:@"message_type"];
     switch ([key intValue]) {
         case 101:{
             //离床警报
