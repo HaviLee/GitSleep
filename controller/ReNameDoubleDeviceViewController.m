@@ -278,9 +278,11 @@
             NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             HaviLog(@"数据是%@",obj);
             if ([[obj objectForKey:@"ReturnCode"]intValue]==200) {
-                thirdHardDeviceName  = self.nameTextField.text;
-                thirdLeftDeviceName = self.txLeftNameView.text;
-                thirdRightDeviceName = self.txRightNameView.text;
+                if (isDoubleDevice) {
+                    thirdHardDeviceName  = self.nameTextField.text;
+                    thirdLeftDeviceName = self.txLeftNameView.text;
+                    thirdRightDeviceName = self.txRightNameView.text;
+                }
                 [UserManager setGlobalOauth];
                 [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICNAME object:nil];
                 [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
@@ -331,9 +333,11 @@
             NSDictionary *obj = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             HaviLog(@"数据是%@",obj);
             if ([[obj objectForKey:@"ReturnCode"]intValue]==200) {
-                thirdHardDeviceName  = self.nameTextField.text;
-                thirdLeftDeviceName = self.txLeftNameView.text;
-                thirdRightDeviceName = self.txRightNameView.text;
+                if (isDoubleDevice) {
+                    thirdHardDeviceName  = self.nameTextField.text;
+                    thirdLeftDeviceName = self.txLeftNameView.text;
+                    thirdRightDeviceName = self.txRightNameView.text;
+                }
                 [UserManager setGlobalOauth];
                 [[NSNotificationCenter defaultCenter]postNotificationName:CHANGEDEVICNAME object:nil];
                 [[MMProgressHUD sharedHUD]setDismissAnimationCompletion:^{
